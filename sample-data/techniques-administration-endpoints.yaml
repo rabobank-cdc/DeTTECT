@@ -1,0 +1,1660 @@
+%YAML 1.2
+---
+version: 1.0
+file_type: technique-administration
+name: endpoints-example
+platform: windows
+techniques:
+  # - Note that detection and visibility are independent from each other.
+  #   Meaning that detection could be left blank and only have visibility filled in.
+  # - Also note that the below serves purely as an example and is therefore not accurate on all areas.
+  #
+  # - If desired you are free to add any key-value pairs. This will not impact the functionality of the tool.
+- technique_id: T1222
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1223
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1221
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1220
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1217
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1196
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-12-01
+    score: 4
+    location: [EDR]
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1214
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-12-01
+    score: 3
+    location: [EDR]
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1189
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-11-01
+    score: 1
+    location: [SIEM UC 123, Tool Model Y]
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1203
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1210
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1211
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1202
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1212
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1201
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2017-01-01
+    score: 4
+    location:
+    - 'Third party product A'
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1191
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1219
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2017-01-01
+    score: 4
+    location:
+    - 'Third party product A'
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1198
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1218
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1193
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1216
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1192
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1209
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1195
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2017-01-01
+    score: 2
+    location:
+    - 'Third party product A'
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1194
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 4
+    comment: ''
+- technique_id: T1204
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-12-01
+    score: 0
+    location: [EDR]
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1182
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-12-01
+    score: 3
+    location: [EDR]
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1176
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1175
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1185
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1174
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1170
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1171
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2017-01-01
+    score: 2
+    location:
+    - 'Third party product A'
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1173
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1181
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-12-01
+    score: 4
+    location: [EDR]
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1179
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1186
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1172
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-08-01
+    score: 5
+    location:
+    - 'Model A'
+    comment: ''
+  visibility:
+    score: 4
+    comment: ''
+- technique_id: T1183
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-11-01
+    score: 2
+    location: [Tool]
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1177
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1180
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1134
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-12-01
+    score: 4
+    location: [EDR]
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1138
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-12-01
+    score: 1
+    location: [SIEM]
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1140
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1136
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1137
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1158
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1135
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1132
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1131
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1129
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1128
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1127
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1126
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1125
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1124
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1123
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1122
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1121
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1118
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1117
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-12-01
+    score: 3
+    location: [EDR]
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1114
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1113
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1112
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1111
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1109
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1108
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1106
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1105
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1103
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1102
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1101
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-11-01
+    score: 4
+    location: [SIEM UC 789]
+    comment: ''
+  visibility:
+    score: 3
+    comment: ''
+- technique_id: T1100
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1099
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-11-01
+    score: 2
+    location: [Tool Model X]
+    comment: ''
+  visibility:
+    score: 4
+    comment: ''
+- technique_id: T1095
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 3
+    comment: ''
+- technique_id: T1094
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 3
+    comment: ''
+- technique_id: T1093
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1090
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1089
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1088
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1087
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1086
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-12-01
+    score: 3
+    location: [EDR]
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1085
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-12-01
+    score: 3
+    location: [EDR]
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1083
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1082
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2017-01-01
+    score: 3
+    location:
+    - 'Third party product A'
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1080
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1079
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1078
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+      - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1077
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-10-01
+    score: 0
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1076
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1074
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1073
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1072
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1071
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-11-01
+    score: -1
+    location: [SIEM UC 123]
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1070
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1069
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1068
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1066
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1065
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-10-01
+    score: 5
+    location:
+    - 'Model B'
+    comment: ''
+  visibility:
+    score: 3
+    comment: ''
+- technique_id: T1064
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-12-01
+    score: 3
+    location: [EDR, AV Product]
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1063
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1061
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1060
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1059
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1058
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1057
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1056
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-12-01
+    score: 4
+    location: [EDR]
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1055
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-12-01
+    score: 4
+    location: [EDR]
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1054
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1053
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location: ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1051
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1050
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: 'Model G'
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1049
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1048
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1047
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1043
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-10-01
+    score: 0
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1042
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1041
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2017-01-01
+    score: 2
+    location:
+    - 'Third party product A'
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1040
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1039
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1038
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1037
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-05-07
+    score: 3
+    location:
+    - 'Model F'
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1036
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-02-01
+    score: 4
+    location: [Model C]
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1035
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-12-01
+    score: 4
+    location: [EDR]
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1034
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1033
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2017-01-01
+    score: 3
+    location:
+    - 'Third party product A'
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1032
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 3
+    comment: ''
+- technique_id: T1031
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1030
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+      - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1029
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1028
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location: ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1027
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1026
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1025
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1024
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-12-01
+    score: 0
+    location: [EDR]
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1023
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1022
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2017-10-10
+    score: 2
+    location:
+    - 'Model D'
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1020
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1018
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2017-01-01
+    score: 3
+    location:
+    - 'Third party product A'
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1017
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1016
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1015
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1013
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1012
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1011
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1010
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1008
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1007
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1005
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1004
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1003
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2018-12-01
+    score: 3
+    location: [EDR]
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''
+- technique_id: T1002
+  detection:
+    date_registered: 2019-01-10
+    date_implemented: 2017-10-10
+    score: 2
+    location:
+    - 'Model E'
+    comment: ''
+  visibility:
+    score: 1
+    comment: ''
+- technique_id: T1001
+  detection:
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    score: 2
+    comment: ''

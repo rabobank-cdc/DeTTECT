@@ -1,0 +1,17 @@
+%YAML 1.2
+---
+version: 1.0
+file_type: group-administration
+groups:
+  -
+    group_name:     Red team
+    campaign:       Scenario 1
+    technique_id:   [T1086, T1053, T1193, T1204, T1003, T1055, T1027, T1085, T1099, T1082, T1016, T1033, T1087, T1075, T1057, T1039, T1041, T1071, T1043, T1001, T1114, T1002]
+    software_id:    [S0002]
+    enabled:        True
+  -
+    group_name:     APT3 (MITRE ATT&CK evaluation)
+    campaign:       First Scenario
+    technique_id:   [T1204, T1064, T1085, T1060, T1043, T1071, T1132, T1016, T1059, T1033, T1057, T1106, T1007, T1082, T1069, T1087, T1012, T1088, T1134, T1055, T1018, T1049, T1003, T1026, T1076, T1136, T1061, T1105, T1053, T1083, T1056, T1010, T1113, T1039, T1041, T1078]
+    software_id:    [S0154]
+    enabled:        False
