@@ -16,7 +16,7 @@ Blue ATT&CK will help you to:
 - Map threat actor behaviours.
 - Compare visibility, detections and threat actor behaviours in order to uncover possible improvements in detection and visibility. This can help you to prioritise your blue teaming efforts.
 
-The colored visualisations are created using MITRE's [ATT&CK Navigator](https://github.com/mitre-attack/attack-navigator) .
+The colored visualisations are created with the help of MITRE's [ATT&CK Navigator](https://github.com/mitre-attack/attack-navigator).
 
 ## Authors and contribution
 This project is developed and maintained by [Marcus Bakker](https://github.com/marcusbakker) (Twitter: [@bakker3m](https://twitter.com/bakk3rm)) and [Ruben Bouman](https://github.com/rubinatorz) (Twitter: [@rubenb_2](https://twitter.com/rubenb_2/)). Feel free to contact, DMs are open.
