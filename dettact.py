@@ -9,8 +9,8 @@ def init_menu():
     Initialise the command line parameter menu.
     :return:
     """
-    menu_parser = argparse.ArgumentParser(description='Create MITRE ATT&CK layers for visibility, detection and groups.',
-                                          epilog='Source: https://github.com/rabobank-cdc/Blue-ATTACK')
+    menu_parser = argparse.ArgumentParser(description='Detect Tactics, Techniques & Combat Threats',
+                                          epilog='Source: https://github.com/rabobank-cdc/DeTTACT')
     menu_parser.add_argument('--version', action='version', version='%(prog)s ' + VERSION)
     menu_parser.add_argument('-i', '--interactive', help='launch the interactive menu, which has support for all modes',
                              action='store_true')

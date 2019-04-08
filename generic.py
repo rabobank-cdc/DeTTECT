@@ -2,10 +2,10 @@ import os
 import pickle
 from datetime import datetime as dt
 import yaml
-# Import for attackcti is because of performance reasons in the function that uses this library.
+# Due to performance reasons the import of attackcti is within the function that makes use of this library.
 
-APP_NAME = 'Blue ATT&CK'
-APP_DESC = 'Mapping your blue team to ATT&CK'
+APP_NAME = 'DeTT&CT'
+APP_DESC = 'Detect Tactics, Techniques & Combat Threats'
 VERSION = '1.0'
 
 EXPIRE_TIME = 60*60*24
