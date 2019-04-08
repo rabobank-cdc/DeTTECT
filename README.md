@@ -1,6 +1,5 @@
-<img src="https://github.com/rabobank-cdc/DeTTACT/wiki/images/logo.png" alt="DeTT&CT" width=20% height=20%>
+<img src="https://github.com/rabobank-cdc/DeTTACT/wiki/images/logo.png" alt="DeTT&CT" width=30% height=30%>
 
-# DeTT&CT
 #### Detect Tactics, Techniques & Combat Threats
 
 To get started with DeTT&CT, check out the
