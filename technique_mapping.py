@@ -1,5 +1,6 @@
 import simplejson
 from generic import *
+import xlsxwriter
 # Imports for pandas and plotly are because of performance reasons in the function that uses these libraries.
 
 
@@ -271,3 +272,79 @@ def _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources):
             mapped_techniques.append(x)
 
     return mapped_techniques
+
+
+def export_techniques_list_to_excel(filename):
+    """
+    Makes an overview of the MITRE ATT&CK techniques from the YAML administration file.
+    :param filename: the filename of the yaml file containing the techniques administration
+    :return:
+    """
+    my_techniques, name, platform = _load_detections(filename)
+    my_techniques = dict(sorted(my_techniques.items(), key=lambda kv: kv[0], reverse=False))
+    mitre_techniques = load_attack_data(DATATYPE_ALL_TECH)
+
+    excel_filename = 'output/techniques.xlsx'
+    workbook = xlsxwriter.Workbook(excel_filename)
+    worksheet = workbook.add_worksheet('Data sources')
+
+    # Formatting:
+    format_bold_left = workbook.add_format({'align': 'left', 'bold': True})
+    format_title = workbook.add_format({'align': 'left', 'bold': True, 'font_size': '14'})
+    format_left = workbook.add_format({'align': 'left'})
+    format_bold_center_bggrey = workbook.add_format({'align': 'center', 'bold': True, 'bg_color': '#dbdbdb'})
+    format_bold_center_bgreen = workbook.add_format({'align': 'center', 'bold': True, 'bg_color': '#8bc34a'})
+    format_bold_center_bgblue = workbook.add_format({'align': 'center', 'bold': True, 'bg_color': '#64b5f6'})
+
+    # Title
+    worksheet.write(0, 0, 'Overview of techniques for ' + name, format_title)
+
+    # Header columns
+    worksheet.merge_range(2, 0, 2, 2, 'Technique', format_bold_center_bggrey)
+    worksheet.merge_range(2, 3, 2, 7, 'Detection', format_bold_center_bgreen)
+    worksheet.merge_range(2, 8, 2, 9, 'Visibility', format_bold_center_bgblue)
+    y = 3
+    worksheet.write(y, 0, 'ID', format_bold_left)
+    worksheet.write(y, 1, 'Tactic', format_bold_left)
+    worksheet.write(y, 2, 'Description', format_bold_left)
+    worksheet.write(y, 3, 'Date registered', format_bold_left)
+    worksheet.write(y, 4, 'Date implemented', format_bold_left)
+    worksheet.write(y, 5, 'Score', format_bold_left)
+    worksheet.write(y, 6, 'Location', format_bold_left)
+    worksheet.write(y, 7, 'Comment', format_bold_left)
+    worksheet.write(y, 8, 'Score', format_bold_left)
+    worksheet.write(y, 9, 'Comment', format_bold_left)
+
+    worksheet.set_column(0, 0, 14)
+    worksheet.set_column(1, 1, 50)
+    worksheet.set_column(2, 2, 40)
+    worksheet.set_column(3, 3, 15)
+    worksheet.set_column(4, 4, 18)
+    worksheet.set_column(5, 5, 8)
+    worksheet.set_column(6, 6, 25)
+    worksheet.set_column(7, 7, 40)
+    worksheet.set_column(8, 8, 8)
+    worksheet.set_column(9, 9, 40)
+
+    # Putting the techniques:
+    y = 4
+    for d, c in my_techniques.items():
+        worksheet.write(y, 0, d)
+        worksheet.write(y, 1, ', '.join(t.capitalize() for t in get_technique(mitre_techniques, d)['tactic']))
+        worksheet.write(y, 2, get_technique(mitre_techniques, d)['technique'])
+        worksheet.write(y, 3, str(c['detection']['date_registered']).replace('None', ''))
+        worksheet.write(y, 4, str(c['detection']['date_implemented']).replace('None', ''))
+        worksheet.write(y, 5, c['detection']['score'], format_left)
+        worksheet.write(y, 6, ','.join(c['detection']['location']))
+        worksheet.write(y, 7, c['detection']['comment'])
+        worksheet.write(y, 8, c['visibility']['score'], format_left)
+        worksheet.write(y, 9, c['visibility']['comment'])
+        y += 1
+
+    worksheet.autofilter(3, 0, 3, 9)
+    worksheet.freeze_panes(4, 0)
+    try:
+        workbook.close()
+        print("File written: " + excel_filename)
+    except Exception as e:
+        print('[!] Error while writing Excel file: %s' % str(e))
