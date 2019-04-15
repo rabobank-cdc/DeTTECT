@@ -139,23 +139,25 @@ def _map_and_colorize_techniques_for_detections(my_techniques):
     try:
         for d, c in my_techniques.items():
             s = -1 if 'detection' not in c.keys() else c['detection']['score']
-            color = COLOR_D_0 if s == 0 else COLOR_D_1 if s == 1 else COLOR_D_2 if s == 2 else COLOR_D_3 \
-                if s == 3 else COLOR_D_4 if s == 4 else COLOR_D_5 if s == 5 else ''
-            technique = get_technique(techniques, d)
-            for tactic in technique['tactic']:
-                location = ', '.join(c['detection']['location']) if 'detection' in c.keys() else '-'
-                location = location if location != '' else '-'
-                x = {}
-                x['techniqueID'] = d
-                x['color'] = color
-                x['comment'] = ''
-                x['enabled'] = True
-                x['tactic'] = tactic.lower().replace(' ', '-')
-                x['metadata'] = [{'name': '-Detection score', 'value': str(s)},
-                                 {'name': '-Detection location', 'value': location}]
+            if s != -1:
+                color = COLOR_D_0 if s == 0 else COLOR_D_1 if s == 1 else COLOR_D_2 if s == 2 else COLOR_D_3 \
+                    if s == 3 else COLOR_D_4 if s == 4 else COLOR_D_5 if s == 5 else ''
+                technique = get_technique(techniques, d)
+                for tactic in technique['tactic']:
+                    location = ', '.join(c['detection']['location']) if 'detection' in c.keys() else '-'
+                    location = location if location != '' else '-'
+                    x = {}
+                    x['techniqueID'] = d
+                    x['color'] = color
+                    x['comment'] = ''
+                    x['enabled'] = True
+                    x['tactic'] = tactic.lower().replace(' ', '-')
+                    x['metadata'] = [{'name': '-Detection score', 'value': str(s)},
+                                     {'name': '-Detection location', 'value': location}]
+                    x['score'] = s
 
-                mapped_techniques.append(x)
-    except Exception:
+                    mapped_techniques.append(x)
+    except Exception as e:
         print('[!] Possible error in YAML file at: ' + d)
         quit()
 
