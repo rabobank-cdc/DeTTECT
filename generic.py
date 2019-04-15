@@ -192,7 +192,6 @@ def get_layer_template_detections(name, description, stage, platform):
     :return: layer template dictionary
     """
     layer = _get_base_template(name, description, stage, platform, 0)
-    layer['gradient'] = {'colors': ['#ff6666', '#ffe766', '#8ec843'], 'minValue': 0, 'maxValue': 100}
     layer['legendItems'] = \
         [
             {'label': 'Detection score 0: Forensics/Context', 'color': COLOR_D_0},
@@ -217,7 +216,6 @@ def get_layer_template_data_sources(name, description, stage, platform):
     :return: layer template dictionary
     """
     layer = _get_base_template(name, description, stage, platform, 0)
-    layer['gradient'] = {'colors': ['#ff6666', '#ffe766', '#8ec843'], 'minValue': 0, 'maxValue': 100}
     layer['legendItems'] = \
         [
             {'label': '1-25% of data sources available', 'color': COLOR_DS_25p},
@@ -241,7 +239,6 @@ def get_layer_template_visibility(name, description, stage, platform):
     :return: layer template dictionary
     """
     layer = _get_base_template(name, description, stage, platform, 0)
-    layer['gradient'] = {'colors': ['#ff6666', '#ffe766', '#8ec843'], 'minValue': 0, 'maxValue': 100}
     layer['legendItems'] = \
         [
             {'label': 'Visibility score 1: Minimal', 'color': COLOR_V_1},
@@ -264,7 +261,6 @@ def get_layer_template_layered(name, description, stage, platform):
     :return: layer template dictionary
     """
     layer = _get_base_template(name, description, stage, platform, 0)
-    layer['gradient'] = {'colors': ['#ff6666', '#ffe766', '#8ec843'], 'minValue': 0, 'maxValue': 100}
     layer['legendItems'] = \
         [
             {'label': 'Visibility', 'color': COLOR_OVERLAY_VISIBILITY},
@@ -348,10 +344,13 @@ def check_file_type(filename, file_type=None):
     with open(filename, 'r') as yaml_file:
         try:
             yaml_content = yaml.load(yaml_file, Loader=yaml.FullLoader)
-        except:
+        except Exception as e:
             print('[!] File: \'' + filename + '\' is not a valid YAML file.')
+            print('  ' + str(e))  # print more detailed error information to help the user in fixing the error.
             return None
 
+        # This check is performed because a text file will also be considered to be valid YAML. But, we are using
+        # key-value pairs within the YAML files.
         if not hasattr(yaml_content, 'keys'):
             print('[!] File: \'' + filename + '\' is not a valid YAML file.')
             return None
