@@ -259,6 +259,7 @@ def menu_detection(filename_t):
     print('1. Generate a layer for detection coverage for the ATT&CK Navigator.')
     print('2. Generate a layer for detection coverage overlayed with visibility for the ATT&CK Navigator.')
     print('3. Generate a graph with detections added through time.')
+    print('4. Generate an Excel sheet with all administrated techniques.')
     print('9. Back to main menu.')
     choice = ask_input()
     if choice == '1':
@@ -273,6 +274,10 @@ def menu_detection(filename_t):
     elif choice == '3':
         print('Drawing the graph...')
         plot_detection_graph(filename_t)
+        wait()
+    elif choice == '4':
+        print('Generating Excel file...')
+        export_techniques_list_to_excel(filename_t)
         wait()
     elif choice == '9':
         interactive_menu()
@@ -297,6 +302,7 @@ def menu_visibility(filename_t, filename_ds):
     print('Select what you want to do:')
     print('1. Generate a layer for visibility for the ATT&CK Navigator.')
     print('2. Generate a layers for visibility overlayed with detection coverage for the ATT&CK Navigator.')
+    print('3. Generate an Excel sheet with all administrated techniques.')
     print('9. Back to main menu.')
     choice = ask_input()
     if choice == '1':
@@ -306,6 +312,10 @@ def menu_visibility(filename_t, filename_ds):
     elif choice == '2':
         print('Writing visibility coverage layers overlayed with detections...')
         generate_visibility_layer(filename_t, filename_ds, True)
+        wait()
+    elif choice == '3':
+        print('Generating Excel file...')
+        export_techniques_list_to_excel(filename_t)
         wait()
     elif choice == '9':
         interactive_menu()
