@@ -367,19 +367,3 @@ def check_file_type(filename, file_type=None):
         else:
             return yaml_content['file_type']
 
-
-
-def upgrade_technique_yaml_10_to_11(filename):
-    # Load the file:
-    with open(filename, 'r') as yaml_file:
-        yaml_content = yaml.load(yaml_file, Loader=yaml.FullLoader)
-
-    for t in yaml_content['techniques']:
-        t['technique']
-
-    # Save the file:
-    yaml_string = '%YAML 1.2\n---\n' + yaml.dump(yaml_content, sort_keys=False).replace('null', '')
-    output_filename = filename.replace('.yaml', '_copy.yaml')
-    with open(output_filename, 'w') as f:
-        f.write(yaml_string)
-
