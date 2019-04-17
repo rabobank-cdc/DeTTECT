@@ -138,12 +138,17 @@ def _map_and_colorize_techniques_for_detections(my_techniques):
     try:
         for d, c in my_techniques.items():
             s = -1 if 'detection' not in c.keys() else c['detection']['score']
+            if 'detection' in c.keys():
+                comment = str(c['detection']['comment']) if str(c['detection']['comment']) != '' else '-'
+            else:
+                comment = '-'
             color = COLOR_D_0 if s == 0 else COLOR_D_1 if s == 1 else COLOR_D_2 if s == 2 else COLOR_D_3 \
                 if s == 3 else COLOR_D_4 if s == 4 else COLOR_D_5 if s == 5 else ''
             technique = get_technique(techniques, d)
             for tactic in technique['tactic']:
                 location = ', '.join(c['detection']['location']) if 'detection' in c.keys() else '-'
                 location = location if location != '' else '-'
+                applicable_to = ', '.join(c['detection']['applicable_to']) if 'detection' in c.keys() else '-'
                 x = {}
                 x['techniqueID'] = d
                 x['color'] = color
@@ -151,7 +156,9 @@ def _map_and_colorize_techniques_for_detections(my_techniques):
                 x['enabled'] = True
                 x['tactic'] = tactic.lower().replace(' ', '-')
                 x['metadata'] = [{'name': '-Detection score', 'value': str(s)},
-                                 {'name': '-Detection location', 'value': location}]
+                                 {'name': '-Detection location', 'value': location},
+                                 {'name': '-Comment', 'value': comment},
+                                 {'name': '-Applicable to', 'value': applicable_to}]
 
                 mapped_techniques.append(x)
     except Exception:
