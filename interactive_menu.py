@@ -11,6 +11,7 @@ platform = 'Windows'
 stage = 'attack'
 groups_overlay = ''
 overlay_type = ''
+filter_applicable_to = 'all'
 
 MENU_NAME_DATA_SOURCE_MAPPING = 'Data source mapping'
 MENU_NAME_VISIBILITY_MAPPING = 'Visibility coverage mapping'
@@ -250,32 +251,39 @@ def menu_detection(filename_t):
     :param filename_t:
     :return:
     """
+    global filter_applicable_to
     clear()
     print('Menu: %s' % MENU_NAME_DETECTION_COVERAGE_MAPPING)
     print('')
     print('Selected techniques YAML file: %s' % filename_t)
     print('')
+    print('Options:')
+    print('1. Filter techniques in the layer file based on the applicable_to field in the technique administration YAML file: %s' % filter_applicable_to)
+    print('')
     print('Select what you want to do:')
-    print('1. Generate a layer for detection coverage for the ATT&CK Navigator.')
-    print('2. Generate a layer for detection coverage overlayed with visibility for the ATT&CK Navigator.')
-    print('3. Generate a graph with detections added through time.')
-    print('4. Generate an Excel sheet with all administrated techniques.')
+    print('2. Generate a layer for detection coverage for the ATT&CK Navigator.')
+    print('3. Generate a layer for detection coverage overlayed with visibility for the ATT&CK Navigator.')
+    print('4. Generate a graph with detections added through time.')
+    print('5. Generate an Excel sheet with all administrated techniques.')
     print('9. Back to main menu.')
     choice = ask_input()
     if choice == '1':
-        print('Writing detection coverage layer...')
-        generate_detection_layer(filename_t, None, False)
-        wait()
+        print('Specify your filter for the applicable_to field:')
+        filter_applicable_to = ask_input().lower()
     elif choice == '2':
-        filename_ds = select_file(MENU_NAME_DETECTION_COVERAGE_MAPPING, 'data sources (used to add metadata on the involved data sources to the heat map)', FILE_TYPE_DATA_SOURCE_ADMINISTRATION, False)
-        print('Writing detection coverage layer with visibility as overlay...')
-        generate_detection_layer(filename_t, filename_ds, True)
+        print('Writing detection coverage layer...')
+        generate_detection_layer(filename_t, None, False, filter_applicable_to)
         wait()
     elif choice == '3':
+        filename_ds = select_file(MENU_NAME_DETECTION_COVERAGE_MAPPING, 'data sources (used to add metadata on the involved data sources to the heat map)', FILE_TYPE_DATA_SOURCE_ADMINISTRATION, False)
+        print('Writing detection coverage layer with visibility as overlay...')
+        generate_detection_layer(filename_t, filename_ds, True, filter_applicable_to)
+        wait()
+    elif choice == '4':
         print('Drawing the graph...')
         plot_detection_graph(filename_t)
         wait()
-    elif choice == '4':
+    elif choice == '5':
         print('Generating Excel file...')
         export_techniques_list_to_excel(filename_t)
         wait()

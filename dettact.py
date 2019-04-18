@@ -67,7 +67,10 @@ def init_menu():
     parser_detection.add_argument('-fd', '--file-ds', help='path to the data source administration YAML file (used in '
                                                            'the overlay with visibility to add metadata on the '
                                                            'involved data sources)')
-    parser_detection.add_argument('-l', '--layer', help='generate  detection layer for the ATT&CK navigator',
+    parser_detection.add_argument('-a', '--applicable', help='filter techniques in the layer file based on the'
+                                                             'applicable_to field in the technique administration YAML'
+                                                             'file', default='all')
+    parser_detection.add_argument('-l', '--layer', help='generate detection layer for the ATT&CK navigator',
                                   action='store_true')
     parser_detection.add_argument('-e', '--excel', help='generate an Excel sheet with all administrated techniques',
                                    action='store_true')
@@ -174,9 +177,9 @@ def menu(menu_parser):
 
         if check_file_type(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION):
             if args.layer:
-                generate_detection_layer(args.file_tech, args.file_ds, False)
+                generate_detection_layer(args.file_tech, args.file_ds, False, args.applicable)
             if args.overlay and check_file_type(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION):
-                generate_detection_layer(args.file_tech, args.file_ds, True)
+                generate_detection_layer(args.file_tech, args.file_ds, True, args.applicable)
             if args.graph:
                 plot_detection_graph(args.file_tech)
             if args.excel:

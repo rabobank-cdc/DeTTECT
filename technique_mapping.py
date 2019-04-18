@@ -4,7 +4,7 @@ import xlsxwriter
 # Imports for pandas and plotly are because of performance reasons in the function that uses these libraries.
 
 
-def generate_detection_layer(filename_techniques, filename_data_sources, overlay):
+def generate_detection_layer(filename_techniques, filename_data_sources, overlay, filter_applicable_to):
     """
     Generates layer for detection coverage and optionally an overlayed version with visibility coverage.
     :param filename_techniques: the filename of the yaml file containing the techniques administration
@@ -12,17 +12,17 @@ def generate_detection_layer(filename_techniques, filename_data_sources, overlay
     :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
     :return:
     """
-    my_techniques, name, platform = _load_detections(filename_techniques)
+    my_techniques, name, platform = _load_detections(filename_techniques, filter_applicable_to)
 
     if not overlay:
         mapped_techniques_detection = _map_and_colorize_techniques_for_detections(my_techniques)
-        layer_detection = get_layer_template_detections('Detections ' + name, 'description', 'attack', platform)
-        _write_layer(layer_detection, mapped_techniques_detection, 'detection', name)
+        layer_detection = get_layer_template_detections('Detections ' + name + ' ' + filter_applicable_to, 'description', 'attack', platform)
+        _write_layer(layer_detection, mapped_techniques_detection, 'detection', filter_applicable_to, name)
     else:
         my_data_sources = _load_data_sources(filename_data_sources)
         mapped_techniques_both = _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources)
-        layer_both = get_layer_template_layered('Visibility and Detection ' + name, 'description', 'attack', platform)
-        _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name)
+        layer_both = get_layer_template_layered('Visibility and Detection ' + name + ' ' + filter_applicable_to, 'description', 'attack', platform)
+        _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', filter_applicable_to, name)
 
 
 def generate_visibility_layer(filename_techniques, filename_data_sources, overlay):
@@ -39,11 +39,11 @@ def generate_visibility_layer(filename_techniques, filename_data_sources, overla
     if not overlay:
         mapped_techniques_visibility = _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources)
         layer_visibility = get_layer_template_visibility('Visibility ' + name, 'description', 'attack', platform)
-        _write_layer(layer_visibility, mapped_techniques_visibility, 'visibility', name)
+        _write_layer(layer_visibility, mapped_techniques_visibility, 'visibility', '', name)
     else:
         mapped_techniques_both = _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources)
         layer_both = get_layer_template_layered('Visibility and Detection ' + name, 'description', 'attack', platform)
-        _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name)
+        _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', '', name)
 
 
 def plot_detection_graph(filename):
@@ -75,17 +75,23 @@ def plot_detection_graph(filename):
     print("File written: " + output_filename)
 
 
-def _load_detections(filename):
+def _load_detections(filename, filter_applicable_to=''):
     """
     Loads the techniques (including detection and visibility properties) from the given yaml file.
     :param filename: the filename of the yaml file containing the techniques administration
     :return: dictionary with techniques (incl. properties), name and platform
     """
+
     my_techniques = {}
     with open(filename, 'r') as yaml_file:
         yaml_content = yaml.load(yaml_file, Loader=yaml.FullLoader)
         for d in yaml_content['techniques']:
-            my_techniques[d['technique_id']] = d
+            applicable_to = True
+            if 'applicable_to' in d['detection'].keys():
+                if filter_applicable_to != 'all' and filter_applicable_to not in d['detection']['applicable_to'] and 'all' not in d['detection']['applicable_to']:
+                    applicable_to = False
+            if applicable_to:
+                my_techniques[d['technique_id']] = d
         name = yaml_content['name']
         platform = yaml_content['platform']
     return my_techniques, name, platform
@@ -107,7 +113,7 @@ def _load_data_sources(filename):
     return my_data_sources
 
 
-def _write_layer(layer, mapped_techniques, filename_prefix, name):
+def _write_layer(layer, mapped_techniques, filename_prefix, filename_suffix, name):
     """
     Writes the json layer file to disk.
     :param layer: the prepped layer dictionary
@@ -119,7 +125,8 @@ def _write_layer(layer, mapped_techniques, filename_prefix, name):
 
     layer['techniques'] = mapped_techniques
     json_string = simplejson.dumps(layer).replace('}, ', '},\n')
-    output_filename = 'output/%s_%s.json' % (filename_prefix, normalize_name_to_filename(name))
+    filename_suffix = '_' + filename_suffix if filename_suffix != '' else ''
+    output_filename = 'output/%s_%s%s.json' % (filename_prefix, normalize_name_to_filename(name), filename_suffix)
     with open(output_filename, 'w') as f:
         f.write(json_string)
     print("File written: " + output_filename)
@@ -150,7 +157,10 @@ def _map_and_colorize_techniques_for_detections(my_techniques):
                 for tactic in technique['tactic']:
                     location = ', '.join(c['detection']['location']) if 'detection' in c.keys() else '-'
                     location = location if location != '' else '-'
-                    applicable_to = ', '.join(c['detection']['applicable_to']) if 'detection' in c.keys() else '-'
+                    if 'applicable_to' in c['detection'].keys():
+                        applicable_to = ', '.join(c['detection']['applicable_to']) if 'detection' in c.keys() else '-'
+                    else:
+                        applicable_to = '-'
                     x = {}
                     x['techniqueID'] = d
                     x['color'] = color
@@ -162,8 +172,7 @@ def _map_and_colorize_techniques_for_detections(my_techniques):
                                      {'name': '-Comment', 'value': comment},
                                      {'name': '-Applicable to', 'value': applicable_to}]
                     x['score'] = s
-
-                mapped_techniques.append(x)
+                    mapped_techniques.append(x)
     except Exception:
         print('[!] Possible error in YAML file at: ' + d)
         quit()
