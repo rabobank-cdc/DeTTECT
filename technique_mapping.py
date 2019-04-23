@@ -250,7 +250,12 @@ def _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources):
     mapped_techniques = []
     for d, c in my_techniques.items():
         detection_score = 0 if 'detection' not in c.keys() else c['detection']['score']
+        if detection_score is None:
+            detection_score = 0
+
         visibility_score = 0 if 'visibility' not in c.keys() else c['visibility']['score']
+        if visibility_score is None:
+            visibility_score = 0
 
         detection = True if detection_score > 0 else False
         visibility = True if visibility_score > 0 else False
