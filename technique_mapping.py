@@ -12,7 +12,7 @@ def generate_detection_layer(filename_techniques, filename_data_sources, overlay
     :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
     :return:
     """
-    my_techniques, name, platform = _load_detections(filename_techniques, filter_applicable_to)
+    my_techniques, name, platform = _load_detections(filename_techniques, 'detection', filter_applicable_to)
 
     if not overlay:
         mapped_techniques_detection = _map_and_colorize_techniques_for_detections(my_techniques)
@@ -25,7 +25,7 @@ def generate_detection_layer(filename_techniques, filename_data_sources, overlay
         _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', filter_applicable_to, name)
 
 
-def generate_visibility_layer(filename_techniques, filename_data_sources, overlay):
+def generate_visibility_layer(filename_techniques, filename_data_sources, overlay, filter_applicable_to):
     """
     Generates layer for visibility coverage and optionally an overlayed version with detection coverage.
     :param filename_techniques: the filename of the yaml file containing the techniques administration
@@ -33,26 +33,26 @@ def generate_visibility_layer(filename_techniques, filename_data_sources, overla
     :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
     :return:
     """
-    my_techniques, name, platform = _load_detections(filename_techniques)
+    my_techniques, name, platform = _load_detections(filename_techniques, 'visibility', filter_applicable_to)
     my_data_sources = _load_data_sources(filename_data_sources)
 
     if not overlay:
         mapped_techniques_visibility = _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources)
-        layer_visibility = get_layer_template_visibility('Visibility ' + name, 'description', 'attack', platform)
-        _write_layer(layer_visibility, mapped_techniques_visibility, 'visibility', '', name)
+        layer_visibility = get_layer_template_visibility('Visibility ' + name + ' ' + filter_applicable_to, 'description', 'attack', platform)
+        _write_layer(layer_visibility, mapped_techniques_visibility, 'visibility', filter_applicable_to, name)
     else:
         mapped_techniques_both = _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources)
-        layer_both = get_layer_template_layered('Visibility and Detection ' + name, 'description', 'attack', platform)
-        _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', '', name)
+        layer_both = get_layer_template_layered('Visibility and Detection ' + name + ' ' + filter_applicable_to, 'description', 'attack', platform)
+        _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', filter_applicable_to, name)
 
 
-def plot_detection_graph(filename):
+def plot_detection_graph(filename, filter_applicable_to):
     """
     Generates a line graph which shows the improvements on detections through the time.
     :param filename: the filename of the yaml file containing the techniques administration
     :return:
     """
-    my_techniques, name, platform = _load_detections(filename)
+    my_techniques, name, platform = _load_detections(filename, 'detection', filter_applicable_to)
 
     graph_values = []
     for t in my_techniques.values():
@@ -64,18 +64,18 @@ def plot_detection_graph(filename):
     df = pd.DataFrame(graph_values).groupby('date', as_index=False)[['count']].sum()
     df['cumcount'] = df.ix[::1, 'count'].cumsum()[::1]
 
-    output_filename = 'output/graph_detection.html'
+    output_filename = 'output/graph_detection_%s.html' % filter_applicable_to
     import plotly
     import plotly.graph_objs as go
     plotly.offline.plot(
         {'data': [go.Scatter(x=df['date'], y=df['cumcount'])],
-         'layout': go.Layout(title="# of detections for " + name)},
+         'layout': go.Layout(title="# of detections for %s %s" % (name, filter_applicable_to))},
         filename=output_filename, auto_open=False
     )
     print("File written: " + output_filename)
 
 
-def _load_detections(filename, filter_applicable_to=''):
+def _load_detections(filename, detection_or_visibility, filter_applicable_to='all'):
     """
     Loads the techniques (including detection and visibility properties) from the given yaml file.
     :param filename: the filename of the yaml file containing the techniques administration
@@ -86,12 +86,15 @@ def _load_detections(filename, filter_applicable_to=''):
     with open(filename, 'r') as yaml_file:
         yaml_content = yaml.load(yaml_file, Loader=yaml.FullLoader)
         for d in yaml_content['techniques']:
-            applicable_to = True
-            if 'applicable_to' in d['detection'].keys():
-                if filter_applicable_to != 'all' and filter_applicable_to not in d['detection']['applicable_to'] and 'all' not in d['detection']['applicable_to']:
-                    applicable_to = False
-            if applicable_to:
+            if filter_applicable_to == 'all' or filter_applicable_to in d[detection_or_visibility]['applicable_to'] or 'all' in d[detection_or_visibility]['applicable_to']:
                 my_techniques[d['technique_id']] = d
+
+                # Backwards compatibility: adding columns if not present
+                if 'applicable_to' not in d['detection'].keys():
+                    d['detection']['applicable_to'] = ['all']
+                if 'applicable_to' not in d['visibility'].keys():
+                    d['visibility']['applicable_to'] = ['all']
+
         name = yaml_content['name']
         platform = yaml_content['platform']
     return my_techniques, name, platform
@@ -157,10 +160,7 @@ def _map_and_colorize_techniques_for_detections(my_techniques):
                 for tactic in technique['tactic']:
                     location = ', '.join(c['detection']['location']) if 'detection' in c.keys() else '-'
                     location = location if location != '' else '-'
-                    if 'applicable_to' in c['detection'].keys():
-                        applicable_to = ', '.join(c['detection']['applicable_to']) if 'detection' in c.keys() else '-'
-                    else:
-                        applicable_to = '-'
+                    applicable_to = ', '.join(c['detection']['applicable_to']) if 'detection' in c.keys() else '-'
                     x = {}
                     x['techniqueID'] = d
                     x['color'] = color
@@ -303,7 +303,7 @@ def export_techniques_list_to_excel(filename):
     :param filename: the filename of the yaml file containing the techniques administration
     :return:
     """
-    my_techniques, name, platform = _load_detections(filename)
+    my_techniques, name, platform = _load_detections(filename, 'detection')
     my_techniques = dict(sorted(my_techniques.items(), key=lambda kv: kv[0], reverse=False))
     mitre_techniques = load_attack_data(DATATYPE_ALL_TECH)
 
@@ -324,30 +324,34 @@ def export_techniques_list_to_excel(filename):
 
     # Header columns
     worksheet.merge_range(2, 0, 2, 2, 'Technique', format_bold_center_bggrey)
-    worksheet.merge_range(2, 3, 2, 7, 'Detection', format_bold_center_bgreen)
-    worksheet.merge_range(2, 8, 2, 9, 'Visibility', format_bold_center_bgblue)
+    worksheet.merge_range(2, 3, 2, 8, 'Detection', format_bold_center_bgreen)
+    worksheet.merge_range(2, 9, 2, 11, 'Visibility', format_bold_center_bgblue)
     y = 3
     worksheet.write(y, 0, 'ID', format_bold_left)
     worksheet.write(y, 1, 'Tactic', format_bold_left)
     worksheet.write(y, 2, 'Description', format_bold_left)
-    worksheet.write(y, 3, 'Date registered', format_bold_left)
-    worksheet.write(y, 4, 'Date implemented', format_bold_left)
-    worksheet.write(y, 5, 'Score', format_bold_left)
-    worksheet.write(y, 6, 'Location', format_bold_left)
-    worksheet.write(y, 7, 'Comment', format_bold_left)
-    worksheet.write(y, 8, 'Score', format_bold_left)
-    worksheet.write(y, 9, 'Comment', format_bold_left)
+    worksheet.write(y, 3, 'Applicable to', format_bold_left)
+    worksheet.write(y, 4, 'Date registered', format_bold_left)
+    worksheet.write(y, 5, 'Date implemented', format_bold_left)
+    worksheet.write(y, 6, 'Score', format_bold_left)
+    worksheet.write(y, 7, 'Location', format_bold_left)
+    worksheet.write(y, 8, 'Comment', format_bold_left)
+    worksheet.write(y, 9, 'Applicable to', format_bold_left)
+    worksheet.write(y, 10, 'Score', format_bold_left)
+    worksheet.write(y, 11, 'Comment', format_bold_left)
 
     worksheet.set_column(0, 0, 14)
     worksheet.set_column(1, 1, 50)
     worksheet.set_column(2, 2, 40)
-    worksheet.set_column(3, 3, 15)
-    worksheet.set_column(4, 4, 18)
-    worksheet.set_column(5, 5, 8)
-    worksheet.set_column(6, 6, 25)
-    worksheet.set_column(7, 7, 40)
-    worksheet.set_column(8, 8, 8)
-    worksheet.set_column(9, 9, 40)
+    worksheet.set_column(3, 3, 18)
+    worksheet.set_column(4, 4, 15)
+    worksheet.set_column(5, 5, 18)
+    worksheet.set_column(6, 6, 8)
+    worksheet.set_column(7, 7, 25)
+    worksheet.set_column(8, 8, 40)
+    worksheet.set_column(9, 9, 18)
+    worksheet.set_column(10, 10, 8)
+    worksheet.set_column(11, 11, 40)
 
     # Putting the techniques:
     y = 4
@@ -355,16 +359,18 @@ def export_techniques_list_to_excel(filename):
         worksheet.write(y, 0, d)
         worksheet.write(y, 1, ', '.join(t.capitalize() for t in get_technique(mitre_techniques, d)['tactic']))
         worksheet.write(y, 2, get_technique(mitre_techniques, d)['technique'])
-        worksheet.write(y, 3, str(c['detection']['date_registered']).replace('None', ''))
-        worksheet.write(y, 4, str(c['detection']['date_implemented']).replace('None', ''))
-        worksheet.write(y, 5, c['detection']['score'], format_left)
-        worksheet.write(y, 6, ','.join(c['detection']['location']))
-        worksheet.write(y, 7, c['detection']['comment'])
-        worksheet.write(y, 8, c['visibility']['score'], format_left)
-        worksheet.write(y, 9, c['visibility']['comment'])
+        worksheet.write(y, 3, ', '.join(c['detection']['applicable_to']))
+        worksheet.write(y, 4, str(c['detection']['date_registered']).replace('None', ''))
+        worksheet.write(y, 5, str(c['detection']['date_implemented']).replace('None', ''))
+        worksheet.write(y, 6, c['detection']['score'], format_left)
+        worksheet.write(y, 7, '\n'.join(c['detection']['location']))
+        worksheet.write(y, 8, c['detection']['comment'])
+        worksheet.write(y, 9, ', '.join(c['visibility']['applicable_to']))
+        worksheet.write(y, 10, c['visibility']['score'], format_left)
+        worksheet.write(y, 11, c['visibility']['comment'])
         y += 1
 
-    worksheet.autofilter(3, 0, 3, 9)
+    worksheet.autofilter(3, 0, 3, 11)
     worksheet.freeze_panes(4, 0)
     try:
         workbook.close()

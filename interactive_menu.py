@@ -259,7 +259,7 @@ def menu_detection(filename_t):
     print('Selected techniques YAML file: %s' % filename_t)
     print('')
     print('Options:')
-    print('1. Filter techniques in the layer file based on the applicable_to field in the technique administration YAML file: %s' % filter_applicable_to)
+    print('1. Filter techniques based on the applicable_to field in the technique administration YAML file (not for Excel output): %s' % filter_applicable_to)
     print('')
     print('Select what you want to do:')
     print('2. Generate a layer for detection coverage for the ATT&CK Navigator.')
@@ -302,27 +302,34 @@ def menu_visibility(filename_t, filename_ds):
     :param filename_ds:
     :return:
     """
+    global filter_applicable_to
     clear()
     print('Menu: %s' % MENU_NAME_VISIBILITY_MAPPING)
     print('')
     print('Selected techniques YAML file: %s' % filename_t)
     print('Selected data source YAML file: %s' % filename_ds)
     print('')
+    print('Options:')
+    print('1. Filter techniques based on the applicable_to field in the technique administration YAML file (not for Excel output): %s' % filter_applicable_to)
+    print('')
     print('Select what you want to do:')
-    print('1. Generate a layer for visibility for the ATT&CK Navigator.')
-    print('2. Generate a layers for visibility overlayed with detection coverage for the ATT&CK Navigator.')
-    print('3. Generate an Excel sheet with all administrated techniques.')
+    print('2. Generate a layer for visibility for the ATT&CK Navigator.')
+    print('3. Generate a layer for visibility overlayed with detection coverage for the ATT&CK Navigator.')
+    print('4. Generate an Excel sheet with all administrated techniques.')
     print('9. Back to main menu.')
     choice = ask_input()
     if choice == '1':
-        print('Writing visibility coverage layer...')
-        generate_visibility_layer(filename_t, filename_ds, False)
-        wait()
+        print('Specify your filter for the applicable_to field:')
+        filter_applicable_to = ask_input().lower()
     elif choice == '2':
-        print('Writing visibility coverage layers overlayed with detections...')
-        generate_visibility_layer(filename_t, filename_ds, True)
+        print('Writing visibility coverage layer...')
+        generate_visibility_layer(filename_t, filename_ds, False, filter_applicable_to)
         wait()
     elif choice == '3':
+        print('Writing visibility coverage layer overlayed with detections...')
+        generate_visibility_layer(filename_t, filename_ds, True, filter_applicable_to)
+        wait()
+    elif choice == '4':
         print('Generating Excel file...')
         export_techniques_list_to_excel(filename_t)
         wait()

@@ -49,6 +49,10 @@ def init_menu():
                                                               'score the level of visibility)', required=True)
     parser_visibility.add_argument('-fd', '--file-ds', help='path to the data source administration YAML file (used to '
                                                             'add metadata on the involved data sources)')
+    parser_visibility.add_argument('-a', '--applicable', help='filter techniques based on the applicable_to field in '
+                                                              'the technique administration YAML. Not supported for '
+                                                              'Excel output.'
+                                                             'file', default='all')
     parser_visibility.add_argument('-l', '--layer', help='generate a visibility layer for the ATT&CK navigator',
                                    action='store_true')
     parser_visibility.add_argument('-e', '--excel', help='generate an Excel sheet with all administrated techniques',
@@ -67,8 +71,9 @@ def init_menu():
     parser_detection.add_argument('-fd', '--file-ds', help='path to the data source administration YAML file (used in '
                                                            'the overlay with visibility to add metadata on the '
                                                            'involved data sources)')
-    parser_detection.add_argument('-a', '--applicable', help='filter techniques in the layer file based on the'
-                                                             'applicable_to field in the technique administration YAML'
+    parser_detection.add_argument('-a', '--applicable', help='filter techniques based on the applicable_to field in '
+                                                             'the technique administration YAML. Not supported for '
+                                                             'Excel output.'
                                                              'file', default='all')
     parser_detection.add_argument('-l', '--layer', help='generate detection layer for the ATT&CK navigator',
                                   action='store_true')
@@ -157,9 +162,9 @@ def menu(menu_parser):
             if check_file_type(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION) and \
                check_file_type(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION):
                 if args.layer:
-                    generate_visibility_layer(args.file_tech, args.file_ds, False)
+                    generate_visibility_layer(args.file_tech, args.file_ds, False, args.applicable)
                 if args.overlay:
-                    generate_visibility_layer(args.file_tech, args.file_ds, True)
+                    generate_visibility_layer(args.file_tech, args.file_ds, True, args.applicable)
 
         if args.excel and check_file_type(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION):
             export_techniques_list_to_excel(args.file_tech)
@@ -181,7 +186,7 @@ def menu(menu_parser):
             if args.overlay and check_file_type(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION):
                 generate_detection_layer(args.file_tech, args.file_ds, True, args.applicable)
             if args.graph:
-                plot_detection_graph(args.file_tech)
+                plot_detection_graph(args.file_tech, args.applicable)
             if args.excel:
                 export_techniques_list_to_excel(args.file_tech)
 
