@@ -4,7 +4,7 @@ import shutil
 from constants import *
 
 
-def create_upgrade_text(file_type, file_version):
+def _create_upgrade_text(file_type, file_version):
     """
     Create text on the upgrades to be performed on the YAML file.
     :param file_type: YAML file type
@@ -21,7 +21,7 @@ def create_upgrade_text(file_type, file_version):
         return text
 
 
-def ask_to_upgrade(filename):
+def _ask_to_upgrade(filename):
     """
     Ask the user to upgrade the YAML file or not.
     :param filename: YAML administration file
@@ -51,19 +51,19 @@ def upgrade_yaml_file(filename, file_type, file_version, attack_tech_data):
 
     is_upgraded = False
     tech_upgrade_func = {}
-    tech_upgrade_func[1.1] = upgrade_technique_yaml_10_to_11
+    tech_upgrade_func[1.1] = _upgrade_technique_yaml_10_to_11
 
     with open(filename, 'r') as file:
         file_new_lines = file.readlines()
 
     if file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
         if file_version != FILE_TYPE_TECHNIQUE_ADMINISTRATION_VERSION:
-            upgrade_text = create_upgrade_text(file_type, file_version)
+            upgrade_text = _create_upgrade_text(file_type, file_version)
             print(upgrade_text)
-            if ask_to_upgrade(filename):
+            if _ask_to_upgrade(filename):
                 is_upgraded = True
                 # create backup of the non-upgraded file
-                backup_filename = get_backup_filename(filename)
+                backup_filename = _get_backup_filename(filename)
                 shutil.copy2(filename, backup_filename)
                 print('Written backup file:   ' + backup_filename)
 
@@ -85,7 +85,7 @@ def upgrade_yaml_file(filename, file_type, file_version, attack_tech_data):
         print('-'*80)
 
 
-def get_technique(techniques, technique_id):
+def _get_technique(techniques, technique_id):
     """
     Generic function to lookup a specific technique_id in a list of dictionaries with techniques.
     :param techniques: list with all techniques
@@ -98,7 +98,7 @@ def get_technique(techniques, technique_id):
     return None
 
 
-def get_backup_filename(filename):
+def _get_backup_filename(filename):
     """
     Create a filename to be used for backup of the YAML file
     :param filename: existing YAML filename
@@ -113,7 +113,7 @@ def get_backup_filename(filename):
     return backup_filename
 
 
-def upgrade_technique_yaml_10_to_11(file_lines, attack_tech_data):
+def _upgrade_technique_yaml_10_to_11(file_lines, attack_tech_data):
     """
     Upgrade the YAML technique administration file from 1.0 to 1.1.
     :param file_lines: array containing the lines within the tech. admin. file
@@ -135,7 +135,7 @@ def upgrade_technique_yaml_10_to_11(file_lines, attack_tech_data):
             file_new_lines.append(l)
 
             tech_id = regex_tech_id.search(l).group(1)
-            tech_name = get_technique(attack_tech_data, tech_id)['technique']
+            tech_name = _get_technique(attack_tech_data, tech_id)['technique']
             file_new_lines.append('  technique_name: ' + tech_name+'\n')
         elif regex_detection.match(l):
             file_new_lines.append(l)
