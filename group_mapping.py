@@ -456,10 +456,11 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
         print('[!] Empty layer.')  # the provided groups dit not result in any techniques
         return
 
-    # check if we are doing an software group overlay
+    # check if we are doing a software group overlay
     if software_groups and overlay:  # TODO add support for campaign info in layer metadata
-        # if a group overlay is provided, get the software techniques for the overlay
-        groups_software_dict = get_software_techniques(overlay, stage, platform)
+        if overlay_type not in ['visibility', 'detection']:
+            # if a group overlay is provided, get the software techniques for the overlay
+            groups_software_dict = get_software_techniques(overlay, stage, platform)
     elif software_groups:
         groups_software_dict = get_software_techniques(groups, stage, platform)
 

@@ -214,12 +214,14 @@ def generate_technique_administration_file(filename):
     techniques = load_attack_data(DATATYPE_ALL_TECH)
 
     # This is part of the techniques administration YAML file and is used as a template
-    dict_tech = {'technique_id': '', 'detection': {'date_registered': None, 'date_implemented': None, 'score': -1,
-                                                   'location': [''], 'comment': ''},
-                 'visibility': {'score': 0, 'comment': ''}}
+    dict_tech = {'technique_id': '', 'technique_name': '', 'detection': {'applicable_to': ['all'],
+                                                                         'date_registered': None,
+                                                                         'date_implemented': None,
+                                                                         'score': -1, 'location': [''], 'comment': ''},
+                 'visibility': {'applicable_to': ['all'], 'score': 0, 'comment': ''}}
 
     yaml_file = {}
-    yaml_file['version'] = 1.0
+    yaml_file['version'] = FILE_TYPE_TECHNIQUE_ADMINISTRATION_VERSION
     yaml_file['file_type'] = FILE_TYPE_TECHNIQUE_ADMINISTRATION
     yaml_file['name'] = name
     yaml_file['platform'] = platform
@@ -248,6 +250,7 @@ def generate_technique_administration_file(filename):
                     if score > 0 and t['technique_id'] not in techniques_upper:
                         tech = copy.deepcopy(dict_tech)
                         tech['technique_id'] = t['technique_id']
+                        tech['technique_name'] = get_technique(techniques, t['technique_id'])['technique']
                         tech['visibility']['score'] = score
                         yaml_file['techniques'].append(tech)
 

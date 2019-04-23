@@ -3,6 +3,7 @@ import glob
 from data_source_mapping import *
 from technique_mapping import *
 from group_mapping import *
+from constants import *
 
 
 groups = 'all'
@@ -13,11 +14,6 @@ groups_overlay = ''
 overlay_type = ''
 filter_applicable_to = 'all'
 yaml_path = 'sample-data/'
-
-MENU_NAME_DATA_SOURCE_MAPPING = 'Data source mapping'
-MENU_NAME_VISIBILITY_MAPPING = 'Visibility coverage mapping'
-MENU_NAME_DETECTION_COVERAGE_MAPPING = 'Detection coverage mapping'
-MENU_NAME_THREAT_ACTOR_GROUP_MAPPING = 'Threat actor group mapping'
 
 
 def clear():
@@ -52,7 +48,7 @@ def wait():
     :return:
     """
     print('')
-    print('Press a key to return to the last menu')
+    print('Press a key to continue')
     input('')
 
 
@@ -142,6 +138,8 @@ def select_file(title, what, expected_file_type, b_clear=True):
             filename = files[int(choice) - 1]
             file_type = check_file_type(filename, file_type=expected_file_type)
             if file_type:
+                print('Selected file: ' + filename)
+                wait()
                 return filename
         else:
             print("[!] Invalid choice")
