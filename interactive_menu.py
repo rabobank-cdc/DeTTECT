@@ -12,6 +12,7 @@ stage = 'attack'
 groups_overlay = ''
 overlay_type = ''
 filter_applicable_to = 'all'
+yaml_path = 'sample-data/'
 
 MENU_NAME_DATA_SOURCE_MAPPING = 'Data source mapping'
 MENU_NAME_VISIBILITY_MAPPING = 'Visibility coverage mapping'
@@ -89,7 +90,7 @@ def interactive_menu():
         interactive_menu()
 
 
-def select_file(title, what, expected_file_type, b_clear=True, path='sample-data/'):
+def select_file(title, what, expected_file_type, b_clear=True):
     """
     Prints and handles the file selection in the terminal. It shows just .yaml files.
     :param title: title to print on top of this menu
@@ -99,16 +100,17 @@ def select_file(title, what, expected_file_type, b_clear=True, path='sample-data
     :param path: the path to look in
     :return: filename of the selected file
     """
+    global yaml_path
     if b_clear:
         clear()
         print('Menu: %s' % title)
         print('')
     print('Select the YAML file with %s:' % what)
     print('')
-    print('Path: %s' % path)
+    print('Path: %s' % yaml_path)
     n = 1
     files = []
-    for f in glob.glob(path + '*.yaml'):
+    for f in glob.glob(yaml_path + '*.yaml'):
         files.append(f)
         print('%d. %s' % (n, f))
         n += 1
@@ -125,11 +127,12 @@ def select_file(title, what, expected_file_type, b_clear=True, path='sample-data
         choice = ask_input()
         choice = choice if choice.endswith('/') else choice + '/'
         if os.path.exists(choice):
-            return select_file(title, what, expected_file_type, b_clear, choice)
+            yaml_path = choice
+            return select_file(title, what, expected_file_type, b_clear)
         else:
             print("[!] Path doesn't exist")
             wait()
-            return select_file(title, what, expected_file_type, b_clear, path)
+            return select_file(title, what, expected_file_type, b_clear)
     elif choice == str(back_nr):
         interactive_menu()
     elif choice == 'q':
@@ -144,7 +147,7 @@ def select_file(title, what, expected_file_type, b_clear=True, path='sample-data
             print("[!] Invalid choice")
 
         wait()
-        return select_file(title, what, expected_file_type, b_clear, path)
+        return select_file(title, what, expected_file_type, b_clear)
 
 
 def menu_updates():
