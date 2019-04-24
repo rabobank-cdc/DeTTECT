@@ -336,10 +336,22 @@ def export_techniques_list_to_excel(filename):
     # Formatting:
     format_bold_left = workbook.add_format({'align': 'left', 'bold': True})
     format_title = workbook.add_format({'align': 'left', 'bold': True, 'font_size': '14'})
-    format_left = workbook.add_format({'align': 'left'})
     format_bold_center_bggrey = workbook.add_format({'align': 'center', 'bold': True, 'bg_color': '#dbdbdb'})
     format_bold_center_bgreen = workbook.add_format({'align': 'center', 'bold': True, 'bg_color': '#8bc34a'})
     format_bold_center_bgblue = workbook.add_format({'align': 'center', 'bold': True, 'bg_color': '#64b5f6'})
+    wrap_text = workbook.add_format({'text_wrap': True})
+    valign_top = workbook.add_format({'valign': 'top'})
+    no_score = workbook.add_format({'valign': 'top', 'align': 'center'})
+    detection_score_0 = workbook.add_format({'valign': 'top', 'align': 'center', 'bg_color': COLOR_D_0})
+    detection_score_1 = workbook.add_format({'valign': 'top', 'align': 'center', 'bg_color': COLOR_D_1})
+    detection_score_2 = workbook.add_format({'valign': 'top', 'align': 'center', 'bg_color': COLOR_D_2})
+    detection_score_3 = workbook.add_format({'valign': 'top', 'align': 'center', 'bg_color': COLOR_D_3})
+    detection_score_4 = workbook.add_format({'valign': 'top', 'align': 'center', 'bg_color': COLOR_D_4, 'font_color': '#ffffff'})
+    detection_score_5 = workbook.add_format({'valign': 'top', 'align': 'center', 'bg_color': COLOR_D_5, 'font_color': '#ffffff'})
+    visibility_score_1 = workbook.add_format({'valign': 'top', 'align': 'center', 'bg_color': COLOR_V_1})
+    visibility_score_2 = workbook.add_format({'valign': 'top', 'align': 'center', 'bg_color': COLOR_V_2})
+    visibility_score_3 = workbook.add_format({'valign': 'top', 'align': 'center', 'bg_color': COLOR_V_3, 'font_color': '#ffffff'})
+    visibility_score_4 = workbook.add_format({'valign': 'top', 'align': 'center', 'bg_color': COLOR_V_4, 'font_color': '#ffffff'})
 
     # Title
     worksheet.write(0, 0, 'Overview of techniques for ' + name, format_title)
@@ -378,18 +390,20 @@ def export_techniques_list_to_excel(filename):
     # Putting the techniques:
     y = 4
     for d, c in my_techniques.items():
-        worksheet.write(y, 0, d)
-        worksheet.write(y, 1, ', '.join(t.capitalize() for t in get_technique(mitre_techniques, d)['tactic']))
-        worksheet.write(y, 2, get_technique(mitre_techniques, d)['technique'])
-        worksheet.write(y, 3, ', '.join(c['detection']['applicable_to']))
-        worksheet.write(y, 4, str(c['detection']['date_registered']).replace('None', ''))
-        worksheet.write(y, 5, str(c['detection']['date_implemented']).replace('None', ''))
-        worksheet.write(y, 6, c['detection']['score'], format_left)
-        worksheet.write(y, 7, '\n'.join(c['detection']['location']))
-        worksheet.write(y, 8, c['detection']['comment'])
-        worksheet.write(y, 9, ', '.join(c['visibility']['applicable_to']))
-        worksheet.write(y, 10, c['visibility']['score'], format_left)
-        worksheet.write(y, 11, c['visibility']['comment'])
+        worksheet.write(y, 0, d, valign_top)
+        worksheet.write(y, 1, ', '.join(t.capitalize() for t in get_technique(mitre_techniques, d)['tactic']), valign_top)
+        worksheet.write(y, 2, get_technique(mitre_techniques, d)['technique'], valign_top)
+        worksheet.write(y, 3, ', '.join(c['detection']['applicable_to']), valign_top)
+        worksheet.write(y, 4, str(c['detection']['date_registered']).replace('None', ''), valign_top)
+        worksheet.write(y, 5, str(c['detection']['date_implemented']).replace('None', ''), valign_top)
+        ds = c['detection']['score']
+        worksheet.write(y, 6, ds, detection_score_0 if ds == 0 else detection_score_1 if ds ==1 else detection_score_2 if ds == 2 else detection_score_3 if ds ==3 else detection_score_4 if ds == 4 else detection_score_5 if ds == 5 else no_score)
+        worksheet.write(y, 7, '\n'.join(c['detection']['location']), wrap_text)
+        worksheet.write(y, 8, c['detection']['comment'][:-1] if c['detection']['comment'].endswith('\n') else c['detection']['comment'], wrap_text)
+        worksheet.write(y, 9, ', '.join(c['visibility']['applicable_to']), valign_top)
+        vs = c['visibility']['score']
+        worksheet.write(y, 10, vs, visibility_score_1 if vs == 1 else visibility_score_2 if vs == 2 else visibility_score_3 if vs == 3 else visibility_score_4 if vs ==4 else no_score)
+        worksheet.write(y, 11, c['visibility']['comment'][:-1] if c['visibility']['comment'].endswith('\n') else c['visibility']['comment'], wrap_text)
         y += 1
 
     worksheet.autofilter(3, 0, 3, 11)
