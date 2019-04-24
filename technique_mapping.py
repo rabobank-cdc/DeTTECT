@@ -12,15 +12,15 @@ def generate_detection_layer(filename_techniques, filename_data_sources, overlay
     :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
     :return:
     """
-    my_techniques, name, platform = _load_detections(filename_techniques, 'detection', filter_applicable_to)
-
     if not overlay:
+        my_techniques, name, platform = _load_detections(filename_techniques, 'detection', filter_applicable_to)
         mapped_techniques_detection = _map_and_colorize_techniques_for_detections(my_techniques)
         layer_detection = get_layer_template_detections('Detections ' + name + ' ' + filter_applicable_to, 'description', 'attack', platform)
         _write_layer(layer_detection, mapped_techniques_detection, 'detection', filter_applicable_to, name)
     else:
+        my_techniques, name, platform = _load_detections(filename_techniques, 'all', filter_applicable_to)
         my_data_sources = _load_data_sources(filename_data_sources)
-        mapped_techniques_both = _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources)
+        mapped_techniques_both = _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources, filter_applicable_to)
         layer_both = get_layer_template_layered('Visibility and Detection ' + name + ' ' + filter_applicable_to, 'description', 'attack', platform)
         _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', filter_applicable_to, name)
 
@@ -33,15 +33,16 @@ def generate_visibility_layer(filename_techniques, filename_data_sources, overla
     :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
     :return:
     """
-    my_techniques, name, platform = _load_detections(filename_techniques, 'visibility', filter_applicable_to)
     my_data_sources = _load_data_sources(filename_data_sources)
 
     if not overlay:
+        my_techniques, name, platform = _load_detections(filename_techniques, 'visibility', filter_applicable_to)
         mapped_techniques_visibility = _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources)
         layer_visibility = get_layer_template_visibility('Visibility ' + name + ' ' + filter_applicable_to, 'description', 'attack', platform)
         _write_layer(layer_visibility, mapped_techniques_visibility, 'visibility', filter_applicable_to, name)
     else:
-        mapped_techniques_both = _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources)
+        my_techniques, name, platform = _load_detections(filename_techniques, 'all', filter_applicable_to)
+        mapped_techniques_both = _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources, filter_applicable_to)
         layer_both = get_layer_template_layered('Visibility and Detection ' + name + ' ' + filter_applicable_to, 'description', 'attack', platform)
         _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', filter_applicable_to, name)
 
@@ -86,7 +87,7 @@ def _load_detections(filename, detection_or_visibility, filter_applicable_to='al
     with open(filename, 'r') as yaml_file:
         yaml_content = yaml.load(yaml_file, Loader=yaml.FullLoader)
         for d in yaml_content['techniques']:
-            if filter_applicable_to == 'all' or filter_applicable_to in d[detection_or_visibility]['applicable_to'] or 'all' in d[detection_or_visibility]['applicable_to']:
+            if detection_or_visibility == 'all' or filter_applicable_to == 'all' or filter_applicable_to in d[detection_or_visibility]['applicable_to'] or 'all' in d[detection_or_visibility]['applicable_to']:
                 my_techniques[d['technique_id']] = d
 
                 # Backwards compatibility: adding columns if not present
@@ -202,6 +203,7 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources):
             comment = '-'
         my_ds = ', '.join(technique_ds_mapping[d]['my_data_sources']) if d in technique_ds_mapping.keys() and technique_ds_mapping[d]['my_data_sources'] else '-'
         color = COLOR_V_1 if s == 1 else COLOR_V_2 if s == 2 else COLOR_V_3 if s == 3 else COLOR_V_4 if s == 4 else ''
+        applicable_to = ', '.join(c['visibility']['applicable_to']) if 'visibility' in c.keys() else '-'
         technique = get_technique(techniques, d)
         for tactic in technique['tactic']:
             x = {}
@@ -212,6 +214,7 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources):
             x['tactic'] = tactic.lower().replace(' ', '-')
             x['metadata'] = [{'name': '-Visibility score', 'value': str(s)},
                              {'name': '-Comment', 'value': comment},
+                             {'name': '-Applicable to', 'value': applicable_to},
                              {'name': '-Available data sources', 'value': my_ds},
                              {'name': '-ATT&CK data sources', 'value': ', '.join(technique['data_sources'])}]
 
@@ -234,7 +237,7 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources):
     return mapped_techniques
 
 
-def _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources):
+def _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources, filter_applicable_to):
     """
     Determine the color of the techniques based on both detection and visibility.
     :param my_techniques: the configured techniques
@@ -260,6 +263,12 @@ def _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources):
         detection = True if detection_score > 0 else False
         visibility = True if visibility_score > 0 else False
 
+        # Additional filtering based on applicable_to field:
+        if filter_applicable_to != 'all' and filter_applicable_to not in c['detection']['applicable_to'] and 'all' not in c['detection']['applicable_to']:
+            detection = False
+        if filter_applicable_to != 'all' and filter_applicable_to not in c['visibility']['applicable_to'] and 'all' not in c['visibility']['applicable_to']:
+            visibility = False
+
         if detection and visibility:
             color = COLOR_OVERLAY_BOTH
         elif detection and not visibility:
@@ -277,6 +286,9 @@ def _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources):
 
         my_ds = ', '.join(technique_ds_mapping[d]['my_data_sources']) if d in technique_ds_mapping.keys() and technique_ds_mapping[d]['my_data_sources'] else '-'
 
+        visibility_applicable_to = ', '.join(c['visibility']['applicable_to']) if 'visibility' in c.keys() else '-'
+        detection_applicable_to = ', '.join(c['detection']['applicable_to']) if 'detection' in c.keys() else '-'
+
         technique = get_technique(techniques, d)
         for tactic in technique['tactic']:
             x = {}
@@ -286,11 +298,13 @@ def _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources):
             x['enabled'] = True
             x['tactic'] = tactic.lower().replace(' ', '-')
             x['metadata'] = [{'name': '-Visibility score', 'value': str(visibility_score)},
+                             {'name': '-Visibility applicable to', 'value': visibility_applicable_to},
                              {'name': '-Comment', 'value': comment},
                              {'name': '-Available data sources', 'value': my_ds},
                              {'name': '-ATT&CK data sources', 'value': ', '.join(technique['data_sources'])},
                              {'name': '-Detection score', 'value': str(detection_score)},
-                             {'name': '-Detection location', 'value': location}]
+                             {'name': '-Detection location', 'value': location},
+                             {'name': '-Detection applicable to', 'value': detection_applicable_to}]
 
             mapped_techniques.append(x)
 
