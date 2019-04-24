@@ -314,9 +314,11 @@ def map_techniques_to_data_sources(techniques, my_data_sources):
                 my_techniques[t['technique_id']]['my_data_sources'] = [i_ds, ]
                 my_techniques[t['technique_id']]['data_sources'] = t['data_sources']
                 my_techniques[t['technique_id']]['tactics'] = t['tactic']
-                my_techniques[t['technique_id']]['products'] = my_data_sources[i_ds]['products']
+                my_techniques[t['technique_id']]['products'] = set(my_data_sources[i_ds]['products'])
             elif t['data_sources'] and i_ds in t['data_sources'] and t['technique_id'] in my_techniques.keys():
                 my_techniques[t['technique_id']]['my_data_sources'].append(i_ds)
+                my_techniques[t['technique_id']]['products'].update(my_data_sources[i_ds]['products'])
+
     return my_techniques
 
 
