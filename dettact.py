@@ -100,6 +100,9 @@ def init_menu():
                                                       'VISIBILITY provide a YAML with the technique administration.')
     parser_group.add_argument('-t', '--overlay-type', help='specify the type of overlay (default = group)',
                               choices=['group', 'visibility', 'detection'], default='group')
+    parser_group.add_argument('-a', '--applicable', help='filter techniques in the detection or visibility overlay ' 
+                                                         'based on the \'applicable_to\' field in the technique '
+                                                         'administration YAML file. ', default='all')
     parser_group.add_argument('--software-group', help='add techniques to the heat map by checking which software is '
                                                        'used by group(s), and hence which techniques the software '
                                                        'supports (does not influence the scores). If overlay group(s) '
@@ -166,11 +169,11 @@ def menu(menu_parser):
 
         if args.excel and check_file_type(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION) and args.applicable == 'all':
             export_techniques_list_to_excel(args.file_tech)
-        else:
+        if args.excel and args.applicable != 'all':
             print("[!] Filtering on 'applicable_to' is not supported for Excel output")
 
     elif args.subparser in ['group', 'g']:
-        generate_group_heat_map(args.groups, args.overlay, args.overlay_type, args.stage, args.platform, args.software_group)
+        generate_group_heat_map(args.groups, args.overlay, args.overlay_type, args.stage, args.platform, args.software_group, args.applicable)
 
     elif args.subparser in ['detection', 'd']:
         if args.overlay:
@@ -189,7 +192,7 @@ def menu(menu_parser):
                 plot_detection_graph(args.file_tech, args.applicable)
             if args.excel and args.applicable == 'all':
                 export_techniques_list_to_excel(args.file_tech)
-            else:
+            if args.excel and args.applicable != 'all':
                 print("[!] Filtering on 'applicable_to' is not supported for Excel output")
 
     elif args.subparser in ['generic', 'ge']:

@@ -259,7 +259,8 @@ def menu_detection(filename_t):
     print('Selected techniques YAML file: %s' % filename_t)
     print('')
     print('Options:')
-    print('1. Filter techniques based on the applicable_to field in the technique administration YAML file (not for Excel output): %s' % filter_applicable_to)
+    print('1. Filter techniques based on the \'applicable_to\' field in the technique administration YAML file (not '
+          'for Excel output): %s' % filter_applicable_to)
     print('')
     print('Select what you want to do:')
     print('2. Generate a layer for detection coverage for the ATT&CK Navigator.')
@@ -276,7 +277,9 @@ def menu_detection(filename_t):
         generate_detection_layer(filename_t, None, False, filter_applicable_to)
         wait()
     elif choice == '3':
-        filename_ds = select_file(MENU_NAME_DETECTION_COVERAGE_MAPPING, 'data sources (used to add metadata on the involved data sources to the heat map)', FILE_TYPE_DATA_SOURCE_ADMINISTRATION, False)
+        filename_ds = select_file(MENU_NAME_DETECTION_COVERAGE_MAPPING, 'data sources (used to add metadata on the '
+                                                                        'involved data sources to the heat map)',
+                                  FILE_TYPE_DATA_SOURCE_ADMINISTRATION, False)
         print('Writing detection coverage layer with visibility as overlay...')
         generate_detection_layer(filename_t, filename_ds, True, filter_applicable_to)
         wait()
@@ -310,7 +313,8 @@ def menu_visibility(filename_t, filename_ds):
     print('Selected data source YAML file: %s' % filename_ds)
     print('')
     print('Options:')
-    print('1. Filter techniques based on the applicable_to field in the technique administration YAML file (not for Excel output): %s' % filter_applicable_to)
+    print('1. Filter techniques based on the \'applicable_to\' field in the technique administration YAML file (not for '
+          'Excel output): %s' % filter_applicable_to)
     print('')
     print('Select what you want to do:')
     print('2. Generate a layer for visibility for the ATT&CK Navigator.')
@@ -345,7 +349,7 @@ def menu_groups():
     Prints and handles the Threat actor group mapping functionality.
     :return:
     """
-    global groups, software_group, platform, stage, groups_overlay, overlay_type
+    global groups, software_group, platform, stage, groups_overlay, overlay_type, filter_applicable_to
     clear()
     print('Menu: %s' % MENU_NAME_THREAT_ACTOR_GROUP_MAPPING)
     print('')
@@ -357,8 +361,10 @@ def menu_groups():
     print('5. Overlay: ')
     print('    - %s: %s' % ('File' if os.path.exists(groups_overlay) else 'Groups', groups_overlay))
     print('    - Type: %s' % overlay_type)
+    print('6. Filter techniques in the detection or visibility overlay based on the \'applicable_to\' field in the '
+          'technique administration YAML file: %s' % filter_applicable_to)
     print('')
-    print('6. Generate a heat map layer.')
+    print('7. Generate a heat map layer.')
     print('9. Back to main menu.')
     choice = ask_input()
     if choice == '1':
@@ -399,7 +405,10 @@ def menu_groups():
             overlay_type = ''
             groups_overlay = ''
     elif choice == '6':
-        generate_group_heat_map(groups, groups_overlay, overlay_type, stage, platform, software_group)
+        print('Specify your filter for the applicable_to field:')
+        filter_applicable_to = ask_input().lower()
+    elif choice == '7':
+        generate_group_heat_map(groups, groups_overlay, overlay_type, stage, platform, software_group, filter_applicable_to)
         wait()
     elif choice == '9':
         interactive_menu()

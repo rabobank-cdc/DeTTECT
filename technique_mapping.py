@@ -10,6 +10,7 @@ def generate_detection_layer(filename_techniques, filename_data_sources, overlay
     :param filename_techniques: the filename of the yaml file containing the techniques administration
     :param filename_data_sources: the filename of the yaml file containing the data sources administration
     :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
+    :param filter_applicable_to: filter techniques based on applicable_to field in techniques administration YAML file
     :return:
     """
     if not overlay:
@@ -31,6 +32,7 @@ def generate_visibility_layer(filename_techniques, filename_data_sources, overla
     :param filename_techniques: the filename of the yaml file containing the techniques administration
     :param filename_data_sources: the filename of the yaml file containing the data sources administration
     :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
+    :param filter_applicable_to: filter techniques based on applicable_to field in techniques administration YAML file
     :return:
     """
     my_data_sources = _load_data_sources(filename_data_sources)
@@ -51,6 +53,7 @@ def plot_detection_graph(filename, filter_applicable_to):
     """
     Generates a line graph which shows the improvements on detections through the time.
     :param filename: the filename of the yaml file containing the techniques administration
+    :param filter_applicable_to: filter techniques based on applicable_to field in techniques administration YAML file
     :return:
     """
     my_techniques, name, platform = _load_detections(filename, 'detection', filter_applicable_to)
@@ -80,6 +83,9 @@ def _load_detections(filename, detection_or_visibility, filter_applicable_to='al
     """
     Loads the techniques (including detection and visibility properties) from the given yaml file.
     :param filename: the filename of the yaml file containing the techniques administration
+    :param detection_or_visibility: used to indicate to filter applicable_to field for detection or visibility. When
+                                    using 'all' no filtering will be applied.
+    :param filter_applicable_to: filter techniques based on applicable_to field in techniques administration YAML file
     :return: dictionary with techniques (incl. properties), name and platform
     """
 
@@ -123,6 +129,7 @@ def _write_layer(layer, mapped_techniques, filename_prefix, filename_suffix, nam
     :param layer: the prepped layer dictionary
     :param mapped_techniques: the techniques section that will be included in the layer
     :param filename_prefix: the prefix for the output filename
+    :param filename_suffix: the suffix for the output filename
     :param name: the name that will be used in the filename together with the prefix
     :return:
     """
@@ -242,6 +249,7 @@ def _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources, f
     Determine the color of the techniques based on both detection and visibility.
     :param my_techniques: the configured techniques
     :param my_data_sources: the configured data sources
+    :param filter_applicable_to: filter techniques based on applicable_to field in techniques administration YAML file
     :return: a dictionary with techniques that can be used in the layer's output file
     """
     techniques = load_attack_data(DATATYPE_ALL_TECH)

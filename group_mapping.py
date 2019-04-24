@@ -201,16 +201,17 @@ def get_group_techniques(groups, stage, platform, file_type):
     return groups_dict
 
 
-def get_detection_techniques(filename):
+def get_detection_techniques(filename, filter_applicable_to):
     """
     Get all techniques (in a dict) from the detection administration
     :param filename: path to the YAML technique administration file
-    :return: dictionary
+    :param filter_applicable_to: filter techniques based on applicable_to field in techniques administration YAML file
+    :return: groups dictionary, loaded techniques from administration YAML file
     """
     # { group_id: {group_name: NAME, techniques: set{id, ...} } }
     groups_dict = {}
 
-    detection_techniques, name, platform = _load_detections(filename)
+    detection_techniques, name, platform = _load_detections(filename, 'detection', filter_applicable_to)
 
     group_id = 'DETECTION'
     groups_dict[group_id] = {}
@@ -220,29 +221,30 @@ def get_detection_techniques(filename):
         if 'detection' in v.keys() and v['detection']['score'] > 0:
             groups_dict[group_id]['techniques'].add(t)
 
-    return groups_dict
+    return groups_dict, detection_techniques
 
 
-def get_visibility_techniques(filename):
+def get_visibility_techniques(filename, filter_applicable_to):
     """
     Get all techniques (in a dict) from the detections administration
     :param filename: path to the YAML technique administration file
+    :param filter_applicable_to: filter techniques based on applicable_to field in techniques administration YAML file
     :return: dictionary
     """
     # { group_id: {group_name: NAME, techniques: set{id, ...} } }
     groups_dict = {}
 
-    detection_techniques, name, platform = _load_detections(filename)
+    visibility_techniques, name, platform = _load_detections(filename, 'visibility', filter_applicable_to)
 
     group_id = 'VISIBILITY'
     groups_dict[group_id] = {}
     groups_dict[group_id]['group_name'] = 'Visibility'
     groups_dict[group_id]['techniques'] = set()
-    for t, v in detection_techniques.items():
+    for t, v in visibility_techniques.items():
         if 'visibility' in v.keys() and v['visibility']['score'] > 0:
             groups_dict[group_id]['techniques'].add(t)
 
-    return groups_dict
+    return groups_dict, visibility_techniques
 
 
 def get_technique_count(groups, groups_overlay, groups_software):
@@ -298,7 +300,7 @@ def get_technique_count(groups, groups_overlay, groups_software):
     return techniques_dict
 
 
-def get_technique_layer(techniques, groups, overlay, groups_software, overlay_file_type, overlay_type):
+def get_technique_layer(techniques, groups, overlay, groups_software, overlay_file_type, overlay_type, all_techniques):
     """
     Create the technique layer that will be part of the ATT&CK navigator json file
     :param techniques: involved techniques with count (to be used within the scores)
@@ -307,6 +309,7 @@ def get_technique_layer(techniques, groups, overlay, groups_software, overlay_fi
     :param groups_software: a dict with with data on which techniques are used within related software
     :param overlay_file_type: the file type of the YAML file as present in the key 'file_type'
     :param overlay_type: group, visibility or detection
+    :param all_techniques: dictionary with all techniques loaded from techniques administration YAML file
     :return: dictionary
     """
     techniques_layer = []
@@ -335,6 +338,7 @@ def get_technique_layer(techniques, groups, overlay, groups_software, overlay_fi
         # change the color and add metadata to make the groups overlay visible
         for group, values in overlay.items():
             if tech in values['techniques']:
+                # Determine color:
                 if len(v['groups'].intersection(set(groups.keys()))) > 0:
                     # if the technique is both present in the group (-g/--groups) and the groups overlay (-o/--overlay)
                     t['color'] = COLOR_GROUP_OVERLAY_MATCH
@@ -347,6 +351,13 @@ def get_technique_layer(techniques, groups, overlay, groups_software, overlay_fi
                             t['color'] = COLOR_GROUP_OVERLAY_ONLY_DETECTION
                     else:
                         t['color'] = COLOR_GROUP_OVERLAY_NO_MATCH
+
+                # Add applicable_to to metadata in case of overlay for detection/visibility:
+                if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
+                    if overlay_type == 'visibility':
+                        metadata_dict['Applicable to'] = set(all_techniques[tech]['visibility']['applicable_to'])
+                    elif overlay_type == 'detection':
+                        metadata_dict['Applicable to'] = set(all_techniques[tech]['detection']['applicable_to'])
 
                 if 'Overlay' not in metadata_dict:
                     metadata_dict['Overlay'] = set()
@@ -401,7 +412,7 @@ def get_group_list(groups, file_type):
         return groups
 
 
-def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, software_groups):
+def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, software_groups, filter_applicable_to):
     """
     Calls all functions that are necessary for the generation of the heat map and write a json layer to disk.
     :param groups: threat actor groups
@@ -411,6 +422,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
     :param stage: attack or pre-attack
     :param platform: all, Linux, macOS, Windows
     :param software_groups: specify if techniques from related software should be included.
+    :param filter_applicable_to: filter techniques based on applicable_to field in techniques administration YAML file
     :return: returns nothing when something's wrong
     """
     overlay_dict = {}
@@ -439,11 +451,12 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
     else:
         overlay = []
 
+    all_techniques = None
     if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
         if overlay_type == 'visibility':
-            overlay_dict = get_visibility_techniques(overlay)
+            overlay_dict, all_techniques = get_visibility_techniques(overlay, filter_applicable_to)
         elif overlay_type == 'detection':
-            overlay_dict = get_detection_techniques(overlay)
+            overlay_dict, all_techniques = get_detection_techniques(overlay, filter_applicable_to)
     elif len(overlay) > 0:
         overlay_dict = get_group_techniques(overlay, stage, platform, overlay_file_type)
         if not overlay_dict:
@@ -466,7 +479,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
 
     technique_count = get_technique_count(groups_dict, overlay_dict, groups_software_dict)
     technique_layer = get_technique_layer(technique_count, groups_dict, overlay_dict, groups_software_dict,
-                                          overlay_file_type, overlay_type)
+                                          overlay_file_type, overlay_type, all_techniques)
     max_technique_count = max(technique_count.values(), key=lambda v: v['count'])['count']
 
     # make a list group names for the involved groups.
@@ -485,7 +498,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
     json_string = simplejson.dumps(layer).replace('}, ', '},\n')
 
     if overlay:
-        filename = "output/" + stage + '_' + platform.lower() + '_' + '_'.join(groups_list) + '-overlay_' + '_'.join(overlay_list) + '.json'
+        filename = "output/" + stage + '_' + platform.lower() + '_' + '_'.join(groups_list) + '-overlay_' + '_'.join(overlay_list) + '_' + filter_applicable_to.replace(' ', '_') + '.json'
     else:
         filename = "output/" + stage + '_' + platform.lower() + '_' + '_'.join(groups_list) + '.json'
     with open(filename, 'w') as f:  # write layer file to disk
