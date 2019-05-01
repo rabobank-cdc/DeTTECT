@@ -83,12 +83,12 @@ techniques:
 - technique_id: T1196
   technique_name: Control Panel Items
   detection:
-    - applicable_to: ['client endpoints']
-      date_registered: 2019-01-10
-      date_implemented: 2018-12-01
-      score: 4
-      location: [EDR]
-      comment: ''
+    applicable_to: ['client endpoints']
+    date_registered: 2019-01-10
+    date_implemented: 2018-12-01
+    score: 4
+    location: [EDR]
+    comment: ''
   visibility:
     applicable_to: ['all']
     score: 1
@@ -442,33 +442,20 @@ techniques:
 - technique_id: T1171
   technique_name: LLMNR/NBT-NS Poisoning
   detection:
-    - applicable_to: ['client endpoint']
-      date_registered: 2019-01-10
-      date_implemented: 2017-01-01
-      score: 2
-      location:
-      - 'Third party product A'
-      comment: |
-        This comment will be
-        multiline in
-        Excel
-    - applicable_to: ['servers']
-      date_registered: 2019-05-01
-      date_implemented: 2019-05-01
-      score: 3
-      location:
-        - 'Model I'
-      comment: ''
+    applicable_to: ['client endpoint']
+    date_registered: 2019-01-10
+    date_implemented: 2017-01-01
+    score: 2
+    location:
+    - 'Third party product A'
+    comment: |
+      This comment will be
+      multiline in
+      Excel
   visibility:
-    - applicable_to: ['client endpoint']
-      score: 2
-      comment: ''
-    - applicable_to: ['servers']
-      score: 3
-      comment: |
-        This comment will be
-        multiline in
-        Excel
+    applicable_to: ['client endpoint']
+    score: 2
+    comment: ''
 - technique_id: T1173
   technique_name: Dynamic Data Exchange
   detection:
@@ -2118,6 +2105,202 @@ techniques:
     comment: ''
 - technique_id: T1001
   technique_name: Data Obfuscation
+  detection:
+    applicable_to: ['all']
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    applicable_to: ['all']
+    score: 2
+    comment: ''
+- technique_id: T1485
+  technique_name: Data Destruction
+  detection:
+    applicable_to: ['all']
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    applicable_to: ['all']
+    score: 1
+    comment: ''
+- technique_id: T1486
+  technique_name: Data Encrypted for Impact
+  detection:
+    applicable_to: ['all']
+    date_registered:
+    date_implemented:
+    score: 4
+    location:
+    - 'Model J'
+    comment: ''
+  visibility:
+    applicable_to: ['all']
+    score: 3
+    comment: ''
+- technique_id: T1488
+  technique_name: Disk Content Wipe
+  detection:
+    applicable_to: ['all']
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    applicable_to: ['all']
+    score: 1
+    comment: ''
+- technique_id: T1499
+  technique_name: Endpoint Denial of Service
+  detection:
+    applicable_to: ['websites']
+    date_registered: 2019-05-01
+    date_implemented: 2015-01-01
+    score: 5
+    location:
+    - 'Third party'
+    comment: ''
+  visibility:
+    applicable_to: ['websites']
+    score: 4
+    comment: ''
+- technique_id: T1490
+  technique_name: Inhibit System Recovery
+  detection:
+    applicable_to: ['all']
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    applicable_to: ['all']
+    score: 1
+    comment: ''
+- technique_id: T1498
+  technique_name: Network Denial of Service
+  detection:
+    applicable_to: ['websites']
+    date_registered: 2019-05-01
+    date_implemented: 2015-01-01
+    score: 5
+    location:
+    - 'Third party'
+    comment: ''
+  visibility:
+    applicable_to: ['websites']
+    score: 4
+    comment: ''
+- technique_id: T1496
+  technique_name: Resource Hijacking
+  detection:
+    applicable_to: ['all']
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    applicable_to: ['all']
+    score: 1
+    comment: ''
+- technique_id: T1494
+  technique_name: Runtime Data Manipulation
+  detection:
+    applicable_to: ['all']
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    applicable_to: ['all']
+    score: 2
+    comment: ''
+- technique_id: T1489
+  technique_name: Service Stop
+  detection:
+    applicable_to: ['all']
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    applicable_to: ['all']
+    score: 2
+    comment: ''
+- technique_id: T1500
+  technique_name: Compile After Delivery
+  detection:
+    applicable_to: ['all']
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    applicable_to: ['all']
+    score: 1
+    comment: ''
+- technique_id: T1483
+  technique_name: Domain Generation Algorithms
+  detection:
+    applicable_to: ['all']
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    applicable_to: ['all']
+    score: 1
+    comment: ''
+- technique_id: T1482
+  technique_name: Domain Trust Discovery
+  detection:
+    applicable_to: ['all']
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    applicable_to: ['all']
+    score: 2
+    comment: ''
+- technique_id: T1480
+  technique_name: Execution Guardrails
+  detection:
+    applicable_to: ['all']
+    date_registered:
+    date_implemented:
+    score: -1
+    location:
+    - ''
+    comment: ''
+  visibility:
+    applicable_to: ['all']
+    score: 4
+    comment: ''
+- technique_id: T1497
+  technique_name: Virtualization/Sandbox Evasion
   detection:
     applicable_to: ['all']
     date_registered:
