@@ -442,20 +442,33 @@ techniques:
 - technique_id: T1171
   technique_name: LLMNR/NBT-NS Poisoning
   detection:
-    applicable_to: ['client endpoint']
-    date_registered: 2019-01-10
-    date_implemented: 2017-01-01
-    score: 2
-    location:
-    - 'Third party product A'
-    comment: |
-      This comment will be
-      multiline in
-      Excel
+    - applicable_to: ['client endpoint']
+      date_registered: 2019-01-10
+      date_implemented: 2017-01-01
+      score: 2
+      location:
+      - 'Third party product A'
+      comment: |
+        This comment will be
+        multiline in
+        Excel
+    - applicable_to: ['servers']
+      date_registered: 2019-05-01
+      date_implemented: 2019-05-01
+      score: 3
+      location:
+        - 'Model I'
+      comment: ''
   visibility:
-    applicable_to: ['client endpoint']
-    score: 2
-    comment: ''
+    - applicable_to: ['client endpoint']
+      score: 2
+      comment: ''
+    - applicable_to: ['servers']
+      score: 3
+      comment: |
+        This comment will be
+        multiline in
+        Excel
 - technique_id: T1173
   technique_name: Dynamic Data Exchange
   detection:
