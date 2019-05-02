@@ -249,12 +249,14 @@ def get_visibility_techniques(filename, filter_applicable_to):
     return groups_dict, visibility_techniques
 
 
-def get_technique_count(groups, groups_overlay, groups_software):
+def get_technique_count(groups, groups_overlay, groups_software, overlay_type, all_techniques):
     """
     Create a dict with all involved techniques and their relevant count/score
     :param groups: a dict with data on groups
     :param groups_overlay: a dict with data on the groups to overlay
     :param groups_software: a dict with with data on which techniques are used within related software
+    :param overlay_type: group, visibility or detection
+    :param all_techniques: dict containing all technique data for visibility or detection
     :return: dictionary
     """
     # { technique_id: {count: ..., groups: set{} }
@@ -266,26 +268,47 @@ def get_technique_count(groups, groups_overlay, groups_software):
                 techniques_dict[tech] = dict()
                 techniques_dict[tech]['groups'] = set()
                 techniques_dict[tech]['count'] = 1
-            else:
+
+            # We only want to increase the score when comparing groups and not for visibility or detection.
+            # This allows to have proper sorting of the heat map, which in turn improves the ability to visually
+            # compare this heat map with the detection/visibility ATT&CK Navigator layers.
+            elif overlay_type == 'group':
                 techniques_dict[tech]['count'] += 1
             techniques_dict[tech]['groups'].add(group)
+
+    # create dict {tech_id: score+1} to be used for when doing an overlay of the type visibility or detection
+    if overlay_type != 'group':
+        dict_tech_score = {}
+        list_tech = groups_overlay[overlay_type.upper()]['techniques']
+        for tech in list_tech:
+            dict_tech_score[tech] = calculate_score(all_techniques[tech][overlay_type])+1
 
     for group, v in groups_overlay.items():
         for tech in v['techniques']:
             if tech not in techniques_dict:
                 techniques_dict[tech] = dict()
                 techniques_dict[tech]['groups'] = set()
-                techniques_dict[tech]['count'] = 1
+                if overlay_type == 'group':
+                    techniques_dict[tech]['count'] = 1
+                else:
+                    techniques_dict[tech]['count'] = dict_tech_score[tech]
             elif group in groups:
                 if tech not in groups[group]['techniques']:
-                    techniques_dict[tech]['count'] += 1
+                    if overlay_type == 'group':
+                        techniques_dict[tech]['count'] += 1
+                    else:
+                        techniques_dict[tech]['count'] = dict_tech_score[tech]
                     # Only to this when it was not already counted by being part of 'groups'.
                     # Meaning the group in 'groups_overlay' was also part of 'groups' (match on Group ID) and the
                     # technique was already counted for that group / it is not a new technique for that group coming
                     # from a YAML file
             else:
-                techniques_dict[tech]['count'] += 1
-                # increase count when the group in the YAML file is a custom group
+                if overlay_type == 'group':
+                    # increase count when the group in the YAML file is a custom group
+                    techniques_dict[tech]['count'] += 1
+                else:
+                    techniques_dict[tech]['count'] = dict_tech_score[tech]
+
             techniques_dict[tech]['groups'].add(group)
 
     for group, v in groups_software.items():
@@ -302,10 +325,10 @@ def get_technique_count(groups, groups_overlay, groups_software):
     return techniques_dict
 
 
-def get_technique_layer(techniques, groups, overlay, groups_software, overlay_file_type, overlay_type, all_techniques):
+def get_technique_layer(techniques_count, groups, overlay, groups_software, overlay_file_type, overlay_type, all_techniques):
     """
     Create the technique layer that will be part of the ATT&CK navigator json file
-    :param techniques: involved techniques with count (to be used within the scores)
+    :param techniques_count: involved techniques with count (to be used within the scores)
     :param groups: a dict with data on groups
     :param overlay: a dict with data on the groups to overlay
     :param groups_software: a dict with with data on which techniques are used within related software
@@ -318,7 +341,7 @@ def get_technique_layer(techniques, groups, overlay, groups_software, overlay_fi
 
     # { technique_id: {count: ..., groups: set{} }
     # add the technique count/scoring
-    for tech, v in techniques.items():
+    for tech, v in techniques_count.items():
         t = dict()
         t['techniqueID'] = tech
         t['score'] = v['count']
@@ -360,6 +383,7 @@ def get_technique_layer(techniques, groups, overlay, groups_software, overlay_fi
                         metadata_dict['Applicable to'] = set([a for v in all_techniques[tech]['visibility'] for a in v['applicable_to']])
                     elif overlay_type == 'detection':
                         metadata_dict['Applicable to'] = set([a for v in all_techniques[tech]['detection'] for a in v['applicable_to']])
+                    metadata_dict[overlay_type + ' score'] = [str(techniques_count[tech]['count']-1)]
 
                 if 'Overlay' not in metadata_dict:
                     metadata_dict['Overlay'] = set()
@@ -479,7 +503,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
     elif software_groups:
         groups_software_dict = get_software_techniques(groups, stage, platform)
 
-    technique_count = get_technique_count(groups_dict, overlay_dict, groups_software_dict)
+    technique_count = get_technique_count(groups_dict, overlay_dict, groups_software_dict, overlay_type, all_techniques)
     technique_layer = get_technique_layer(technique_count, groups_dict, overlay_dict, groups_software_dict,
                                           overlay_file_type, overlay_type, all_techniques)
     max_technique_count = max(technique_count.values(), key=lambda v: v['count'])['count']
