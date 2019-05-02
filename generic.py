@@ -115,15 +115,15 @@ def get_layer_template_groups(name, max_score, description, stage, platform, ove
     layer['legendItems'].append({'label': 'Tech. ref. for ' + str(1) + ' group', 'color': COLOR_GRADIENT_MIN})
     layer['legendItems'].append({'label': 'Tech. ref. for ' + str(max_score) + ' groups', 'color': COLOR_GRADIENT_MAX})
 
-    if overlay_type == 'group':
+    if overlay_type == OVERLAY_TYPE_GROUP:
         layer['legendItems'].append({'label': 'Groups overlay: tech. in group + overlay', 'color': COLOR_GROUP_OVERLAY_MATCH})
         layer['legendItems'].append({'label': 'Groups overlay: tech. in overlay', 'color': COLOR_GROUP_OVERLAY_NO_MATCH})
         layer['legendItems'].append({'label': 'Src. of tech. is only software', 'color': COLOR_SOFTWARE})
         layer['legendItems'].append({'label': 'Src. of tech. is group(s)/overlay + software', 'color': COLOR_GROUP_AND_SOFTWARE})
-    elif overlay_type == 'detection':
+    elif overlay_type == OVERLAY_TYPE_DETECTION:
         layer['legendItems'].append({'label': 'Tech. in group + detection', 'color': COLOR_GROUP_OVERLAY_MATCH})
         layer['legendItems'].append({'label': 'Tech. in detection', 'color': COLOR_GROUP_OVERLAY_ONLY_DETECTION})
-    elif overlay_type == 'visibility':
+    elif overlay_type == OVERLAY_TYPE_VISIBILITY:
         layer['legendItems'].append({'label': 'Tech. in group + visibility', 'color': COLOR_GROUP_OVERLAY_MATCH})
         layer['legendItems'].append({'label': 'Tech. in visibility', 'color': COLOR_GROUP_OVERLAY_ONLY_VISIBILITY})
 

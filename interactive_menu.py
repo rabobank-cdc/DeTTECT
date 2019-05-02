@@ -393,13 +393,13 @@ def menu_groups():
             print('Specify the group(s) to overlay (in a different color) on the one specified in the Groups option. '
                   'A group can be their ID, name or alias separated using commas. Other option is to provide a YAML '
                   'file with a custom group(s).')
-            overlay_type = 'group'
+            overlay_type = OVERLAY_TYPE_GROUP
             groups_overlay = ask_input()
         elif choice == '2':
-            overlay_type = 'detection'
+            overlay_type = OVERLAY_TYPE_DETECTION
             groups_overlay = select_file(MENU_NAME_THREAT_ACTOR_GROUP_MAPPING, 'techniques', FILE_TYPE_TECHNIQUE_ADMINISTRATION, False)
         elif choice == '3':
-            overlay_type = 'visibility'
+            overlay_type = OVERLAY_TYPE_VISIBILITY
             groups_overlay = select_file(MENU_NAME_THREAT_ACTOR_GROUP_MAPPING, 'techniques', FILE_TYPE_TECHNIQUE_ADMINISTRATION, False)
         elif choice == '4':
             overlay_type = ''

@@ -272,12 +272,12 @@ def get_technique_count(groups, groups_overlay, groups_software, overlay_type, a
             # We only want to increase the score when comparing groups and not for visibility or detection.
             # This allows to have proper sorting of the heat map, which in turn improves the ability to visually
             # compare this heat map with the detection/visibility ATT&CK Navigator layers.
-            elif overlay_type == 'group':
+            elif overlay_type == OVERLAY_TYPE_GROUP:
                 techniques_dict[tech]['count'] += 1
             techniques_dict[tech]['groups'].add(group)
 
     # create dict {tech_id: score+1} to be used for when doing an overlay of the type visibility or detection
-    if overlay_type != 'group':
+    if overlay_type != OVERLAY_TYPE_GROUP:
         dict_tech_score = {}
         list_tech = groups_overlay[overlay_type.upper()]['techniques']
         for tech in list_tech:
@@ -288,13 +288,13 @@ def get_technique_count(groups, groups_overlay, groups_software, overlay_type, a
             if tech not in techniques_dict:
                 techniques_dict[tech] = dict()
                 techniques_dict[tech]['groups'] = set()
-                if overlay_type == 'group':
+                if overlay_type == OVERLAY_TYPE_GROUP:
                     techniques_dict[tech]['count'] = 1
                 else:
                     techniques_dict[tech]['count'] = dict_tech_score[tech]
             elif group in groups:
                 if tech not in groups[group]['techniques']:
-                    if overlay_type == 'group':
+                    if overlay_type == OVERLAY_TYPE_GROUP:
                         techniques_dict[tech]['count'] += 1
                     else:
                         techniques_dict[tech]['count'] = dict_tech_score[tech]
@@ -303,7 +303,7 @@ def get_technique_count(groups, groups_overlay, groups_software, overlay_type, a
                     # technique was already counted for that group / it is not a new technique for that group coming
                     # from a YAML file
             else:
-                if overlay_type == 'group':
+                if overlay_type == OVERLAY_TYPE_GROUP:
                     # increase count when the group in the YAML file is a custom group
                     techniques_dict[tech]['count'] += 1
                 else:
@@ -370,20 +370,17 @@ def get_technique_layer(techniques_count, groups, overlay, groups_software, over
                 else:
                     # the technique is only present in the overlay and not in the provided groups (-g/--groups)
                     if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
-                        if overlay_type == 'visibility':
+                        if overlay_type == OVERLAY_TYPE_VISIBILITY:
                             t['color'] = COLOR_GROUP_OVERLAY_ONLY_VISIBILITY
-                        elif overlay_type == 'detection':
+                        elif overlay_type == OVERLAY_TYPE_DETECTION:
                             t['color'] = COLOR_GROUP_OVERLAY_ONLY_DETECTION
                     else:
                         t['color'] = COLOR_GROUP_OVERLAY_NO_MATCH
 
                 # Add applicable_to to metadata in case of overlay for detection/visibility:
                 if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
-                    if overlay_type == 'visibility':
-                        metadata_dict['Applicable to'] = set([a for v in all_techniques[tech]['visibility'] for a in v['applicable_to']])
-                    elif overlay_type == 'detection':
-                        metadata_dict['Applicable to'] = set([a for v in all_techniques[tech]['detection'] for a in v['applicable_to']])
-                    metadata_dict[overlay_type + ' score'] = [str(techniques_count[tech]['count']-1)]
+                    metadata_dict['Applicable to'] = set([a for v in all_techniques[tech][overlay_type] for a in v['applicable_to']])
+                    metadata_dict[overlay_type.capitalize() + ' score'] = [str(techniques_count[tech]['count']-1)]
 
                 if 'Overlay' not in metadata_dict:
                     metadata_dict['Overlay'] = set()
@@ -467,7 +464,9 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
     overlay_file_type = None
     if overlay:
         if os.path.isfile(overlay):
-            expected_file_type = FILE_TYPE_GROUP_ADMINISTRATION if overlay_type == 'group' else FILE_TYPE_TECHNIQUE_ADMINISTRATION if overlay_type in ['visibility', 'detection'] else None
+            expected_file_type = FILE_TYPE_GROUP_ADMINISTRATION if overlay_type == OVERLAY_TYPE_GROUP \
+                else FILE_TYPE_TECHNIQUE_ADMINISTRATION \
+                if overlay_type in [OVERLAY_TYPE_VISIBILITY, OVERLAY_TYPE_DETECTION] else None
             overlay_file_type = check_file_type(overlay, expected_file_type)
             if not overlay_file_type:
                 return
@@ -479,9 +478,9 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
 
     all_techniques = None
     if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
-        if overlay_type == 'visibility':
+        if overlay_type == OVERLAY_TYPE_VISIBILITY:
             overlay_dict, all_techniques = get_visibility_techniques(overlay, filter_applicable_to)
-        elif overlay_type == 'detection':
+        elif overlay_type == OVERLAY_TYPE_DETECTION:
             overlay_dict, all_techniques = get_detection_techniques(overlay, filter_applicable_to)
     elif len(overlay) > 0:
         overlay_dict = get_group_techniques(overlay, stage, platform, overlay_file_type)
@@ -497,7 +496,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
 
     # check if we are doing a software group overlay
     if software_groups and overlay:  # TODO add support for campaign info in layer metadata
-        if overlay_type not in ['visibility', 'detection']:
+        if overlay_type not in [OVERLAY_TYPE_VISIBILITY, OVERLAY_TYPE_DETECTION]:
             # if a group overlay is provided, get the software techniques for the overlay
             groups_software_dict = get_software_techniques(overlay, stage, platform)
     elif software_groups:

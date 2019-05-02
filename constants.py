@@ -55,6 +55,11 @@ COLOR_OVERLAY_VISIBILITY = COLOR_V_3
 COLOR_OVERLAY_DETECTION = COLOR_D_3
 COLOR_OVERLAY_BOTH = COLOR_GROUP_OVERLAY_MATCH
 
+# Overlay types as used within the group functionality
+OVERLAY_TYPE_GROUP = 'group'
+OVERLAY_TYPE_VISIBILITY = 'visibility'
+OVERLAY_TYPE_DETECTION = 'detection'
+
 FILE_TYPE_DATA_SOURCE_ADMINISTRATION = 'data-source-administration'
 FILE_TYPE_TECHNIQUE_ADMINISTRATION = 'technique-administration'
 FILE_TYPE_GROUP_ADMINISTRATION = 'group-administration'
