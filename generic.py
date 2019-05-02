@@ -96,7 +96,7 @@ def _get_base_template(name, description, stage, platform, sorting):
     return layer
 
 
-def get_layer_template_groups(name, max_score, description, stage, platform):
+def get_layer_template_groups(name, max_score, description, stage, platform, overlay_type):
     """
     Prepares a base template for the json layer file that can be loaded into the MITRE ATT&CK Navigator.
     More information on the version 2.1 layer format:
@@ -106,19 +106,27 @@ def get_layer_template_groups(name, max_score, description, stage, platform):
     :param description: description
     :param stage: stage (act | prepare)
     :param platform: platform
+    :param overlay_type: group, visibility or detection
     :return: layer template dictionary
     """
     layer = _get_base_template(name, description, stage, platform, 3)
     layer['gradient'] = {'colors': [COLOR_GRADIENT_MIN, COLOR_GRADIENT_MAX], 'minValue': 0, 'maxValue': max_score}
-    layer['legendItems'] = \
-        [
-            {'label': 'Tech. ref. for ' + str(1) + ' group', 'color': COLOR_GRADIENT_MIN},
-            {'label': 'Tech. ref. for ' + str(max_score) + ' groups', 'color': COLOR_GRADIENT_MAX},
-            {'label': 'Groups overlay: tech. in group + overlay', 'color': COLOR_GROUP_OVERLAY_MATCH},
-            {'label': 'Groups overlay: tech. in overlay', 'color': COLOR_GROUP_OVERLAY_NO_MATCH},
-            {'label': 'Src. of tech. is only software', 'color': COLOR_SOFTWARE},
-            {'label': 'Src. of tech. is group(s)/overlay + software', 'color': COLOR_GROUP_AND_SOFTWARE}
-        ]
+    layer['legendItems'] = []
+    layer['legendItems'].append({'label': 'Tech. ref. for ' + str(1) + ' group', 'color': COLOR_GRADIENT_MIN})
+    layer['legendItems'].append({'label': 'Tech. ref. for ' + str(max_score) + ' groups', 'color': COLOR_GRADIENT_MAX})
+
+    if overlay_type == 'group':
+        layer['legendItems'].append({'label': 'Groups overlay: tech. in group + overlay', 'color': COLOR_GROUP_OVERLAY_MATCH})
+        layer['legendItems'].append({'label': 'Groups overlay: tech. in overlay', 'color': COLOR_GROUP_OVERLAY_NO_MATCH})
+        layer['legendItems'].append({'label': 'Src. of tech. is only software', 'color': COLOR_SOFTWARE})
+        layer['legendItems'].append({'label': 'Src. of tech. is group(s)/overlay + software', 'color': COLOR_GROUP_AND_SOFTWARE})
+    elif overlay_type == 'detection':
+        layer['legendItems'].append({'label': 'Tech. in group + detection', 'color': COLOR_GROUP_OVERLAY_MATCH})
+        layer['legendItems'].append({'label': 'Tech. in detection', 'color': COLOR_GROUP_OVERLAY_ONLY_DETECTION})
+    elif overlay_type == 'visibility':
+        layer['legendItems'].append({'label': 'Tech. in group + visibility', 'color': COLOR_GROUP_OVERLAY_MATCH})
+        layer['legendItems'].append({'label': 'Tech. in visibility', 'color': COLOR_GROUP_OVERLAY_ONLY_VISIBILITY})
+
     return layer
 
 

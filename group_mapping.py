@@ -518,7 +518,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
     desc = 'stage: ' + stage + ' | platform: ' + platform + ' | group(s): ' + ', '.join(groups_list) + \
            ' | overlay group(s): ' + ', '.join(overlay_list)
 
-    layer = get_layer_template_groups(stage[0].upper() + stage[1:] + ' ' + platform, max_technique_count, desc, stage, platform)
+    layer = get_layer_template_groups(stage[0].upper() + stage[1:] + ' ' + platform, max_technique_count, desc, stage, platform, overlay_type)
     layer['techniques'] = technique_layer
 
     json_string = simplejson.dumps(layer).replace('}, ', '},\n')
