@@ -1,6 +1,6 @@
 import simplejson
 from generic import *
-from technique_mapping import _load_detections
+from technique_mapping import _load_techniques
 
 CG_GROUPS = {}
 
@@ -211,14 +211,15 @@ def get_detection_techniques(filename, filter_applicable_to):
     # { group_id: {group_name: NAME, techniques: set{id, ...} } }
     groups_dict = {}
 
-    detection_techniques, name, platform = _load_detections(filename, 'detection', filter_applicable_to)
+    detection_techniques, name, platform = _load_techniques(filename, 'detection', filter_applicable_to)
 
     group_id = 'DETECTION'
     groups_dict[group_id] = {}
     groups_dict[group_id]['group_name'] = 'Detection'
     groups_dict[group_id]['techniques'] = set()
     for t, v in detection_techniques.items():
-        if 'detection' in v.keys() and v['detection']['score'] > 0:
+        s = calculate_score(v['detection'])
+        if s > 0:
             groups_dict[group_id]['techniques'].add(t)
 
     return groups_dict, detection_techniques
@@ -234,14 +235,15 @@ def get_visibility_techniques(filename, filter_applicable_to):
     # { group_id: {group_name: NAME, techniques: set{id, ...} } }
     groups_dict = {}
 
-    visibility_techniques, name, platform = _load_detections(filename, 'visibility', filter_applicable_to)
+    visibility_techniques, name, platform = _load_techniques(filename, 'visibility', filter_applicable_to)
 
     group_id = 'VISIBILITY'
     groups_dict[group_id] = {}
     groups_dict[group_id]['group_name'] = 'Visibility'
     groups_dict[group_id]['techniques'] = set()
     for t, v in visibility_techniques.items():
-        if 'visibility' in v.keys() and v['visibility']['score'] > 0:
+        s = calculate_score(v['visibility'])
+        if s > 0:
             groups_dict[group_id]['techniques'].add(t)
 
     return groups_dict, visibility_techniques
@@ -355,9 +357,9 @@ def get_technique_layer(techniques, groups, overlay, groups_software, overlay_fi
                 # Add applicable_to to metadata in case of overlay for detection/visibility:
                 if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
                     if overlay_type == 'visibility':
-                        metadata_dict['Applicable to'] = set(all_techniques[tech]['visibility']['applicable_to'])
+                        metadata_dict['Applicable to'] = set([a for v in all_techniques[tech]['visibility'] for a in v['applicable_to']])
                     elif overlay_type == 'detection':
-                        metadata_dict['Applicable to'] = set(all_techniques[tech]['detection']['applicable_to'])
+                        metadata_dict['Applicable to'] = set([a for v in all_techniques[tech]['detection'] for a in v['applicable_to']])
 
                 if 'Overlay' not in metadata_dict:
                     metadata_dict['Overlay'] = set()

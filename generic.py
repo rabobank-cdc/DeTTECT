@@ -313,3 +313,19 @@ def check_file_type(filename, file_type=None):
             upgrade_yaml_file(filename, file_type, yaml_content['version'], load_attack_data(DATATYPE_ALL_TECH))
             return yaml_content['file_type']
 
+
+def calculate_score(l, zero_value=0):
+    """
+    Calculates the average score in the given list which contains dictionaries with 'score' field.
+    :param l: list
+    :param zero_value: the value when no scores are there, default 0
+    :return: average score
+    """
+    s = 0
+    number = 0
+    for v in l:
+        if v['score'] >= 0:
+            s += v['score']
+            number += 1
+    s = round(s / number, 0) if number > 0 else zero_value
+    return s

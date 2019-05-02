@@ -14,12 +14,12 @@ def generate_detection_layer(filename_techniques, filename_data_sources, overlay
     :return:
     """
     if not overlay:
-        my_techniques, name, platform = _load_detections(filename_techniques, 'detection', filter_applicable_to)
+        my_techniques, name, platform = _load_techniques(filename_techniques, 'detection', filter_applicable_to)
         mapped_techniques_detection = _map_and_colorize_techniques_for_detections(my_techniques)
         layer_detection = get_layer_template_detections('Detections ' + name + ' ' + filter_applicable_to, 'description', 'attack', platform)
         _write_layer(layer_detection, mapped_techniques_detection, 'detection', filter_applicable_to, name)
     else:
-        my_techniques, name, platform = _load_detections(filename_techniques, 'all', filter_applicable_to)
+        my_techniques, name, platform = _load_techniques(filename_techniques, 'all', filter_applicable_to)
         my_data_sources = _load_data_sources(filename_data_sources)
         mapped_techniques_both = _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources, filter_applicable_to)
         layer_both = get_layer_template_layered('Visibility and Detection ' + name + ' ' + filter_applicable_to, 'description', 'attack', platform)
@@ -38,12 +38,12 @@ def generate_visibility_layer(filename_techniques, filename_data_sources, overla
     my_data_sources = _load_data_sources(filename_data_sources)
 
     if not overlay:
-        my_techniques, name, platform = _load_detections(filename_techniques, 'visibility', filter_applicable_to)
+        my_techniques, name, platform = _load_techniques(filename_techniques, 'visibility', filter_applicable_to)
         mapped_techniques_visibility = _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources)
         layer_visibility = get_layer_template_visibility('Visibility ' + name + ' ' + filter_applicable_to, 'description', 'attack', platform)
         _write_layer(layer_visibility, mapped_techniques_visibility, 'visibility', filter_applicable_to, name)
     else:
-        my_techniques, name, platform = _load_detections(filename_techniques, 'all', filter_applicable_to)
+        my_techniques, name, platform = _load_techniques(filename_techniques, 'all', filter_applicable_to)
         mapped_techniques_both = _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources, filter_applicable_to)
         layer_both = get_layer_template_layered('Visibility and Detection ' + name + ' ' + filter_applicable_to, 'description', 'attack', platform)
         _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', filter_applicable_to, name)
@@ -56,7 +56,7 @@ def plot_detection_graph(filename, filter_applicable_to):
     :param filter_applicable_to: filter techniques based on applicable_to field in techniques administration YAML file
     :return:
     """
-    my_techniques, name, platform = _load_detections(filename, 'detection', filter_applicable_to)
+    my_techniques, name, platform = _load_techniques(filename, 'detection', filter_applicable_to)
 
     graph_values = []
     for t in my_techniques.values():
@@ -79,7 +79,7 @@ def plot_detection_graph(filename, filter_applicable_to):
     print("File written: " + output_filename)
 
 
-def _load_detections(filename, detection_or_visibility, filter_applicable_to='all'):
+def _load_techniques(filename, detection_or_visibility, filter_applicable_to='all'):
     """
     Loads the techniques (including detection and visibility properties) from the given yaml file.
     :param filename: the filename of the yaml file containing the techniques administration
@@ -93,18 +93,44 @@ def _load_detections(filename, detection_or_visibility, filter_applicable_to='al
     with open(filename, 'r') as yaml_file:
         yaml_content = yaml.load(yaml_file, Loader=yaml.FullLoader)
         for d in yaml_content['techniques']:
-            if detection_or_visibility == 'all' or filter_applicable_to == 'all' or filter_applicable_to in d[detection_or_visibility]['applicable_to'] or 'all' in d[detection_or_visibility]['applicable_to']:
-                my_techniques[d['technique_id']] = d
+            # Add detection items:
+            if type(d['detection']) == dict: # There is just one detection entry
+                if detection_or_visibility == 'all' or filter_applicable_to == 'all' or filter_applicable_to in d[detection_or_visibility]['applicable_to'] or 'all' in d[detection_or_visibility]['applicable_to']:
+                    _add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', d['detection'])
+            elif type(d['detection']) == list: # There are multiple detection entries
+                for de in d['detection']:
+                    if detection_or_visibility == 'all' or filter_applicable_to == 'all' or filter_applicable_to in de['applicable_to'] or 'all' in de['applicable_to']:
+                        _add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', de)
 
-                # Backwards compatibility: adding columns if not present
-                if 'applicable_to' not in d['detection'].keys():
-                    d['detection']['applicable_to'] = ['all']
-                if 'applicable_to' not in d['visibility'].keys():
-                    d['visibility']['applicable_to'] = ['all']
+            # Add visibility items
+            if type(d['visibility']) == dict: # There is just one visibility entry
+                if detection_or_visibility == 'all' or filter_applicable_to == 'all' or filter_applicable_to in d[detection_or_visibility]['applicable_to'] or 'all' in d[detection_or_visibility]['applicable_to']:
+                    _add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', d['visibility'])
+            elif type(d['visibility']) == list: # There are multiple visibility entries
+                for de in d['visibility']:
+                    if detection_or_visibility == 'all' or filter_applicable_to == 'all' or filter_applicable_to in de['applicable_to'] or 'all' in de['applicable_to']:
+                        _add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', de)
 
         name = yaml_content['name']
         platform = yaml_content['platform']
     return my_techniques, name, platform
+
+
+def _add_entry_to_list_in_dictionary(dict, technique_id, key, entry):
+    """
+    Ensures a list will be created if it doesn't exist in the given dict[technique_id][key] and adds the entry to the
+    list. If the dict[technique_id] doesn't exist yet, it will be created.
+    :param dict: the dictionary
+    :param technique_id: the id of the technique in the main dict
+    :param key: the key where the list in the dictionary resides
+    :param entry: the entry to add to the list
+    :return:
+    """
+    if technique_id not in dict.keys():
+        dict[technique_id] = {}
+    if not key in dict[technique_id].keys():
+        dict[technique_id][key] = []
+    dict[technique_id][key].append(entry)
 
 
 def _load_data_sources(filename):
@@ -137,7 +163,7 @@ def _write_layer(layer, mapped_techniques, filename_prefix, filename_suffix, nam
     layer['techniques'] = mapped_techniques
     json_string = simplejson.dumps(layer).replace('}, ', '},\n')
     filename_suffix = '_' + filename_suffix if filename_suffix != '' else ''
-    output_filename = 'output/%s_%s%s.json' % (filename_prefix, normalize_name_to_filename(name), filename_suffix)
+    output_filename = normalize_name_to_filename('output/%s_%s%s.json' % (filename_prefix, name, filename_suffix))
     with open(output_filename, 'w') as f:
         f.write(json_string)
     print("File written: " + output_filename)
@@ -155,34 +181,41 @@ def _map_and_colorize_techniques_for_detections(my_techniques):
     # techniques to be used in the layer output file.
     mapped_techniques = []
     try:
-        for d, c in my_techniques.items():
-            s = -1 if 'detection' not in c.keys() else c['detection']['score']
+        for technique_id, technique_data in my_techniques.items():
+            s = calculate_score(technique_data['detection'], zero_value=-1)
+
             if s != -1:
-                if 'detection' in c.keys():
-                    comment = str(c['detection']['comment']) if str(c['detection']['comment']) != '' else '-'
-                else:
-                    comment = '-'
                 color = COLOR_D_0 if s == 0 else COLOR_D_1 if s == 1 else COLOR_D_2 if s == 2 else COLOR_D_3 \
-                    if s == 3 else COLOR_D_4 if s == 4 else COLOR_D_5 if s == 5 else ''
-                technique = get_technique(techniques, d)
+                                  if s == 3 else COLOR_D_4 if s == 4 else COLOR_D_5 if s == 5 else ''
+                technique = get_technique(techniques, technique_id)
+
                 for tactic in technique['tactic']:
-                    location = ', '.join(c['detection']['location']) if 'detection' in c.keys() else '-'
-                    location = location if location != '' else '-'
-                    applicable_to = ', '.join(c['detection']['applicable_to']) if 'detection' in c.keys() else '-'
                     x = {}
-                    x['techniqueID'] = d
+                    x['techniqueID'] = technique_id
                     x['color'] = color
                     x['comment'] = ''
                     x['enabled'] = True
                     x['tactic'] = tactic.lower().replace(' ', '-')
-                    x['metadata'] = [{'name': '-Detection score', 'value': str(s)},
-                                     {'name': '-Detection location', 'value': location},
-                                     {'name': '-Comment', 'value': comment},
-                                     {'name': '-Applicable to', 'value': applicable_to}]
+                    x['metadata'] = []
                     x['score'] = s
+                    cnt = 1
+                    tcnt = len([d for d in technique_data['detection'] if d['score'] >= 0])
+                    for detection in technique_data['detection']:
+                        if detection['score'] >= 0:
+                            location = ', '.join(detection['location'])
+                            location = location if location != '' else '-'
+                            applicable_to = ', '.join(detection['applicable_to'])
+                            comment = str(detection['comment']) if str(detection['comment']) != '' else '-'
+                            x['metadata'].append({'name': '-Applicable to', 'value': applicable_to})
+                            x['metadata'].append({'name': '-Detection score', 'value': str(detection['score'])})
+                            x['metadata'].append({'name': '-Detection location', 'value': location})
+                            x['metadata'].append({'name': '-Comment', 'value': comment})
+                            if cnt != tcnt:
+                                x['metadata'].append({'name': '---', 'value': '---'})
+                            cnt += 1
                     mapped_techniques.append(x)
-    except Exception:
-        print('[!] Possible error in YAML file at: ' + d)
+    except Exception as e:
+        print('[!] Possible error in YAML file at: %s. Error: %s' % (technique_id, str(e)))
         quit()
 
     return mapped_techniques
@@ -202,28 +235,37 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources):
     # Color the techniques based on how the coverage defined in the detections definition and generate a list with
     # techniques to be used in the layer output file.
     mapped_techniques = []
-    for d, c in my_techniques.items():
-        s = 0 if 'visibility' not in c.keys() else c['visibility']['score']
-        if 'visibility' in c.keys():
-            comment = str(c['visibility']['comment']) if str(c['visibility']['comment']) != '' else '-'
-        else:
-            comment = '-'
-        my_ds = ', '.join(technique_ds_mapping[d]['my_data_sources']) if d in technique_ds_mapping.keys() and technique_ds_mapping[d]['my_data_sources'] else '-'
+    for technique_id, technique_data in my_techniques.items():
+        s = calculate_score(technique_data['visibility'])
+
+        my_ds = ', '.join(technique_ds_mapping[technique_id]['my_data_sources']) if technique_id in technique_ds_mapping.keys() and technique_ds_mapping[technique_id]['my_data_sources'] else '-'
+        technique = get_technique(techniques, technique_id)
         color = COLOR_V_1 if s == 1 else COLOR_V_2 if s == 2 else COLOR_V_3 if s == 3 else COLOR_V_4 if s == 4 else ''
-        applicable_to = ', '.join(c['visibility']['applicable_to']) if 'visibility' in c.keys() else '-'
-        technique = get_technique(techniques, d)
+
         for tactic in technique['tactic']:
             x = {}
-            x['techniqueID'] = d
+            x['techniqueID'] = technique_id
             x['color'] = color
             x['comment'] = ''
             x['enabled'] = True
             x['tactic'] = tactic.lower().replace(' ', '-')
-            x['metadata'] = [{'name': '-Visibility score', 'value': str(s)},
-                             {'name': '-Comment', 'value': comment},
-                             {'name': '-Applicable to', 'value': applicable_to},
-                             {'name': '-Available data sources', 'value': my_ds},
-                             {'name': '-ATT&CK data sources', 'value': ', '.join(technique['data_sources'])}]
+            x['metadata'] = []
+            x['metadata'].append({'name': '-Available data sources', 'value': my_ds})
+            x['metadata'].append({'name': '-ATT&CK data sources', 'value': ', '.join(technique['data_sources'])})
+            x['metadata'].append({'name': '---', 'value': '---'})
+            x['score'] = s
+
+            cnt = 1
+            tcnt = len(technique_data['visibility'])
+            for visibility in technique_data['visibility']:
+                comment = str(visibility['comment']) if str(visibility['comment']) != '' else '-'
+                applicable_to = ', '.join(visibility['applicable_to'])
+                x['metadata'].append({'name': '-Applicable to', 'value': applicable_to})
+                x['metadata'].append({'name': '-Visibility score', 'value': str(visibility['score'])})
+                x['metadata'].append({'name': '-Comment', 'value': comment})
+                if cnt != tcnt:
+                    x['metadata'].append({'name': '---', 'value': '---'})
+                cnt += 1
 
             mapped_techniques.append(x)
 
@@ -259,22 +301,20 @@ def _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources, f
     # Color the techniques based on how the coverage defined in the detections definition and generate a list with
     # techniques to be used in the layer output file.
     mapped_techniques = []
-    for d, c in my_techniques.items():
-        detection_score = 0 if 'detection' not in c.keys() else c['detection']['score']
-        if detection_score is None:
-            detection_score = 0
-
-        visibility_score = 0 if 'visibility' not in c.keys() else c['visibility']['score']
-        if visibility_score is None:
-            visibility_score = 0
+    for technique_id, technique_data in my_techniques.items():
+        detection_score = calculate_score(technique_data['detection'], zero_value=-1)
+        visibility_score = calculate_score(technique_data['visibility'])
 
         detection = True if detection_score > 0 else False
         visibility = True if visibility_score > 0 else False
 
-        # Additional filtering based on applicable_to field:
-        if filter_applicable_to != 'all' and filter_applicable_to not in c['detection']['applicable_to'] and 'all' not in c['detection']['applicable_to']:
+        # Additional filtering based on applicable_to field. Overrules the score.
+        a2_d = set([a for d in technique_data['detection'] for a in d['applicable_to']])
+        a2_v = set([a for v in technique_data['detection'] for a in v['applicable_to']])
+
+        if filter_applicable_to != 'all' and filter_applicable_to not in a2_d and 'all' not in a2_d:
             detection = False
-        if filter_applicable_to != 'all' and filter_applicable_to not in c['visibility']['applicable_to'] and 'all' not in c['visibility']['applicable_to']:
+        if filter_applicable_to != 'all' and filter_applicable_to not in a2_v and 'all' not in a2_v:
             visibility = False
 
         if detection and visibility:
@@ -284,35 +324,53 @@ def _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources, f
         elif not detection and visibility:
             color = COLOR_OVERLAY_VISIBILITY
 
-        location = ', '.join(c['detection']['location']) if 'detection' in c.keys() else '-'
-        location = location if location != '' else '-'
+        my_ds = ', '.join(technique_ds_mapping[technique_id]['my_data_sources']) if technique_id in technique_ds_mapping.keys() and technique_ds_mapping[technique_id]['my_data_sources'] else '-'
 
-        if 'visibility' in c.keys():
-            comment = str(c['visibility']['comment']) if str(c['visibility']['comment']) != '' else '-'
-        else:
-            comment = '-'
-
-        my_ds = ', '.join(technique_ds_mapping[d]['my_data_sources']) if d in technique_ds_mapping.keys() and technique_ds_mapping[d]['my_data_sources'] else '-'
-
-        visibility_applicable_to = ', '.join(c['visibility']['applicable_to']) if 'visibility' in c.keys() else '-'
-        detection_applicable_to = ', '.join(c['detection']['applicable_to']) if 'detection' in c.keys() else '-'
-
-        technique = get_technique(techniques, d)
+        technique = get_technique(techniques, technique_id)
         for tactic in technique['tactic']:
             x = {}
-            x['techniqueID'] = d
+            x['techniqueID'] = technique_id
             x['color'] = color
             x['comment'] = ''
             x['enabled'] = True
             x['tactic'] = tactic.lower().replace(' ', '-')
-            x['metadata'] = [{'name': '-Visibility score', 'value': str(visibility_score)},
-                             {'name': '-Visibility applicable to', 'value': visibility_applicable_to},
-                             {'name': '-Comment', 'value': comment},
-                             {'name': '-Available data sources', 'value': my_ds},
-                             {'name': '-ATT&CK data sources', 'value': ', '.join(technique['data_sources'])},
-                             {'name': '-Detection score', 'value': str(detection_score)},
-                             {'name': '-Detection location', 'value': location},
-                             {'name': '-Detection applicable to', 'value': detection_applicable_to}]
+            x['metadata'] = []
+            x['metadata'].append({'name': '-Available data sources', 'value': my_ds})
+            x['metadata'].append({'name': '-ATT&CK data sources', 'value': ', '.join(technique['data_sources'])})
+            x['metadata'].append({'name': '---', 'value': '---'})
+
+            # Metadata for detection:
+            cnt = 1
+            tcnt = len([d for d in technique_data['detection'] if d['score'] >= 0 and (filter_applicable_to == 'all' or filter_applicable_to in d['applicable_to'] or 'all' in d['applicable_to'])])
+            for detection in technique_data['detection']:
+                if detection['score'] >= 0 and (filter_applicable_to == 'all' or filter_applicable_to in detection['applicable_to'] or 'all' in detection['applicable_to']):
+                    location = ', '.join(detection['location'])
+                    location = location if location != '' else '-'
+                    applicable_to = ', '.join(detection['applicable_to'])
+                    comment = str(detection['comment']) if str(detection['comment']) != '' else '-'
+                    x['metadata'].append({'name': '-Applicable to', 'value': applicable_to})
+                    x['metadata'].append({'name': '-Detection score', 'value': str(detection['score'])})
+                    x['metadata'].append({'name': '-Detection location', 'value': location})
+                    x['metadata'].append({'name': '-Comment', 'value': comment})
+                    if cnt != tcnt:
+                        x['metadata'].append({'name': '---', 'value': '---'})
+                    cnt += 1
+
+            # Metadata for visibility:
+            if tcnt > 0:
+                x['metadata'].append({'name': '---', 'value': '---'})
+            cnt = 1
+            tcnt = len([v for v in technique_data['visibility'] if filter_applicable_to == 'all' or filter_applicable_to in v['applicable_to'] or 'all' in v['applicable_to']])
+            for visibility in technique_data['visibility']:
+                if filter_applicable_to == 'all' or filter_applicable_to in visibility['applicable_to'] or 'all' in visibility['applicable_to']:
+                    comment = str(visibility['comment']) if str(visibility['comment']) != '' else '-'
+                    applicable_to = ', '.join(visibility['applicable_to'])
+                    x['metadata'].append({'name': '-Applicable to', 'value': applicable_to})
+                    x['metadata'].append({'name': '-Visibility score', 'value': str(visibility['score'])})
+                    x['metadata'].append({'name': '-Comment', 'value': comment})
+                    if cnt != tcnt:
+                        x['metadata'].append({'name': '---', 'value': '---'})
+                    cnt += 1
 
             mapped_techniques.append(x)
 
@@ -325,13 +383,14 @@ def export_techniques_list_to_excel(filename):
     :param filename: the filename of the yaml file containing the techniques administration
     :return:
     """
-    my_techniques, name, platform = _load_detections(filename, 'detection')
+    my_techniques, name, platform = _load_techniques(filename, 'all')
     my_techniques = dict(sorted(my_techniques.items(), key=lambda kv: kv[0], reverse=False))
     mitre_techniques = load_attack_data(DATATYPE_ALL_TECH)
 
     excel_filename = 'output/techniques.xlsx'
     workbook = xlsxwriter.Workbook(excel_filename)
-    worksheet = workbook.add_worksheet('Data sources')
+    worksheet_detections = workbook.add_worksheet('Detections')
+    worksheet_visibility = workbook.add_worksheet('Visibility')
 
     # Formatting:
     format_bold_left = workbook.add_format({'align': 'left', 'bold': True})
@@ -339,7 +398,7 @@ def export_techniques_list_to_excel(filename):
     format_bold_center_bggrey = workbook.add_format({'align': 'center', 'bold': True, 'bg_color': '#dbdbdb'})
     format_bold_center_bgreen = workbook.add_format({'align': 'center', 'bold': True, 'bg_color': '#8bc34a'})
     format_bold_center_bgblue = workbook.add_format({'align': 'center', 'bold': True, 'bg_color': '#64b5f6'})
-    wrap_text = workbook.add_format({'text_wrap': True})
+    wrap_text = workbook.add_format({'text_wrap': True, 'valign': 'top'})
     valign_top = workbook.add_format({'valign': 'top'})
     no_score = workbook.add_format({'valign': 'top', 'align': 'center'})
     detection_score_0 = workbook.add_format({'valign': 'top', 'align': 'center', 'bg_color': COLOR_D_0})
@@ -354,60 +413,82 @@ def export_techniques_list_to_excel(filename):
     visibility_score_4 = workbook.add_format({'valign': 'top', 'align': 'center', 'bg_color': COLOR_V_4, 'font_color': '#ffffff'})
 
     # Title
-    worksheet.write(0, 0, 'Overview of techniques for ' + name, format_title)
+    worksheet_detections.write(0, 0, 'Overview of detections for ' + name, format_title)
+    worksheet_visibility.write(0, 0, 'Overview of visibility for ' + name, format_title)
 
     # Header columns
-    worksheet.merge_range(2, 0, 2, 2, 'Technique', format_bold_center_bggrey)
-    worksheet.merge_range(2, 3, 2, 8, 'Detection', format_bold_center_bgreen)
-    worksheet.merge_range(2, 9, 2, 11, 'Visibility', format_bold_center_bgblue)
+    worksheet_detections.merge_range(2, 0, 2, 2, 'Technique', format_bold_center_bggrey)
+    worksheet_visibility.merge_range(2, 0, 2, 2, 'Technique', format_bold_center_bggrey)
+    worksheet_detections.merge_range(2, 3, 2, 8, 'Detection', format_bold_center_bgreen)
+    worksheet_visibility.merge_range(2, 3, 2, 5, 'Visibility', format_bold_center_bgblue)
+
+    # Writing the detections:
     y = 3
-    worksheet.write(y, 0, 'ID', format_bold_left)
-    worksheet.write(y, 1, 'Tactic', format_bold_left)
-    worksheet.write(y, 2, 'Description', format_bold_left)
-    worksheet.write(y, 3, 'Applicable to', format_bold_left)
-    worksheet.write(y, 4, 'Date registered', format_bold_left)
-    worksheet.write(y, 5, 'Date implemented', format_bold_left)
-    worksheet.write(y, 6, 'Score', format_bold_left)
-    worksheet.write(y, 7, 'Location', format_bold_left)
-    worksheet.write(y, 8, 'Comment', format_bold_left)
-    worksheet.write(y, 9, 'Applicable to', format_bold_left)
-    worksheet.write(y, 10, 'Score', format_bold_left)
-    worksheet.write(y, 11, 'Comment', format_bold_left)
-
-    worksheet.set_column(0, 0, 14)
-    worksheet.set_column(1, 1, 50)
-    worksheet.set_column(2, 2, 40)
-    worksheet.set_column(3, 3, 18)
-    worksheet.set_column(4, 4, 15)
-    worksheet.set_column(5, 5, 18)
-    worksheet.set_column(6, 6, 8)
-    worksheet.set_column(7, 7, 25)
-    worksheet.set_column(8, 8, 40)
-    worksheet.set_column(9, 9, 18)
-    worksheet.set_column(10, 10, 8)
-    worksheet.set_column(11, 11, 40)
-
-    # Putting the techniques:
+    worksheet_detections.write(y, 0, 'ID', format_bold_left)
+    worksheet_detections.write(y, 1, 'Description', format_bold_left)
+    worksheet_detections.write(y, 2, 'Tactic', format_bold_left)
+    worksheet_detections.write(y, 3, 'Applicable to', format_bold_left)
+    worksheet_detections.write(y, 4, 'Date registered', format_bold_left)
+    worksheet_detections.write(y, 5, 'Date implemented', format_bold_left)
+    worksheet_detections.write(y, 6, 'Score', format_bold_left)
+    worksheet_detections.write(y, 7, 'Location', format_bold_left)
+    worksheet_detections.write(y, 8, 'Comment', format_bold_left)
+    worksheet_detections.set_column(0, 0, 14)
+    worksheet_detections.set_column(1, 1, 40)
+    worksheet_detections.set_column(2, 2, 50)
+    worksheet_detections.set_column(3, 3, 18)
+    worksheet_detections.set_column(4, 4, 15)
+    worksheet_detections.set_column(5, 5, 18)
+    worksheet_detections.set_column(6, 6, 8)
+    worksheet_detections.set_column(7, 7, 25)
+    worksheet_detections.set_column(8, 8, 40)
     y = 4
-    for d, c in my_techniques.items():
-        worksheet.write(y, 0, d, valign_top)
-        worksheet.write(y, 1, ', '.join(t.capitalize() for t in get_technique(mitre_techniques, d)['tactic']), valign_top)
-        worksheet.write(y, 2, get_technique(mitre_techniques, d)['technique'], valign_top)
-        worksheet.write(y, 3, ', '.join(c['detection']['applicable_to']), valign_top)
-        worksheet.write(y, 4, str(c['detection']['date_registered']).replace('None', ''), valign_top)
-        worksheet.write(y, 5, str(c['detection']['date_implemented']).replace('None', ''), valign_top)
-        ds = c['detection']['score']
-        worksheet.write(y, 6, ds, detection_score_0 if ds == 0 else detection_score_1 if ds ==1 else detection_score_2 if ds == 2 else detection_score_3 if ds ==3 else detection_score_4 if ds == 4 else detection_score_5 if ds == 5 else no_score)
-        worksheet.write(y, 7, '\n'.join(c['detection']['location']), wrap_text)
-        worksheet.write(y, 8, c['detection']['comment'][:-1] if c['detection']['comment'].endswith('\n') else c['detection']['comment'], wrap_text)
-        worksheet.write(y, 9, ', '.join(c['visibility']['applicable_to']), valign_top)
-        vs = c['visibility']['score']
-        worksheet.write(y, 10, vs, visibility_score_1 if vs == 1 else visibility_score_2 if vs == 2 else visibility_score_3 if vs == 3 else visibility_score_4 if vs ==4 else no_score)
-        worksheet.write(y, 11, c['visibility']['comment'][:-1] if c['visibility']['comment'].endswith('\n') else c['visibility']['comment'], wrap_text)
-        y += 1
+    for technique_id, technique_data in my_techniques.items():
+        # Add row for every detection that is defined:
+        for detection in technique_data['detection']:
+            worksheet_detections.write(y, 0, technique_id, valign_top)
+            worksheet_detections.write(y, 1, get_technique(mitre_techniques, technique_id)['technique'], valign_top)
+            worksheet_detections.write(y, 2, ', '.join(t.capitalize() for t in get_technique(mitre_techniques, technique_id)['tactic']), valign_top)
+            worksheet_detections.write(y, 3, ', '.join(detection['applicable_to']), wrap_text)
+            worksheet_detections.write(y, 4, str(detection['date_registered']).replace('None', ''), valign_top)
+            worksheet_detections.write(y, 5, str(detection['date_implemented']).replace('None', ''), valign_top)
+            ds = detection['score']
+            worksheet_detections.write(y, 6, ds, detection_score_0 if ds == 0 else detection_score_1 if ds ==1 else detection_score_2 if ds == 2 else detection_score_3 if ds == 3 else detection_score_4 if ds == 4 else detection_score_5 if ds == 5 else no_score)
+            worksheet_detections.write(y, 7, '\n'.join(detection['location']), wrap_text)
+            worksheet_detections.write(y, 8, detection['comment'][:-1] if detection['comment'].endswith('\n') else detection['comment'], wrap_text)
+            y += 1
+    worksheet_detections.autofilter(3, 0, 3, 8)
+    worksheet_detections.freeze_panes(4, 0)
 
-    worksheet.autofilter(3, 0, 3, 11)
-    worksheet.freeze_panes(4, 0)
+    # Writing the visibility items:
+    y = 3
+    worksheet_visibility.write(y, 0, 'ID', format_bold_left)
+    worksheet_visibility.write(y, 1, 'Description', format_bold_left)
+    worksheet_visibility.write(y, 2, 'Tactic', format_bold_left)
+    worksheet_visibility.write(y, 3, 'Applicable to', format_bold_left)
+    worksheet_visibility.write(y, 4, 'Score', format_bold_left)
+    worksheet_visibility.write(y, 5, 'Comment', format_bold_left)
+    worksheet_visibility.set_column(0, 0, 14)
+    worksheet_visibility.set_column(1, 1, 40)
+    worksheet_visibility.set_column(2, 2, 50)
+    worksheet_visibility.set_column(3, 9, 18)
+    worksheet_visibility.set_column(4, 10, 8)
+    worksheet_visibility.set_column(5, 11, 40)
+    y = 4
+    for technique_id, technique_data in my_techniques.items():
+        # Add row for every visibility that is defined:
+        for visibility in technique_data['visibility']:
+            worksheet_visibility.write(y, 0, technique_id, valign_top)
+            worksheet_visibility.write(y, 1, get_technique(mitre_techniques, technique_id)['technique'], valign_top)
+            worksheet_visibility.write(y, 2, ', '.join(t.capitalize() for t in get_technique(mitre_techniques, technique_id)['tactic']), valign_top)
+            worksheet_visibility.write(y, 3, ', '.join(visibility['applicable_to']), wrap_text)
+            vs = visibility['score']
+            worksheet_visibility.write(y, 4, vs, visibility_score_1 if vs == 1 else visibility_score_2 if vs == 2 else visibility_score_3 if vs == 3 else visibility_score_4 if vs == 4 else no_score)
+            worksheet_visibility.write(y, 5, visibility['comment'][:-1] if visibility['comment'].endswith('\n') else visibility['comment'], wrap_text)
+            y += 1
+    worksheet_visibility.autofilter(3, 0, 3, 5)
+    worksheet_visibility.freeze_panes(4, 0)
+
     try:
         workbook.close()
         print("File written: " + excel_filename)

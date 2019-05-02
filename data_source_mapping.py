@@ -73,7 +73,7 @@ def export_data_source_list_to_excel(filename):
     format_bold_left = workbook.add_format({'align': 'left', 'bold': True})
     format_title = workbook.add_format({'align': 'left', 'bold': True, 'font_size': '14'})
     format_center_valign_top = workbook.add_format({'align': 'center', 'valign': 'top'})
-    wrap_text = workbook.add_format({'text_wrap': True})
+    wrap_text = workbook.add_format({'text_wrap': True, 'valign': 'top'})
     valign_top = workbook.add_format({'valign': 'top'})
     no_score = workbook.add_format({'valign': 'top', 'align': 'center'})
     dq_score_1 = workbook.add_format({'valign': 'top', 'align': 'center', 'bg_color': COLOR_DS_25p})
