@@ -327,5 +327,5 @@ def calculate_score(l, zero_value=0):
         if v['score'] >= 0:
             s += v['score']
             number += 1
-    s = round(s / number, 0) if number > 0 else zero_value
+    s = int(round(s / number, 0) if number > 0 else zero_value)
     return s
