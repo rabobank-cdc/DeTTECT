@@ -272,16 +272,18 @@ def get_technique_count(groups, groups_overlay, groups_software, overlay_type, a
             # We only want to increase the score when comparing groups and not for visibility or detection.
             # This allows to have proper sorting of the heat map, which in turn improves the ability to visually
             # compare this heat map with the detection/visibility ATT&CK Navigator layers.
-            elif overlay_type == OVERLAY_TYPE_GROUP:
+            else:
                 techniques_dict[tech]['count'] += 1
             techniques_dict[tech]['groups'].add(group)
 
-    # create dict {tech_id: score+1} to be used for when doing an overlay of the type visibility or detection
+    max_tech_count_group = max(techniques_dict.values(), key=lambda v: v['count'])['count']
+
+    # create dict {tech_id: score+max_tech_count} to be used for when doing an overlay of the type visibility or detection
     if overlay_type != OVERLAY_TYPE_GROUP:
         dict_tech_score = {}
         list_tech = groups_overlay[overlay_type.upper()]['techniques']
         for tech in list_tech:
-            dict_tech_score[tech] = calculate_score(all_techniques[tech][overlay_type])+1
+            dict_tech_score[tech] = calculate_score(all_techniques[tech][overlay_type]) + max_tech_count_group
 
     for group, v in groups_overlay.items():
         for tech in v['techniques']:
@@ -322,10 +324,11 @@ def get_technique_count(groups, groups_overlay, groups_software, overlay_type, a
                 techniques_dict[tech]['groups'] = set()
             techniques_dict[tech]['groups'].add(group)
 
-    return techniques_dict
+    return techniques_dict, max_tech_count_group
 
 
-def get_technique_layer(techniques_count, groups, overlay, groups_software, overlay_file_type, overlay_type, all_techniques):
+def get_technique_layer(techniques_count, groups, overlay, groups_software, overlay_file_type, overlay_type,
+                        all_techniques, max_tech_count_group):
     """
     Create the technique layer that will be part of the ATT&CK navigator json file
     :param techniques_count: involved techniques with count (to be used within the scores)
@@ -335,6 +338,7 @@ def get_technique_layer(techniques_count, groups, overlay, groups_software, over
     :param overlay_file_type: the file type of the YAML file as present in the key 'file_type'
     :param overlay_type: group, visibility or detection
     :param all_techniques: dictionary with all techniques loaded from techniques administration YAML file
+    :param max_tech_count_group: the maximum number of times a technique is used among threat actor groups
     :return: dictionary
     """
     techniques_layer = []
@@ -380,7 +384,7 @@ def get_technique_layer(techniques_count, groups, overlay, groups_software, over
                 # Add applicable_to to metadata in case of overlay for detection/visibility:
                 if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
                     metadata_dict['Applicable to'] = set([a for v in all_techniques[tech][overlay_type] for a in v['applicable_to']])
-                    metadata_dict[overlay_type.capitalize() + ' score'] = [str(techniques_count[tech]['count']-1)]
+                    metadata_dict[overlay_type.capitalize() + ' score'] = [str(techniques_count[tech]['count'] - max_tech_count_group)]
 
                 if 'Overlay' not in metadata_dict:
                     metadata_dict['Overlay'] = set()
@@ -502,10 +506,9 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
     elif software_groups:
         groups_software_dict = get_software_techniques(groups, stage, platform)
 
-    technique_count = get_technique_count(groups_dict, overlay_dict, groups_software_dict, overlay_type, all_techniques)
+    technique_count, max_tech_count_group = get_technique_count(groups_dict, overlay_dict, groups_software_dict, overlay_type, all_techniques)
     technique_layer = get_technique_layer(technique_count, groups_dict, overlay_dict, groups_software_dict,
-                                          overlay_file_type, overlay_type, all_techniques)
-    max_technique_count = max(technique_count.values(), key=lambda v: v['count'])['count']
+                                          overlay_file_type, overlay_type, all_techniques, max_tech_count_group)
 
     # make a list group names for the involved groups.
     if groups == ['all']:
@@ -517,7 +520,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
     desc = 'stage: ' + stage + ' | platform: ' + platform + ' | group(s): ' + ', '.join(groups_list) + \
            ' | overlay group(s): ' + ', '.join(overlay_list)
 
-    layer = get_layer_template_groups(stage[0].upper() + stage[1:] + ' ' + platform, max_technique_count, desc, stage, platform, overlay_type)
+    layer = get_layer_template_groups(stage[0].upper() + stage[1:] + ' ' + platform, max_tech_count_group, desc, stage, platform, overlay_type)
     layer['techniques'] = technique_layer
 
     json_string = simplejson.dumps(layer).replace('}, ', '},\n')

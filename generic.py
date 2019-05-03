@@ -102,7 +102,7 @@ def get_layer_template_groups(name, max_score, description, stage, platform, ove
     More information on the version 2.1 layer format:
     https://github.com/mitre/attack-navigator/blob/master/layers/LAYERFORMATv2_1.md
     :param name: name
-    :param max_score: max_score
+    :param max_score: max_score = max_tech_count_group
     :param description: description
     :param stage: stage (act | prepare)
     :param platform: platform
