@@ -285,7 +285,7 @@ def menu_detection(filename_t):
         wait()
     elif choice == '4':
         print('Drawing the graph...')
-        plot_detection_graph(filename_t)
+        plot_detection_graph(filename_t, filter_applicable_to)
         wait()
     elif choice == '5':
         print('Generating Excel file...')
