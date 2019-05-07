@@ -60,9 +60,10 @@ def plot_detection_graph(filename, filter_applicable_to):
 
     graph_values = []
     for t in my_techniques.values():
-        if 'detection' in t.keys() and t['detection']['date_implemented']:
-            yyyymm = t['detection']['date_implemented'].strftime('%Y-%m')
-            graph_values.append({'date': yyyymm, 'count': 1})
+        for detection in t['detection']:
+            if detection['date_implemented']:
+                yyyymm = detection['date_implemented'].strftime('%Y-%m')
+                graph_values.append({'date': yyyymm, 'count': 1})
 
     import pandas as pd
     df = pd.DataFrame(graph_values).groupby('date', as_index=False)[['count']].sum()
