@@ -11,7 +11,7 @@ software_group = False
 platform = 'Windows'
 stage = 'attack'
 groups_overlay = ''
-overlay_type = ''
+overlay_type = 'group'
 filter_applicable_to = 'all'
 yaml_path = 'sample-data/'
 
@@ -381,7 +381,8 @@ def menu_groups():
     elif choice == '4':
         print('Specify the groups to include separated using commas. Group can be their ID, name or alias '
               '(default is all groups). Other option is to provide a YAML file with a custom group(s)')
-        groups = ask_input()
+        g = ask_input()
+        groups = g if g is not '' else 'all'
     elif choice == '5':
         print('')
         print('1. Overlay with groups.')
