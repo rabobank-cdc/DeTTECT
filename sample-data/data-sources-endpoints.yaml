@@ -201,7 +201,7 @@ data_sources:
       retention: 0
   - data_source_name: SSL/TLS inspection
     date_registered: 2019-01-10
-    date_connected:  2000-01-01
+    date_connected: 2000-01-01
     products:  [Proxy Product]
     available_for_data_analytics: True
     comment: ''
@@ -213,7 +213,7 @@ data_sources:
       retention: 5
   - data_source_name: Anti-virus
     date_registered: 2019-01-10
-    date_connected:  2000-01-01
+    date_connected: 2000-01-01
     products:  [AV Product]
     available_for_data_analytics: True
     comment: ''
@@ -225,7 +225,7 @@ data_sources:
       retention: 5
   - data_source_name: Network intrusion detection system
     date_registered: 2019-01-10
-    date_connected:  2016-01-01
+    date_connected: 2016-01-01
     products:  [NIDS]
     available_for_data_analytics: True
     comment: ''
@@ -261,7 +261,7 @@ data_sources:
       retention: 0
   - data_source_name: Email gateway
     date_registered: 2019-01-10
-    date_connected:  2000-01-01
+    date_connected: 2000-01-01
     products:  [Email Gateway Product]
     available_for_data_analytics: True
     comment: ''
@@ -285,7 +285,7 @@ data_sources:
       retention: 0
   - data_source_name: Web proxy
     date_registered: 2019-01-10
-    date_connected:  2000-01-01
+    date_connected: 2000-01-01
     products:  [Proxy Product]
     available_for_data_analytics: True
     comment: ''
@@ -525,7 +525,7 @@ data_sources:
       retention: 0
   - data_source_name: Disk forensics
     date_registered: 2019-01-10
-    date_connected:  2019-01-01
+    date_connected: 2019-01-01
     products:  [Manual, Commercial tool]
     available_for_data_analytics: True
     comment: ''
