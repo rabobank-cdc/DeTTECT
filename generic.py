@@ -2,68 +2,10 @@ import os
 import pickle
 from datetime import datetime as dt
 import yaml
+from upgrade import upgrade_yaml_file
+from constants import *
+
 # Due to performance reasons the import of attackcti is within the function that makes use of this library.
-
-APP_NAME = 'DeTT&CT'
-APP_DESC = 'Detect Tactics, Techniques & Combat Threats'
-VERSION = '1.0'
-
-EXPIRE_TIME = 60*60*24
-
-DATATYPE_TECH_BY_GROUP = 'mitre_techniques_used_by_group'
-DATATYPE_ALL_TECH = 'mitre_all_techniques'
-DATATYPE_ALL_GROUPS = 'mitre_all_groups'
-DATATYPE_ALL_SOFTWARE = 'mitre_all_software'
-DATATYPE_TECH_BY_SOFTWARE = 'mitre_techniques_used_by_software'
-DATATYPE_SOFTWARE_BY_GROUP = 'mitre_software_used_by_group'
-
-# Group colors
-COLOR_GROUP_OVERLAY_MATCH = '#f9a825'            # orange
-COLOR_GROUP_OVERLAY_NO_MATCH = '#ffee58'         # yellow
-COLOR_SOFTWARE = '#0d47a1 '                      # dark blue
-COLOR_GROUP_AND_SOFTWARE = '#64b5f6 '            # light blue
-COLOR_GRADIENT_MIN = '#ffcece'                   # light red
-COLOR_GRADIENT_MAX = '#ff0000'                   # red
-COLOR_TACTIC_ROW_BACKGRND = '#dddddd'            # light grey
-COLOR_GROUP_OVERLAY_ONLY_DETECTION = '#8BC34A'   # green
-COLOR_GROUP_OVERLAY_ONLY_VISIBILITY = '#1976D2'  # blue
-
-# data source colors (purple range)
-COLOR_DS_25p = '#E1BEE7'
-COLOR_DS_50p = '#CE93D8'
-COLOR_DS_75p = '#AB47BC'
-COLOR_DS_99p = '#7B1FA2'
-COLOR_DS_100p = '#4A148C'
-
-# data source colors HAPPY (green range)
-COLOR_DS_25p_HAPPY = '#DCEDC8'
-COLOR_DS_50p_HAPPY = '#AED581'
-COLOR_DS_75p_HAPPY = '#8BC34A'
-COLOR_DS_99p_HAPPY = '#689F38'
-COLOR_DS_100p_HAPPY = '#33691E'
-
-# Detection colors (green range)
-COLOR_D_0 = '#64B5F6'  # Blue: Forensics/Context
-COLOR_D_1 = '#DCEDC8'
-COLOR_D_2 = '#AED581'
-COLOR_D_3 = '#8BC34A'
-COLOR_D_4 = '#689F38'
-COLOR_D_5 = '#33691E'
-
-# Visibility colors (blue range)
-COLOR_V_1 = '#BBDEFB'
-COLOR_V_2 = '#64B5F6'
-COLOR_V_3 = '#1976D2'
-COLOR_V_4 = '#0D47A1'
-
-# Detection and visibility overlay color:
-COLOR_OVERLAY_VISIBILITY = COLOR_V_3
-COLOR_OVERLAY_DETECTION = COLOR_D_3
-COLOR_OVERLAY_BOTH = COLOR_GROUP_OVERLAY_MATCH
-
-FILE_TYPE_DATA_SOURCE_ADMINISTRATION = 'data-source-administration'
-FILE_TYPE_TECHNIQUE_ADMINISTRATION = 'technique-administration'
-FILE_TYPE_GROUP_ADMINISTRATION = 'group-administration'
 
 
 def save_attack_data(data, path):
@@ -154,29 +96,37 @@ def _get_base_template(name, description, stage, platform, sorting):
     return layer
 
 
-def get_layer_template_groups(name, max_score, description, stage, platform):
+def get_layer_template_groups(name, max_score, description, stage, platform, overlay_type):
     """
     Prepares a base template for the json layer file that can be loaded into the MITRE ATT&CK Navigator.
     More information on the version 2.1 layer format:
     https://github.com/mitre/attack-navigator/blob/master/layers/LAYERFORMATv2_1.md
     :param name: name
-    :param max_score: max_score
+    :param max_score: max_score = max_tech_count_group
     :param description: description
     :param stage: stage (act | prepare)
     :param platform: platform
+    :param overlay_type: group, visibility or detection
     :return: layer template dictionary
     """
     layer = _get_base_template(name, description, stage, platform, 3)
     layer['gradient'] = {'colors': [COLOR_GRADIENT_MIN, COLOR_GRADIENT_MAX], 'minValue': 0, 'maxValue': max_score}
-    layer['legendItems'] = \
-        [
-            {'label': 'Tech. ref. for ' + str(1) + ' group', 'color': COLOR_GRADIENT_MIN},
-            {'label': 'Tech. ref. for ' + str(max_score) + ' groups', 'color': COLOR_GRADIENT_MAX},
-            {'label': 'Groups overlay: tech. in group + overlay', 'color': COLOR_GROUP_OVERLAY_MATCH},
-            {'label': 'Groups overlay: tech. in overlay', 'color': COLOR_GROUP_OVERLAY_NO_MATCH},
-            {'label': 'Src. of tech. is only software', 'color': COLOR_SOFTWARE},
-            {'label': 'Src. of tech. is group(s)/overlay + software', 'color': COLOR_GROUP_AND_SOFTWARE}
-        ]
+    layer['legendItems'] = []
+    layer['legendItems'].append({'label': 'Tech. ref. for ' + str(1) + ' group', 'color': COLOR_GRADIENT_MIN})
+    layer['legendItems'].append({'label': 'Tech. ref. for ' + str(max_score) + ' groups', 'color': COLOR_GRADIENT_MAX})
+
+    if overlay_type == OVERLAY_TYPE_GROUP:
+        layer['legendItems'].append({'label': 'Groups overlay: tech. in group + overlay', 'color': COLOR_GROUP_OVERLAY_MATCH})
+        layer['legendItems'].append({'label': 'Groups overlay: tech. in overlay', 'color': COLOR_GROUP_OVERLAY_NO_MATCH})
+        layer['legendItems'].append({'label': 'Src. of tech. is only software', 'color': COLOR_SOFTWARE})
+        layer['legendItems'].append({'label': 'Src. of tech. is group(s)/overlay + software', 'color': COLOR_GROUP_AND_SOFTWARE})
+    elif overlay_type == OVERLAY_TYPE_DETECTION:
+        layer['legendItems'].append({'label': 'Tech. in group + detection', 'color': COLOR_GROUP_OVERLAY_MATCH})
+        layer['legendItems'].append({'label': 'Tech. in detection', 'color': COLOR_GROUP_OVERLAY_ONLY_DETECTION})
+    elif overlay_type == OVERLAY_TYPE_VISIBILITY:
+        layer['legendItems'].append({'label': 'Tech. in group + visibility', 'color': COLOR_GROUP_OVERLAY_MATCH})
+        layer['legendItems'].append({'label': 'Tech. in visibility', 'color': COLOR_GROUP_OVERLAY_ONLY_VISIBILITY})
+
     return layer
 
 
@@ -192,7 +142,6 @@ def get_layer_template_detections(name, description, stage, platform):
     :return: layer template dictionary
     """
     layer = _get_base_template(name, description, stage, platform, 0)
-    layer['gradient'] = {'colors': ['#ff6666', '#ffe766', '#8ec843'], 'minValue': 0, 'maxValue': 100}
     layer['legendItems'] = \
         [
             {'label': 'Detection score 0: Forensics/Context', 'color': COLOR_D_0},
@@ -217,7 +166,6 @@ def get_layer_template_data_sources(name, description, stage, platform):
     :return: layer template dictionary
     """
     layer = _get_base_template(name, description, stage, platform, 0)
-    layer['gradient'] = {'colors': ['#ff6666', '#ffe766', '#8ec843'], 'minValue': 0, 'maxValue': 100}
     layer['legendItems'] = \
         [
             {'label': '1-25% of data sources available', 'color': COLOR_DS_25p},
@@ -241,7 +189,6 @@ def get_layer_template_visibility(name, description, stage, platform):
     :return: layer template dictionary
     """
     layer = _get_base_template(name, description, stage, platform, 0)
-    layer['gradient'] = {'colors': ['#ff6666', '#ffe766', '#8ec843'], 'minValue': 0, 'maxValue': 100}
     layer['legendItems'] = \
         [
             {'label': 'Visibility score 1: Minimal', 'color': COLOR_V_1},
@@ -264,7 +211,6 @@ def get_layer_template_layered(name, description, stage, platform):
     :return: layer template dictionary
     """
     layer = _get_base_template(name, description, stage, platform, 0)
-    layer['gradient'] = {'colors': ['#ff6666', '#ffe766', '#8ec843'], 'minValue': 0, 'maxValue': 100}
     layer['legendItems'] = \
         [
             {'label': 'Visibility', 'color': COLOR_OVERLAY_VISIBILITY},
@@ -350,10 +296,13 @@ def check_file_type(filename, file_type=None):
     with open(filename, 'r') as yaml_file:
         try:
             yaml_content = yaml.load(yaml_file, Loader=yaml.FullLoader)
-        except:
+        except Exception as e:
             print('[!] File: \'' + filename + '\' is not a valid YAML file.')
+            print('  ' + str(e))  # print more detailed error information to help the user in fixing the error.
             return None
 
+        # This check is performed because a text file will also be considered to be valid YAML. But, we are using
+        # key-value pairs within the YAML files.
         if not hasattr(yaml_content, 'keys'):
             print('[!] File: \'' + filename + '\' is not a valid YAML file.')
             return None
@@ -366,6 +315,25 @@ def check_file_type(filename, file_type=None):
                 print('[!] File: \'' + filename + '\' is not a file type of: \'' + file_type + '\'')
                 return None
             else:
+                upgrade_yaml_file(filename, file_type, yaml_content['version'], load_attack_data(DATATYPE_ALL_TECH))
                 return yaml_content['file_type']
         else:
+            upgrade_yaml_file(filename, file_type, yaml_content['version'], load_attack_data(DATATYPE_ALL_TECH))
             return yaml_content['file_type']
+
+
+def calculate_score(l, zero_value=0):
+    """
+    Calculates the average score in the given list which contains dictionaries with 'score' field.
+    :param l: list
+    :param zero_value: the value when no scores are there, default 0
+    :return: average score
+    """
+    s = 0
+    number = 0
+    for v in l:
+        if v['score'] >= 0:
+            s += v['score']
+            number += 1
+    s = int(round(s / number, 0) if number > 0 else zero_value)
+    return s

@@ -48,12 +48,16 @@ def init_menu():
     parser_visibility.add_argument('-ft', '--file-tech', help='path to the technique administration YAML file (used to '
                                                               'score the level of visibility)', required=True)
     parser_visibility.add_argument('-fd', '--file-ds', help='path to the data source administration YAML file (used to '
-                                                            'add metadata on the involved data sources)',
-                                   required=True)
+                                                            'add metadata on the involved data sources)')
+    parser_visibility.add_argument('-a', '--applicable', help='filter techniques based on the \'applicable_to\' field '
+                                                              'in the technique administration YAML file. '
+                                                              'Not supported for Excel output', default='all')
     parser_visibility.add_argument('-l', '--layer', help='generate a visibility layer for the ATT&CK navigator',
                                    action='store_true')
+    parser_visibility.add_argument('-e', '--excel', help='generate an Excel sheet with all administrated techniques',
+                                     action='store_true')
     parser_visibility.add_argument('-o', '--overlay', help='generate a visibility layer overlayed with detections for '
-                                                           'the ATT&CK navigator.', action='store_true')
+                                                           'the ATT&CK navigator', action='store_true')
 
     # create the detection parser
     parser_detection = subparsers.add_parser('detection', aliases=['d'],
@@ -66,10 +70,15 @@ def init_menu():
     parser_detection.add_argument('-fd', '--file-ds', help='path to the data source administration YAML file (used in '
                                                            'the overlay with visibility to add metadata on the '
                                                            'involved data sources)')
-    parser_detection.add_argument('-l', '--layer', help='generate  detection layer for the ATT&CK navigator',
+    parser_detection.add_argument('-a', '--applicable', help='filter techniques based on the \'applicable_to\' field '
+                                                             'in the technique administration YAML file. '
+                                                             'Not supported for Excel output', default='all')
+    parser_detection.add_argument('-l', '--layer', help='generate detection layer for the ATT&CK navigator',
                                   action='store_true')
+    parser_detection.add_argument('-e', '--excel', help='generate an Excel sheet with all administrated techniques',
+                                   action='store_true')
     parser_detection.add_argument('-o', '--overlay', help='generate a detection layer overlayed with visibility for '
-                                                          'the ATT&CK navigator.', action='store_true')
+                                                          'the ATT&CK navigator', action='store_true')
     parser_detection.add_argument('-g', '--graph', help='generate a graph with detections added through time',
                                   action='store_true')
 
@@ -91,6 +100,9 @@ def init_menu():
                                                       'VISIBILITY provide a YAML with the technique administration.')
     parser_group.add_argument('-t', '--overlay-type', help='specify the type of overlay (default = group)',
                               choices=['group', 'visibility', 'detection'], default='group')
+    parser_group.add_argument('-a', '--applicable', help='filter techniques in the detection or visibility overlay ' 
+                                                         'based on the \'applicable_to\' field in the technique '
+                                                         'administration YAML file. ', default='all')
     parser_group.add_argument('--software-group', help='add techniques to the heat map by checking which software is '
                                                        'used by group(s), and hence which techniques the software '
                                                        'supports (does not influence the scores). If overlay group(s) '
@@ -142,15 +154,26 @@ def menu(menu_parser):
                 generate_technique_administration_file(args.file)
 
     elif args.subparser in ['visibility', 'v']:
-        if check_file_type(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION) and \
-           check_file_type(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION):
-            if args.layer:
-                generate_visibility_layer(args.file_tech, args.file_ds, False)
-            if args.overlay:
-                generate_visibility_layer(args.file_tech, args.file_ds, True)
+        if args.layer or args.overlay:
+            if not args.file_ds:
+                print('[!] Generating a visibility layer or doing an overlay requires adding the data source'
+                      'administration YAML file (\'--file-ds\')')
+                quit()
+
+            if check_file_type(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION) and \
+               check_file_type(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION):
+                if args.layer:
+                    generate_visibility_layer(args.file_tech, args.file_ds, False, args.applicable)
+                if args.overlay:
+                    generate_visibility_layer(args.file_tech, args.file_ds, True, args.applicable)
+
+        if args.excel and check_file_type(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION) and args.applicable == 'all':
+            export_techniques_list_to_excel(args.file_tech)
+        if args.excel and args.applicable != 'all':
+            print("[!] Filtering on 'applicable_to' is not supported for Excel output")
 
     elif args.subparser in ['group', 'g']:
-        generate_group_heat_map(args.groups, args.overlay, args.overlay_type, args.stage, args.platform, args.software_group)
+        generate_group_heat_map(args.groups, args.overlay, args.overlay_type, args.stage, args.platform, args.software_group, args.applicable)
 
     elif args.subparser in ['detection', 'd']:
         if args.overlay:
@@ -162,11 +185,15 @@ def menu(menu_parser):
 
         if check_file_type(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION):
             if args.layer:
-                generate_detection_layer(args.file_tech, args.file_ds, False)
+                generate_detection_layer(args.file_tech, args.file_ds, False, args.applicable)
             if args.overlay and check_file_type(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION):
-                generate_detection_layer(args.file_tech, args.file_ds, True)
+                generate_detection_layer(args.file_tech, args.file_ds, True, args.applicable)
             if args.graph:
-                plot_detection_graph(args.file_tech)
+                plot_detection_graph(args.file_tech, args.applicable)
+            if args.excel and args.applicable == 'all':
+                export_techniques_list_to_excel(args.file_tech)
+            if args.excel and args.applicable != 'all':
+                print("[!] Filtering on 'applicable_to' is not supported for Excel output")
 
     elif args.subparser in ['generic', 'ge']:
         if args.statistics:
@@ -174,6 +201,8 @@ def menu(menu_parser):
         elif args.updates:
             get_updates(args.updates, args.sort)
 
+    else:
+        menu_parser.print_help()
 
 def prepare_folders():
     """

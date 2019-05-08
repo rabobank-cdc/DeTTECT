@@ -72,7 +72,15 @@ def export_data_source_list_to_excel(filename):
     # Formatting:
     format_bold_left = workbook.add_format({'align': 'left', 'bold': True})
     format_title = workbook.add_format({'align': 'left', 'bold': True, 'font_size': '14'})
-    format_center = workbook.add_format({'align': 'center'})
+    format_center_valign_top = workbook.add_format({'align': 'center', 'valign': 'top'})
+    wrap_text = workbook.add_format({'text_wrap': True, 'valign': 'top'})
+    valign_top = workbook.add_format({'valign': 'top'})
+    no_score = workbook.add_format({'valign': 'top', 'align': 'center'})
+    dq_score_1 = workbook.add_format({'valign': 'top', 'align': 'center', 'bg_color': COLOR_DS_25p})
+    dq_score_2 = workbook.add_format({'valign': 'top', 'align': 'center', 'bg_color': COLOR_DS_50p})
+    dq_score_3 = workbook.add_format({'valign': 'top', 'align': 'center', 'bg_color': COLOR_DS_75p, 'font_color': '#ffffff'})
+    dq_score_4 = workbook.add_format({'valign': 'top', 'align': 'center', 'bg_color': COLOR_DS_99p, 'font_color': '#ffffff'})
+    dq_score_5 = workbook.add_format({'valign': 'top', 'align': 'center', 'bg_color': COLOR_DS_100p, 'font_color': '#ffffff'})
 
     # Title
     worksheet.write(0, 0, 'Data sources for ' + name, format_title)
@@ -102,19 +110,19 @@ def export_data_source_list_to_excel(filename):
     # Putting the data sources data:
     y = 3
     for d in get_all_mitre_data_sources():
-        worksheet.write(y, 0, d)
+        worksheet.write(y, 0, d, valign_top)
         if d in my_data_sources.keys():
             ds = my_data_sources[d]
-            worksheet.write(y, 1, str(ds['date_registered']).replace('None', ''))
-            worksheet.write(y, 2, str(ds['date_connected']).replace('None', ''))
-            worksheet.write(y, 3, ', '.join(ds['products']).replace('None', ''))
-            worksheet.write(y, 4, str(ds['comment']) if ds['comment'] else '')
-            worksheet.write(y, 5, str(ds['available_for_data_analytics']))
-            worksheet.write(y, 6, ds['data_quality']['device_completeness'], format_center)
-            worksheet.write(y, 7, ds['data_quality']['data_field_completeness'], format_center)
-            worksheet.write(y, 8, ds['data_quality']['timeliness'], format_center)
-            worksheet.write(y, 9, ds['data_quality']['consistency'], format_center)
-            worksheet.write(y, 10, ds['data_quality']['retention'], format_center)
+            worksheet.write(y, 1, str(ds['date_registered']).replace('None', ''), valign_top)
+            worksheet.write(y, 2, str(ds['date_connected']).replace('None', ''), valign_top)
+            worksheet.write(y, 3, ', '.join(ds['products']).replace('None', ''), valign_top)
+            worksheet.write(y, 4, ds['comment'][:-1] if ds['comment'].endswith('\n') else ds['comment'], wrap_text)
+            worksheet.write(y, 5, str(ds['available_for_data_analytics']), valign_top)
+            worksheet.write(y, 6, ds['data_quality']['device_completeness'], format_center_valign_top)
+            worksheet.write(y, 7, ds['data_quality']['data_field_completeness'], format_center_valign_top)
+            worksheet.write(y, 8, ds['data_quality']['timeliness'], format_center_valign_top)
+            worksheet.write(y, 9, ds['data_quality']['consistency'], format_center_valign_top)
+            worksheet.write(y, 10, ds['data_quality']['retention'], format_center_valign_top)
 
             score = 0
             score_count = 0
@@ -125,7 +133,7 @@ def export_data_source_list_to_excel(filename):
             if score > 0:
                 score = score/score_count
 
-            worksheet.write(y, 11, score, format_center)
+            worksheet.write(y, 11, score, dq_score_1 if score < 2 else dq_score_2 if score < 3 else dq_score_3 if score < 4 else dq_score_4 if score < 5 else dq_score_5 if score < 6 else no_score)
         y += 1
 
     worksheet.autofilter(2, 0, 2, 11)
@@ -214,12 +222,14 @@ def generate_technique_administration_file(filename):
     techniques = load_attack_data(DATATYPE_ALL_TECH)
 
     # This is part of the techniques administration YAML file and is used as a template
-    dict_tech = {'technique_id': '', 'detection': {'date_registered': None, 'date_implemented': None, 'score': -1,
-                                                   'location': [''], 'comment': ''},
-                 'visibility': {'score': 0, 'comment': ''}}
+    dict_tech = {'technique_id': '', 'technique_name': '', 'detection': {'applicable_to': ['all'],
+                                                                         'date_registered': None,
+                                                                         'date_implemented': None,
+                                                                         'score': -1, 'location': [''], 'comment': ''},
+                 'visibility': {'applicable_to': ['all'], 'score': 0, 'comment': ''}}
 
     yaml_file = {}
-    yaml_file['version'] = 1.0
+    yaml_file['version'] = FILE_TYPE_TECHNIQUE_ADMINISTRATION_VERSION
     yaml_file['file_type'] = FILE_TYPE_TECHNIQUE_ADMINISTRATION
     yaml_file['name'] = name
     yaml_file['platform'] = platform
@@ -248,6 +258,7 @@ def generate_technique_administration_file(filename):
                     if score > 0 and t['technique_id'] not in techniques_upper:
                         tech = copy.deepcopy(dict_tech)
                         tech['technique_id'] = t['technique_id']
+                        tech['technique_name'] = get_technique(techniques, t['technique_id'])['technique']
                         tech['visibility']['score'] = score
                         yaml_file['techniques'].append(tech)
 
