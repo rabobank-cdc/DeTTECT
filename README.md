@@ -1,7 +1,7 @@
 <img src="https://github.com/rabobank-cdc/DeTTACT/wiki/images/logo.png" alt="DeTT&CT" width=30% height=30%>
 
 #### Detect Tactics, Techniques & Combat Threats
-Latest version: [1.1](Changelog#version-11)
+Latest version: [1.1](https://github.com/rabobank-cdc/DeTTACT/wiki/Changelog#version-11)
 
 To get started with DeTT&CT, check out the
 [Wiki](https://github.com/rabobank-cdc/DeTTACT/wiki/Getting-started).
@@ -37,7 +37,7 @@ of which can be visualised by loading JSON layer files into the [ATT&CK Navigato
 
 See below an example of mapping your data sources to ATT&CK which gives you a rough overview of your visibility coverage:
 
- <img src="images/example_data_sources.png" alt="DeTT&CT - Data quality">
+ <img src="https://github.com/rabobank-cdc/DeTTACT/wiki/images/example_data_sources.png" alt="DeTT&CT - Data quality">
 
 
 ## Installation and requirements
