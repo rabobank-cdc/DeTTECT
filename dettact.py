@@ -201,6 +201,8 @@ def menu(menu_parser):
         elif args.updates:
             get_updates(args.updates, args.sort)
 
+    else:
+        menu_parser.print_help()
 
 def prepare_folders():
     """
