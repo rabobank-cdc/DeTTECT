@@ -462,7 +462,7 @@ def check_yaml_file_health(filename, file_type):
 
             for visibility in v['visibility']:
                 for key in ['applicable_to', 'score', 'comment']:
-                    if key not in detection:
+                    if key not in visibility:
                         print('[!] Technique ID: ' + tech + ' is MISSING the key-value pair in visibility: ' + key)
 
                 try:
