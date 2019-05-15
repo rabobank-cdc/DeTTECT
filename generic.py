@@ -451,12 +451,12 @@ def check_yaml_file_health(filename, file_type):
                                 print('[!] Technique ID: ' + tech + ' has an INVALID data format for the key-value pair '
                                                                     'in detection: ' + key + '  (should be YYYY-MM-DD)')
 
-                        for key in ['location', 'applicable_to']:
-                            try:
-                                if detection[key][0] is None:
-                                    print('[!] Technique ID: ' + tech + ' is has an EMPTY key-value pair in detection: ' + key)
-                            except TypeError:
+                    for key in ['location', 'applicable_to']:
+                        try:
+                            if detection[key][0] is None:
                                 print('[!] Technique ID: ' + tech + ' is has an EMPTY key-value pair in detection: ' + key)
+                        except TypeError:
+                            print('[!] Technique ID: ' + tech + ' is has an EMPTY key-value pair in detection: ' + key)
                 except KeyError:
                     pass
 
@@ -473,6 +473,7 @@ def check_yaml_file_health(filename, file_type):
                               ' (should be between 0 and 4)')
                 except KeyError:
                     pass
+
 
 
 
