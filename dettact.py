@@ -58,6 +58,7 @@ def init_menu():
                                      action='store_true')
     parser_visibility.add_argument('-o', '--overlay', help='generate a visibility layer overlayed with detections for '
                                                            'the ATT&CK navigator', action='store_true')
+    parser_visibility.add_argument('--health', help='check the technique YAML file for errors', action='store_true')
 
     # create the detection parser
     parser_detection = subparsers.add_parser('detection', aliases=['d'],
@@ -81,6 +82,7 @@ def init_menu():
                                                           'the ATT&CK navigator', action='store_true')
     parser_detection.add_argument('-g', '--graph', help='generate a graph with detections added through time',
                                   action='store_true')
+    parser_detection.add_argument('--health', help='check the technique YAML file for errors', action='store_true')
 
     # create the group parser
     parser_group = subparsers.add_parser('group', aliases=['g'],
@@ -171,6 +173,8 @@ def menu(menu_parser):
             export_techniques_list_to_excel(args.file_tech)
         if args.excel and args.applicable != 'all':
             print("[!] Filtering on 'applicable_to' is not supported for Excel output")
+        if args.health:
+            check_yaml_file_health(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION)
 
     elif args.subparser in ['group', 'g']:
         generate_group_heat_map(args.groups, args.overlay, args.overlay_type, args.stage, args.platform, args.software_group, args.applicable)
@@ -194,6 +198,8 @@ def menu(menu_parser):
                 export_techniques_list_to_excel(args.file_tech)
             if args.excel and args.applicable != 'all':
                 print("[!] Filtering on 'applicable_to' is not supported for Excel output")
+            if args.health:
+                check_yaml_file_health(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION)
 
     elif args.subparser in ['generic', 'ge']:
         if args.statistics:

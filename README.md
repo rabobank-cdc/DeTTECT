@@ -1,13 +1,14 @@
 <img src="https://github.com/rabobank-cdc/DeTTACT/wiki/images/logo.png" alt="DeTT&CT" width=30% height=30%>
 
 #### Detect Tactics, Techniques & Combat Threats
+Latest version: [1.1](https://github.com/rabobank-cdc/DeTTACT/wiki/Changelog#version-11)
 
 To get started with DeTT&CT, check out the
 [Wiki](https://github.com/rabobank-cdc/DeTTACT/wiki/Getting-started).
 
-DeTT&CT will help blue teams in scoring and comparing data source quality, visibility coverage, detection coverage and threat actor behaviours. The DeTT&CT framework consists of a Python tool, YAML administration files and [scoring tables](https://github.com/rabobank-cdc/DeTTACT/raw/master/scoring_table.xlsx) for the different aspects.
+DeTT&CT aims to assist blue teams using ATT&CK to score and compare data log source quality, visibility coverage, detection coverage and threat actor behaviours. All of which can help, in different ways, to get more resilient against attacks targeting your organisation. The DeTT&CT framework consists of a Python tool, YAML administration files and [scoring tables](https://github.com/rabobank-cdc/DeTTACT/raw/master/scoring_table.xlsx) for the different aspects.
 
-DeTT&CT will help you to:
+DeTT&CT provides the following functionality:
 
 - Administrate and score the quality of your data sources.
 - Get insight on the visibility you have on for example endpoints.
@@ -36,33 +37,13 @@ of which can be visualised by loading JSON layer files into the [ATT&CK Navigato
 
 See below an example of mapping your data sources to ATT&CK which gives you a rough overview of your visibility coverage:
 
-<img src="https://github.com/rabobank-cdc/DeTTACT/wiki/images/example_data_sources.png" alt="DeTT&CT"><br>
+ <img src="https://github.com/rabobank-cdc/DeTTACT/wiki/images/example_data_sources.png" alt="DeTT&CT - Data quality">
 
 
 ## Installation and requirements
 
 See our GitHub Wiki: [Installation and requirements](https://github.com/rabobank-cdc/DeTTACT/wiki/Installation-and-requirements).
 
-## Future developments
-
--  Add more graphs:
-   - [ ]  Detections: improvement based on newly added detections and improvements on the level/score of existing detections. Possibly with a changelog.
-   - [ ]  Visibility: improvement in the quality of an existing data source.
-- Groups:
-  - [ ]   Have a group YAML file type that contains a count on how popular a certain technique is. This can be very useful to map things such as Red Canary's [Threat Detection Report 2019](https://redcanary.com/resources/guides/threat-detection-report/).
-- Excel output for:
-   - [ ]  Techniques administration YAML file: visibility coverage.
-   - [ ]  Techniques administration YAML file: detection coverage.
-- Data quality Excel sheet:
-  - [ ]  Add colours to the data quality scores in the Excel sheet.
-- YAML files:
-  - [ ]  Create an option within the tool to migrate an old administration YAML file version to a new version (such as adding specific key-value pairs).
-- MITRE ATT&CK updates
-  - [ ]  Have a smart way of knowing what to update in your data source and technique administration files once MITRE publishes updates.
-  - [ ]  Data sources: check for missing data sources in data sources administration files.
-- Minimal visibility
-  - [ ]  Integrate information into the framework on what a minimal set of visibility for a technique should be, before you can say to have useful visibility (e.g. technique X requires at least to have visibility on process monitoring, process command line monitoring and DLL monitoring).
 
 ## License: GPL-3.0
 [DeTT&CT's GNU General Public License v3.0](https://github.com/rabobank-cdc/DeTTACT/blob/master/LICENSE)
-

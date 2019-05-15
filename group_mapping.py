@@ -1,6 +1,5 @@
 import simplejson
 from generic import *
-from technique_mapping import _load_techniques
 
 CG_GROUPS = {}
 
@@ -211,7 +210,7 @@ def get_detection_techniques(filename, filter_applicable_to):
     # { group_id: {group_name: NAME, techniques: set{id, ...} } }
     groups_dict = {}
 
-    detection_techniques, name, platform = _load_techniques(filename, 'detection', filter_applicable_to)
+    detection_techniques, name, platform = load_techniques(filename, 'detection', filter_applicable_to)
 
     group_id = 'DETECTION'
     groups_dict[group_id] = {}
@@ -235,7 +234,7 @@ def get_visibility_techniques(filename, filter_applicable_to):
     # { group_id: {group_name: NAME, techniques: set{id, ...} } }
     groups_dict = {}
 
-    visibility_techniques, name, platform = _load_techniques(filename, 'visibility', filter_applicable_to)
+    visibility_techniques, name, platform = load_techniques(filename, 'visibility', filter_applicable_to)
 
     group_id = 'VISIBILITY'
     groups_dict[group_id] = {}
