@@ -96,13 +96,13 @@ def _get_base_template(name, description, stage, platform, sorting):
     return layer
 
 
-def get_layer_template_groups(name, max_score, description, stage, platform, overlay_type):
+def get_layer_template_groups(name, max_count, description, stage, platform, overlay_type):
     """
     Prepares a base template for the json layer file that can be loaded into the MITRE ATT&CK Navigator.
     More information on the version 2.1 layer format:
     https://github.com/mitre/attack-navigator/blob/master/layers/LAYERFORMATv2_1.md
     :param name: name
-    :param max_score: max_score = max_tech_count_group
+    :param max_count: the sum of all count values
     :param description: description
     :param stage: stage (act | prepare)
     :param platform: platform
@@ -110,10 +110,10 @@ def get_layer_template_groups(name, max_score, description, stage, platform, ove
     :return: layer template dictionary
     """
     layer = _get_base_template(name, description, stage, platform, 3)
-    layer['gradient'] = {'colors': [COLOR_GRADIENT_MIN, COLOR_GRADIENT_MAX], 'minValue': 0, 'maxValue': max_score}
+    layer['gradient'] = {'colors': [COLOR_GRADIENT_MIN, COLOR_GRADIENT_MAX], 'minValue': 0, 'maxValue': max_count}
     layer['legendItems'] = []
-    layer['legendItems'].append({'label': 'Tech. ref. for ' + str(1) + ' group', 'color': COLOR_GRADIENT_MIN})
-    layer['legendItems'].append({'label': 'Tech. ref. for ' + str(max_score) + ' groups', 'color': COLOR_GRADIENT_MAX})
+    layer['legendItems'].append({'label': 'Tech. not often used', 'color': COLOR_GRADIENT_MIN})
+    layer['legendItems'].append({'label': 'Tech. used frequently', 'color': COLOR_GRADIENT_MAX})
 
     if overlay_type == OVERLAY_TYPE_GROUP:
         layer['legendItems'].append({'label': 'Groups overlay: tech. in group + overlay', 'color': COLOR_GROUP_OVERLAY_MATCH})
