@@ -328,7 +328,7 @@ def get_technique_count(groups, groups_overlay, groups_software, overlay_type, a
 
 
 def get_technique_layer(techniques_count, groups, overlay, groups_software, overlay_file_type, overlay_type,
-                        all_techniques, max_tech_count_group):
+                        all_techniques):
     """
     Create the technique layer that will be part of the ATT&CK navigator json file
     :param techniques_count: involved techniques with count (to be used within the scores)
@@ -338,7 +338,6 @@ def get_technique_layer(techniques_count, groups, overlay, groups_software, over
     :param overlay_file_type: the file type of the YAML file as present in the key 'file_type'
     :param overlay_type: group, visibility or detection
     :param all_techniques: dictionary with all techniques loaded from techniques administration YAML file
-    :param max_tech_count_group: the maximum number of times a technique is used among threat actor groups
     :return: dictionary
     """
     techniques_layer = []
@@ -384,7 +383,8 @@ def get_technique_layer(techniques_count, groups, overlay, groups_software, over
                 # Add applicable_to to metadata in case of overlay for detection/visibility:
                 if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
                     metadata_dict['Applicable to'] = set([a for v in all_techniques[tech][overlay_type] for a in v['applicable_to']])
-                    metadata_dict[overlay_type.capitalize() + ' score'] = [str(techniques_count[tech]['count'] - max_tech_count_group)]
+                    metadata_dict['Detection score'] = [str(calculate_score(all_techniques[tech]['detection']))]
+                    metadata_dict['Visibility score'] = [str(calculate_score(all_techniques[tech]['visibility']))]
 
                 if 'Overlay' not in metadata_dict:
                     metadata_dict['Overlay'] = set()
@@ -508,7 +508,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
 
     technique_count, max_tech_count_group = get_technique_count(groups_dict, overlay_dict, groups_software_dict, overlay_type, all_techniques)
     technique_layer = get_technique_layer(technique_count, groups_dict, overlay_dict, groups_software_dict,
-                                          overlay_file_type, overlay_type, all_techniques, max_tech_count_group)
+                                          overlay_file_type, overlay_type, all_techniques)
 
     # make a list group names for the involved groups.
     if groups == ['all']:
