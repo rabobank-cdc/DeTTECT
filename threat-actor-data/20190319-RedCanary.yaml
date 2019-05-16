@@ -4,97 +4,97 @@ version: 1.0
 file_type: group-administration
 groups:
   -
-    group_name:     Red Canary Threat Detection Report 2019 - financials
+    group_name:     Red Canary Threat Detection Report 2019 (1st edition) - financials
     campaign:
     technique_id:   [T1015, T1036, T1060, T1064, T1085, T1086, T1089, T1090, T1117, T1193]
     software_id:    []
     enabled:        False
   -
-    group_name:     Red Canary Threat Detection Report 2019 - communication
+    group_name:     Red Canary Threat Detection Report 2019 (1st edition) - communication
     campaign:
     technique_id:   [T1086, T1035, T1117, T1064, T1003, T1090, T1036, T1060, T1193, T1053]
     software_id:    []
     enabled:        False
   -
-    group_name:     Red Canary Threat Detection Report 2019 - education
+    group_name:     Red Canary Threat Detection Report 2019 (1st edition) - education
     campaign:
     technique_id:   [T1086, T1077, T1053, T1064, T1003, T1060, T1055, T1036, T1089, T1090]
     software_id:    []
     enabled:        False
   -
-    group_name:     Red Canary Threat Detection Report 2019 - energy
+    group_name:     Red Canary Threat Detection Report 2019 (1st edition) - energy
     campaign:
     technique_id:   [T1086, T1193, T1059, T1047, T1085, T1035, T1064, T1036, T1097, T1003]
     software_id:    []
     enabled:        False
   -
-    group_name:     Red Canary Threat Detection Report 2019 - government
+    group_name:     Red Canary Threat Detection Report 2019 (1st edition) - government
     campaign:
     technique_id:   [T1117, T1060, T1086, T1003, T1036, T1193, T1027, T1089, T1015, T1105]
     software_id:    []
     enabled:        False
   -
-    group_name:     Red Canary Threat Detection Report 2019 - health
+    group_name:     Red Canary Threat Detection Report 2019 (1st edition) - health
     campaign:
     technique_id:   [T1086, T1003, T1117, T1059, T1105, T1053, T1193, T1036, T1064, T1090]
     software_id:    []
     enabled:        False
   -
-    group_name:     Red Canary Threat Detection Report 2019 - hospitality
+    group_name:     Red Canary Threat Detection Report 2019 (1st edition) - hospitality
     campaign:
     technique_id:   [T1086, T1064, T1036, T1140, T1100, T1047, T1193, T1090, T1015, T1003]
     software_id:    []
     enabled:        False
   -
-    group_name:     Red Canary Threat Detection Report 2019 - industrial
+    group_name:     Red Canary Threat Detection Report 2019 (1st edition) - industrial
     campaign:
     technique_id:   [T1086, T1064, T1117, T1090, T1036, T1060, T1085, T1193, T1015, T1059]
     software_id:    []
     enabled:        False
   -
-    group_name:     Red Canary Threat Detection Report 2019 - meida
+    group_name:     Red Canary Threat Detection Report 2019 (1st edition) - media
     campaign:
     technique_id:   [T1086, T1193, T1090, T1064, T1036, T1060, T1059, T1003, T1015, T1089]
     software_id:    []
     enabled:        False
   -
-    group_name:     Red Canary Threat Detection Report 2019 - nonprofit
+    group_name:     Red Canary Threat Detection Report 2019 (1st edition) - nonprofit
     campaign:
     technique_id:   [T1086, T1059, T1064, T1089, T1117, T1036, T1003, T1193, T1060, T1105]
     software_id:    []
     enabled:        False
   -
-    group_name:     Red Canary Threat Detection Report 2019 - pharmaceuticals
+    group_name:     Red Canary Threat Detection Report 2019 (1st edition) - pharmaceuticals
     campaign:
     technique_id:   [T1003, T1086, T1064, T1036, T1193, T1035, T1047, T1059, T1055, T1085]
     software_id:    []
     enabled:        False
   -
-    group_name:     Red Canary Threat Detection Report 2019 - retail
+    group_name:     Red Canary Threat Detection Report 2019 (1st edition) - retail
     campaign:
     technique_id:   [T1193, T1086, T1064, T1059, T1060, T1090, T1036, T1015, T1089, T1055]
     software_id:    []
     enabled:        False
   -
-    group_name:     Red Canary Threat Detection Report 2019 - services
+    group_name:     Red Canary Threat Detection Report 2019 (1st edition) - services
     campaign:
     technique_id:   [T1086, T1117, T1047, T1003, T1064, T1087, T1193, T1060, T1036, T1090]
     software_id:    []
     enabled:        False
   -
-    group_name:     Red Canary Threat Detection Report 2019 - technology
+    group_name:     Red Canary Threat Detection Report 2019 (1st edition) - technology
     campaign:
     technique_id:   [T1087, T1035, T1086, T1090, T1089, T1064, T1193, T1003, T1036, T1117]
     software_id:    []
     enabled:        False
   -
-    group_name:     Red Canary Threat Detection Report 2019 - transportation
+    group_name:     Red Canary Threat Detection Report 2019 (1st edition) - transportation
     campaign:
     technique_id:   [T1086, T1035, T1085, T1064, T1117, T1059, T1060, T1090, T1089, T1036]
     software_id:    []
     enabled:        False
   -
-    group_name:     Red Canary Threat Detection Report 2019 - overall
+    group_name:     Red Canary Threat Detection Report 2019 (1st edition) - overall
     campaign:
     technique_id:
       T1086: 1774
