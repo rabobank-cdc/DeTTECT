@@ -1527,7 +1527,8 @@ techniques:
     date_registered:
     date_implemented:
     score: -1
-    location: ''
+    location:
+     - ''
     comment: ''
   visibility:
     applicable_to: ['all']
@@ -1818,7 +1819,8 @@ techniques:
     date_registered:
     date_implemented:
     score: -1
-    location: ''
+    location:
+     - ''
     comment: ''
   visibility:
     applicable_to: ['all']
@@ -2148,8 +2150,8 @@ techniques:
   technique_name: Data Encrypted for Impact
   detection:
     applicable_to: ['all']
-    date_registered:
-    date_implemented:
+    date_registered: 2019-05-01
+    date_implemented: 2015-01-01
     score: 4
     location:
     - 'Model J'
