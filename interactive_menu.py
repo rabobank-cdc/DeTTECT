@@ -136,7 +136,7 @@ def select_file(title, what, expected_file_type, b_clear=True):
     else:
         if choice.isdigit() and int(choice) < n:
             filename = files[int(choice) - 1]
-            file_type = check_file_type(filename, file_type=expected_file_type)
+            file_type = check_file(filename, file_type=expected_file_type)
             if file_type:
                 print('Selected file: ' + filename)
                 wait()
@@ -294,7 +294,7 @@ def menu_detection(filename_t):
         wait()
     elif choice == '6':
         print('Checking the technique YAML file for errors...')
-        check_yaml_file_health(filename_t, FILE_TYPE_TECHNIQUE_ADMINISTRATION)
+        check_yaml_file_health(filename_t, FILE_TYPE_TECHNIQUE_ADMINISTRATION, health_is_called=True)
         wait()
     elif choice == '9':
         interactive_menu()
@@ -345,7 +345,7 @@ def menu_visibility(filename_t, filename_ds):
         wait()
     elif choice == '5':
         print('Checking the technique YAML file for errors...')
-        check_yaml_file_health(filename_t, FILE_TYPE_TECHNIQUE_ADMINISTRATION)
+        check_yaml_file_health(filename_t, FILE_TYPE_TECHNIQUE_ADMINISTRATION, health_is_called=True)
         wait()
     elif choice == '9':
         interactive_menu()

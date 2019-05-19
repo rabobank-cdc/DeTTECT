@@ -468,7 +468,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
 
     groups_file_type = None
     if os.path.isfile(groups):
-        groups_file_type = check_file_type(groups, file_type=FILE_TYPE_GROUP_ADMINISTRATION)
+        groups_file_type = check_file(groups, file_type=FILE_TYPE_GROUP_ADMINISTRATION)
         if not groups_file_type:
             return
     else:
@@ -482,7 +482,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
             expected_file_type = FILE_TYPE_GROUP_ADMINISTRATION if overlay_type == OVERLAY_TYPE_GROUP \
                 else FILE_TYPE_TECHNIQUE_ADMINISTRATION \
                 if overlay_type in [OVERLAY_TYPE_VISIBILITY, OVERLAY_TYPE_DETECTION] else None
-            overlay_file_type = check_file_type(overlay, expected_file_type)
+            overlay_file_type = check_file(overlay, expected_file_type)
             if not overlay_file_type:
                 return
         else:

@@ -145,7 +145,7 @@ def menu(menu_parser):
         interactive_menu()
 
     elif args.subparser in ['datasource', 'ds']:
-        if check_file_type(args.file, FILE_TYPE_DATA_SOURCE_ADMINISTRATION):
+        if check_file(args.file, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.health):
             if args.layer:
                 generate_data_sources_layer(args.file)
             if args.excel:
@@ -162,19 +162,18 @@ def menu(menu_parser):
                       'administration YAML file (\'--file-ds\')')
                 quit()
 
-            if check_file_type(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION) and \
-               check_file_type(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION):
+            if check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health) and \
+               check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.health):
                 if args.layer:
                     generate_visibility_layer(args.file_tech, args.file_ds, False, args.applicable)
                 if args.overlay:
                     generate_visibility_layer(args.file_tech, args.file_ds, True, args.applicable)
 
-        if args.excel and check_file_type(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION) and args.applicable == 'all':
-            export_techniques_list_to_excel(args.file_tech)
-        if args.excel and args.applicable != 'all':
-            print("[!] Filtering on 'applicable_to' is not supported for Excel output")
-        if args.health:
-            check_yaml_file_health(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION)
+        if check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
+            if args.excel and args.applicable == 'all':
+                export_techniques_list_to_excel(args.file_tech)
+            if args.excel and args.applicable != 'all':
+                print('[!] Filtering on \'applicable_to\' is not supported for Excel output')
 
     elif args.subparser in ['group', 'g']:
         generate_group_heat_map(args.groups, args.overlay, args.overlay_type, args.stage, args.platform, args.software_group, args.applicable)
@@ -184,13 +183,13 @@ def menu(menu_parser):
             if not args.file_ds:
                 print('[!] Doing an overlay requires adding the data source administration YAML file (\'--file-ds\')')
                 quit()
-            if not check_file_type(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION):
+            if not check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.health):
                 quit()
 
-        if check_file_type(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION):
+        if check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
             if args.layer:
                 generate_detection_layer(args.file_tech, args.file_ds, False, args.applicable)
-            if args.overlay and check_file_type(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION):
+            if args.overlay and check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.health):
                 generate_detection_layer(args.file_tech, args.file_ds, True, args.applicable)
             if args.graph:
                 plot_detection_graph(args.file_tech, args.applicable)
@@ -198,8 +197,6 @@ def menu(menu_parser):
                 export_techniques_list_to_excel(args.file_tech)
             if args.excel and args.applicable != 'all':
                 print("[!] Filtering on 'applicable_to' is not supported for Excel output")
-            if args.health:
-                check_yaml_file_health(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION)
 
     elif args.subparser in ['generic', 'ge']:
         if args.statistics:
@@ -209,6 +206,7 @@ def menu(menu_parser):
 
     else:
         menu_parser.print_help()
+
 
 def prepare_folders():
     """
