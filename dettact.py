@@ -43,8 +43,9 @@ def init_menu():
     # create the visibility parser
     parser_visibility = subparsers.add_parser('visibility', aliases=['v'],
                                               help='visibility coverage mapping based on techniques and data sources',
-                                              description='Create a heat map based on visibility scores or overlay '
-                                                          'visibility with detections.')
+                                              description='Create a heat map based on visibility scores, overlay '
+                                                          'visibility with detections, output to Excel or check the '
+                                                          'health of the technique administration YAML file.')
     parser_visibility.add_argument('-ft', '--file-tech', help='path to the technique administration YAML file (used to '
                                                               'score the level of visibility)', required=True)
     parser_visibility.add_argument('-fd', '--file-ds', help='path to the data source administration YAML file (used to '
@@ -64,8 +65,9 @@ def init_menu():
     parser_detection = subparsers.add_parser('detection', aliases=['d'],
                                              help='detection coverage mapping based on techniques',
                                              description='Create a heat map based on detection scores, overlay '
-                                                         'detections with visibility or generate a detection '
-                                                         'improvement graph.')
+                                                         'detections with visibility, generate a detection '
+                                                         'improvement graph, output to Excel or check the health of '
+                                                         'the technique administration YAML file.')
     parser_detection.add_argument('-ft', '--file-tech', help='path to the technique administration YAML file (used to '
                                                              'score the level of visibility)', required=True)
     parser_detection.add_argument('-fd', '--file-ds', help='path to the data source administration YAML file (used in '
