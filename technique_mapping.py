@@ -6,7 +6,7 @@ import xlsxwriter
 
 def generate_detection_layer(filename_techniques, filename_data_sources, overlay, filter_applicable_to):
     """
-    Generates layer for detection coverage and optionally an overlayed version with visibility coverage.
+    Generates layer for detection coverage and optionally an overlaid version with visibility coverage.
     :param filename_techniques: the filename of the yaml file containing the techniques administration
     :param filename_data_sources: the filename of the yaml file containing the data sources administration
     :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
@@ -21,14 +21,14 @@ def generate_detection_layer(filename_techniques, filename_data_sources, overlay
     else:
         my_techniques, name, platform = load_techniques(filename_techniques, 'all', filter_applicable_to)
         my_data_sources = _load_data_sources(filename_data_sources)
-        mapped_techniques_both = _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources, filter_applicable_to)
+        mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, filter_applicable_to)
         layer_both = get_layer_template_layered('Visibility and Detection ' + name + ' ' + filter_applicable_to, 'description', 'attack', platform)
         _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', filter_applicable_to, name)
 
 
 def generate_visibility_layer(filename_techniques, filename_data_sources, overlay, filter_applicable_to):
     """
-    Generates layer for visibility coverage and optionally an overlayed version with detection coverage.
+    Generates layer for visibility coverage and optionally an overlaid version with detection coverage.
     :param filename_techniques: the filename of the yaml file containing the techniques administration
     :param filename_data_sources: the filename of the yaml file containing the data sources administration
     :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
@@ -44,7 +44,7 @@ def generate_visibility_layer(filename_techniques, filename_data_sources, overla
         _write_layer(layer_visibility, mapped_techniques_visibility, 'visibility', filter_applicable_to, name)
     else:
         my_techniques, name, platform = load_techniques(filename_techniques, 'all', filter_applicable_to)
-        mapped_techniques_both = _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources, filter_applicable_to)
+        mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, filter_applicable_to)
         layer_both = get_layer_template_layered('Visibility and Detection ' + name + ' ' + filter_applicable_to, 'description', 'attack', platform)
         _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', filter_applicable_to, name)
 
@@ -233,7 +233,7 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources):
     return mapped_techniques
 
 
-def _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources, filter_applicable_to):
+def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, filter_applicable_to):
     """
     Determine the color of the techniques based on both detection and visibility.
     :param my_techniques: the configured techniques

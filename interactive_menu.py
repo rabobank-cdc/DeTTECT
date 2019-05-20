@@ -264,7 +264,7 @@ def menu_detection(filename_t):
     print('')
     print('Select what you want to do:')
     print('2. Generate a layer for detection coverage for the ATT&CK Navigator.')
-    print('3. Generate a layer for detection coverage overlayed with visibility for the ATT&CK Navigator.')
+    print('3. Generate a layer for detection coverage overlaid with visibility for the ATT&CK Navigator.')
     print('4. Generate a graph with detections added through time.')
     print('5. Generate an Excel sheet with all administrated techniques.')
     print('6. Check the technique YAML file for errors.')
@@ -323,7 +323,7 @@ def menu_visibility(filename_t, filename_ds):
     print('')
     print('Select what you want to do:')
     print('2. Generate a layer for visibility for the ATT&CK Navigator.')
-    print('3. Generate a layer for visibility overlayed with detection coverage for the ATT&CK Navigator.')
+    print('3. Generate a layer for visibility overlaid with detection coverage for the ATT&CK Navigator.')
     print('4. Generate an Excel sheet with all administrated techniques.')
     print('5. Check the technique YAML file for errors.')
     print('9. Back to main menu.')
@@ -336,7 +336,7 @@ def menu_visibility(filename_t, filename_ds):
         generate_visibility_layer(filename_t, filename_ds, False, filter_applicable_to)
         wait()
     elif choice == '3':
-        print('Writing visibility coverage layer overlayed with detections...')
+        print('Writing visibility coverage layer overlaid with detections...')
         generate_visibility_layer(filename_t, filename_ds, True, filter_applicable_to)
         wait()
     elif choice == '4':

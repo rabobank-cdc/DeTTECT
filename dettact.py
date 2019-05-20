@@ -57,7 +57,7 @@ def init_menu():
                                    action='store_true')
     parser_visibility.add_argument('-e', '--excel', help='generate an Excel sheet with all administrated techniques',
                                      action='store_true')
-    parser_visibility.add_argument('-o', '--overlay', help='generate a visibility layer overlayed with detections for '
+    parser_visibility.add_argument('-o', '--overlay', help='generate a visibility layer overlaid with detections for '
                                                            'the ATT&CK navigator', action='store_true')
     parser_visibility.add_argument('--health', help='check the technique YAML file for errors', action='store_true')
 
@@ -80,7 +80,7 @@ def init_menu():
                                   action='store_true')
     parser_detection.add_argument('-e', '--excel', help='generate an Excel sheet with all administrated techniques',
                                    action='store_true')
-    parser_detection.add_argument('-o', '--overlay', help='generate a detection layer overlayed with visibility for '
+    parser_detection.add_argument('-o', '--overlay', help='generate a detection layer overlaid with visibility for '
                                                           'the ATT&CK navigator', action='store_true')
     parser_detection.add_argument('-g', '--graph', help='generate a graph with detections added through time',
                                   action='store_true')
