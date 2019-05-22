@@ -442,7 +442,7 @@ techniques:
 - technique_id: T1171
   technique_name: LLMNR/NBT-NS Poisoning
   detection:
-    - applicable_to: ['client endpoint']
+    - applicable_to: ['client endpoints']
       date_registered: 2019-01-10
       date_implemented: 2017-01-01
       score: 2
@@ -460,7 +460,7 @@ techniques:
         - 'Model I'
       comment: ''
   visibility:
-    - applicable_to: ['client endpoint']
+    - applicable_to: ['client endpoints']
       score: 2
       comment: ''
     - applicable_to: ['servers']
