@@ -147,7 +147,7 @@ def menu(menu_parser):
         interactive_menu()
 
     elif args.subparser in ['datasource', 'ds']:
-        if check_file(args.file, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.health):
+        if check_file(args.file, FILE_TYPE_DATA_SOURCE_ADMINISTRATION):
             if args.layer:
                 generate_data_sources_layer(args.file)
             if args.excel:
