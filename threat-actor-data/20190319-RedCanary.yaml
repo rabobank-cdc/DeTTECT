@@ -4,6 +4,52 @@ version: 1.0
 file_type: group-administration
 groups:
   -
+    group_name:      Red Canary Threat Detection Report 2019 (1st edition) - overall
+    campaign:
+    technique_id:
+      T1086: 1774
+      T1064: 794
+      T1117: 710
+      T1090: 607
+      T1193: 424
+      T1036: 419
+      T1003: 405
+      T1060: 378
+      T1085: 372
+      T1035: 336
+      T1089: 313
+      T1059: 294
+      T1087: 289
+      T1015: 252
+      T1053: 232
+      T1047: 200
+      T1055: 156
+      T1027: 121
+      T1077: 116
+      T1097: 86
+      T1105: 71
+      T1197: 62
+      T1204: 57
+      T1140: 52
+      T1088: 45
+      T1070: 45
+      T1074: 39
+      T1170: 32
+      T1100: 30
+      T1127: 29
+      T1069: 27
+      T1420: 27
+      T1146: 27
+      T1028: 25
+      T1002: 20
+      T1218: 18
+      T1048: 18
+      T1118: 15
+      T1068: 13
+      T1121: 13
+    software_id:    []
+    enabled:        True
+  -
     group_name:     Red Canary Threat Detection Report 2019 (1st edition) - financials
     campaign:
     technique_id:   [T1015, T1036, T1060, T1064, T1085, T1086, T1089, T1090, T1117, T1193]
@@ -93,49 +139,3 @@ groups:
     technique_id:   [T1086, T1035, T1085, T1064, T1117, T1059, T1060, T1090, T1089, T1036]
     software_id:    []
     enabled:        False
-  -
-    group_name:     Red Canary Threat Detection Report 2019 (1st edition) - overall
-    campaign:
-    technique_id:
-      T1086: 1774
-      T1064: 794
-      T1117: 710
-      T1090: 607
-      T1193: 424
-      T1036: 419
-      T1003: 405
-      T1060: 378
-      T1085: 372
-      T1035: 336
-      T1089: 313
-      T1059: 294
-      T1087: 289
-      T1015: 252
-      T1053: 232
-      T1047: 200
-      T1055: 156
-      T1027: 121
-      T1077: 116
-      T1097: 86
-      T1105: 71
-      T1197: 62
-      T1204: 57
-      T1140: 52
-      T1088: 45
-      T1070: 45
-      T1074: 39
-      T1170: 32
-      T1100: 30
-      T1127: 29
-      T1069: 27
-      T1420: 27
-      T1146: 27
-      T1028: 25
-      T1002: 20
-      T1218: 18
-      T1048: 18
-      T1118: 15
-      T1068: 13
-      T1121: 13
-    software_id:    []
-    enabled:        True
