@@ -6,7 +6,7 @@ import xlsxwriter
 
 def generate_detection_layer(filename_techniques, filename_data_sources, overlay, filter_applicable_to):
     """
-    Generates layer for detection coverage and optionally an overlayed version with visibility coverage.
+    Generates layer for detection coverage and optionally an overlaid version with visibility coverage.
     :param filename_techniques: the filename of the yaml file containing the techniques administration
     :param filename_data_sources: the filename of the yaml file containing the data sources administration
     :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
@@ -14,21 +14,21 @@ def generate_detection_layer(filename_techniques, filename_data_sources, overlay
     :return:
     """
     if not overlay:
-        my_techniques, name, platform = _load_techniques(filename_techniques, 'detection', filter_applicable_to)
+        my_techniques, name, platform = load_techniques(filename_techniques, 'detection', filter_applicable_to)
         mapped_techniques_detection = _map_and_colorize_techniques_for_detections(my_techniques)
         layer_detection = get_layer_template_detections('Detections ' + name + ' ' + filter_applicable_to, 'description', 'attack', platform)
         _write_layer(layer_detection, mapped_techniques_detection, 'detection', filter_applicable_to, name)
     else:
-        my_techniques, name, platform = _load_techniques(filename_techniques, 'all', filter_applicable_to)
+        my_techniques, name, platform = load_techniques(filename_techniques, 'all', filter_applicable_to)
         my_data_sources = _load_data_sources(filename_data_sources)
-        mapped_techniques_both = _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources, filter_applicable_to)
+        mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, filter_applicable_to)
         layer_both = get_layer_template_layered('Visibility and Detection ' + name + ' ' + filter_applicable_to, 'description', 'attack', platform)
         _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', filter_applicable_to, name)
 
 
 def generate_visibility_layer(filename_techniques, filename_data_sources, overlay, filter_applicable_to):
     """
-    Generates layer for visibility coverage and optionally an overlayed version with detection coverage.
+    Generates layer for visibility coverage and optionally an overlaid version with detection coverage.
     :param filename_techniques: the filename of the yaml file containing the techniques administration
     :param filename_data_sources: the filename of the yaml file containing the data sources administration
     :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
@@ -38,13 +38,13 @@ def generate_visibility_layer(filename_techniques, filename_data_sources, overla
     my_data_sources = _load_data_sources(filename_data_sources)
 
     if not overlay:
-        my_techniques, name, platform = _load_techniques(filename_techniques, 'visibility', filter_applicable_to)
+        my_techniques, name, platform = load_techniques(filename_techniques, 'visibility', filter_applicable_to)
         mapped_techniques_visibility = _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources)
         layer_visibility = get_layer_template_visibility('Visibility ' + name + ' ' + filter_applicable_to, 'description', 'attack', platform)
         _write_layer(layer_visibility, mapped_techniques_visibility, 'visibility', filter_applicable_to, name)
     else:
-        my_techniques, name, platform = _load_techniques(filename_techniques, 'all', filter_applicable_to)
-        mapped_techniques_both = _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources, filter_applicable_to)
+        my_techniques, name, platform = load_techniques(filename_techniques, 'all', filter_applicable_to)
+        mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, filter_applicable_to)
         layer_both = get_layer_template_layered('Visibility and Detection ' + name + ' ' + filter_applicable_to, 'description', 'attack', platform)
         _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', filter_applicable_to, name)
 
@@ -56,7 +56,7 @@ def plot_detection_graph(filename, filter_applicable_to):
     :param filter_applicable_to: filter techniques based on applicable_to field in techniques administration YAML file
     :return:
     """
-    my_techniques, name, platform = _load_techniques(filename, 'detection', filter_applicable_to)
+    my_techniques, name, platform = load_techniques(filename, 'detection', filter_applicable_to)
 
     graph_values = []
     for t in my_techniques.values():
@@ -78,60 +78,6 @@ def plot_detection_graph(filename, filter_applicable_to):
         filename=output_filename, auto_open=False
     )
     print("File written: " + output_filename)
-
-
-def _load_techniques(filename, detection_or_visibility, filter_applicable_to='all'):
-    """
-    Loads the techniques (including detection and visibility properties) from the given yaml file.
-    :param filename: the filename of the yaml file containing the techniques administration
-    :param detection_or_visibility: used to indicate to filter applicable_to field for detection or visibility. When
-                                    using 'all' no filtering will be applied.
-    :param filter_applicable_to: filter techniques based on applicable_to field in techniques administration YAML file
-    :return: dictionary with techniques (incl. properties), name and platform
-    """
-
-    my_techniques = {}
-    with open(filename, 'r') as yaml_file:
-        yaml_content = yaml.load(yaml_file, Loader=yaml.FullLoader)
-        for d in yaml_content['techniques']:
-            # Add detection items:
-            if type(d['detection']) == dict: # There is just one detection entry
-                if detection_or_visibility == 'all' or filter_applicable_to == 'all' or filter_applicable_to in d[detection_or_visibility]['applicable_to'] or 'all' in d[detection_or_visibility]['applicable_to']:
-                    _add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', d['detection'])
-            elif type(d['detection']) == list: # There are multiple detection entries
-                for de in d['detection']:
-                    if detection_or_visibility == 'all' or filter_applicable_to == 'all' or filter_applicable_to in de['applicable_to'] or 'all' in de['applicable_to']:
-                        _add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', de)
-
-            # Add visibility items
-            if type(d['visibility']) == dict: # There is just one visibility entry
-                if detection_or_visibility == 'all' or filter_applicable_to == 'all' or filter_applicable_to in d[detection_or_visibility]['applicable_to'] or 'all' in d[detection_or_visibility]['applicable_to']:
-                    _add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', d['visibility'])
-            elif type(d['visibility']) == list: # There are multiple visibility entries
-                for de in d['visibility']:
-                    if detection_or_visibility == 'all' or filter_applicable_to == 'all' or filter_applicable_to in de['applicable_to'] or 'all' in de['applicable_to']:
-                        _add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', de)
-
-        name = yaml_content['name']
-        platform = yaml_content['platform']
-    return my_techniques, name, platform
-
-
-def _add_entry_to_list_in_dictionary(dict, technique_id, key, entry):
-    """
-    Ensures a list will be created if it doesn't exist in the given dict[technique_id][key] and adds the entry to the
-    list. If the dict[technique_id] doesn't exist yet, it will be created.
-    :param dict: the dictionary
-    :param technique_id: the id of the technique in the main dict
-    :param key: the key where the list in the dictionary resides
-    :param entry: the entry to add to the list
-    :return:
-    """
-    if technique_id not in dict.keys():
-        dict[technique_id] = {}
-    if not key in dict[technique_id].keys():
-        dict[technique_id][key] = []
-    dict[technique_id][key].append(entry)
 
 
 def _load_data_sources(filename):
@@ -287,7 +233,7 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources):
     return mapped_techniques
 
 
-def _map_and_colorize_techniques_for_overlayed(my_techniques, my_data_sources, filter_applicable_to):
+def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, filter_applicable_to):
     """
     Determine the color of the techniques based on both detection and visibility.
     :param my_techniques: the configured techniques
@@ -384,7 +330,7 @@ def export_techniques_list_to_excel(filename):
     :param filename: the filename of the yaml file containing the techniques administration
     :return:
     """
-    my_techniques, name, platform = _load_techniques(filename, 'all')
+    my_techniques, name, platform = load_techniques(filename, 'all')
     my_techniques = dict(sorted(my_techniques.items(), key=lambda kv: kv[0], reverse=False))
     mitre_techniques = load_attack_data(DATATYPE_ALL_TECH)
 

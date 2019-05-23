@@ -1,6 +1,5 @@
 import simplejson
 from generic import *
-from technique_mapping import _load_techniques
 
 CG_GROUPS = {}
 
@@ -164,11 +163,17 @@ def get_group_techniques(groups, stage, platform, file_type):
 
         for group in config['groups']:
             if group['enabled']:
-                group_id = get_group_id(group['group_name'], group['campaign'])
+                campaign = group['campaign'] if group['campaign'] else ''
+                group_id = get_group_id(group['group_name'], campaign)
                 groups_dict[group_id] = dict()
 
                 groups_dict[group_id]['group_name'] = group['group_name']
-                groups_dict[group_id]['techniques'] = set(group['technique_id'])
+                if type(group['technique_id']) == list:
+                    groups_dict[group_id]['techniques'] = set(group['technique_id'])
+                    groups_dict[group_id]['weight'] = dict((i, 1) for i in group['technique_id'])
+                elif type(group['technique_id']) == dict:
+                    groups_dict[group_id]['techniques'] = set(group['technique_id'].keys())
+                    groups_dict[group_id]['weight'] = group['technique_id']
                 groups_dict[group_id]['campaign'] = group['campaign']
                 groups_dict[group_id]['software'] = group['software_id']
     else:
@@ -188,8 +193,10 @@ def get_group_techniques(groups, stage, platform, file_type):
                     groups_found.add(e['group_id'])
                     groups_dict[e['group_id']] = {'group_name': e['group']}
                     groups_dict[e['group_id']]['techniques'] = set()
+                    groups_dict[e['group_id']]['weight'] = dict()
 
                 groups_dict[e['group_id']]['techniques'].add(e['technique_id'])
+                groups_dict[e['group_id']]['weight'][e['technique_id']] = 1
 
         # do not call 'is_group_found' when groups is a YAML file
         # (this could contain groups that do not exists within ATT&CK)
@@ -211,16 +218,18 @@ def get_detection_techniques(filename, filter_applicable_to):
     # { group_id: {group_name: NAME, techniques: set{id, ...} } }
     groups_dict = {}
 
-    detection_techniques, name, platform = _load_techniques(filename, 'detection', filter_applicable_to)
+    detection_techniques, name, platform = load_techniques(filename, 'detection', filter_applicable_to)
 
     group_id = 'DETECTION'
     groups_dict[group_id] = {}
     groups_dict[group_id]['group_name'] = 'Detection'
     groups_dict[group_id]['techniques'] = set()
+    groups_dict[group_id]['weight'] = dict()
     for t, v in detection_techniques.items():
         s = calculate_score(v['detection'])
         if s > 0:
             groups_dict[group_id]['techniques'].add(t)
+            groups_dict[group_id]['weight'][t] = 1
 
     return groups_dict, detection_techniques
 
@@ -235,16 +244,18 @@ def get_visibility_techniques(filename, filter_applicable_to):
     # { group_id: {group_name: NAME, techniques: set{id, ...} } }
     groups_dict = {}
 
-    visibility_techniques, name, platform = _load_techniques(filename, 'visibility', filter_applicable_to)
+    visibility_techniques, name, platform = load_techniques(filename, 'visibility', filter_applicable_to)
 
     group_id = 'VISIBILITY'
     groups_dict[group_id] = {}
     groups_dict[group_id]['group_name'] = 'Visibility'
     groups_dict[group_id]['techniques'] = set()
+    groups_dict[group_id]['weight'] = dict()
     for t, v in visibility_techniques.items():
         s = calculate_score(v['visibility'])
         if s > 0:
             groups_dict[group_id]['techniques'].add(t)
+            groups_dict[group_id]['weight'][t] = 1
 
     return groups_dict, visibility_techniques
 
@@ -257,7 +268,7 @@ def get_technique_count(groups, groups_overlay, groups_software, overlay_type, a
     :param groups_software: a dict with with data on which techniques are used within related software
     :param overlay_type: group, visibility or detection
     :param all_techniques: dict containing all technique data for visibility or detection
-    :return: dictionary
+    :return: dictionary, max_count
     """
     # { technique_id: {count: ..., groups: set{} }
     techniques_dict = {}
@@ -267,23 +278,23 @@ def get_technique_count(groups, groups_overlay, groups_software, overlay_type, a
             if tech not in techniques_dict:
                 techniques_dict[tech] = dict()
                 techniques_dict[tech]['groups'] = set()
-                techniques_dict[tech]['count'] = 1
+                techniques_dict[tech]['count'] = v['weight'][tech]
 
             # We only want to increase the score when comparing groups and not for visibility or detection.
             # This allows to have proper sorting of the heat map, which in turn improves the ability to visually
             # compare this heat map with the detection/visibility ATT&CK Navigator layers.
             else:
-                techniques_dict[tech]['count'] += 1
+                techniques_dict[tech]['count'] += v['weight'][tech]
             techniques_dict[tech]['groups'].add(group)
 
-    max_tech_count_group = max(techniques_dict.values(), key=lambda v: v['count'])['count']
+    max_count = max(techniques_dict.values(), key=lambda v: v['count'])['count']
 
     # create dict {tech_id: score+max_tech_count} to be used for when doing an overlay of the type visibility or detection
     if overlay_type != OVERLAY_TYPE_GROUP:
         dict_tech_score = {}
         list_tech = groups_overlay[overlay_type.upper()]['techniques']
         for tech in list_tech:
-            dict_tech_score[tech] = calculate_score(all_techniques[tech][overlay_type]) + max_tech_count_group
+            dict_tech_score[tech] = calculate_score(all_techniques[tech][overlay_type]) + max_count
 
     for group, v in groups_overlay.items():
         for tech in v['techniques']:
@@ -291,23 +302,23 @@ def get_technique_count(groups, groups_overlay, groups_software, overlay_type, a
                 techniques_dict[tech] = dict()
                 techniques_dict[tech]['groups'] = set()
                 if overlay_type == OVERLAY_TYPE_GROUP:
-                    techniques_dict[tech]['count'] = 1
+                    techniques_dict[tech]['count'] = v['weight'][tech]
                 else:
                     techniques_dict[tech]['count'] = dict_tech_score[tech]
             elif group in groups:
                 if tech not in groups[group]['techniques']:
                     if overlay_type == OVERLAY_TYPE_GROUP:
-                        techniques_dict[tech]['count'] += 1
+                        techniques_dict[tech]['count'] += v['weight'][tech]
                     else:
                         techniques_dict[tech]['count'] = dict_tech_score[tech]
-                    # Only to this when it was not already counted by being part of 'groups'.
+                    # Only do this when it was not already counted by being part of 'groups'.
                     # Meaning the group in 'groups_overlay' was also part of 'groups' (match on Group ID) and the
                     # technique was already counted for that group / it is not a new technique for that group coming
                     # from a YAML file
             else:
                 if overlay_type == OVERLAY_TYPE_GROUP:
                     # increase count when the group in the YAML file is a custom group
-                    techniques_dict[tech]['count'] += 1
+                    techniques_dict[tech]['count'] += v['weight'][tech]
                 else:
                     techniques_dict[tech]['count'] = dict_tech_score[tech]
 
@@ -324,11 +335,11 @@ def get_technique_count(groups, groups_overlay, groups_software, overlay_type, a
                 techniques_dict[tech]['groups'] = set()
             techniques_dict[tech]['groups'].add(group)
 
-    return techniques_dict, max_tech_count_group
+    return techniques_dict, max_count
 
 
 def get_technique_layer(techniques_count, groups, overlay, groups_software, overlay_file_type, overlay_type,
-                        all_techniques, max_tech_count_group):
+                        all_techniques):
     """
     Create the technique layer that will be part of the ATT&CK navigator json file
     :param techniques_count: involved techniques with count (to be used within the scores)
@@ -338,7 +349,6 @@ def get_technique_layer(techniques_count, groups, overlay, groups_software, over
     :param overlay_file_type: the file type of the YAML file as present in the key 'file_type'
     :param overlay_type: group, visibility or detection
     :param all_techniques: dictionary with all techniques loaded from techniques administration YAML file
-    :param max_tech_count_group: the maximum number of times a technique is used among threat actor groups
     :return: dictionary
     """
     techniques_layer = []
@@ -384,7 +394,8 @@ def get_technique_layer(techniques_count, groups, overlay, groups_software, over
                 # Add applicable_to to metadata in case of overlay for detection/visibility:
                 if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
                     metadata_dict['Applicable to'] = set([a for v in all_techniques[tech][overlay_type] for a in v['applicable_to']])
-                    metadata_dict[overlay_type.capitalize() + ' score'] = [str(techniques_count[tech]['count'] - max_tech_count_group)]
+                    metadata_dict['Detection score'] = [str(calculate_score(all_techniques[tech]['detection']))]
+                    metadata_dict['Visibility score'] = [str(calculate_score(all_techniques[tech]['visibility']))]
 
                 if 'Overlay' not in metadata_dict:
                     metadata_dict['Overlay'] = set()
@@ -457,7 +468,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
 
     groups_file_type = None
     if os.path.isfile(groups):
-        groups_file_type = check_file_type(groups, file_type=FILE_TYPE_GROUP_ADMINISTRATION)
+        groups_file_type = check_file(groups, file_type=FILE_TYPE_GROUP_ADMINISTRATION)
         if not groups_file_type:
             return
     else:
@@ -471,7 +482,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
             expected_file_type = FILE_TYPE_GROUP_ADMINISTRATION if overlay_type == OVERLAY_TYPE_GROUP \
                 else FILE_TYPE_TECHNIQUE_ADMINISTRATION \
                 if overlay_type in [OVERLAY_TYPE_VISIBILITY, OVERLAY_TYPE_DETECTION] else None
-            overlay_file_type = check_file_type(overlay, expected_file_type)
+            overlay_file_type = check_file(overlay, expected_file_type)
             if not overlay_file_type:
                 return
         else:
@@ -506,9 +517,9 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
     elif software_groups:
         groups_software_dict = get_software_techniques(groups, stage, platform)
 
-    technique_count, max_tech_count_group = get_technique_count(groups_dict, overlay_dict, groups_software_dict, overlay_type, all_techniques)
+    technique_count, max_count = get_technique_count(groups_dict, overlay_dict, groups_software_dict, overlay_type, all_techniques)
     technique_layer = get_technique_layer(technique_count, groups_dict, overlay_dict, groups_software_dict,
-                                          overlay_file_type, overlay_type, all_techniques, max_tech_count_group)
+                                          overlay_file_type, overlay_type, all_techniques)
 
     # make a list group names for the involved groups.
     if groups == ['all']:
@@ -520,15 +531,16 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
     desc = 'stage: ' + stage + ' | platform: ' + platform + ' | group(s): ' + ', '.join(groups_list) + \
            ' | overlay group(s): ' + ', '.join(overlay_list)
 
-    layer = get_layer_template_groups(stage[0].upper() + stage[1:] + ' ' + platform, max_tech_count_group, desc, stage, platform, overlay_type)
+    layer = get_layer_template_groups(stage[0].upper() + stage[1:] + ' ' + platform, max_count, desc, stage, platform, overlay_type)
     layer['techniques'] = technique_layer
 
     json_string = simplejson.dumps(layer).replace('}, ', '},\n')
 
     if overlay:
-        filename = "output/" + stage + '_' + platform.lower() + '_' + '_'.join(groups_list) + '-overlay_' + '_'.join(overlay_list) + '_' + filter_applicable_to.replace(' ', '_') + '.json'
+        filename = "output/" + stage + '_' + platform.lower() + '_' + '_'.join(groups_list) + '-overlay_' + '_'.join(overlay_list) + '_' + filter_applicable_to.replace(' ', '_')
     else:
-        filename = "output/" + stage + '_' + platform.lower() + '_' + '_'.join(groups_list) + '.json'
+        filename = "output/" + stage + '_' + platform.lower() + '_' + '_'.join(groups_list)
+    filename = filename[:255] + '.json'
     with open(filename, 'w') as f:  # write layer file to disk
         f.write(json_string)
         print('Written layer: ' + filename)

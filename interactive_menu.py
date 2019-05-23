@@ -136,7 +136,7 @@ def select_file(title, what, expected_file_type, b_clear=True):
     else:
         if choice.isdigit() and int(choice) < n:
             filename = files[int(choice) - 1]
-            file_type = check_file_type(filename, file_type=expected_file_type)
+            file_type = check_file(filename, file_type=expected_file_type)
             if file_type:
                 print('Selected file: ' + filename)
                 wait()
@@ -264,9 +264,10 @@ def menu_detection(filename_t):
     print('')
     print('Select what you want to do:')
     print('2. Generate a layer for detection coverage for the ATT&CK Navigator.')
-    print('3. Generate a layer for detection coverage overlayed with visibility for the ATT&CK Navigator.')
+    print('3. Generate a layer for detection coverage overlaid with visibility for the ATT&CK Navigator.')
     print('4. Generate a graph with detections added through time.')
     print('5. Generate an Excel sheet with all administrated techniques.')
+    print('6. Check the technique YAML file for errors.')
     print('9. Back to main menu.')
     choice = ask_input()
     if choice == '1':
@@ -290,6 +291,10 @@ def menu_detection(filename_t):
     elif choice == '5':
         print('Generating Excel file...')
         export_techniques_list_to_excel(filename_t)
+        wait()
+    elif choice == '6':
+        print('Checking the technique YAML file for errors...')
+        check_yaml_file_health(filename_t, FILE_TYPE_TECHNIQUE_ADMINISTRATION, health_is_called=True)
         wait()
     elif choice == '9':
         interactive_menu()
@@ -318,8 +323,9 @@ def menu_visibility(filename_t, filename_ds):
     print('')
     print('Select what you want to do:')
     print('2. Generate a layer for visibility for the ATT&CK Navigator.')
-    print('3. Generate a layer for visibility overlayed with detection coverage for the ATT&CK Navigator.')
+    print('3. Generate a layer for visibility overlaid with detection coverage for the ATT&CK Navigator.')
     print('4. Generate an Excel sheet with all administrated techniques.')
+    print('5. Check the technique YAML file for errors.')
     print('9. Back to main menu.')
     choice = ask_input()
     if choice == '1':
@@ -330,12 +336,16 @@ def menu_visibility(filename_t, filename_ds):
         generate_visibility_layer(filename_t, filename_ds, False, filter_applicable_to)
         wait()
     elif choice == '3':
-        print('Writing visibility coverage layer overlayed with detections...')
+        print('Writing visibility coverage layer overlaid with detections...')
         generate_visibility_layer(filename_t, filename_ds, True, filter_applicable_to)
         wait()
     elif choice == '4':
         print('Generating Excel file...')
         export_techniques_list_to_excel(filename_t)
+        wait()
+    elif choice == '5':
+        print('Checking the technique YAML file for errors...')
+        check_yaml_file_health(filename_t, FILE_TYPE_TECHNIQUE_ADMINISTRATION, health_is_called=True)
         wait()
     elif choice == '9':
         interactive_menu()
