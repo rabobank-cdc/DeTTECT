@@ -461,7 +461,6 @@ def check_yaml_file_health(filename, file_type, health_is_called):
             for i2 in all_applicable_to:
                 match_value = SequenceMatcher(None, i1, i2).ratio()
                 if match_value > 0.8 and match_value != 1:
-                    print(match_value)
                     similar.add(i1)
                     similar.add(i2)
 
