@@ -37,7 +37,7 @@ of which can be visualised by loading JSON layer files into the [ATT&CK Navigato
 
 See below an example of mapping your data sources to ATT&CK which gives you a rough overview of your visibility coverage:
 
- <img src="images/example_data_sources.png" alt="DeTT&CT - Data quality">
+ <img src="https://raw.githubusercontent.com/wiki/rabobank-cdc/DeTTACT/images/example_data_sources.png" alt="DeTT&CT - Data quality">
 
 
 ## Installation and requirements
