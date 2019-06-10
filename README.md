@@ -14,17 +14,17 @@ DeTT&CT provides the following functionality:
 - Get insight on the visibility you have on for example endpoints.
 - Map your detection coverage.
 - Map threat actor behaviours.
-- Compare visibility, detections and threat actor behaviours in order to uncover possible improvements in detection and visibility. This can help you to prioritise your blue teaming efforts.
+- Compare visibility, detections and threat actor behaviours to uncover possible improvements in detection and visibility. This can help you to prioritise your blue teaming efforts.
 
 The coloured visualisations are created with the help of MITRE's [ATT&CK™ Navigator](https://github.com/mitre-attack/attack-navigator).
 
 ## Authors and contribution
-This project is developed and maintained by [Marcus Bakker](https://github.com/marcusbakker) (Twitter: [@bakker3m](https://twitter.com/bakk3rm)) and [Ruben Bouman](https://github.com/rubinatorz) (Twitter: [@rubenb_2](https://twitter.com/rubenb_2/)). Feel free to contact, DMs are open.
+This project is developed and maintained by [Marcus Bakker](https://github.com/marcusbakker) (Twitter: [@bakk3rm](https://twitter.com/bakk3rm)) and [Ruben Bouman](https://github.com/rubinatorz) (Twitter: [@rubenb_2](https://twitter.com/rubenb_2/)). Feel free to contact, DMs are open.
 
 We welcome contributions! Contributions can be both in code, as well as in ideas you might have for further development, usability improvements, etc.
 
 ### Work of others
-Some functionality within DeTT&CT was inspired by work of
+Some functionality within DeTT&CT was inspired by the work of
 others:
 - Roberto Rodriguez's work on data quality and scoring of MITRE ATT&CK™ techniques ([How Hot Is Your Hunt Team?](https://cyberwardog.blogspot.com/2017/07/how-hot-is-your-hunt-team.html), [Ready to hunt? First, Show me your data!](https://cyberwardog.blogspot.com/2017/12/ready-to-hunt-first-show-me-your-data.html)).
 - The MITRE ATT&CK Mapping project on GitHub:
@@ -35,7 +35,7 @@ others:
 YAML files are used for administrating scores and relevant metadata. All
 of which can be visualised by loading JSON layer files into the [ATT&CK Navigator](https://github.com/mitre-attack/attack-navigator) (some types of scores and metadata can also be written to Excel).
 
-See below an example of mapping your data sources to ATT&CK which gives you a rough overview of your visibility coverage:
+See below an example of mapping your data sources to ATT&CK, which gives you a rough overview of your visibility coverage:
 
  <img src="https://raw.githubusercontent.com/wiki/rabobank-cdc/DeTTACT/images/example_data_sources.png" alt="DeTT&CT - Data quality">
 
