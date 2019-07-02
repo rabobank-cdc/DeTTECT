@@ -1,0 +1,35 @@
+
+%YAML 1.2
+---
+version: 1.0
+file_type: group-administration
+groups:
+  -
+    group_name: Rapid7 Quarterly Threat Report Q1 2019
+    campaign:
+    technique_id:
+      T1195: 2
+      T1059: 2
+      T1106: 2
+      T1035: 2
+      T1204: 2
+      T1189: 3
+      T1407: 9   # mobile technique
+      T1018: 10
+      T1219: 16
+      T1496: 20
+      T1105: 40
+      T1071: 45
+      T1165: 50
+      T1060: 50
+      T1021: 60
+      T1486: 77
+      T1082: 90
+      T1027: 91
+      T1064: 96
+      T1133: 97
+      T1114: 99
+      T1472: 99  # mobile technique
+      T1411: 99
+    software_id:    []
+    enabled:        True
