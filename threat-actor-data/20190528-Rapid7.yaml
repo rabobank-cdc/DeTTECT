@@ -30,6 +30,6 @@ groups:
       T1133: 97
       T1114: 99
       T1472: 99  # mobile technique
-      T1411: 99
+      T1411: 99  # mobile technique
     software_id:    []
     enabled:        True
