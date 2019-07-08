@@ -10,7 +10,7 @@ def init_menu():
     :return:
     """
     menu_parser = argparse.ArgumentParser(description='Detect Tactics, Techniques & Combat Threats',
-                                          epilog='Source: https://github.com/rabobank-cdc/DeTTACT')
+                                          epilog='Source: https://github.com/rabobank-cdc/DeTTECT')
     menu_parser.add_argument('--version', action='version', version='%(prog)s ' + VERSION)
     menu_parser.add_argument('-i', '--interactive', help='launch the interactive menu, which has support for all modes',
                              action='store_true')
