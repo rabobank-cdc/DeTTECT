@@ -6,6 +6,7 @@ EXPIRE_TIME = 60*60*24
 
 DATATYPE_TECH_BY_GROUP = 'mitre_techniques_used_by_group'
 DATATYPE_ALL_TECH = 'mitre_all_techniques'
+DATATYPE_ALL_TECH_ENTERPRISE = 'mitre_all_techniques_enterprise'
 DATATYPE_ALL_GROUPS = 'mitre_all_groups'
 DATATYPE_ALL_SOFTWARE = 'mitre_all_software'
 DATATYPE_TECH_BY_SOFTWARE = 'mitre_techniques_used_by_software'

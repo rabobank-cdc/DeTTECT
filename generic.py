@@ -9,6 +9,34 @@ from difflib import SequenceMatcher
 # Due to performance reasons the import of attackcti is within the function that makes use of this library.
 
 
+def try_get_key(dictionary, key):
+    """
+    Return None if the key does not exists within the provided dict
+    :param dictionary: dictionary
+    :param key: key
+    :return: key value or None
+    """
+    if key in dictionary:
+        return dictionary[key]
+    return None
+
+
+def try_except(self, stix_objects, object_type, nested_value=None):
+    if object_type in stix_objects:
+        specific_stix_object = stix_objects[object_type]
+        if isinstance(specific_stix_object, list):
+            if nested_value is None:
+                lists = self.handle_list(stix_objects, object_type)
+                return lists
+            else:
+                nested_result = self.handle_nested(stix_objects, object_type, nested_value)
+                return nested_result
+        else:
+            return stix_objects[object_type]
+    else:
+        return None
+
+
 def save_attack_data(data, path):
     """
     Save ATT&CK data to disk for the purpose of caching.
@@ -39,23 +67,120 @@ def load_attack_data(data_type):
     from attackcti import attack_client
     mitre = attack_client()
 
-    json_data = None
+    stix_objects = None
+    if data_type == DATATYPE_ALL_TECH_ENTERPRISE:
+        stix_objects = mitre.get_all_enterprise_techniques()
     if data_type == DATATYPE_TECH_BY_GROUP:
-        json_data = mitre.get_techniques_used_by_group()
+        # First we need to know which technique references (STIX Object type 'attack-pattern') we have for all
+        # groups. This results in a dict: {group_id: Gxxxx, technique_ref/attack-pattern_ref: ...}
+        groups = mitre.get_all_groups()
+        relationships = mitre.get_all_relationships()
+        all_groups_relationships = []
+        for g in groups:
+            for r in relationships:
+                if g['id'] == r['source_ref'] and r['relationship_type'] == 'uses' and \
+                        r['target_ref'].startswith('attack-pattern--'):
+                    # much more information on the group can be added. Only the minimal required data is now added.
+                    all_groups_relationships.append(
+                        {
+                            'group_id': get_attack_id(g),
+                            'name': g['name'],
+                            'aliases': try_get_key(g, 'aliases'),
+                            'technique_ref': r['target_ref']
+                        })
+
+        # Now we start resolving this part of the dict created above: 'technique_ref/attack-pattern_ref'.
+        # and we add some more data to the final result.
+        all_group_use = []
+        techniques = mitre.get_all_techniques()
+        for gr in all_groups_relationships:
+            for t in techniques:
+                if t['id'] == gr['technique_ref']:
+                    all_group_use.append(
+                        {
+                            'group_id': gr['group_id'],
+                            'name': gr['name'],
+                            'aliases': gr['aliases'],
+                            'technique_id': get_attack_id(t),
+                            'x_mitre_platforms': try_get_key(t, 'x_mitre_platforms'),
+                            'matrix': t['external_references'][0]['source_name']
+                        })
+
+        stix_objects = all_group_use
+
     elif data_type == DATATYPE_ALL_TECH:
-        json_data = mitre.get_all_techniques()
+        stix_objects = mitre.get_all_techniques()
     elif data_type == DATATYPE_ALL_GROUPS:
-        json_data = mitre.get_all_groups()
+        stix_objects = mitre.get_all_groups()
     elif data_type == DATATYPE_ALL_SOFTWARE:
-        json_data = mitre.get_all_software()
+        stix_objects = mitre.get_all_software()
     elif data_type == DATATYPE_TECH_BY_SOFTWARE:
-        json_data = mitre.get_techniques_used_by_software()
+        # TODO cache the stix objects
+        # First we need to know which technique references (STIX Object type 'attack-pattern') we have for all software
+        # This results in a dict: {software_id: Sxxxx, technique_ref/attack-pattern_ref: ...}
+        software = mitre.get_all_software()
+        relationships = mitre.get_all_relationships()
+        all_software_relationships = []
+        for s in software:
+            for r in relationships:
+                if s['id'] == r['source_ref'] and r['relationship_type'] == 'uses' and \
+                        r['target_ref'].startswith('attack-pattern--'):
+                    # much more information (e.g. description, aliases, platform) on the software can be added to the
+                    # dict if necessary. Only the minimal required data is now added.
+                    all_software_relationships.append({'software_id': get_attack_id(s), 'technique_ref': r['target_ref']})
+
+        # Now we start resolving this part of the dict created above: 'technique_ref/attack-pattern_ref'
+        techniques = mitre.get_all_techniques()
+        all_software_use = []
+        for sr in all_software_relationships:
+            for t in techniques:
+                if t['id'] == sr['technique_ref']:
+                    # much more information on the technique can be added to the dict. Only the minimal required data
+                    # is now added (i.e. resolving the technique ref to an actual ATT&CK ID)
+                    all_software_use.append({'software_id': sr['software_id'], 'technique_id': get_attack_id(t)})
+
+        stix_objects = all_software_use
+
     elif data_type == DATATYPE_SOFTWARE_BY_GROUP:
-        json_data = mitre.get_software_used_by_group()
+        # First we need to know which software references (STIX Object type 'malware' or 'tool') we have for all
+        # groups. This results in a dict: {group_id: Gxxxx, software_ref/malware-tool_ref: ...}
+        groups = mitre.get_all_groups()
+        relationships = mitre.get_all_relationships()
+        all_groups_relationships = []
+        for g in groups:
+            for r in relationships:
+                if g['id'] == r['source_ref'] and r['relationship_type'] == 'uses' and \
+                        (r['target_ref'].startswith('tool--') or r['target_ref'].startswith('malware--')):
+                    # much more information on the group can be added. Only the minimal required data is now added.
+                    all_groups_relationships.append(
+                        {
+                            'group_id': get_attack_id(g),
+                            'name': g['name'],
+                            'aliases': try_get_key(g, 'aliases'),
+                            'software_ref': r['target_ref']
+                        })
 
-    save_attack_data(json_data, "cache/" + data_type)
+        # Now we start resolving this part of the dict created above: 'software_ref/malware-tool_ref'.
+        # and we add some more data to the final result.
+        all_group_use = []
+        software = mitre.get_all_software()
+        for gr in all_groups_relationships:
+            for s in software:
+                if s['id'] == gr['software_ref']:
+                    all_group_use.append(
+                        {
+                            'group_id': gr['group_id'],
+                            'name': gr['name'],
+                            'aliases': gr['aliases'],
+                            'software_id': get_attack_id(s),
+                            'x_mitre_platforms': try_get_key(s, 'x_mitre_platforms'),
+                            'matrix': s['external_references'][0]['source_name']
+                        })
+        stix_objects = all_group_use
 
-    return json_data
+    save_attack_data(stix_objects, "cache/" + data_type)
+
+    return stix_objects
 
 
 def _get_base_template(name, description, stage, platform, sorting):
@@ -221,6 +346,31 @@ def get_layer_template_layered(name, description, stage, platform):
     return layer
 
 
+def get_attack_id(stix_obj):
+    """
+    Get the Technique, Group or Software ID from the STIX object
+    :param stix_obj: STIX object (Technique, Software or Group)
+    :return: ATT&CK ID
+    """
+    for ext_ref in stix_obj['external_references']:
+        if ext_ref['source_name'] in ['mitre-attack', 'mitre-mobile-attack', 'mitre-pre-attack']:
+            return ext_ref['external_id']
+
+
+def get_tactics(technique):
+    """
+    Get all tactics from a given technique
+    :param technique: technique STIX object
+    :return: list with tactics
+    """
+    tactics = []
+    if 'kill_chain_phases' in technique:
+        for phase in technique['kill_chain_phases']:
+            tactics.append(phase['phase_name'])
+
+    return tactics
+
+
 def get_technique(techniques, technique_id):
     """
     Generic function to lookup a specific technique_id in a list of dictionaries with techniques.
@@ -228,9 +378,9 @@ def get_technique(techniques, technique_id):
     :param technique_id: technique_id to look for
     :return: the technique you're searching for. None if not found.
     """
-    for t in techniques:
-        if technique_id == t['technique_id']:
-            return t
+    for tech in techniques:
+        if technique_id == get_attack_id(tech):
+            return tech
     return None
 
 
@@ -256,15 +406,18 @@ def map_techniques_to_data_sources(techniques, my_data_sources):
         for t in techniques:
             # If your data source is in the list of data sources for this technique AND if the
             # technique isn't added yet (by an other data source):
-            if t['data_sources'] and i_ds in t['data_sources'] and t['technique_id'] not in my_techniques.keys():
-                my_techniques[t['technique_id']] = {}
-                my_techniques[t['technique_id']]['my_data_sources'] = [i_ds, ]
-                my_techniques[t['technique_id']]['data_sources'] = t['data_sources']
-                my_techniques[t['technique_id']]['tactics'] = t['tactic']
-                my_techniques[t['technique_id']]['products'] = set(my_data_sources[i_ds]['products'])
-            elif t['data_sources'] and i_ds in t['data_sources'] and t['technique_id'] in my_techniques.keys():
-                my_techniques[t['technique_id']]['my_data_sources'].append(i_ds)
-                my_techniques[t['technique_id']]['products'].update(my_data_sources[i_ds]['products'])
+            tech_id = get_attack_id(t)
+            if 'x_mitre_data_sources' in t:
+                if i_ds in t['x_mitre_data_sources'] and tech_id not in my_techniques.keys():
+                    my_techniques[tech_id] = {}
+                    my_techniques[tech_id]['my_data_sources'] = [i_ds, ]
+                    my_techniques[tech_id]['data_sources'] = t['x_mitre_data_sources']
+                    # create a list of tactics
+                    my_techniques[tech_id]['tactics'] = list(map(lambda k: k['phase_name'], try_get_key(t, 'kill_chain_phases')))
+                    my_techniques[tech_id]['products'] = set(my_data_sources[i_ds]['products'])
+                elif t['x_mitre_data_sources'] and i_ds in t['x_mitre_data_sources'] and tech_id in my_techniques.keys():
+                    my_techniques[tech_id]['my_data_sources'].append(i_ds)
+                    my_techniques[tech_id]['products'].update(my_data_sources[i_ds]['products'])
 
     return my_techniques
 
@@ -275,12 +428,12 @@ def get_all_mitre_data_sources():
     :return: a sorted list with all data sources
     """
     techniques = load_attack_data(DATATYPE_ALL_TECH)
+
     data_sources = set()
     for t in techniques:
-        if t['data_sources']:
-            for ds in t['data_sources']:
-                if ds not in data_sources:
-                    data_sources.add(ds)
+        if 'x_mitre_data_sources' in t.keys():
+            for ds in t['x_mitre_data_sources']:
+                data_sources.add(ds)
     return sorted(data_sources)
 
 
@@ -333,19 +486,19 @@ def load_techniques(filename, detection_or_visibility='all', filter_applicable_t
         yaml_content = yaml.load(yaml_file, Loader=yaml.FullLoader)
         for d in yaml_content['techniques']:
             # Add detection items:
-            if type(d['detection']) == dict: # There is just one detection entry
+            if type(d['detection']) == dict:  # There is just one detection entry
                 if detection_or_visibility == 'all' or filter_applicable_to == 'all' or filter_applicable_to in d[detection_or_visibility]['applicable_to'] or 'all' in d[detection_or_visibility]['applicable_to']:
                     _add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', d['detection'])
-            elif type(d['detection']) == list: # There are multiple detection entries
+            elif type(d['detection']) == list:  # There are multiple detection entries
                 for de in d['detection']:
                     if detection_or_visibility == 'all' or filter_applicable_to == 'all' or filter_applicable_to in de['applicable_to'] or 'all' in de['applicable_to']:
                         _add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', de)
 
             # Add visibility items
-            if type(d['visibility']) == dict: # There is just one visibility entry
+            if type(d['visibility']) == dict:  # There is just one visibility entry
                 if detection_or_visibility == 'all' or filter_applicable_to == 'all' or filter_applicable_to in d[detection_or_visibility]['applicable_to'] or 'all' in d[detection_or_visibility]['applicable_to']:
                     _add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', d['visibility'])
-            elif type(d['visibility']) == list: # There are multiple visibility entries
+            elif type(d['visibility']) == list:  # There are multiple visibility entries
                 for de in d['visibility']:
                     if detection_or_visibility == 'all' or filter_applicable_to == 'all' or filter_applicable_to in de['applicable_to'] or 'all' in de['applicable_to']:
                         _add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', de)
@@ -426,7 +579,7 @@ def check_yaml_file_health(filename, file_type, health_is_called):
                                 detection[key].day
                             except AttributeError:
                                 has_error = _print_error_msg('[!] Technique ID: ' + tech +
-                                                        ' has an INVALID data format for the key-value pair in detection: ' +
+                                                             ' has an INVALID data format for the key-value pair in detection: ' +
                                                              key + '  (should be YYYY-MM-DD)', health_is_called)
                     for key in ['location', 'applicable_to']:
                         if not isinstance(detection[key], list):

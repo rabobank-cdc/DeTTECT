@@ -136,7 +136,7 @@ def _map_and_colorize_techniques_for_detections(my_techniques):
                                   if s == 3 else COLOR_D_4 if s == 4 else COLOR_D_5 if s == 5 else ''
                 technique = get_technique(techniques, technique_id)
 
-                for tactic in technique['tactic']:
+                for tactic in get_tactics(technique):
                     x = {}
                     x['techniqueID'] = technique_id
                     x['color'] = color
@@ -189,7 +189,7 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources):
         technique = get_technique(techniques, technique_id)
         color = COLOR_V_1 if s == 1 else COLOR_V_2 if s == 2 else COLOR_V_3 if s == 3 else COLOR_V_4 if s == 4 else ''
 
-        for tactic in technique['tactic']:
+        for tactic in get_tactics(technique):
             x = {}
             x['techniqueID'] = technique_id
             x['color'] = color
@@ -198,7 +198,7 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources):
             x['tactic'] = tactic.lower().replace(' ', '-')
             x['metadata'] = []
             x['metadata'].append({'name': '-Available data sources', 'value': my_ds})
-            x['metadata'].append({'name': '-ATT&CK data sources', 'value': ', '.join(technique['data_sources'])})
+            x['metadata'].append({'name': '-ATT&CK data sources', 'value': ', '.join(technique['x_mitre_data_sources'])})
             x['metadata'].append({'name': '---', 'value': '---'})
             x['score'] = s
 
@@ -217,15 +217,17 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources):
             mapped_techniques.append(x)
 
     for t in techniques:
-        if t['technique_id'] not in my_techniques.keys():
-            if t['tactic']:
-                for tactic in t['tactic']:
+        tech_id = get_attack_id(t)
+        if tech_id not in my_techniques.keys():
+            tactics = get_tactics(t)
+            if tactics:
+                for tactic in tactics:
                     x = {}
-                    x['techniqueID'] = t['technique_id']
+                    x['techniqueID'] = tech_id
                     x['comment'] = ''
                     x['enabled'] = True
                     x['tactic'] = tactic.lower().replace(' ', '-')
-                    ds = ', '.join(t['data_sources']) if t['data_sources'] else '-'
+                    ds = ', '.join(t['x_mitre_data_sources']) if 'x_mitre_data_sources' in t else '-'
                     x['metadata'] = [{'name': '-ATT&CK data sources', 'value': ds}]
 
                     mapped_techniques.append(x)
@@ -274,7 +276,7 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, fi
         my_ds = ', '.join(technique_ds_mapping[technique_id]['my_data_sources']) if technique_id in technique_ds_mapping.keys() and technique_ds_mapping[technique_id]['my_data_sources'] else '-'
 
         technique = get_technique(techniques, technique_id)
-        for tactic in technique['tactic']:
+        for tactic in get_tactics(technique):
             x = {}
             x['techniqueID'] = technique_id
             x['color'] = color
@@ -283,7 +285,7 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, fi
             x['tactic'] = tactic.lower().replace(' ', '-')
             x['metadata'] = []
             x['metadata'].append({'name': '-Available data sources', 'value': my_ds})
-            x['metadata'].append({'name': '-ATT&CK data sources', 'value': ', '.join(technique['data_sources'])})
+            x['metadata'].append({'name': '-ATT&CK data sources', 'value': ', '.join(technique['x_mitre_data_sources'])})
             x['metadata'].append({'name': '---', 'value': '---'})
 
             # Metadata for detection:
@@ -394,13 +396,15 @@ def export_techniques_list_to_excel(filename):
         # Add row for every detection that is defined:
         for detection in technique_data['detection']:
             worksheet_detections.write(y, 0, technique_id, valign_top)
-            worksheet_detections.write(y, 1, get_technique(mitre_techniques, technique_id)['technique'], valign_top)
-            worksheet_detections.write(y, 2, ', '.join(t.capitalize() for t in get_technique(mitre_techniques, technique_id)['tactic']), valign_top)
+            worksheet_detections.write(y, 1, get_technique(mitre_techniques, technique_id)['name'], valign_top)
+            worksheet_detections.write(y, 2, ', '.join(t.capitalize() for t in
+                                                       get_tactics(get_technique(mitre_techniques, technique_id))),
+                                       valign_top)
             worksheet_detections.write(y, 3, ', '.join(detection['applicable_to']), wrap_text)
             worksheet_detections.write(y, 4, str(detection['date_registered']).replace('None', ''), valign_top)
             worksheet_detections.write(y, 5, str(detection['date_implemented']).replace('None', ''), valign_top)
             ds = detection['score']
-            worksheet_detections.write(y, 6, ds, detection_score_0 if ds == 0 else detection_score_1 if ds ==1 else detection_score_2 if ds == 2 else detection_score_3 if ds == 3 else detection_score_4 if ds == 4 else detection_score_5 if ds == 5 else no_score)
+            worksheet_detections.write(y, 6, ds, detection_score_0 if ds == 0 else detection_score_1 if ds == 1 else detection_score_2 if ds == 2 else detection_score_3 if ds == 3 else detection_score_4 if ds == 4 else detection_score_5 if ds == 5 else no_score)
             worksheet_detections.write(y, 7, '\n'.join(detection['location']), wrap_text)
             worksheet_detections.write(y, 8, detection['comment'][:-1] if detection['comment'].endswith('\n') else detection['comment'], wrap_text)
             y += 1
@@ -426,8 +430,10 @@ def export_techniques_list_to_excel(filename):
         # Add row for every visibility that is defined:
         for visibility in technique_data['visibility']:
             worksheet_visibility.write(y, 0, technique_id, valign_top)
-            worksheet_visibility.write(y, 1, get_technique(mitre_techniques, technique_id)['technique'], valign_top)
-            worksheet_visibility.write(y, 2, ', '.join(t.capitalize() for t in get_technique(mitre_techniques, technique_id)['tactic']), valign_top)
+            worksheet_visibility.write(y, 1, get_technique(mitre_techniques, technique_id)['name'], valign_top)
+            worksheet_visibility.write(y, 2, ', '.join(t.capitalize() for t in
+                                                       get_tactics(get_technique(mitre_techniques, technique_id))),
+                                       valign_top)
             worksheet_visibility.write(y, 3, ', '.join(visibility['applicable_to']), wrap_text)
             vs = visibility['score']
             worksheet_visibility.write(y, 4, vs, visibility_score_1 if vs == 1 else visibility_score_2 if vs == 2 else visibility_score_3 if vs == 3 else visibility_score_4 if vs == 4 else no_score)

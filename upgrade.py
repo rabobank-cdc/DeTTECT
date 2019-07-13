@@ -135,7 +135,7 @@ def _upgrade_technique_yaml_10_to_11(file_lines, attack_tech_data):
             file_new_lines.append(l)
 
             tech_id = regex_tech_id.search(l).group(1)
-            tech_name = _get_technique(attack_tech_data, tech_id)['technique']
+            tech_name = _get_technique(attack_tech_data, tech_id)['name']
             file_new_lines.append('  technique_name: ' + tech_name+'\n')
         elif regex_detection.match(l):
             file_new_lines.append(l)
