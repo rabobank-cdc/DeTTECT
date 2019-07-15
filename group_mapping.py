@@ -27,7 +27,7 @@ def is_group_found(groups_found, argument_groups):
     :param argument_groups: groups provided via the command line by the user
     :return: returns boolean that indicates if the group is found
     """
-    groups = load_attack_data(DATATYPE_ALL_GROUPS)
+    groups = load_attack_data(DATA_TYPE_STIX_ALL_GROUPS)
 
     for group_arg in argument_groups:
         if group_arg == 'all':  # this one will be ignored as it does not make any sense for this function
@@ -63,7 +63,7 @@ def get_software_techniques(groups, stage, platform):
     # { group_id: {group_name: NAME, techniques: set{id, ...} } }
     groups_dict = {}
 
-    tech_by_software = load_attack_data(DATATYPE_TECH_BY_SOFTWARE)
+    tech_by_software = load_attack_data(DATA_TYPE_CUSTOM_TECH_BY_SOFTWARE)
 
     # { software_id: [technique, ...] }
     software_dict = {}
@@ -97,7 +97,7 @@ def get_software_techniques(groups, stage, platform):
 
     # groups are provided as arguments via the command line
     else:
-        software_by_group = load_attack_data(DATATYPE_SOFTWARE_BY_GROUP)
+        software_by_group = load_attack_data(DATA_TYPE_CUSTOM_SOFTWARE_BY_GROUP)
 
         for s in software_by_group:
             # software matches the ATT&CK Matrix and platform
@@ -179,7 +179,7 @@ def get_group_techniques(groups, stage, platform, file_type):
                 groups_dict[group_id]['software'] = group['software_id']
     else:
         # groups are provided as arguments via the command line
-        all_groups_tech = load_attack_data(DATATYPE_TECH_BY_GROUP)
+        all_groups_tech = load_attack_data(DATA_TYPE_CUSTOM_TECH_BY_GROUP)
 
         for gr in all_groups_tech:
             platforms = gr['x_mitre_platforms']
@@ -555,7 +555,7 @@ def get_updates(update_type, sort='modified'):
     :return:
     """
     if update_type[:-1] == 'technique':
-        techniques = load_attack_data(DATATYPE_ALL_TECH)
+        techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
         sorted_techniques = sorted(techniques, key=lambda k: k[sort])
 
         for t in sorted_techniques:
@@ -571,7 +571,7 @@ def get_updates(update_type, sort='modified'):
             print('')
 
     elif update_type[:-1] == 'group':
-        groups = load_attack_data(DATATYPE_ALL_GROUPS)
+        groups = load_attack_data(DATA_TYPE_STIX_ALL_GROUPS)
         sorted_groups = sorted(groups, key=lambda k: k[sort])
 
         for g in sorted_groups:
@@ -581,7 +581,7 @@ def get_updates(update_type, sort='modified'):
             print('')
 
     elif update_type == 'software':
-        software = load_attack_data(DATATYPE_ALL_SOFTWARE)
+        software = load_attack_data(DATA_TYPE_STIX_ALL_SOFTWARE)
         sorted_software = sorted(software, key=lambda k: k[sort])
 
         for s in sorted_software:
@@ -602,7 +602,7 @@ def get_statistics():
     Print out statistics related to data sources and how many techniques they cover.
     :return:
     """
-    techniques = load_attack_data(DATATYPE_ALL_TECH)
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
 
     # {data_source: {techniques: [T0001, ...}, count: ...}
     data_sources_dict = {}

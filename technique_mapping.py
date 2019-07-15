@@ -122,7 +122,7 @@ def _map_and_colorize_techniques_for_detections(my_techniques):
     :param my_techniques: the configured techniques
     :return: a dictionary with techniques that can be used in the layer's output file
     """
-    techniques = load_attack_data(DATATYPE_ALL_TECH)
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
 
     # Color the techniques based on how the coverage defined in the detections definition and generate a list with
     # techniques to be used in the layer output file.
@@ -175,7 +175,7 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources):
     :param my_data_sources: the configured data sources
     :return: a dictionary with techniques that can be used in the layer's output file
     """
-    techniques = load_attack_data(DATATYPE_ALL_TECH)
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
 
     technique_ds_mapping = map_techniques_to_data_sources(techniques, my_data_sources)
 
@@ -243,7 +243,7 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, fi
     :param filter_applicable_to: filter techniques based on applicable_to field in techniques administration YAML file
     :return: a dictionary with techniques that can be used in the layer's output file
     """
-    techniques = load_attack_data(DATATYPE_ALL_TECH)
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
 
     technique_ds_mapping = map_techniques_to_data_sources(techniques, my_data_sources)
 
@@ -334,7 +334,7 @@ def export_techniques_list_to_excel(filename):
     """
     my_techniques, name, platform = load_techniques(filename, 'all')
     my_techniques = dict(sorted(my_techniques.items(), key=lambda kv: kv[0], reverse=False))
-    mitre_techniques = load_attack_data(DATATYPE_ALL_TECH)
+    mitre_techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
 
     excel_filename = 'output/techniques.xlsx'
     workbook = xlsxwriter.Workbook(excel_filename)

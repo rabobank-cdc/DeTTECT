@@ -39,7 +39,7 @@ def try_except(self, stix_objects, object_type, nested_value=None):
 
 def save_attack_data(data, path):
     """
-    Save ATT&CK data to disk for the purpose of caching.
+    Save ATT&CK data to disk for the purpose of caching. Data can be STIX objects our a custom schema.
     :param data: the MITRE ATT&CK data to save
     :param path: file path to write to, including filename
     :return:
@@ -55,26 +55,29 @@ def load_attack_data(data_type):
     """
     Load the cached ATT&CK data from disk, if not expired (data file on disk is older then EXPIRE_TIME seconds).
     :param data_type: the desired data type, see DATATYPE_XX constants.
-    :return: MITRE ATT&CK data object
+    :return: MITRE ATT&CK data object (STIX or custom schema)
     """
     if os.path.exists("cache/" + data_type):
         with open("cache/" + data_type, 'rb') as f:
             cached = pickle.load(f)
             write_time = cached[1]
             if not (dt.now() - write_time).total_seconds() >= EXPIRE_TIME:
+                # the first item in the list contains the ATT&CK data
                 return cached[0]
 
     from attackcti import attack_client
     mitre = attack_client()
 
-    stix_objects = None
-    if data_type == DATATYPE_ALL_TECH_ENTERPRISE:
-        stix_objects = mitre.get_all_enterprise_techniques()
-    if data_type == DATATYPE_TECH_BY_GROUP:
+    attack_data = None
+    if data_type == DATA_TYPE_STIX_ALL_RELATIONSHIPS:
+        attack_data = mitre.get_all_relationships()
+    if data_type == DATA_TYPE_STIX_ALL_TECH_ENTERPRISE:
+        attack_data = mitre.get_all_enterprise_techniques()
+    if data_type == DATA_TYPE_CUSTOM_TECH_BY_GROUP:
         # First we need to know which technique references (STIX Object type 'attack-pattern') we have for all
         # groups. This results in a dict: {group_id: Gxxxx, technique_ref/attack-pattern_ref: ...}
-        groups = mitre.get_all_groups()
-        relationships = mitre.get_all_relationships()
+        groups = load_attack_data(DATA_TYPE_STIX_ALL_GROUPS)
+        relationships = load_attack_data(DATA_TYPE_STIX_ALL_RELATIONSHIPS)
         all_groups_relationships = []
         for g in groups:
             for r in relationships:
@@ -92,7 +95,7 @@ def load_attack_data(data_type):
         # Now we start resolving this part of the dict created above: 'technique_ref/attack-pattern_ref'.
         # and we add some more data to the final result.
         all_group_use = []
-        techniques = mitre.get_all_techniques()
+        techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
         for gr in all_groups_relationships:
             for t in techniques:
                 if t['id'] == gr['technique_ref']:
@@ -106,20 +109,19 @@ def load_attack_data(data_type):
                             'matrix': t['external_references'][0]['source_name']
                         })
 
-        stix_objects = all_group_use
+        attack_data = all_group_use
 
-    elif data_type == DATATYPE_ALL_TECH:
-        stix_objects = mitre.get_all_techniques()
-    elif data_type == DATATYPE_ALL_GROUPS:
-        stix_objects = mitre.get_all_groups()
-    elif data_type == DATATYPE_ALL_SOFTWARE:
-        stix_objects = mitre.get_all_software()
-    elif data_type == DATATYPE_TECH_BY_SOFTWARE:
-        # TODO cache the stix objects
+    elif data_type == DATA_TYPE_STIX_ALL_TECH:
+        attack_data = mitre.get_all_techniques()
+    elif data_type == DATA_TYPE_STIX_ALL_GROUPS:
+        attack_data = mitre.get_all_groups()
+    elif data_type == DATA_TYPE_STIX_ALL_SOFTWARE:
+        attack_data = mitre.get_all_software()
+    elif data_type == DATA_TYPE_CUSTOM_TECH_BY_SOFTWARE:
         # First we need to know which technique references (STIX Object type 'attack-pattern') we have for all software
         # This results in a dict: {software_id: Sxxxx, technique_ref/attack-pattern_ref: ...}
-        software = mitre.get_all_software()
-        relationships = mitre.get_all_relationships()
+        software = load_attack_data(DATA_TYPE_STIX_ALL_SOFTWARE)
+        relationships = load_attack_data(DATA_TYPE_STIX_ALL_RELATIONSHIPS)
         all_software_relationships = []
         for s in software:
             for r in relationships:
@@ -130,7 +132,7 @@ def load_attack_data(data_type):
                     all_software_relationships.append({'software_id': get_attack_id(s), 'technique_ref': r['target_ref']})
 
         # Now we start resolving this part of the dict created above: 'technique_ref/attack-pattern_ref'
-        techniques = mitre.get_all_techniques()
+        techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
         all_software_use = []
         for sr in all_software_relationships:
             for t in techniques:
@@ -139,13 +141,13 @@ def load_attack_data(data_type):
                     # is now added (i.e. resolving the technique ref to an actual ATT&CK ID)
                     all_software_use.append({'software_id': sr['software_id'], 'technique_id': get_attack_id(t)})
 
-        stix_objects = all_software_use
+        attack_data = all_software_use
 
-    elif data_type == DATATYPE_SOFTWARE_BY_GROUP:
+    elif data_type == DATA_TYPE_CUSTOM_SOFTWARE_BY_GROUP:
         # First we need to know which software references (STIX Object type 'malware' or 'tool') we have for all
         # groups. This results in a dict: {group_id: Gxxxx, software_ref/malware-tool_ref: ...}
-        groups = mitre.get_all_groups()
-        relationships = mitre.get_all_relationships()
+        groups = load_attack_data(DATA_TYPE_STIX_ALL_GROUPS)
+        relationships = load_attack_data(DATA_TYPE_STIX_ALL_RELATIONSHIPS)
         all_groups_relationships = []
         for g in groups:
             for r in relationships:
@@ -163,7 +165,7 @@ def load_attack_data(data_type):
         # Now we start resolving this part of the dict created above: 'software_ref/malware-tool_ref'.
         # and we add some more data to the final result.
         all_group_use = []
-        software = mitre.get_all_software()
+        software = load_attack_data(DATA_TYPE_STIX_ALL_SOFTWARE)
         for gr in all_groups_relationships:
             for s in software:
                 if s['id'] == gr['software_ref']:
@@ -176,11 +178,11 @@ def load_attack_data(data_type):
                             'x_mitre_platforms': try_get_key(s, 'x_mitre_platforms'),
                             'matrix': s['external_references'][0]['source_name']
                         })
-        stix_objects = all_group_use
+        attack_data = all_group_use
 
-    save_attack_data(stix_objects, "cache/" + data_type)
+    save_attack_data(attack_data, "cache/" + data_type)
 
-    return stix_objects
+    return attack_data
 
 
 def _get_base_template(name, description, stage, platform, sorting):
@@ -427,7 +429,7 @@ def get_all_mitre_data_sources():
     Gets all the data sources from the techniques and make a unique sorted list of it.
     :return: a sorted list with all data sources
     """
-    techniques = load_attack_data(DATATYPE_ALL_TECH)
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
 
     data_sources = set()
     for t in techniques:
@@ -681,7 +683,7 @@ def check_file(filename, file_type=None, health_is_called=False):
 
     # if the file is a valid YAML, continue. Else, return None
     if yaml_content:
-        upgrade_yaml_file(filename, file_type, yaml_content['version'], load_attack_data(DATATYPE_ALL_TECH))
+        upgrade_yaml_file(filename, file_type, yaml_content['version'], load_attack_data(DATA_TYPE_STIX_ALL_TECH))
         check_yaml_file_health(filename, file_type, health_is_called)
 
         return yaml_content['file_type']

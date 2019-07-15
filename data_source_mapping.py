@@ -172,7 +172,7 @@ def _map_and_colorize_techniques(my_ds, exceptions):
     :param my_ds: the configured data sources
     :return: a dictionary with techniques that can be used in the layer's output file
     """
-    techniques = load_attack_data(DATATYPE_ALL_TECH)
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
     technique_colors = {}
 
     # Color the techniques based on how many data sources are available.
@@ -219,7 +219,7 @@ def generate_technique_administration_file(filename):
     """
     my_data_sources, name, platform, exceptions = _load_data_sources(filename)
 
-    techniques = load_attack_data(DATATYPE_ALL_TECH_ENTERPRISE)
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE)
 
     # This is part of the techniques administration YAML file and is used as a template
     dict_tech = {'technique_id': '', 'technique_name': '', 'detection': {'applicable_to': ['all'],
