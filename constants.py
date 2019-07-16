@@ -1,15 +1,18 @@
 APP_NAME = 'DeTT&CT'
 APP_DESC = 'Detect Tactics, Techniques & Combat Threats'
-VERSION = '1.1.1'
+VERSION = '1.1.2'
 
 EXPIRE_TIME = 60*60*24
 
-DATATYPE_TECH_BY_GROUP = 'mitre_techniques_used_by_group'
-DATATYPE_ALL_TECH = 'mitre_all_techniques'
-DATATYPE_ALL_GROUPS = 'mitre_all_groups'
-DATATYPE_ALL_SOFTWARE = 'mitre_all_software'
-DATATYPE_TECH_BY_SOFTWARE = 'mitre_techniques_used_by_software'
-DATATYPE_SOFTWARE_BY_GROUP = 'mitre_software_used_by_group'
+# MITRE ATT&CK data types for custom schema and STIX
+DATA_TYPE_CUSTOM_TECH_BY_GROUP = 'mitre_techniques_used_by_group'
+DATA_TYPE_CUSTOM_TECH_BY_SOFTWARE = 'mitre_techniques_used_by_software'
+DATA_TYPE_CUSTOM_SOFTWARE_BY_GROUP = 'mitre_software_used_by_group'
+DATA_TYPE_STIX_ALL_TECH = 'mitre_all_techniques'
+DATA_TYPE_STIX_ALL_TECH_ENTERPRISE = 'mitre_all_techniques_enterprise'
+DATA_TYPE_STIX_ALL_GROUPS = 'mitre_all_groups'
+DATA_TYPE_STIX_ALL_SOFTWARE = 'mitre_all_software'
+DATA_TYPE_STIX_ALL_RELATIONSHIPS = 'mitre_all_relationships'
 
 # Group colors
 COLOR_GROUP_OVERLAY_MATCH = '#f9a825'            # orange

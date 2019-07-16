@@ -92,8 +92,7 @@ def select_file(title, what, expected_file_type, b_clear=True):
     :param title: title to print on top of this menu
     :param what: print for what purpose the file is selected
     :param expected_file_type: the expected file type of the YAML file
-    :param b_clear: clear the terminal before showing this memu
-    :param path: the path to look in
+    :param b_clear: clear the terminal before showing this menu
     :return: filename of the selected file
     """
     global yaml_path
@@ -305,7 +304,7 @@ def menu_detection(filename_t):
 
 def menu_visibility(filename_t, filename_ds):
     """
-    Prints and handles the Visibility coverage mappin functionality.
+    Prints and handles the Visibility coverage mapping functionality.
     :param filename_t:
     :param filename_ds:
     :return:

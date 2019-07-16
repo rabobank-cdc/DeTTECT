@@ -1,11 +1,11 @@
 FROM python:3.7-alpine
 
-LABEL version="1.1.1"
+LABEL version="1.1.2"
 
 # update repository and install Linux packages
 RUN apk update && \
     apk upgrade && \
-    apk add --no-cache bash git libc-dev build-base
+    apk add --no-cache bash libc-dev build-base
 
 # clone the newest version of DeTT&CT and install requirements
 COPY . /opt/DeTTECT

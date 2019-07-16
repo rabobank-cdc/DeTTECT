@@ -172,22 +172,22 @@ def _map_and_colorize_techniques(my_ds, exceptions):
     :param my_ds: the configured data sources
     :return: a dictionary with techniques that can be used in the layer's output file
     """
-    techniques = load_attack_data(DATATYPE_ALL_TECH)
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
     technique_colors = {}
 
     # Color the techniques based on how many data sources are available.
     for t in techniques:
-        if t['data_sources']:
-            total_ds_count = len(t['data_sources'])
+        if 'x_mitre_data_sources' in t:
+            total_ds_count = len(t['x_mitre_data_sources'])
             ds_count = 0
-            for ds in t['data_sources']:
+            for ds in t['x_mitre_data_sources']:
                 if ds in my_ds.keys():
                     ds_count += 1
             if total_ds_count > 0:
                 result = (float(ds_count) / float(total_ds_count)) * 100
                 color = COLOR_DS_25p if result <= 25 else COLOR_DS_50p if result <= 50 else COLOR_DS_75p \
                     if result <= 75 else COLOR_DS_99p if result <= 99 else COLOR_DS_100p
-                technique_colors[t['technique_id']] = color
+                technique_colors[get_attack_id(t)] = color
 
     my_techniques = map_techniques_to_data_sources(techniques, my_ds)
 
@@ -219,7 +219,7 @@ def generate_technique_administration_file(filename):
     """
     my_data_sources, name, platform, exceptions = _load_data_sources(filename)
 
-    techniques = load_attack_data(DATATYPE_ALL_TECH)
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE)
 
     # This is part of the techniques administration YAML file and is used as a template
     dict_tech = {'technique_id': '', 'technique_name': '', 'detection': {'applicable_to': ['all'],
@@ -237,30 +237,31 @@ def generate_technique_administration_file(filename):
 
     # Score visibility based on the number of available data sources and the exceptions
     for t in techniques:
-        if t['matrix'] == 'mitre-attack':
-            platforms_lower = list(map(lambda x: x.lower(), t['platform']))
-            if platform in platforms_lower:
-                if t['data_sources']:
-                    total_ds_count = len(t['data_sources'])
-                    ds_count = 0
-                    for ds in t['data_sources']:
-                        if ds in my_data_sources.keys():
-                            ds_count += 1
-                    if total_ds_count > 0:
-                        result = (float(ds_count) / float(total_ds_count)) * 100
+        platforms_lower = list(map(lambda x: x.lower(), try_get_key(t, 'x_mitre_platforms')))
+        if platform in platforms_lower:
+            # not every technique has data source listed
+            if 'x_mitre_data_sources' in t:
+                total_ds_count = len(t['x_mitre_data_sources'])
+                ds_count = 0
+                for ds in t['x_mitre_data_sources']:
+                    if ds in my_data_sources.keys():
+                        ds_count += 1
+                if total_ds_count > 0:
+                    result = (float(ds_count) / float(total_ds_count)) * 100
 
-                        score = 0 if result == 0 else 1 if result <= 49 else 2 if result <= 74 else 3 if result <= 99 else 4
-                    else:
-                        score = 0
+                    score = 0 if result == 0 else 1 if result <= 49 else 2 if result <= 74 else 3 if result <= 99 else 4
+                else:
+                    score = 0
 
-                    # Do not add technique if score == 0 or part of the exception list\
-                    techniques_upper = list(map(lambda x: x.upper(), exceptions))
-                    if score > 0 and t['technique_id'] not in techniques_upper:
-                        tech = copy.deepcopy(dict_tech)
-                        tech['technique_id'] = t['technique_id']
-                        tech['technique_name'] = get_technique(techniques, t['technique_id'])['technique']
-                        tech['visibility']['score'] = score
-                        yaml_file['techniques'].append(tech)
+                # Do not add technique if score == 0 or part of the exception list
+                techniques_upper = list(map(lambda x: x.upper(), exceptions))
+                tech_id = get_attack_id(t)
+                if score > 0 and tech_id not in techniques_upper:
+                    tech = copy.deepcopy(dict_tech)
+                    tech['technique_id'] = tech_id
+                    tech['technique_name'] = t['name']
+                    tech['visibility']['score'] = score
+                    yaml_file['techniques'].append(tech)
 
     yaml_string = '%YAML 1.2\n---\n' + yaml.dump(yaml_file, sort_keys=False).replace('null', '')
     output_filename = 'output/techniques-administration-' + normalize_name_to_filename(name+'-'+platform) + '.yaml'
