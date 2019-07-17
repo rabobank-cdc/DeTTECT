@@ -5,6 +5,7 @@ import yaml
 from upgrade import upgrade_yaml_file
 from constants import *
 from difflib import SequenceMatcher
+
 # Due to performance reasons the import of attackcti is within the function that makes use of this library.
 
 
