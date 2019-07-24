@@ -184,6 +184,8 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources):
     mapped_techniques = []
     for technique_id, technique_data in my_techniques.items():
         s = calculate_score(technique_data['visibility'])
+        if s == 0:
+            s = None
 
         my_ds = ', '.join(technique_ds_mapping[technique_id]['my_data_sources']) if technique_id in technique_ds_mapping.keys() and technique_ds_mapping[technique_id]['my_data_sources'] else '-'
         technique = get_technique(techniques, technique_id)
