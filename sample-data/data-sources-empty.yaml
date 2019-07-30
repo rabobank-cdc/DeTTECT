@@ -1,0 +1,627 @@
+%YAML 1.2
+---
+version: 1.0
+file_type: data-source-administration
+name: empty-data-source-admin-file
+# Fill in the correct MITRE ATT&CK enterprise platform (Windows, Linux or MacOS)
+platform:
+data_sources:
+  # A data source is treated as not available when all dimensions of the data quality have a score of 0.
+  # If desired you are free to add any key-value pairs.
+  - data_source_name: Process monitoring
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: File monitoring
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Process command-line parameters
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: API monitoring
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Process use of network
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Windows Registry
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Packet capture
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Authentication logs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Netflow/Enclave netflow
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Windows event logs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Binary file metadata
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Network protocol analysis
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: DLL monitoring
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Loaded DLLs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: System calls
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Malware reverse engineering
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: SSL/TLS inspection
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Anti-virus
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Network intrusion detection system
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Data loss prevention
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Application logs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Email gateway
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Network device logs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Web proxy
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Windows Error Reporting
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Kernel drivers
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: User interface
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Host network interface
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Third-party application logs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Services
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Web logs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Detonation chamber
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Mail server
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Environment variable
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: MBR
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: BIOS
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Web application firewall logs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Asset management
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: DHCP
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: 'At the time of writing: unknown data source within ATT&CK'
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: DNS records
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Browser extensions
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Access tokens
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Digital certificate logs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Disk forensics
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Component firmware
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: WMI Objects
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: VBR
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Named Pipes
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Sensor health and status
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: EFI
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: PowerShell logs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+exceptions:
+  # Adding a technique ID below will result in removing that technique in the heat map (meaning not enough data source or quality is available for proper detection).
+  # Filling in the key-value pair name is optional.
+  - technique_id:
+    name:
