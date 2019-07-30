@@ -56,17 +56,17 @@ data_sources:
       consistency: 0
       retention: 0
   - data_source_name: Process use of network
-    date_registered:
-    date_connected:
-    products: [None]
-    available_for_data_analytics: False
+    date_registered: 2019-07-25
+    date_connected: 2019-07-25
+    products: [Sysmon]
+    available_for_data_analytics: True
     comment: ''
     data_quality:
-      device_completeness: 0
-      data_field_completeness: 0
-      timeliness: 0
-      consistency: 0
-      retention: 0
+      device_completeness: 5
+      data_field_completeness: 5
+      timeliness: 5
+      consistency: 5
+      retention: 5
   - data_source_name: Windows Registry
     date_registered: 2019-03-01
     date_connected: 2017-02-01
@@ -620,7 +620,8 @@ data_sources:
       consistency: 5
       retention: 4
 exceptions:
-  # Adding a technique ID below will result in removing that technique in the heat map (meaning not enough data source are available for proper detection).
+  # Adding a technique ID below will result in removing that technique in the heat map (meaning not enough data source or quality is available for proper detection).
   # Please note that the below is just an example, many more can exists.
+  # Filling in the key-value pair name is optional.
   - technique_id: T1130
     name: Install Root Certificate
