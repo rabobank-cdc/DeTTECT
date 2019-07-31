@@ -4,7 +4,7 @@ import os
 import signal
 
 
-def init_menu():
+def _init_menu():
     """
     Initialise the command line parameter menu.
     :return:
@@ -27,7 +27,10 @@ def init_menu():
                                                 description='Create a heat map based on data sources, output data '
                                                             'sources to Excel or generate a data source improvement '
                                                             'graph.')
-    parser_data_sources.add_argument('-f', '--file', help='path to the data source administration YAML file',
+    parser_data_sources.add_argument('-ft', '--file-tech', help='path to the technique administration YAML file '
+                                                                '(used to score the level of visibility)',
+                                     required=False)
+    parser_data_sources.add_argument('-fd', '--file-ds', help='path to the data source administration YAML file',
                                      required=True)
     parser_data_sources.add_argument('-l', '--layer', help='generate a data source layer for the ATT&CK navigator',
                                      action='store_true')
@@ -37,8 +40,14 @@ def init_menu():
                                      action='store_true')
     parser_data_sources.add_argument('-y', '--yaml', help='generate a technique administration YAML file with '
                                                           'visibility scores based on the number of available data '
-                                                          'sources',
-                                     action='store_true')
+                                                          'sources', action='store_true')
+    parser_data_sources.add_argument('-u', '--update', help='update the visibility scores within a technique '
+                                                            'administration YAML file based on changes within any of '
+                                                            'the data sources. Past visibility scores are preserved in '
+                                                            'the score_logbook, and manually assigned scores are not '
+                                                            'updated without your approval. The updated visibility '
+                                                            'scores are calculated in the same way as with the option: '
+                                                            '-y, --yaml.', action='store_true')
 
     # create the visibility parser
     parser_visibility = subparsers.add_parser('visibility', aliases=['v'],
@@ -56,7 +65,7 @@ def init_menu():
     parser_visibility.add_argument('-l', '--layer', help='generate a visibility layer for the ATT&CK navigator',
                                    action='store_true')
     parser_visibility.add_argument('-e', '--excel', help='generate an Excel sheet with all administrated techniques',
-                                     action='store_true')
+                                   action='store_true')
     parser_visibility.add_argument('-o', '--overlay', help='generate a visibility layer overlaid with detections for '
                                                            'the ATT&CK navigator', action='store_true')
     parser_visibility.add_argument('--health', help='check the technique YAML file for errors', action='store_true')
@@ -69,7 +78,7 @@ def init_menu():
                                                          'improvement graph, output to Excel or check the health of '
                                                          'the technique administration YAML file.')
     parser_detection.add_argument('-ft', '--file-tech', help='path to the technique administration YAML file (used to '
-                                                             'score the level of visibility)', required=True)
+                                                             'score the level of detection)', required=True)
     parser_detection.add_argument('-fd', '--file-ds', help='path to the data source administration YAML file (used in '
                                                            'the overlay with visibility to add metadata on the '
                                                            'involved data sources)')
@@ -79,7 +88,7 @@ def init_menu():
     parser_detection.add_argument('-l', '--layer', help='generate detection layer for the ATT&CK navigator',
                                   action='store_true')
     parser_detection.add_argument('-e', '--excel', help='generate an Excel sheet with all administrated techniques',
-                                   action='store_true')
+                                  action='store_true')
     parser_detection.add_argument('-o', '--overlay', help='generate a detection layer overlaid with visibility for '
                                                           'the ATT&CK navigator', action='store_true')
     parser_detection.add_argument('-g', '--graph', help='generate a graph with detections added through time',
@@ -135,10 +144,10 @@ def init_menu():
     return menu_parser
 
 
-def menu(menu_parser):
+def _menu(menu_parser):
     """
     Parser for the command line parameter menu and calls the appropriate functions.
-    :param menu_parser: the argparse menu as created with 'init_menu()'
+    :param menu_parser: the argparse menu as created with '_init_menu()'
     :return:
     """
     args = menu_parser.parse_args()
@@ -147,15 +156,17 @@ def menu(menu_parser):
         interactive_menu()
 
     elif args.subparser in ['datasource', 'ds']:
-        if check_file(args.file, FILE_TYPE_DATA_SOURCE_ADMINISTRATION):
+        if check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION):
+            if args.update and check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION):
+                update_technique_administration_file(args.file_ds, args.file_tech)
             if args.layer:
-                generate_data_sources_layer(args.file)
+                generate_data_sources_layer(args.file_ds)
             if args.excel:
-                export_data_source_list_to_excel(args.file)
+                export_data_source_list_to_excel(args.file_ds)
             if args.graph:
-                plot_data_sources_graph(args.file)
+                plot_data_sources_graph(args.file_ds)
             if args.yaml:
-                generate_technique_administration_file(args.file)
+                generate_technique_administration_file(args.file_ds)
 
     elif args.subparser in ['visibility', 'v']:
         if args.layer or args.overlay:
@@ -163,15 +174,14 @@ def menu(menu_parser):
                 print('[!] Generating a visibility layer or doing an overlay requires adding the data source'
                       'administration YAML file (\'--file-ds\')')
                 quit()
-
-            if check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health) and \
-               check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.health):
-                if args.layer:
-                    generate_visibility_layer(args.file_tech, args.file_ds, False, args.applicable)
-                if args.overlay:
-                    generate_visibility_layer(args.file_tech, args.file_ds, True, args.applicable)
+            if not check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.health):
+                quit()
 
         if check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
+            if args.layer:
+                generate_visibility_layer(args.file_tech, args.file_ds, False, args.applicable)
+            if args.overlay:
+                generate_visibility_layer(args.file_tech, args.file_ds, True, args.applicable)
             if args.excel and args.applicable == 'all':
                 export_techniques_list_to_excel(args.file_tech)
             if args.excel and args.applicable != 'all':
@@ -210,7 +220,7 @@ def menu(menu_parser):
         menu_parser.print_help()
 
 
-def prepare_folders():
+def _prepare_folders():
     """
     Create the folders 'cache' and 'output' if they do not exist.
     :return:
@@ -221,7 +231,7 @@ def prepare_folders():
         os.mkdir('output')
 
 
-def signal_handler(signum, frame):
+def _signal_handler(signum, frame):
     """
     Function to handles exiting via Ctrl+C.
     :param signum:
@@ -232,6 +242,6 @@ def signal_handler(signum, frame):
 
 
 if __name__ == '__main__':
-    signal.signal(signal.SIGINT, signal_handler)
-    prepare_folders()
-    menu(init_menu())
+    signal.signal(signal.SIGINT, _signal_handler)
+    _prepare_folders()
+    _menu(_init_menu())
