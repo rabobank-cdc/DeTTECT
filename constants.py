@@ -1,6 +1,8 @@
+import re
+
 APP_NAME = 'DeTT&CT'
 APP_DESC = 'Detect Tactics, Techniques & Combat Threats'
-VERSION = '1.1.2'
+VERSION = '1.2.0'
 
 EXPIRE_TIME = 60*60*24
 
@@ -69,12 +71,53 @@ FILE_TYPE_GROUP_ADMINISTRATION = 'group-administration'
 
 # YAML administration file versions
 FILE_TYPE_DATA_SOURCE_ADMINISTRATION_VERSION = 1.0
-FILE_TYPE_TECHNIQUE_ADMINISTRATION_VERSION = 1.1
+FILE_TYPE_TECHNIQUE_ADMINISTRATION_VERSION = 1.2
 FILE_TYPE_GROUP_ADMINISTRATION_VERSION = 1.0
 
 # YAML file upgrade text
-FILE_TYPE_TECHNIQUE_ADMINISTRATION_UPGRADE_TEXT = {1.1: " - Adding new key 'technique_name' containing the ATT&CK technique name.\n"
-                                                        " - Adding new key 'applicable_to' for both detection and visibility. Default value is ['all']."}
+FILE_TYPE_TECHNIQUE_ADMINISTRATION_UPGRADE_TEXT = {1.1: "   * Adding new key 'technique_name' containing the ATT&CK technique name.\n"
+                                                        "   * Adding new key 'applicable_to' for both detection and visibility. Default value is ['all'].",
+                                                   1.2: "   * Detection: removing the key-value pair 'date_registered'.\n"
+                                                        "     You will be asked if you still want to keep this key-value pair even though DeTT&CT no longer makes use of it.\n"
+                                                        "   * Detection: the key-value pair 'date_implemented' will be renamed to 'date'.\n"
+                                                        "   * Visibility: adding a new key-value pair 'date'. You will be asked on what date to fill in for the visibility scores already present.\n" 
+                                                        "   * Detection and visibility: the key-value pairs 'score' and 'date' are moved into a 'score_logbook'.\n"
+                                                        "     The primary purpose of doing this is to allow you to keep track of changes in the score."}
+
+# visibility update questions and answers
+V_UPDATE_Q_ALL_MANUAL = 'For all most recent visibility score objects that are eligible for an update. The key-value pair \'auto-generated\' is set to \'false\' or is not present.\n' \
+                        'This implies that these scores are manually assigned. How do you want to proceed?:'
+V_UPDATE_Q_ALL_AUTO = 'For all most recent visibility score objects that are eligible for an update. The key-value pair \'auto-generated\' is set to \'true\'. \n' \
+                      'This implies that these scores are auto-generated. How do you want to proceed?:'
+V_UPDATE_Q_MIXED = 'You have visibility scores that are eligible for an update, which are manually assigned and which are calculated based on the nr. of data sources (i.e. auto-generated = true)\n' \
+                   'How do you want to proceed?'
+V_UPDATE_ANSWER_1 = 'Update all visibility scores that have changed.'
+V_UPDATE_ANSWER_2 = 'Decide per visibility score, that has changed if you want to update or not.\n' \
+                    'Both the current and new visibility score will be printed.'
+V_UPDATE_ANSWER_3 = 'Only auto-update the visibility scores, that have changed, which have \'auto-generated = true\''
+V_UPDATE_ANSWER_4 = '- Auto-update the visibility scores, that have changed, which have \'auto-generated = true\'.\n' \
+                    '- And decide per manually assigned visibility score, that has changed, if you want to update or not.\n' \
+                    '  Both the current and new visibility score will be printed.'
+V_UPDATE_ANSWER_CANCEL = 'Cancel.'
+
+
+# update actions for visibility scores
+V_UPDATE_ACTION_AUTO = 'auto update'
+V_UPDATE_ACTION_DIFF = 'the user decides to update or not'
+
+
+# YAML regex
+REGEX_YAML_VERSION_10 = re.compile(r'^\s*version:\s+1\.0\s*$', re.IGNORECASE)
+REGEX_YAML_TECHNIQUE_ID = re.compile(r'^-\s+technique_id:\s+T[0-9]{4}\s*$', re.IGNORECASE)
+REGEX_YAML_TECHNIQUE_ID_FORMAT = re.compile(r'T[0-9]{4}', re.IGNORECASE)
+REGEX_YAML_DETECTION = re.compile(r'^\s+detection:\s*$', re.IGNORECASE)
+REGEX_YAML_VISIBILITY = re.compile(r'^\s+visibility:\s*$', re.IGNORECASE)
+REGEX_YAML_INDENT_CHARS = re.compile(r'(^[\s-]+).*', re.IGNORECASE)
+REGEX_YAML_VALID_DATE = re.compile(r'([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))', re.IGNORECASE)
+REGEX_YAML_DATE = re.compile(r'^[\s-]+date:.*$', re.IGNORECASE)
+REGEX_YAML_TECHNIQUE_ID_GROUP = re.compile(r'^-\s+technique_id:\s+(T[0-9]{4})\s*$', re.IGNORECASE)
+
+
 # Interactive menu
 MENU_NAME_DATA_SOURCE_MAPPING = 'Data source mapping'
 MENU_NAME_VISIBILITY_MAPPING = 'Visibility coverage mapping'
