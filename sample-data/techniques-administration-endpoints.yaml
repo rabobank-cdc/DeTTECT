@@ -1,6 +1,4 @@
-%YAML 1.2
----
-version: 1.1
+version: 1.2
 file_type: technique-administration
 name: example
 platform: windows
@@ -13,2318 +11,3294 @@ techniques:
 - technique_id: T1222
   technique_name: File Permissions Modification
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1223
   technique_name: Compiled HTML File
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1221
   technique_name: Template Injection
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
 - technique_id: T1220
   technique_name: XSL Script Processing
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-07-30
+      score: 2
+      comment: 'New data source: Process use of network'
+      auto_generated: true
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1217
   technique_name: Browser Bookmark Discovery
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1196
   technique_name: Control Panel Items
   detection:
-    applicable_to: ['client endpoints']
-    date_registered: 2019-01-10
-    date_implemented: 2018-12-01
-    score: 4
+    applicable_to: [client endpoints]
     location: [EDR]
     comment: ''
+    score_logbook:
+    - date: 2018-12-01
+      score: 4
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1214
   technique_name: Credentials in Registry
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-12-01
-    score: 3
+    applicable_to: [all]
     location: [EDR]
     comment: ''
+    score_logbook:
+    - date: 2018-12-01
+      score: 3
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1189
   technique_name: Drive-by Compromise
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-11-01
-    score: 1
+    applicable_to: [all]
     location: [SIEM UC 123, Tool Model Y]
     comment: ''
+    score_logbook:
+    - date: 2019-08-05
+      score: 3
+      comment: 'This detection was improved due to the availability of the new log source Process use of network'
+    - date: 2018-11-01
+      score: 1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-07-30
+      score: 2
+      comment: 'New data source: Process use of network'
+      auto_generated: true
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1203
   technique_name: Exploitation for Client Execution
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1210
   technique_name: Exploitation of Remote Services
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1211
   technique_name: Exploitation for Defense Evasion
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1202
   technique_name: Indirect Command Execution
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1212
   technique_name: Exploitation for Credential Access
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1201
   technique_name: Password Policy Discovery
   detection:
-    applicable_to: ['domain controllers']
-    date_registered: 2019-01-10
-    date_implemented: 2017-01-01
-    score: 4
+    applicable_to: [domain controllers]
     location:
-    - 'Third party product A'
+    - Third party product A
     comment: ''
+    score_logbook:
+    - date: 2017-01-01
+      score: 4
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1191
   technique_name: CMSTP
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-07-30
+      score: 2
+      comment: 'New data source: Process use of network'
+      auto_generated: true
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1219
   technique_name: Remote Access Tools
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2017-01-01
-    score: 4
+    applicable_to: [all]
     location:
-    - 'Third party product A'
+    - Third party product A
     comment: ''
+    score_logbook:
+    - date: 2017-01-01
+      score: 4
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-07-30
+      score: 3
+      comment: 'New data source: Process use of network'
+      auto_generated: true
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1198
   technique_name: SIP and Trust Provider Hijacking
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1218
   technique_name: Signed Binary Proxy Execution
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1193
   technique_name: Spearphishing Attachment
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1216
   technique_name: Signed Script Proxy Execution
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1192
   technique_name: Spearphishing Link
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1209
   technique_name: Time Providers
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1195
   technique_name: Supply Chain Compromise
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2017-01-01
-    score: 2
+    applicable_to: [all]
     location:
-    - 'Third party product A'
+    - Third party product A
     comment: ''
+    score_logbook:
+    - date: 2017-01-01
+      score: 2
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1194
   technique_name: Spearphishing via Service
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 4
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 4
+      comment: ''
+      auto_generated: true
 - technique_id: T1204
   technique_name: User Execution
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-12-01
-    score: 0
+    applicable_to: [all]
     location: [EDR]
     comment: ''
+    score_logbook:
+    - date: 2018-12-01
+      score: 0
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1182
   technique_name: AppCert DLLs
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-12-01
-    score: 3
+    applicable_to: [all]
     location: [EDR]
     comment: ''
+    score_logbook:
+    - date: 2018-12-01
+      score: 3
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1176
   technique_name: Browser Extensions
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1175
   technique_name: Distributed Component Object Model
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1185
   technique_name: Man in the Browser
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1174
   technique_name: Password Filter DLL
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1170
   technique_name: Mshta
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1171
   technique_name: LLMNR/NBT-NS Poisoning
   detection:
-    - applicable_to: ['client endpoints']
-      date_registered: 2019-01-10
-      date_implemented: 2017-01-01
+  - applicable_to: [client endpoints]
+    location:
+    - Third party product A
+    comment: |
+      This comment will be
+      multiline in
+      Excel
+    score_logbook:
+    - date: 2017-01-01
       score: 2
-      location:
-      - 'Third party product A'
-      comment: |
-        This comment will be
-        multiline in
-        Excel
-    - applicable_to: ['servers']
-      date_registered: 2019-05-01
-      date_implemented: 2019-05-01
+      comment: ''
+  - applicable_to: [servers]
+    location:
+    - Model I
+    comment: ''
+    score_logbook:
+    - date: 2019-05-01
       score: 3
-      location:
-        - 'Model I'
       comment: ''
   visibility:
-    - applicable_to: ['client endpoints']
+  - applicable_to: [client endpoints]
+    comment: ''
+    score_logbook:
+    - date: 2019-03-01
       score: 2
       comment: ''
-    - applicable_to: ['servers']
+  - applicable_to: [servers]
+    comment: |
+      This comment will be
+      multiline in
+      Excel
+    score_logbook:
+    - date: 2019-03-01
       score: 3
-      comment: |
-        This comment will be
-        multiline in
-        Excel
+      comment: ''
 - technique_id: T1173
   technique_name: Dynamic Data Exchange
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1181
   technique_name: Extra Window Memory Injection
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-12-01
-    score: 4
+    applicable_to: [all]
     location: [EDR]
     comment: ''
+    score_logbook:
+    - date: 2018-12-01
+      score: 4
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1179
   technique_name: Hooking
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1186
   technique_name: Process Doppelgänging
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1172
   technique_name: Domain Fronting
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-08-01
-    score: 5
+    applicable_to: [all]
     location:
-    - 'Model A'
+    - Model A
     comment: ''
+    score_logbook:
+    - date: 2018-08-01
+      score: 5
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 4
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 4
+      comment: ''
 - technique_id: T1183
   technique_name: Image File Execution Options Injection
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-11-01
-    score: 2
+    applicable_to: [all]
     location: [Tool]
     comment: ''
+    score_logbook:
+    - date: 2018-11-01
+      score: 2
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
 - technique_id: T1177
   technique_name: LSASS Driver
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1180
   technique_name: Screensaver
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1134
   technique_name: Access Token Manipulation
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-12-01
-    score: 4
+    applicable_to: [all]
     location: [EDR]
     comment: ''
+    score_logbook:
+    - date: 2018-12-01
+      score: 4
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1138
   technique_name: Application Shimming
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-12-01
-    score: 1
+    applicable_to: [all]
     location: [SIEM]
     comment: ''
+    score_logbook:
+    - date: 2018-12-01
+      score: 1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1140
   technique_name: Deobfuscate/Decode Files or Information
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1136
   technique_name: Create Account
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1137
   technique_name: Office Application Startup
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1158
   technique_name: Hidden Files and Directories
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1135
   technique_name: Network Share Discovery
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-07-30
+      score: 2
+      comment: 'New data source: Process use of network'
+      auto_generated: true
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1132
   technique_name: Data Encoding
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1131
   technique_name: Authentication Package
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1129
   technique_name: Execution through Module Load
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1128
   technique_name: Netsh Helper DLL
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1127
   technique_name: Trusted Developer Utilities
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
 - technique_id: T1126
   technique_name: Network Share Connection Removal
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1125
   technique_name: Video Capture
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1124
   technique_name: System Time Discovery
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1123
   technique_name: Audio Capture
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1122
   technique_name: Component Object Model Hijacking
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1121
   technique_name: Regsvcs/Regasm
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1118
   technique_name: InstallUtil
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1117
   technique_name: Regsvr32
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-12-01
-    score: 3
+    applicable_to: [all]
     location: [EDR]
     comment: ''
+    score_logbook:
+    - date: 2018-12-01
+      score: 3
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1114
   technique_name: Email Collection
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-07-30
+      score: 2
+      comment: 'New data source: Process use of network'
+      auto_generated: true
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1113
   technique_name: Screen Capture
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1112
   technique_name: Modify Registry
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1111
   technique_name: Two-Factor Authentication Interception
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1109
   technique_name: Component Firmware
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1108
   technique_name: Redundant Access
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1106
   technique_name: Execution through API
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1105
   technique_name: Remote File Copy
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1103
   technique_name: AppInit DLLs
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1102
   technique_name: Web Service
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1101
   technique_name: Security Support Provider
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-11-01
-    score: 4
+    applicable_to: [all]
     location: [SIEM UC 789]
     comment: ''
+    score_logbook:
+    - date: 2018-11-01
+      score: 4
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 3
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 3
+      comment: ''
 - technique_id: T1100
   technique_name: Web Shell
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1099
   technique_name: Timestomp
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-11-01
-    score: 2
+    applicable_to: [all]
     location: [Tool Model X]
     comment: ''
+    score_logbook:
+    - date: 2018-11-01
+      score: 2
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 4
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 4
+      comment: ''
 - technique_id: T1095
   technique_name: Standard Non-Application Layer Protocol
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 3
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 3
+      comment: ''
 - technique_id: T1094
   technique_name: Custom Command and Control Protocol
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 3
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 3
+      comment: ''
 - technique_id: T1093
   technique_name: Process Hollowing
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1090
   technique_name: Connection Proxy
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-07-30
+      score: 2
+      comment: 'New data source: Process use of network'
+      auto_generated: true
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1089
   technique_name: Disabling Security Tools
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1088
   technique_name: Bypass User Account Control
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1087
   technique_name: Account Discovery
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1086
   technique_name: PowerShell
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-12-01
-    score: 3
+    applicable_to: [all]
     location: [EDR]
     comment: ''
+    score_logbook:
+    - date: 2018-12-01
+      score: 3
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
 - technique_id: T1085
   technique_name: Rundll32
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-12-01
-    score: 3
+    applicable_to: [all]
     location: [EDR]
     comment: ''
+    score_logbook:
+    - date: 2018-12-01
+      score: 3
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1083
   technique_name: File and Directory Discovery
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1082
   technique_name: System Information Discovery
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2017-01-01
-    score: 3
+    applicable_to: [all]
     location:
-    - 'Third party product A'
+    - Third party product A
     comment: ''
+    score_logbook:
+    - date: 2017-01-01
+      score: 3
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1080
   technique_name: Taint Shared Content
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1079
   technique_name: Multilayer Encryption
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-07-30
+      score: 2
+      comment: 'New data source: Process use of network'
+      auto_generated: true
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1078
   technique_name: Valid Accounts
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
-      - ''
+    - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1077
   technique_name: Windows Admin Shares
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-10-01
-    score: 0
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: 2018-10-01
+      score: 0
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-07-30
+      score: 2
+      comment: 'New data source: Process use of network'
+      auto_generated: true
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1076
   technique_name: Remote Desktop Protocol
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1074
   technique_name: Data Staged
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1073
   technique_name: DLL Side-Loading
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-07-30
+      score: 2
+      comment: 'New data source: Process use of network'
+      auto_generated: true
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1072
   technique_name: Third-party Software
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-07-30
+      score: 2
+      comment: 'New data source: Process use of network'
+      auto_generated: true
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1071
   technique_name: Standard Application Layer Protocol
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-11-01
-    score: -1
+    applicable_to: [all]
     location: [SIEM UC 123]
     comment: ''
+    score_logbook:
+    - date: 2018-11-01
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
 - technique_id: T1070
   technique_name: Indicator Removal on Host
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1069
   technique_name: Permission Groups Discovery
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1068
   technique_name: Exploitation for Privilege Escalation
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1066
   technique_name: Indicator Removal from Tools
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-07-30
+      score: 2
+      comment: 'New data source: Process use of network'
+      auto_generated: true
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1065
   technique_name: Uncommonly Used Port
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-10-01
-    score: 5
+    applicable_to: [all]
     location:
-    - 'Model B'
+    - Model B
     comment: ''
+    score_logbook:
+    - date: 2018-10-01
+      score: 5
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 3
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 3
+      comment: ''
 - technique_id: T1064
   technique_name: Scripting
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-12-01
-    score: 3
+    applicable_to: [all]
     location: [EDR, AV Product]
     comment: ''
+    score_logbook:
+    - date: 2018-12-01
+      score: 3
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1063
   technique_name: Security Software Discovery
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1061
   technique_name: Graphical User Interface
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1060
   technique_name: Registry Run Keys / Startup Folder
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1059
   technique_name: Command-Line Interface
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1058
   technique_name: Service Registry Permissions Weakness
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1057
   technique_name: Process Discovery
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1056
   technique_name: Input Capture
   detection:
-    applicable_to: ['client endpoints']
-    date_registered: 2019-01-10
-    date_implemented: 2018-12-01
-    score: 4
+    applicable_to: [client endpoints]
     location: [EDR]
     comment: ''
+    score_logbook:
+    - date: 2018-12-01
+      score: 4
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1055
   technique_name: Process Injection
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-12-01
-    score: 4
+    applicable_to: [all]
     location: [EDR]
     comment: ''
+    score_logbook:
+    - date: 2018-12-01
+      score: 4
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1054
   technique_name: Indicator Blocking
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1053
   technique_name: Scheduled Task
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
-     - ''
+    - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1051
   technique_name: Shared Webroot
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1050
   technique_name: New Service
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
-    comment: 'Model G'
+    comment: Model G
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1049
   technique_name: System Network Connections Discovery
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1048
   technique_name: Exfiltration Over Alternative Protocol
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1047
   technique_name: Windows Management Instrumentation
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1043
   technique_name: Commonly Used Port
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-10-01
-    score: 0
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: 2018-10-01
+      score: 0
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1042
   technique_name: Change Default File Association
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1041
   technique_name: Exfiltration Over Command and Control Channel
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2017-01-01
-    score: 2
+    applicable_to: [all]
     location:
-    - 'Third party product A'
+    - Third party product A
     comment: ''
+    score_logbook:
+    - date: 2017-01-01
+      score: 2
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1040
   technique_name: Network Sniffing
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1039
   technique_name: Data from Network Shared Drive
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1038
   technique_name: DLL Search Order Hijacking
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1037
   technique_name: Logon Scripts
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-05-07
-    score: 3
+    applicable_to: [all]
     location:
-    - 'Model F'
+    - Model F
     comment: ''
+    score_logbook:
+    - date: 2018-05-07
+      score: 3
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1036
   technique_name: Masquerading
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-02-01
-    score: 4
+    applicable_to: [all]
     location: [Model C]
     comment: ''
+    score_logbook:
+    - date: 2018-02-01
+      score: 4
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1035
   technique_name: Service Execution
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-12-01
-    score: 4
+    applicable_to: [all]
     location: [EDR]
     comment: ''
+    score_logbook:
+    - date: 2018-12-01
+      score: 4
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1034
   technique_name: Path Interception
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1033
   technique_name: System Owner/User Discovery
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2017-01-01
-    score: 3
+    applicable_to: [all]
     location:
-    - 'Third party product A'
+    - Third party product A
     comment: ''
+    score_logbook:
+    - date: 2017-01-01
+      score: 3
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1032
   technique_name: Standard Cryptographic Protocol
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 3
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 3
+      comment: ''
 - technique_id: T1031
   technique_name: Modify Existing Service
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1030
   technique_name: Data Transfer Size Limits
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
-      - ''
+    - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-07-30
+      score: 2
+      comment: 'New data source: Process use of network'
+      auto_generated: true
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1029
   technique_name: Scheduled Transfer
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-07-30
+      score: 2
+      comment: 'New data source: Process use of network'
+      auto_generated: true
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1028
   technique_name: Windows Remote Management
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
-     - ''
+    - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1027
   technique_name: Obfuscated Files or Information
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1026
   technique_name: Multiband Communication
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1025
   technique_name: Data from Removable Media
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1024
   technique_name: Custom Cryptographic Protocol
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-12-01
-    score: 0
+    applicable_to: [all]
     location: [EDR]
     comment: ''
+    score_logbook:
+    - date: 2018-12-01
+      score: 0
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
 - technique_id: T1023
   technique_name: Shortcut Modification
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1022
   technique_name: Data Encrypted
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2017-10-10
-    score: 2
+    applicable_to: [all]
     location:
-    - 'Model D'
+    - Model D
     comment: ''
+    score_logbook:
+    - date: 2017-10-10
+      score: 2
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1020
   technique_name: Automated Exfiltration
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-07-30
+      score: 2
+      comment: 'New data source: Process use of network'
+      auto_generated: true
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1018
   technique_name: Remote System Discovery
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2017-01-01
-    score: 3
+    applicable_to: [all]
     location:
-    - 'Third party product A'
+    - Third party product A
     comment: ''
+    score_logbook:
+    - date: 2017-01-01
+      score: 3
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-07-30
+      score: 2
+      comment: 'New data source: Process use of network'
+      auto_generated: true
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1017
   technique_name: Application Deployment Software
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-07-30
+      score: 2
+      comment: 'New data source: Process use of network'
+      auto_generated: true
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1016
   technique_name: System Network Configuration Discovery
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1015
   technique_name: Accessibility Features
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1013
   technique_name: Port Monitors
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1012
   technique_name: Query Registry
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1011
   technique_name: Exfiltration Over Other Network Medium
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1010
   technique_name: Application Window Discovery
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1008
   technique_name: Fallback Channels
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1007
   technique_name: System Service Discovery
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1005
   technique_name: Data from Local System
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1004
   technique_name: Winlogon Helper DLL
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1003
   technique_name: Credential Dumping
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2018-12-01
-    score: 3
+    applicable_to: [all]
     location: [EDR]
     comment: ''
+    score_logbook:
+    - date: 2018-12-01
+      score: 3
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1002
   technique_name: Data Compressed
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-01-10
-    date_implemented: 2017-10-10
-    score: 2
+    applicable_to: [all]
     location:
-    - 'Model E'
+    - Model E
     comment: ''
+    score_logbook:
+    - date: 2017-10-10
+      score: 2
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1001
   technique_name: Data Obfuscation
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1485
   technique_name: Data Destruction
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1486
   technique_name: Data Encrypted for Impact
   detection:
-    applicable_to: ['all']
-    date_registered: 2019-05-01
-    date_implemented: 2015-01-01
-    score: 4
+    applicable_to: [all]
     location:
-    - 'Model J'
+    - Model J
     comment: ''
+    score_logbook:
+    - date: 2015-01-01
+      score: 4
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 3
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 3
+      comment: ''
 - technique_id: T1488
   technique_name: Disk Content Wipe
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1499
   technique_name: Endpoint Denial of Service
   detection:
-    applicable_to: ['websites']
-    date_registered: 2019-05-01
-    date_implemented: 2015-01-01
-    score: 5
+    applicable_to: [websites]
     location:
-    - 'Third party'
+    - Third party
     comment: ''
+    score_logbook:
+    - date: 2015-01-01
+      score: 5
+      comment: ''
   visibility:
-    applicable_to: ['websites']
-    score: 4
+    applicable_to: [websites]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 4
+      comment: ''
 - technique_id: T1490
   technique_name: Inhibit System Recovery
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1498
   technique_name: Network Denial of Service
   detection:
-    applicable_to: ['websites']
-    date_registered: 2019-05-01
-    date_implemented: 2015-01-01
-    score: 5
+    applicable_to: [websites]
     location:
-    - 'Third party'
+    - Third party
     comment: ''
+    score_logbook:
+    - date: 2015-01-01
+      score: 5
+      comment: ''
   visibility:
-    applicable_to: ['websites']
-    score: 4
+    applicable_to: [websites]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 4
+      comment: ''
 - technique_id: T1496
   technique_name: Resource Hijacking
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-07-30
+      score: 2
+      comment: 'New data source: Process use of network'
+      auto_generated: true
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1494
   technique_name: Runtime Data Manipulation
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1489
   technique_name: Service Stop
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1500
   technique_name: Compile After Delivery
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1483
   technique_name: Domain Generation Algorithms
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 1
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
 - technique_id: T1482
   technique_name: Domain Trust Discovery
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
 - technique_id: T1480
   technique_name: Execution Guardrails
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 4
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 4
+      comment: ''
+      auto_generated: true
 - technique_id: T1497
   technique_name: Virtualization/Sandbox Evasion
   detection:
-    applicable_to: ['all']
-    date_registered:
-    date_implemented:
-    score: -1
+    applicable_to: [all]
     location:
     - ''
     comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
   visibility:
-    applicable_to: ['all']
-    score: 2
+    applicable_to: [all]
     comment: ''
+    score_logbook:
+    - date: 2019-03-01
+      score: 2
+      comment: ''
+      auto_generated: true
+- technique_id: T1187
+  technique_name: Forced Authentication
+  detection:
+    applicable_to:
+    - all
+    location:
+    - ''
+    comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
+  visibility:
+    applicable_to:
+    - all
+    comment: ''
+    score_logbook:
+    - date: 2019-07-30
+      score: 1
+      comment: 'New data source: Process use of network'
+      auto_generated: true
+- technique_id: T1141
+  technique_name: Input Prompt
+  detection:
+    applicable_to:
+    - all
+    location:
+    - ''
+    comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
+  visibility:
+    applicable_to:
+    - all
+    comment: ''
+    score_logbook:
+    - date: 2019-07-30
+      score: 2
+      comment: 'New data source: Process use of network'
+      auto_generated: true
+- technique_id: T1104
+  technique_name: Multi-Stage Channels
+  detection:
+    applicable_to:
+    - all
+    location:
+    - ''
+    comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
+  visibility:
+    applicable_to:
+    - all
+    comment: ''
+    score_logbook:
+    - date: 2019-07-30
+      score: 1
+      comment: 'New data source: Process use of network'
+      auto_generated: true
+- technique_id: T1046
+  technique_name: Network Service Scanning
+  detection:
+    applicable_to:
+    - all
+    location:
+    - ''
+    comment: ''
+    score_logbook:
+    - date: null
+      score: -1
+      comment: ''
+  visibility:
+    applicable_to:
+    - all
+    comment: ''
+    score_logbook:
+    - date: 2019-07-30
+      score: 1
+      comment: 'New data source: Process use of network'
+      auto_generated: true
