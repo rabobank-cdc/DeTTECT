@@ -15,6 +15,8 @@ DATA_TYPE_STIX_ALL_TECH_ENTERPRISE = 'mitre_all_techniques_enterprise'
 DATA_TYPE_STIX_ALL_GROUPS = 'mitre_all_groups'
 DATA_TYPE_STIX_ALL_SOFTWARE = 'mitre_all_software'
 DATA_TYPE_STIX_ALL_RELATIONSHIPS = 'mitre_all_relationships'
+DATA_TYPE_STIX_ALL_ENTERPRISE_MITIGATIONS = 'mitre_all_mitigations_enterprise'
+DATA_TYPE_STIX_ALL_MOBILE_MITIGATIONS = 'mitre_all_mitigations_mobile'
 
 # Group colors
 COLOR_GROUP_OVERLAY_MATCH = '#f9a825'            # orange
