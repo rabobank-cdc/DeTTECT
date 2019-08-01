@@ -131,9 +131,12 @@ def _init_menu():
                                            help='includes: statistics on ATT&CK data source and updates on techniques'
                                                 ', groups and software', aliases=['ge'])
 
-    parser_generic.add_argument('-s', '--statistics', help='get a sorted count on how much techniques are covered by a '
-                                                           'particular data source', action='store_true')
-
+    parser_generic.add_argument('-ds', '--datasources', help='get a sorted count on how many ATT&CK Enterprise '
+                                                             'techniques are covered by a particular Data Source',
+                                action='store_true')
+    parser_generic.add_argument('-m', '--mitigations', help='get a sorted count on how many ATT&CK Enterprise or '
+                                                            'Mobile techniques are covered by a Mitigation',
+                                choices=['enterprise', 'mobile'])
     parser_generic.add_argument('-u', '--updates', help='get a sorted list for when updates were released for '
                                                         'techniques, groups or software',
                                 choices=['techniques', 'groups', 'software'])
@@ -211,8 +214,10 @@ def _menu(menu_parser):
                 print("[!] Filtering on 'applicable_to' is not supported for Excel output")
 
     elif args.subparser in ['generic', 'ge']:
-        if args.statistics:
-            get_statistics()
+        if args.datasources:
+            get_statistics_data_sources()
+        elif args.mitigations:
+            get_statistics_mitigations(args.mitigations)
         elif args.updates:
             get_updates(args.updates, args.sort)
 

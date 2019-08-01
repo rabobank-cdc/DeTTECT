@@ -7,8 +7,9 @@ from constants import *
 
 groups = 'all'
 software_group = False
-platform = 'Windows'
-stage = 'attack'
+default_platform = 'Windows'
+default_stage = 'attack'
+default_matrix = 'enterprise'
 groups_overlay = ''
 overlay_type = 'group'
 filter_applicable_to = 'all'
@@ -194,12 +195,31 @@ def _menu_statistics():
     Handles the Statistics functionality.
     :return:
     """
+    global default_matrix
     _clear()
     print('Menu: Statistics')
     print('')
-    get_statistics()
+    print('Options:')
+    print('1. Matrix: %s' % default_matrix)
+    print('2. Get a sorted count on how many ATT&CK Enterprise techniques are covered by a particular Data Source.')
+    print('3. Get a sorted count on how many ATT&CK Enterprise or Mobile techniques are covered by a Mitigation.')
+    print('9. Back to main menu.')
+    choice = _ask_input()
+    if choice == '1':
+        print('Specify the matrix (enterprise or mobile):')
+        m = _ask_input().lower()
+        default_matrix = 'enterprise' if m == 'enterprise' else 'mobile'
+    elif choice == '2':
+        get_statistics_data_sources()
+    elif choice == '3':
+        get_statistics_mitigations(default_matrix)
+    elif choice == '9':
+        interactive_menu()
+    elif choice == 'q':
+        quit()
+
     _wait()
-    interactive_menu()
+    _menu_statistics()
 
 
 def _menu_data_source(filename_ds):
@@ -366,14 +386,14 @@ def _menu_groups():
     Prints and handles the Threat actor group mapping functionality.
     :return:
     """
-    global groups, software_group, platform, stage, groups_overlay, overlay_type, filter_applicable_to
+    global groups, software_group, default_platform, default_stage, groups_overlay, overlay_type, filter_applicable_to
     _clear()
     print('Menu: %s' % MENU_NAME_THREAT_ACTOR_GROUP_MAPPING)
     print('')
     print('Options:')
     print('1. Software group: %s' % str(software_group))
-    print('2. Platform: %s' % platform)
-    print('3. Stage: %s' % stage)
+    print('2. Platform: %s' % default_platform)
+    print('3. Stage: %s' % default_stage)
     print('4. Groups: %s' % groups)
     print('5. Overlay: ')
     print('    - %s: %s' % ('File' if os.path.exists(groups_overlay) else 'Groups', groups_overlay))
@@ -390,11 +410,11 @@ def _menu_groups():
     elif choice == '2':
         print('Specify platform (all, Linux, macOS, Windows):')
         p = _ask_input().lower()
-        platform = 'Windows' if p == 'windows' else 'Linux' if p == 'linux' else 'macOS' if p == 'macos' else 'all'
+        default_platform = 'Windows' if p == 'windows' else 'Linux' if p == 'linux' else 'macOS' if p == 'macos' else 'all'
     elif choice == '3':
         print('Specify stage (pre-attack, attack):')
         s = _ask_input().lower()
-        stage = 'pre-attack' if s == 'pre-attack' else 'attack'
+        default_stage = 'pre-attack' if s == 'pre-attack' else 'attack'
     elif choice == '4':
         print('Specify the groups to include separated using commas. Group can be their ID, name or alias '
               '(default is all groups). Other option is to provide a YAML file with a custom group(s)')
@@ -426,7 +446,7 @@ def _menu_groups():
         print('Specify your filter for the applicable_to field:')
         filter_applicable_to = _ask_input().lower()
     elif choice == '7':
-        generate_group_heat_map(groups, groups_overlay, overlay_type, stage, platform, software_group, filter_applicable_to)
+        generate_group_heat_map(groups, groups_overlay, overlay_type, default_stage, default_platform, software_group, filter_applicable_to)
         _wait()
     elif choice == '9':
         interactive_menu()
