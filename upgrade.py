@@ -189,7 +189,7 @@ def _check_yaml_file_health_v11(file_lines):
         for key in ['detection', 'visibility']:
             if key not in v:
                 has_error = _print_error_msg('[!] Technique ID: ' + tech + ' is MISSING ' + key)
-            else:
+            elif 'applicable_to' in v:
                 # create at set containing all values for 'applicable_to'
                 all_applicable_to.update([a for v in v[key] for a in v['applicable_to']])
 
@@ -264,7 +264,7 @@ def _upgrade_technique_yaml_11_to_12(file_lines, attack_tech_data):
     :param attack_tech_data: Not used, but necessary to be compatible with other upgrade methods.
     :return: array with new lines to be written to disk
     """
-    from generic import ask_yes_no, fix_date, init_yaml
+    from generic import ask_yes_no, fix_date_and_remove_null, init_yaml
 
     # we will first do a health check on the tech. admin file version 1.1. Having health issues in the file could
     # result in an upgraded file with errors.
@@ -335,6 +335,6 @@ def _upgrade_technique_yaml_11_to_12(file_lines, attack_tech_data):
                 v['score_logbook'][0]['auto_generated'] = True
 
     # remove the single quotes around the date
-    new_lines = fix_date(yaml_file, date_for_visibility)
+    new_lines = fix_date_and_remove_null(yaml_file, date_for_visibility)
 
     return new_lines

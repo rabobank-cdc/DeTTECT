@@ -442,9 +442,10 @@ def ask_multiple_choice(question, list_answers):
     return list_answers[int(answer)-1]
 
 
-def fix_date(yaml_file, date, input_reamel=True, return_reamel=False):
+def fix_date_and_remove_null(yaml_file, date, input_reamel=True, return_reamel=False):
     """
     Remove the single quotes around the date key-value pair in the provided yaml_file
+    And remove any null values
     :param yaml_file: ruamel.yaml instance or location of YAML file
     :param date: string date value (e.g. 2019-01-01)
     :param input_reamel: input type can be a reamel instance or list
@@ -462,20 +463,18 @@ def fix_date(yaml_file, date, input_reamel=True, return_reamel=False):
 
     with open(file, 'r') as fd:
         new_lines = fd.readlines()
-        x = 0
-        for line in new_lines:
-            if REGEX_YAML_DATE.match(line):
-                new_lines[x] = line.replace('\'' + date + '\'', date)
-            x += 1
 
-    # remove the temporary file
+    fixed_lines = [l.replace('\'' + date + '\'', date).replace('null', '')
+                   if REGEX_YAML_DATE.match(l) else
+                   l.replace('null', '') for l in new_lines]
+
     if input_reamel:
         os.remove(file)
 
     if return_reamel:
-        return _yaml.load(''.join(new_lines))
+        return _yaml.load(''.join(fixed_lines))
     else:
-        return new_lines
+        return fixed_lines
 
 
 def _get_latest_score_obj(yaml_object):
@@ -838,7 +837,7 @@ def check_yaml_file_health(filename, file_type, health_is_called):
             for key in ['detection', 'visibility']:
                 if key not in v:
                     has_error = _print_error_msg('[!] Technique ID: ' + tech + ' is MISSING ' + key, health_is_called)
-                else:
+                elif 'applicable_to' in v:
                     # create at set containing all values for 'applicable_to'
                     all_applicable_to.update([a for v in v[key] for a in v['applicable_to']])
 
