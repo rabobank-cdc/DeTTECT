@@ -436,10 +436,10 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
             print('')
             backup_file(file_tech_admin)
 
-            yaml_file_tech_admin = fix_date(yaml_file_tech_admin, today, input_reamel=True, return_reamel=True)
+            yaml_file_tech_admin = fix_date_and_remove_null(yaml_file_tech_admin, today, input_reamel=True)
 
             with open(file_tech_admin, 'w') as fd:
-                _yaml.dump(yaml_file_tech_admin, fd)
+                fd.writelines(yaml_file_tech_admin)
             print('File written:   ' + file_tech_admin)
         else:
             print('No visibility scores have been updated.')
@@ -530,7 +530,7 @@ def generate_technique_administration_file(filename, write_file=True):
             _yaml.dump(yaml_file, fd_tmp)
 
         # remove the single quotes from the date
-        yaml_file_lines = fix_date(tmp_file, today, input_reamel=False)
+        yaml_file_lines = fix_date_and_remove_null(tmp_file, today, input_reamel=False)
 
         os.remove(tmp_file)
 
