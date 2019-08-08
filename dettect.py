@@ -28,10 +28,13 @@ def _init_menu():
                                                             'sources to Excel or generate a data source improvement '
                                                             'graph.')
     parser_data_sources.add_argument('-ft', '--file-tech', help='path to the technique administration YAML file '
-                                                                '(used to score the level of visibility)',
+                                                                '(used with the option \'-u, --update\' to update '
+                                                                'the visibility scores)',
                                      required=False)
     parser_data_sources.add_argument('-fd', '--file-ds', help='path to the data source administration YAML file',
                                      required=True)
+    parser_data_sources.add_argument('-s', '--search', help='only include data sources which match the provided EQL '
+                                                            'query')
     parser_data_sources.add_argument('-l', '--layer', help='generate a data source layer for the ATT&CK navigator',
                                      action='store_true')
     parser_data_sources.add_argument('-e', '--excel', help='generate an Excel sheet with all data source',
@@ -44,10 +47,10 @@ def _init_menu():
     parser_data_sources.add_argument('-u', '--update', help='update the visibility scores within a technique '
                                                             'administration YAML file based on changes within any of '
                                                             'the data sources. Past visibility scores are preserved in '
-                                                            'the score_logbook, and manually assigned scores are not '
-                                                            'updated without your approval. The updated visibility '
+                                                            'the \'score_logbook\', and manually assigned scores are '
+                                                            'not updated without your approval. The updated visibility '
                                                             'scores are calculated in the same way as with the option: '
-                                                            '-y, --yaml.', action='store_true')
+                                                            '-y, --yaml', action='store_true')
 
     # create the visibility parser
     parser_visibility = subparsers.add_parser('visibility', aliases=['v'],
@@ -59,9 +62,14 @@ def _init_menu():
                                                               'score the level of visibility)', required=True)
     parser_visibility.add_argument('-fd', '--file-ds', help='path to the data source administration YAML file (used to '
                                                             'add metadata on the involved data sources)')
-    parser_visibility.add_argument('-a', '--applicable', help='filter techniques based on the \'applicable_to\' field '
-                                                              'in the technique administration YAML file. '
-                                                              'Not supported for Excel output', default='all')
+    parser_visibility.add_argument('-sd', '--search-detection', help='only include detection objects which match the '
+                                                                     'provided EQL query')
+    parser_visibility.add_argument('-sv', '--search-visibility', help='only include visibility objects which match the '
+                                                                      'provided EQL query')
+    parser_visibility.add_argument('--all-scores', help='include all \'score\' objects from the \'score_logbook\' in '
+                                                        'the EQL search. The default behaviour is to only include the '
+                                                        'most recent \'score\' objects',
+                                   action='store_true', default=False)
     parser_visibility.add_argument('-l', '--layer', help='generate a visibility layer for the ATT&CK navigator',
                                    action='store_true')
     parser_visibility.add_argument('-e', '--excel', help='generate an Excel sheet with all administrated techniques',
@@ -82,9 +90,14 @@ def _init_menu():
     parser_detection.add_argument('-fd', '--file-ds', help='path to the data source administration YAML file (used in '
                                                            'the overlay with visibility to add metadata on the '
                                                            'involved data sources)')
-    parser_detection.add_argument('-a', '--applicable', help='filter techniques based on the \'applicable_to\' field '
-                                                             'in the technique administration YAML file. '
-                                                             'Not supported for Excel output', default='all')
+    parser_detection.add_argument('-sd', '--search-detection', help='only include detection objects which match the '
+                                                                    'provided EQL query')
+    parser_detection.add_argument('-sv', '--search-visibility', help='only include visibility objects which match the '
+                                                                     'provided EQL query')
+    parser_detection.add_argument('--all-scores', help='include all \'score\' objects from the \'score_logbook\' in '
+                                                       'the EQL search. The default behaviour is to only include the '
+                                                       'most recent \'score\' objects',
+                                  action='store_true', default=False)
     parser_detection.add_argument('-l', '--layer', help='generate detection layer for the ATT&CK navigator',
                                   action='store_true')
     parser_detection.add_argument('-e', '--excel', help='generate an Excel sheet with all administrated techniques',
@@ -100,22 +113,19 @@ def _init_menu():
                                          description='Create threat actor group heat maps, compare group(s) and '
                                                      'compare group(s) with visibility and detection coverage.',
                                          help='threat actor group mapping')
-    parser_group.add_argument('-g', '--groups', help='specify the groups to include separated using commas. '
+    parser_group.add_argument('-g', '--groups', help='specify the ATT&CK Groups to include separated using commas. '
                                                      'Group can be their ID, name or alias (default is all groups). '
                                                      'Other option is to provide a YAML file with a custom group(s) '
                                                      '(default = all)',
                               default='all')
     parser_group.add_argument('-o', '--overlay', help='specify what to overlay on the group(s) (provided using the '
                                                       'arguments \'-g/--groups\'): group(s), visibility or detection. '
-                                                      'When overlaying a GROUP: the group can be their ID, name or '
-                                                      'alias separated using commas. Or provide a file path of a YAML '
-                                                      'file with a custom group(s). When overlaying DETECTION or '
-                                                      'VISIBILITY provide a YAML with the technique administration.')
+                                                      'When overlaying a GROUP: the group can be their ATT&CK ID, name '
+                                                      'or alias separated using commas. Or provide a file path of a '
+                                                      'YAML file with a custom group(s). When overlaying VISIBILITY or '
+                                                      'DETECTION provide a YAML with the technique administration.')
     parser_group.add_argument('-t', '--overlay-type', help='specify the type of overlay (default = group)',
                               choices=['group', 'visibility', 'detection'], default='group')
-    parser_group.add_argument('-a', '--applicable', help='filter techniques in the detection or visibility overlay ' 
-                                                         'based on the \'applicable_to\' field in the technique '
-                                                         'administration YAML file. ', default='all')
     parser_group.add_argument('--software-group', help='add techniques to the heat map by checking which software is '
                                                        'used by group(s), and hence which techniques the software '
                                                        'supports (does not influence the scores). If overlay group(s) '
@@ -125,6 +135,15 @@ def _init_menu():
                               choices=['all', 'Linux', 'macOS', 'Windows'], default='Windows')
     parser_group.add_argument('-s', '--stage', help='specify the stage (default = attack)',
                               choices=['attack', 'pre-attack'], default='attack')
+    parser_group.add_argument('-sd', '--search-detection', help='only include detection objects which match the '
+                                                                'provided EQL query')
+    parser_group.add_argument('-sv', '--search-visibility', help='only include visibility objects which match the '
+                                                                 'provided EQL query')
+    parser_group.add_argument('--all-scores', help='include all \'score\' objects from the \'score_logbook\' in '
+                                                   'the EQL search. The default behaviour is to only include the '
+                                                   'most recent \'score\' objects',
+                              action='store_true', default=False)
+    parser_group.add_argument('--health', help='check the technique YAML file for errors', action='store_true')
 
     # create the generic parser
     parser_generic = subparsers.add_parser('generic', description='Generic functions which will output to stdout.',
@@ -160,58 +179,71 @@ def _menu(menu_parser):
 
     elif args.subparser in ['datasource', 'ds']:
         if check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION):
+            file_ds = args.file_ds
+
+            if args.search:
+                file_ds = search(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.search)
             if args.update and check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION):
-                update_technique_administration_file(args.file_ds, args.file_tech)
+                update_technique_administration_file(file_ds, args.file_tech)
             if args.layer:
-                generate_data_sources_layer(args.file_ds)
+                generate_data_sources_layer(file_ds)
             if args.excel:
-                export_data_source_list_to_excel(args.file_ds)
+                export_data_source_list_to_excel(file_ds)
             if args.graph:
-                plot_data_sources_graph(args.file_ds)
+                plot_data_sources_graph(file_ds)
             if args.yaml:
-                generate_technique_administration_file(args.file_ds)
+                generate_technique_administration_file(file_ds)
 
     elif args.subparser in ['visibility', 'v']:
         if args.layer or args.overlay:
             if not args.file_ds:
-                print('[!] Generating a visibility layer or doing an overlay requires adding the data source'
-                      'administration YAML file (\'--file-ds\')')
+                print('[!] Generating a visibility layer or an overlay requires the data source '
+                      'administration YAML file (\'-fd, --file-ds\')')
                 quit()
             if not check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.health):
                 quit()
 
         if check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
-            if args.layer:
-                generate_visibility_layer(args.file_tech, args.file_ds, False, args.applicable)
-            if args.overlay:
-                generate_visibility_layer(args.file_tech, args.file_ds, True, args.applicable)
-            if args.excel and args.applicable == 'all':
-                export_techniques_list_to_excel(args.file_tech)
-            if args.excel and args.applicable != 'all':
-                print('[!] Filtering on \'applicable_to\' is not supported for Excel output')
+            file_tech = args.file_tech
 
+            if args.search_detection or args.search_visibility:
+                file_tech = techniques_search(args.file_tech, args.search_visibility, args.search_detection,
+                                              include_all_score_objs=args.all_scores)
+            if args.layer:
+                generate_visibility_layer(file_tech, args.file_ds, False)
+            if args.overlay:
+                generate_visibility_layer(file_tech, args.file_ds, True)
+            if args.excel:
+                export_techniques_list_to_excel(file_tech)
+
+    # toto add search capabilities
     elif args.subparser in ['group', 'g']:
-        generate_group_heat_map(args.groups, args.overlay, args.overlay_type, args.stage, args.platform, args.software_group, args.applicable)
+        generate_group_heat_map(args.groups, args.overlay, args.overlay_type, args.stage, args.platform,
+                                args.software_group, args.search_visibility, args.search_detection, args.health,
+                                include_all_score_objs=args.all_scores)
 
     elif args.subparser in ['detection', 'd']:
         if args.overlay:
             if not args.file_ds:
-                print('[!] Doing an overlay requires adding the data source administration YAML file (\'--file-ds\')')
+                print('[!] An overlay requires the data source administration YAML file (\'-fd, --file-ds\')')
                 quit()
             if not check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.health):
                 quit()
 
         if check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
+            file_tech = args.file_tech
+
+            if args.search_detection or args.search_visibility:
+                file_tech = techniques_search(args.file_tech, args.search_visibility, args.search_detection,
+                                              include_all_score_objs=args.all_scores)
             if args.layer:
-                generate_detection_layer(args.file_tech, args.file_ds, False, args.applicable)
+                generate_detection_layer(file_tech, args.file_ds, False)
             if args.overlay and check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.health):
-                generate_detection_layer(args.file_tech, args.file_ds, True, args.applicable)
+                generate_detection_layer(file_tech, args.file_ds, True)
             if args.graph:
-                plot_detection_graph(args.file_tech, args.applicable)
-            if args.excel and args.applicable == 'all':
-                export_techniques_list_to_excel(args.file_tech)
-            if args.excel and args.applicable != 'all':
-                print("[!] Filtering on 'applicable_to' is not supported for Excel output")
+                plot_detection_graph(file_tech)
+            if args.excel:
+                export_techniques_list_to_excel(file_tech)
 
     elif args.subparser in ['generic', 'ge']:
         if args.datasources:
