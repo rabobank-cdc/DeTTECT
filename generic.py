@@ -1,7 +1,8 @@
 import os
 import shutil
 import pickle
-import sys
+from io import StringIO
+from pprint import pprint
 from ruamel.yaml import YAML
 from difflib import SequenceMatcher
 from datetime import datetime as dt
@@ -9,18 +10,6 @@ from upgrade import upgrade_yaml_file
 from constants import *
 
 # Due to performance reasons the import of attackcti is within the function that makes use of this library.
-
-
-def try_get_key(dictionary, key):
-    """
-    Return None if the key does not exists within the provided dict
-    :param dictionary: dictionary
-    :param key: key
-    :return: key value or None
-    """
-    if key in dictionary:
-        return dictionary[key]
-    return None
 
 
 def _save_attack_data(data, path):
@@ -74,7 +63,7 @@ def load_attack_data(data_type):
                         {
                             'group_id': get_attack_id(g),
                             'name': g['name'],
-                            'aliases': try_get_key(g, 'aliases'),
+                            'aliases': g.get('aliases', None),
                             'technique_ref': r['target_ref']
                         })
 
@@ -91,7 +80,7 @@ def load_attack_data(data_type):
                             'name': gr['name'],
                             'aliases': gr['aliases'],
                             'technique_id': get_attack_id(t),
-                            'x_mitre_platforms': try_get_key(t, 'x_mitre_platforms'),
+                            'x_mitre_platforms': t.get('x_mitre_platforms', None),
                             'matrix': t['external_references'][0]['source_name']
                         })
 
@@ -144,7 +133,7 @@ def load_attack_data(data_type):
                         {
                             'group_id': get_attack_id(g),
                             'name': g['name'],
-                            'aliases': try_get_key(g, 'aliases'),
+                            'aliases': g.get('aliases', None),
                             'software_ref': r['target_ref']
                         })
 
@@ -161,7 +150,7 @@ def load_attack_data(data_type):
                             'name': gr['name'],
                             'aliases': gr['aliases'],
                             'software_id': get_attack_id(s),
-                            'x_mitre_platforms': try_get_key(s, 'x_mitre_platforms'),
+                            'x_mitre_platforms': s.get('x_mitre_platforms', None),
                             'matrix': s['external_references'][0]['source_name']
                         })
         attack_data = all_group_use
@@ -442,42 +431,34 @@ def ask_multiple_choice(question, list_answers):
     return list_answers[int(answer)-1]
 
 
-def fix_date_and_remove_null(yaml_file, date, input_reamel=True, return_reamel=False):
+def fix_date_and_remove_null(yaml_file, date, input_type='ruamel'):
     """
-    Remove the single quotes around the date key-value pair in the provided yaml_file
-    And remove any null values
+    Remove the single quotes around the date key-value pair in the provided yaml_file and remove any 'null' values
     :param yaml_file: ruamel.yaml instance or location of YAML file
     :param date: string date value (e.g. 2019-01-01)
-    :param input_reamel: input type can be a reamel instance or list
-    :param return_reamel: return list of YAML file lines or reamel instance
+    :param input_type: input type can be a ruamel.yaml instance or list
     :return: YAML file lines in a list
     """
     _yaml = init_yaml()
-    if input_reamel:
-        file = sys.path[0] + '/.tmp_tech_file'
-
-        with open(file, 'w') as fd:
-            _yaml.dump(yaml_file, fd)
-    else:
-        file = yaml_file
-
-    with open(file, 'r') as fd:
-        new_lines = fd.readlines()
+    if input_type == 'ruamel':
+        # ruamel does not support output to a variable. Therefore we make use of StringIO.
+        file = StringIO()
+        _yaml.dump(yaml_file, file)
+        file.seek(0)
+        new_lines = file.readlines()
+    elif input_type == 'list':
+        new_lines = yaml_file
+    elif input_type == 'file':
+        new_lines = yaml_file.readlines()
 
     fixed_lines = [l.replace('\'' + date + '\'', date).replace('null', '')
                    if REGEX_YAML_DATE.match(l) else
                    l.replace('null', '') for l in new_lines]
 
-    if input_reamel:
-        os.remove(file)
-
-    if return_reamel:
-        return _yaml.load(''.join(fixed_lines))
-    else:
-        return fixed_lines
+    return fixed_lines
 
 
-def _get_latest_score_obj(yaml_object):
+def get_latest_score_obj(yaml_object):
     """
     Get the the score object in the score_logbook by date
     :param yaml_object: a detection or visibility YAML object
@@ -507,7 +488,7 @@ def get_latest_comment(yaml_object, empty=' '):
     :param empty: value for an empty comment
     :return: comment
     """
-    score_obj = _get_latest_score_obj(yaml_object)
+    score_obj = get_latest_score_obj(yaml_object)
     if score_obj:
         if score_obj['comment'] == '' or not score_obj['comment']:
             return empty
@@ -523,7 +504,7 @@ def get_latest_date(yaml_object):
     :param yaml_object: a detection or visibility YAML object
     :return: date as a datetime object or None
     """
-    score_obj = _get_latest_score_obj(yaml_object)
+    score_obj = get_latest_score_obj(yaml_object)
     if score_obj:
         return score_obj['date']
     else:
@@ -536,7 +517,7 @@ def get_latest_auto_generated(yaml_object):
     :param yaml_object: a detection or visibility YAML object
     :return: True or False
     """
-    score_obj = _get_latest_score_obj(yaml_object)
+    score_obj = get_latest_score_obj(yaml_object)
     if score_obj:
         if 'auto_generated' in score_obj:
             return score_obj['auto_generated']
@@ -552,7 +533,7 @@ def get_latest_score(yaml_object):
     :param yaml_object: a detection or visibility YAML object
     :return: score as an integer or None
     """
-    score_obj = _get_latest_score_obj(yaml_object)
+    score_obj = get_latest_score_obj(yaml_object)
     if score_obj:
         return score_obj['score']
     else:
@@ -588,7 +569,7 @@ def map_techniques_to_data_sources(techniques, my_data_sources):
                     my_techniques[tech_id]['my_data_sources'] = [i_ds, ]
                     my_techniques[tech_id]['data_sources'] = t['x_mitre_data_sources']
                     # create a list of tactics
-                    my_techniques[tech_id]['tactics'] = list(map(lambda k: k['phase_name'], try_get_key(t, 'kill_chain_phases')))
+                    my_techniques[tech_id]['tactics'] = list(map(lambda k: k['phase_name'], t.get('kill_chain_phases', None)))
                     my_techniques[tech_id]['products'] = set(my_data_sources[i_ds]['products'])
                 elif t['x_mitre_data_sources'] and i_ds in t['x_mitre_data_sources'] and tech_id in my_techniques.keys():
                     my_techniques[tech_id]['my_data_sources'].append(i_ds)
@@ -626,6 +607,7 @@ def calculate_score(list_detections, zero_value=0):
         if score >= 0:
             avg_score += score
             number += 1
+
     avg_score = int(round(avg_score / number, 0) if number > 0 else zero_value)
     return avg_score
 
@@ -647,41 +629,47 @@ def add_entry_to_list_in_dictionary(dictionary, technique_id, key, entry):
     dictionary[technique_id][key].append(entry)
 
 
-def load_techniques(filename, detection_or_visibility='all', filter_applicable_to='all'):
+def load_techniques(file):
     """
-    Loads the techniques (including detection and visibility properties) from the given yaml file.
-    :param filename: the filename of the yaml file containing the techniques administration
-    :param detection_or_visibility: used to indicate to filter applicable_to field for detection or visibility. When
-                                    using 'all' no filtering will be applied.
-    :param filter_applicable_to: filter techniques based on applicable_to field in techniques administration YAML file
+    Loads the techniques (including detection and visibility properties).
+    :param file: the file location of the YAML file or a dict containing the techniques administration
     :return: dictionary with techniques (incl. properties), name and platform
     """
-
     my_techniques = {}
-    _yaml = init_yaml()
-    with open(filename, 'r') as yaml_file:
-        yaml_content = _yaml.load(yaml_file)
+
+    if isinstance(file, dict):
+        # file is a dict and created due to the use of an EQL query by the user
+        yaml_content = file
+    else:
+        # file is a file location on disk
+        _yaml = init_yaml()
+        with open(file, 'r') as yaml_file:
+            yaml_content = _yaml.load(yaml_file)
+
+    try:
         for d in yaml_content['techniques']:
             # Add detection items:
             if isinstance(d['detection'], dict):  # There is just one detection entry
-                if detection_or_visibility == 'all' or filter_applicable_to == 'all' or filter_applicable_to in d[detection_or_visibility]['applicable_to'] or 'all' in d[detection_or_visibility]['applicable_to']:
-                    add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', d['detection'])
+                add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', d['detection'])
             elif isinstance(d['detection'], list):  # There are multiple detection entries
                 for de in d['detection']:
-                    if detection_or_visibility == 'all' or filter_applicable_to == 'all' or filter_applicable_to in de['applicable_to'] or 'all' in de['applicable_to']:
-                        add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', de)
+                    add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', de)
 
             # Add visibility items
             if isinstance(d['visibility'], dict):  # There is just one visibility entry
-                if detection_or_visibility == 'all' or filter_applicable_to == 'all' or filter_applicable_to in d[detection_or_visibility]['applicable_to'] or 'all' in d[detection_or_visibility]['applicable_to']:
-                    add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', d['visibility'])
+                add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', d['visibility'])
             elif isinstance(d['visibility'], list):  # There are multiple visibility entries
                 for de in d['visibility']:
-                    if detection_or_visibility == 'all' or filter_applicable_to == 'all' or filter_applicable_to in de['applicable_to'] or 'all' in de['applicable_to']:
-                        add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', de)
+                    add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', de)
 
-        name = yaml_content['name']
-        platform = yaml_content['platform']
+            name = yaml_content['name']
+            platform = yaml_content['platform']
+    except KeyError:
+        # When using an EQL that does not in a valid technique administration file. Trow an error.
+        print(EQL_INVALID_RESULT_TECH + ' detection/visibility object(s):')
+        pprint(yaml_content)
+        quit()
+
     return my_techniques, name, platform
 
 
@@ -749,7 +737,7 @@ def _check_health_score_object(yaml_object, object_type, tech_id, health_is_call
                         # noinspection PyStatementEffect
                         score_obj['date'].day
                     except AttributeError:
-                        has_error = _print_error_msg('[!] Technique ID: ' + tech_id + ' has an INVALID data format in a ' + object_type + ' score object in the \'score_logbook\': date (should be YYYY-MM-DD)', health_is_called)
+                        has_error = _print_error_msg('[!] Technique ID: ' + tech_id + ' has an INVALID data format in a ' + object_type + ' score object in the \'score_logbook\': date (should be YYYY-MM-DD without quotes)', health_is_called)
     except KeyError:
         pass
 
@@ -789,11 +777,74 @@ def _check_health_yaml_object(yaml_object, object_type, tech_id, health_is_calle
     return has_error
 
 
-def _update_health_sate(current, update):
+def _update_health_state(current, update):
     if current or update:
         return True
     else:
         return update
+
+
+def _is_file_modified(filename):
+    """
+    Check if the provided file was modified since the last check
+    :param filename: file location
+    :return: true when modified else false
+    """
+    last_modified_file = 'cache/last-modified_' + os.path.basename(filename).rstrip('.yaml')
+
+    def _update_modified_date(date):
+        with open(last_modified_file, 'wb') as fd:
+            pickle.dump(date, fd)
+
+    if not os.path.exists(last_modified_file):
+        last_modified = os.path.getmtime(filename)
+        _update_modified_date(last_modified)
+
+        return True
+    else:
+        with open(last_modified_file, 'rb') as f:
+            last_modified_cache = pickle.load(f)
+            last_modified_current = os.path.getmtime(filename)
+
+            if last_modified_cache != last_modified_current:
+                _update_modified_date(last_modified_current)
+                return True
+            else:
+                return False
+
+
+def _get_health_state_cache(filename):
+    """
+    Get file health state from disk
+    :param filename: file location
+    :return: the cached error state
+    """
+    last_error_file = 'cache/last-error-state_' + os.path.basename(filename).rstrip('.yaml')
+
+    if os.path.exists(last_error_file):
+        with open(last_error_file, 'rb') as f:
+            last_error_state_cache = pickle.load(f)
+
+        return last_error_state_cache
+
+
+def _update_health_state_cache(filename, has_error):
+    """
+    Write the file health state to disk if changed
+    :param filename: file location
+    """
+    last_error_file = 'cache/last-error-state_' + os.path.basename(filename).rstrip('.yaml')
+
+    def _update(error):
+        with open(last_error_file, 'wb') as fd:
+            pickle.dump(error, fd)
+
+    if not os.path.exists(last_error_file):
+        _update(has_error)
+    else:
+        error_state_cache = _get_health_state_cache(filename)
+        if error_state_cache != has_error:
+            _update(has_error)
 
 
 def check_yaml_file_health(filename, file_type, health_is_called):
@@ -804,83 +855,86 @@ def check_yaml_file_health(filename, file_type, health_is_called):
     :param health_is_called: boolean that specifies if detailed errors in the file will be printed and then quit()
     :return:
     """
+    # first we check if the file was modified. Otherwise, the health check is skipped for performance reasons
+    if _is_file_modified(filename) or health_is_called:
+        has_error = False
+        if file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
+            # check for duplicate tech IDs
+            _yaml = init_yaml()
+            with open(filename, 'r') as yaml_file:
+                yaml_content = _yaml.load(yaml_file)
 
-    has_error = False
-    if file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
-        # check for duplicate tech IDs
-        _yaml = init_yaml()
-        with open(filename, 'r') as yaml_file:
-            yaml_content = _yaml.load(yaml_file)
+                tech_ids = list(map(lambda x: x['technique_id'], yaml_content['techniques']))
+                tech_dup = []
+                for tech in tech_ids:
+                    if tech not in tech_dup:
+                        tech_dup.append(tech)
+                    else:
+                        has_error = _print_error_msg('[!] Duplicate technique ID: ' + tech, health_is_called)
 
-            tech_ids = list(map(lambda x: x['technique_id'], yaml_content['techniques']))
-            tech_dup = []
-            for tech in tech_ids:
-                if tech not in tech_dup:
-                    tech_dup.append(tech)
-                else:
-                    has_error = _print_error_msg('[!] Duplicate technique ID: ' + tech, health_is_called)
+                    # check if the technique has a valid format
+                    if not REGEX_YAML_TECHNIQUE_ID_FORMAT.match(tech):
+                        has_error = _print_error_msg('[!] Invalid technique ID: ' + tech, health_is_called)
 
-                # check if the technique has a valid format
-                if not REGEX_YAML_TECHNIQUE_ID_FORMAT.match(tech):
-                    has_error = _print_error_msg('[!] Invalid technique ID: ' + tech, health_is_called)
+            # checks on:
+            # - empty key-value pairs: 'applicable_to', 'comment', 'location', 'score_logbook' , 'date', 'score'
+            # - invalid date format for: 'date'
+            # - detection or visibility score out-of-range
+            # - missing key-value pairs: 'applicable_to', 'comment', 'location', 'score_logbook', 'date', 'score'
+            # - check on 'applicable_to' values which are very similar
 
-        # checks on:
-        # - empty key-value pairs: 'applicable_to', 'comment', 'location', 'score_logbook' , 'date', 'score'
-        # - invalid date format for: 'date'
-        # - detection or visibility score out-of-range
-        # - missing key-value pairs: 'applicable_to', 'comment', 'location', 'score_logbook', 'date', 'score'
-        # - check on 'applicable_to' values which are very similar
+            all_applicable_to = set()
+            techniques = load_techniques(filename)
+            for tech, v in techniques[0].items():
+                for key in ['detection', 'visibility']:
+                    if key not in v:
+                        has_error = _print_error_msg('[!] Technique ID: ' + tech + ' is MISSING ' + key, health_is_called)
+                    elif 'applicable_to' in v:
+                        # create at set containing all values for 'applicable_to'
+                        all_applicable_to.update([a for v in v[key] for a in v['applicable_to']])
 
-        all_applicable_to = set()
-        techniques = load_techniques(filename)
-        for tech, v in techniques[0].items():
-            for key in ['detection', 'visibility']:
-                if key not in v:
-                    has_error = _print_error_msg('[!] Technique ID: ' + tech + ' is MISSING ' + key, health_is_called)
-                elif 'applicable_to' in v:
-                    # create at set containing all values for 'applicable_to'
-                    all_applicable_to.update([a for v in v[key] for a in v['applicable_to']])
+                for detection in v['detection']:
+                    for key in ['applicable_to', 'location', 'comment', 'score_logbook']:
+                        if key not in detection:
+                            has_error = _print_error_msg('[!] Technique ID: ' + tech + ' is MISSING a key-value pair in detection: ' + key, health_is_called)
 
-            for detection in v['detection']:
-                for key in ['applicable_to', 'location', 'comment', 'score_logbook']:
-                    if key not in detection:
-                        has_error = _print_error_msg('[!] Technique ID: ' + tech + ' is MISSING a key-value pair in detection: ' + key, health_is_called)
+                    health = _check_health_yaml_object(detection, 'detection', tech, health_is_called)
+                    has_error = _update_health_state(has_error, health)
+                    health = _check_health_score_object(detection, 'detection', tech, health_is_called)
+                    has_error = _update_health_state(has_error, health)
 
-                health = _check_health_yaml_object(detection, 'detection', tech, health_is_called)
-                has_error = _update_health_sate(has_error, health)
-                health = _check_health_score_object(detection, 'detection', tech, health_is_called)
-                has_error = _update_health_sate(has_error, health)
+                for visibility in v['visibility']:
+                    for key in ['applicable_to', 'comment', 'score_logbook']:
+                        if key not in visibility:
+                            has_error = _print_error_msg('[!] Technique ID: ' + tech + ' is MISSING a key-value pair in visibility: ' + key, health_is_called)
 
-            for visibility in v['visibility']:
-                for key in ['applicable_to', 'comment', 'score_logbook']:
-                    if key not in visibility:
-                        has_error = _print_error_msg('[!] Technique ID: ' + tech + ' is MISSING a key-value pair in visibility: ' + key, health_is_called)
+                    health = _check_health_yaml_object(visibility, 'visibility', tech, health_is_called)
+                    has_error = _update_health_state(has_error, health)
+                    health = _check_health_score_object(visibility, 'visibility', tech, health_is_called)
+                    has_error = _update_health_state(has_error, health)
 
-                health = _check_health_yaml_object(visibility, 'visibility', tech, health_is_called)
-                has_error = _update_health_sate(has_error, health)
-                health = _check_health_score_object(visibility, 'visibility', tech, health_is_called)
-                has_error = _update_health_sate(has_error, health)
+            # get values within the key-value pair 'applicable_to' which are a very close match
+            similar = set()
+            for i1 in all_applicable_to:
+                for i2 in all_applicable_to:
+                    match_value = SequenceMatcher(None, i1, i2).ratio()
+                    if match_value > 0.8 and match_value != 1:
+                        similar.add(i1)
+                        similar.add(i2)
 
-        # get values within the key-value pair 'applicable_to' which are a very close match
-        similar = set()
-        for i1 in all_applicable_to:
-            for i2 in all_applicable_to:
-                match_value = SequenceMatcher(None, i1, i2).ratio()
-                if match_value > 0.8 and match_value != 1:
-                    similar.add(i1)
-                    similar.add(i2)
+            if len(similar) > 0:
+                has_error = _print_error_msg('[!] There are values in the key-value pair \'applicable_to\' which are very similar. Correct where necessary:', health_is_called)
+                for s in similar:
+                    _print_error_msg('    - ' + s, health_is_called)
 
-        if len(similar) > 0:
-            has_error = _print_error_msg('[!] There are values in the key-value pair \'applicable_to\' which are very similar. Correct where necessary:', health_is_called)
-            for s in similar:
-                _print_error_msg('    - ' + s, health_is_called)
+            if has_error and not health_is_called:
+                print(HEALTH_HAS_ERROR + filename)
+            elif has_error and health_is_called:
+                print('    - ' + filename)
 
-        if has_error and not health_is_called:
-            print('[!] The below YAML file contains possible errors. It\'s recommended to check via the \'--health\' '
-                  'argument or using the option in the interactive menu: \n    - ' + filename)
-
-        if has_error:
-            print('')  # print a newline
+            _update_health_state_cache(filename, has_error)
+    elif _get_health_state_cache(filename):
+        print(HEALTH_HAS_ERROR + filename)
 
 
 def _check_file_type(filename, file_type=None):
@@ -942,6 +996,7 @@ def check_file(filename, file_type=None, health_is_called=False):
         return yaml_content['file_type']
 
     return yaml_content  # value is None
+
 
 def get_updates(update_type, sort='modified'):
     """
@@ -1010,23 +1065,24 @@ def get_statistics_mitigations(matrix):
             mitigations_dict[m['id']] = {'mID': m['external_references'][0]['external_id'], 'name': m['name']}
 
     relationships = load_attack_data(DATA_TYPE_STIX_ALL_RELATIONSHIPS)
-    relationships_mitigates = [r for r in relationships if r['relationship_type'] == 'mitigates']
+    relationships_mitigates = [r for r in relationships
+                               if r['relationship_type'] == 'mitigates'
+                               if r['source_ref'].startswith('course-of-action')
+                               if r['target_ref'].startswith('attack-pattern')
+                               if r['source_ref'] in mitigations_dict]
 
     # {id: {name: ..., count: ..., name: ...} }
     count_dict = dict()
     for r in relationships_mitigates:
         src_ref = r['source_ref']
-        if src_ref.startswith('course-of-action') \
-                and r['target_ref'].startswith('attack-pattern') \
-                and src_ref in mitigations_dict:
 
-            m = mitigations_dict[src_ref]
-            if m['mID'] not in count_dict:
-                count_dict[m['mID']] = dict()
-                count_dict[m['mID']]['count'] = 1
-                count_dict[m['mID']]['name'] = m['name']
-            else:
-                count_dict[m['mID']]['count'] += 1
+        m = mitigations_dict[src_ref]
+        if m['mID'] not in count_dict:
+            count_dict[m['mID']] = dict()
+            count_dict[m['mID']]['count'] = 1
+            count_dict[m['mID']]['name'] = m['name']
+        else:
+            count_dict[m['mID']]['count'] += 1
 
     count_dict_sorted = dict(sorted(count_dict.items(), key=lambda kv: kv[1]['count'], reverse=True))
 
@@ -1049,7 +1105,7 @@ def get_statistics_data_sources():
     for tech in techniques:
         tech_id = get_attack_id(tech)
         # Not every technique has a data source listed
-        data_sources = try_get_key(tech, 'x_mitre_data_sources')
+        data_sources = tech.get('x_mitre_data_sources', None)
         if data_sources:
             for ds in data_sources:
                 if ds not in data_sources_dict:
