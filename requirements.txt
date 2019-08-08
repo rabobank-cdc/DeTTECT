@@ -4,3 +4,4 @@ plotly==3.10.0
 pandas==0.24.2
 xlsxwriter==1.1.8
 ruamel.yaml=0.16.0
+eql==0.7
