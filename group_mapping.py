@@ -1,5 +1,6 @@
 import simplejson
 from generic import *
+from eql_yaml import techniques_search
 
 CG_GROUPS = {}
 
@@ -212,17 +213,16 @@ def _get_group_techniques(groups, stage, platform, file_type):
     return groups_dict
 
 
-def _get_detection_techniques(filename, filter_applicable_to):
+def _get_detection_techniques(filename):
     """
     Get all techniques (in a dict) from the detection administration
     :param filename: path to the YAML technique administration file
-    :param filter_applicable_to: filter techniques based on applicable_to field in techniques administration YAML file
     :return: groups dictionary, loaded techniques from administration YAML file
     """
     # { group_id: {group_name: NAME, techniques: set{id, ...} } }
     groups_dict = {}
 
-    detection_techniques, name, platform = load_techniques(filename, 'detection', filter_applicable_to)
+    detection_techniques, name, platform = load_techniques(filename)
 
     group_id = 'DETECTION'
     groups_dict[group_id] = {}
@@ -238,17 +238,16 @@ def _get_detection_techniques(filename, filter_applicable_to):
     return groups_dict, detection_techniques
 
 
-def _get_visibility_techniques(filename, filter_applicable_to):
+def _get_visibility_techniques(filename):
     """
     Get all techniques (in a dict) from the technique administration
     :param filename: path to the YAML technique administration file
-    :param filter_applicable_to: filter techniques based on applicable_to field in techniques administration YAML file
     :return: dictionary
     """
     # { group_id: {group_name: NAME, techniques: set{id, ...} } }
     groups_dict = {}
 
-    visibility_techniques, name, platform = load_techniques(filename, 'visibility', filter_applicable_to)
+    visibility_techniques, name, platform = load_techniques(filename)
 
     group_id = 'VISIBILITY'
     groups_dict[group_id] = {}
@@ -454,7 +453,8 @@ def _get_group_list(groups, file_type):
         return groups
 
 
-def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, software_groups, filter_applicable_to):
+def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, software_groups,
+                            search_visibility, search_detection, health_is_called, include_all_score_objs=False):
     """
     Calls all functions that are necessary for the generation of the heat map and write a json layer to disk.
     :param groups: threat actor groups
@@ -463,8 +463,11 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
     :param overlay_type: group, visibility or detection
     :param stage: attack or pre-attack
     :param platform: all, Linux, macOS, Windows
-    :param software_groups: specify if techniques from related software should be included.
-    :param filter_applicable_to: filter techniques based on applicable_to field in techniques administration YAML file
+    :param software_groups: specify if techniques from related software should be included
+    :param search_visibility: visibility EQL search query
+    :param search_detection: detection EQL search query
+    :param health_is_called: boolean that specifies if detailed errors in the file will be printed
+    :param include_all_score_objs: include all score objects within the score_logbook for the EQL query
     :return: returns nothing when something's wrong
     """
     overlay_dict = {}
@@ -472,7 +475,8 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
 
     groups_file_type = None
     if os.path.isfile(groups):
-        groups_file_type = check_file(groups, file_type=FILE_TYPE_GROUP_ADMINISTRATION)
+        groups_file_type = check_file(groups, file_type=FILE_TYPE_GROUP_ADMINISTRATION,
+                                      health_is_called=health_is_called)
         if not groups_file_type:
             return
     else:
@@ -486,7 +490,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
             expected_file_type = FILE_TYPE_GROUP_ADMINISTRATION if overlay_type == OVERLAY_TYPE_GROUP \
                 else FILE_TYPE_TECHNIQUE_ADMINISTRATION \
                 if overlay_type in [OVERLAY_TYPE_VISIBILITY, OVERLAY_TYPE_DETECTION] else None
-            overlay_file_type = check_file(overlay, expected_file_type)
+            overlay_file_type = check_file(overlay, expected_file_type, health_is_called=health_is_called)
             if not overlay_file_type:
                 return
         else:
@@ -495,12 +499,19 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
     else:
         overlay = []
 
+    # load the techniques (visibility or detection) from the YAML file
     all_techniques = None
     if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
+        # filter out visibility and/or detection objects using EQL
+        if search_detection or search_visibility:
+            overlay = techniques_search(overlay, search_visibility, search_detection,
+                                        include_all_score_objs=include_all_score_objs)
+
         if overlay_type == OVERLAY_TYPE_VISIBILITY:
-            overlay_dict, all_techniques = _get_visibility_techniques(overlay, filter_applicable_to)
+            overlay_dict, all_techniques = _get_visibility_techniques(overlay)
         elif overlay_type == OVERLAY_TYPE_DETECTION:
-            overlay_dict, all_techniques = _get_detection_techniques(overlay, filter_applicable_to)
+            overlay_dict, all_techniques = _get_detection_techniques(overlay)
+    # we are not overlaying visibility or detection, overlay group will therefore contain information another group
     elif len(overlay) > 0:
         overlay_dict = _get_group_techniques(overlay, stage, platform, overlay_file_type)
         if not overlay_dict:
@@ -543,7 +554,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
     if stage == 'pre-attack':
         filename = "output/" + stage + '_' + '_'.join(groups_list)
     elif overlay:
-        filename = "output/" + stage + '_' + platform.lower() + '_' + '_'.join(groups_list) + '-overlay_' + '_'.join(overlay_list) + '_' + filter_applicable_to.replace(' ', '_')
+        filename = "output/" + stage + '_' + platform.lower() + '_' + '_'.join(groups_list) + '-overlay_' + '_'.join(overlay_list)
     else:
         filename = "output/" + stage + '_' + platform.lower() + '_' + '_'.join(groups_list)
     filename = filename[:255] + '.json'
