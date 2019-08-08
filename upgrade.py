@@ -3,8 +3,8 @@ from constants import *
 
 def _load_techniques(yaml_file_lines):
     """
-    Loads the techniques (including detection and visibility properties) from the given yaml file.
-    :param yaml_file_lines: list with the yaml file lines containing the techniques administration
+    Loads the techniques (including detection and visibility properties) from the given YAML file.
+    :param yaml_file_lines: list with the YAML file lines containing the techniques administration
     :return: dictionary with techniques (incl. properties)
     """
     from generic import add_entry_to_list_in_dictionary, init_yaml
@@ -112,7 +112,7 @@ def upgrade_yaml_file(filename, file_type, file_version, attack_tech_data):
             print('Written upgraded file: ' + filename)
 
         print('\nUpgrade complete')
-        print('-'*80)
+        print('-' * 80)
 
 
 def _upgrade_technique_yaml_10_to_11(file_lines, attack_tech_data):
@@ -335,6 +335,6 @@ def _upgrade_technique_yaml_11_to_12(file_lines, attack_tech_data):
                 v['score_logbook'][0]['auto_generated'] = True
 
     # remove the single quotes around the date
-    new_lines = fix_date_and_remove_null(yaml_file, date_for_visibility)
+    new_lines = fix_date_and_remove_null(yaml_file, date_for_visibility, input_type='ruamel')
 
     return new_lines
