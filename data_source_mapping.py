@@ -1,7 +1,9 @@
 import simplejson
 import xlsxwriter
-import copy
+from copy import deepcopy
 from generic import *
+from pprint import pprint
+from datetime import datetime
 
 # Imports for pandas and plotly are because of performance reasons in the function that uses these libraries.
 
@@ -9,7 +11,7 @@ from generic import *
 def generate_data_sources_layer(filename):
     """
     Generates a generic layer for data sources.
-    :param filename: the filename of the yaml file containing the data sources administration
+    :param filename: the filename of the YAML file containing the data sources administration
     :return:
     """
     my_data_sources, name, platform, exceptions = _load_data_sources(filename)
@@ -30,7 +32,7 @@ def generate_data_sources_layer(filename):
 def plot_data_sources_graph(filename):
     """
     Generates a line graph which shows the improvements on numbers of data sources through time.
-    :param filename: the filename of the yaml file containing the data sources administration
+    :param filename: the filename of the YAML file containing the data sources administration
     :return:
     """
     my_data_sources, name, platform, exceptions = _load_data_sources(filename)
@@ -60,8 +62,8 @@ def plot_data_sources_graph(filename):
 def export_data_source_list_to_excel(filename):
     """
     Makes an overview of all MITRE ATT&CK data sources (via techniques) and lists which data sources are present
-    in the yaml administration including all properties and data quality score.
-    :param filename: the filename of the yaml file containing the data sources administration
+    in the YAML administration including all properties and data quality score.
+    :param filename: the filename of the YAML file containing the data sources administration
     :return:
     """
     my_data_sources, name, platform, exceptions = _load_data_sources(filename, filter_empty_scores=False)
@@ -114,8 +116,17 @@ def export_data_source_list_to_excel(filename):
         worksheet.write(y, 0, d, valign_top)
         if d in my_data_sources.keys():
             ds = my_data_sources[d]
-            worksheet.write(y, 1, str(ds['date_registered']).replace('None', ''), valign_top)
-            worksheet.write(y, 2, str(ds['date_connected']).replace('None', ''), valign_top)
+
+            tmp_date_1 = ds['date_registered']
+            if isinstance(tmp_date_1, datetime):
+                tmp_date_1 = tmp_date_1.strftime('%Y-%m-%d')
+
+            tmp_date_2 = ds['date_connected']
+            if isinstance(tmp_date_2, datetime):
+                tmp_date_2 = tmp_date_2.strftime('%Y-%m-%d')
+
+            worksheet.write(y, 1, str(tmp_date_1).replace('None', ''), valign_top)
+            worksheet.write(y, 2, str(tmp_date_2).replace('None', ''), valign_top)
             worksheet.write(y, 3, ', '.join(ds['products']).replace('None', ''), valign_top)
             worksheet.write(y, 4, ds['comment'][:-1] if ds['comment'].endswith('\n') else ds['comment'], wrap_text)
             worksheet.write(y, 5, str(ds['available_for_data_analytics']), valign_top)
@@ -146,25 +157,40 @@ def export_data_source_list_to_excel(filename):
         print('[!] Error while writing Excel file: %s' % str(e))
 
 
-def _load_data_sources(filename, filter_empty_scores=True):
+def _load_data_sources(file, filter_empty_scores=True):
     """
-    Loads the data sources (including all properties) from the given yaml file.
-    :param filename: the filename of the yaml file containing the data sources administration
+    Loads the data sources (including all properties) from the given YAML file.
+    :param file: the file location of the YAML file containing the data sources administration or a dict
     :return: dictionary with data sources, name, platform and exceptions list.
     """
     my_data_sources = {}
-    _yaml = init_yaml()
-    with open(filename, 'r') as yaml_file:
-        yaml_content = _yaml.load(yaml_file)
+
+    if isinstance(file, dict):
+        # file is a dict created due to the use of an EQL query by the user
+        yaml_content = file
+    else:
+        # file is a file location on disk
+        _yaml = init_yaml()
+        with open(file, 'r') as yaml_file:
+            yaml_content = _yaml.load(yaml_file)
+
+    try:
         for d in yaml_content['data_sources']:
             dq = d['data_quality']
             if not filter_empty_scores:
                 my_data_sources[d['data_source_name']] = d
             elif dq['device_completeness'] > 0 and dq['data_field_completeness'] > 0 and dq['timeliness'] > 0 and dq['consistency'] > 0:
                 my_data_sources[d['data_source_name']] = d
+
         name = yaml_content['name']
         platform = yaml_content['platform']
         exceptions = [t['technique_id'] for t in yaml_content['exceptions']]
+    except KeyError:
+        # When using an EQL that does not result in a dict having 'data_sources' objects. Trow an error.
+        print(EQL_INVALID_RESULT_DS)
+        pprint(yaml_content)
+        quit()
+
     return my_data_sources, name, platform, exceptions
 
 
@@ -252,7 +278,7 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
     today = new_visibility_scores['techniques'][0]['visibility']['score_logbook'][0]['date']
 
     # next we load the current visibility scores from the tech. admin file
-    cur_visibility_scores, _, platform_tech_admin = load_techniques(file_tech_admin, 'visibility')
+    cur_visibility_scores, _, platform_tech_admin = load_techniques(file_tech_admin)
 
     # if the platform does not match between the data source and tech. admin file we return
     if new_visibility_scores['platform'] != platform_tech_admin:
@@ -409,7 +435,7 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
                             print('Visibility object:')
                             print(' - ATT&CK ID/name      ' + tech_id + ' / ' + tech_name)
                             print(' - Applicable to:      ' + ', '.join(old_vis_obj[obj_idx]['applicable_to']))
-                            print(' - General comment:    ' + _indent_comment(old_vis_obj[obj_idx]['comment'], 23))
+                            print(' - Technique  comment: ' + _indent_comment(old_vis_obj[obj_idx]['comment'], 23))
                             print('')
                             print('OLD score object:')
                             print(' - Date:               ' + get_latest_date(old_vis_obj[obj_idx]).strftime('%Y-%m-%d'))
@@ -436,7 +462,7 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
             print('')
             backup_file(file_tech_admin)
 
-            yaml_file_tech_admin = fix_date_and_remove_null(yaml_file_tech_admin, today, input_reamel=True)
+            yaml_file_tech_admin = fix_date_and_remove_null(yaml_file_tech_admin, today, input_type='ruamel')
 
             with open(file_tech_admin, 'w') as fd:
                 fd.writelines(yaml_file_tech_admin)
@@ -447,39 +473,14 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
 
 def generate_technique_administration_file(filename, write_file=True):
     """
-    Generate a technique administration file based on the data source administration yaml file
-    :param filename: the filename of the yaml file containing the data sources administration
+    Generate a technique administration file based on the data source administration YAML file
+    :param filename: the filename of the YAML file containing the data sources administration
     :param write_file: by default the file is written to disk
     :return:
     """
     my_data_sources, name, platform, exceptions = _load_data_sources(filename)
 
     techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE)
-
-    # This is part of the techniques administration YAML file and is used as a template
-    dict_tech = {'technique_id': '',
-                 'technique_name': '',
-                 'detection':
-                     {'applicable_to': ['all'],
-                      'location': [''],
-                      'comment': '',
-                      'score_logbook':
-                      [
-                          {'date': None,
-                           'score': -1,
-                           'comment': ''}
-                      ]},
-                 'visibility':
-                     {'applicable_to': ['all'],
-                      'comment': '',
-                      'score_logbook':
-                      [
-                          {'date': None,
-                           'score': 0,
-                           'comment': '',
-                           'auto_generated': True}
-                      ]
-                      }}
 
     yaml_file = dict()
     yaml_file['version'] = FILE_TYPE_TECHNIQUE_ADMINISTRATION_VERSION
@@ -491,7 +492,7 @@ def generate_technique_administration_file(filename, write_file=True):
 
     # Score visibility based on the number of available data sources and the exceptions
     for t in techniques:
-        platforms_lower = list(map(lambda x: x.lower(), try_get_key(t, 'x_mitre_platforms')))
+        platforms_lower = list(map(lambda x: x.lower(), t.get('x_mitre_platforms', None)))
         if platform in platforms_lower:
             # not every technique has data source listed
             if 'x_mitre_data_sources' in t:
@@ -511,7 +512,7 @@ def generate_technique_administration_file(filename, write_file=True):
                 techniques_upper = list(map(lambda x: x.upper(), exceptions))
                 tech_id = get_attack_id(t)
                 if score > 0 and tech_id not in techniques_upper:
-                    tech = copy.deepcopy(dict_tech)
+                    tech = deepcopy(YAML_OBJ_TECHNIQUE)
                     tech['technique_id'] = tech_id
                     tech['technique_name'] = t['name']
                     # noinspection PyUnresolvedReferences
@@ -523,16 +524,15 @@ def generate_technique_administration_file(filename, write_file=True):
     if write_file:
         # remove the single quotes around the date key-value pair
         _yaml = init_yaml()
-        tmp_file = sys.path[0] + '/.tmp_tech_file'
+        file = StringIO()
 
-        # create the file lines by writing it to disk
-        with open(tmp_file, 'w') as fd_tmp:
-            _yaml.dump(yaml_file, fd_tmp)
+        # create the file lines by writing it to memory
+        _yaml.dump(yaml_file, file)
+        file.seek(0)
+        file_lines = file.readlines()
 
         # remove the single quotes from the date
-        yaml_file_lines = fix_date_and_remove_null(tmp_file, today, input_reamel=False)
-
-        os.remove(tmp_file)
+        yaml_file_lines = fix_date_and_remove_null(file_lines, today, input_type='list')
 
         # create a output filename that prevents overwriting any existing files
         output_filename = 'output/techniques-administration-' + normalize_name_to_filename(name+'-'+platform) + '.yaml'
