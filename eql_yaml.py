@@ -162,8 +162,10 @@ def _events_to_yaml(query_results, obj_type):
             # Remove the event_type key. We no longer need this.
             for r in query_results:
                 del r['event_type']
-                r['date_registered'] = datetime.datetime.strptime(r['date_registered'], '%Y-%m-%d')
-                r['date_connected'] = datetime.datetime.strptime(r['date_connected'], '%Y-%m-%d')
+                if isinstance(r['date_registered'], datetime.datetime):
+                    r['date_registered'] = datetime.datetime.strptime(r['date_registered'], '%Y-%m-%d')
+                if isinstance(r['date_connected'], datetime.datetime):
+                    r['date_connected'] = datetime.datetime.strptime(r['date_connected'], '%Y-%m-%d')
         except KeyError:
             # When using an EQL that does not result in a dict having valid YAML objects. Trow an error.
             print(EQL_INVALID_RESULT_DS)
