@@ -83,12 +83,12 @@ def _get_software_techniques(groups, stage, platform):
 
         for group in config['groups']:
             if group['enabled']:
-                group_id = _generate_group_id(group['group_name'], group['campaign'])
+                group_id = _generate_group_id(str(group['group_name']), str(group['campaign']))
                 groups_dict[group_id] = dict()
 
-                groups_dict[group_id]['group_name'] = group['group_name']
+                groups_dict[group_id]['group_name'] = str(group['group_name'])
                 groups_dict[group_id]['techniques'] = set()
-                groups_dict[group_id]['campaign'] = group['campaign']
+                groups_dict[group_id]['campaign'] = str(group['campaign'])
                 groups_dict[group_id]['software'] = group['software_id']
 
                 if group['software_id']:
@@ -168,18 +168,18 @@ def _get_group_techniques(groups, stage, platform, file_type):
 
         for group in config['groups']:
             if group['enabled']:
-                campaign = group['campaign'] if group['campaign'] else ''
-                group_id = _generate_group_id(group['group_name'], campaign)
+                campaign = str(group['campaign']) if group['campaign'] else ''
+                group_id = _generate_group_id(str(group['group_name']), campaign)
                 groups_dict[group_id] = dict()
 
-                groups_dict[group_id]['group_name'] = group['group_name']
+                groups_dict[group_id]['group_name'] = str(group['group_name'])
                 if isinstance(group['technique_id'], list):
                     groups_dict[group_id]['techniques'] = set(group['technique_id'])
                     groups_dict[group_id]['weight'] = dict((i, 1) for i in group['technique_id'])
                 elif isinstance(group['technique_id'], dict):
                     groups_dict[group_id]['techniques'] = set(group['technique_id'].keys())
                     groups_dict[group_id]['weight'] = group['technique_id']
-                groups_dict[group_id]['campaign'] = group['campaign']
+                groups_dict[group_id]['campaign'] = str(group['campaign'])
                 groups_dict[group_id]['software'] = group['software_id']
     else:
         # groups are provided as arguments via the command line
