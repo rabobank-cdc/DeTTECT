@@ -138,10 +138,15 @@ def export_data_source_list_to_excel(filename):
 
             score = 0
             score_count = 0
-            for s in ds['data_quality'].values():
-                if s != 0:
+            for k, v in ds['data_quality'].items():
+                # the below DQ dimensions are given more weight in the calculation of the DQ score.
+                print(k)
+                if k in ['device_completeness', 'data_field_completeness', 'retention']:
+                    score += (v * 2)
+                    score_count += 2
+                else:
+                    score += v
                     score_count += 1
-                    score += s
             if score > 0:
                 score = score/score_count
 
@@ -185,11 +190,11 @@ def _load_data_sources(file, filter_empty_scores=True):
         name = yaml_content['name']
         platform = yaml_content['platform']
         exceptions = [t['technique_id'] for t in yaml_content['exceptions']]
-    except KeyError:
-        # When using an EQL that does not result in a dict having 'data_sources' objects. Trow an error.
+    except KeyError:  # todo remove after implemented extra check within the function '_events_to_yaml'
+        # when using an EQL query that does not result in a dict having 'data_sources' objects. Trow an error.
         print(EQL_INVALID_RESULT_DS)
         pprint(yaml_content)
-        quit()
+        return None
 
     return my_data_sources, name, platform, exceptions
 
