@@ -2,7 +2,6 @@ import os
 import shutil
 import pickle
 from io import StringIO
-from pprint import pprint
 from ruamel.yaml import YAML
 from difflib import SequenceMatcher
 from datetime import datetime as dt
@@ -646,29 +645,23 @@ def load_techniques(file):
         with open(file, 'r') as yaml_file:
             yaml_content = _yaml.load(yaml_file)
 
-    try:
-        for d in yaml_content['techniques']:
-            # Add detection items:
-            if isinstance(d['detection'], dict):  # There is just one detection entry
-                add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', d['detection'])
-            elif isinstance(d['detection'], list):  # There are multiple detection entries
-                for de in d['detection']:
-                    add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', de)
+    for d in yaml_content['techniques']:
+        # Add detection items:
+        if isinstance(d['detection'], dict):  # There is just one detection entry
+            add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', d['detection'])
+        elif isinstance(d['detection'], list):  # There are multiple detection entries
+            for de in d['detection']:
+                add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', de)
 
-            # Add visibility items
-            if isinstance(d['visibility'], dict):  # There is just one visibility entry
-                add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', d['visibility'])
-            elif isinstance(d['visibility'], list):  # There are multiple visibility entries
-                for de in d['visibility']:
-                    add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', de)
+        # Add visibility items
+        if isinstance(d['visibility'], dict):  # There is just one visibility entry
+            add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', d['visibility'])
+        elif isinstance(d['visibility'], list):  # There are multiple visibility entries
+            for de in d['visibility']:
+                add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', de)
 
-            name = yaml_content['name']
-            platform = yaml_content['platform']
-    except KeyError:
-        # When using an EQL that does not in a valid technique administration file. Trow an error.
-        print(EQL_INVALID_RESULT_TECH + ' detection/visibility object(s):')
-        pprint(yaml_content)
-        quit()
+        name = yaml_content['name']
+        platform = yaml_content['platform']
 
     return my_techniques, name, platform
 
@@ -685,7 +678,7 @@ def _check_health_score_object(yaml_object, object_type, tech_id, health_is_call
     :param yaml_object: YAML file lines
     :param object_type: 'detection' or 'visibility'
     :param tech_id: ATT&CK technique ID
-    :param health_is_called: boolean that specifies if detailed errors in the file will be printed and then quit()
+    :param health_is_called: boolean that specifies if detailed errors in the file will be printed
     :return: True if the YAML file is unhealthy, otherwise False
     """
     has_error = False
@@ -750,7 +743,7 @@ def _check_health_yaml_object(yaml_object, object_type, tech_id, health_is_calle
     :param yaml_object: YAML file lines
     :param object_type: 'detection' or 'visibility'
     :param tech_id: ATT&CK technique ID
-    :param health_is_called: boolean that specifies if detailed errors in the file will be printed and then quit()
+    :param health_is_called: boolean that specifies if detailed errors in the file will be printed
     :return: True if the YAML file is unhealthy, otherwise False
     """
     has_error = False
@@ -852,7 +845,7 @@ def check_yaml_file_health(filename, file_type, health_is_called):
     Check on error in the provided YAML file.
     :param filename: YAML file location
     :param file_type: currently only 'FILE_TYPE_TECHNIQUE_ADMINISTRATION' is being supported
-    :param health_is_called: boolean that specifies if detailed errors in the file will be printed and then quit()
+    :param health_is_called: boolean that specifies if detailed errors in the file will be printed
     :return:
     """
     # first we check if the file was modified. Otherwise, the health check is skipped for performance reasons
@@ -982,7 +975,7 @@ def check_file(filename, file_type=None, health_is_called=False):
     does the file contain errors.
     :param filename: path to a YAML file
     :param file_type: value to check against the 'file_type' key in the YAML file
-    :param health_is_called: boolean that specifies if detailed errors in the file will be printed by the function 'check_yaml_file_health' and then quit()
+    :param health_is_called: boolean that specifies if detailed errors in the file will be printed by the function 'check_yaml_file_health'
     :return: the file_type if present, else None is returned
     """
 
