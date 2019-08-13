@@ -506,6 +506,8 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
         if search_detection or search_visibility:
             overlay = techniques_search(overlay, search_visibility, search_detection,
                                         include_all_score_objs=include_all_score_objs)
+            if not overlay:
+                return None  # something went wrong in executing the search or 0 results where returned
 
         if overlay_type == OVERLAY_TYPE_VISIBILITY:
             overlay_dict, all_techniques = _get_visibility_techniques(overlay)

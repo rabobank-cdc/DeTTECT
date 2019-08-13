@@ -102,11 +102,11 @@ def _load_data_sources(file):
             dq = d['data_quality']
             if dq['device_completeness'] > 0 and dq['data_field_completeness'] > 0 and dq['timeliness'] > 0 and dq['consistency'] > 0:
                 my_data_sources[d['data_source_name']] = d
-    except KeyError:
-        # When using an EQL that does not result in a dict having 'data_sources' objects. Trow an error.
+    except KeyError:  # todo remove after implemented extra check within the function '_events_to_yaml'
+        # when using an EQL query that does not result in a dict having 'data_sources' objects, return None
         print(EQL_INVALID_RESULT_DS)
         pprint(yaml_content)
-        quit()
+        return None
 
     return my_data_sources
 

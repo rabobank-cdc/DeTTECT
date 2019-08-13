@@ -154,23 +154,24 @@ def _events_to_yaml(query_results, obj_type):
     Transform the EQL 'events' back to valid YAML objects
     :param query_results: list with EQL 'events
     :param obj_type: data_sources, detection or visibility EQL 'events'
-    :return: list containing YAML objects
+    :return: list containing YAML objects or None when the events could not be turned into a valid YAML object
     """
 
     if obj_type == 'data_sources':
         try:
             # Remove the event_type key. We no longer need this.
+            # todo implement a check to see if the returned data from the EQL query is to the schema of data_sources
             for r in query_results:
                 del r['event_type']
-                if isinstance(r['date_registered'], datetime.datetime):
+                if r['date_registered'] and isinstance(r['date_registered'], str):
                     r['date_registered'] = datetime.datetime.strptime(r['date_registered'], '%Y-%m-%d')
-                if isinstance(r['date_connected'], datetime.datetime):
+                if r['date_connected'] and isinstance(r['date_connected'], str):
                     r['date_connected'] = datetime.datetime.strptime(r['date_connected'], '%Y-%m-%d')
         except KeyError:
-            # When using an EQL that does not result in a dict having valid YAML objects. Trow an error.
             print(EQL_INVALID_RESULT_DS)
             pprint(query_results)
-            quit()
+            # when using an EQL query that does not result in a dict having valid YAML 'data_source' objects.
+            return None
 
         return query_results
 
@@ -183,7 +184,7 @@ def _events_to_yaml(query_results, obj_type):
                 tech_name = tech_event['technique_name']
                 obj_event = tech_event[obj_type]
                 score_logbook_event = tech_event[obj_type]['score_logbook']
-                if score_logbook_event['date']:
+                if score_logbook_event['date'] and isinstance(score_logbook_event['date'], str):
                     score_date = datetime.datetime.strptime(score_logbook_event['date'], '%Y-%m-%d')
                 else:
                     score_date = None
@@ -221,11 +222,10 @@ def _events_to_yaml(query_results, obj_type):
             return techniques_yaml
 
         except KeyError:
-            print(KeyError)
-            # When using an EQL that does not in a valid technique administration file. Trow an error.
             print(EQL_INVALID_RESULT_TECH + obj_type + ' object(s):')
             pprint(query_results)
-            quit()
+            # when using an EQL query that does not in a valid technique administration file.
+            return None
 
 
 def _merge_yaml(yaml_content_org, yaml_content_visibility=None, yaml_content_detection=None):
@@ -319,19 +319,23 @@ def _check_query_results(query_results, obj_type):
     :param obj_type: 'data_sources', 'visibility' or 'detection'
     :return:
     """
+    # the EQL query was not compatible with the schema
+    if query_results is None:
+        return False
     # show an error to the user when the query resulted on zero results
     result_len = len(query_results)
     if result_len == 0:
         error = '[!] The search returned 0 ' + obj_type + ' objects. Refine your search to return 1 or more ' \
-                                                          + obj_type + ' objects.\nExiting...'
+                                                          + obj_type + ' objects.'
         print(error)
-        quit()
+        return False
     else:
         if result_len == 1:
             msg = 'The ' + obj_type + ' query executed successfully and provided ' + str(len(query_results)) + ' result.'
         else:
             msg = 'The ' + obj_type + ' query executed successfully and provided ' + str(len(query_results)) + ' results.'
         print(msg)
+        return True
 
 
 def _execute_eql_query(events, query):
@@ -339,7 +343,7 @@ def _execute_eql_query(events, query):
     Execute an EQL query against the provided events
     :param events: events
     :param query: EQL query
-    :return: the query results (i.e. filtered events)
+    :return: the query results (i.e. filtered events) or None when the query did not match the schema
     """
     # learn and load the schema
     schema = eql.Schema.learn(events)
@@ -361,7 +365,8 @@ def _execute_eql_query(events, query):
             print(e, file=sys.stderr)
             print('\nTake into account the following schema:')
             pprint(eql.Schema.current().schema)
-            sys.exit(2)
+            # when using an EQL query that does not match the schema, return None.
+            return None
     engine.add_output_hook(callback)
 
     # execute the query
@@ -377,14 +382,17 @@ def techniques_search(filename, query_visibility=None, query_detection=None, inc
     :param query_visibility: EQL query for the visibility YAML objects
     :param query_detection: EQL query for the detection YAML objects
     :param include_all_score_objs: include all score objects within the score_logbook for the EQL query
-    :return: a filtered technique administration YAML 'file' (i.e. dict)
+    :return: a filtered technique administration YAML 'file' (i.e. dict) or None when the query was not successful
     """
+    results_visibility_yaml = None
+    results_detection_yaml = None
     if query_visibility:
         visibility_events, yaml_content_org = _prepare_yaml_file(filename, 'visibility',
                                                                  include_all_score_objs=include_all_score_objs)
 
         results_visibility = _execute_eql_query(visibility_events, query_visibility)
-        _check_query_results(results_visibility, 'visibility')
+        if not _check_query_results(results_visibility, 'visibility'):
+            return None  # the EQL query was not compatible with the schema
 
         results_visibility_yaml = _events_to_yaml(results_visibility, 'visibility')
     if query_detection:
@@ -392,15 +400,20 @@ def techniques_search(filename, query_visibility=None, query_detection=None, inc
                                                                 include_all_score_objs=include_all_score_objs)
 
         results_detection = _execute_eql_query(detection_events, query_detection)
-        _check_query_results(results_detection, 'detection')
+        if not _check_query_results(results_detection, 'detection'):
+            return None  # the EQL query was not compatible with the schema
 
         results_detection_yaml = _events_to_yaml(results_detection, 'detection')
 
+    if (query_visibility and not results_visibility_yaml) or (query_detection and not results_detection_yaml):
+        # when using an EQL query that does not result in a dict having a valid technique administration YAML content
+        return None
+
     if query_visibility and query_detection:
         yaml_content = _merge_yaml(yaml_content_org, results_visibility_yaml, results_detection_yaml)
-    elif query_visibility:
+    elif results_visibility_yaml:
         yaml_content = _merge_yaml(yaml_content_org, yaml_content_visibility=results_visibility_yaml)
-    elif query_detection:
+    elif results_detection_yaml:
         yaml_content = _merge_yaml(yaml_content_org, yaml_content_detection=results_detection_yaml)
     else:
         return filename
@@ -415,7 +428,7 @@ def search(filename, file_type, query='', include_all_score_objs=False):
     :param file_type: data source administration file, ...
     :param query: EQL query
     :param include_all_score_objs: include all score objects within the score_logbook for the EQL query
-    :return: a filtered YAML 'file' (i.e. dict)
+    :return: a filtered YAML 'file' (i.e. dict) or None when the query was not successful
     """
 
     if file_type == FILE_TYPE_DATA_SOURCE_ADMINISTRATION:
@@ -425,13 +438,18 @@ def search(filename, file_type, query='', include_all_score_objs=False):
 
     yaml_content_eql, yaml_content_org = _prepare_yaml_file(filename, obj_type,
                                                             include_all_score_objs=include_all_score_objs)
-
     query_results = _execute_eql_query(yaml_content_eql, query)
-    _check_query_results(query_results, obj_type)
+
+    if not _check_query_results(query_results, obj_type):
+        return  # the EQL query was not compatible with the schema
 
     query_results_yaml = _events_to_yaml(query_results, obj_type)
 
-    yaml_content = yaml_content_org
-    yaml_content[obj_type] = query_results_yaml
+    if query_results_yaml:
+        yaml_content = yaml_content_org
+        yaml_content[obj_type] = query_results_yaml
 
-    return yaml_content
+        return yaml_content
+    else:
+        # when using an EQL query that does not result in a dict having valid YAML objects, return None
+        return None

@@ -183,6 +183,8 @@ def _menu(menu_parser):
 
             if args.search:
                 file_ds = search(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.search)
+                if not file_ds:
+                    quit()  # something went wrong in executing the search or 0 results where returned
             if args.update and check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION):
                 update_technique_administration_file(file_ds, args.file_tech)
             if args.layer:
@@ -209,6 +211,8 @@ def _menu(menu_parser):
             if args.search_detection or args.search_visibility:
                 file_tech = techniques_search(args.file_tech, args.search_visibility, args.search_detection,
                                               include_all_score_objs=args.all_scores)
+                if not file_tech:
+                    quit()  # something went wrong in executing the search or 0 results where returned
             if args.layer:
                 generate_visibility_layer(file_tech, args.file_ds, False)
             if args.overlay:
@@ -218,9 +222,10 @@ def _menu(menu_parser):
 
     # toto add search capabilities
     elif args.subparser in ['group', 'g']:
-        generate_group_heat_map(args.groups, args.overlay, args.overlay_type, args.stage, args.platform,
-                                args.software_group, args.search_visibility, args.search_detection, args.health,
-                                include_all_score_objs=args.all_scores)
+        if not generate_group_heat_map(args.groups, args.overlay, args.overlay_type, args.stage, args.platform,
+                                       args.software_group, args.search_visibility, args.search_detection, args.health,
+                                       include_all_score_objs=args.all_scores):
+            quit()  # something went wrong in executing the search or 0 results where returned
 
     elif args.subparser in ['detection', 'd']:
         if args.overlay:
@@ -236,6 +241,8 @@ def _menu(menu_parser):
             if args.search_detection or args.search_visibility:
                 file_tech = techniques_search(args.file_tech, args.search_visibility, args.search_detection,
                                               include_all_score_objs=args.all_scores)
+                if not file_tech:
+                    quit()  # something went wrong in executing the search or 0 results where returned
             if args.layer:
                 generate_detection_layer(file_tech, args.file_ds, False)
             if args.overlay and check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.health):
