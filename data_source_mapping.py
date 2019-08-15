@@ -344,23 +344,25 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
     updated_vis_score_cnt = 0
     for cur_tech, cur_values in cur_visibility_scores.items():
         new_tech = _get_technique_yaml_obj(new_visibility_scores['techniques'], cur_tech)
-        new_score = new_tech['visibility']['score_logbook'][0]['score']
+        if new_tech:  # new_tech will be None if technique_id is part of the 'exception' list within the
+                      # data source administration file
+            new_score = new_tech['visibility']['score_logbook'][0]['score']
 
-        for cur_obj in cur_values['visibility']:
-            old_score = get_latest_score(cur_obj)
+            for cur_obj in cur_values['visibility']:
+                old_score = get_latest_score(cur_obj)
 
-            if get_latest_auto_generated(cur_obj) and old_score != new_score:
-                auto_scored = True
-                updated_vis_score_cnt += 1
-            elif old_score != new_score:
-                manually_scored = True
-                updated_vis_score_cnt += 1
+                if get_latest_auto_generated(cur_obj) and old_score != new_score:
+                    auto_scored = True
+                    updated_vis_score_cnt += 1
+                elif old_score != new_score:
+                    manually_scored = True
+                    updated_vis_score_cnt += 1
 
-        if manually_scored and auto_scored:
-            mix_scores = True
-            manually_scored = False
-            auto_scored = False
-            break
+            if manually_scored and auto_scored:
+                mix_scores = True
+                manually_scored = False
+                auto_scored = False
+                break
 
     # stop if none of the present visibility scores are eligible for an update
     if not mix_scores and not manually_scored and not auto_scored:
