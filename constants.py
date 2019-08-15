@@ -144,6 +144,19 @@ YAML_OBJ_TECHNIQUE = {'technique_id': '',
                       'detection': YAML_OBJ_DETECTION,
                       'visibility': YAML_OBJ_VISIBILITY}
 
+YAML_OBJ_DATA_SOURCE = {'data_source_name': '',
+                        'date_registered': None,
+                        'date_connected': None,
+                        'products': [''],
+                        'available_for_data_analytics': False,
+                        'comment': '',
+                        'data_quality': {
+                            'device_completeness': 0,
+                            'data_field_completeness': 0,
+                            'timeliness': 0,
+                            'consistency': 0,
+                            'retention': 0}}
+
 # Interactive menu
 MENU_NAME_DATA_SOURCE_MAPPING = 'Data source mapping'
 MENU_NAME_VISIBILITY_MAPPING = 'Visibility coverage mapping'
