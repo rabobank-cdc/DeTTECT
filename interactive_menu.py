@@ -94,7 +94,7 @@ def _select_file(title, what, expected_file_type, b_clear=True):
     :param title: title to print on top of this menu
     :param what: print for what purpose the file is selected
     :param expected_file_type: the expected file type of the YAML file
-    :param b_clear: _clear the terminal before showing this menu
+    :param b_clear: clear the terminal before showing this menu
     :return: filename of the selected file
     """
     global yaml_path

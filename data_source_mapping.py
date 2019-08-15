@@ -117,16 +117,11 @@ def export_data_source_list_to_excel(filename):
         if d in my_data_sources.keys():
             ds = my_data_sources[d]
 
-            tmp_date_1 = ds['date_registered']
-            if isinstance(tmp_date_1, datetime):
-                tmp_date_1 = tmp_date_1.strftime('%Y-%m-%d')
+            date_registered = ds['date_registered'].strftime('%Y-%m-%d') if isinstance(ds['date_registered'], datetime) else ds['date_registered']
+            date_connected = ds['date_connected'].strftime('%Y-%m-%d') if isinstance(ds['date_connected'], datetime) else ds['date_connected']
 
-            tmp_date_2 = ds['date_connected']
-            if isinstance(tmp_date_2, datetime):
-                tmp_date_2 = tmp_date_2.strftime('%Y-%m-%d')
-
-            worksheet.write(y, 1, str(tmp_date_1).replace('None', ''), valign_top)
-            worksheet.write(y, 2, str(tmp_date_2).replace('None', ''), valign_top)
+            worksheet.write(y, 1, str(date_registered).replace('None', ''), valign_top)
+            worksheet.write(y, 2, str(date_connected).replace('None', ''), valign_top)
             worksheet.write(y, 3, ', '.join(ds['products']).replace('None', ''), valign_top)
             worksheet.write(y, 4, ds['comment'][:-1] if ds['comment'].endswith('\n') else ds['comment'], wrap_text)
             worksheet.write(y, 5, str(ds['available_for_data_analytics']), valign_top)
@@ -140,7 +135,6 @@ def export_data_source_list_to_excel(filename):
             score_count = 0
             for k, v in ds['data_quality'].items():
                 # the below DQ dimensions are given more weight in the calculation of the DQ score.
-                print(k)
                 if k in ['device_completeness', 'data_field_completeness', 'retention']:
                     score += (v * 2)
                     score_count += 2
