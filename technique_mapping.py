@@ -49,18 +49,19 @@ def generate_visibility_layer(filename_techniques, filename_data_sources, overla
         _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name)
 
 
-def plot_detection_graph(filename):
+def plot_graph(filename, type):
     """
     Generates a line graph which shows the improvements on detections through the time.
     :param filename: the filename of the YAML file containing the techniques administration
+    :param type: indicates the type of the graph: detection or visibility
     :return:
     """
     my_techniques, name, platform = load_techniques(filename)
 
     graph_values = []
     for t in my_techniques.values():
-        for detection in t['detection']:
-            date = get_latest_date(detection)
+        for item in t[type]:
+            date = get_latest_date(item)
             if date:
                 yyyymm = date.strftime('%Y-%m')
                 graph_values.append({'date': yyyymm, 'count': 1})
@@ -69,12 +70,12 @@ def plot_detection_graph(filename):
     df = pd.DataFrame(graph_values).groupby('date', as_index=False)[['count']].sum()
     df['cumcount'] = df.ix[::1, 'count'].cumsum()[::1]
 
-    output_filename = 'output/graph_detection.html'
+    output_filename = 'output/graph_%s.html' % type
     import plotly
     import plotly.graph_objs as go
     plotly.offline.plot(
         {'data': [go.Scatter(x=df['date'], y=df['cumcount'])],
-         'layout': go.Layout(title="# of detections for %s" % name)},
+         'layout': go.Layout(title="# of %s items for %s" % (type, name))},
         filename=output_filename, auto_open=False
     )
     print("File written:   " + output_filename)

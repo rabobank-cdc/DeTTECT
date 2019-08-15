@@ -76,6 +76,8 @@ def _init_menu():
                                    action='store_true')
     parser_visibility.add_argument('-o', '--overlay', help='generate a visibility layer overlaid with detections for '
                                                            'the ATT&CK navigator', action='store_true')
+    parser_visibility.add_argument('-g', '--graph', help='generate a graph with visibility items added through time',
+                                  action='store_true')
     parser_visibility.add_argument('--health', help='check the technique YAML file for errors', action='store_true')
 
     # create the detection parser
@@ -104,7 +106,7 @@ def _init_menu():
                                   action='store_true')
     parser_detection.add_argument('-o', '--overlay', help='generate a detection layer overlaid with visibility for '
                                                           'the ATT&CK navigator', action='store_true')
-    parser_detection.add_argument('-g', '--graph', help='generate a graph with detections added through time',
+    parser_detection.add_argument('-g', '--graph', help='generate a graph with detection items added through time',
                                   action='store_true')
     parser_detection.add_argument('--health', help='check the technique YAML file for errors', action='store_true')
 
@@ -217,6 +219,8 @@ def _menu(menu_parser):
                 generate_visibility_layer(file_tech, args.file_ds, False)
             if args.overlay:
                 generate_visibility_layer(file_tech, args.file_ds, True)
+            if args.graph:
+                plot_graph(file_tech, 'visibility')
             if args.excel:
                 export_techniques_list_to_excel(file_tech)
 
@@ -248,7 +252,7 @@ def _menu(menu_parser):
             if args.overlay and check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.health):
                 generate_detection_layer(file_tech, args.file_ds, True)
             if args.graph:
-                plot_detection_graph(file_tech)
+                plot_graph(file_tech, 'detection')
             if args.excel:
                 export_techniques_list_to_excel(file_tech)
 

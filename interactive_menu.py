@@ -318,7 +318,7 @@ def _menu_detection(filename_t):
     print('Select what you want to do:')
     print('4. Generate a layer for detection coverage for the ATT&CK Navigator.')
     print('5. Generate a layer for detection coverage overlaid with visibility for the ATT&CK Navigator.')
-    print('6. Generate a graph with detections added through time.')
+    print('6. Generate a graph with detection items added through time.')
     print('7. Generate an Excel sheet with all administrated techniques.')
     print('8. Check the technique YAML file for errors.')
     print('9. Back to main menu.')
@@ -332,7 +332,6 @@ def _menu_detection(filename_t):
     elif choice == '3':
         print('Specify True or False for to include all scores or not:')
         eql_all_scores = True if _ask_input().lower() == 'true' else False
-
     elif choice in ['4', '5', '6', '7']:
         file_tech = filename_t
 
@@ -355,7 +354,7 @@ def _menu_detection(filename_t):
             _wait()
         elif choice == '6':
             print('Drawing the graph...')
-            plot_detection_graph(file_tech)
+            plot_graph(file_tech, 'detection')
             _wait()
         elif choice == '7':
             print('Generating Excel file...')
@@ -398,8 +397,9 @@ def _menu_visibility(filename_t, filename_ds):
     print('Select what you want to do:')
     print('4. Generate a layer for visibility for the ATT&CK Navigator.')
     print('5. Generate a layer for visibility overlaid with detection coverage for the ATT&CK Navigator.')
-    print('6. Generate an Excel sheet with all administrated techniques.')
-    print('7. Check the technique YAML file for errors.')
+    print('6. Generate a graph with visibility items added through time.')
+    print('7. Generate an Excel sheet with all administrated techniques.')
+    print('8. Check the technique YAML file for errors.')
     print('9. Back to main menu.')
     choice = _ask_input()
     if choice == '1':
@@ -411,7 +411,6 @@ def _menu_visibility(filename_t, filename_ds):
     elif choice == '3':
         print('Specify True or False for to include all scores or not:')
         eql_all_scores = True if _ask_input().lower() == 'true' else False
-
     elif choice in ['4', '5', '6', '7']:
         file_tech = filename_t
 
@@ -430,10 +429,14 @@ def _menu_visibility(filename_t, filename_ds):
             generate_visibility_layer(file_tech, filename_ds, True)
             _wait()
         elif choice == '6':
+            print('Drawing the graph...')
+            plot_graph(file_tech, 'visibility')
+            _wait()
+        elif choice == '7':
             print('Generating Excel file...')
             export_techniques_list_to_excel(file_tech)
             _wait()
-        elif choice == '7':
+        elif choice == '8':
             print('Checking the technique YAML file for errors...')
             check_yaml_file_health(file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, health_is_called=True)
             _wait()
