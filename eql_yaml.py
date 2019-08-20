@@ -1,4 +1,5 @@
 from generic import *
+from health import *
 import datetime
 import sys
 from pprint import pprint
@@ -66,6 +67,7 @@ def _techniques_to_events(techniques, obj_type, include_all_score_objs):
 
         # loop over all visibility or detection objects
         for d in tech[obj_type]:
+            d = set_yaml_dv_comments(d)
             app_to = d['applicable_to']
             g_comment = d['comment']
             if obj_type == 'detection':
@@ -152,7 +154,7 @@ def _get_technique_from_list(techniques, tech_id):
 def _events_to_yaml(query_results, obj_type):
     """
     Transform the EQL 'events' back to valid YAML objects
-    :param query_results: list with EQL 'events
+    :param query_results: list with EQL 'events'
     :param obj_type: data_sources, detection or visibility EQL 'events'
     :return: list containing YAML objects or None when the events could not be turned into a valid YAML object
     """
@@ -160,7 +162,6 @@ def _events_to_yaml(query_results, obj_type):
     if obj_type == 'data_sources':
         try:
             # Remove the event_type key. We no longer need this.
-            # todo implement a check to see if the returned data from the EQL query is to the schema of data_sources
             for r in query_results:
                 del r['event_type']
                 if r['date_registered'] and isinstance(r['date_registered'], str):
@@ -171,6 +172,11 @@ def _events_to_yaml(query_results, obj_type):
             print(EQL_INVALID_RESULT_DS)
             pprint(query_results)
             # when using an EQL query that does not result in a dict having valid YAML 'data_source' objects.
+            return None
+
+        if check_health_data_sources(None, {'data_sources': query_results}, health_is_called=False, no_print=True):
+            print(EQL_INVALID_RESULT_DS)
+            pprint(query_results)
             return None
 
         return query_results
