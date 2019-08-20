@@ -1,7 +1,6 @@
 import simplejson
 from generic import *
 import xlsxwriter
-from pprint import pprint
 from datetime import datetime
 # Imports for pandas and plotly are because of performance reasons in the function that uses these libraries.
 
@@ -98,16 +97,11 @@ def _load_data_sources(file):
         with open(file, 'r') as yaml_file:
             yaml_content = _yaml.load(yaml_file)
 
-    try:
-        for d in yaml_content['data_sources']:
-            dq = d['data_quality']
-            if dq['device_completeness'] > 0 and dq['data_field_completeness'] > 0 and dq['timeliness'] > 0 and dq['consistency'] > 0:
-                my_data_sources[d['data_source_name']] = d
-    except KeyError:  # todo remove after implemented extra check within the function '_events_to_yaml'
-        # when using an EQL query that does not result in a dict having 'data_sources' objects, return None
-        print(EQL_INVALID_RESULT_DS)
-        pprint(yaml_content)
-        return None
+    for d in yaml_content['data_sources']:
+        d['comment'] = d.get('comment', '')
+        dq = d['data_quality']
+        if dq['device_completeness'] > 0 and dq['data_field_completeness'] > 0 and dq['timeliness'] > 0 and dq['consistency'] > 0:
+            my_data_sources[d['data_source_name']] = d
 
     return my_data_sources
 
@@ -393,14 +387,13 @@ def export_techniques_list_to_excel(filename):
     worksheet_detections.write(y, 6, 'Location', format_bold_left)
     worksheet_detections.write(y, 7, 'Technique comment', format_bold_left)
     worksheet_detections.write(y, 8, 'Detection comment', format_bold_left)
-    worksheet_detections.set_column(0, 0, 14)
+    worksheet_detections.set_column(0, 0, 8)
     worksheet_detections.set_column(1, 1, 40)
-    worksheet_detections.set_column(2, 2, 50)
+    worksheet_detections.set_column(2, 2, 40)
     worksheet_detections.set_column(3, 3, 18)
     worksheet_detections.set_column(4, 4, 11)
     worksheet_detections.set_column(5, 5, 8)
-    worksheet_detections.set_column(6, 6, 25)
-    worksheet_detections.set_column(7, 8, 40)
+    worksheet_detections.set_column(6, 8, 50)
     y = 4
     for technique_id, technique_data in my_techniques.items():
         # Add row for every detection that is defined:
@@ -436,13 +429,13 @@ def export_techniques_list_to_excel(filename):
     worksheet_visibility.write(y, 5, 'Score', format_bold_left)
     worksheet_visibility.write(y, 6, 'Technique comment', format_bold_left)
     worksheet_visibility.write(y, 7, 'Visibility comment', format_bold_left)
-    worksheet_visibility.set_column(0, 0, 14)
+    worksheet_visibility.set_column(0, 0, 8)
     worksheet_visibility.set_column(1, 1, 40)
-    worksheet_visibility.set_column(2, 2, 50)
+    worksheet_visibility.set_column(2, 2, 40)
     worksheet_visibility.set_column(3, 3, 18)
     worksheet_visibility.set_column(4, 4, 11)
     worksheet_visibility.set_column(5, 5, 8)
-    worksheet_visibility.set_column(6, 7, 40)
+    worksheet_visibility.set_column(6, 7, 50)
     y = 4
     for technique_id, technique_data in my_techniques.items():
         # Add row for every visibility that is defined:

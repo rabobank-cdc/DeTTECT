@@ -2,7 +2,6 @@ import simplejson
 import xlsxwriter
 from copy import deepcopy
 from generic import *
-from pprint import pprint
 from datetime import datetime
 
 # Imports for pandas and plotly are because of performance reasons in the function that uses these libraries.
@@ -104,7 +103,8 @@ def export_data_source_list_to_excel(filename):
 
     worksheet.set_column(0, 0, 35)
     worksheet.set_column(1, 2, 15)
-    worksheet.set_column(3, 4, 35)
+    worksheet.set_column(3, 3, 35)
+    worksheet.set_column(4, 4, 50)
     worksheet.set_column(5, 5, 24)
     worksheet.set_column(6, 7, 25)
     worksheet.set_column(8, 10, 15)
@@ -182,22 +182,17 @@ def _load_data_sources(file, filter_empty_scores=True):
         with open(file, 'r') as yaml_file:
             yaml_content = _yaml.load(yaml_file)
 
-    try:
-        for d in yaml_content['data_sources']:
-            dq = d['data_quality']
-            if not filter_empty_scores:
-                my_data_sources[d['data_source_name']] = d
-            elif dq['device_completeness'] > 0 and dq['data_field_completeness'] > 0 and dq['timeliness'] > 0 and dq['consistency'] > 0:
-                my_data_sources[d['data_source_name']] = d
+    for d in yaml_content['data_sources']:
+        d['comment'] = d.get('comment', '')
+        dq = d['data_quality']
+        if not filter_empty_scores:
+            my_data_sources[d['data_source_name']] = d
+        elif dq['device_completeness'] > 0 and dq['data_field_completeness'] > 0 and dq['timeliness'] > 0 and dq['consistency'] > 0:
+            my_data_sources[d['data_source_name']] = d
 
-        name = yaml_content['name']
-        platform = yaml_content['platform']
-        exceptions = [t['technique_id'] for t in yaml_content['exceptions']]
-    except KeyError:  # todo remove after implemented extra check within the function '_events_to_yaml'
-        # when using an EQL query that does not result in a dict having 'data_sources' objects. Trow an error.
-        print(EQL_INVALID_RESULT_DS)
-        pprint(yaml_content)
-        return None
+    name = yaml_content['name']
+    platform = yaml_content['platform']
+    exceptions = [t['technique_id'] for t in yaml_content['exceptions']]
 
     return my_data_sources, name, platform, exceptions
 
