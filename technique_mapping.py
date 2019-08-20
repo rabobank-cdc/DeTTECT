@@ -70,7 +70,8 @@ def plot_graph(filename, type):
     df = pd.DataFrame(graph_values).groupby('date', as_index=False)[['count']].sum()
     df['cumcount'] = df.ix[::1, 'count'].cumsum()[::1]
 
-    output_filename = 'output/graph_%s.html' % type
+    output_filename = get_non_existing_filename('output/graph_%s' % type, 'html')
+
     import plotly
     import plotly.graph_objs as go
     plotly.offline.plot(
@@ -124,10 +125,7 @@ def _write_layer(layer, mapped_techniques, filename_prefix, name):
 
     layer['techniques'] = mapped_techniques
     json_string = simplejson.dumps(layer).replace('}, ', '},\n')
-    output_filename = normalize_name_to_filename('output/%s_%s.json' % (filename_prefix, name))
-    with open(output_filename, 'w') as f:
-        f.write(json_string)
-    print("File written:   " + output_filename)
+    write_file(filename_prefix, name, json_string)
 
 
 def _map_and_colorize_techniques_for_detections(my_techniques):
@@ -347,7 +345,7 @@ def export_techniques_list_to_excel(filename):
     my_techniques = dict(sorted(my_techniques.items(), key=lambda kv: kv[0], reverse=False))
     mitre_techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
 
-    excel_filename = 'output/techniques.xlsx'
+    excel_filename = get_non_existing_filename('output/techniques', 'xlsx')
     workbook = xlsxwriter.Workbook(excel_filename)
     worksheet_detections = workbook.add_worksheet('Detections')
     worksheet_visibility = workbook.add_worksheet('Visibility')

@@ -23,10 +23,7 @@ def generate_data_sources_layer(filename):
     layer['techniques'] = my_techniques
 
     json_string = simplejson.dumps(layer).replace('}, ', '},\n')
-    output_filename = 'output/data_sources_' + normalize_name_to_filename(name) + '.json'
-    with open(output_filename, 'w') as f:
-        f.write(json_string)
-    print('File written:   ' + output_filename)
+    write_file('data_sources', name, json_string)
 
 
 def plot_data_sources_graph(filename):
@@ -47,7 +44,7 @@ def plot_data_sources_graph(filename):
     df = pd.DataFrame(graph_values).groupby('date', as_index=False)[['count']].sum()
     df['cumcount'] = df.ix[::1, 'count'].cumsum()[::1]
 
-    output_filename = 'output/graph_data_sources.html'
+    output_filename = get_non_existing_filename('output/graph_data_sources', 'html')
 
     import plotly
     import plotly.graph_objs as go
@@ -68,7 +65,7 @@ def export_data_source_list_to_excel(filename):
     """
     my_data_sources, name, platform, exceptions = _load_data_sources(filename, filter_empty_scores=False)
 
-    excel_filename = 'output/data_sources.xlsx'
+    excel_filename = get_non_existing_filename('output/data_sources', 'xlsx')
     workbook = xlsxwriter.Workbook(excel_filename)
     worksheet = workbook.add_worksheet('Data sources')
 
@@ -535,14 +532,7 @@ def generate_technique_administration_file(filename, write_file=True):
         # remove the single quotes from the date
         yaml_file_lines = fix_date_and_remove_null(file_lines, today, input_type='list')
 
-        # create a output filename that prevents overwriting any existing files
-        output_filename = 'output/techniques-administration-' + normalize_name_to_filename(name+'-'+platform) + '.yaml'
-        suffix = 1
-        while os.path.exists(output_filename):
-            output_filename = 'output/techniques-administration-' + normalize_name_to_filename(name + '-' + platform) + \
-                              '_' + str(suffix) + '.yaml'
-            suffix += 1
-
+        output_filename = get_non_existing_filename('output/techniques-administration-' + normalize_name_to_filename(name+'-'+platform), 'yaml')
         with open(output_filename, 'w') as f:
             f.writelines(yaml_file_lines)
         print("File written:   " + output_filename)

@@ -334,6 +334,41 @@ def get_layer_template_layered(name, description, stage, platform):
     return layer
 
 
+def write_file(filename_prefix, filename, content):
+    """
+    Writes content to a file and ensures if the file already exists it won't be overwritten by appending a number
+    as suffix.
+    :param filename_prefix: prefix part of the filename
+    :param filename: filename
+    :param content: the content of the file that needs to be written to the file
+    :return:
+    """
+    output_filename = 'output/%s_%s' % (filename_prefix, normalize_name_to_filename(filename))
+    output_filename = get_non_existing_filename(output_filename, 'json')
+
+    with open(output_filename, 'w') as f:
+        f.write(content)
+
+    print('File written:   ' + output_filename)
+
+
+def get_non_existing_filename(filename, extension):
+    """
+    Generates a filename that doesn't exist based on the given filename by appending a number as suffix.
+    :param filename:
+    :param extension:
+    :return:
+    """
+    if os.path.exists('%s.%s' % (filename, extension)):
+        suffix = 1
+        while os.path.exists('%s_%s.%s' % (filename, suffix, extension)):
+            suffix += 1
+        output_filename = '%s_%s.%s' % (filename, suffix, extension)
+    else:
+        output_filename = '%s.%s' % (filename, extension)
+    return output_filename
+
+
 def backup_file(filename):
     """
     Create a backup of the provided file
