@@ -614,7 +614,7 @@ def map_techniques_to_data_sources(techniques, my_data_sources):
 
 def get_all_mitre_data_sources():
     """
-    Gets all the data sources from the techniques and make a unique sorted list of it.
+    Gets all the data sources from the techniques and make a set.
     :return: a sorted list with all data sources
     """
     techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
@@ -624,7 +624,7 @@ def get_all_mitre_data_sources():
         if 'x_mitre_data_sources' in t.keys():
             for ds in t['x_mitre_data_sources']:
                 data_sources.add(ds)
-    return sorted(data_sources)
+    return data_sources
 
 
 def calculate_score(list_detections, zero_value=0):
