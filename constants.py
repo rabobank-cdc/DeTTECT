@@ -168,5 +168,5 @@ EQL_INVALID_RESULT_DS = '[!] Invalid data source administration content. Check y
 EQL_INVALID_RESULT_TECH = '[!] Invalid technique administration content. Check your EQL query to return '
 
 # Health text
-HEALTH_HAS_ERROR = '[!] The below YAML file contains possible errors. It\'s recommended to check via the ' \
+HEALTH_ERROR_TXT = '[!] The below YAML file contains possible errors. It\'s recommended to check via the ' \
                    '\'--health\' argument or using the option in the interactive menu: \n    - '
