@@ -7,7 +7,7 @@ def _load_techniques(yaml_file_lines):
     :param yaml_file_lines: list with the YAML file lines containing the techniques administration
     :return: dictionary with techniques (incl. properties)
     """
-    from generic import add_entry_to_list_in_dictionary, init_yaml
+    from generic import add_entry_to_list_in_dictionary, init_yaml, set_yaml_dv_comments
 
     my_techniques = {}
     _yaml = init_yaml()
@@ -15,16 +15,20 @@ def _load_techniques(yaml_file_lines):
     for d in yaml_content['techniques']:
         # Add detection items
         if isinstance(d['detection'], dict):  # There is just one detection entry
+            d['detection'] = set_yaml_dv_comments(d['detection'])
             add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', d['detection'])
         elif isinstance(d['detection'], list):  # There are multiple detection entries
             for de in d['detection']:
+                de = set_yaml_dv_comments(de)
                 add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', de)
 
         # Add visibility items
         if isinstance(d['visibility'], dict):  # There is just one visibility entry
+            d['visibility'] = set_yaml_dv_comments(d['visibility'])
             add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', d['visibility'])
         elif isinstance(d['visibility'], list):  # There are multiple visibility entries
             for de in d['visibility']:
+                de = set_yaml_dv_comments(de)
                 add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', de)
 
     return my_techniques
