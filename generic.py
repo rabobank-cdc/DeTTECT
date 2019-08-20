@@ -3,10 +3,10 @@ import shutil
 import pickle
 from io import StringIO
 from ruamel.yaml import YAML
-from difflib import SequenceMatcher
 from datetime import datetime as dt
 from upgrade import upgrade_yaml_file
 from constants import *
+from health import check_yaml_file_health
 
 # Due to performance reasons the import of attackcti is within the function that makes use of this library.
 
@@ -628,6 +628,20 @@ def add_entry_to_list_in_dictionary(dictionary, technique_id, key, entry):
     dictionary[technique_id][key].append(entry)
 
 
+def set_yaml_dv_comments(yaml_object):
+    """
+    Set all comments for the detection or visibility YAML object when missing
+    :param yaml_object: detection or visibility object
+    :return: detection or visibility object for which empty comments are no filled with an empty string
+    """
+    yaml_object['comment'] = yaml_object.get('comment', '')
+    if 'score_logbook' in yaml_object:
+        for score_obj in yaml_object['score_logbook']:
+            score_obj['comment'] = score_obj.get('comment', '')
+
+    return yaml_object
+
+
 def load_techniques(file):
     """
     Loads the techniques (including detection and visibility properties).
@@ -646,288 +660,30 @@ def load_techniques(file):
             yaml_content = _yaml.load(yaml_file)
 
     for d in yaml_content['techniques']:
-        # Add detection items:
-        if isinstance(d['detection'], dict):  # There is just one detection entry
-            add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', d['detection'])
-        elif isinstance(d['detection'], list):  # There are multiple detection entries
-            for de in d['detection']:
-                add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', de)
+        if 'detection' in d:
+            # Add detection items:
+            if isinstance(d['detection'], dict):  # There is just one detection entry
+                d['detection'] = set_yaml_dv_comments(d['detection'])
+                add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', d['detection'])
+            elif isinstance(d['detection'], list):  # There are multiple detection entries
+                for de in d['detection']:
+                    de = set_yaml_dv_comments(de)
+                    add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', de)
 
-        # Add visibility items
-        if isinstance(d['visibility'], dict):  # There is just one visibility entry
-            add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', d['visibility'])
-        elif isinstance(d['visibility'], list):  # There are multiple visibility entries
-            for de in d['visibility']:
-                add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', de)
+        if 'visibility' in d:
+            # Add visibility items
+            if isinstance(d['visibility'], dict):  # There is just one visibility entry
+                d['visibility'] = set_yaml_dv_comments(d['visibility'])
+                add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', d['visibility'])
+            elif isinstance(d['visibility'], list):  # There are multiple visibility entries
+                for de in d['visibility']:
+                    de = set_yaml_dv_comments(de)
+                    add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', de)
 
         name = yaml_content['name']
         platform = yaml_content['platform']
 
     return my_techniques, name, platform
-
-
-def _print_error_msg(msg, print_error):
-    if print_error:
-        print(msg)
-    return True
-
-
-def _check_health_score_object(yaml_object, object_type, tech_id, health_is_called):
-    """
-    Check the health of a score_logbook inside  a visibility or detection YAML object
-    :param yaml_object: YAML file lines
-    :param object_type: 'detection' or 'visibility'
-    :param tech_id: ATT&CK technique ID
-    :param health_is_called: boolean that specifies if detailed errors in the file will be printed
-    :return: True if the YAML file is unhealthy, otherwise False
-    """
-    has_error = False
-    min_score = None
-    max_score = None
-
-    if object_type == 'detection':
-        min_score = -1
-        max_score = 5
-    elif object_type == 'visibility':
-        min_score = 0
-        max_score = 4
-
-    if not isinstance(yaml_object['score_logbook'], list):
-        yaml_object['score_logbook'] = [yaml_object['score_logbook']]
-
-    try:
-        for score_obj in yaml_object['score_logbook']:
-            for key in ['date', 'score', 'comment']:
-                if key not in score_obj:
-                    has_error = _print_error_msg('[!] Technique ID: ' + tech_id + ' is MISSING a key-value pair in a ' + object_type + ' score object in the \'score_logbook\': ' + key, health_is_called)
-
-            if score_obj['score'] is None:
-                has_error = _print_error_msg('[!] Technique ID: ' + tech_id + ' has an EMPTY key-value pair in a ' + object_type + ' score object in the \'score_logbook\': score', health_is_called)
-
-            elif not isinstance(score_obj['score'], int):
-                has_error = _print_error_msg('[!] Technique ID: ' + tech_id + ' has an INVALID score format in a ' + object_type + ' score object in the \'score_logbook\': score should be an integer', health_is_called)
-
-            if 'auto_generated' in score_obj:
-                if not isinstance(score_obj['auto_generated'], bool):
-                    has_error = _print_error_msg(
-                        '[!] Technique ID: ' + tech_id + ' has an INVALID auto_generated value in a ' + object_type + ' score object in the \'score_logbook\': auto_generated (if present) should be set to \'true\' or \'false\'', health_is_called)
-
-            if isinstance(score_obj['score'], int):
-                if score_obj['date'] is None and score_obj['score'] > -1:
-                    has_error = _print_error_msg('[!] Technique ID: ' + tech_id + ' has an EMPTY key-value pair in a ' + object_type + ' score object in the \'score_logbook\': date', health_is_called)
-
-                # noinspection PyChainedComparisons
-                if not (score_obj['score'] >= min_score and score_obj['score'] <= max_score):
-                    has_error = _print_error_msg(
-                        '[!] Technique ID: ' + tech_id + ' has an INVALID ' + object_type + ' score in a score object in the \'score_logbook\': ' + str(score_obj['score']) + ' (should be between ' + str(min_score) + ' and ' + str(max_score) + ')', health_is_called)
-
-                if score_obj['score'] > min_score:
-                    try:
-                        # noinspection PyStatementEffect
-                        score_obj['date'].year
-                        # noinspection PyStatementEffect
-                        score_obj['date'].month
-                        # noinspection PyStatementEffect
-                        score_obj['date'].day
-                    except AttributeError:
-                        has_error = _print_error_msg('[!] Technique ID: ' + tech_id + ' has an INVALID data format in a ' + object_type + ' score object in the \'score_logbook\': date (should be YYYY-MM-DD without quotes)', health_is_called)
-    except KeyError:
-        pass
-
-    return has_error
-
-
-def _check_health_yaml_object(yaml_object, object_type, tech_id, health_is_called):
-    """
-    Check the health of a visibility or detection YAML object
-    :param yaml_object: YAML file lines
-    :param object_type: 'detection' or 'visibility'
-    :param tech_id: ATT&CK technique ID
-    :param health_is_called: boolean that specifies if detailed errors in the file will be printed
-    :return: True if the YAML file is unhealthy, otherwise False
-    """
-    has_error = False
-
-    keys = ['applicable_to']
-
-    if object_type == 'detection':
-        keys.append('location')
-
-    try:
-        for key in keys:
-            if not isinstance(yaml_object[key], list):
-                has_error = _print_error_msg('[!] Technique ID: ' + tech_id + ' has for the key-value pair \'' + key + '\' in ' + object_type + ' a string value assigned (should be a list)', health_is_called)
-            else:
-                try:
-                    if yaml_object[key][0] is None:
-                        has_error = _print_error_msg('[!] Technique ID: ' + tech_id + ' has an EMPTY key-value pair in ' + object_type + ': ' + key, health_is_called)
-                except TypeError:
-                    has_error = _print_error_msg(
-                        '[!] Technique ID: ' + tech_id + ' has an EMPTY key-value pair in ' + object_type + ': ' + key, health_is_called)
-    except KeyError:
-        pass
-
-    return has_error
-
-
-def _update_health_state(current, update):
-    if current or update:
-        return True
-    else:
-        return update
-
-
-def _is_file_modified(filename):
-    """
-    Check if the provided file was modified since the last check
-    :param filename: file location
-    :return: true when modified else false
-    """
-    last_modified_file = 'cache/last-modified_' + os.path.basename(filename).rstrip('.yaml')
-
-    def _update_modified_date(date):
-        with open(last_modified_file, 'wb') as fd:
-            pickle.dump(date, fd)
-
-    if not os.path.exists(last_modified_file):
-        last_modified = os.path.getmtime(filename)
-        _update_modified_date(last_modified)
-
-        return True
-    else:
-        with open(last_modified_file, 'rb') as f:
-            last_modified_cache = pickle.load(f)
-            last_modified_current = os.path.getmtime(filename)
-
-            if last_modified_cache != last_modified_current:
-                _update_modified_date(last_modified_current)
-                return True
-            else:
-                return False
-
-
-def _get_health_state_cache(filename):
-    """
-    Get file health state from disk
-    :param filename: file location
-    :return: the cached error state
-    """
-    last_error_file = 'cache/last-error-state_' + os.path.basename(filename).rstrip('.yaml')
-
-    if os.path.exists(last_error_file):
-        with open(last_error_file, 'rb') as f:
-            last_error_state_cache = pickle.load(f)
-
-        return last_error_state_cache
-
-
-def _update_health_state_cache(filename, has_error):
-    """
-    Write the file health state to disk if changed
-    :param filename: file location
-    """
-    last_error_file = 'cache/last-error-state_' + os.path.basename(filename).rstrip('.yaml')
-
-    def _update(error):
-        with open(last_error_file, 'wb') as fd:
-            pickle.dump(error, fd)
-
-    if not os.path.exists(last_error_file):
-        _update(has_error)
-    else:
-        error_state_cache = _get_health_state_cache(filename)
-        if error_state_cache != has_error:
-            _update(has_error)
-
-
-def check_yaml_file_health(filename, file_type, health_is_called):
-    """
-    Check on error in the provided YAML file.
-    :param filename: YAML file location
-    :param file_type: currently only 'FILE_TYPE_TECHNIQUE_ADMINISTRATION' is being supported
-    :param health_is_called: boolean that specifies if detailed errors in the file will be printed
-    :return:
-    """
-    # first we check if the file was modified. Otherwise, the health check is skipped for performance reasons
-    if _is_file_modified(filename) or health_is_called:
-        has_error = False
-        if file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
-            # check for duplicate tech IDs
-            _yaml = init_yaml()
-            with open(filename, 'r') as yaml_file:
-                yaml_content = _yaml.load(yaml_file)
-
-                tech_ids = list(map(lambda x: x['technique_id'], yaml_content['techniques']))
-                tech_dup = []
-                for tech in tech_ids:
-                    if tech not in tech_dup:
-                        tech_dup.append(tech)
-                    else:
-                        has_error = _print_error_msg('[!] Duplicate technique ID: ' + tech, health_is_called)
-
-                    # check if the technique has a valid format
-                    if not REGEX_YAML_TECHNIQUE_ID_FORMAT.match(tech):
-                        has_error = _print_error_msg('[!] Invalid technique ID: ' + tech, health_is_called)
-
-            # checks on:
-            # - empty key-value pairs: 'applicable_to', 'comment', 'location', 'score_logbook' , 'date', 'score'
-            # - invalid date format for: 'date'
-            # - detection or visibility score out-of-range
-            # - missing key-value pairs: 'applicable_to', 'comment', 'location', 'score_logbook', 'date', 'score'
-            # - check on 'applicable_to' values which are very similar
-
-            all_applicable_to = set()
-            techniques = load_techniques(filename)
-            for tech, v in techniques[0].items():
-                for key in ['detection', 'visibility']:
-                    if key not in v:
-                        has_error = _print_error_msg('[!] Technique ID: ' + tech + ' is MISSING ' + key, health_is_called)
-                    elif 'applicable_to' in v:
-                        # create at set containing all values for 'applicable_to'
-                        all_applicable_to.update([a for v in v[key] for a in v['applicable_to']])
-
-                for detection in v['detection']:
-                    for key in ['applicable_to', 'location', 'comment', 'score_logbook']:
-                        if key not in detection:
-                            has_error = _print_error_msg('[!] Technique ID: ' + tech + ' is MISSING a key-value pair in detection: ' + key, health_is_called)
-
-                    health = _check_health_yaml_object(detection, 'detection', tech, health_is_called)
-                    has_error = _update_health_state(has_error, health)
-                    health = _check_health_score_object(detection, 'detection', tech, health_is_called)
-                    has_error = _update_health_state(has_error, health)
-
-                for visibility in v['visibility']:
-                    for key in ['applicable_to', 'comment', 'score_logbook']:
-                        if key not in visibility:
-                            has_error = _print_error_msg('[!] Technique ID: ' + tech + ' is MISSING a key-value pair in visibility: ' + key, health_is_called)
-
-                    health = _check_health_yaml_object(visibility, 'visibility', tech, health_is_called)
-                    has_error = _update_health_state(has_error, health)
-                    health = _check_health_score_object(visibility, 'visibility', tech, health_is_called)
-                    has_error = _update_health_state(has_error, health)
-
-            # get values within the key-value pair 'applicable_to' which are a very close match
-            similar = set()
-            for i1 in all_applicable_to:
-                for i2 in all_applicable_to:
-                    match_value = SequenceMatcher(None, i1, i2).ratio()
-                    if match_value > 0.8 and match_value != 1:
-                        similar.add(i1)
-                        similar.add(i2)
-
-            if len(similar) > 0:
-                has_error = _print_error_msg('[!] There are values in the key-value pair \'applicable_to\' which are very similar. Correct where necessary:', health_is_called)
-                for s in similar:
-                    _print_error_msg('    - ' + s, health_is_called)
-
-            if has_error and not health_is_called:
-                print(HEALTH_HAS_ERROR + filename)
-            elif has_error and health_is_called:
-                print('    - ' + filename)
-
-            _update_health_state_cache(filename, has_error)
-    elif _get_health_state_cache(filename):
-        print(HEALTH_HAS_ERROR + filename)
 
 
 def _check_file_type(filename, file_type=None):
