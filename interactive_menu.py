@@ -251,6 +251,7 @@ def _menu_data_source(filename_ds):
     print('6. update the visibility scores within a technique administration YAML file based on changes within any of '
           'the data sources. \nPast visibility scores are preserved in the score_logbook, and manually assigned scores are '
           'not updated without your approval. \nThe updated visibility are based on the number of available data sources.')
+    print('7. Check the data sources YAML file for errors.')
     print('9. Back to main menu.')
     choice = _ask_input()
     if choice == '1':
@@ -287,6 +288,10 @@ def _menu_data_source(filename_ds):
         print('Updating visibility scores...')
         update_technique_administration_file(filename_ds, filename_t)
         _wait()
+    elif choice == '7':
+        print('Checking the data source YAML for errors...')
+        check_yaml_file_health(filename_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, health_is_called=True)
+        _wait()
     elif choice == '9':
         interactive_menu()
     elif choice == 'q':
@@ -318,7 +323,7 @@ def _menu_detection(filename_t):
     print('Select what you want to do:')
     print('4. Generate a layer for detection coverage for the ATT&CK Navigator.')
     print('5. Generate a layer for detection coverage overlaid with visibility for the ATT&CK Navigator.')
-    print('6. Generate a graph with detection items added through time.')
+    print('6. Generate a graph with detections added through time.')
     print('7. Generate an Excel sheet with all administrated techniques.')
     print('8. Check the technique YAML file for errors.')
     print('9. Back to main menu.')
@@ -360,7 +365,7 @@ def _menu_detection(filename_t):
             print('Generating Excel file...')
             export_techniques_list_to_excel(file_tech)
             _wait()
-    elif choice == '8`x':
+    elif choice == '8':
         print('Checking the technique YAML file for errors...')
         check_yaml_file_health(filename_t, FILE_TYPE_TECHNIQUE_ADMINISTRATION, health_is_called=True)
         _wait()
@@ -397,7 +402,7 @@ def _menu_visibility(filename_t, filename_ds):
     print('Select what you want to do:')
     print('4. Generate a layer for visibility for the ATT&CK Navigator.')
     print('5. Generate a layer for visibility overlaid with detection coverage for the ATT&CK Navigator.')
-    print('6. Generate a graph with visibility items added through time.')
+    print('6. Generate a graph with visibility added through time.')
     print('7. Generate an Excel sheet with all administrated techniques.')
     print('8. Check the technique YAML file for errors.')
     print('9. Back to main menu.')

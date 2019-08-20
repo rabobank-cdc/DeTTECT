@@ -51,6 +51,7 @@ def _init_menu():
                                                             'not updated without your approval. The updated visibility '
                                                             'scores are calculated in the same way as with the option: '
                                                             '-y, --yaml', action='store_true')
+    parser_data_sources.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
 
     # create the visibility parser
     parser_visibility = subparsers.add_parser('visibility', aliases=['v'],
@@ -76,9 +77,9 @@ def _init_menu():
                                    action='store_true')
     parser_visibility.add_argument('-o', '--overlay', help='generate a visibility layer overlaid with detections for '
                                                            'the ATT&CK navigator', action='store_true')
-    parser_visibility.add_argument('-g', '--graph', help='generate a graph with visibility items added through time',
-                                  action='store_true')
-    parser_visibility.add_argument('--health', help='check the technique YAML file for errors', action='store_true')
+    parser_visibility.add_argument('-g', '--graph', help='generate a graph with visibility added through time',
+                                   action='store_true')
+    parser_visibility.add_argument('--health', help='check the YAML file for errors', action='store_true')
 
     # create the detection parser
     parser_detection = subparsers.add_parser('detection', aliases=['d'],
@@ -106,9 +107,9 @@ def _init_menu():
                                   action='store_true')
     parser_detection.add_argument('-o', '--overlay', help='generate a detection layer overlaid with visibility for '
                                                           'the ATT&CK navigator', action='store_true')
-    parser_detection.add_argument('-g', '--graph', help='generate a graph with detection items added through time',
+    parser_detection.add_argument('-g', '--graph', help='generate a graph with detections added through time',
                                   action='store_true')
-    parser_detection.add_argument('--health', help='check the technique YAML file for errors', action='store_true')
+    parser_detection.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
 
     # create the group parser
     parser_group = subparsers.add_parser('group', aliases=['g'],
@@ -145,7 +146,7 @@ def _init_menu():
                                                    'the EQL search. The default behaviour is to only include the '
                                                    'most recent \'score\' objects',
                               action='store_true', default=False)
-    parser_group.add_argument('--health', help='check the technique YAML file for errors', action='store_true')
+    parser_group.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
 
     # create the generic parser
     parser_generic = subparsers.add_parser('generic', description='Generic functions which will output to stdout.',
@@ -180,14 +181,14 @@ def _menu(menu_parser):
         interactive_menu()
 
     elif args.subparser in ['datasource', 'ds']:
-        if check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION):
+        if check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.health):
             file_ds = args.file_ds
 
             if args.search:
                 file_ds = search(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.search)
                 if not file_ds:
                     quit()  # something went wrong in executing the search or 0 results where returned
-            if args.update and check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION):
+            if args.update and check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
                 update_technique_administration_file(file_ds, args.file_tech)
             if args.layer:
                 generate_data_sources_layer(file_ds)
