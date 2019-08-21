@@ -210,19 +210,19 @@ def _menu_statistics():
     print('9. Back to main menu.')
     choice = _ask_input()
     if choice == '1':
-        print('Specify the matrix (enterprise or mobile):')
-        m = _ask_input().lower()
-        default_matrix = 'enterprise' if m == 'enterprise' else 'mobile'
+        default_matrix = 'mobile' if default_matrix == 'enterprise' else 'enterprise'
     elif choice == '2':
         get_statistics_data_sources()
+        _wait()
     elif choice == '3':
         get_statistics_mitigations(default_matrix)
+        _wait()
     elif choice == '9':
         interactive_menu()
+        _wait()
     elif choice == 'q':
         quit()
 
-    _wait()
     _menu_statistics()
 
 
@@ -335,8 +335,7 @@ def _menu_detection(filename_t):
         print('Specify the EQL query for visibility objects:')
         eql_query_visibility = _ask_input().lower()
     elif choice == '3':
-        print('Specify True or False for to include all scores or not:')
-        eql_all_scores = True if _ask_input().lower() == 'true' else False
+        eql_all_scores = not eql_all_scores
     elif choice in ['4', '5', '6', '7']:
         file_tech = filename_t
 
@@ -414,8 +413,7 @@ def _menu_visibility(filename_t, filename_ds):
         print('Specify the EQL query for detection objects:')
         eql_query_detection = _ask_input().lower()
     elif choice == '3':
-        print('Specify True or False for to include all scores or not:')
-        eql_all_scores = True if _ask_input().lower() == 'true' else False
+        eql_all_scores = not eql_all_scores
     elif choice in ['4', '5', '6', '7']:
         file_tech = filename_t
 
@@ -470,7 +468,6 @@ def _menu_groups():
     print('5. Overlay: ')
     print('    - %s: %s' % ('File' if os.path.exists(groups_overlay) else 'Groups', groups_overlay))
     print('    - Type: %s' % overlay_type)
-    print('    - Type: %s' % overlay_type)
     print('6. EQL search: ')
     eql_d_str = '' if not eql_query_detection else eql_query_detection
     eql_v_str = '' if not eql_query_visibility else eql_query_visibility
@@ -483,8 +480,7 @@ def _menu_groups():
     print('9. Back to main menu.')
     choice = _ask_input()
     if choice == '1':
-        print('Specify True or False for software group:')
-        software_group = True if _ask_input().lower() == 'true' else False
+        software_group = not software_group
     elif choice == '2':
         print('Specify platform (all, Linux, macOS, Windows):')
         p = _ask_input().lower()
@@ -534,8 +530,7 @@ def _menu_groups():
             print('Specify the EQL query for visibility objects:')
             eql_query_visibility = _ask_input().lower()
         elif choice == '3':
-            print('Specify True or False for to include all scores or not:')
-            eql_all_scores = True if _ask_input().lower() == 'true' else False
+            eql_all_scores = not eql_all_scores
 
     elif choice == '7':
         if not generate_group_heat_map(groups, groups_overlay, overlay_type, default_stage, default_platform,
