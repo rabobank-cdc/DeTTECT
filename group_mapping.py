@@ -554,13 +554,10 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
     json_string = simplejson.dumps(layer).replace('}, ', '},\n')
 
     if stage == 'pre-attack':
-        filename = "output/" + stage + '_' + '_'.join(groups_list)
+        filename = '_'.join(groups_list)
     elif overlay:
-        filename = "output/" + stage + '_' + platform.lower() + '_' + '_'.join(groups_list) + '-overlay_' + '_'.join(overlay_list)
+        filename = platform.lower() + '_' + '_'.join(groups_list) + '-overlay_' + '_'.join(overlay_list)
     else:
-        filename = "output/" + stage + '_' + platform.lower() + '_' + '_'.join(groups_list)
-    filename = filename[:255] + '.json'
-    with open(filename, 'w') as f:  # write layer file to disk
-        f.write(json_string)
-        print('Written layer: ' + filename)
+        filename = platform.lower() + '_' + '_'.join(groups_list)
 
+    write_file(stage, filename[:255], json_string)
