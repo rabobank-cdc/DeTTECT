@@ -1,43 +1,17 @@
 import os
+import shutil
 import pickle
+from io import StringIO
+from ruamel.yaml import YAML
 from datetime import datetime as dt
-import yaml
 from upgrade import upgrade_yaml_file
 from constants import *
-from difflib import SequenceMatcher
+from health import check_yaml_file_health
 
 # Due to performance reasons the import of attackcti is within the function that makes use of this library.
 
 
-def try_get_key(dictionary, key):
-    """
-    Return None if the key does not exists within the provided dict
-    :param dictionary: dictionary
-    :param key: key
-    :return: key value or None
-    """
-    if key in dictionary:
-        return dictionary[key]
-    return None
-
-
-def try_except(self, stix_objects, object_type, nested_value=None):
-    if object_type in stix_objects:
-        specific_stix_object = stix_objects[object_type]
-        if isinstance(specific_stix_object, list):
-            if nested_value is None:
-                lists = self.handle_list(stix_objects, object_type)
-                return lists
-            else:
-                nested_result = self.handle_nested(stix_objects, object_type, nested_value)
-                return nested_result
-        else:
-            return stix_objects[object_type]
-    else:
-        return None
-
-
-def save_attack_data(data, path):
+def _save_attack_data(data, path):
     """
     Save ATT&CK data to disk for the purpose of caching. Data can be STIX objects our a custom schema.
     :param data: the MITRE ATT&CK data to save
@@ -70,10 +44,10 @@ def load_attack_data(data_type):
 
     attack_data = None
     if data_type == DATA_TYPE_STIX_ALL_RELATIONSHIPS:
-        attack_data = mitre.get_all_relationships()
-    if data_type == DATA_TYPE_STIX_ALL_TECH_ENTERPRISE:
-        attack_data = mitre.get_all_enterprise_techniques()
-    if data_type == DATA_TYPE_CUSTOM_TECH_BY_GROUP:
+        attack_data = mitre.get_relationships()
+    elif data_type == DATA_TYPE_STIX_ALL_TECH_ENTERPRISE:
+        attack_data = mitre.get_enterprise_techniques()
+    elif data_type == DATA_TYPE_CUSTOM_TECH_BY_GROUP:
         # First we need to know which technique references (STIX Object type 'attack-pattern') we have for all
         # groups. This results in a dict: {group_id: Gxxxx, technique_ref/attack-pattern_ref: ...}
         groups = load_attack_data(DATA_TYPE_STIX_ALL_GROUPS)
@@ -88,7 +62,7 @@ def load_attack_data(data_type):
                         {
                             'group_id': get_attack_id(g),
                             'name': g['name'],
-                            'aliases': try_get_key(g, 'aliases'),
+                            'aliases': g.get('aliases', None),
                             'technique_ref': r['target_ref']
                         })
 
@@ -105,18 +79,18 @@ def load_attack_data(data_type):
                             'name': gr['name'],
                             'aliases': gr['aliases'],
                             'technique_id': get_attack_id(t),
-                            'x_mitre_platforms': try_get_key(t, 'x_mitre_platforms'),
+                            'x_mitre_platforms': t.get('x_mitre_platforms', None),
                             'matrix': t['external_references'][0]['source_name']
                         })
 
         attack_data = all_group_use
 
     elif data_type == DATA_TYPE_STIX_ALL_TECH:
-        attack_data = mitre.get_all_techniques()
+        attack_data = mitre.get_techniques()
     elif data_type == DATA_TYPE_STIX_ALL_GROUPS:
-        attack_data = mitre.get_all_groups()
+        attack_data = mitre.get_groups()
     elif data_type == DATA_TYPE_STIX_ALL_SOFTWARE:
-        attack_data = mitre.get_all_software()
+        attack_data = mitre.get_software()
     elif data_type == DATA_TYPE_CUSTOM_TECH_BY_SOFTWARE:
         # First we need to know which technique references (STIX Object type 'attack-pattern') we have for all software
         # This results in a dict: {software_id: Sxxxx, technique_ref/attack-pattern_ref: ...}
@@ -158,7 +132,7 @@ def load_attack_data(data_type):
                         {
                             'group_id': get_attack_id(g),
                             'name': g['name'],
-                            'aliases': try_get_key(g, 'aliases'),
+                            'aliases': g.get('aliases', None),
                             'software_ref': r['target_ref']
                         })
 
@@ -175,14 +149,26 @@ def load_attack_data(data_type):
                             'name': gr['name'],
                             'aliases': gr['aliases'],
                             'software_id': get_attack_id(s),
-                            'x_mitre_platforms': try_get_key(s, 'x_mitre_platforms'),
+                            'x_mitre_platforms': s.get('x_mitre_platforms', None),
                             'matrix': s['external_references'][0]['source_name']
                         })
         attack_data = all_group_use
 
-    save_attack_data(attack_data, "cache/" + data_type)
+    elif data_type == DATA_TYPE_STIX_ALL_ENTERPRISE_MITIGATIONS:
+        attack_data = mitre.get_enterprise_mitigations()
+
+    elif data_type == DATA_TYPE_STIX_ALL_MOBILE_MITIGATIONS:
+        attack_data = mitre.get_mobile_mitigations()
+
+    _save_attack_data(attack_data, "cache/" + data_type)
 
     return attack_data
+
+
+def init_yaml():
+    _yaml = YAML()
+    _yaml.Representer.ignore_aliases = lambda *args: True  # disable anchors/aliases
+    return _yaml
 
 
 def _get_base_template(name, description, stage, platform, sorting):
@@ -197,7 +183,7 @@ def _get_base_template(name, description, stage, platform, sorting):
     :param sorting: sorting
     :return: layer template dictionary
     """
-    layer = {}
+    layer = dict()
     layer['name'] = name
     layer['version'] = '2.1'
     layer['domain'] = 'mitre-enterprise'
@@ -348,6 +334,57 @@ def get_layer_template_layered(name, description, stage, platform):
     return layer
 
 
+def write_file(filename_prefix, filename, content):
+    """
+    Writes content to a file and ensures if the file already exists it won't be overwritten by appending a number
+    as suffix.
+    :param filename_prefix: prefix part of the filename
+    :param filename: filename
+    :param content: the content of the file that needs to be written to the file
+    :return:
+    """
+    output_filename = 'output/%s_%s' % (filename_prefix, normalize_name_to_filename(filename))
+    output_filename = get_non_existing_filename(output_filename, 'json')
+
+    with open(output_filename, 'w') as f:
+        f.write(content)
+
+    print('File written:   ' + output_filename)
+
+
+def get_non_existing_filename(filename, extension):
+    """
+    Generates a filename that doesn't exist based on the given filename by appending a number as suffix.
+    :param filename:
+    :param extension:
+    :return:
+    """
+    if os.path.exists('%s.%s' % (filename, extension)):
+        suffix = 1
+        while os.path.exists('%s_%s.%s' % (filename, suffix, extension)):
+            suffix += 1
+        output_filename = '%s_%s.%s' % (filename, suffix, extension)
+    else:
+        output_filename = '%s.%s' % (filename, extension)
+    return output_filename
+
+
+def backup_file(filename):
+    """
+    Create a backup of the provided file
+    :param filename: existing YAML filename
+    :return:
+    """
+    suffix = 1
+    backup_filename = filename.replace('.yaml', '_backup_' + str(suffix) + '.yaml')
+    while os.path.exists(backup_filename):
+        backup_filename = backup_filename.replace('_backup_' + str(suffix) + '.yaml', '_backup_' + str(suffix+1) + '.yaml')
+        suffix += 1
+
+    shutil.copy2(filename, backup_filename)
+    print('Written backup file:   ' + backup_filename + '\n')
+
+
 def get_attack_id(stix_obj):
     """
     Get the Technique, Group or Software ID from the STIX object
@@ -386,6 +423,157 @@ def get_technique(techniques, technique_id):
     return None
 
 
+def ask_yes_no(question):
+    """
+    Ask the user to a question that needs to be answered with yes or no.
+    :param question: The question to be asked
+    :return: boolean value indicating a yes (True) or no (False0
+    """
+    yes_no = ''
+    while not re.match('^(y|yes|n|no)$', yes_no, re.IGNORECASE):
+        yes_no = input(question + '\n >>   y(yes) / n(no): ')
+        print('')
+
+    if re.match('^(y|yes)$', yes_no, re.IGNORECASE):
+        return True
+    else:
+        return False
+
+
+def ask_multiple_choice(question, list_answers):
+    """
+    Ask a multiple choice question.
+    :param question: the question to ask
+    :param list_answers: a list of answer
+    :return: the answer
+    """
+    answer = ''
+    answers = ''
+    x = 1
+    for a in list_answers:
+        a = a.replace('\n', '\n     ')
+        answers += '  ' + str(x) + ') ' + a + '\n'
+        x += 1
+
+    # noinspection Annotator
+    while not re.match('(^[1-' + str(len(list_answers)) + ']{1}$)', answer):
+        print(question)
+        print(answers)
+        answer = input(' >>   ')
+        print('')
+
+    return list_answers[int(answer)-1]
+
+
+def fix_date_and_remove_null(yaml_file, date, input_type='ruamel'):
+    """
+    Remove the single quotes around the date key-value pair in the provided yaml_file and remove any 'null' values
+    :param yaml_file: ruamel.yaml instance or location of YAML file
+    :param date: string date value (e.g. 2019-01-01)
+    :param input_type: input type can be a ruamel.yaml instance or list
+    :return: YAML file lines in a list
+    """
+    _yaml = init_yaml()
+    if input_type == 'ruamel':
+        # ruamel does not support output to a variable. Therefore we make use of StringIO.
+        file = StringIO()
+        _yaml.dump(yaml_file, file)
+        file.seek(0)
+        new_lines = file.readlines()
+    elif input_type == 'list':
+        new_lines = yaml_file
+    elif input_type == 'file':
+        new_lines = yaml_file.readlines()
+
+    fixed_lines = [l.replace('\'' + date + '\'', date).replace('null', '')
+                   if REGEX_YAML_DATE.match(l) else
+                   l.replace('null', '') for l in new_lines]
+
+    return fixed_lines
+
+
+def get_latest_score_obj(yaml_object):
+    """
+    Get the the score object in the score_logbook by date
+    :param yaml_object: a detection or visibility YAML object
+    :return: the latest score object
+    """
+    if not isinstance(yaml_object['score_logbook'], list):
+        yaml_object['score_logbook'] = [yaml_object['score_logbook']]
+
+    if len(yaml_object['score_logbook']) > 0 and 'date' in yaml_object['score_logbook'][0]:
+        # for some weird reason 'sorted()' provides inconsistent results
+        newest_score_obj = None
+        newest_date = None
+        for score_obj in yaml_object['score_logbook']:
+            if not newest_score_obj or score_obj['date'] > newest_date:
+                newest_date = score_obj['date']
+                newest_score_obj = score_obj
+
+        return newest_score_obj
+    else:
+        return None
+
+
+def get_latest_comment(yaml_object, empty=' '):
+    """
+    Return the latest comment present in the score_logbook
+    :param yaml_object: a detection or visibility YAML object
+    :param empty: value for an empty comment
+    :return: comment
+    """
+    score_obj = get_latest_score_obj(yaml_object)
+    if score_obj:
+        if score_obj['comment'] == '' or not score_obj['comment']:
+            return empty
+        else:
+            return score_obj['comment']
+    else:
+        return empty
+
+
+def get_latest_date(yaml_object):
+    """
+    Return the latest date present in the score_logbook
+    :param yaml_object: a detection or visibility YAML object
+    :return: date as a datetime object or None
+    """
+    score_obj = get_latest_score_obj(yaml_object)
+    if score_obj:
+        return score_obj['date']
+    else:
+        return None
+
+
+def get_latest_auto_generated(yaml_object):
+    """
+    Return the latest auto_generated value present in the score_logbook
+    :param yaml_object: a detection or visibility YAML object
+    :return: True or False
+    """
+    score_obj = get_latest_score_obj(yaml_object)
+    if score_obj:
+        if 'auto_generated' in score_obj:
+            return score_obj['auto_generated']
+        else:
+            return False
+    else:
+        return False
+
+
+def get_latest_score(yaml_object):
+    """
+    Return the latest score present in the score_logbook
+    :param yaml_object: a detection or visibility YAML object
+    :return: score as an integer or None
+    """
+    score_obj = get_latest_score_obj(yaml_object)
+    if score_obj:
+        return score_obj['score']
+    else:
+        return None
+
+
 def normalize_name_to_filename(name):
     """
     Normalize the input filename to a lowercase filename and replace spaces with dashes.
@@ -415,7 +603,7 @@ def map_techniques_to_data_sources(techniques, my_data_sources):
                     my_techniques[tech_id]['my_data_sources'] = [i_ds, ]
                     my_techniques[tech_id]['data_sources'] = t['x_mitre_data_sources']
                     # create a list of tactics
-                    my_techniques[tech_id]['tactics'] = list(map(lambda k: k['phase_name'], try_get_key(t, 'kill_chain_phases')))
+                    my_techniques[tech_id]['tactics'] = list(map(lambda k: k['phase_name'], t.get('kill_chain_phases', None)))
                     my_techniques[tech_id]['products'] = set(my_data_sources[i_ds]['products'])
                 elif t['x_mitre_data_sources'] and i_ds in t['x_mitre_data_sources'] and tech_id in my_techniques.keys():
                     my_techniques[tech_id]['my_data_sources'].append(i_ds)
@@ -426,7 +614,7 @@ def map_techniques_to_data_sources(techniques, my_data_sources):
 
 def get_all_mitre_data_sources():
     """
-    Gets all the data sources from the techniques and make a unique sorted list of it.
+    Gets all the data sources from the techniques and make a set.
     :return: a sorted list with all data sources
     """
     techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
@@ -436,203 +624,104 @@ def get_all_mitre_data_sources():
         if 'x_mitre_data_sources' in t.keys():
             for ds in t['x_mitre_data_sources']:
                 data_sources.add(ds)
-    return sorted(data_sources)
+    return data_sources
 
 
-def calculate_score(l, zero_value=0):
+def calculate_score(list_detections, zero_value=0):
     """
-    Calculates the average score in the given list which contains dictionaries with 'score' field.
-    :param l: list
+    Calculates the average score in the given list which may contain multiple detection dictionaries
+    :param list_detections: list
     :param zero_value: the value when no scores are there, default 0
     :return: average score
     """
-    s = 0
+    avg_score = 0
     number = 0
-    for v in l:
-        if v['score'] >= 0:
-            s += v['score']
+    for v in list_detections:
+        score = get_latest_score(v)
+        if score >= 0:
+            avg_score += score
             number += 1
-    s = int(round(s / number, 0) if number > 0 else zero_value)
-    return s
+
+    avg_score = int(round(avg_score / number, 0) if number > 0 else zero_value)
+    return avg_score
 
 
-def _add_entry_to_list_in_dictionary(dict, technique_id, key, entry):
+def add_entry_to_list_in_dictionary(dictionary, technique_id, key, entry):
     """
     Ensures a list will be created if it doesn't exist in the given dict[technique_id][key] and adds the entry to the
     list. If the dict[technique_id] doesn't exist yet, it will be created.
-    :param dict: the dictionary
+    :param dictionary: the dictionary
     :param technique_id: the id of the technique in the main dict
     :param key: the key where the list in the dictionary resides
     :param entry: the entry to add to the list
     :return:
     """
-    if technique_id not in dict.keys():
-        dict[technique_id] = {}
-    if not key in dict[technique_id].keys():
-        dict[technique_id][key] = []
-    dict[technique_id][key].append(entry)
+    if technique_id not in dictionary.keys():
+        dictionary[technique_id] = {}
+    if key not in dictionary[technique_id].keys():
+        dictionary[technique_id][key] = []
+    dictionary[technique_id][key].append(entry)
 
 
-def load_techniques(filename, detection_or_visibility='all', filter_applicable_to='all'):
+def set_yaml_dv_comments(yaml_object):
     """
-    Loads the techniques (including detection and visibility properties) from the given yaml file.
-    :param filename: the filename of the yaml file containing the techniques administration
-    :param detection_or_visibility: used to indicate to filter applicable_to field for detection or visibility. When
-                                    using 'all' no filtering will be applied.
-    :param filter_applicable_to: filter techniques based on applicable_to field in techniques administration YAML file
+    Set all comments for the detection or visibility YAML object when missing
+    :param yaml_object: detection or visibility object
+    :return: detection or visibility object for which empty comments are no filled with an empty string
+    """
+    yaml_object['comment'] = yaml_object.get('comment', '')
+    if 'score_logbook' in yaml_object:
+        for score_obj in yaml_object['score_logbook']:
+            score_obj['comment'] = score_obj.get('comment', '')
+
+    return yaml_object
+
+
+def load_techniques(file):
+    """
+    Loads the techniques (including detection and visibility properties).
+    :param file: the file location of the YAML file or a dict containing the techniques administration
     :return: dictionary with techniques (incl. properties), name and platform
     """
-
     my_techniques = {}
-    with open(filename, 'r') as yaml_file:
-        yaml_content = yaml.load(yaml_file, Loader=yaml.FullLoader)
-        for d in yaml_content['techniques']:
-            # Add detection items:
-            if type(d['detection']) == dict:  # There is just one detection entry
-                if detection_or_visibility == 'all' or filter_applicable_to == 'all' or filter_applicable_to in d[detection_or_visibility]['applicable_to'] or 'all' in d[detection_or_visibility]['applicable_to']:
-                    _add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', d['detection'])
-            elif type(d['detection']) == list:  # There are multiple detection entries
-                for de in d['detection']:
-                    if detection_or_visibility == 'all' or filter_applicable_to == 'all' or filter_applicable_to in de['applicable_to'] or 'all' in de['applicable_to']:
-                        _add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', de)
 
+    if isinstance(file, dict):
+        # file is a dict and created due to the use of an EQL query by the user
+        yaml_content = file
+    else:
+        # file is a file location on disk
+        _yaml = init_yaml()
+        with open(file, 'r') as yaml_file:
+            yaml_content = _yaml.load(yaml_file)
+
+    for d in yaml_content['techniques']:
+        if 'detection' in d:
+            # Add detection items:
+            if isinstance(d['detection'], dict):  # There is just one detection entry
+                d['detection'] = set_yaml_dv_comments(d['detection'])
+                add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', d['detection'])
+            elif isinstance(d['detection'], list):  # There are multiple detection entries
+                for de in d['detection']:
+                    de = set_yaml_dv_comments(de)
+                    add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'detection', de)
+
+        if 'visibility' in d:
             # Add visibility items
-            if type(d['visibility']) == dict:  # There is just one visibility entry
-                if detection_or_visibility == 'all' or filter_applicable_to == 'all' or filter_applicable_to in d[detection_or_visibility]['applicable_to'] or 'all' in d[detection_or_visibility]['applicable_to']:
-                    _add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', d['visibility'])
-            elif type(d['visibility']) == list:  # There are multiple visibility entries
+            if isinstance(d['visibility'], dict):  # There is just one visibility entry
+                d['visibility'] = set_yaml_dv_comments(d['visibility'])
+                add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', d['visibility'])
+            elif isinstance(d['visibility'], list):  # There are multiple visibility entries
                 for de in d['visibility']:
-                    if detection_or_visibility == 'all' or filter_applicable_to == 'all' or filter_applicable_to in de['applicable_to'] or 'all' in de['applicable_to']:
-                        _add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', de)
+                    de = set_yaml_dv_comments(de)
+                    add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', de)
 
         name = yaml_content['name']
         platform = yaml_content['platform']
+
     return my_techniques, name, platform
 
 
-def _print_error_msg(msg, print_error):
-    if print_error:
-        print(msg)
-    return True
-
-
-def check_yaml_file_health(filename, file_type, health_is_called):
-    """
-    Check on error in the provided YAML file.
-    :param filename: YAML file location
-    :param file_type: currently only 'FILE_TYPE_TECHNIQUE_ADMINISTRATION' is being supported
-    :param health_is_called: boolean that specifies if detailed errors in the file will be printed and then quit()
-    :return:
-    """
-
-    has_error = False
-    if file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
-        # check for duplicate tech IDs
-        with open(filename, 'r') as yaml_file:
-            yaml_content = yaml.load(yaml_file, Loader=yaml.FullLoader)
-
-            tech_ids = list(map(lambda x: x['technique_id'], yaml_content['techniques']))
-            tech_dup = []
-            for tech in tech_ids:
-                if tech not in tech_dup:
-                    tech_dup.append(tech)
-                else:
-                    has_error = _print_error_msg('[!] Duplicate technique ID: ' + tech, health_is_called)
-
-        # checks on:
-        # - empty key-value pairs: 'date_implemented', 'date_registered', 'location', 'applicable_to', 'score'
-        # - invalid date format for: 'date_implemented', 'date_registered'
-        # - detection or visibility score out-of-range
-        # - missing key-value pairs: 'applicable_to', 'date_registered', 'date_implemented', 'score', 'location', 'comment'
-        # - check on 'applicable_to' values which are very similar
-
-        all_applicable_to = set()
-        techniques = load_techniques(filename)
-        for tech, v in techniques[0].items():
-
-            for key in ['detection', 'visibility']:
-                if key not in v:
-                    has_error = _print_error_msg('[!] Technique ID: ' + tech + ' is MISSING ' + key, health_is_called)
-                else:
-                    # create at set containing all values for 'applicable_to'
-                    all_applicable_to.update([a for v in v[key] for a in v['applicable_to']])
-
-            for detection in v['detection']:
-                for key in ['applicable_to', 'date_registered', 'date_implemented', 'score', 'location', 'comment']:
-                    if key not in detection:
-                        has_error = _print_error_msg('[!] Technique ID: ' + tech + ' is MISSING the key-value pair in detection: ' + key, health_is_called)
-
-                try:
-                    if detection['score'] is None:
-                        has_error = _print_error_msg('[!] Technique ID: ' + tech + ' is has an EMPTY key-value pair in detection: score', health_is_called)
-
-                    elif not (detection['score'] >= -1 and detection['score'] <= 5):
-                        has_error = _print_error_msg('[!] Technique ID: ' + tech + ' has an INVALID detection score: '
-                                                     + str(detection['score']) + ' (should be between -1 and 5)', health_is_called)
-
-                    elif detection['score'] > -1:
-                        for key in ['date_implemented', 'date_registered']:
-                            if not detection[key]:
-                                has_error = _print_error_msg('[!] Technique ID: ' + tech + ' is has an EMPTY key-value pair in detection: ' + key, health_is_called)
-                                break
-                            try:
-                                detection[key].year
-                                detection[key].month
-                                detection[key].day
-                            except AttributeError:
-                                has_error = _print_error_msg('[!] Technique ID: ' + tech +
-                                                             ' has an INVALID data format for the key-value pair in detection: ' +
-                                                             key + '  (should be YYYY-MM-DD)', health_is_called)
-                    for key in ['location', 'applicable_to']:
-                        if not isinstance(detection[key], list):
-                            has_error = _print_error_msg('[!] Technique ID: ' + tech + ' has for the key-value pair \''
-                                                         + key + '\' a string value assigned (should be a list)', health_is_called)
-                        else:
-                            try:
-                                if detection[key][0] is None:
-                                    has_error = _print_error_msg('[!] Technique ID: ' + tech + ' is has an EMPTY key-value pair in detection: ' + key, health_is_called)
-                            except TypeError:
-                                has_error = _print_error_msg('[!] Technique ID: ' + tech + ' is has an EMPTY key-value pair in detection: ' + key, health_is_called)
-                except KeyError:
-                    pass
-
-            for visibility in v['visibility']:
-                for key in ['applicable_to', 'score', 'comment']:
-                    if key not in visibility:
-                        has_error = _print_error_msg('[!] Technique ID: ' + tech + ' is MISSING the key-value pair in visibility: ' + key, health_is_called)
-
-                try:
-                    if visibility['score'] is None:
-                        has_error = _print_error_msg('[!] Technique ID: ' + tech + ' is has an EMPTY key-value pair in visibility: score', health_is_called)
-                    elif not (visibility['score'] >= 0 and visibility['score'] <= 4):
-                        has_error = _print_error_msg('[!] Technique ID: ' + tech + ' has an INVALID visibility score: '
-                                                     + str(detection['score']) + ' (should be between 0 and 4)', health_is_called)
-                except KeyError:
-                    pass
-
-        # get values within the key-value pair 'applicable_to' which are a very close match
-        similar = set()
-        for i1 in all_applicable_to:
-            for i2 in all_applicable_to:
-                match_value = SequenceMatcher(None, i1, i2).ratio()
-                if match_value > 0.8 and match_value != 1:
-                    similar.add(i1)
-                    similar.add(i2)
-
-        if len(similar) > 0:
-            has_error = _print_error_msg('[!] There are values in the key-value pair \'applicable_to\' which are very similar. Correct where necessary:', health_is_called)
-            for s in similar:
-                _print_error_msg('    - ' + s, health_is_called)
-
-        if has_error and not health_is_called:
-            print('[!] The below YAML file contains possible errors. It\'s recommended to check via the \'--health\' '
-                  'argument or using the option in the interactive menu: \n    - ' + filename)
-
-        if has_error:
-            print('')  # print a newline
-
-
-def check_file_type(filename, file_type=None):
+def _check_file_type(filename, file_type=None):
     """
     Check if the provided YAML file has the key 'file_type' and possible if that key matches a specific value.
     :param filename: path to a YAML file
@@ -642,9 +731,11 @@ def check_file_type(filename, file_type=None):
     if not os.path.exists(filename):
         print('[!] File: \'' + filename + '\' does not exist')
         return None
+
+    _yaml = init_yaml()
     with open(filename, 'r') as yaml_file:
         try:
-            yaml_content = yaml.load(yaml_file, Loader=yaml.FullLoader)
+            yaml_content = _yaml.load(yaml_file)
         except Exception as e:
             print('[!] File: \'' + filename + '\' is not a valid YAML file.')
             print('  ' + str(e))  # print more detailed error information to help the user in fixing the error.
@@ -675,11 +766,11 @@ def check_file(filename, file_type=None, health_is_called=False):
     does the file contain errors.
     :param filename: path to a YAML file
     :param file_type: value to check against the 'file_type' key in the YAML file
-    :param health_is_called: boolean that specifies if detailed errors in the file will be printed by the function 'check_yaml_file_health' and then quit()
+    :param health_is_called: boolean that specifies if detailed errors in the file will be printed by the function 'check_yaml_file_health'
     :return: the file_type if present, else None is returned
     """
 
-    yaml_content = check_file_type(filename, file_type)
+    yaml_content = _check_file_type(filename, file_type)
 
     # if the file is a valid YAML, continue. Else, return None
     if yaml_content:
@@ -689,3 +780,128 @@ def check_file(filename, file_type=None, health_is_called=False):
         return yaml_content['file_type']
 
     return yaml_content  # value is None
+
+
+def get_updates(update_type, sort='modified'):
+    """
+    Print a list of updates for a techniques, groups or software. Sort by modified or creation date.
+    :param update_type: the type of update: techniques, groups or software
+    :param sort: sort the list by modified or creation date
+    :return:
+    """
+    if update_type[:-1] == 'technique':
+        techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
+        sorted_techniques = sorted(techniques, key=lambda k: k[sort])
+
+        for t in sorted_techniques:
+            print(get_attack_id(t) + ' ' + t['name'])
+            print(' ' * 6 + 'created:  ' + t['created'].strftime('%Y-%m-%d'))
+            print(' ' * 6 + 'modified: ' + t['modified'].strftime('%Y-%m-%d'))
+            print(' ' * 6 + 'matrix:   ' + t['external_references'][0]['source_name'][6:])
+            tactics = get_tactics(t)
+            if tactics:
+                print(' ' * 6 + 'tactic:   ' + ', '.join(tactics))
+            else:
+                print(' ' * 6 + 'tactic:   None')
+            print('')
+
+    elif update_type[:-1] == 'group':
+        groups = load_attack_data(DATA_TYPE_STIX_ALL_GROUPS)
+        sorted_groups = sorted(groups, key=lambda k: k[sort])
+
+        for g in sorted_groups:
+            print(get_attack_id(g) + ' ' + g['name'])
+            print(' ' * 6 + 'created:  ' + g['created'].strftime('%Y-%m-%d'))
+            print(' ' * 6 + 'modified: ' + g['modified'].strftime('%Y-%m-%d'))
+            print('')
+
+    elif update_type == 'software':
+        software = load_attack_data(DATA_TYPE_STIX_ALL_SOFTWARE)
+        sorted_software = sorted(software, key=lambda k: k[sort])
+
+        for s in sorted_software:
+            print(get_attack_id(s) + ' ' + s['name'])
+            print(' ' * 6 + 'created:  ' + s['created'].strftime('%Y-%m-%d'))
+            print(' ' * 6 + 'modified: ' + s['modified'].strftime('%Y-%m-%d'))
+            print(' ' * 6 + 'matrix:   ' + s['external_references'][0]['source_name'][6:])
+            print(' ' * 6 + 'type:     ' + s['type'])
+            if 'x_mitre_platforms' in s:
+                print(' ' * 6 + 'platform: ' + ', '.join(s['x_mitre_platforms']))
+            else:
+                print(' ' * 6 + 'platform: None')
+            print('')
+
+
+def get_statistics_mitigations(matrix):
+    """
+    Print out statistics related to mitigations and how many techniques they cover
+    :return:
+    """
+
+    if matrix == 'enterprise':
+        mitigations = load_attack_data(DATA_TYPE_STIX_ALL_ENTERPRISE_MITIGATIONS)
+    elif matrix == 'mobile':
+        mitigations = load_attack_data(DATA_TYPE_STIX_ALL_MOBILE_MITIGATIONS)
+
+    mitigations_dict = dict()
+    for m in mitigations:
+        if m['external_references'][0]['external_id'].startswith('M'):
+            mitigations_dict[m['id']] = {'mID': m['external_references'][0]['external_id'], 'name': m['name']}
+
+    relationships = load_attack_data(DATA_TYPE_STIX_ALL_RELATIONSHIPS)
+    relationships_mitigates = [r for r in relationships
+                               if r['relationship_type'] == 'mitigates'
+                               if r['source_ref'].startswith('course-of-action')
+                               if r['target_ref'].startswith('attack-pattern')
+                               if r['source_ref'] in mitigations_dict]
+
+    # {id: {name: ..., count: ..., name: ...} }
+    count_dict = dict()
+    for r in relationships_mitigates:
+        src_ref = r['source_ref']
+
+        m = mitigations_dict[src_ref]
+        if m['mID'] not in count_dict:
+            count_dict[m['mID']] = dict()
+            count_dict[m['mID']]['count'] = 1
+            count_dict[m['mID']]['name'] = m['name']
+        else:
+            count_dict[m['mID']]['count'] += 1
+
+    count_dict_sorted = dict(sorted(count_dict.items(), key=lambda kv: kv[1]['count'], reverse=True))
+
+    str_format = '{:<6s} {:<14s} {:s}'
+    print(str_format.format('Count', 'Mitigation ID', 'Name'))
+    print('-' * 60)
+    for k, v in count_dict_sorted.items():
+        print(str_format.format(str(v['count']), k, v['name']))
+
+
+def get_statistics_data_sources():
+    """
+    Print out statistics related to data sources and how many techniques they cover.
+    :return:
+    """
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
+
+    # {data_source: {techniques: [T0001, ...}, count: ...}
+    data_sources_dict = {}
+    for tech in techniques:
+        tech_id = get_attack_id(tech)
+        # Not every technique has a data source listed
+        data_sources = tech.get('x_mitre_data_sources', None)
+        if data_sources:
+            for ds in data_sources:
+                if ds not in data_sources_dict:
+                    data_sources_dict[ds] = {'techniques': [tech_id], 'count': 1}
+                else:
+                    data_sources_dict[ds]['techniques'].append(tech_id)
+                    data_sources_dict[ds]['count'] += 1
+
+    # sort the dict on the value of 'count'
+    data_sources_dict_sorted = dict(sorted(data_sources_dict.items(), key=lambda kv: kv[1]['count'], reverse=True))
+    str_format = '{:<6s} {:s}'
+    print(str_format.format('Count', 'Data Source'))
+    print('-'*50)
+    for k, v in data_sources_dict_sorted.items():
+        print(str_format.format(str(v['count']), k))

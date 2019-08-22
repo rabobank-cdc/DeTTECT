@@ -2,23 +2,24 @@
 ---
 version: 1.0
 file_type: data-source-administration
-name: endpoints-example
-platform: windows
+name: empty-data-source-admin-file
+# Fill in the correct MITRE ATT&CK enterprise platform (Windows, Linux or MacOS)
+platform:
 data_sources:
   # A data source is treated as not available when all dimensions of the data quality have a score of 0.
   # If desired you are free to add any key-value pairs.
   - data_source_name: Process monitoring
-    date_registered: 2019-03-01
-    date_connected: 2017-01-01
-    products: [Windows event log]
-    available_for_data_analytics: True
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
     comment: ''
     data_quality:
-      device_completeness: 5
-      data_field_completeness: 5
-      timeliness: 5
-      consistency: 5
-      retention: 5
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
   - data_source_name: File monitoring
     date_registered:
     date_connected:
@@ -32,10 +33,10 @@ data_sources:
       consistency: 0
       retention: 0
   - data_source_name: Process command-line parameters
-    date_registered: 2019-03-01
-    date_connected: 2017-01-01
-    products: [Windows event log]
-    available_for_data_analytics: True
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
     comment: ''
     data_quality:
       device_completeness: 0
@@ -56,29 +57,29 @@ data_sources:
       consistency: 0
       retention: 0
   - data_source_name: Process use of network
-    date_registered: 2019-07-25
-    date_connected: 2019-07-25
-    products: [Sysmon]
-    available_for_data_analytics: True
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
     comment: ''
     data_quality:
-      device_completeness: 5
-      data_field_completeness: 5
-      timeliness: 5
-      consistency: 5
-      retention: 5
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
   - data_source_name: Windows Registry
-    date_registered: 2019-03-01
-    date_connected: 2017-02-01
-    products: [Windows event log]
-    available_for_data_analytics: True
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
     comment: ''
     data_quality:
-      device_completeness: 5
-      data_field_completeness: 5
-      timeliness: 5
-      consistency: 5
-      retention: 5
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
   - data_source_name: Packet capture
     date_registered:
     date_connected:
@@ -200,41 +201,41 @@ data_sources:
       consistency: 0
       retention: 0
   - data_source_name: SSL/TLS inspection
-    date_registered: 2019-01-10
-    date_connected: 2000-01-01
-    products:  [Proxy Product]
-    available_for_data_analytics: True
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
     comment: ''
     data_quality:
-      device_completeness: 5
-      data_field_completeness: 5
-      timeliness: 5
-      consistency: 5
-      retention: 5
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
   - data_source_name: Anti-virus
-    date_registered: 2019-01-10
-    date_connected: 2000-01-01
-    products:  [AV Product]
-    available_for_data_analytics: True
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
     comment: ''
     data_quality:
-      device_completeness: 4
-      data_field_completeness: 2
-      timeliness: 3
-      consistency: 5
-      retention: 5
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
   - data_source_name: Network intrusion detection system
-    date_registered: 2019-01-10
-    date_connected: 2016-01-01
-    products:  [NIDS]
-    available_for_data_analytics: True
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
     comment: ''
     data_quality:
-      device_completeness: 4
-      data_field_completeness: 3
-      timeliness: 3
-      consistency: 4
-      retention: 4
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
   - data_source_name: Data loss prevention
     date_registered:
     date_connected:
@@ -260,17 +261,17 @@ data_sources:
       consistency: 0
       retention: 0
   - data_source_name: Email gateway
-    date_registered: 2019-01-10
-    date_connected: 2000-01-01
-    products:  [Email Gateway Product]
-    available_for_data_analytics: True
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
     comment: ''
     data_quality:
-      device_completeness: 4
-      data_field_completeness: 3
-      timeliness: 3
-      consistency: 5
-      retention: 3
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
   - data_source_name: Network device logs
     date_registered:
     date_connected:
@@ -284,17 +285,17 @@ data_sources:
       consistency: 0
       retention: 0
   - data_source_name: Web proxy
-    date_registered: 2019-01-10
-    date_connected: 2000-01-01
-    products:  [Proxy Product]
-    available_for_data_analytics: True
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
     comment: ''
     data_quality:
-      device_completeness: 5
-      data_field_completeness: 5
-      timeliness: 5
-      consistency: 5
-      retention: 5
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
   - data_source_name: Windows Error Reporting
     date_registered:
     date_connected:
@@ -467,26 +468,26 @@ data_sources:
     date_registered:
     date_connected:
     products: [None]
-    available_for_data_analytics: True
+    available_for_data_analytics: False
     comment: 'At the time of writing: unknown data source within ATT&CK'
     data_quality:
-      device_completeness: 5
-      data_field_completeness: 5
-      timeliness: 5
-      consistency: 5
-      retention: 5
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
   - data_source_name: DNS records
-    date_registered: 2019-03-01
-    date_connected: 2017-04-01
-    products: [Windows DNS server]
-    available_for_data_analytics: True
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
     comment: ''
     data_quality:
-      device_completeness: 5
-      data_field_completeness: 5
-      timeliness: 5
-      consistency: 5
-      retention: 5
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
   - data_source_name: Browser extensions
     date_registered:
     date_connected:
@@ -524,16 +525,16 @@ data_sources:
       consistency: 0
       retention: 0
   - data_source_name: Disk forensics
-    date_registered: 2019-01-10
-    date_connected: 2019-01-01
-    products:  [Manual, Commercial tool]
-    available_for_data_analytics: True
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
     comment: ''
     data_quality:
-      device_completeness: 5
-      data_field_completeness: 5
-      timeliness: 1
-      consistency: 5
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
       retention: 0
   - data_source_name: Component firmware
     date_registered:
@@ -608,20 +609,19 @@ data_sources:
       consistency: 0
       retention: 0
   - data_source_name: PowerShell logs
-    date_registered: 2019-03-01
-    date_connected: 2018-05-01
-    products: [Windows event log]
-    available_for_data_analytics: True
-    comment: 'Script block logging is enabled'
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
     data_quality:
-      device_completeness: 5
-      data_field_completeness: 5
-      timeliness: 5
-      consistency: 5
-      retention: 4
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
 exceptions:
   # Adding a technique ID below will result in removing that technique in the heat map (meaning not enough data source or quality is available for proper detection).
-  # Please note that the below is just an example, many more can exists.
   # Filling in the key-value pair name is optional.
-  - technique_id: T1130
-    name: Install Root Certificate
+  - technique_id:
+    name:
