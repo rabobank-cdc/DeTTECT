@@ -4,6 +4,17 @@ import shutil
 from constants import *
 
 
+def _get_attack_id(stix_obj):
+    """
+    Get the Technique, Group or Software ID from the STIX object
+    :param stix_obj: STIX object (Technique, Software or Group)
+    :return: ATT&CK ID
+    """
+    for ext_ref in stix_obj['external_references']:
+        if ext_ref['source_name'] in ['mitre-attack', 'mitre-mobile-attack', 'mitre-pre-attack']:
+            return ext_ref['external_id']
+
+
 def _create_upgrade_text(file_type, file_version):
     """
     Create text on the upgrades to be performed on the YAML file.
@@ -93,7 +104,7 @@ def _get_technique(techniques, technique_id):
     :return: the technique you're searching for. None if not found.
     """
     for t in techniques:
-        if technique_id == t['technique_id']:
+        if technique_id == _get_attack_id(t):
             return t
     return None
 
