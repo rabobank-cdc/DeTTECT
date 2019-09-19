@@ -2,7 +2,7 @@ import re
 
 APP_NAME = 'DeTT&CT'
 APP_DESC = 'Detect Tactics, Techniques & Combat Threats'
-VERSION = '1.2.0'
+VERSION = '1.2.1'
 
 EXPIRE_TIME = 60 * 60 * 24
 
@@ -88,9 +88,9 @@ FILE_TYPE_TECHNIQUE_ADMINISTRATION_UPGRADE_TEXT = {
          "     The primary purpose of doing this is to allow you to keep track of changes in the score."}
 
 # visibility update questions and answers
-V_UPDATE_Q_ALL_MANUAL = 'For all most recent visibility score objects that are eligible for an update. The key-value pair \'auto-generated\' is set to \'false\' or is not present.\n' \
+V_UPDATE_Q_ALL_MANUAL = 'For all most recent visibility score objects that are eligible for an update, the key-value pair \'auto-generated\' is set to \'false\' or is not present.\n' \
                         'This implies that these scores are manually assigned. How do you want to proceed?:'
-V_UPDATE_Q_ALL_AUTO = 'For all most recent visibility score objects that are eligible for an update. The key-value pair \'auto-generated\' is set to \'true\'. \n' \
+V_UPDATE_Q_ALL_AUTO = 'For all most recent visibility score objects that are eligible for an update, the key-value pair \'auto-generated\' is set to \'true\'. \n' \
                       'This implies that these scores are auto-generated. How do you want to proceed?:'
 V_UPDATE_Q_MIXED = 'You have visibility scores that are eligible for an update, which are manually assigned and which are calculated based on the nr. of data sources (i.e. auto-generated = true)\n' \
                    'How do you want to proceed?'

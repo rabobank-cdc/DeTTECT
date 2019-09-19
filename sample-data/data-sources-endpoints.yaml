@@ -32,10 +32,10 @@ data_sources:
       consistency: 0
       retention: 0
   - data_source_name: Process command-line parameters
-    date_registered: 2019-03-01
-    date_connected: 2017-01-01
-    products: [Windows event log]
-    available_for_data_analytics: True
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
     comment: ''
     data_quality:
       device_completeness: 0

@@ -86,7 +86,7 @@ def _techniques_to_events(techniques, obj_type, include_all_score_objs):
                 if obj_type == 'detection':
                     # noinspection PyUnboundLocalVariable
                     event_lvl_2['location'] = location
-                event_lvl_1 = {'event_type': 'techniques', 'technique_id': tech_id, 'technique_name': tech_name,
+                event_lvl_1 = {'technique_id': tech_id, 'technique_name': tech_name,
                                obj_type: event_lvl_2}
 
                 technique_events.append(event_lvl_1)
@@ -161,9 +161,7 @@ def _events_to_yaml(query_results, obj_type):
 
     if obj_type == 'data_sources':
         try:
-            # Remove the event_type key. We no longer need this.
             for r in query_results:
-                del r['event_type']
                 if r['date_registered'] and isinstance(r['date_registered'], str):
                     r['date_registered'] = datetime.datetime.strptime(r['date_registered'], '%Y-%m-%d')
                 if r['date_connected'] and isinstance(r['date_connected'], str):
@@ -304,18 +302,20 @@ def _prepare_yaml_file(filename, obj_type, include_all_score_objs):
         yaml_content = _yaml.load(yaml_file)
 
     yaml_content_eql = _traverse_modify_date(yaml_content)
+    yaml_eql_events = []
 
-    # add the event type for EQL
+    # create EQL events from the list of dictionaries
     if obj_type == 'data_sources':
         for item in yaml_content_eql[obj_type]:
-            item['event_type'] = obj_type
-        yaml_content_eql = yaml_content_eql['data_sources']
+            yaml_eql_events.append(eql.Event(obj_type, 0, item))
 
-    # flatten the technique administration file to events
+    # flatten the technique administration file to EQL events
     elif obj_type in ['visibility', 'detection']:
         yaml_content_eql = _techniques_to_events(yaml_content_eql, obj_type, include_all_score_objs)
+        for e in yaml_content_eql:
+            yaml_eql_events.append(eql.Event('techniques', 0, e))
 
-    return yaml_content_eql, yaml_content
+    return yaml_eql_events, yaml_content
 
 
 def _check_query_results(query_results, obj_type):
@@ -353,7 +353,6 @@ def _execute_eql_query(events, query):
     """
     # learn and load the schema
     schema = eql.Schema.learn(events)
-    schema.default(schema)
 
     query_results = []
 
@@ -363,14 +362,14 @@ def _execute_eql_query(events, query):
 
     # create the engine and parse the query
     engine = eql.PythonEngine()
-    with engine.schema:
+    with schema:
         try:
             eql_query = eql.parse_query(query, implied_any=True, implied_base=True)
             engine.add_query(eql_query)
         except eql.EqlError as e:
             print(e, file=sys.stderr)
             print('\nTake into account the following schema:')
-            pprint(eql.Schema.current().schema)
+            pprint(schema.schema)
             # when using an EQL query that does not match the schema, return None.
             return None
     engine.add_output_hook(callback)
