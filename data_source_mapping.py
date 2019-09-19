@@ -355,9 +355,6 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
 
             if manually_scored and auto_scored:
                 mix_scores = True
-                manually_scored = False
-                auto_scored = False
-                break
 
     # stop if none of the present visibility scores are eligible for an update
     if not mix_scores and not manually_scored and not auto_scored:
@@ -366,12 +363,12 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
         print('\nA total of ' + str(updated_vis_score_cnt) + ' visibility scores are eligible for an update.\n')
         # ask how the score should be updated
         answer = 0
-        if manually_scored:
+        if mix_scores:
+            answer = ask_multiple_choice(V_UPDATE_Q_MIXED, [V_UPDATE_ANSWER_3, V_UPDATE_ANSWER_4, V_UPDATE_ANSWER_1, V_UPDATE_ANSWER_2, V_UPDATE_ANSWER_CANCEL])
+        elif manually_scored:
             answer = ask_multiple_choice(V_UPDATE_Q_ALL_MANUAL, [V_UPDATE_ANSWER_1, V_UPDATE_ANSWER_2, V_UPDATE_ANSWER_CANCEL])
         elif auto_scored:
             answer = ask_multiple_choice(V_UPDATE_Q_ALL_AUTO, [V_UPDATE_ANSWER_1, V_UPDATE_ANSWER_2, V_UPDATE_ANSWER_CANCEL])
-        elif mix_scores:
-            answer = ask_multiple_choice(V_UPDATE_Q_MIXED, [V_UPDATE_ANSWER_3, V_UPDATE_ANSWER_4, V_UPDATE_ANSWER_1, V_UPDATE_ANSWER_2, V_UPDATE_ANSWER_CANCEL])
         if answer == V_UPDATE_ANSWER_CANCEL:
             return
 
@@ -443,6 +440,7 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
                             print(' - Date:               ' + get_latest_date(old_vis_obj[obj_idx]).strftime('%Y-%m-%d'))
                             print(' - Score:              ' + str(get_latest_score(old_vis_obj[obj_idx])))
                             print(' - Visibility comment: ' + _indent_comment(get_latest_comment(old_vis_obj[obj_idx]), 23))
+                            print(' - Auto generated:     ' + str(get_latest_score_obj(old_vis_obj[obj_idx]).get('auto_generated', 'False')))
                             print('NEW score object:')
                             print(' - Date:               ' + new_score_obj['date'])
                             print(' - Score:              ' + str(new_score_obj['score']))
