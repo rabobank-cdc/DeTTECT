@@ -189,7 +189,7 @@ def _load_data_sources(file, filter_empty_scores=True):
 
     name = yaml_content['name']
     platform = yaml_content['platform']
-    exceptions = [t['technique_id'] for t in yaml_content['exceptions']]
+    exceptions = [t['technique_id'] for t in yaml_content['exceptions'] if t['technique_id'] is not None]
 
     return my_data_sources, name, platform, exceptions
 
