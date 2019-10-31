@@ -3,7 +3,7 @@
 #### Detect Tactics, Techniques & Combat Threats
 Latest version: [1.2.2](https://github.com/rabobank-cdc/DeTTECT/wiki/Changelog#version-122)
 
-To get started with DeTT&CT, check out this [page](https://github.com/rabobank-cdc/DeTTECT/wiki/Getting-started) and our [blog](https://split.to/FkqwE7U).
+To get started with DeTT&CT, check out this [page](https://github.com/rabobank-cdc/DeTTECT/wiki/Getting-started), our [talk](https://www.youtube.com/watch?v=_kWpekkhomU) at hack.lu 2019 and our [blog](https://split.to/FkqwE7U).
 
 DeTT&CT aims to assist blue teams using ATT&CK to score and compare data log source quality, visibility coverage, detection coverage and threat actor behaviours. All of which can help, in different ways, to get more resilient against attacks targeting your organisation. The DeTT&CT framework consists of a Python tool, YAML administration files and [scoring tables](https://github.com/rabobank-cdc/DeTTECT/raw/master/scoring_table.xlsx) for the different aspects.
 
