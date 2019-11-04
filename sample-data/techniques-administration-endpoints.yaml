@@ -1,7 +1,7 @@
 version: 1.2
 file_type: technique-administration
 name: example
-platform: windows
+platform: Windows
 techniques:
   # - Note that detection and visibility are independent from each other.
   #   Meaning that detection could be left blank and only have visibility filled in.
