@@ -135,7 +135,7 @@ def _init_menu():
                                                        'are provided, only software related to those group(s) are '
                                                        'included', action='store_true', default=False)
     parser_group.add_argument('-p', '--platform', help='specify the platform (default = Windows)',
-                              choices=['all', 'Linux', 'macOS', 'Windows'], default='Windows')
+                              choices=['all'] + list(PLATFORMS.values()), default='Windows')
     parser_group.add_argument('-s', '--stage', help='specify the stage (default = attack)',
                               choices=['attack', 'pre-attack'], default='attack')
     parser_group.add_argument('-sd', '--search-detection', help='only include detection objects which match the '

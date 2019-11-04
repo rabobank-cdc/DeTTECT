@@ -170,3 +170,6 @@ EQL_INVALID_RESULT_TECH = '[!] Invalid technique administration content. Check y
 # Health text
 HEALTH_ERROR_TXT = '[!] The below YAML file contains possible errors. It\'s recommended to check via the ' \
                    '\'--health\' argument or using the option in the interactive menu: \n    - '
+
+PLATFORMS = {'windows': 'Windows', 'linux': 'Linux', 'macos': 'macOS', 'aws': 'AWS', 'gcp': 'GCP', 'azure': 'Azure',
+             'azure ad': 'Azure AD', 'office 365': 'Office 365', 'saas': 'SaaS'}

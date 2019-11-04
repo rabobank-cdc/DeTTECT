@@ -152,7 +152,7 @@ def _get_group_techniques(groups, stage, platform, file_type):
     Get all techniques (in a dict) from the provided list of groups
     :param groups: group ID, group name/alias or a YAML file with group(s) data
     :param stage: attack or pre-attack
-    :param platform: all, Linux, macOS, Windows
+    :param platform: one of the values from PLATFORMS constant or 'all'
     :param file_type: the file type of the YAML file as present in the key 'file_type'
     :return: returns dictionary with all techniques from the provided list of groups or -1 when group is not found
     """
@@ -462,7 +462,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
     group(s), detections or visibility)
     :param overlay_type: group, visibility or detection
     :param stage: attack or pre-attack
-    :param platform: all, Linux, macOS, Windows
+    :param platform: one of the values from PLATFORMS constant or 'all'
     :param software_groups: specify if techniques from related software should be included
     :param search_visibility: visibility EQL search query
     :param search_detection: detection EQL search query

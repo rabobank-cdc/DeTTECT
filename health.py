@@ -94,12 +94,26 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
     """
     has_error = False
 
-    platform = str(ds_content.get('platform', ''))
-    if platform.lower() not in ['windows', 'linux', 'macos']:
-        if platform == 'None':
-            platform = 'empty'
-        has_error = _print_error_msg('[!] EMPTY or INVALID value for \'platform\' within the data source admin. file: '
-                                     + platform + '  (should be: Windows, Linux or MacOS)', health_is_called)
+    platform = ds_content.get('platform', None)
+
+    if isinstance(platform, str):
+        platform = 'all' if platform == 'all' else platform.lower()
+
+        if platform not in PLATFORMS.keys() and platform != 'all':
+            if platform == 'None':
+                platform = 'empty'
+            has_error = _print_error_msg('[!] EMPTY or INVALID value for \'platform\' within the data source admin. '
+                                         'file: %s (should be value(s) of: %s)' % (platform, ', '.join(['all'] + list(PLATFORMS.values()))),
+                                         health_is_called)
+    elif isinstance(platform, list):
+        for p in platform:
+            if p.lower() not in PLATFORMS.keys() and p != 'all':
+                if platform == 'None':
+                    platform = 'empty'
+                has_error = _print_error_msg(
+                    '[!] EMPTY or INVALID value for \'platform\' within the data source admin. '
+                    'file: %s (should be value(s) of: %s)' % (p, ', '.join(['all'] + list(PLATFORMS.values()))),
+                    health_is_called)
 
     for ds in ds_content['data_sources']:
         # check for missing keys
@@ -229,6 +243,27 @@ def _check_health_techniques(filename, technique_content, health_is_called):
     from generic import load_techniques
 
     has_error = False
+
+    platform = technique_content.get('platform', None)
+
+    if isinstance(platform, str):
+        platform = 'all' if platform == 'all' else platform.lower()
+
+        if platform not in PLATFORMS.keys() and platform != 'all':
+            if platform == 'None':
+                platform = 'empty'
+            has_error = _print_error_msg('[!] EMPTY or INVALID value for \'platform\' within the techniques admin. '
+                                         'file: %s (should be value(s) of: %s)' % (platform, ', '.join(['all'] + list(PLATFORMS.values()))),
+                                         health_is_called)
+    elif isinstance(platform, list):
+        for p in platform:
+            if p.lower() not in PLATFORMS.keys() and p != 'all':
+                if platform == 'None':
+                    platform = 'empty'
+                has_error = _print_error_msg(
+                    '[!] EMPTY or INVALID value for \'platform\' within the techniques admin. '
+                    'file: %s (should be value(s) of: %s)' % (p, ', '.join(['all'] + list(PLATFORMS.values()))),
+                    health_is_called)
 
     # create a list of ATT&CK technique IDs and check for duplicates
     tech_ids = list(map(lambda x: x['technique_id'], technique_content['techniques']))

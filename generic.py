@@ -174,7 +174,7 @@ def init_yaml():
 def _get_base_template(name, description, stage, platform, sorting):
     """
     Prepares a base template for the json layer file that can be loaded into the MITRE ATT&CK Navigator.
-    More information on the version 2.1 layer format:
+    More information on the version 2.2 layer format:
     https://github.com/mitre/attack-navigator/blob/master/layers/LAYERFORMATv2_1.md
     :param name: name
     :param description: description
@@ -185,14 +185,12 @@ def _get_base_template(name, description, stage, platform, sorting):
     """
     layer = dict()
     layer['name'] = name
-    layer['version'] = '2.1'
+    layer['version'] = '2.2'
     layer['domain'] = 'mitre-enterprise'
     layer['description'] = description
 
     if platform == 'all':
-        platform = ['windows', 'linux', 'mac']
-    else:
-        platform = [platform.lower()]
+        platform = list(PLATFORMS.values())
 
     if stage == 'attack':
         layer['filters'] = {'stages': ['act'], 'platforms': platform}
@@ -213,7 +211,7 @@ def _get_base_template(name, description, stage, platform, sorting):
 def get_layer_template_groups(name, max_count, description, stage, platform, overlay_type):
     """
     Prepares a base template for the json layer file that can be loaded into the MITRE ATT&CK Navigator.
-    More information on the version 2.1 layer format:
+    More information on the version 2.2 layer format:
     https://github.com/mitre/attack-navigator/blob/master/layers/LAYERFORMATv2_1.md
     :param name: name
     :param max_count: the sum of all count values
@@ -247,7 +245,7 @@ def get_layer_template_groups(name, max_count, description, stage, platform, ove
 def get_layer_template_detections(name, description, stage, platform):
     """
     Prepares a base template for the json layer file that can be loaded into the MITRE ATT&CK Navigator.
-    More information on the version 2.1 layer format:
+    More information on the version 2.2 layer format:
     https://github.com/mitre/attack-navigator/blob/master/layers/LAYERFORMATv2_1.md
     :param name: name
     :param description: description
@@ -271,7 +269,7 @@ def get_layer_template_detections(name, description, stage, platform):
 def get_layer_template_data_sources(name, description, stage, platform):
     """
     Prepares a base template for the json layer file that can be loaded into the MITRE ATT&CK Navigator.
-    More information on the version 2.1 layer format:
+    More information on the version 2.2 layer format:
     https://github.com/mitre/attack-navigator/blob/master/layers/LAYERFORMATv2_1.md
     :param name: name
     :param description: description
@@ -294,7 +292,7 @@ def get_layer_template_data_sources(name, description, stage, platform):
 def get_layer_template_visibility(name, description, stage, platform):
     """
     Prepares a base template for the json layer file that can be loaded into the MITRE ATT&CK Navigator.
-    More information on the version 2.1 layer format:
+    More information on the version 2.2 layer format:
     https://github.com/mitre/attack-navigator/blob/master/layers/LAYERFORMATv2_1.md
     :param name: name
     :param description: description
@@ -316,7 +314,7 @@ def get_layer_template_visibility(name, description, stage, platform):
 def get_layer_template_layered(name, description, stage, platform):
     """
     Prepares a base template for the json layer file that can be loaded into the MITRE ATT&CK Navigator.
-    More information on the version 2.1 layer format:
+    More information on the version 2.2 layer format:
     https://github.com/mitre/attack-navigator/blob/master/layers/LAYERFORMATv2_1.md
     :param name: name
     :param description: description
@@ -716,7 +714,14 @@ def load_techniques(file):
                     add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', de)
 
         name = yaml_content['name']
-        platform = yaml_content['platform']
+
+        if isinstance(yaml_content['platform'], str):
+            platform = 'all' if yaml_content['platform'] == 'all' else [PLATFORMS[yaml_content['platform'].lower()]]
+        elif isinstance(yaml_content['platform'], list):
+            platform = []
+            for p in yaml_content['platform']:
+                if p.lower() in PLATFORMS.keys():
+                    platform.append(PLATFORMS[p.lower()])
 
     return my_techniques, name, platform
 

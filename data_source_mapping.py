@@ -188,7 +188,15 @@ def _load_data_sources(file, filter_empty_scores=True):
             my_data_sources[d['data_source_name']] = d
 
     name = yaml_content['name']
-    platform = yaml_content['platform']
+
+    if isinstance(yaml_content['platform'], str):
+        platform = 'all' if yaml_content['platform'] == 'all' else [PLATFORMS[yaml_content['platform'].lower()]]
+    elif isinstance(yaml_content['platform'], list):
+        platform = []
+        for p in yaml_content['platform']:
+            if p.lower() in PLATFORMS.keys():
+                platform.append(PLATFORMS[p.lower()])
+
     exceptions = [t['technique_id'] for t in yaml_content['exceptions'] if t['technique_id'] is not None]
 
     return my_data_sources, name, platform, exceptions
@@ -281,7 +289,7 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
     cur_visibility_scores, _, platform_tech_admin = load_techniques(file_tech_admin)
 
     # if the platform does not match between the data source and tech. admin file we return
-    if new_visibility_scores['platform'] != platform_tech_admin:
+    if set(new_visibility_scores['platform']) != set(platform_tech_admin):
         print('[!] The MITRE ATT&CK platform key-value pair in the data source administration and technique '
               'administration file do not match.\n    Visibility update canceled.')
         return
@@ -492,8 +500,8 @@ def generate_technique_administration_file(filename, write_file=True):
 
     # Score visibility based on the number of available data sources and the exceptions
     for t in techniques:
-        platforms_lower = list(map(lambda x: x.lower(), t.get('x_mitre_platforms', None)))
-        if platform in platforms_lower:
+        platforms = t.get('x_mitre_platforms', None)
+        if len(set(platforms).intersection(set(platform))) > 0:
             # not every technique has data source listed
             if 'x_mitre_data_sources' in t:
                 total_ds_count = len(t['x_mitre_data_sources'])
@@ -534,7 +542,7 @@ def generate_technique_administration_file(filename, write_file=True):
         # remove the single quotes from the date
         yaml_file_lines = fix_date_and_remove_null(file_lines, today, input_type='list')
 
-        output_filename = get_non_existing_filename('output/techniques-administration-' + normalize_name_to_filename(name+'-'+platform), 'yaml')
+        output_filename = get_non_existing_filename('output/techniques-administration-' + normalize_name_to_filename(name+'-'+'-'.join(platform)), 'yaml')
         with open(output_filename, 'w') as f:
             f.writelines(yaml_file_lines)
         print("File written:   " + output_filename)
