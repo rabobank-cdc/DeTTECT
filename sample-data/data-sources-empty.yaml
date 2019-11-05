@@ -620,6 +620,114 @@ data_sources:
       timeliness: 0
       consistency: 0
       retention: 0
+  - data_source_name: AWS CloudTrail logs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: AWS OS logs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Azure OS logs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Azure activity logs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: OAuth audit logs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Office 365 account logs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Office 365 audit logs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Office 365 trace logs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Stackdriver logs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
 exceptions:
   # Adding a technique ID below will result in removing that technique in the heat map (meaning not enough data source or quality is available for proper detection).
   # Filling in the key-value pair name is optional.

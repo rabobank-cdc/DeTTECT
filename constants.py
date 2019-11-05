@@ -2,7 +2,7 @@ import re
 
 APP_NAME = 'DeTT&CT'
 APP_DESC = 'Detect Tactics, Techniques & Combat Threats'
-VERSION = '1.2.2'
+VERSION = '1.2.3'
 
 EXPIRE_TIME = 60 * 60 * 24
 
@@ -170,3 +170,6 @@ EQL_INVALID_RESULT_TECH = '[!] Invalid technique administration content. Check y
 # Health text
 HEALTH_ERROR_TXT = '[!] The below YAML file contains possible errors. It\'s recommended to check via the ' \
                    '\'--health\' argument or using the option in the interactive menu: \n    - '
+
+PLATFORMS = {'windows': 'Windows', 'linux': 'Linux', 'macos': 'macOS', 'aws': 'AWS', 'gcp': 'GCP', 'azure': 'Azure',
+             'azure ad': 'Azure AD', 'office 365': 'Office 365', 'saas': 'SaaS'}

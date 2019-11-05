@@ -3,7 +3,7 @@
 version: 1.0
 file_type: data-source-administration
 name: endpoints-example
-platform: windows
+platform: Windows
 data_sources:
   # A data source is treated as not available when all dimensions of the data quality have a score of 0.
   # If desired you are free to add any key-value pairs.
@@ -619,6 +619,114 @@ data_sources:
       timeliness: 5
       consistency: 5
       retention: 4
+  - data_source_name: AWS CloudTrail logs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: AWS OS logs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Azure OS logs
+    date_registered: 2019-11-01
+    date_connected: 2019-11-01
+    products: [Log Analytics agent]
+    available_for_data_analytics: True
+    comment: ''
+    data_quality:
+      device_completeness: 5
+      data_field_completeness: 4
+      timeliness: 5
+      consistency: 5
+      retention: 3
+  - data_source_name: Azure activity logs
+    date_registered: 2019-11-01
+    date_connected: 2019-11-01
+    products: [Log Analytics agent]
+    available_for_data_analytics: True
+    comment: ''
+    data_quality:
+      device_completeness: 5
+      data_field_completeness: 4
+      timeliness: 5
+      consistency: 5
+      retention: 3
+  - data_source_name: OAuth audit logs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Office 365 account logs
+    date_registered: 2019-11-01
+    date_connected: 2019-11-01
+    products: [Microsoft Cloud App Security]
+    available_for_data_analytics: True
+    comment: ''
+    data_quality:
+      device_completeness: 5
+      data_field_completeness: 4
+      timeliness: 5
+      consistency: 5
+      retention: 3
+  - data_source_name: Office 365 audit logs
+    date_registered: 2019-11-01
+    date_connected: 2910-11-01
+    products: [Microsoft Cloud App Security]
+    available_for_data_analytics: True
+    comment: ''
+    data_quality:
+      device_completeness: 5
+      data_field_completeness: 3
+      timeliness: 5
+      consistency: 5
+      retention: 3
+  - data_source_name: Office 365 trace logs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Stackdriver logs
+    date_registered:
+    date_connected:
+    products: [None]
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
 exceptions:
   # Adding a technique ID below will result in removing that technique in the heat map (meaning not enough data source or quality is available for proper detection).
   # Please note that the below is just an example, many more can exists.

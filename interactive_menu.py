@@ -482,9 +482,9 @@ def _menu_groups():
     if choice == '1':
         software_group = not software_group
     elif choice == '2':
-        print('Specify platform (all, Linux, macOS, Windows):')
+        print('Specify platform (%s):' % ', '.join(['all'] + list(PLATFORMS.values())))
         p = _ask_input().lower()
-        default_platform = 'Windows' if p == 'windows' else 'Linux' if p == 'linux' else 'macOS' if p == 'macos' else 'all'
+        default_platform = PLATFORMS[p] if p in PLATFORMS.keys() else 'all'
     elif choice == '3':
         print('Specify stage (pre-attack, attack):')
         s = _ask_input().lower()
