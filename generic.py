@@ -715,13 +715,7 @@ def load_techniques(file):
 
         name = yaml_content['name']
 
-        if isinstance(yaml_content['platform'], str):
-            platform = 'all' if yaml_content['platform'] == 'all' else [PLATFORMS[yaml_content['platform'].lower()]]
-        elif isinstance(yaml_content['platform'], list):
-            platform = []
-            for p in yaml_content['platform']:
-                if p.lower() in PLATFORMS.keys():
-                    platform.append(PLATFORMS[p.lower()])
+        platform = get_platform_from_yaml(yaml_content)
 
     return my_techniques, name, platform
 
@@ -910,3 +904,20 @@ def get_statistics_data_sources():
     print('-'*50)
     for k, v in data_sources_dict_sorted.items():
         print(str_format.format(str(v['count']), k))
+
+
+def get_platform_from_yaml(yaml_content):
+    platform = yaml_content['platform']
+    if isinstance(platform, str):
+        platform = [platform]
+    if platform is None:
+        platform = []
+    if platform == ['all']:
+        platform = 'all'
+    else:
+        valid_platform_list = []
+        for p in platform:
+            if p.lower() in PLATFORMS.keys():
+                valid_platform_list.append(PLATFORMS[p.lower()])
+        platform = valid_platform_list
+    return platform

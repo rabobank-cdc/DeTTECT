@@ -96,23 +96,16 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
 
     platform = ds_content.get('platform', None)
 
-    if isinstance(platform, str):
-        platform = 'all' if platform == 'all' else platform.lower()
-
-        if platform not in PLATFORMS.keys() and platform != 'all':
-            if platform == 'None':
-                platform = 'empty'
-            has_error = _print_error_msg('[!] EMPTY or INVALID value for \'platform\' within the data source admin. '
-                                         'file: %s (should be value(s) of: %s)' % (platform, ', '.join(['all'] + list(PLATFORMS.values()))),
-                                         health_is_called)
-    elif isinstance(platform, list):
+    if platform != 'all' and platform != ['all']:
+        if isinstance(platform, str):
+            platform = [platform]
+        if platform is None or len(platform) == 0 or platform == '':
+            platform = ['empty']
         for p in platform:
-            if p.lower() not in PLATFORMS.keys() and p != 'all':
-                if platform == 'None':
-                    platform = 'empty'
+            if p.lower() not in PLATFORMS.keys():
                 has_error = _print_error_msg(
                     '[!] EMPTY or INVALID value for \'platform\' within the data source admin. '
-                    'file: %s (should be value(s) of: %s)' % (p, ', '.join(['all'] + list(PLATFORMS.values()))),
+                    'file: %s (should be value(s) of: [%s] or all)' % (p, ', '.join(list(PLATFORMS.values()))),
                     health_is_called)
 
     for ds in ds_content['data_sources']:
@@ -153,8 +146,10 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
                                                          dimension + '\': ' + str(ds['data_quality'][dimension]) + '  (should be an an integer)', health_is_called)
             else:
                 has_error = _print_error_msg('[!] Data source: \'' + ds['data_source_name'] + '\' the key-value pair \'data_quality\' is NOT a dictionary with data quality dimension scores', health_is_called)
-    for tech in ds_content['exceptions']:
-        tech_id = str(tech['technique_id'])
+
+    if 'exceptions' in ds_content:
+        for tech in ds_content['exceptions']:
+            tech_id = str(tech['technique_id'])
 
         if not REGEX_YAML_TECHNIQUE_ID_FORMAT.match(tech_id) and tech_id != 'None':
             has_error = _print_error_msg('[!] INVALID technique ID in the \'exceptions\' list of data source admin. file: ' + tech_id, health_is_called)
@@ -246,23 +241,16 @@ def _check_health_techniques(filename, technique_content, health_is_called):
 
     platform = technique_content.get('platform', None)
 
-    if isinstance(platform, str):
-        platform = 'all' if platform == 'all' else platform.lower()
-
-        if platform not in PLATFORMS.keys() and platform != 'all':
-            if platform == 'None':
-                platform = 'empty'
-            has_error = _print_error_msg('[!] EMPTY or INVALID value for \'platform\' within the techniques admin. '
-                                         'file: %s (should be value(s) of: %s)' % (platform, ', '.join(['all'] + list(PLATFORMS.values()))),
-                                         health_is_called)
-    elif isinstance(platform, list):
+    if platform != 'all' and platform != ['all']:
+        if isinstance(platform, str):
+            platform = [platform]
+        if platform is None or len(platform) == 0 or platform == '':
+            platform = ['empty']
         for p in platform:
-            if p.lower() not in PLATFORMS.keys() and p != 'all':
-                if platform == 'None':
-                    platform = 'empty'
+            if p.lower() not in PLATFORMS.keys():
                 has_error = _print_error_msg(
-                    '[!] EMPTY or INVALID value for \'platform\' within the techniques admin. '
-                    'file: %s (should be value(s) of: %s)' % (p, ', '.join(['all'] + list(PLATFORMS.values()))),
+                    '[!] EMPTY or INVALID value for \'platform\' within the data source admin. '
+                    'file: %s (should be value(s) of: [%s] or all)' % (p, ', '.join(list(PLATFORMS.values()))),
                     health_is_called)
 
     # create a list of ATT&CK technique IDs and check for duplicates

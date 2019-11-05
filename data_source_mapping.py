@@ -189,13 +189,7 @@ def _load_data_sources(file, filter_empty_scores=True):
 
     name = yaml_content['name']
 
-    if isinstance(yaml_content['platform'], str):
-        platform = 'all' if yaml_content['platform'] == 'all' else [PLATFORMS[yaml_content['platform'].lower()]]
-    elif isinstance(yaml_content['platform'], list):
-        platform = []
-        for p in yaml_content['platform']:
-            if p.lower() in PLATFORMS.keys():
-                platform.append(PLATFORMS[p.lower()])
+    platform = get_platform_from_yaml(yaml_content)
 
     exceptions = [t['technique_id'] for t in yaml_content['exceptions'] if t['technique_id'] is not None]
 
