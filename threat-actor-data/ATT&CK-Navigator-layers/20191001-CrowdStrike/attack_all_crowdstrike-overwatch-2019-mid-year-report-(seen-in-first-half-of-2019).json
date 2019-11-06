@@ -10,8 +10,7 @@
 		"platforms": [
 			"Windows",
 			"Linux",
-			"macOS",
-			"Azure"
+			"macOS"
 		]
 	},
 	"sorting": 3,
