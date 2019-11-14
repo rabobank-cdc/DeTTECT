@@ -516,7 +516,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
     # we are not overlaying visibility or detection, overlay group will therefore contain information another group
     elif len(overlay) > 0:
         overlay_dict = _get_group_techniques(overlay, stage, platform, overlay_file_type)
-        if not overlay_dict:
+        if overlay_dict == -1:
             return
 
     groups_dict = _get_group_techniques(groups, stage, platform, groups_file_type)
