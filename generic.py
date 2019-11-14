@@ -221,7 +221,7 @@ def get_layer_template_groups(name, max_count, description, stage, platform, ove
     :param overlay_type: group, visibility or detection
     :return: layer template dictionary
     """
-    layer = _get_base_template(name, description, stage, platform, 3)
+    layer = _get_base_template(name, description, stage, [platform], 3)
     layer['gradient'] = {'colors': [COLOR_GRADIENT_MIN, COLOR_GRADIENT_MAX], 'minValue': 0, 'maxValue': max_count}
     layer['legendItems'] = []
     layer['legendItems'].append({'label': 'Tech. not often used', 'color': COLOR_GRADIENT_MIN})
