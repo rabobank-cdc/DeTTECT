@@ -3,7 +3,8 @@
 version: 1.0
 file_type: data-source-administration
 name: empty-data-source-admin-file
-# Fill in the correct MITRE ATT&CK enterprise platform (Windows, Linux or MacOS)
+# Fill in the correct MITRE ATT&CK enterprise platform(s). Multiple can be included using a list
+# (Windows, Linux, macOS, AWS, GCP, Azure, Azure AD, Office 365, SaaS)
 platform:
 data_sources:
   # A data source is treated as not available when all dimensions of the data quality have a score of 0.
