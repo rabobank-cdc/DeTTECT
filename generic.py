@@ -581,6 +581,20 @@ def normalize_name_to_filename(name):
     return name.lower().replace(' ', '-')
 
 
+def platform_to_filename(platform):
+    """
+    Makes a filename friendly version of the platform parameter which can be a string or list.
+    :param platform: the platform variable (a string or a list)
+    :return: a filename friendly representation of the value of platform
+    """
+    if platform == 'all':
+        return 'all'
+    elif isinstance(platform, list):
+        return "-".join(platform)
+    else:
+        return ''
+
+
 def map_techniques_to_data_sources(techniques, my_data_sources):
     """
     This function maps the MITRE ATT&CK techniques to your data sources.
@@ -907,6 +921,11 @@ def get_statistics_data_sources():
 
 
 def get_platform_from_yaml(yaml_content):
+    """
+    Read the platform field from the YAML file supporting both string and list values.
+    :param yaml_content: the content of the YAML file containing the platform field
+    :return: the platform value
+    """
     platform = yaml_content['platform']
     if isinstance(platform, str):
         platform = [platform]
