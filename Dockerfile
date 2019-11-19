@@ -1,6 +1,6 @@
 FROM python:3.7-alpine
 
-LABEL version="1.2.4"
+LABEL version="1.2.5"
 
 # update repository and install Linux packages
 RUN apk update && \
