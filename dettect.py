@@ -185,7 +185,7 @@ def _menu(menu_parser):
             file_ds = args.file_ds
 
             if args.search:
-                file_ds = data_source_search(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.search)
+                file_ds = data_source_search(args.file_ds, args.search)
                 if not file_ds:
                     quit()  # something went wrong in executing the search or 0 results where returned
             if args.update and check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):

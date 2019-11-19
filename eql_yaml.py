@@ -427,34 +427,26 @@ def techniques_search(filename, query_visibility=None, query_detection=None, inc
     return yaml_content
 
 
-def data_source_search(filename, file_type, query=''):
+def data_source_search(filename, query=''):
     """
     Perform an EQL search on a data source administration file
     :param filename: file location of the YAML file on disk
-    :param file_type: data source administration file
     :param query: EQL query
     :return: a filtered YAML 'file' (i.e. dict) or None when the query was not successful
     """
 
-    if file_type == FILE_TYPE_DATA_SOURCE_ADMINISTRATION:
-        obj_type = 'data_sources'
-    else:
-        return filename
-
-    yaml_content_eql, yaml_content_org = _prepare_yaml_file(filename, obj_type,
+    yaml_content_eql, yaml_content_org = _prepare_yaml_file(filename, 'data_sources',
                                                             include_all_score_objs=False)
     query_results = _execute_eql_query(yaml_content_eql, query)
 
-    if not _check_query_results(query_results, obj_type):
-        return  # the EQL query was not compatible with the schema
+    if not _check_query_results(query_results, 'data_sources'):
+        return None  # the EQL query was not compatible with the schema
 
-    query_results_yaml = _events_to_yaml(query_results, obj_type)
-    query_results_yaml_final = yaml_content_org
-    query_results_yaml_final['data_sources'] = query_results_yaml
+    query_results_yaml = _events_to_yaml(query_results, 'data_sources')
 
     if query_results_yaml:
         yaml_content = yaml_content_org
-        yaml_content[obj_type] = query_results_yaml
+        yaml_content['data_sources'] = query_results_yaml
 
         return yaml_content
     else:

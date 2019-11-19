@@ -262,7 +262,7 @@ def _menu_data_source(filename_ds):
         file_ds = filename_ds
 
         if eql_query_data_sources:
-            file_ds = data_source_search(filename_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, eql_query_data_sources)
+            file_ds = data_source_search(filename_ds, eql_query_data_sources)
             if not file_ds:
                 _wait()  # something went wrong in executing the search or 0 results where returned
                 _menu_data_source(filename_ds)
