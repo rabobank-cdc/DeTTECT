@@ -83,7 +83,7 @@ def _update_health_state_cache(filename, has_error):
                 _update(has_error)
 
 
-def check_health_data_sources(filename, ds_content, health_is_called, no_print=False):
+def check_health_data_sources(filename, ds_content, health_is_called, no_print=False, skip_platform=False):
     """
     Check on errors in the provided data sources administration YAML file.
     :param filename: YAML file location
@@ -96,17 +96,18 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
 
     platform = ds_content.get('platform', None)
 
-    if platform != 'all' and platform != ['all']:
-        if isinstance(platform, str):
-            platform = [platform]
-        if platform is None or len(platform) == 0 or platform == '':
-            platform = ['empty']
-        for p in platform:
-            if p.lower() not in PLATFORMS.keys():
-                has_error = _print_error_msg(
-                    '[!] EMPTY or INVALID value for \'platform\' within the data source admin. '
-                    'file: %s (should be value(s) of: [%s] or all)' % (p, ', '.join(list(PLATFORMS.values()))),
-                    health_is_called)
+    if not skip_platform:
+        if platform != 'all' and platform != ['all']:
+            if isinstance(platform, str):
+                platform = [platform]
+            if platform is None or len(platform) == 0 or platform == '':
+                platform = ['empty']
+            for p in platform:
+                if p.lower() not in PLATFORMS.keys():
+                    has_error = _print_error_msg(
+                        '[!] EMPTY or INVALID value for \'platform\' within the data source admin. '
+                        'file: %s (should be value(s) of: [%s] or all)' % (p, ', '.join(list(PLATFORMS.values()))),
+                        health_is_called)
 
     for ds in ds_content['data_sources']:
         # check for missing keys

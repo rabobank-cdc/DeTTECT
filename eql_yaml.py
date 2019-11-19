@@ -172,7 +172,8 @@ def _events_to_yaml(query_results, obj_type):
             # when using an EQL query that does not result in a dict having valid YAML 'data_source' objects.
             return None
 
-        if check_health_data_sources(None, {'data_sources': query_results}, health_is_called=False, no_print=True):
+        if check_health_data_sources(None, {'data_sources': query_results}, health_is_called=False, no_print=True,
+                                     skip_platform=True):
             print(EQL_INVALID_RESULT_DS)
             pprint(query_results)
             return None
@@ -426,13 +427,12 @@ def techniques_search(filename, query_visibility=None, query_detection=None, inc
     return yaml_content
 
 
-def search(filename, file_type, query='', include_all_score_objs=False):
+def data_source_search(filename, file_type, query=''):
     """
-    Perform an EQL search on the provided YAML file
+    Perform an EQL search on a data source administration file
     :param filename: file location of the YAML file on disk
-    :param file_type: data source administration file, ...
+    :param file_type: data source administration file
     :param query: EQL query
-    :param include_all_score_objs: include all score objects within the score_logbook for the EQL query
     :return: a filtered YAML 'file' (i.e. dict) or None when the query was not successful
     """
 
@@ -442,13 +442,15 @@ def search(filename, file_type, query='', include_all_score_objs=False):
         return filename
 
     yaml_content_eql, yaml_content_org = _prepare_yaml_file(filename, obj_type,
-                                                            include_all_score_objs=include_all_score_objs)
+                                                            include_all_score_objs=False)
     query_results = _execute_eql_query(yaml_content_eql, query)
 
     if not _check_query_results(query_results, obj_type):
         return  # the EQL query was not compatible with the schema
 
     query_results_yaml = _events_to_yaml(query_results, obj_type)
+    query_results_yaml_final = yaml_content_org
+    query_results_yaml_final['data_sources'] = query_results_yaml
 
     if query_results_yaml:
         yaml_content = yaml_content_org
