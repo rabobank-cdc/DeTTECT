@@ -679,12 +679,16 @@ def set_yaml_dv_comments(yaml_object):
     """
     Set all comments for the detection or visibility YAML object when missing
     :param yaml_object: detection or visibility object
-    :return: detection or visibility object for which empty comments are no filled with an empty string
+    :return: detection or visibility object for which empty comments are filled with an empty string
     """
     yaml_object['comment'] = yaml_object.get('comment', '')
+    if yaml_object['comment'] is None:
+        yaml_object['comment'] = ''
     if 'score_logbook' in yaml_object:
         for score_obj in yaml_object['score_logbook']:
             score_obj['comment'] = score_obj.get('comment', '')
+            if score_obj['comment'] is None:
+                score_obj['comment'] = ''
 
     return yaml_object
 
