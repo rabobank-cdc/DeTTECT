@@ -278,9 +278,11 @@ def _check_health_techniques(filename, technique_content, health_is_called):
                 for obj in v[obj_type]:
                     obj_keys = ['applicable_to', 'comment', 'score_logbook']
                     obj_keys_list = ['applicable_to']
+                    obj_keys_not_none = []
                     if obj_type == 'detection':
                         obj_keys.append('location')
                         obj_keys_list.append('location')
+                        obj_keys_not_none.append('location')
 
                     for okey in obj_keys:
                         if okey not in obj:
@@ -290,6 +292,17 @@ def _check_health_techniques(filename, technique_content, health_is_called):
                         if okey in obj:
                             if not isinstance(obj[okey], list):
                                 has_error = _print_error_msg('[!] Technique ID: ' + tech + ' the key-value pair \'' + okey + '\' in \'' + obj_type + '\' is NOT a list', health_is_called)
+
+                    for okey in obj_keys_not_none:
+                        if okey in obj:
+                            none_count = 0
+                            for item in obj[okey]:
+                                if item is None:
+                                    none_count += 1
+                            if none_count == 1:
+                                has_error = _print_error_msg('[!] Technique ID: ' + tech + ' the key-value pair \'' + okey + '\' in \'' + obj_type + '\' has an EMPTY value  (an empty string value is allowed: \'\')', health_is_called)
+                            elif none_count > 1:
+                                has_error = _print_error_msg('[!] Technique ID: ' + tech + ' the key-value pair \'' + okey + '\' in \'' + obj_type + '\' has multiple EMPTY values  (an empty string value is allowed: \'\')', health_is_called)
 
                     health = _check_health_score_object(obj, obj_type, tech, health_is_called)
                     has_error = _update_health_state(has_error, health)
