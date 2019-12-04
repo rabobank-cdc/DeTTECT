@@ -513,17 +513,16 @@ def get_latest_score_obj(yaml_object):
         return None
 
 
-def get_latest_comment(yaml_object, empty=' '):
+def get_latest_comment(yaml_object):
     """
     Return the latest comment present in the score_logbook
     :param yaml_object: a detection or visibility YAML object
-    :param empty: value for an empty comment
     :return: comment
     """
     score_obj = get_latest_score_obj(yaml_object)
     if score_obj:
         if score_obj['comment'] == '' or not score_obj['comment']:
-            return empty
+            return ''
         else:
             return score_obj['comment']
     else:
@@ -677,7 +676,8 @@ def add_entry_to_list_in_dictionary(dictionary, technique_id, key, entry):
 
 def set_yaml_dv_comments(yaml_object):
     """
-    Set all comments for the detection or visibility YAML object when missing
+    Set all comments in the detection or visibility YAML object when the 'comment' key-value pair is missing or is None.
+    This gives the user the flexibility to have YAML files with missing 'comment' key-value pairs.
     :param yaml_object: detection or visibility object
     :return: detection or visibility object for which empty comments are filled with an empty string
     """
