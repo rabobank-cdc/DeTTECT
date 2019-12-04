@@ -273,6 +273,8 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources):
             color = COLOR_OVERLAY_DETECTION
         elif not detection and visibility:
             color = COLOR_OVERLAY_VISIBILITY
+        else:
+            color = COLOR_WHITE
 
         my_ds = ', '.join(technique_ds_mapping[technique_id]['my_data_sources']) if technique_id in technique_ds_mapping.keys() and technique_ds_mapping[technique_id]['my_data_sources'] else '-'
 
