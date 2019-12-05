@@ -41,7 +41,7 @@ def plot_data_sources_graph(filename):
 
     import pandas as pd
     df = pd.DataFrame(graph_values).groupby('date', as_index=False)[['count']].sum()
-    df['cumcount'] = df.ix[::1, 'count'].cumsum()[::1]
+    df['cumcount'] = df['count'].cumsum()
 
     output_filename = get_non_existing_filename('output/graph_data_sources', 'html')
 
