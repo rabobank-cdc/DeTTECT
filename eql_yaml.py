@@ -172,8 +172,10 @@ def _events_to_yaml(query_results, obj_type):
             # when using an EQL query that does not result in a dict having valid YAML 'data_source' objects.
             return None
 
+        # Set 'src_eql' to true. EQL results will not contain the platform, but just data source YAML objects.
+        # In addition, the search may have excluded certain data sources
         if check_health_data_sources(None, {'data_sources': query_results}, health_is_called=False, no_print=True,
-                                     skip_platform=True):
+                                     src_eql=True):
             print(EQL_INVALID_RESULT_DS)
             pprint(query_results)
             return None

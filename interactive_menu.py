@@ -276,7 +276,7 @@ def _menu_data_source(filename_ds):
             _wait()
         elif choice == '4':
             print('Generating Excel file...')
-            export_data_source_list_to_excel(file_ds)
+            export_data_source_list_to_excel(file_ds, eql_search=eql_query_data_sources)
             _wait()
         elif choice == '5':
             print('Generating YAML file...')
@@ -493,7 +493,7 @@ def _menu_groups():
         print('Specify the groups to include separated using commas. Group can be their ID, name or alias '
               '(default is all groups). Other option is to provide a YAML file with a custom group(s)')
         g = _ask_input()
-        groups = g if g is not '' else 'all'
+        groups = g if g != '' else 'all'
     elif choice == '5':
         print('')
         print('1. Overlay with groups.')

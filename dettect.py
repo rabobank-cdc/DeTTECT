@@ -193,7 +193,7 @@ def _menu(menu_parser):
             if args.layer:
                 generate_data_sources_layer(file_ds)
             if args.excel:
-                export_data_source_list_to_excel(file_ds)
+                export_data_source_list_to_excel(file_ds, eql_search=args.search)
             if args.graph:
                 plot_data_sources_graph(file_ds)
             if args.yaml:

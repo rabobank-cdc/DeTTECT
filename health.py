@@ -83,20 +83,23 @@ def _update_health_state_cache(filename, has_error):
                 _update(has_error)
 
 
-def check_health_data_sources(filename, ds_content, health_is_called, no_print=False, skip_platform=False):
+def check_health_data_sources(filename, ds_content, health_is_called, no_print=False, src_eql=False):
     """
     Check on errors in the provided data sources administration YAML file.
     :param filename: YAML file location
     :param ds_content: content of the YAML file in a list of dicts
     :param health_is_called: boolean that specifies if detailed errors in the file will be printed to stdout
     :param no_print: specifies if the non-detailed error message is printed to stdout or not
+    :param src_eql: if True, skip certain checks that can fail because EQL filtered out some data source and the
+    ATT&CK Platform is not part of the EQL search result
     :return: False if no errors have been found, otherwise True
     """
+    from generic import get_all_mitre_data_sources
     has_error = False
 
     platform = ds_content.get('platform', None)
 
-    if not skip_platform:
+    if not src_eql:
         if platform != 'all' and platform != ['all']:
             if isinstance(platform, str):
                 platform = [platform]
@@ -108,6 +111,12 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
                         '[!] EMPTY or INVALID value for \'platform\' within the data source admin. '
                         'file: %s (should be value(s) of: [%s] or all)' % (p, ', '.join(list(PLATFORMS.values()))),
                         health_is_called)
+
+        ds_list = [kv['data_source_name'].lower() for kv in ds_content['data_sources']]
+        ds_list_mitre = get_all_mitre_data_sources()
+        for ds in ds_list_mitre:
+            if ds.lower() not in ds_list:
+                has_error = _print_error_msg('[!] Data source: \'' + ds + '\' is MISSING from the YAML file', health_is_called)
 
     for ds in ds_content['data_sources']:
         # check for missing keys
