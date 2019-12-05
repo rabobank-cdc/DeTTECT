@@ -230,7 +230,7 @@ def _check_health_score_object(yaml_object, object_type, tech_id, health_is_call
                         # noinspection PyStatementEffect
                         score_obj['date'].day
                     except AttributeError:
-                        has_error = _print_error_msg('[!] Technique ID: ' + tech_id + ' has an INVALID data format in a ' + object_type + ' score object within the \'score_logbook\': ' + score_obj['date'] + ' (should be YYYY-MM-DD without quotes)', health_is_called)
+                        has_error = _print_error_msg('[!] Technique ID: ' + tech_id + ' has an INVALID data format in a ' + object_type + ' score object within the \'score_logbook\': ' + score_obj['date'] + '  (should be YYYY-MM-DD without quotes)', health_is_called)
     except KeyError:
         pass
 
@@ -288,6 +288,7 @@ def _check_health_techniques(filename, technique_content, health_is_called):
                     obj_keys = ['applicable_to', 'comment', 'score_logbook']
                     obj_keys_list = ['applicable_to']
                     obj_keys_not_none = []
+                    obj_keys_not_none.append('applicable_to')
                     if obj_type == 'detection':
                         obj_keys.append('location')
                         obj_keys_list.append('location')
@@ -309,9 +310,9 @@ def _check_health_techniques(filename, technique_content, health_is_called):
                                 if item is None:
                                     none_count += 1
                             if none_count == 1:
-                                has_error = _print_error_msg('[!] Technique ID: ' + tech + ' the key-value pair \'' + okey + '\' in \'' + obj_type + '\' has an EMPTY value  (an empty string value is allowed: \'\')', health_is_called)
+                                has_error = _print_error_msg('[!] Technique ID: ' + tech + ' the key-value pair \'' + okey + '\' in \'' + obj_type + '\' has an EMPTY value  (an empty string is allowed: \'\')', health_is_called)
                             elif none_count > 1:
-                                has_error = _print_error_msg('[!] Technique ID: ' + tech + ' the key-value pair \'' + okey + '\' in \'' + obj_type + '\' has multiple EMPTY values  (an empty string value is allowed: \'\')', health_is_called)
+                                has_error = _print_error_msg('[!] Technique ID: ' + tech + ' the key-value pair \'' + okey + '\' in \'' + obj_type + '\' has multiple EMPTY values  (an empty string is allowed: \'\')', health_is_called)
 
                     health = _check_health_score_object(obj, obj_type, tech, health_is_called)
                     has_error = _update_health_state(has_error, health)
