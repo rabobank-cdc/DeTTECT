@@ -55,11 +55,12 @@ def plot_data_sources_graph(filename):
     print("File written:   " + output_filename)
 
 
-def export_data_source_list_to_excel(filename):
+def export_data_source_list_to_excel(filename, eql_search=False):
     """
     Makes an overview of all MITRE ATT&CK data sources (via techniques) and lists which data sources are present
     in the YAML administration including all properties and data quality score.
     :param filename: the filename of the YAML file containing the data sources administration
+    :param eql_search: specify if an EQL search was performed which may have resulted in missing ATT&CK data sources
     :return:
     """
     my_data_sources, name, platform, exceptions = _load_data_sources(filename, filter_empty_scores=False)
@@ -111,12 +112,16 @@ def export_data_source_list_to_excel(filename):
     y = 3
 
     # check if an ATT&CK data source is missing from the data source YAML administration file
-    my_ds_list = my_data_sources.keys()
+    if eql_search:
+        ds_miss_text = 'ATT&CK data source is missing from the YAML file or was excluded by an EQL search'
+    else:
+        ds_miss_text = 'ATT&CK data source is missing from the YAML file'
+    my_ds_list = [ds.lower() for ds in my_data_sources.keys()]
     for ds in get_all_mitre_data_sources():
-        if ds not in my_ds_list:
+        if ds.lower() not in my_ds_list:
             ds_obj = deepcopy(YAML_OBJ_DATA_SOURCE)
             ds_obj['data_source_name'] = ds
-            ds_obj['comment'] = 'ATT&CK data source is missing from the YAML file'
+            ds_obj['comment'] = ds_miss_text
             my_data_sources[ds] = ds_obj
 
     for d in sorted(my_data_sources.keys()):
@@ -536,7 +541,7 @@ def generate_technique_administration_file(filename, write_file=True):
         # remove the single quotes from the date
         yaml_file_lines = fix_date_and_remove_null(file_lines, today, input_type='list')
 
-        output_filename = get_non_existing_filename('output/techniques-administration-' + normalize_name_to_filename(name +'-' +platform_to_filename(platform)), 'yaml')
+        output_filename = get_non_existing_filename('output/techniques-administration-' + normalize_name_to_filename(name + '-' + platform_to_filename(platform)), 'yaml')
         with open(output_filename, 'w') as f:
             f.writelines(yaml_file_lines)
         print("File written:   " + output_filename)
