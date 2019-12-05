@@ -693,7 +693,7 @@ data_sources:
       retention: 3
   - data_source_name: Office 365 audit logs
     date_registered: 2019-11-01
-    date_connected: 2910-11-01
+    date_connected: 2019-11-01
     products: [Microsoft Cloud App Security]
     available_for_data_analytics: True
     comment: ''
