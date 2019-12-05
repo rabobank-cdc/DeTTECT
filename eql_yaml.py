@@ -204,7 +204,7 @@ def _events_to_yaml(query_results, obj_type):
 
                 # The detection/visibility dict is missing. Create it.
                 if obj_idx == -1:
-                    obj_event['score_logbook'] = [obj_event['score_logbook']]
+                    obj_event['score_logbook'] = [score_obj_yaml]
                     tech_yaml[obj_type].append(obj_event)
                 else:
                     # add the score object to the score_logbook within the proper detection/visibility object using 'obj_idx'
