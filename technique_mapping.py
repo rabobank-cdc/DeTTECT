@@ -125,7 +125,7 @@ def _write_layer(layer, mapped_techniques, filename_prefix, name):
 def _layer_metadata_make_compliant(metadata):
     """
     Make sure the metadata values in the Navigator layer file are compliant with the expected data structure
-    https://github.com/mitre-attack/attack-navigator/blob/master/layers/LAYERFORMATv2_2.md
+    from the latest version on: https://github.com/mitre-attack/attack-navigator/tree/master/layers
     :param metadata: list of metadata dictionaries
     :return: compliant list of metadata dictionaries
     """

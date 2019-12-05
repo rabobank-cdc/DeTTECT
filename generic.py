@@ -526,7 +526,7 @@ def get_latest_comment(yaml_object):
         else:
             return score_obj['comment']
     else:
-        return empty
+        return ''
 
 
 def get_latest_date(yaml_object):
