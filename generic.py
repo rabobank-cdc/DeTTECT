@@ -45,8 +45,10 @@ def load_attack_data(data_type):
     attack_data = None
     if data_type == DATA_TYPE_STIX_ALL_RELATIONSHIPS:
         attack_data = mitre.get_relationships()
+        attack_data = mitre.remove_revoked(attack_data)
     elif data_type == DATA_TYPE_STIX_ALL_TECH_ENTERPRISE:
         attack_data = mitre.get_enterprise_techniques()
+        attack_data = mitre.remove_revoked(attack_data)
     elif data_type == DATA_TYPE_CUSTOM_TECH_BY_GROUP:
         # First we need to know which technique references (STIX Object type 'attack-pattern') we have for all
         # groups. This results in a dict: {group_id: Gxxxx, technique_ref/attack-pattern_ref: ...}
@@ -87,10 +89,13 @@ def load_attack_data(data_type):
 
     elif data_type == DATA_TYPE_STIX_ALL_TECH:
         attack_data = mitre.get_techniques()
+        attack_data = mitre.remove_revoked(attack_data)
     elif data_type == DATA_TYPE_STIX_ALL_GROUPS:
         attack_data = mitre.get_groups()
+        attack_data = mitre.remove_revoked(attack_data)
     elif data_type == DATA_TYPE_STIX_ALL_SOFTWARE:
         attack_data = mitre.get_software()
+        attack_data = mitre.remove_revoked(attack_data)
     elif data_type == DATA_TYPE_CUSTOM_TECH_BY_SOFTWARE:
         # First we need to know which technique references (STIX Object type 'attack-pattern') we have for all software
         # This results in a dict: {software_id: Sxxxx, technique_ref/attack-pattern_ref: ...}
@@ -156,9 +161,11 @@ def load_attack_data(data_type):
 
     elif data_type == DATA_TYPE_STIX_ALL_ENTERPRISE_MITIGATIONS:
         attack_data = mitre.get_enterprise_mitigations()
+        attack_data = mitre.remove_revoked(attack_data)
 
     elif data_type == DATA_TYPE_STIX_ALL_MOBILE_MITIGATIONS:
         attack_data = mitre.get_mobile_mitigations()
+        attack_data = mitre.remove_revoked(attack_data)
 
     _save_attack_data(attack_data, "cache/" + data_type)
 
