@@ -1,7 +1,12 @@
 %YAML 1.2
 ---
+# Source: https://resources.redcanary.com/hubfs/ThreatDetectionReport-2019.pdf
 version: 1.0
 file_type: group-administration
+platform:
+  - Windows
+  - Linux
+  - macOS
 groups:
   -
     group_name:      Red Canary Threat Detection Report 2019 (1st edition) - overall

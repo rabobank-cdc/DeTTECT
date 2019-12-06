@@ -1,4 +1,4 @@
-{"name": "Attack Windows", "version": "2.1", "domain": "mitre-enterprise", "description": "stage: attack | platform: Windows | group(s): Red Canary Threat Detection Report 2019 (1st edition) - education | overlay group(s): ", "filters": {"stages": ["act"], "platforms": ["windows"]},
+{"name": "Red Canary 2019 - education", "version": "2.2", "domain": "mitre-enterprise", "description": "stage: attack | platform(s): Windows, Linux, macOS  | group(s): Red Canary Threat Detection Report 2019 (1st edition) - education | overlay group(s): ", "filters": {"stages": ["act"], "platforms": ["Windows", "Linux", "macOS"]},
 "sorting": 3, "viewMode": 0, "hideDisable": false, "techniques": [{"techniqueID": "T1055", "score": 1, "metadata": [{"name": "-Groups", "value": "Red Canary Threat Detection Report 2019 (1st edition) - education"}]},
 {"techniqueID": "T1077", "score": 1, "metadata": [{"name": "-Groups", "value": "Red Canary Threat Detection Report 2019 (1st edition) - education"}]},
 {"techniqueID": "T1064", "score": 1, "metadata": [{"name": "-Groups", "value": "Red Canary Threat Detection Report 2019 (1st edition) - education"}]},

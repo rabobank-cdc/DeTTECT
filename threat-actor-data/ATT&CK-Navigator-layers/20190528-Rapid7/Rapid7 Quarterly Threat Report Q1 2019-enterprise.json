@@ -1,4 +1,4 @@
-{"name": "Rapid7 Q1 2019", "version": "2.1", "domain": "mitre-enterprise", "description": "stage: attack | group(s): Rapid7 Quarterly Threat Report Q1 2019", "filters": {},
+{"name": "Rapid7 Q1 2019 - enterprise", "version": "2.2", "domain": "mitre-enterprise", "description": "stage: attack | group(s): Rapid7 Quarterly Threat Report Q1 2019", "filters": {"stages": ["act"], "platforms": ["Windows", "Linux", "macOS"]},
 "sorting": 3, "viewMode": 0, "hideDisable": false, "techniques": [{"techniqueID": "T1018", "score": 10, "metadata": [{"name": "-Groups", "value": "Rapid7 Quarterly Threat Report Q1 2019"}]},
 {"techniqueID": "T1219", "score": 16, "metadata": [{"name": "-Groups", "value": "Rapid7 Quarterly Threat Report Q1 2019"}]},
 {"techniqueID": "T1195", "score": 2, "metadata": [{"name": "-Groups", "value": "Rapid7 Quarterly Threat Report Q1 2019"}]},

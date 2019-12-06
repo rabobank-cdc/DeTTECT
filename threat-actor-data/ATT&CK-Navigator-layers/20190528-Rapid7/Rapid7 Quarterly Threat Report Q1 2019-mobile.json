@@ -1,4 +1,4 @@
-{"name": "Rapid7 Q1 2019", "version": "2.1", "domain": "mitre-mobile", "description": "stage: attack | platform: Mobile | group(s): Rapid7 Quarterly Threat Report Q1 2019", "filters": {},
+{"name": "Rapid7 Q1 2019 - mobile", "version": "2.2", "domain": "mitre-mobile", "description": "stage: attack | platform: Mobile | group(s): Rapid7 Quarterly Threat Report Q1 2019", "filters": {},
 "sorting": 3, "viewMode": 0, "hideDisable": false, "techniques": [{"techniqueID": "T1018", "score": 10, "metadata": [{"name": "-Groups", "value": "Rapid7 Quarterly Threat Report Q1 2019"}]},
 {"techniqueID": "T1407", "score": 9, "metadata": [{"name": "-Groups", "value": "Rapid7 Quarterly Threat Report Q1 2019"}]},
 {"techniqueID": "T1411", "score": 99, "metadata": [{"name": "-Groups", "value": "Rapid7 Quarterly Threat Report Q1 2019"}]},

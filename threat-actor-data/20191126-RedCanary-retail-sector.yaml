@@ -1,11 +1,11 @@
 %YAML 1.2
 ---
+# Source: https://redcanary.com/blog/retail-cybersecurity-threats/
 version: 1.0
 file_type: group-administration
 platform: Windows
 groups:
-  -
-    group_name: Top 10 techniques Red Canary detected against the retail sector in 2019
+  - group_name: Top 10 techniques Red Canary detected against the retail sector in 2019
     campaign:
     technique_id:
       T1036: 10
@@ -18,5 +18,5 @@ groups:
       T1193: 3
       T1035: 2
       T1060: 1
-    software_id:    []
-    enabled:        True
+    software_id: []
+    enabled: True

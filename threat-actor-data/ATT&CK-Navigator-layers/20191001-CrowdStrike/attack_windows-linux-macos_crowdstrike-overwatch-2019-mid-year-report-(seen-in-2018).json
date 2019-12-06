@@ -1,8 +1,8 @@
 {
-	"name": "Seen in 2018 and first half of 2019",
+	"name": "Seen in 2018",
 	"version": "2.2",
 	"domain": "mitre-enterprise",
-	"description": "stage: attack | platform: all | group(s): CrowdStrike Overwatch 2019 mid-year report (Seen in 2018 and first half of 2019) | overlay group(s): ",
+	"description": "stage: attack | platform(s): Windows, Linux, macOS | group(s): CrowdStrike Overwatch 2019 mid-year report (Seen in 2018) | overlay group(s): ",
 	"filters": {
 		"stages": [
 			"act"
@@ -18,1392 +18,6 @@
 	"hideDisabled": false,
 	"techniques": [
 		{
-			"techniqueID": "T1185",
-			"tactic": "collection",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1222",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1215",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1193",
-			"tactic": "initial-access",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1045",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1170",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1170",
-			"tactic": "execution",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1156",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1018",
-			"tactic": "discovery",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1001",
-			"tactic": "command-and-control",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1035",
-			"tactic": "execution",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1124",
-			"tactic": "discovery",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1134",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1134",
-			"tactic": "privilege-escalation",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1014",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1049",
-			"tactic": "discovery",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1003",
-			"tactic": "credential-access",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1041",
-			"tactic": "exfiltration",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1500",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1105",
-			"tactic": "command-and-control",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1105",
-			"tactic": "lateral-movement",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1008",
-			"tactic": "command-and-control",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1122",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1122",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1005",
-			"tactic": "collection",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1151",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1151",
-			"tactic": "execution",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1087",
-			"tactic": "discovery",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1095",
-			"tactic": "command-and-control",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1028",
-			"tactic": "execution",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1028",
-			"tactic": "lateral-movement",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1102",
-			"tactic": "command-and-control",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1102",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1088",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1088",
-			"tactic": "privilege-escalation",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1120",
-			"tactic": "discovery",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1214",
-			"tactic": "credential-access",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1055",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1055",
-			"tactic": "privilege-escalation",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1059",
-			"tactic": "execution",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1085",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1085",
-			"tactic": "execution",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1023",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1211",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1128",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1148",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1201",
-			"tactic": "discovery",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1110",
-			"tactic": "credential-access",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1021",
-			"tactic": "lateral-movement",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1129",
-			"tactic": "execution",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1189",
-			"tactic": "initial-access",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1037",
-			"tactic": "lateral-movement",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1037",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1032",
-			"tactic": "command-and-control",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1106",
-			"tactic": "execution",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1132",
-			"tactic": "command-and-control",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1043",
-			"tactic": "command-and-control",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1066",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1063",
-			"tactic": "discovery",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1108",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1108",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1015",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1015",
-			"tactic": "privilege-escalation",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1058",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1058",
-			"tactic": "privilege-escalation",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1029",
-			"tactic": "exfiltration",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1044",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1044",
-			"tactic": "privilege-escalation",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1112",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1169",
-			"tactic": "privilege-escalation",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1140",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1203",
-			"tactic": "execution",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1068",
-			"tactic": "privilege-escalation",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1012",
-			"tactic": "discovery",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1075",
-			"tactic": "lateral-movement",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1060",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1079",
-			"tactic": "command-and-control",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
 			"techniqueID": "T1050",
 			"tactic": "persistence",
 			"score": 1,
@@ -1417,7 +31,7 @@
 				},
 				{
 					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
+					"value": "Seen in 2018"
 				}
 			]
 		},
@@ -1435,1123 +49,7 @@
 				},
 				{
 					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1047",
-			"tactic": "execution",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1072",
-			"tactic": "execution",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1072",
-			"tactic": "lateral-movement",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1038",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1038",
-			"tactic": "privilege-escalation",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1038",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1166",
-			"tactic": "privilege-escalation",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1166",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1093",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1046",
-			"tactic": "discovery",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1073",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1089",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1119",
-			"tactic": "collection",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1107",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1490",
-			"tactic": "impact",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1056",
-			"tactic": "collection",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1056",
-			"tactic": "credential-access",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1094",
-			"tactic": "command-and-control",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1204",
-			"tactic": "execution",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1103",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1103",
-			"tactic": "privilege-escalation",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1136",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1190",
-			"tactic": "initial-access",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1176",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1220",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1220",
-			"tactic": "execution",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1113",
-			"tactic": "collection",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1195",
-			"tactic": "initial-access",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1159",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1031",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1027",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1078",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1078",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1078",
-			"tactic": "privilege-escalation",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1078",
-			"tactic": "initial-access",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1076",
-			"tactic": "lateral-movement",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1114",
-			"tactic": "collection",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1117",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1117",
-			"tactic": "execution",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1494",
-			"tactic": "impact",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1191",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1191",
-			"tactic": "execution",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1192",
-			"tactic": "initial-access",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1057",
-			"tactic": "discovery",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1022",
-			"tactic": "exfiltration",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1074",
-			"tactic": "collection",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1024",
-			"tactic": "command-and-control",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1091",
-			"tactic": "lateral-movement",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1091",
-			"tactic": "initial-access",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1196",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1196",
-			"tactic": "execution",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1040",
-			"tactic": "credential-access",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1040",
-			"tactic": "discovery",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1082",
-			"tactic": "discovery",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1064",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1064",
-			"tactic": "execution",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1133",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1133",
-			"tactic": "initial-access",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1496",
-			"tactic": "impact",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1033",
-			"tactic": "discovery",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1168",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1168",
-			"tactic": "execution",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
+					"value": "Seen in 2018"
 				}
 			]
 		},
@@ -2569,30 +67,12 @@
 				},
 				{
 					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
+					"value": "Seen in 2018"
 				}
 			]
 		},
 		{
-			"techniqueID": "T1208",
-			"tactic": "credential-access",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1147",
+			"techniqueID": "T1078",
 			"tactic": "defense-evasion",
 			"score": 1,
 			"color": "",
@@ -2605,13 +85,13 @@
 				},
 				{
 					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
+					"value": "Seen in 2018"
 				}
 			]
 		},
 		{
-			"techniqueID": "T1213",
-			"tactic": "collection",
+			"techniqueID": "T1078",
+			"tactic": "persistence",
 			"score": 1,
 			"color": "",
 			"comment": "",
@@ -2623,12 +103,48 @@
 				},
 				{
 					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
+					"value": "Seen in 2018"
 				}
 			]
 		},
 		{
-			"techniqueID": "T1099",
+			"techniqueID": "T1078",
+			"tactic": "privilege-escalation",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1078",
+			"tactic": "initial-access",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1127",
 			"tactic": "defense-evasion",
 			"score": 1,
 			"color": "",
@@ -2641,13 +157,13 @@
 				},
 				{
 					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
+					"value": "Seen in 2018"
 				}
 			]
 		},
 		{
-			"techniqueID": "T1219",
-			"tactic": "command-and-control",
+			"techniqueID": "T1127",
+			"tactic": "execution",
 			"score": 1,
 			"color": "",
 			"comment": "",
@@ -2659,7 +175,43 @@
 				},
 				{
 					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1166",
+			"tactic": "privilege-escalation",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1166",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
 				}
 			]
 		},
@@ -2677,7 +229,7 @@
 				},
 				{
 					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
+					"value": "Seen in 2018"
 				}
 			]
 		},
@@ -2695,7 +247,7 @@
 				},
 				{
 					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
+					"value": "Seen in 2018"
 				}
 			]
 		},
@@ -2713,223 +265,7 @@
 				},
 				{
 					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1160",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1160",
-			"tactic": "privilege-escalation",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1069",
-			"tactic": "discovery",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1077",
-			"tactic": "lateral-movement",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1126",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1086",
-			"tactic": "execution",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1065",
-			"tactic": "command-and-control",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1070",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1158",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1158",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1486",
-			"tactic": "impact",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1489",
-			"tactic": "impact",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
+					"value": "Seen in 2018"
 				}
 			]
 		},
@@ -2947,13 +283,13 @@
 				},
 				{
 					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
+					"value": "Seen in 2018"
 				}
 			]
 		},
 		{
-			"techniqueID": "T1030",
-			"tactic": "exfiltration",
+			"techniqueID": "T1077",
+			"tactic": "lateral-movement",
 			"score": 1,
 			"color": "",
 			"comment": "",
@@ -2965,43 +301,7 @@
 				},
 				{
 					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1116",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1016",
-			"tactic": "discovery",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
+					"value": "Seen in 2018"
 				}
 			]
 		},
@@ -3019,264 +319,12 @@
 				},
 				{
 					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
+					"value": "Seen in 2018"
 				}
 			]
 		},
 		{
-			"techniqueID": "T1020",
-			"tactic": "exfiltration",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1210",
-			"tactic": "lateral-movement",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1002",
-			"tactic": "exfiltration",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1036",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1139",
-			"tactic": "credential-access",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1061",
-			"tactic": "execution",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1127",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1127",
-			"tactic": "execution",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1083",
-			"tactic": "discovery",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1115",
-			"tactic": "collection",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1175",
-			"tactic": "lateral-movement",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1175",
-			"tactic": "execution",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1482",
-			"tactic": "discovery",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1183",
-			"tactic": "privilege-escalation",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1183",
+			"techniqueID": "T1023",
 			"tactic": "persistence",
 			"score": 1,
 			"color": "",
@@ -3289,12 +337,12 @@
 				},
 				{
 					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
+					"value": "Seen in 2018"
 				}
 			]
 		},
 		{
-			"techniqueID": "T1183",
+			"techniqueID": "T1197",
 			"tactic": "defense-evasion",
 			"score": 1,
 			"color": "",
@@ -3307,12 +355,156 @@
 				},
 				{
 					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
+					"value": "Seen in 2018"
 				}
 			]
 		},
 		{
-			"techniqueID": "T1039",
+			"techniqueID": "T1197",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1076",
+			"tactic": "lateral-movement",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1043",
+			"tactic": "command-and-control",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1219",
+			"tactic": "command-and-control",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1124",
+			"tactic": "discovery",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1038",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1038",
+			"tactic": "privilege-escalation",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1038",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1185",
 			"tactic": "collection",
 			"score": 1,
 			"color": "",
@@ -3325,7 +517,187 @@
 				},
 				{
 					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1079",
+			"tactic": "command-and-control",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1189",
+			"tactic": "initial-access",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1055",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1055",
+			"tactic": "privilege-escalation",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1158",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1158",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1057",
+			"tactic": "discovery",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1151",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1151",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1021",
+			"tactic": "lateral-movement",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
 				}
 			]
 		},
@@ -3343,30 +715,12 @@
 				},
 				{
 					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
+					"value": "Seen in 2018"
 				}
 			]
 		},
 		{
-			"techniqueID": "T1197",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1197",
+			"techniqueID": "T1058",
 			"tactic": "persistence",
 			"score": 1,
 			"color": "",
@@ -3379,84 +733,12 @@
 				},
 				{
 					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
+					"value": "Seen in 2018"
 				}
 			]
 		},
 		{
-			"techniqueID": "T1026",
-			"tactic": "command-and-control",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1098",
-			"tactic": "credential-access",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1098",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1100",
-			"tactic": "persistence",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1100",
+			"techniqueID": "T1058",
 			"tactic": "privilege-escalation",
 			"score": 1,
 			"color": "",
@@ -3469,48 +751,12 @@
 				},
 				{
 					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
+					"value": "Seen in 2018"
 				}
 			]
 		},
 		{
-			"techniqueID": "T1081",
-			"tactic": "credential-access",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1118",
-			"tactic": "defense-evasion",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1118",
+			"techniqueID": "T1047",
 			"tactic": "execution",
 			"score": 1,
 			"color": "",
@@ -3523,66 +769,12 @@
 				},
 				{
 					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
+					"value": "Seen in 2018"
 				}
 			]
 		},
 		{
-			"techniqueID": "T1007",
-			"tactic": "discovery",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1142",
-			"tactic": "credential-access",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1090",
-			"tactic": "command-and-control",
-			"score": 1,
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [
-				{
-					"name": "-Groups",
-					"value": "CrowdStrike Overwatch 2019 mid-year report"
-				},
-				{
-					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
-				}
-			]
-		},
-		{
-			"techniqueID": "T1090",
+			"techniqueID": "T1116",
 			"tactic": "defense-evasion",
 			"score": 1,
 			"color": "",
@@ -3595,7 +787,7 @@
 				},
 				{
 					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
+					"value": "Seen in 2018"
 				}
 			]
 		},
@@ -3613,7 +805,1789 @@
 				},
 				{
 					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1117",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1117",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1064",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1064",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1008",
+			"tactic": "command-and-control",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1018",
+			"tactic": "discovery",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1201",
+			"tactic": "discovery",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1190",
+			"tactic": "initial-access",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1036",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1113",
+			"tactic": "collection",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1139",
+			"tactic": "credential-access",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1075",
+			"tactic": "lateral-movement",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1094",
+			"tactic": "command-and-control",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1114",
+			"tactic": "collection",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1016",
+			"tactic": "discovery",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1040",
+			"tactic": "credential-access",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1040",
+			"tactic": "discovery",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1003",
+			"tactic": "credential-access",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1100",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1100",
+			"tactic": "privilege-escalation",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1015",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1015",
+			"tactic": "privilege-escalation",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1020",
+			"tactic": "exfiltration",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1089",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1208",
+			"tactic": "credential-access",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1087",
+			"tactic": "discovery",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1095",
+			"tactic": "command-and-control",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1014",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1168",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1168",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1193",
+			"tactic": "initial-access",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1061",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1027",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1065",
+			"tactic": "command-and-control",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1030",
+			"tactic": "exfiltration",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1005",
+			"tactic": "collection",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1118",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1118",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1085",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1085",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1090",
+			"tactic": "command-and-control",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1090",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1093",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1022",
+			"tactic": "exfiltration",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1029",
+			"tactic": "exfiltration",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1007",
+			"tactic": "discovery",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1108",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1108",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1156",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1001",
+			"tactic": "command-and-control",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1044",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1044",
+			"tactic": "privilege-escalation",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1072",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1072",
+			"tactic": "lateral-movement",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1070",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1107",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1142",
+			"tactic": "credential-access",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1119",
+			"tactic": "collection",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1086",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1213",
+			"tactic": "collection",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1170",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1170",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1122",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1122",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1160",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1160",
+			"tactic": "privilege-escalation",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1126",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1175",
+			"tactic": "lateral-movement",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1175",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1066",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1039",
+			"tactic": "collection",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1129",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1211",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1041",
+			"tactic": "exfiltration",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1049",
+			"tactic": "discovery",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1128",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1002",
+			"tactic": "exfiltration",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1222",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1214",
+			"tactic": "credential-access",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1088",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1088",
+			"tactic": "privilege-escalation",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1098",
+			"tactic": "credential-access",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1098",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1203",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1069",
+			"tactic": "discovery",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1083",
+			"tactic": "discovery",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1136",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1024",
+			"tactic": "command-and-control",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1035",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1045",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1082",
+			"tactic": "discovery",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1210",
+			"tactic": "lateral-movement",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1032",
+			"tactic": "command-and-control",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1074",
+			"tactic": "collection",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1133",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1133",
+			"tactic": "initial-access",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1012",
+			"tactic": "discovery",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1106",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1073",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
 				}
 			]
 		},
@@ -3631,7 +2605,529 @@
 				},
 				{
 					"name": "-Campaign",
-					"value": "Seen in 2018 and first half of 2019"
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1046",
+			"tactic": "discovery",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1081",
+			"tactic": "credential-access",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1091",
+			"tactic": "lateral-movement",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1091",
+			"tactic": "initial-access",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1192",
+			"tactic": "initial-access",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1099",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1105",
+			"tactic": "command-and-control",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1105",
+			"tactic": "lateral-movement",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1060",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1204",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1110",
+			"tactic": "credential-access",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1068",
+			"tactic": "privilege-escalation",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1112",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1033",
+			"tactic": "discovery",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1132",
+			"tactic": "command-and-control",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1120",
+			"tactic": "discovery",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1037",
+			"tactic": "lateral-movement",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1037",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1140",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1028",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1028",
+			"tactic": "lateral-movement",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1056",
+			"tactic": "collection",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1056",
+			"tactic": "credential-access",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1102",
+			"tactic": "command-and-control",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1102",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1063",
+			"tactic": "discovery",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1148",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1169",
+			"tactic": "privilege-escalation",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
+				}
+			]
+		},
+		{
+			"techniqueID": "T1195",
+			"tactic": "initial-access",
+			"score": 1,
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "-Groups",
+					"value": "CrowdStrike Overwatch 2019 mid-year report"
+				},
+				{
+					"name": "-Campaign",
+					"value": "Seen in 2018"
 				}
 			]
 		}

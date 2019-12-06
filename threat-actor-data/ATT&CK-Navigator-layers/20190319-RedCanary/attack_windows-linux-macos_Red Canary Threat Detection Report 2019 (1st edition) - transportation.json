@@ -1,4 +1,4 @@
-{"name": "Attack Windows", "version": "2.1", "domain": "mitre-enterprise", "description": "stage: attack | platform: Windows | group(s): Red Canary Threat Detection Report 2019 (1st edition) - transportation | overlay group(s): ", "filters": {"stages": ["act"], "platforms": ["windows"]},
+{"name": "Red Canary 2019 - transportation", "version": "2.2", "domain": "mitre-enterprise", "description": "stage: attack | platform(s): Windows, Linux, macOS  | group(s): Red Canary Threat Detection Report 2019 (1st edition) - transportation | overlay group(s): ", "filters": {"stages": ["act"], "platforms": ["Windows", "Linux", "macOS"]},
 "sorting": 3, "viewMode": 0, "hideDisable": false, "techniques": [{"techniqueID": "T1036", "score": 1, "metadata": [{"name": "-Groups", "value": "Red Canary Threat Detection Report 2019 (1st edition) - transportation"}]},
 {"techniqueID": "T1060", "score": 1, "metadata": [{"name": "-Groups", "value": "Red Canary Threat Detection Report 2019 (1st edition) - transportation"}]},
 {"techniqueID": "T1090", "score": 1, "metadata": [{"name": "-Groups", "value": "Red Canary Threat Detection Report 2019 (1st edition) - transportation"}]},

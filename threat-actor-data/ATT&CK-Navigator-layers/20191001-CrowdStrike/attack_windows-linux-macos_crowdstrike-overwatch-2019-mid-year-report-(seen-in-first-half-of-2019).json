@@ -2,7 +2,7 @@
 	"name": "Seen in first half of 2019",
 	"version": "2.2",
 	"domain": "mitre-enterprise",
-	"description": "stage: attack | platform: all | group(s): CrowdStrike Overwatch 2019 mid-year report (Seen in first half of 2019) | overlay group(s): ",
+	"description": "stage: attack | platform(s): Windows, Linux, macOS | group(s): CrowdStrike Overwatch 2019 mid-year report (Seen in first half of 2019) | overlay group(s): ",
 	"filters": {
 		"stages": [
 			"act"

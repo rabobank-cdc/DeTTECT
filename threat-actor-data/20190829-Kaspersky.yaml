@@ -1,5 +1,6 @@
 %YAML 1.2
 ---
+# Source: https://securelist.com/incident-response-analytics-report-2018/92732/
 version: 1.0
 file_type: group-administration
 groups:

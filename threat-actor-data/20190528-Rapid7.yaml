@@ -1,6 +1,6 @@
-
 %YAML 1.2
 ---
+# Source: https://www.rapid7.com/research/report/2019-q1-threat-report/
 version: 1.0
 file_type: group-administration
 groups:

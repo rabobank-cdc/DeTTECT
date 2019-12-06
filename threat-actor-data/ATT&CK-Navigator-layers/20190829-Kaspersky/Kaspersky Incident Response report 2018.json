@@ -1,6 +1,6 @@
 {
 	"name": "Kaspersky Incident Response report 2018",
-	"version": "2.1",
+	"version": "2.2",
 	"domain": "mitre-enterprise",
 	"description": "stage: attack | group(s): Kaspersky Incident Response report 2018 | overlay group(s): ",
 	"filters": {
@@ -28,10 +28,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -46,10 +42,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -64,10 +56,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -82,10 +70,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -100,10 +84,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -118,10 +98,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -136,10 +112,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -154,10 +126,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -172,10 +140,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -190,10 +154,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -208,10 +168,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -226,10 +182,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -244,10 +196,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -262,10 +210,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -280,10 +224,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -298,10 +238,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -316,10 +252,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -334,10 +266,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -352,10 +280,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -370,10 +294,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -388,10 +308,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -406,10 +322,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -424,10 +336,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -442,10 +350,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -460,10 +364,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -478,10 +378,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -496,10 +392,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -514,10 +406,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -532,10 +420,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -550,10 +434,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -568,10 +448,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -586,10 +462,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -604,10 +476,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -622,10 +490,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -640,10 +504,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -658,10 +518,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -676,10 +532,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -694,10 +546,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -712,10 +560,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -730,10 +574,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -748,10 +588,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -766,10 +602,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -784,10 +616,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -802,10 +630,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -820,10 +644,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -838,10 +658,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -856,10 +672,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -874,10 +686,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -892,10 +700,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -910,10 +714,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -928,10 +728,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -946,10 +742,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -964,10 +756,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -982,10 +770,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1000,10 +784,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1018,10 +798,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1036,10 +812,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1054,10 +826,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1072,10 +840,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1090,10 +854,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1108,10 +868,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1126,10 +882,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1144,10 +896,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1162,10 +910,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1180,10 +924,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1198,10 +938,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1216,10 +952,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1234,10 +966,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1252,10 +980,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1270,10 +994,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1288,10 +1008,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1306,10 +1022,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1324,10 +1036,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1342,10 +1050,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1360,10 +1064,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1378,10 +1078,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1396,10 +1092,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1414,10 +1106,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1432,10 +1120,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1450,10 +1134,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1468,10 +1148,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1486,10 +1162,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1504,10 +1176,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1522,10 +1190,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1540,10 +1204,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1558,10 +1218,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1576,10 +1232,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1594,10 +1246,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1612,10 +1260,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1630,10 +1274,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1648,10 +1288,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1666,10 +1302,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1684,10 +1316,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1702,10 +1330,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		},
@@ -1720,10 +1344,6 @@
 				{
 					"name": "-Groups",
 					"value": "Kaspersky Incident Response report 2018"
-				},
-				{
-					"name": "-Campaign",
-					"value": "None"
 				}
 			]
 		}
