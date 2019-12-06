@@ -541,7 +541,7 @@ def generate_technique_administration_file(filename, write_file=True):
         # remove the single quotes from the date
         yaml_file_lines = fix_date_and_remove_null(file_lines, today, input_type='list')
 
-        output_filename = get_non_existing_filename('output/techniques-administration-' + normalize_name_to_filename(name + '-' + platform_to_filename(platform)), 'yaml')
+        output_filename = get_non_existing_filename('output/techniques-administration-' + normalize_name_to_filename(name + '-' + platform_to_name(platform)), 'yaml')
         with open(output_filename, 'w') as f:
             f.writelines(yaml_file_lines)
         print("File written:   " + output_filename)

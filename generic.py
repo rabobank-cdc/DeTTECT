@@ -181,8 +181,7 @@ def init_yaml():
 def _get_base_template(name, description, stage, platform, sorting):
     """
     Prepares a base template for the json layer file that can be loaded into the MITRE ATT&CK Navigator.
-    More information on the version 2.2 layer format:
-    https://github.com/mitre/attack-navigator/blob/master/layers/LAYERFORMATv2_1.md
+    More information on the layer format can be found here: https://github.com/mitre/attack-navigator/blob/master/layers/
     :param name: name
     :param description: description
     :param stage: stage (act | prepare)
@@ -228,7 +227,7 @@ def get_layer_template_groups(name, max_count, description, stage, platform, ove
     :param overlay_type: group, visibility or detection
     :return: layer template dictionary
     """
-    layer = _get_base_template(name, description, stage, [platform], 3)
+    layer = _get_base_template(name, description, stage, platform, 3)
     layer['gradient'] = {'colors': [COLOR_GRADIENT_MIN, COLOR_GRADIENT_MAX], 'minValue': 0, 'maxValue': max_count}
     layer['legendItems'] = []
     layer['legendItems'].append({'label': 'Tech. not often used', 'color': COLOR_GRADIENT_MIN})
@@ -587,16 +586,17 @@ def normalize_name_to_filename(name):
     return name.lower().replace(' ', '-')
 
 
-def platform_to_filename(platform):
+def platform_to_name(platform, separator='-'):
     """
     Makes a filename friendly version of the platform parameter which can be a string or list.
     :param platform: the platform variable (a string or a list)
+    :param separator: a string value that separates multiple platforms. Default is '-'
     :return: a filename friendly representation of the value of platform
     """
     if platform == 'all':
         return 'all'
     elif isinstance(platform, list):
-        return "-".join(platform)
+        return separator.join(platform)
     else:
         return ''
 
@@ -937,17 +937,19 @@ def get_platform_from_yaml(yaml_content):
     :param yaml_content: the content of the YAML file containing the platform field
     :return: the platform value
     """
-    platform = yaml_content['platform']
+    platform = yaml_content.get('platform', None)
+    if platform is None:
+        return []
     if isinstance(platform, str):
         platform = [platform]
-    if platform is None:
-        platform = []
+    platform = [p.lower() for p in platform if p is not None]
+
     if platform == ['all']:
         platform = 'all'
     else:
         valid_platform_list = []
         for p in platform:
-            if p.lower() in PLATFORMS.keys():
-                valid_platform_list.append(PLATFORMS[p.lower()])
+            if p in PLATFORMS.keys():
+                valid_platform_list.append(PLATFORMS[p])
         platform = valid_platform_list
     return platform

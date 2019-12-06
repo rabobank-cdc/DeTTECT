@@ -58,7 +58,7 @@ def _get_software_techniques(groups, stage, platform):
     and hence techniques they support.
     :param groups: ATT&CK groups
     :param stage: attack or pre-attack
-    :param platform: the applicable platform
+    :param platform: the applicable platform(s)
     :return: dictionary with info on groups
     """
     # { group_id: {group_name: NAME, techniques: set{id, ...} } }
@@ -83,12 +83,15 @@ def _get_software_techniques(groups, stage, platform):
 
         for group in config['groups']:
             if group['enabled']:
-                group_id = _generate_group_id(str(group['group_name']), str(group['campaign']))
+                campaign = group.get('campaign', None)
+                campaign = str(campaign) if campaign else ''
+                group_id = _generate_group_id(str(group['group_name']), campaign)
                 groups_dict[group_id] = dict()
 
                 groups_dict[group_id]['group_name'] = str(group['group_name'])
                 groups_dict[group_id]['techniques'] = set()
-                groups_dict[group_id]['campaign'] = str(group['campaign'])
+                if campaign != '':
+                    groups_dict[group_id]['campaign'] = str(campaign)
                 groups_dict[group_id]['software'] = group['software_id']
 
                 if group['software_id']:
@@ -105,8 +108,8 @@ def _get_software_techniques(groups, stage, platform):
         for s in software_by_group:
             # software matches the ATT&CK Matrix and platform
             # and the group is a group we are interested in
-            if s['x_mitre_platforms']:  # their is some software that do not have a platform, skip those
-                if s['matrix'] == 'mitre-'+stage and (platform in s['x_mitre_platforms'] or platform == 'all') and \
+            if s['x_mitre_platforms']:  # there is software that do not have a platform, skip those
+                if s['matrix'] == 'mitre-'+stage and (platform == 'all' or len(set(s['x_mitre_platforms']).intersection(set(platform))) > 0) and \
                         (groups[0] == 'all' or s['group_id'].lower() in groups or _is_in_group(s['aliases'], groups)):
                     if s['group_id'] not in groups_dict:
                         groups_dict[s['group_id']] = {'group_name': s['name']}
@@ -168,7 +171,8 @@ def _get_group_techniques(groups, stage, platform, file_type):
 
         for group in config['groups']:
             if group['enabled']:
-                campaign = str(group['campaign']) if group['campaign'] else ''
+                campaign = group.get('campaign', None)
+                campaign = str(campaign) if campaign else ''
                 group_id = _generate_group_id(str(group['group_name']), campaign)
                 groups_dict[group_id] = dict()
 
@@ -179,7 +183,8 @@ def _get_group_techniques(groups, stage, platform, file_type):
                 elif isinstance(group['technique_id'], dict):
                     groups_dict[group_id]['techniques'] = set(group['technique_id'].keys())
                     groups_dict[group_id]['weight'] = group['technique_id']
-                groups_dict[group_id]['campaign'] = str(group['campaign'])
+                if campaign != '':
+                    groups_dict[group_id]['campaign'] = str(campaign)
                 groups_dict[group_id]['software'] = group['software_id']
     else:
         # groups are provided as arguments via the command line
@@ -192,7 +197,7 @@ def _get_group_techniques(groups, stage, platform, file_type):
                 platforms = 'Windows'
 
             # group matches the: matrix/stage, platform and the group(s) we are interested in
-            if gr['matrix'] == 'mitre-'+stage and (platform in platforms or platform == 'all') and \
+            if gr['matrix'] == 'mitre-'+stage and (platform == 'all' or len(set(platforms).intersection(set(platform))) > 0) and \
                     (groups[0] == 'all' or gr['group_id'].lower() in groups or _is_in_group(gr['aliases'], groups)):
                 if gr['group_id'] not in groups_dict:
                     groups_found.add(gr['group_id'])
@@ -411,7 +416,7 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
                     metadata_dict['Campaign'].add(values['campaign'])
 
         # change the color and add metadata to make the groups software overlay visible
-        for group, values in groups_software.items():  # TODO add support for campaign info in layer metadata
+        for group, values in groups_software.items():
             if tech in values['techniques']:
                 if t['score'] > 0:
                     t['color'] = COLOR_GROUP_AND_SOFTWARE
@@ -421,6 +426,10 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
                 if 'Software groups' not in metadata_dict:
                     metadata_dict['Software groups'] = set()
                 metadata_dict['Software groups'].add(values['group_name'])
+                if 'campaign' in values:
+                    if 'Software campaign' not in metadata_dict:
+                        metadata_dict['Software campaign'] = set()
+                    metadata_dict['Software campaign'].add(values['campaign'])
 
         # create the metadata based on the dict 'metadata_dict'
         for metadata, values in metadata_dict.items():
@@ -442,8 +451,7 @@ def _get_group_list(groups, file_type):
     if file_type == FILE_TYPE_GROUP_ADMINISTRATION:
         groups_list = []
         for group, values in groups.items():
-            # if YAML file contains campaign key with a legit value
-            if 'campaign' in values:
+            if 'campaign' in values and values['campaign'] != '':
                 groups_list.append(values['group_name'] + ' (' + values['campaign'] + ')')
             else:
                 groups_list.append(values['group_name'])
@@ -484,6 +492,18 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
         groups = groups.split(',')
         groups = list(map(lambda x: x.strip().lower(), groups))
 
+    # set the correct value for platform
+    if groups_file_type == FILE_TYPE_GROUP_ADMINISTRATION:
+        _yaml = init_yaml()
+        with open(groups, 'r') as yaml_file:
+            group_file = _yaml.load(yaml_file)
+
+        platform_yaml = get_platform_from_yaml(group_file)
+        if platform_yaml:
+            platform = platform_yaml
+    if isinstance(platform, str) and platform.lower() != 'all':
+        platform = [platform]
+
     overlay_file_type = None
     if overlay:
         if os.path.isfile(overlay):
@@ -513,7 +533,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
             overlay_dict, all_techniques = _get_visibility_techniques(overlay)
         elif overlay_type == OVERLAY_TYPE_DETECTION:
             overlay_dict, all_techniques = _get_detection_techniques(overlay)
-    # we are not overlaying visibility or detection, overlay group will therefore contain information another group
+    # we are not overlaying visibility or detection, overlay group will therefore contain information on another group
     elif len(overlay) > 0:
         overlay_dict = _get_group_techniques(overlay, stage, platform, overlay_file_type)
         if overlay_dict == -1:
@@ -527,7 +547,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
         return
 
     # check if we are doing a software group overlay
-    if software_groups and overlay:  # TODO add support for campaign info in layer metadata
+    if software_groups and overlay:
         if overlay_type not in [OVERLAY_TYPE_VISIBILITY, OVERLAY_TYPE_DETECTION]:
             # if a group overlay is provided, get the software techniques for the overlay
             groups_software_dict = _get_software_techniques(overlay, stage, platform)
@@ -545,10 +565,11 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
         groups_list = _get_group_list(groups_dict, groups_file_type)
     overlay_list = _get_group_list(overlay_dict, overlay_file_type)
 
-    desc = 'stage: ' + stage + ' | platform: ' + platform + ' | group(s): ' + ', '.join(groups_list) + \
-           ' | overlay group(s): ' + ', '.join(overlay_list)
+    desc = 'stage: ' + stage + ' | platform(s): ' + platform_to_name(platform, separator=', ') + ' | group(s): ' \
+           + ', '.join(groups_list) + ' | overlay group(s): ' + ', '.join(overlay_list)
 
-    layer = get_layer_template_groups(stage[0].upper() + stage[1:] + ' ' + platform, max_count, desc, stage, platform, overlay_type)
+    layer = get_layer_template_groups(stage[0].upper() + stage[1:] + ' - ' + platform_to_name(platform, separator=', '),
+                                      max_count, desc, stage, platform, overlay_type)
     layer['techniques'] = technique_layer
 
     json_string = simplejson.dumps(layer).replace('}, ', '},\n')
@@ -556,8 +577,8 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
     if stage == 'pre-attack':
         filename = '_'.join(groups_list)
     elif overlay:
-        filename = platform.lower() + '_' + '_'.join(groups_list) + '-overlay_' + '_'.join(overlay_list)
+        filename = platform_to_name(platform) + '_' + '_'.join(groups_list) + '-overlay_' + '_'.join(overlay_list)
     else:
-        filename = platform.lower() + '_' + '_'.join(groups_list)
+        filename = platform_to_name(platform) + '_' + '_'.join(groups_list)
 
     write_file(stage, filename[:255], json_string)
