@@ -1,0 +1,22 @@
+%YAML 1.2
+---
+version: 1.0
+file_type: group-administration
+platform: Windows
+groups:
+  -
+    group_name: Top 10 techniques Red Canary detected against the retail sector in 2019
+    campaign:
+    technique_id:
+      T1060: 10
+      T1035: 9
+      T1193: 8
+      T1053: 7
+      T1088: 6
+      T1107: 5
+      T1070: 4
+      T1089: 3
+      T1086: 2
+      T1036: 1
+    software_id:    []
+    enabled:        True
