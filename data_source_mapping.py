@@ -1,8 +1,9 @@
+from copy import deepcopy
+from datetime import datetime
 import simplejson
 import xlsxwriter
-from copy import deepcopy
 from generic import *
-from datetime import datetime
+
 
 # Imports for pandas and plotly are because of performance reasons in the function that uses these libraries.
 
@@ -31,6 +32,7 @@ def plot_data_sources_graph(filename):
     :param filename: the filename of the YAML file containing the data sources administration
     :return:
     """
+    # pylint: disable=unused-variable
     my_data_sources, name, platform, exceptions = _load_data_sources(filename)
 
     graph_values = []
@@ -63,6 +65,7 @@ def export_data_source_list_to_excel(filename, eql_search=False):
     :param eql_search: specify if an EQL search was performed which may have resulted in missing ATT&CK data sources
     :return:
     """
+    # pylint: disable=unused-variable
     my_data_sources, name, platform, exceptions = _load_data_sources(filename, filter_empty_scores=False)
 
     excel_filename = get_non_existing_filename('output/data_sources', 'xlsx')
@@ -477,12 +480,14 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
         else:
             print('No visibility scores have been updated.')
 
-
-def generate_technique_administration_file(filename, write_file=True):
+# pylint: disable=redefined-outer-name
+def generate_technique_administration_file(filename, write_file=True, all_techniques=False):
     """
     Generate a technique administration file based on the data source administration YAML file
     :param filename: the filename of the YAML file containing the data sources administration
     :param write_file: by default the file is written to disk
+    :param all_techniques: include all ATT&CK techniques in the generated YAML file that are applicable to the
+    platform(s) specified in the data source YAML file
     :return:
     """
     my_data_sources, name, platform, exceptions = _load_data_sources(filename)
@@ -518,7 +523,7 @@ def generate_technique_administration_file(filename, write_file=True):
                 # Do not add technique if score == 0 or part of the exception list
                 techniques_upper = list(map(lambda x: x.upper(), exceptions))
                 tech_id = get_attack_id(t)
-                if score > 0 and tech_id not in techniques_upper:
+                if (score > 0 or all_techniques) and tech_id not in techniques_upper:
                     tech = deepcopy(YAML_OBJ_TECHNIQUE)
                     tech['technique_id'] = tech_id
                     tech['technique_name'] = t['name']
@@ -527,6 +532,8 @@ def generate_technique_administration_file(filename, write_file=True):
                     # noinspection PyUnresolvedReferences
                     tech['visibility']['score_logbook'][0]['date'] = today
                     yaml_file['techniques'].append(tech)
+
+    yaml_file['techniques'] = sorted(yaml_file['techniques'], key=lambda k: k['technique_id'])
 
     if write_file:
         # remove the single quotes around the date key-value pair

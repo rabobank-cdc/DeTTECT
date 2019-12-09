@@ -16,6 +16,7 @@ eql_all_scores = False
 eql_query_detection = None
 eql_query_visibility = None
 eql_query_data_sources = None
+yaml_all_techniques = False
 
 
 def _clear():
@@ -232,7 +233,7 @@ def _menu_data_source(filename_ds):
     :param filename_ds:
     :return:
     """
-    global eql_query_data_sources
+    global eql_query_data_sources, yaml_all_techniques
     _clear()
     print('Menu: %s' % MENU_NAME_DATA_SOURCE_MAPPING)
     print('')
@@ -241,24 +242,28 @@ def _menu_data_source(filename_ds):
     print('Options:')
     eql_ds_str = '' if not eql_query_data_sources else eql_query_data_sources
     print('1. Only include data sources which match the provided EQL query: ' + eql_ds_str)
+    print('2. Include all ATT&CK techniques in the generated YAML file that are apply to the platform(s) '
+          'specified in the data source YAML file: ' + str(yaml_all_techniques))
     print('')
     print('Select what you want to do:')
-    print('2. Generate a data source layer for the ATT&CK Navigator.')
-    print('3. Generate a graph with data sources added through time.')
-    print('4. Generate an Excel sheet with all data sources.')
-    print('5. Generate a technique administration YAML file with visibility scores, based on the number of available '
+    print('3. Generate a data source layer for the ATT&CK Navigator.')
+    print('4. Generate a graph with data sources added through time.')
+    print('5. Generate an Excel sheet with all data sources.')
+    print('6. Generate a technique administration YAML file with visibility scores, based on the number of available '
           'data sources')
-    print('6. update the visibility scores within a technique administration YAML file based on changes within any of '
+    print('7. update the visibility scores within a technique administration YAML file based on changes within any of '
           'the data sources. \nPast visibility scores are preserved in the score_logbook, and manually assigned scores are '
           'not updated without your approval. \nThe updated visibility are based on the number of available data sources.')
-    print('7. Check the data sources YAML file for errors.')
+    print('8. Check the data sources YAML file for errors.')
     print('9. Back to main menu.')
     choice = _ask_input()
     if choice == '1':
         print('Specify the EQL query for data source objects:')
         eql_query_data_sources = _ask_input().lower()
+    elif choice == '2':
+        yaml_all_techniques = not yaml_all_techniques
 
-    elif choice in ['2', '3', '4', '5']:
+    elif choice in ['3', '4', '5', '6']:
         file_ds = filename_ds
 
         if eql_query_data_sources:
@@ -266,29 +271,29 @@ def _menu_data_source(filename_ds):
             if not file_ds:
                 _wait()  # something went wrong in executing the search or 0 results where returned
                 _menu_data_source(filename_ds)
-        if choice == '2':
+        if choice == '3':
             print('Writing data sources layer...')
             generate_data_sources_layer(file_ds)
             _wait()
-        elif choice == '3':
+        elif choice == '4':
             print('Drawing the graph...')
             plot_data_sources_graph(file_ds)
             _wait()
-        elif choice == '4':
+        elif choice == '5':
             print('Generating Excel file...')
             export_data_source_list_to_excel(file_ds, eql_search=eql_query_data_sources)
             _wait()
-        elif choice == '5':
+        elif choice == '6':
             print('Generating YAML file...')
-            generate_technique_administration_file(file_ds)
+            generate_technique_administration_file(file_ds, all_techniques=yaml_all_techniques)
             _wait()
-    elif choice == '6':
+    elif choice == '7':
         filename_t = _select_file(MENU_NAME_DETECTION_COVERAGE_MAPPING, 'techniques (used to score the level of visibility)',
                                   FILE_TYPE_TECHNIQUE_ADMINISTRATION, False)
         print('Updating visibility scores...')
         update_technique_administration_file(filename_ds, filename_t)
         _wait()
-    elif choice == '7':
+    elif choice == '8':
         print('Checking the data source YAML for errors...')
         check_yaml_file_health(filename_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, health_is_called=True)
         _wait()

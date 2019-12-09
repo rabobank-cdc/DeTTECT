@@ -1,7 +1,7 @@
 import argparse
-from interactive_menu import *
 import os
 import signal
+from interactive_menu import *
 
 
 def _init_menu():
@@ -44,6 +44,9 @@ def _init_menu():
     parser_data_sources.add_argument('-y', '--yaml', help='generate a technique administration YAML file with '
                                                           'visibility scores based on the number of available data '
                                                           'sources', action='store_true')
+    parser_data_sources.add_argument('-ya', '--yaml-all-techniques', help='include all ATT&CK techniques in the '
+                                     'generated YAML file (when the argument -y, --yaml) is provided) that are '
+                                     'apply to the platform(s) specified in the data source YAML file', action='store_true')
     parser_data_sources.add_argument('-u', '--update', help='update the visibility scores within a technique '
                                                             'administration YAML file based on changes within any of '
                                                             'the data sources. Past visibility scores are preserved in '
@@ -197,7 +200,7 @@ def _menu(menu_parser):
             if args.graph:
                 plot_data_sources_graph(file_ds)
             if args.yaml:
-                generate_technique_administration_file(file_ds)
+                generate_technique_administration_file(file_ds, all_techniques=args.yaml_all_techniques)
 
     elif args.subparser in ['visibility', 'v']:
         if args.layer or args.overlay:
@@ -279,7 +282,7 @@ def _prepare_folders():
     if not os.path.exists('output'):
         os.mkdir('output')
 
-
+# pylint: disable=unused-argument
 def _signal_handler(signum, frame):
     """
     Function to handles exiting via Ctrl+C.
