@@ -242,7 +242,7 @@ def _menu_data_source(filename_ds):
     print('Options:')
     eql_ds_str = '' if not eql_query_data_sources else eql_query_data_sources
     print('1. Only include data sources which match the provided EQL query: ' + eql_ds_str)
-    print('2. Include all ATT&CK techniques in the generated YAML file that are apply to the platform(s) '
+    print('2. Include all ATT&CK techniques in the generated YAML file that apply to the platform(s) '
           'specified in the data source YAML file: ' + str(yaml_all_techniques))
     print('')
     print('Select what you want to do:')

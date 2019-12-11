@@ -45,8 +45,8 @@ def _init_menu():
                                                           'visibility scores based on the number of available data '
                                                           'sources', action='store_true')
     parser_data_sources.add_argument('-ya', '--yaml-all-techniques', help='include all ATT&CK techniques in the '
-                                     'generated YAML file (when the argument -y, --yaml) is provided) that are '
-                                     'apply to the platform(s) specified in the data source YAML file', action='store_true')
+                                     'generated YAML file (when the argument -y, --yaml is provided) that apply '
+                                     'to the platform(s) specified in the data source YAML file', action='store_true')
     parser_data_sources.add_argument('-u', '--update', help='update the visibility scores within a technique '
                                                             'administration YAML file based on changes within any of '
                                                             'the data sources. Past visibility scores are preserved in '
