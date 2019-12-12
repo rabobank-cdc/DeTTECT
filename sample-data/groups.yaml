@@ -2,6 +2,7 @@
 ---
 version: 1.0
 file_type: group-administration
+platform: Windows
 groups:
   -
     group_name:     Red team
