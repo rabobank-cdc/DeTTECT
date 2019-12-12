@@ -213,7 +213,7 @@ def _check_health_score_object(yaml_object, object_type, tech_id, health_is_call
                         '[!] Technique ID: ' + tech_id + ' has an INVALID \'auto_generated\' value in a ' + object_type + ' score object within the \'score_logbook\': should be set to \'true\' or \'false\'', health_is_called)
 
             if isinstance(score_obj['score'], int):
-                if score_obj['date'] is None and score_obj['score'] > -1:
+                if score_obj['date'] is None and ((score_obj['score'] > -1 and object_type == 'detection') or (score_obj['score'] > 0 and object_type == 'visibility')):
                     has_error = _print_error_msg('[!] Technique ID: ' + tech_id + ' has an EMPTY key-value pair in a ' + object_type + ' score object within the \'score_logbook\': date', health_is_called)
 
                 # noinspection PyChainedComparisons
