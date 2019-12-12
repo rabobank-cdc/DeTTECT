@@ -228,7 +228,7 @@ def _menu(menu_parser):
             if args.excel:
                 export_techniques_list_to_excel(file_tech)
 
-    # toto add search capabilities
+    # todo add search capabilities
     elif args.subparser in ['group', 'g']:
         if not generate_group_heat_map(args.groups, args.overlay, args.overlay_type, args.stage, args.platform,
                                        args.software_group, args.search_visibility, args.search_detection, args.health,
