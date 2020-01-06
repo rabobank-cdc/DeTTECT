@@ -119,6 +119,7 @@ def export_data_source_list_to_excel(filename, eql_search=False):
         ds_miss_text = 'ATT&CK data source is missing from the YAML file or was excluded by an EQL search'
     else:
         ds_miss_text = 'ATT&CK data source is missing from the YAML file'
+    # pylint: disable=consider-iterating-dictionary
     my_ds_list = [ds.lower() for ds in my_data_sources.keys()]
     for ds in get_all_mitre_data_sources():
         if ds.lower() not in my_ds_list:
@@ -199,7 +200,9 @@ def _load_data_sources(file, filter_empty_scores=True):
 
     platform = get_platform_from_yaml(yaml_content)
 
-    exceptions = [t['technique_id'] for t in yaml_content['exceptions'] if t['technique_id'] is not None]
+    exceptions = []
+    if 'exceptions' in yaml_content:
+        exceptions = [t['technique_id'] for t in yaml_content['exceptions'] if t['technique_id'] is not None]
 
     return my_data_sources, name, platform, exceptions
 
@@ -527,9 +530,7 @@ def generate_technique_administration_file(filename, write_file=True, all_techni
                     tech = deepcopy(YAML_OBJ_TECHNIQUE)
                     tech['technique_id'] = tech_id
                     tech['technique_name'] = t['name']
-                    # noinspection PyUnresolvedReferences
                     tech['visibility']['score_logbook'][0]['score'] = score
-                    # noinspection PyUnresolvedReferences
                     tech['visibility']['score_logbook'][0]['date'] = today
                     yaml_file['techniques'].append(tech)
 

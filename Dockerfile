@@ -5,7 +5,9 @@ LABEL version="1.2.6"
 # update repository and install Linux packages
 RUN apk update && \
     apk upgrade && \
-    apk add --no-cache bash libc-dev build-base
+    apk add --no-cache bash libc-dev build-base && \
+    pip3 install --upgrade --no-cache-dir cython && \
+    pip3 install --no-cache-dir numpy==1.17.4
 
 # clone the newest version of DeTT&CT and install requirements
 COPY . /opt/DeTTECT
