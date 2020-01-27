@@ -185,7 +185,7 @@ def _get_group_techniques(groups, stage, platform, file_type):
                     groups_dict[group_id]['weight'] = group['technique_id']
                 if campaign != '':
                     groups_dict[group_id]['campaign'] = str(campaign)
-                groups_dict[group_id]['software'] = group['software_id']
+                groups_dict[group_id]['software'] = group.get('software_id', None)
     else:
         # groups are provided as arguments via the command line
         all_groups_tech = load_attack_data(DATA_TYPE_CUSTOM_TECH_BY_GROUP)
