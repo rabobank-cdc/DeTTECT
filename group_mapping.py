@@ -92,9 +92,9 @@ def _get_software_techniques(groups, stage, platform):
                 groups_dict[group_id]['techniques'] = set()
                 if campaign != '':
                     groups_dict[group_id]['campaign'] = str(campaign)
-                groups_dict[group_id]['software'] = group['software_id']
+                groups_dict[group_id]['software'] = group.get('software_id', None)
 
-                if group['software_id']:
+                if 'software_id' in group and group['software_id']:
                     for soft_id in group['software_id']:
                         try:
                             groups_dict[group_id]['techniques'].update(software_dict[soft_id])
