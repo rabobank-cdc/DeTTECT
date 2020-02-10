@@ -92,9 +92,9 @@ def _get_software_techniques(groups, stage, platform):
                 groups_dict[group_id]['techniques'] = set()
                 if campaign != '':
                     groups_dict[group_id]['campaign'] = str(campaign)
-                groups_dict[group_id]['software'] = group['software_id']
+                groups_dict[group_id]['software'] = group.get('software_id', None)
 
-                if group['software_id']:
+                if 'software_id' in group and group['software_id']:
                     for soft_id in group['software_id']:
                         try:
                             groups_dict[group_id]['techniques'].update(software_dict[soft_id])
@@ -185,7 +185,7 @@ def _get_group_techniques(groups, stage, platform, file_type):
                     groups_dict[group_id]['weight'] = group['technique_id']
                 if campaign != '':
                     groups_dict[group_id]['campaign'] = str(campaign)
-                groups_dict[group_id]['software'] = group['software_id']
+                groups_dict[group_id]['software'] = group.get('software_id', None)
     else:
         # groups are provided as arguments via the command line
         all_groups_tech = load_attack_data(DATA_TYPE_CUSTOM_TECH_BY_GROUP)

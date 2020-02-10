@@ -1,6 +1,6 @@
 import simplejson
-from generic import *
 import xlsxwriter
+from generic import *
 from datetime import datetime
 # Imports for pandas and plotly are because of performance reasons in the function that uses these libraries.
 
@@ -21,7 +21,7 @@ def generate_detection_layer(filename_techniques, filename_data_sources, overlay
     else:
         my_techniques, name, platform = load_techniques(filename_techniques)
         my_data_sources = _load_data_sources(filename_data_sources)
-        mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources)
+        mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, platform)
         layer_both = get_layer_template_layered('Visibility and Detection ' + name, 'description', 'attack', platform)
         _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name)
 
@@ -38,28 +38,29 @@ def generate_visibility_layer(filename_techniques, filename_data_sources, overla
 
     if not overlay:
         my_techniques, name, platform = load_techniques(filename_techniques)
-        mapped_techniques_visibility = _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources)
+        mapped_techniques_visibility = _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, platform)
         layer_visibility = get_layer_template_visibility('Visibility ' + name, 'description', 'attack', platform)
         _write_layer(layer_visibility, mapped_techniques_visibility, 'visibility', name)
     else:
         my_techniques, name, platform = load_techniques(filename_techniques)
-        mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources)
+        mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, platform)
         layer_both = get_layer_template_layered('Visibility and Detection ' + name, 'description', 'attack', platform)
         _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name)
 
 
-def plot_graph(filename, type):
+def plot_graph(filename, type_graph):
     """
     Generates a line graph which shows the improvements on detections through the time.
     :param filename: the filename of the YAML file containing the techniques administration
-    :param type: indicates the type of the graph: detection or visibility
+    :param type_graph: indicates the type of the graph: detection or visibility
     :return:
     """
+    # pylint: disable=unused-variable
     my_techniques, name, platform = load_techniques(filename)
 
     graph_values = []
     for t in my_techniques.values():
-        for item in t[type]:
+        for item in t[type_graph]:
             date = get_latest_date(item)
             if date:
                 yyyymm = date.strftime('%Y-%m')
@@ -69,13 +70,13 @@ def plot_graph(filename, type):
     df = pd.DataFrame(graph_values).groupby('date', as_index=False)[['count']].sum()
     df['cumcount'] = df['count'].cumsum()
 
-    output_filename = get_non_existing_filename('output/graph_%s' % type, 'html')
+    output_filename = get_non_existing_filename('output/graph_%s' % type_graph, 'html')
 
     import plotly
     import plotly.graph_objs as go
     plotly.offline.plot(
         {'data': [go.Scatter(x=df['date'], y=df['cumcount'])],
-         'layout': go.Layout(title="# of %s items for %s" % (type, name))},
+         'layout': go.Layout(title="# of %s items for %s" % (type_graph, name))},
         filename=output_filename, auto_open=False
     )
     print("File written:   " + output_filename)
@@ -122,20 +123,6 @@ def _write_layer(layer, mapped_techniques, filename_prefix, name):
     write_file(filename_prefix, name, json_string)
 
 
-def _layer_metadata_make_compliant(metadata):
-    """
-    Make sure the metadata values in the Navigator layer file are compliant with the expected data structure
-    from the latest version on: https://github.com/mitre-attack/attack-navigator/tree/master/layers
-    :param metadata: list of metadata dictionaries
-    :return: compliant list of metadata dictionaries
-    """
-    for md_item in metadata:
-        if not md_item['value'] or md_item['value'] == '':
-            md_item['value'] = '-'
-
-    return metadata
-
-
 def _map_and_colorize_techniques_for_detections(my_techniques):
     """
     Determine the color of the techniques based on the detection score in the given YAML file.
@@ -153,7 +140,7 @@ def _map_and_colorize_techniques_for_detections(my_techniques):
 
             if s != -1:
                 color = COLOR_D_0 if s == 0 else COLOR_D_1 if s == 1 else COLOR_D_2 if s == 2 else COLOR_D_3 \
-                                  if s == 3 else COLOR_D_4 if s == 4 else COLOR_D_5 if s == 5 else ''
+                    if s == 3 else COLOR_D_4 if s == 4 else COLOR_D_5 if s == 5 else ''
                 technique = get_technique(techniques, technique_id)
 
                 for tactic in get_tactics(technique):
@@ -180,7 +167,7 @@ def _map_and_colorize_techniques_for_detections(my_techniques):
                             if cnt != tcnt:
                                 x['metadata'].append({'name': '---', 'value': '---'})
                             cnt += 1
-                    x['metadata'] = _layer_metadata_make_compliant(x['metadata'])
+                    x['metadata'] = make_layer_metadata_compliant(x['metadata'])
                     mapped_techniques.append(x)
     except Exception as e:
         print('[!] Possible error in YAML file at: %s. Error: %s' % (technique_id, str(e)))
@@ -189,14 +176,16 @@ def _map_and_colorize_techniques_for_detections(my_techniques):
     return mapped_techniques
 
 
-def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources):
+def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, platforms):
     """
     Determine the color of the techniques based on the visibility score in the given YAML file.
     :param my_techniques: the configured techniques
     :param my_data_sources: the configured data sources
+    :param platforms: the configured platform(s)
     :return: a dictionary with techniques that can be used in the layer's output file
     """
     techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
+    applicable_data_sources = get_applicable_data_sources_platform(platforms)
 
     technique_ds_mapping = map_techniques_to_data_sources(techniques, my_data_sources)
 
@@ -208,7 +197,7 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources):
         if s == 0:
             s = None
 
-        my_ds = ', '.join(technique_ds_mapping[technique_id]['my_data_sources']) if technique_id in technique_ds_mapping.keys() and technique_ds_mapping[technique_id]['my_data_sources'] else ''
+        my_ds = ', '.join(technique_ds_mapping[technique_id]['my_data_sources']) if technique_id in technique_ds_mapping.keys() and technique_ds_mapping[technique_id]['my_data_sources'] else ''  # noqa
         technique = get_technique(techniques, technique_id)
         color = COLOR_V_1 if s == 1 else COLOR_V_2 if s == 2 else COLOR_V_3 if s == 3 else COLOR_V_4 if s == 4 else ''
 
@@ -221,7 +210,8 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources):
             x['tactic'] = tactic.lower().replace(' ', '-')
             x['metadata'] = []
             x['metadata'].append({'name': '-Available data sources', 'value': my_ds})
-            x['metadata'].append({'name': '-ATT&CK data sources', 'value': ', '.join(technique['x_mitre_data_sources'])})
+            x['metadata'].append({'name': '-ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique['x_mitre_data_sources'],
+                                                                                                                           applicable_data_sources))})
             x['metadata'].append({'name': '---', 'value': '---'})
             x['score'] = s
 
@@ -237,7 +227,7 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources):
                     x['metadata'].append({'name': '---', 'value': '---'})
                 cnt += 1
 
-            x['metadata'] = _layer_metadata_make_compliant(x['metadata'])
+            x['metadata'] = make_layer_metadata_compliant(x['metadata'])
             mapped_techniques.append(x)
 
     for t in techniques:
@@ -251,23 +241,25 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources):
                     x['comment'] = ''
                     x['enabled'] = True
                     x['tactic'] = tactic.lower().replace(' ', '-')
-                    ds = ', '.join(t['x_mitre_data_sources']) if 'x_mitre_data_sources' in t else ''
+                    ds = ', '.join(get_applicable_data_sources_technique(t['x_mitre_data_sources'], applicable_data_sources)) if 'x_mitre_data_sources' in t else ''  # noqa
                     x['metadata'] = [{'name': '-ATT&CK data sources', 'value': ds}]
 
-                    x['metadata'] = _layer_metadata_make_compliant(x['metadata'])
+                    x['metadata'] = make_layer_metadata_compliant(x['metadata'])
                     mapped_techniques.append(x)
 
     return mapped_techniques
 
 
-def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources):
+def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, platforms):
     """
     Determine the color of the techniques based on both detection and visibility.
     :param my_techniques: the configured techniques
     :param my_data_sources: the configured data sources
+    :param platforms: the configured platform(s)
     :return: a dictionary with techniques that can be used in the layer's output file
     """
     techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
+    applicable_data_sources = get_applicable_data_sources_platform(platforms)
 
     technique_ds_mapping = map_techniques_to_data_sources(techniques, my_data_sources)
 
@@ -290,7 +282,7 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources):
         else:
             color = COLOR_WHITE
 
-        my_ds = ', '.join(technique_ds_mapping[technique_id]['my_data_sources']) if technique_id in technique_ds_mapping.keys() and technique_ds_mapping[technique_id]['my_data_sources'] else ''
+        my_ds = ', '.join(technique_ds_mapping[technique_id]['my_data_sources']) if technique_id in technique_ds_mapping.keys() and technique_ds_mapping[technique_id]['my_data_sources'] else ''  # noqa
 
         technique = get_technique(techniques, technique_id)
         for tactic in get_tactics(technique):
@@ -302,7 +294,8 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources):
             x['tactic'] = tactic.lower().replace(' ', '-')
             x['metadata'] = []
             x['metadata'].append({'name': '-Available data sources', 'value': my_ds})
-            x['metadata'].append({'name': '-ATT&CK data sources', 'value': ', '.join(technique['x_mitre_data_sources'])})
+            x['metadata'].append({'name': '-ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique['x_mitre_data_sources'],
+                                                                                                                           applicable_data_sources))})
             x['metadata'].append({'name': '---', 'value': '---'})
 
             # Metadata for detection:
@@ -337,7 +330,7 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources):
                     x['metadata'].append({'name': '---', 'value': '---'})
                 cnt += 1
 
-            x['metadata'] = _layer_metadata_make_compliant(x['metadata'])
+            x['metadata'] = make_layer_metadata_compliant(x['metadata'])
             mapped_techniques.append(x)
 
     return mapped_techniques
@@ -349,6 +342,7 @@ def export_techniques_list_to_excel(filename):
     :param filename: the filename of the YAML file containing the techniques administration
     :return:
     """
+    # pylint: disable=unused-variable
     my_techniques, name, platform = load_techniques(filename)
     my_techniques = dict(sorted(my_techniques.items(), key=lambda kv: kv[0], reverse=False))
     mitre_techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
@@ -422,7 +416,7 @@ def export_techniques_list_to_excel(filename):
                 tmp_date = tmp_date.strftime('%Y-%m-%d')
             worksheet_detections.write(y, 4, str(tmp_date).replace('None', ''), valign_top)
             ds = get_latest_score(detection)
-            worksheet_detections.write(y, 5, ds, detection_score_0 if ds == 0 else detection_score_1 if ds == 1 else detection_score_2 if ds == 2 else detection_score_3 if ds == 3 else detection_score_4 if ds == 4 else detection_score_5 if ds == 5 else no_score)
+            worksheet_detections.write(y, 5, ds, detection_score_0 if ds == 0 else detection_score_1 if ds == 1 else detection_score_2 if ds == 2 else detection_score_3 if ds == 3 else detection_score_4 if ds == 4 else detection_score_5 if ds == 5 else no_score)  # noqa
             worksheet_detections.write(y, 6, '\n'.join(detection['location']), wrap_text)
             worksheet_detections.write(y, 7, detection['comment'][:-1] if detection['comment'].endswith('\n') else detection['comment'], wrap_text)
             d_comment = get_latest_comment(detection)
@@ -463,7 +457,7 @@ def export_techniques_list_to_excel(filename):
                 tmp_date = tmp_date.strftime('%Y-%m-%d')
             worksheet_visibility.write(y, 4, str(tmp_date).replace('None', ''), valign_top)
             vs = get_latest_score(visibility)
-            worksheet_visibility.write(y, 5, vs, visibility_score_1 if vs == 1 else visibility_score_2 if vs == 2 else visibility_score_3 if vs == 3 else visibility_score_4 if vs == 4 else no_score)
+            worksheet_visibility.write(y, 5, vs, visibility_score_1 if vs == 1 else visibility_score_2 if vs == 2 else visibility_score_3 if vs == 3 else visibility_score_4 if vs == 4 else no_score)  # noqa
             v_comment = get_latest_comment(visibility)
             worksheet_visibility.write(y, 6, visibility['comment'][:-1] if visibility['comment'].endswith('\n') else visibility['comment'], wrap_text)
             worksheet_visibility.write(y, 7, v_comment[:-1] if v_comment.endswith('\n') else v_comment, wrap_text)

@@ -1,7 +1,7 @@
 version: 1.2
 file_type: technique-administration
 name: example
-platform: Windows
+platform: ['Windows', 'Azure', 'Azure AD', 'Office 365']
 techniques:
   # - Note that detection and visibility are independent from each other.
   #   Meaning that detection could be left blank and only have visibility filled in.
@@ -16,7 +16,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -35,7 +35,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -54,7 +54,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -72,7 +72,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -95,7 +95,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -175,7 +175,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -194,7 +194,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -213,7 +213,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -232,7 +232,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -251,7 +251,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -289,7 +289,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -335,7 +335,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -354,7 +354,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -373,7 +373,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -392,7 +392,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -411,7 +411,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -430,7 +430,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -468,7 +468,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -523,7 +523,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -542,7 +542,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -561,7 +561,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -580,7 +580,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -599,7 +599,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -656,7 +656,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -693,7 +693,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -712,7 +712,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -766,7 +766,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -785,7 +785,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -840,7 +840,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -859,7 +859,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -878,7 +878,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -897,7 +897,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -916,7 +916,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -939,7 +939,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -958,7 +958,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -977,7 +977,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -996,7 +996,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1015,7 +1015,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1033,7 +1033,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1052,7 +1052,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1071,7 +1071,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1090,7 +1090,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1109,7 +1109,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1128,7 +1128,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1147,7 +1147,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1184,7 +1184,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1207,7 +1207,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1226,7 +1226,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1245,7 +1245,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1264,7 +1264,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1283,7 +1283,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1302,7 +1302,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1321,7 +1321,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1340,7 +1340,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1359,7 +1359,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1395,7 +1395,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1431,7 +1431,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1449,7 +1449,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1467,7 +1467,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1486,7 +1486,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1509,7 +1509,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1528,7 +1528,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1547,7 +1547,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1601,7 +1601,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1639,7 +1639,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1658,7 +1658,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1681,7 +1681,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1723,7 +1723,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1742,7 +1742,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1761,7 +1761,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1784,7 +1784,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1824,7 +1824,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1843,7 +1843,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1862,7 +1862,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1881,7 +1881,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1940,7 +1940,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1959,7 +1959,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1978,7 +1978,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -1997,7 +1997,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2016,7 +2016,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2035,7 +2035,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2090,7 +2090,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2109,7 +2109,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2128,7 +2128,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2147,7 +2147,7 @@ techniques:
     - ''
     comment: Model G
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2166,7 +2166,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2185,7 +2185,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2204,7 +2204,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2242,7 +2242,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2280,7 +2280,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2299,7 +2299,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2318,7 +2318,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2392,7 +2392,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2430,7 +2430,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2448,7 +2448,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2467,7 +2467,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2490,7 +2490,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2513,7 +2513,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2532,7 +2532,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2551,7 +2551,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2570,7 +2570,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2606,7 +2606,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2644,7 +2644,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2690,7 +2690,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2713,7 +2713,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2732,7 +2732,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2751,7 +2751,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2770,7 +2770,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2789,7 +2789,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2808,7 +2808,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2827,7 +2827,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2846,7 +2846,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2865,7 +2865,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2884,7 +2884,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2940,7 +2940,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2959,7 +2959,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -2996,7 +2996,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -3033,7 +3033,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -3070,7 +3070,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -3093,7 +3093,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -3112,7 +3112,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -3131,7 +3131,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -3150,7 +3150,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -3169,7 +3169,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -3188,7 +3188,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -3207,7 +3207,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -3227,7 +3227,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -3248,7 +3248,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -3269,7 +3269,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:
@@ -3290,7 +3290,7 @@ techniques:
     - ''
     comment: ''
     score_logbook:
-    - date: 
+    - date:
       score: -1
       comment: ''
   visibility:

@@ -94,7 +94,7 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
     ATT&CK Platform is not part of the EQL search result
     :return: False if no errors have been found, otherwise True
     """
-    from generic import get_all_mitre_data_sources
+    from generic import get_applicable_data_sources_platform
     has_error = False
 
     platform = ds_content.get('platform', None)
@@ -113,8 +113,8 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
                         health_is_called)
 
         ds_list = [kv['data_source_name'].lower() for kv in ds_content['data_sources']]
-        ds_list_mitre = get_all_mitre_data_sources()
-        for ds in ds_list_mitre:
+        applicable_data_sources = get_applicable_data_sources_platform(platform)
+        for ds in applicable_data_sources:
             if ds.lower() not in ds_list:
                 has_error = _print_error_msg('[!] Data source: \'' + ds + '\' is MISSING from the YAML file', health_is_called)
 
@@ -122,30 +122,34 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
         # check for missing keys
         for key in ['data_source_name', 'date_registered', 'date_connected', 'products', 'available_for_data_analytics', 'comment', 'data_quality']:
             if key not in ds:
-                has_error = _print_error_msg('[!] Data source: \'' + ds['data_source_name'] + '\' is MISSING a key-value pair: ' + key, health_is_called)
+                has_error = _print_error_msg('[!] Data source: \'' + ds['data_source_name'] +
+                                             '\' is MISSING a key-value pair: ' + key, health_is_called)
 
         for key in ['date_registered', 'date_connected']:
             if key in ds and not ds[key] is None:
                 try:
-                    # noinspection PyStatementEffect
+                    # pylint: disable=pointless-statement
                     ds[key].year
-                    # noinspection PyStatementEffect
+                    # pylint: disable=pointless-statement
                     ds[key].month
-                    # noinspection PyStatementEffect
+                    # pylint: disable=pointless-statement
                     ds[key].day
                 except AttributeError:
-                    has_error = _print_error_msg('[!] Data source: \'' + ds['data_source_name'] + '\' has an INVALID data format for the dimension \'' + dimension
+                    has_error = _print_error_msg('[!] Data source: \'' + ds['data_source_name'] + '\' has an INVALID data format for the key-value pair \'' + key
                                                  + '\': ' + ds[key] + '  (should be YYYY-MM-DD without quotes)', health_is_called)
+                    print(type(ds[key]))
 
         if 'available_for_data_analytics' in ds:
             if not isinstance(ds['available_for_data_analytics'], bool):
-                has_error = _print_error_msg('[!] Data source: \'' + ds['data_source_name'] + '\' has an INVALID \'available_for_data_analytics\' value: should be set to \'true\' or \'false\'', health_is_called)
+                has_error = _print_error_msg('[!] Data source: \'' + ds['data_source_name'] +
+                                             '\' has an INVALID \'available_for_data_analytics\' value: should be set to \'true\' or \'false\'', health_is_called)
 
         if 'data_quality' in ds:
             if isinstance(ds['data_quality'], dict):
                 for dimension in ['device_completeness', 'data_field_completeness', 'timeliness', 'consistency', 'retention']:
                     if dimension not in ds['data_quality']:
-                        has_error = _print_error_msg('[!] Data source: \'' + ds['data_source_name'] + '\' is MISSING a key-value pair in \'data_quality\': ' + dimension, health_is_called)
+                        has_error = _print_error_msg('[!] Data source: \'' + ds['data_source_name'] +
+                                                     '\' is MISSING a key-value pair in \'data_quality\': ' + dimension, health_is_called)
                     else:
                         if isinstance(ds['data_quality'][dimension], int):
                             if not 0 <= ds['data_quality'][dimension] <= 5:
@@ -155,14 +159,16 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
                             has_error = _print_error_msg('[!] Data source: \'' + ds['data_source_name'] + '\' has an INVALID data quality score for the dimension \'' +
                                                          dimension + '\': ' + str(ds['data_quality'][dimension]) + '  (should be an an integer)', health_is_called)
             else:
-                has_error = _print_error_msg('[!] Data source: \'' + ds['data_source_name'] + '\' the key-value pair \'data_quality\' is NOT a dictionary with data quality dimension scores', health_is_called)
+                has_error = _print_error_msg('[!] Data source: \'' + ds['data_source_name'] +
+                                             '\' the key-value pair \'data_quality\' is NOT a dictionary with data quality dimension scores', health_is_called)
 
     if 'exceptions' in ds_content:
         for tech in ds_content['exceptions']:
             tech_id = str(tech['technique_id'])
 
         if not REGEX_YAML_TECHNIQUE_ID_FORMAT.match(tech_id) and tech_id != 'None':
-            has_error = _print_error_msg('[!] INVALID technique ID in the \'exceptions\' list of data source admin. file: ' + tech_id, health_is_called)
+            has_error = _print_error_msg(
+                '[!] INVALID technique ID in the \'exceptions\' list of data source admin. file: ' + tech_id, health_is_called)
 
     if has_error and not health_is_called and not no_print:
         print(HEALTH_ERROR_TXT + filename)
@@ -199,13 +205,16 @@ def _check_health_score_object(yaml_object, object_type, tech_id, health_is_call
         for score_obj in yaml_object['score_logbook']:
             for key in ['date', 'score', 'comment']:
                 if key not in score_obj:
-                    has_error = _print_error_msg('[!] Technique ID: ' + tech_id + ' is MISSING a key-value pair in a ' + object_type + ' score object within the \'score_logbook\': ' + key, health_is_called)
+                    has_error = _print_error_msg('[!] Technique ID: ' + tech_id + ' is MISSING a key-value pair in a ' +
+                                                 object_type + ' score object within the \'score_logbook\': ' + key, health_is_called)
 
             if score_obj['score'] is None:
-                has_error = _print_error_msg('[!] Technique ID: ' + tech_id + ' has an EMPTY key-value pair in a ' + object_type + ' score object within the \'score_logbook\': score', health_is_called)
+                has_error = _print_error_msg('[!] Technique ID: ' + tech_id + ' has an EMPTY key-value pair in a ' +
+                                             object_type + ' score object within the \'score_logbook\': score', health_is_called)
 
             elif not isinstance(score_obj['score'], int):
-                has_error = _print_error_msg('[!] Technique ID: ' + tech_id + ' has an INVALID score format in a ' + object_type + ' score object within the \'score_logbook\': ' + score_obj['score'] + '  (should be an integer)', health_is_called)
+                has_error = _print_error_msg('[!] Technique ID: ' + tech_id + ' has an INVALID score format in a ' + object_type +
+                                             ' score object within the \'score_logbook\': ' + score_obj['score'] + '  (should be an integer)', health_is_called)
 
             if 'auto_generated' in score_obj:
                 if not isinstance(score_obj['auto_generated'], bool):
@@ -214,23 +223,24 @@ def _check_health_score_object(yaml_object, object_type, tech_id, health_is_call
 
             if isinstance(score_obj['score'], int):
                 if score_obj['date'] is None and ((score_obj['score'] > -1 and object_type == 'detection') or (score_obj['score'] > 0 and object_type == 'visibility')):
-                    has_error = _print_error_msg('[!] Technique ID: ' + tech_id + ' has an EMPTY key-value pair in a ' + object_type + ' score object within the \'score_logbook\': date', health_is_called)
+                    has_error = _print_error_msg('[!] Technique ID: ' + tech_id + ' has an EMPTY key-value pair in a ' +
+                                                 object_type + ' score object within the \'score_logbook\': date', health_is_called)
 
-                # noinspection PyChainedComparisons
                 if not (score_obj['score'] >= min_score and score_obj['score'] <= max_score):
                     has_error = _print_error_msg(
                         '[!] Technique ID: ' + tech_id + ' has an INVALID ' + object_type + ' score in a score object within the \'score_logbook\': ' + str(score_obj['score']) + '  (should be between ' + str(min_score) + ' and ' + str(max_score) + ')', health_is_called)
 
                 if not score_obj['date'] is None:
                     try:
-                        # noinspection PyStatementEffect
+                        # pylint: disable=pointless-statement
                         score_obj['date'].year
-                        # noinspection PyStatementEffect
+                        # pylint: disable=pointless-statement
                         score_obj['date'].month
-                        # noinspection PyStatementEffect
+                        # pylint: disable=pointless-statement
                         score_obj['date'].day
                     except AttributeError:
-                        has_error = _print_error_msg('[!] Technique ID: ' + tech_id + ' has an INVALID data format in a ' + object_type + ' score object within the \'score_logbook\': ' + score_obj['date'] + '  (should be YYYY-MM-DD without quotes)', health_is_called)
+                        has_error = _print_error_msg('[!] Technique ID: ' + tech_id + ' has an INVALID data format in a ' + object_type +
+                                                     ' score object within the \'score_logbook\': ' + score_obj['date'] + '  (should be YYYY-MM-DD without quotes)', health_is_called)
     except KeyError:
         pass
 
@@ -296,12 +306,14 @@ def _check_health_techniques(filename, technique_content, health_is_called):
 
                     for okey in obj_keys:
                         if okey not in obj:
-                            has_error = _print_error_msg('[!] Technique ID: ' + tech + ' is MISSING a key-value pair in \'' + obj_type + '\': ' + okey, health_is_called)
+                            has_error = _print_error_msg('[!] Technique ID: ' + tech +
+                                                         ' is MISSING a key-value pair in \'' + obj_type + '\': ' + okey, health_is_called)
 
                     for okey in obj_keys_list:
                         if okey in obj:
                             if not isinstance(obj[okey], list):
-                                has_error = _print_error_msg('[!] Technique ID: ' + tech + ' the key-value pair \'' + okey + '\' in \'' + obj_type + '\' is NOT a list', health_is_called)
+                                has_error = _print_error_msg('[!] Technique ID: ' + tech + ' the key-value pair \'' + okey +
+                                                             '\' in \'' + obj_type + '\' is NOT a list', health_is_called)
 
                     for okey in obj_keys_not_none:
                         if okey in obj:
@@ -310,9 +322,11 @@ def _check_health_techniques(filename, technique_content, health_is_called):
                                 if item is None:
                                     none_count += 1
                             if none_count == 1:
-                                has_error = _print_error_msg('[!] Technique ID: ' + tech + ' the key-value pair \'' + okey + '\' in \'' + obj_type + '\' has an EMPTY value  (an empty string is allowed: \'\')', health_is_called)
+                                has_error = _print_error_msg('[!] Technique ID: ' + tech + ' the key-value pair \'' + okey + '\' in \'' +
+                                                             obj_type + '\' has an EMPTY value  (an empty string is allowed: \'\')', health_is_called)
                             elif none_count > 1:
-                                has_error = _print_error_msg('[!] Technique ID: ' + tech + ' the key-value pair \'' + okey + '\' in \'' + obj_type + '\' has multiple EMPTY values  (an empty string is allowed: \'\')', health_is_called)
+                                has_error = _print_error_msg('[!] Technique ID: ' + tech + ' the key-value pair \'' + okey + '\' in \'' + obj_type +
+                                                             '\' has multiple EMPTY values  (an empty string is allowed: \'\')', health_is_called)
 
                     health = _check_health_score_object(obj, obj_type, tech, health_is_called)
                     has_error = _update_health_state(has_error, health)
@@ -330,7 +344,8 @@ def _check_health_techniques(filename, technique_content, health_is_called):
                 similar.add(i2)
 
     if len(similar) > 0:
-        has_error = _print_error_msg('[!] There are values in the key-value pairs for \'applicable_to\' which are very similar. Correct where necessary:', health_is_called)
+        has_error = _print_error_msg(
+            '[!] There are values in the key-value pairs for \'applicable_to\' which are very similar. Correct where necessary:', health_is_called)
         for s in similar:
             _print_error_msg('    - ' + s, health_is_called)
 
