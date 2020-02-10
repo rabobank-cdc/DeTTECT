@@ -137,7 +137,6 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
                 except AttributeError:
                     has_error = _print_error_msg('[!] Data source: \'' + ds['data_source_name'] + '\' has an INVALID data format for the key-value pair \'' + key
                                                  + '\': ' + ds[key] + '  (should be YYYY-MM-DD without quotes)', health_is_called)
-                    print(type(ds[key]))
 
         if 'available_for_data_analytics' in ds:
             if not isinstance(ds['available_for_data_analytics'], bool):
