@@ -1,7 +1,7 @@
-attackcti==0.3.0
+attackcti==0.3.1
 simplejson==3.17.0
-plotly==4.4.1
-pandas==0.25.3
-xlsxwriter==1.2.6
-ruamel.yaml==0.16.5
-eql==0.8.0
+plotly==4.5.0
+pandas==1.0.1
+xlsxwriter==1.2.7
+ruamel.yaml==0.16.7
+eql==0.8.2
