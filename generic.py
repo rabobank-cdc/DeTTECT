@@ -2,8 +2,8 @@ import os
 import shutil
 import pickle
 from io import StringIO
-from ruamel.yaml import YAML
 from datetime import datetime as dt
+from ruamel.yaml import YAML
 from upgrade import upgrade_yaml_file
 from constants import *
 from health import check_yaml_file_health
@@ -173,6 +173,10 @@ def load_attack_data(data_type):
 
 
 def init_yaml():
+    """
+    Initialize ruamel.yaml with the correct settings
+    :return: am uamel.yaml object
+    """
     _yaml = YAML()
     _yaml.Representer.ignore_aliases = lambda *args: True  # disable anchors/aliases
     return _yaml
@@ -268,7 +272,7 @@ def get_layer_template_detections(name, description, stage, platform):
             {'label': 'Detection score 3: Good', 'color': COLOR_D_3},
             {'label': 'Detection score 4: Very good', 'color': COLOR_D_4},
             {'label': 'Detection score 5: Excellent', 'color': COLOR_D_5}
-        ]
+    ]
     return layer
 
 
@@ -291,7 +295,7 @@ def get_layer_template_data_sources(name, description, stage, platform):
             {'label': '51-75% of data sources available', 'color': COLOR_DS_75p},
             {'label': '76-99% of data sources available', 'color': COLOR_DS_99p},
             {'label': '100% of data sources available', 'color': COLOR_DS_100p}
-        ]
+    ]
     return layer
 
 
@@ -313,7 +317,7 @@ def get_layer_template_visibility(name, description, stage, platform):
             {'label': 'Visibility score 2: Medium', 'color': COLOR_V_2},
             {'label': 'Visibility score 3: Good', 'color': COLOR_V_3},
             {'label': 'Visibility score 4: Excellent', 'color': COLOR_V_4}
-        ]
+    ]
     return layer
 
 
@@ -334,7 +338,7 @@ def get_layer_template_layered(name, description, stage, platform):
             {'label': 'Visibility', 'color': COLOR_OVERLAY_VISIBILITY},
             {'label': 'Detection', 'color': COLOR_OVERLAY_DETECTION},
             {'label': 'Visibility and detection', 'color': COLOR_OVERLAY_BOTH}
-        ]
+    ]
     return layer
 
 
@@ -601,6 +605,39 @@ def platform_to_name(platform, separator='-'):
         return ''
 
 
+def get_applicable_data_sources_platform(platforms):
+    """
+    Get the applicable ATT&CK data sources for the provided platform(s)
+    :param platforms: the ATT&CK platform(s)
+    :return: a list of applicable ATT&CK data sources
+    """
+    applicable_data_sources = set()
+    if platforms == 'all' or 'all' in platforms:
+        # pylint: disable=unused-variable
+        for k, v in DATA_SOURCES.items():
+            applicable_data_sources.update(v)
+    else:
+        for p in platforms:
+            applicable_data_sources.update(DATA_SOURCES[p])
+
+    return list(applicable_data_sources)
+
+
+def get_applicable_data_sources_technique(technique_data_sources, platform_applicable_data_sources):
+    """
+    Get the applicable ATT&CK data sources for the provided technique's data sources (for which the source is ATT&CK CTI)
+    :param technique_data_sources: the ATT&CK technique's data sources
+    :param platform_applicable_data_sources: a list of applicable ATT&CK data sources based on 'DATA_SOURCES'
+    :return: a list of applicable data sources
+    """
+    applicable_data_sources = set()
+    for ds in technique_data_sources:
+        if ds in platform_applicable_data_sources:
+            applicable_data_sources.add(ds)
+
+    return list(applicable_data_sources)
+
+
 def map_techniques_to_data_sources(techniques, my_data_sources):
     """
     This function maps the MITRE ATT&CK techniques to your data sources.
@@ -804,6 +841,20 @@ def check_file(filename, file_type=None, health_is_called=False):
         return yaml_content['file_type']
 
     return yaml_content  # value is None
+
+
+def make_layer_metadata_compliant(metadata):
+    """
+    Make sure the metadata values in the Navigator layer file are compliant with the expected data structure
+    from the latest version on: https://github.com/mitre-attack/attack-navigator/tree/master/layers
+    :param metadata: list of metadata dictionaries
+    :return: compliant list of metadata dictionaries
+    """
+    for md_item in metadata:
+        if not md_item['value'] or md_item['value'] == '':
+            md_item['value'] = '-'
+
+    return metadata
 
 
 def get_updates(update_type, sort='modified'):

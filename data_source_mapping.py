@@ -1,7 +1,7 @@
 from copy import deepcopy
 from datetime import datetime
-import simplejson
 import xlsxwriter
+import simplejson
 from generic import *
 
 
@@ -17,7 +17,7 @@ def generate_data_sources_layer(filename):
     my_data_sources, name, platform, exceptions = _load_data_sources(filename)
 
     # Do the mapping between my data sources and MITRE data sources:
-    my_techniques = _map_and_colorize_techniques(my_data_sources, exceptions)
+    my_techniques = _map_and_colorize_techniques(my_data_sources, platform, exceptions)
 
     layer = get_layer_template_data_sources("Data sources " + name, 'description', 'attack', platform)
     layer['techniques'] = my_techniques
@@ -66,7 +66,7 @@ def export_data_source_list_to_excel(filename, eql_search=False):
     :return:
     """
     # pylint: disable=unused-variable
-    my_data_sources, name, platform, exceptions = _load_data_sources(filename, filter_empty_scores=False)
+    my_data_sources, name, platforms, exceptions = _load_data_sources(filename, filter_empty_scores=False)
 
     excel_filename = get_non_existing_filename('output/data_sources', 'xlsx')
     workbook = xlsxwriter.Workbook(excel_filename)
@@ -121,7 +121,9 @@ def export_data_source_list_to_excel(filename, eql_search=False):
         ds_miss_text = 'ATT&CK data source is missing from the YAML file'
     # pylint: disable=consider-iterating-dictionary
     my_ds_list = [ds.lower() for ds in my_data_sources.keys()]
-    for ds in get_all_mitre_data_sources():
+    applicable_data_sources = get_applicable_data_sources_platform(platforms)
+
+    for ds in applicable_data_sources:
         if ds.lower() not in my_ds_list:
             ds_obj = deepcopy(YAML_OBJ_DATA_SOURCE)
             ds_obj['data_source_name'] = ds
@@ -157,9 +159,9 @@ def export_data_source_list_to_excel(filename, eql_search=False):
                 score += v
                 score_count += 1
         if score > 0:
-            score = score/score_count
+            score = score / score_count
 
-        worksheet.write(y, 11, score, dq_score_1 if score < 2 else dq_score_2 if score < 3 else dq_score_3 if score < 4 else dq_score_4 if score < 5 else dq_score_5 if score < 6 else no_score)
+        worksheet.write(y, 11, score, dq_score_1 if score < 2 else dq_score_2 if score < 3 else dq_score_3 if score < 4 else dq_score_4 if score < 5 else dq_score_5 if score < 6 else no_score)  # noqa
         y += 1
 
     worksheet.autofilter(2, 0, 2, 11)
@@ -207,22 +209,40 @@ def _load_data_sources(file, filter_empty_scores=True):
     return my_data_sources, name, platform, exceptions
 
 
-def _map_and_colorize_techniques(my_ds, exceptions):
+def _count_applicable_data_sources(technique, applicable_data_sources):
+    """
+    get the count of applicable data sources for the provided technique.
+    This takes into account which data sources are applicable for a platform(s)
+    :param technique: ATT&CK CTI technique object
+    :param applicable_data_sources: a list of applicable ATT&CK data sources
+    :return: a count of the applicable data sources for this technique
+    """
+    applicable_ds_count = 0
+    for ds in technique['x_mitre_data_sources']:
+        if ds in applicable_data_sources:
+            applicable_ds_count += 1
+    return applicable_ds_count
+
+
+def _map_and_colorize_techniques(my_ds, platforms, exceptions):
     """
     Determine the color of the techniques based on how many data sources are available per technique.
     :param my_ds: the configured data sources
+    :param platforms: the configured platform(s)
+    :param exceptions: the list of ATT&CK technique exception within the data source YAML file
     :return: a dictionary with techniques that can be used in the layer's output file
     """
     techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
+    applicable_data_sources = get_applicable_data_sources_platform(platforms)
     technique_colors = {}
 
     # Color the techniques based on how many data sources are available.
     for t in techniques:
         if 'x_mitre_data_sources' in t:
-            total_ds_count = len(t['x_mitre_data_sources'])
+            total_ds_count = _count_applicable_data_sources(t, applicable_data_sources)
             ds_count = 0
             for ds in t['x_mitre_data_sources']:
-                if ds in my_ds.keys():
+                if ds in my_ds.keys() and ds in applicable_data_sources:
                     ds_count += 1
             if total_ds_count > 0:
                 result = (float(ds_count) / float(total_ds_count)) * 100
@@ -234,7 +254,7 @@ def _map_and_colorize_techniques(my_ds, exceptions):
 
     output_techniques = []
     for t, v in my_techniques.items():
-        if t not in exceptions:
+        if t not in exceptions and t in technique_colors:
             for tactic in v['tactics']:
                 d = dict()
                 d['techniqueID'] = t
@@ -243,8 +263,10 @@ def _map_and_colorize_techniques(my_ds, exceptions):
                 d['enabled'] = True
                 d['tactic'] = tactic.lower().replace(' ', '-')
                 d['metadata'] = [{'name': '-Available data sources', 'value': ', '.join(v['my_data_sources'])},
-                                 {'name': '-ATT&CK data sources', 'value': ', '.join(v['data_sources'])},
+                                 {'name': '-ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(v['data_sources'],
+                                                                                                                           applicable_data_sources))},
                                  {'name': '-Products', 'value': ', '.join(v['products'])}]
+                d['metadata'] = make_layer_metadata_compliant(d['metadata'])
 
                 output_techniques.append(d)
 
@@ -335,7 +357,7 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
             if new_tech['technique_id'] in tech_ids_new:
                 are_scores_updated = True
                 yaml_file_tech_admin['techniques'].append(new_tech)
-                tech_new_print.append(' - ' + new_tech['technique_id']+'\n')
+                tech_new_print.append(' - ' + new_tech['technique_id'] + '\n')
             x += 1
 
         print('The following new technique IDs are added to the technique administration file with a visibility '
@@ -353,7 +375,7 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
     for cur_tech, cur_values in cur_visibility_scores.items():
         new_tech = _get_technique_yaml_obj(new_visibility_scores['techniques'], cur_tech)
         if new_tech:  # new_tech will be None if technique_id is part of the 'exception' list within the
-                      # data source administration file
+            # data source administration file
             new_score = new_tech['visibility']['score_logbook'][0]['score']
 
             for cur_obj in cur_values['visibility']:
@@ -377,7 +399,8 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
         # ask how the score should be updated
         answer = 0
         if mix_scores:
-            answer = ask_multiple_choice(V_UPDATE_Q_MIXED, [V_UPDATE_ANSWER_3, V_UPDATE_ANSWER_4, V_UPDATE_ANSWER_1, V_UPDATE_ANSWER_2, V_UPDATE_ANSWER_CANCEL])
+            answer = ask_multiple_choice(V_UPDATE_Q_MIXED, [V_UPDATE_ANSWER_3, V_UPDATE_ANSWER_4,
+                                                            V_UPDATE_ANSWER_1, V_UPDATE_ANSWER_2, V_UPDATE_ANSWER_CANCEL])
         elif manually_scored:
             answer = ask_multiple_choice(V_UPDATE_Q_ALL_MANUAL, [V_UPDATE_ANSWER_1, V_UPDATE_ANSWER_2, V_UPDATE_ANSWER_CANCEL])
         elif auto_scored:
@@ -442,7 +465,7 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
                         elif update_action == V_UPDATE_ACTION_DIFF:
                             print('-' * 80)
                             tmp_txt = '[updates remaining: ' + str(updated_vis_score_cnt - score_updates_handled) + ']'
-                            print(' ' * (80-len(tmp_txt)) + tmp_txt)
+                            print(' ' * (80 - len(tmp_txt)) + tmp_txt)
                             print('')
                             print('Visibility object:')
                             print(' - ATT&CK ID/name      ' + tech_id + ' / ' + tech_name)
@@ -458,7 +481,7 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
                             print(' - Date:               ' + new_score_obj['date'])
                             print(' - Score:              ' + str(new_score_obj['score']))
                             print(' - Visibility comment: ' + _indent_comment(new_score_obj['comment'], 23))
-                            print(' - Auto generated:     true')
+                            print(' - Auto generated:     True')
                             print('')
                             if ask_yes_no('Update the score?'):
                                 are_scores_updated = True
@@ -484,6 +507,8 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
             print('No visibility scores have been updated.')
 
 # pylint: disable=redefined-outer-name
+
+
 def generate_technique_administration_file(filename, write_file=True, all_techniques=False):
     """
     Generate a technique administration file based on the data source administration YAML file
@@ -496,6 +521,7 @@ def generate_technique_administration_file(filename, write_file=True, all_techni
     my_data_sources, name, platform, exceptions = _load_data_sources(filename)
 
     techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE)
+    applicable_data_sources = get_applicable_data_sources_platform(platform)
 
     yaml_file = dict()
     yaml_file['version'] = FILE_TYPE_TECHNIQUE_ADMINISTRATION_VERSION
@@ -511,10 +537,10 @@ def generate_technique_administration_file(filename, write_file=True, all_techni
         if platform == 'all' or len(set(platforms).intersection(set(platform))) > 0:
             # not every technique has data source listed
             if 'x_mitre_data_sources' in t:
-                total_ds_count = len(t['x_mitre_data_sources'])
+                total_ds_count = _count_applicable_data_sources(t, applicable_data_sources)
                 ds_count = 0
                 for ds in t['x_mitre_data_sources']:
-                    if ds in my_data_sources.keys():
+                    if ds in my_data_sources.keys() and ds in applicable_data_sources:
                         ds_count += 1
                 if total_ds_count > 0:
                     result = (float(ds_count) / float(total_ds_count)) * 100
@@ -549,7 +575,8 @@ def generate_technique_administration_file(filename, write_file=True, all_techni
         # remove the single quotes from the date
         yaml_file_lines = fix_date_and_remove_null(file_lines, today, input_type='list')
 
-        output_filename = get_non_existing_filename('output/techniques-administration-' + normalize_name_to_filename(name + '-' + platform_to_name(platform)), 'yaml')
+        output_filename = get_non_existing_filename('output/techniques-administration-' +
+                                                    normalize_name_to_filename(name + '-' + platform_to_name(platform)), 'yaml')
         with open(output_filename, 'w') as f:
             f.writelines(yaml_file_lines)
         print("File written:   " + output_filename)
