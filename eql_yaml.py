@@ -152,8 +152,10 @@ def _events_to_yaml(query_results, obj_type):
         try:
             for r in query_results:
                 if r['date_registered'] and isinstance(r['date_registered'], str):
+                    r['date_registered'] = REGEX_YAML_VALID_DATE.match(r['date_registered']).group(1)
                     r['date_registered'] = datetime.datetime.strptime(r['date_registered'], '%Y-%m-%d')
                 if r['date_connected'] and isinstance(r['date_connected'], str):
+                    r['date_connected'] = REGEX_YAML_VALID_DATE.match(r['date_connected']).group(1)
                     r['date_connected'] = datetime.datetime.strptime(r['date_connected'], '%Y-%m-%d')
         except KeyError:
             print(EQL_INVALID_RESULT_DS)
@@ -199,7 +201,8 @@ def _events_to_yaml(query_results, obj_type):
                 for k, v in score_logbook_event.items():
                     value = v
                     if isinstance(v, str) and REGEX_YAML_VALID_DATE.match(value):
-                        value = datetime.datetime.strptime(v, '%Y-%m-%d')
+                        value = REGEX_YAML_VALID_DATE.match(v).group(1)
+                        value = datetime.datetime.strptime(value, '%Y-%m-%d')
                     score_obj_yaml[k] = value
 
                 # The detection/visibility dict is missing. Create it.
