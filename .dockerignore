@@ -1,1 +1,10 @@
 **/.git
+.dockerignore
+YAML-editor/public/
+YAML-editor/src/
+YAML-editor/node_modules/
+YAML-editor/package-lock.json
+YAML-editor/package.json
+YAML-editor/vue.config.js
+YAML-editor/yarn.lock
+YAML-editor/.eslintrc.json
