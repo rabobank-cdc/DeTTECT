@@ -2,6 +2,7 @@ import argparse
 import os
 import signal
 from interactive_menu import *
+from yaml_editor import YamlEditor
 
 
 def _init_menu():
@@ -18,8 +19,12 @@ def _init_menu():
     # add subparsers
     subparsers = menu_parser.add_subparsers(title='MODE',
                                             description='Select the mode to use. Every mode has its own arguments and '
-                                                        'help info displayed using: {visibility, detection, group, '
-                                                        'generic} --help', metavar='', dest='subparser')
+                                                        'help info displayed using: {editor, datasource, visibility, detection, '
+                                                        'group, generic} --help', metavar='', dest='subparser')
+
+    parser_editor = subparsers.add_parser('editor', aliases=['e'], help='YAML editor',
+                                          description='Start the YAML editor for easy editing the YAML administration files.')
+    parser_editor.add_argument('-p', '--port', help='port where the webserver listens on (default is 8080)', required=False, default=8080)
 
     # create the data source parser
     parser_data_sources = subparsers.add_parser('datasource', help='data source mapping and quality',
@@ -183,6 +188,9 @@ def _menu(menu_parser):
     if args.interactive:
         interactive_menu()
 
+    elif args.subparser in ['editor', 'e']:
+        YamlEditor(int(args.port)).start()
+
     elif args.subparser in ['datasource', 'ds']:
         if check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.health):
             file_ds = args.file_ds
@@ -283,6 +291,8 @@ def _prepare_folders():
         os.mkdir('output')
 
 # pylint: disable=unused-argument
+
+
 def _signal_handler(signum, frame):
     """
     Function to handles exiting via Ctrl+C.
