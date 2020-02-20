@@ -43,11 +43,11 @@ class YamlEditor:
         Starts the webserver on the given port.
         """
         try:
-            os.chdir('./YAML-editor/dist')
+            os.chdir('./yaml-editor/dist')
             self.httpd = TCPServer(('', self.port), QuietHTTPRequestHandler)
 
-            print("YAML editor started at port", self.port)
-            url = 'http://localhost:' + str(self.port)
+            print("YAML editor started at port %d" % self.port)
+            url = 'http://localhost:%d/yaml-editor' % self.port
 
             if not os.getenv('DeTTECT_DOCKER_CONTAINER'):
                 print("Opening webbrowser: " + url)
