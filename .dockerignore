@@ -1,5 +1,6 @@
 **/.git
 .dockerignore
+.gitignore
 YAML-editor/public/
 YAML-editor/src/
 YAML-editor/node_modules/

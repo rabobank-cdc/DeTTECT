@@ -1,0 +1,12 @@
+# DeTT&CT files
+cache/
+output/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Misc
+.DS_Store
+.vscode
