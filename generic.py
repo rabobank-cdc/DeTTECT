@@ -386,7 +386,7 @@ def backup_file(filename):
     suffix = 1
     backup_filename = filename.replace('.yaml', '_backup_' + str(suffix) + '.yaml')
     while os.path.exists(backup_filename):
-        backup_filename = backup_filename.replace('_backup_' + str(suffix) + '.yaml', '_backup_' + str(suffix+1) + '.yaml')
+        backup_filename = backup_filename.replace('_backup_' + str(suffix) + '.yaml', '_backup_' + str(suffix + 1) + '.yaml')
         suffix += 1
 
     shutil.copy2(filename, backup_filename)
@@ -470,7 +470,7 @@ def ask_multiple_choice(question, list_answers):
         answer = input(' >>   ')
         print('')
 
-    return list_answers[int(answer)-1]
+    return list_answers[int(answer) - 1]
 
 
 def fix_date_and_remove_null(yaml_file, date, input_type='ruamel'):
@@ -613,8 +613,7 @@ def get_applicable_data_sources_platform(platforms):
     """
     applicable_data_sources = set()
     if platforms == 'all' or 'all' in platforms:
-        # pylint: disable=unused-variable
-        for k, v in DATA_SOURCES.items():
+        for v in DATA_SOURCES.values():
             applicable_data_sources.update(v)
     else:
         for p in platforms:
@@ -693,7 +692,7 @@ def calculate_score(list_detections, zero_value=0):
     number = 0
     for v in list_detections:
         score = get_latest_score(v)
-        if score >= 0:
+        if score and score >= 0:
             avg_score += score
             number += 1
 
@@ -977,7 +976,7 @@ def get_statistics_data_sources():
     data_sources_dict_sorted = dict(sorted(data_sources_dict.items(), key=lambda kv: kv[1]['count'], reverse=True))
     str_format = '{:<6s} {:s}'
     print(str_format.format('Count', 'Data Source'))
-    print('-'*50)
+    print('-' * 50)
     for k, v in data_sources_dict_sorted.items():
         print(str_format.format(str(v['count']), k))
 
