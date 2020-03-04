@@ -16,11 +16,11 @@ class QuietHTTPRequestHandler(SimpleHTTPRequestHandler):
         pass
 
 
-class YamlEditor:
+class DeTTECTEditor:
 
     def __init__(self, port):
         """
-        Constructor of the YamlEditor class. Sets the SIGTERM (clean quit) en SIGINT (Ctrl+C) handlers and the default variables.
+        Constructor of the DeTTECTEditor class. Sets the SIGTERM (clean quit) en SIGINT (Ctrl+C) handlers and the default variables.
         :param port: The port for the webserver to listen on
         """
         signal.signal(signal.SIGTERM, self._signal_handler)
@@ -43,17 +43,17 @@ class YamlEditor:
         Starts the webserver on the given port.
         """
         try:
-            os.chdir('./yaml-editor/dist')
+            os.chdir('./editor/dist')
             self.httpd = TCPServer(('', self.port), QuietHTTPRequestHandler)
 
-            print("YAML editor started at port %d" % self.port)
-            url = 'http://localhost:%d/yaml-editor' % self.port
+            print("Editor started at port %d" % self.port)
+            url = 'http://localhost:%d/dettect-editor' % self.port
 
             if not os.getenv('DeTTECT_DOCKER_CONTAINER'):
                 print("Opening webbrowser: " + url)
                 webbrowser.open_new_tab(url)
             else:
-                print("You can open the YAML editor on: " + url)
+                print("You can open the Editor on: " + url)
 
             self.httpd.serve_forever()
         except Exception as e:
@@ -61,7 +61,7 @@ class YamlEditor:
 
     def start(self):
         """
-        Starts the YAML editor by starting a thread where the webserver runs in.
+        Starts the Editor by starting a thread where the webserver runs in.
         """
         thread = threading.Thread(target=self._run_webserver)
         thread.start()

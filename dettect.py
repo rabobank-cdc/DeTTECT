@@ -2,7 +2,7 @@ import argparse
 import os
 import signal
 from interactive_menu import *
-from yaml_editor import YamlEditor
+from dettect_editor import DeTTECTEditor
 
 
 def _init_menu():
@@ -22,8 +22,8 @@ def _init_menu():
                                                         'help info displayed using: {editor, datasource, visibility, detection, '
                                                         'group, generic} --help', metavar='', dest='subparser')
 
-    parser_editor = subparsers.add_parser('editor', aliases=['e'], help='YAML editor',
-                                          description='Start the YAML editor for easy editing the YAML administration files.')
+    parser_editor = subparsers.add_parser('editor', aliases=['e'], help='DeTT&CT Editor',
+                                          description='Start the DeTT&CT Editor for easy editing the YAML administration files.')
     parser_editor.add_argument('-p', '--port', help='port where the webserver listens on (default is 8080)', required=False, default=8080)
 
     # create the data source parser
@@ -189,7 +189,7 @@ def _menu(menu_parser):
         interactive_menu()
 
     elif args.subparser in ['editor', 'e']:
-        YamlEditor(int(args.port)).start()
+        DeTTECTEditor(int(args.port)).start()
 
     elif args.subparser in ['datasource', 'ds']:
         if check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.health):
