@@ -117,8 +117,8 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
         # For using the platform variable, we need first-letter-capital values and we don't need the 'empty' value from the check above.
         valid_platform_list = []
         for p in platform:
-            if p in PLATFORMS.keys():
-                valid_platform_list.append(PLATFORMS[p])
+            if p.lower() in PLATFORMS.keys():
+                valid_platform_list.append(PLATFORMS[p.lower()])
 
         applicable_data_sources = get_applicable_data_sources_platform(valid_platform_list)
         for ds in applicable_data_sources:
