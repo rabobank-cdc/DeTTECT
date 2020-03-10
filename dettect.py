@@ -2,7 +2,7 @@ import argparse
 import os
 import signal
 from interactive_menu import *
-from dettect_editor import DeTTECTEditor
+from editor import DeTTECTEditor
 
 
 def _init_menu():

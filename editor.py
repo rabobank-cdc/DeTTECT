@@ -65,3 +65,7 @@ class DeTTECTEditor:
         """
         thread = threading.Thread(target=self._run_webserver)
         thread.start()
+
+
+if __name__ == '__main__':
+    print("Please use dettect.py for running the DeTT&CT Editor. Run 'python dettect.py e -h' for more information.")
