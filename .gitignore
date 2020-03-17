@@ -1,6 +1,10 @@
-# DeTT&CT files
+# DeTT&CT CLI
 cache/
 output/
+
+# DeTT&CT Editor
+editor/node_modules/
+npm-debug.log
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
