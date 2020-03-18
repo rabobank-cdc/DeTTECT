@@ -1,13 +1,13 @@
 <img src="https://github.com/rabobank-cdc/DeTTECT/wiki/images/logo.png" alt="DeTT&CT" width=30% height=30%>
 
 #### Detect Tactics, Techniques & Combat Threats
-Latest version: [1.2.7](https://github.com/rabobank-cdc/DeTTECT/wiki/Changelog#version-127)
+Latest version: [1.3](https://github.com/rabobank-cdc/DeTTECT/wiki/Changelog#version-13)
 
 To get started with DeTT&CT, check out this [page](https://github.com/rabobank-cdc/DeTTECT/wiki/Getting-started), our [talk](https://www.youtube.com/watch?v=_kWpekkhomU) at hack.lu 2019 and our blog on:
 - [mbsecure.nl/blog/2019/5/dettact-mapping-your-blue-team-to-mitre-attack](https://www.mbsecure.nl/blog/2019/5/dettact-mapping-your-blue-team-to-mitre-attack) or
 - [siriussecurity.nl/blog/2019/5/8/mapping-your-blue-team-to-mitre-attack](https://www.siriussecurity.nl/blog/2019/5/8/mapping-your-blue-team-to-mitre-attack).
 
-DeTT&CT aims to assist blue teams using ATT&CK to score and compare data log source quality, visibility coverage, detection coverage and threat actor behaviours. All of which can help, in different ways, to get more resilient against attacks targeting your organisation. The DeTT&CT framework consists of a Python tool, YAML administration files and [scoring tables](https://github.com/rabobank-cdc/DeTTECT/raw/master/scoring_table.xlsx) for the different aspects.
+DeTT&CT aims to assist blue teams using ATT&CK to score and compare data log source quality, visibility coverage, detection coverage and threat actor behaviours. All of which can help, in different ways, to get more resilient against attacks targeting your organisation. The DeTT&CT framework consists of a Python tool, YAML administration files, the [DeTT&CT Editor](https://rabobankcdc.github.io/dettect-editor) and [scoring tables](https://github.com/rabobank-cdc/DeTTECT/raw/master/scoring_table.xlsx) for the different aspects.
 
 DeTT&CT provides the following functionality:
 
@@ -19,7 +19,7 @@ DeTT&CT provides the following functionality:
 
 The coloured visualisations are created with the help of MITRE's [ATT&CK™ Navigator](https://github.com/mitre-attack/attack-navigator).
 
-## Authors and contribution
+## Authors and contributions
 This project is developed and maintained by [Marcus Bakker](https://github.com/marcusbakker) (Twitter: [@bakk3rm](https://twitter.com/bakk3rm)) and [Ruben Bouman](https://github.com/rubinatorz) (Twitter: [@rubenb_2](https://twitter.com/rubenb_2/)). Feel free to contact, DMs are open.
 
 We welcome contributions! Contributions can be both in code, as well as in ideas you might have for further development, usability improvements, etc.

@@ -1,0 +1,61 @@
+{
+    "name": "vue-black-dashboard",
+    "version": "1.0.0",
+    "private": true,
+    "description": "A sample admin dashboard based on black dashboard UI template",
+    "author": "cristian.jora <joracristi@gmail.com>",
+    "scripts": {
+        "serve": "vue-cli-service serve --open",
+        "build": "vue-cli-service build",
+        "e2e": "node test/e2e/runner.js",
+        "lint": "vue-cli-service lint",
+        "dev": "vue-cli-service serve --open",
+        "lint-fix": "vue-cli-service lint --fix",
+        "postbuild": "mkdir dettect-editor; mv dist/* dettect-editor; mv dettect-editor dist"
+    },
+    "dependencies": {
+        "bootstrap": "^4.4.1",
+        "bootstrap-vue": "^2.5.0",
+        "case-insensitive": "^1.0.0",
+        "chart.js": "^2.9.3",
+        "file-saver": "^2.0.2",
+        "jquery": "^1.12.4",
+        "js-yaml": "^3.13.1",
+        "lodash": "^4.17.15",
+        "moment": "^2.24.0",
+        "popper.js": "^1.16.1",
+        "register-service-worker": "^1.5.2",
+        "vue": "^2.6.11",
+        "vue-chartjs": "^3.4.0",
+        "vue-directive-tooltip": "^1.6.3",
+        "vue-js-toggle-button": "^1.3.3",
+        "vue-resource": "^1.5.1",
+        "vue-router": "^3.1.5",
+        "vue-router-prefetch": "^1.4.0",
+        "vue-scrollto": "^2.17.1",
+        "vue-showdown": "^2.4.1",
+        "vue-simple-suggest": "^1.10.1",
+        "vue-slider-component": "^3.1.1",
+        "vue2-transitions": "^0.2.3",
+        "vuejs-datepicker": "^1.6.2",
+        "vuejs-smart-table": "0.0.5",
+        "webpack": "^4.41.6"
+    },
+    "devDependencies": {
+        "@vue/cli-plugin-babel": "^4.2.2",
+        "@vue/cli-plugin-eslint": "^4.2.2",
+        "@vue/cli-plugin-pwa": "^4.2.2",
+        "@vue/cli-service": "^4.2.2",
+        "eslint": "^6.8.0",
+        "eslint-loader": "^3.0.3",
+        "eslint-plugin-vue": "^6.2.1",
+        "node-sass": "^4.13.1",
+        "sass-loader": "^7.1.0",
+        "vue-template-compiler": "^2.6.6"
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not ie <= 11"
+    ]
+}

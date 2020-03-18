@@ -1,0 +1,16 @@
+# DeTT&CT CLI
+cache/
+output/
+
+# DeTT&CT Editor
+editor/node_modules/
+npm-debug.log
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Misc
+.DS_Store
+.vscode

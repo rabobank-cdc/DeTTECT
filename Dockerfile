@@ -1,6 +1,6 @@
 FROM python:3.8-alpine
 
-LABEL version="1.2.7"
+LABEL version="1.3"
 
 # update repository and install Linux packages
 RUN apk update && \
@@ -17,3 +17,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN mkdir -p input
 # within this directory, the output files from DeTT&CT are written. Such as ATT&CK Navigator layer files.
 RUN mkdir -p output
+
+# set an environment variable for the DeTT&CT Editor and expose port 8080
+ENV DeTTECT_DOCKER_CONTAINER 1
+EXPOSE 8080/tcp

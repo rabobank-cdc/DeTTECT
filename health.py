@@ -113,7 +113,14 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
                         health_is_called)
 
         ds_list = [kv['data_source_name'].lower() for kv in ds_content['data_sources']]
-        applicable_data_sources = get_applicable_data_sources_platform(platform)
+
+        # For using the platform variable, we need first-letter-capital values and we don't need the 'empty' value from the check above.
+        valid_platform_list = []
+        for p in platform:
+            if p.lower() in PLATFORMS.keys():
+                valid_platform_list.append(PLATFORMS[p.lower()])
+
+        applicable_data_sources = get_applicable_data_sources_platform(valid_platform_list)
         for ds in applicable_data_sources:
             if ds.lower() not in ds_list:
                 has_error = _print_error_msg('[!] Data source: \'' + ds + '\' is MISSING from the YAML file', health_is_called)

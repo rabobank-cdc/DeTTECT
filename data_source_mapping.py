@@ -195,7 +195,7 @@ def _load_data_sources(file, filter_empty_scores=True):
         dq = d['data_quality']
         if not filter_empty_scores:
             my_data_sources[d['data_source_name']] = d
-        elif dq['device_completeness'] > 0 and dq['data_field_completeness'] > 0 and dq['timeliness'] > 0 and dq['consistency'] > 0:
+        elif dq['device_completeness'] > 0 or dq['data_field_completeness'] > 0 or dq['timeliness'] > 0 or dq['consistency'] > 0 or dq['retention'] > 0:
             my_data_sources[d['data_source_name']] = d
 
     name = yaml_content['name']
