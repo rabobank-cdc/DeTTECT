@@ -1,0 +1,180 @@
+%YAML 1.2
+---
+# Source: https://redcanary.com/threat-detection-report/introduction/
+version: 1.0
+file_type: group-administration
+platform:
+  - Windows
+  - Linux
+  - macOS
+groups:
+  -
+    group_name:      Red Canary Threat Detection Report 2020
+    campaign:        Overall
+    technique_id:
+      T1055 : 17
+      T1053 : 13
+      T1077 : 13
+      T1086 : 12
+      T1105 : 9
+      T1036 : 7
+      T1064 : 5
+      T1038 : 5
+      T1482 : 5
+      T1089 : 5
+      T1003 : 5
+      T1035 : 4
+      T1047 : 4
+      T1085 : 3
+      T1140 : 2
+      T1093 : 2
+      T1015 : 2
+      T1168 : 2
+      T1170 : 2
+      T1193 : 2
+    software_id:    []
+    enabled:        True
+  -
+    group_name:     Red Canary Threat Detection Report 2020
+    campaign:       Education
+    technique_id:
+      T1053 : 35
+      T1077 : 33
+      T1055 : 16
+      T1064 : 13
+      T1089 : 13
+      T1035 : 5
+      T1047 : 3
+      T1086 : 3
+      T1036 : 3
+      T1038 : 2
+    software_id:    []
+    enabled:        False
+  -
+    group_name:     Red Canary Threat Detection Report 2020
+    campaign:       Energy
+    technique_id:
+      T1086 : 42
+      T1064 : 15
+      T1003 : 15
+      T1089 : 8
+      T1140 : 8
+      T1193 : 6
+      T1059 : 5
+      T1004 : 5
+      T1015 : 5
+      T1105 : 5
+    software_id:    []
+    enabled:        False
+  -
+    group_name:     Red Canary Threat Detection Report 2020
+    campaign:       Finance
+    technique_id:
+      T1086 : 28
+      T1077 : 20
+      T1003 : 50
+      T1064 : 13
+      T1055 : 10
+      T1047 : 9
+      T1193 : 8
+      T1035 : 7
+      T1105 : 7
+      T1170 : 7
+    software_id:    []
+    enabled:        False
+  -
+    group_name:     Red Canary Threat Detection Report 2020
+    campaign:       Healthcare
+    technique_id:
+      T1055 : 54
+      T1053 : 45
+      T1077 : 25
+      T1089 : 22
+      T1482 : 22
+      T1105 : 20
+      T1086 : 15
+      T1003 : 4
+      T1047 : 4
+      T1064 : 3
+    software_id:    []
+    enabled:        False
+  -
+    group_name:     Red Canary Threat Detection Report 2020
+    campaign:       Transportation
+    technique_id:
+      T1053 : 49
+      T1055 : 43
+      T1086 : 35
+      T1064 : 30
+      T1170 : 21
+      T1003 : 6
+      T1035 : 6
+      T1047 : 4
+      T1140 : 2
+      T1193 : 2
+    software_id:    []
+    enabled:        False
+  -
+    group_name:     Red Canary Threat Detection Report 2020
+    campaign:       Manufacturing
+    technique_id:
+      T1055 : 23
+      T1053 : 21
+      T1077 : 19
+      T1086 : 15
+      T1135 : 12
+      T1089 : 9
+      T1105 : 9
+      T1064 : 7
+      T1003 : 8
+      T1036 : 8
+    software_id:    []
+    enabled:        False
+  -
+    group_name:     Red Canary Threat Detection Report 2020
+    campaign:       Retail
+    technique_id:
+      T1086 : 44
+      T1055 : 23
+      T1003 : 16
+      T1053 : 13
+      T1193 : 10
+      T1064 : 9
+      T1070 : 8
+      T1047 : 7
+      T1090 : 7
+      T1088 : 5
+    software_id:    []
+    enabled:        False
+  -
+    group_name:     Red Canary Threat Detection Report 2020
+    campaign:       Services
+    technique_id:
+      T1086 : 23
+      T1003 : 19
+      T1064 : 14
+      T1036 : 12
+      T1055 : 8
+      T1105 : 7
+      T1047 : 7
+      T1193 : 7
+      T1060 : 6
+      T1035 : 6
+    software_id:    []
+    enabled:        False
+  -
+    group_name:     Red Canary Threat Detection Report 2020
+    campaign:       Technology
+    technique_id:
+      T1055 : 28
+      T1086 : 19
+      T1105 : 18
+      T1077 : 18
+      T1036 : 17
+      T1038 : 15
+      T1053 : 14
+      T1035 : 10
+      T1003 : 9
+      T1482 : 8
+    software_id:    []
+    enabled:        False
