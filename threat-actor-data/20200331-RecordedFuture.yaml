@@ -1,0 +1,26 @@
+%YAML 1.2
+---
+#  Source: https://go.recordedfuture.com/hubfs/reports/cta-2020-0331.pdf
+version: 1.0
+file_type: group-administration
+platform:
+  - Windows
+  - Linux
+  - macOS
+groups:
+  - group_name:      Recorded Future TTP Annual Report 2019
+    campaign:        Top 10
+    #                confirmed malicious sandbox submissions
+    technique_id:
+      T1063 : 22961
+      T1027 : 21992
+      T1055 : 19703
+      T1082 : 18842
+      T1057 : 17526
+      T1045 : 16341
+      T1073 : 16236
+      T1022 : 14005
+      T1106 : 13805
+      T1032 : 13603
+    software_id:    []
+    enabled:        True
