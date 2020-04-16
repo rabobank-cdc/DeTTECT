@@ -529,7 +529,7 @@ def generate_technique_administration_file(filename, write_file=True, all_techni
     yaml_file['name'] = name
     yaml_file['platform'] = platform
     yaml_file['techniques'] = []
-    today = dt.now().strftime('%Y-%m-%d')
+    today = dt.now()
 
     # Score visibility based on the number of available data sources and the exceptions
     for t in techniques:
