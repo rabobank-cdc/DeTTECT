@@ -48,3 +48,4 @@ See our GitHub Wiki: [Installation and requirements](https://github.com/rabobank
 
 ## License: GPL-3.0
 [DeTT&CT's GNU General Public License v3.0](https://github.com/rabobank-cdc/DeTTECT/blob/master/LICENSE)
+
