@@ -126,17 +126,17 @@ export default {
             filters: {
                 filter: {
                     value: '',
-                    keys: ['technique_id', 'technique_name']
-                }
+                    keys: ['technique_id', 'technique_name'],
+                },
             },
             data_columns: ['technique_id', 'technique_name'],
-            emptyTechObject: constants.YAML_OBJ_TECHNIQUE
+            emptyTechObject: constants.YAML_OBJ_TECHNIQUE,
         };
     },
     mixins: [pageMixin, notificationMixin],
     components: {
         TechniquesDetail,
-        Icons
+        Icons,
     },
     methods: {
         readFile(event) {
@@ -346,7 +346,7 @@ export default {
                         this.unwatchFunction = this.$watch(
                             'doc',
                             // eslint-disable-next-line no-unused-vars
-                            function(after, before) {
+                            function (after, before) {
                                 this.fileChanged = true;
                             },
                             { deep: true }
@@ -404,6 +404,9 @@ export default {
                 for (let x = 0; x < this.doc.techniques[i].detection.length; x++) {
                     let indexEmptyScoreLogbook = -1;
                     for (let j = 0; j < this.doc.techniques[i].detection[x].score_logbook.length; j++) {
+                        if (this.doc.techniques[i].detection[x].score_logbook.length == 1) {
+                            break;
+                        }
                         let d = this.doc.techniques[i].detection[x].score_logbook[j].date;
                         if (d == null || d == '') {
                             indexEmptyScoreLogbook = j;
@@ -420,6 +423,9 @@ export default {
                 for (let x = 0; x < this.doc.techniques[i].visibility.length; x++) {
                     let indexEmptyScoreLogbook = -1;
                     for (let j = 0; j < this.doc.techniques[i].visibility[x].score_logbook.length; j++) {
+                        if (this.doc.techniques[i].visibility[x].score_logbook.length == 1) {
+                            break;
+                        }
                         let d = this.doc.techniques[i].visibility[x].score_logbook[j].date;
                         if (d == null || d == '') {
                             indexEmptyScoreLogbook = j;
@@ -492,8 +498,8 @@ export default {
                 technique_id,
                 true
             );
-        }
-    }
+        },
+    },
 };
 </script>
 
