@@ -207,7 +207,10 @@ export default {
                                 if (yaml_input.techniques[i].detection[x].comment == undefined) {
                                     yaml_input.techniques[i].detection[x].comment = '';
                                 }
-                                if (yaml_input.techniques[i].detection[x].score_logbook == undefined) {
+                                if (
+                                    yaml_input.techniques[i].detection[x].score_logbook == undefined ||
+                                    yaml_input.techniques[i].detection[x].score_logbook.length == 0
+                                ) {
                                     yaml_input.techniques[i].detection[x].score_logbook = new Array(
                                         _.cloneDeep(constants.YAML_OBJ_SCORE_DETECTION_LOGBOOK)
                                     );
@@ -245,7 +248,10 @@ export default {
                                 if (yaml_input.techniques[i].visibility[x].comment == undefined) {
                                     yaml_input.techniques[i].visibility[x].comment = '';
                                 }
-                                if (yaml_input.techniques[i].visibility[x].score_logbook == undefined) {
+                                if (
+                                    yaml_input.techniques[i].visibility[x].score_logbook == undefined ||
+                                    yaml_input.techniques[i].visibility[x].score_logbook.length == 0
+                                ) {
                                     yaml_input.techniques[i].visibility[x].score_logbook = new Array(
                                         _.cloneDeep(constants.YAML_OBJ_SCORE_VISIBILITY_LOGBOOK)
                                     );
