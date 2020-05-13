@@ -40,11 +40,9 @@ See below an example of mapping your data sources to ATT&CK, which gives you a r
 
  <img src="https://raw.githubusercontent.com/wiki/rabobank-cdc/DeTTECT/images/example_data_sources.png" alt="DeTT&CT - Data quality">
 
-
 ## Installation and requirements
 
 See our GitHub Wiki: [Installation and requirements](https://github.com/rabobank-cdc/DeTTECT/wiki/Installation-and-requirements).
-
 
 ## License: GPL-3.0
 [DeTT&CT's GNU General Public License v3.0](https://github.com/rabobank-cdc/DeTTECT/blob/master/LICENSE)
