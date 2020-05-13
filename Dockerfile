@@ -1,13 +1,8 @@
-FROM python:3.8-alpine
+FROM python:3.8-slim-buster
 
 LABEL version="1.3"
 
-# update repository and install Linux packages
-RUN apk update && \
-    apk upgrade && \
-    apk add --no-cache bash libc-dev build-base
-
-# clone the newest version of DeTT&CT and install requirements
+# copy DeTT&CT and install the requirements
 COPY . /opt/DeTTECT
 WORKDIR /opt/DeTTECT
 RUN pip install --no-cache-dir -r requirements.txt
