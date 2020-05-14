@@ -493,7 +493,7 @@ def fix_date_and_remove_null(yaml_file, date, input_type='ruamel'):
     elif input_type == 'file':
         new_lines = yaml_file.readlines()
 
-    fixed_lines = [l.replace('\'' + date + '\'', date).replace('null', '')
+    fixed_lines = [l.replace('\'' + str(date) + '\'', str(date)).replace('null', '')
                    if REGEX_YAML_DATE.match(l) else
                    l.replace('null', '') for l in new_lines]
 
