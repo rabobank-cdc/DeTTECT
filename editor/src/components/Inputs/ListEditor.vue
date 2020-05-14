@@ -36,44 +36,46 @@ import { notificationMixin } from '@/mixins/NotificationMixins.js';
 export default {
     data() {
         return {
-            newItem: ''
+            // eslint-disable-next-line no-undef
+            caseInsensitive: require('case-insensitive'),
+            newItem: '',
         };
     },
     mixins: [notificationMixin],
     components: {
-        Icons
+        Icons,
     },
     props: {
         list: {
             type: Array,
-            required: true
+            required: true,
         },
         name: {
             type: String,
-            required: true
+            required: true,
         },
         placeholder: {
             type: String,
-            required: true
+            required: true,
         },
         helpText: {
             type: String,
-            default: ''
+            default: '',
         },
         externalListToValidate: {
             type: Array,
-            default: () => []
+            default: () => [],
         },
         notifyText: {
             type: String,
             required: false,
-            default: "The value 'KEYNAME' is already part of the list. Duplicate entries are not allowed."
-        }
+            default: "The value 'KEYNAME' is already part of the list. Duplicate entries are not allowed.",
+        },
     },
     methods: {
         addItem() {
             // add an item to the list
-            if (this.list.includes(this.newItem) || this.externalListToValidate.includes(this.newItem)) {
+            if (this.caseInsensitive(this.list).includes(this.newItem) || this.caseInsensitive(this.externalListToValidate).includes(this.newItem)) {
                 this.notifyDuplicate(this.newItem);
             } else if (this.newItem != '') {
                 this.list.push(this.newItem);
@@ -83,7 +85,7 @@ export default {
         updateItem(event) {
             // called when an item in the list is changed
             let value = event.target.value;
-            if (this.list.includes(value) || this.externalListToValidate.includes(value)) {
+            if (this.caseInsensitive(this.list).includes(value) || this.caseInsensitive(this.externalListToValidate).includes(value)) {
                 this.notifyDuplicate(value);
             } else if (value != '') {
                 this.$set(this.list, event.target.getAttribute('idx'), value);
@@ -98,7 +100,7 @@ export default {
             let title = 'Duplicate value';
             let msg = this.notifyText.replace('KEYNAME', keyName);
             this.notifyWarning(title, msg);
-        }
-    }
+        },
+    },
 };
 </script>
