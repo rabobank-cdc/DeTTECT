@@ -59,6 +59,7 @@ def _init_menu():
                                                             'not updated without your approval. The updated visibility '
                                                             'scores are calculated in the same way as with the option: '
                                                             '-y, --yaml', action='store_true')
+    parser_data_sources.add_argument('-of', '--output-filename', help='define the output filename')
     parser_data_sources.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
 
     # create the visibility parser
@@ -87,6 +88,7 @@ def _init_menu():
                                                            'the ATT&CK navigator', action='store_true')
     parser_visibility.add_argument('-g', '--graph', help='generate a graph with visibility added through time',
                                    action='store_true')
+    parser_visibility.add_argument('-of', '--output-filename', help='define the output filename')
     parser_visibility.add_argument('--health', help='check the YAML file for errors', action='store_true')
 
     # create the detection parser
@@ -117,6 +119,7 @@ def _init_menu():
                                                           'the ATT&CK navigator', action='store_true')
     parser_detection.add_argument('-g', '--graph', help='generate a graph with detections added through time',
                                   action='store_true')
+    parser_detection.add_argument('-of', '--output-filename', help='define the output filename')
     parser_detection.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
 
     # create the group parser
@@ -154,6 +157,7 @@ def _init_menu():
                                                    'the EQL search. The default behaviour is to only include the '
                                                    'most recent \'score\' objects',
                               action='store_true', default=False)
+    parser_group.add_argument('-of', '--output-filename', help='define the output filename')
     parser_group.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
 
     # create the generic parser
@@ -202,13 +206,13 @@ def _menu(menu_parser):
             if args.update and check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
                 update_technique_administration_file(file_ds, args.file_tech)
             if args.layer:
-                generate_data_sources_layer(file_ds)
+                generate_data_sources_layer(file_ds, args.output_filename)
             if args.excel:
-                export_data_source_list_to_excel(file_ds, eql_search=args.search)
+                export_data_source_list_to_excel(file_ds, args.output_filename, eql_search=args.search)
             if args.graph:
-                plot_data_sources_graph(file_ds)
+                plot_data_sources_graph(file_ds, args.output_filename)
             if args.yaml:
-                generate_technique_administration_file(file_ds, all_techniques=args.yaml_all_techniques)
+                generate_technique_administration_file(file_ds, args.output_filename, all_techniques=args.yaml_all_techniques)
 
     elif args.subparser in ['visibility', 'v']:
         if args.layer or args.overlay:
@@ -228,19 +232,19 @@ def _menu(menu_parser):
                 if not file_tech:
                     quit()  # something went wrong in executing the search or 0 results where returned
             if args.layer:
-                generate_visibility_layer(file_tech, args.file_ds, False)
+                generate_visibility_layer(file_tech, args.file_ds, False, args.output_filename)
             if args.overlay:
-                generate_visibility_layer(file_tech, args.file_ds, True)
+                generate_visibility_layer(file_tech, args.file_ds, True, args.output_filename)
             if args.graph:
-                plot_graph(file_tech, 'visibility')
+                plot_graph(file_tech, 'visibility', args.output_filename)
             if args.excel:
-                export_techniques_list_to_excel(file_tech)
+                export_techniques_list_to_excel(file_tech, args.output_filename)
 
     # todo add search capabilities
     elif args.subparser in ['group', 'g']:
         if not generate_group_heat_map(args.groups, args.overlay, args.overlay_type, args.stage, args.platform,
                                        args.software_group, args.search_visibility, args.search_detection, args.health,
-                                       include_all_score_objs=args.all_scores):
+                                       args.output_filename, include_all_score_objs=args.all_scores):
             quit()  # something went wrong in executing the search or 0 results where returned
 
     elif args.subparser in ['detection', 'd']:
@@ -260,13 +264,13 @@ def _menu(menu_parser):
                 if not file_tech:
                     quit()  # something went wrong in executing the search or 0 results where returned
             if args.layer:
-                generate_detection_layer(file_tech, args.file_ds, False)
+                generate_detection_layer(file_tech, args.file_ds, False, args.output_filename)
             if args.overlay and check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.health):
-                generate_detection_layer(file_tech, args.file_ds, True)
+                generate_detection_layer(file_tech, args.file_ds, True, args.output_filename)
             if args.graph:
-                plot_graph(file_tech, 'detection')
+                plot_graph(file_tech, 'detection', args.output_filename)
             if args.excel:
-                export_techniques_list_to_excel(file_tech)
+                export_techniques_list_to_excel(file_tech, args.output_filename)
 
     elif args.subparser in ['generic', 'ge']:
         if args.datasources:

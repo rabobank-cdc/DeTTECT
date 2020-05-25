@@ -8,10 +8,11 @@ from generic import *
 # Imports for pandas and plotly are because of performance reasons in the function that uses these libraries.
 
 
-def generate_data_sources_layer(filename):
+def generate_data_sources_layer(filename, output_filename):
     """
     Generates a generic layer for data sources.
     :param filename: the filename of the YAML file containing the data sources administration
+    :param output_filename: the output filename defined by the user
     :return:
     """
     my_data_sources, name, platform, exceptions = _load_data_sources(filename)
@@ -23,13 +24,16 @@ def generate_data_sources_layer(filename):
     layer['techniques'] = my_techniques
 
     json_string = simplejson.dumps(layer).replace('}, ', '},\n')
-    write_file('data_sources', name, json_string)
+    if not output_filename:
+        output_filename = create_output_filename('data_sources', name)
+    write_file(output_filename, json_string)
 
 
-def plot_data_sources_graph(filename):
+def plot_data_sources_graph(filename, output_filename):
     """
     Generates a line graph which shows the improvements on numbers of data sources through time.
     :param filename: the filename of the YAML file containing the data sources administration
+    :param output_filename: the output filename defined by the user
     :return:
     """
     # pylint: disable=unused-variable
@@ -45,7 +49,11 @@ def plot_data_sources_graph(filename):
     df = pd.DataFrame(graph_values).groupby('date', as_index=False)[['count']].sum()
     df['cumcount'] = df['count'].cumsum()
 
-    output_filename = get_non_existing_filename('output/graph_data_sources', 'html')
+    if not output_filename:
+        output_filename = 'graph_data_sources'
+    elif output_filename.endswith('.html'):
+        output_filename = output_filename.replace('.html', '')
+    output_filename = get_non_existing_filename('output/' + output_filename, 'html')
 
     import plotly
     import plotly.graph_objs as go
@@ -57,18 +65,22 @@ def plot_data_sources_graph(filename):
     print("File written:   " + output_filename)
 
 
-def export_data_source_list_to_excel(filename, eql_search=False):
+def export_data_source_list_to_excel(filename, output_filename, eql_search=False):
     """
     Makes an overview of all MITRE ATT&CK data sources (via techniques) and lists which data sources are present
     in the YAML administration including all properties and data quality score.
     :param filename: the filename of the YAML file containing the data sources administration
+    :param output_filename: the output filename defined by the user
     :param eql_search: specify if an EQL search was performed which may have resulted in missing ATT&CK data sources
     :return:
     """
     # pylint: disable=unused-variable
     my_data_sources, name, platforms, exceptions = _load_data_sources(filename, filter_empty_scores=False)
-
-    excel_filename = get_non_existing_filename('output/data_sources', 'xlsx')
+    if not output_filename:
+        output_filename = 'data_sources'
+    elif output_filename.endswith('.xlsx'):
+        output_filename = output_filename.replace('.xlsx', '')
+    excel_filename = get_non_existing_filename('output/' + output_filename, 'xlsx')
     workbook = xlsxwriter.Workbook(excel_filename)
     worksheet = workbook.add_worksheet('Data sources')
 
@@ -307,7 +319,7 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
     :return:
     """
     # first we generate the new visibility scores contained within a temporary tech. admin YAML 'file'
-    new_visibility_scores = generate_technique_administration_file(file_data_sources, write_file=False)
+    new_visibility_scores = generate_technique_administration_file(file_data_sources, None, write_file=False)
 
     # we get the date to remove the single quotes at the end of the code
     today = new_visibility_scores['techniques'][0]['visibility']['score_logbook'][0]['date']
@@ -509,10 +521,11 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
 # pylint: disable=redefined-outer-name
 
 
-def generate_technique_administration_file(filename, write_file=True, all_techniques=False):
+def generate_technique_administration_file(filename, output_filename, write_file=True, all_techniques=False):
     """
     Generate a technique administration file based on the data source administration YAML file
     :param filename: the filename of the YAML file containing the data sources administration
+    :param output_filename: the output filename defined by the user
     :param write_file: by default the file is written to disk
     :param all_techniques: include all ATT&CK techniques in the generated YAML file that are applicable to the
     platform(s) specified in the data source YAML file
@@ -575,8 +588,11 @@ def generate_technique_administration_file(filename, write_file=True, all_techni
         # remove the single quotes from the date
         yaml_file_lines = fix_date_and_remove_null(file_lines, today, input_type='list')
 
-        output_filename = get_non_existing_filename('output/techniques-administration-' +
-                                                    normalize_name_to_filename(name + '-' + platform_to_name(platform)), 'yaml')
+        if not output_filename:
+            output_filename = 'techniques-administration-' + normalize_name_to_filename(name + '-' + platform_to_name(platform))
+        elif output_filename.endswith('.yaml'):
+            output_filename = output_filename.replace('.yaml', '')
+        output_filename = get_non_existing_filename('output/' + output_filename, 'yaml')
         with open(output_filename, 'w') as f:
             f.writelines(yaml_file_lines)
         print("File written:   " + output_filename)

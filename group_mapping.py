@@ -109,7 +109,7 @@ def _get_software_techniques(groups, stage, platform):
             # software matches the ATT&CK Matrix and platform
             # and the group is a group we are interested in
             if s['x_mitre_platforms']:  # there is software that do not have a platform, skip those
-                if s['matrix'] == 'mitre-'+stage and (platform == 'all' or len(set(s['x_mitre_platforms']).intersection(set(platform))) > 0) and \
+                if s['matrix'] == 'mitre-' + stage and (platform == 'all' or len(set(s['x_mitre_platforms']).intersection(set(platform))) > 0) and \
                         (groups[0] == 'all' or s['group_id'].lower() in groups or _is_in_group(s['aliases'], groups)):
                     if s['group_id'] not in groups_dict:
                         groups_dict[s['group_id']] = {'group_name': s['name']}
@@ -197,7 +197,7 @@ def _get_group_techniques(groups, stage, platform, file_type):
                 platforms = 'Windows'
 
             # group matches the: matrix/stage, platform and the group(s) we are interested in
-            if gr['matrix'] == 'mitre-'+stage and (platform == 'all' or len(set(platforms).intersection(set(platform))) > 0) and \
+            if gr['matrix'] == 'mitre-' + stage and (platform == 'all' or len(set(platforms).intersection(set(platform))) > 0) and \
                     (groups[0] == 'all' or gr['group_id'].lower() in groups or _is_in_group(gr['aliases'], groups)):
                 if gr['group_id'] not in groups_dict:
                     groups_found.add(gr['group_id'])
@@ -462,7 +462,7 @@ def _get_group_list(groups, file_type):
 
 
 def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, software_groups,
-                            search_visibility, search_detection, health_is_called, include_all_score_objs=False):
+                            search_visibility, search_detection, health_is_called, output_filename, include_all_score_objs=False):
     """
     Calls all functions that are necessary for the generation of the heat map and write a json layer to disk.
     :param groups: threat actor groups
@@ -475,6 +475,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
     :param search_visibility: visibility EQL search query
     :param search_detection: detection EQL search query
     :param health_is_called: boolean that specifies if detailed errors in the file will be printed
+    :param output_filename: output filename defined by the user
     :param include_all_score_objs: include all score objects within the score_logbook for the EQL query
     :return: returns nothing when something's wrong
     """
@@ -574,11 +575,15 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
 
     json_string = simplejson.dumps(layer).replace('}, ', '},\n')
 
-    if stage == 'pre-attack':
-        filename = '_'.join(groups_list)
-    elif overlay:
-        filename = platform_to_name(platform) + '_' + '_'.join(groups_list) + '-overlay_' + '_'.join(overlay_list)
-    else:
-        filename = platform_to_name(platform) + '_' + '_'.join(groups_list)
+    if not output_filename:
+        if stage == 'pre-attack':
+            filename = '_'.join(groups_list)
+        elif overlay:
+            filename = platform_to_name(platform) + '_' + '_'.join(groups_list) + '-overlay_' + '_'.join(overlay_list)
+        else:
+            filename = platform_to_name(platform) + '_' + '_'.join(groups_list)
 
-    write_file(stage, filename[:255], json_string)
+        filename = create_output_filename(stage, filename)
+        write_file(filename, json_string)
+    else:
+        write_file(output_filename, json_string)

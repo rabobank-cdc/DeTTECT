@@ -342,16 +342,25 @@ def get_layer_template_layered(name, description, stage, platform):
     return layer
 
 
-def write_file(filename_prefix, filename, content):
+def create_output_filename(filename_prefix, filename):
+    """
+    Creates a filename using pre determined convention.
+    :param filename_prefix: prefix part of the filename
+    :param filename: filename
+    :return:
+    """
+    return '%s_%s' % (filename_prefix, normalize_name_to_filename(filename))
+
+
+def write_file(filename, content):
     """
     Writes content to a file and ensures if the file already exists it won't be overwritten by appending a number
     as suffix.
-    :param filename_prefix: prefix part of the filename
     :param filename: filename
     :param content: the content of the file that needs to be written to the file
     :return:
     """
-    output_filename = 'output/%s_%s' % (filename_prefix, normalize_name_to_filename(filename))
+    output_filename = 'output/%s' % clean_filename(filename)
     output_filename = get_non_existing_filename(output_filename, 'json')
 
     with open(output_filename, 'w') as f:
@@ -367,6 +376,8 @@ def get_non_existing_filename(filename, extension):
     :param extension:
     :return:
     """
+    if filename.endswith('.' + extension):
+        filename = filename.replace('.' + extension, '')
     if os.path.exists('%s.%s' % (filename, extension)):
         suffix = 1
         while os.path.exists('%s_%s.%s' % (filename, suffix, extension)):
@@ -514,8 +525,15 @@ def get_latest_score_obj(yaml_object):
         newest_score_obj = None
         newest_date = None
         for score_obj in yaml_object['score_logbook']:
-            if not newest_score_obj or score_obj['date'] > newest_date:
-                newest_date = score_obj['date']
+            # Scores in the score_logbook can be dates (yyyy-mm-dd) but also datetimes (yyyy-mm-dd hh:mm:ss.ffffff).
+            # So convert the datetimes to dates to make it possible to compare.
+            if type(score_obj['date']) == dt:  # dt is the name of the datetime class (see import table)
+                score_obj_date = score_obj['date'].date()
+            else:
+                score_obj_date = score_obj['date']
+
+            if not newest_score_obj or score_obj_date > newest_date:
+                newest_date = score_obj_date
                 newest_score_obj = score_obj
 
         return newest_score_obj
@@ -1003,3 +1021,12 @@ def get_platform_from_yaml(yaml_content):
                 valid_platform_list.append(PLATFORMS[p])
         platform = valid_platform_list
     return platform
+
+
+def clean_filename(filename):
+    """
+    Remove invalid characters from filename and maximize it to 200 characters
+    :param filename: Input filename
+    :return: sanitized filename
+    """
+    return filename.replace('/', '').replace('\\', '').replace(':', '')[:200]
