@@ -373,8 +373,8 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
         for group, values in groups.items():
             if tech in values['techniques']:  # we do not color this one because that's done using the scoring
                 if 'Groups' not in metadata_dict:
-                    metadata_dict['Groups'] = set()
-                metadata_dict['Groups'].add(values['group_name'])
+                    metadata_dict['Group'] = set()
+                metadata_dict['Group'].add(values['group_name'])
 
                 # this will only be effective when loading a YAML files that have a value for the key 'campaign'
                 if 'campaign' in values:
@@ -389,6 +389,7 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
                 if len(v['groups'].intersection(set(groups.keys()))) > 0:
                     # if the technique is both present in the group (-g/--groups) and the groups overlay (-o/--overlay)
                     t['color'] = COLOR_GROUP_OVERLAY_MATCH
+                    metadata_dict['Group'].add(values['group_name'])
                 else:
                     # the technique is only present in the overlay and not in the provided groups (-g/--groups)
                     if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
@@ -398,22 +399,21 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
                             t['color'] = COLOR_GROUP_OVERLAY_ONLY_DETECTION
                     else:
                         t['color'] = COLOR_GROUP_OVERLAY_NO_MATCH
+                        if 'Groups' not in metadata_dict:
+                            metadata_dict['Group'] = set()
+                        metadata_dict['Group'].add(values['group_name'])
 
                 # Add applicable_to to metadata in case of overlay for detection/visibility:
                 if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
-                    metadata_dict['Applicable to'] = set([a for v in all_techniques[tech][overlay_type] for a in v['applicable_to']])
-                    metadata_dict['Detection score'] = [str(calculate_score(all_techniques[tech]['detection']))]
-                    metadata_dict['Visibility score'] = [str(calculate_score(all_techniques[tech]['visibility']))]
-
-                if 'Overlay' not in metadata_dict:
-                    metadata_dict['Overlay'] = set()
-                metadata_dict['Overlay'].add(values['group_name'])
-
-                # this will only be effective when loading a YAML files that has a value for the key 'campaign'
-                if 'campaign' in values:
-                    if 'Campaign' not in metadata_dict:
-                        metadata_dict['Campaign'] = set()
-                    metadata_dict['Campaign'].add(values['campaign'])
+                    t['metadata'].append({'name': '-Overlay', 'value': overlay_type})
+                    for obj_type in ['detection', 'visibility']:
+                        t['metadata'].append({'name': '---', 'value': '---'})
+                        t['metadata'].append({'name': '-Applicable to', 'value': ', '.join(set([a for v in all_techniques[tech][obj_type] for a in v['applicable_to']]))})  # noqa
+                        t['metadata'].append({'name': '-' + obj_type.capitalize() + ' score', 'value': ', '.join([str(calculate_score(all_techniques[tech][obj_type]))])})  # noqa
+                        if obj_type == 'detection':
+                            t['metadata'].append({'name': '-' + obj_type.capitalize() + ' location', 'value': ', '.join(set([a for v in all_techniques[tech][obj_type] for a in v['location']]))})  # noqa
+                        t['metadata'].append({'name': '-' + obj_type.capitalize() + ' comment', 'value': ' | '.join(set(filter(lambda x: x != '', map(lambda k: k['comment'], all_techniques[tech][obj_type]))))})  # noqa
+                        t['metadata'].append({'name': '-' + obj_type.capitalize() + ' score comment', 'value': ' | '.join(set(filter(lambda x: x != '', map(lambda i: get_latest_comment(i), all_techniques[tech][obj_type]))))})  # noqa
 
         # change the color and add metadata to make the groups software overlay visible
         for group, values in groups_software.items():
@@ -432,10 +432,13 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
                     metadata_dict['Software campaign'].add(values['campaign'])
 
         # create the metadata based on the dict 'metadata_dict'
+        i = 0
         for metadata, values in metadata_dict.items():
             tmp_dict = {'name': '-' + metadata, 'value': ', '.join(values)}
-            t['metadata'].append(tmp_dict)
+            t['metadata'].insert(i, tmp_dict)
+            i += 1
 
+        t['metadata'] = make_layer_metadata_compliant(t['metadata'])
         techniques_layer.append(t)
 
     return techniques_layer
@@ -567,7 +570,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
     overlay_list = _get_group_list(overlay_dict, overlay_file_type)
 
     desc = 'stage: ' + stage + ' | platform(s): ' + platform_to_name(platform, separator=', ') + ' | group(s): ' \
-           + ', '.join(groups_list) + ' | overlay group(s): ' + ', '.join(overlay_list)
+        + ', '.join(groups_list) + ' | overlay group(s): ' + ', '.join(overlay_list)
 
     layer = get_layer_template_groups(stage[0].upper() + stage[1:] + ' - ' + platform_to_name(platform, separator=', '),
                                       max_count, desc, stage, platform, overlay_type)
