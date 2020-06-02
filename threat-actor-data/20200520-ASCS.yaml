@@ -1,0 +1,14 @@
+%YAML 1.2
+---
+# Source: https://www.cyber.gov.au/threats/summary-of-tradecraft-trends-for-2019-20-tactics-techniques-and-procedures-used-to-target-australian-networks
+version: 1.0
+file_type: group-administration
+platform:
+  - all
+groups:
+  -
+    group_name: 'Summary of Tradecraft Trends for 2019-2020: TTPs Used to Target Australian Networks'
+    campaign:
+    technique_id: [T1002, T1003, T1005, T1007, T1016, T1018, T1021, T1022, T1033, T1039, T1041, T1045, T1046, T1048, T1049, T1056, T1059, T1060, T1064, T1068, T1070, T1071, T1074, T1077, T1078, T1080, T1081, T1082, T1083, T1086, T1087, T1099, T1100, T1106, T1107, T1108, T1110, T1114, T1134, T1135, T1158, T1189, T1190, T1193, T1204, T1213, T1482, T1486, T1504]
+    software_id:  []
+    enabled:      True
