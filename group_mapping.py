@@ -464,8 +464,8 @@ def _get_group_list(groups, file_type):
         return groups
 
 
-def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, software_groups,
-                            search_visibility, search_detection, health_is_called, output_filename, include_all_score_objs=False):
+def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, software_groups, search_visibility,
+                            search_detection, health_is_called, output_filename, layer_name, include_all_score_objs=False):
     """
     Calls all functions that are necessary for the generation of the heat map and write a json layer to disk.
     :param groups: threat actor groups
@@ -479,6 +479,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
     :param search_detection: detection EQL search query
     :param health_is_called: boolean that specifies if detailed errors in the file will be printed
     :param output_filename: output filename defined by the user
+    :param layer_name: the name of the Navigator layer
     :param include_all_score_objs: include all score objects within the score_logbook for the EQL query
     :return: returns nothing when something's wrong
     """
@@ -572,8 +573,10 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
     desc = 'stage: ' + stage + ' | platform(s): ' + platform_to_name(platform, separator=', ') + ' | group(s): ' \
         + ', '.join(groups_list) + ' | overlay group(s): ' + ', '.join(overlay_list)
 
-    layer = get_layer_template_groups(stage[0].upper() + stage[1:] + ' - ' + platform_to_name(platform, separator=', '),
-                                      max_count, desc, stage, platform, overlay_type)
+    if not layer_name:
+        layer_name = stage[0].upper() + stage[1:] + ' - ' + platform_to_name(platform, separator=', ')
+
+    layer = get_layer_template_groups(layer_name, max_count, desc, stage, platform, overlay_type)
     layer['techniques'] = technique_layer
 
     json_string = simplejson.dumps(layer).replace('}, ', '},\n')

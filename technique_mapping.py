@@ -5,35 +5,41 @@ from datetime import datetime
 # Imports for pandas and plotly are because of performance reasons in the function that uses these libraries.
 
 
-def generate_detection_layer(filename_techniques, filename_data_sources, overlay, output_filename):
+def generate_detection_layer(filename_techniques, filename_data_sources, overlay, output_filename, layer_name):
     """
     Generates layer for detection coverage and optionally an overlaid version with visibility coverage.
     :param filename_techniques: the filename of the YAML file containing the techniques administration
     :param filename_data_sources: the filename of the YAML file containing the data sources administration
     :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
+    :param layer_name: the name of the Navigator layer
     :param output_filename: the output filename defined by the user
     :return:
     """
     if not overlay:
         my_techniques, name, platform = load_techniques(filename_techniques)
         mapped_techniques_detection = _map_and_colorize_techniques_for_detections(my_techniques)
-        layer_detection = get_layer_template_detections('Detections ' + name, 'description', 'attack', platform)
+        if not layer_name:
+            layer_name = 'Detections ' + name
+        layer_detection = get_layer_template_detections(layer_name, 'description', 'attack', platform)
         _write_layer(layer_detection, mapped_techniques_detection, 'detection', name, output_filename)
     else:
         my_techniques, name, platform = load_techniques(filename_techniques)
         my_data_sources = _load_data_sources(filename_data_sources)
         mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, platform)
-        layer_both = get_layer_template_layered('Visibility and Detection ' + name, 'description', 'attack', platform)
+        if not layer_name:
+            layer_name = 'Visibility and Detection ' + name
+        layer_both = get_layer_template_layered(layer_name, 'description', 'attack', platform)
         _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name, output_filename)
 
 
-def generate_visibility_layer(filename_techniques, filename_data_sources, overlay, output_filename):
+def generate_visibility_layer(filename_techniques, filename_data_sources, overlay, output_filename, layer_name):
     """
     Generates layer for visibility coverage and optionally an overlaid version with detection coverage.
     :param filename_techniques: the filename of the YAML file containing the techniques administration
     :param filename_data_sources: the filename of the YAML file containing the data sources administration
     :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
     :param output_filename: the output filename defined by the user
+    :param layer_name: the name of the Navigator layer
     :return:
     """
     my_data_sources = _load_data_sources(filename_data_sources)
@@ -41,12 +47,16 @@ def generate_visibility_layer(filename_techniques, filename_data_sources, overla
     if not overlay:
         my_techniques, name, platform = load_techniques(filename_techniques)
         mapped_techniques_visibility = _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, platform)
-        layer_visibility = get_layer_template_visibility('Visibility ' + name, 'description', 'attack', platform)
+        if not layer_name:
+            layer_name = 'Visibility ' + name
+        layer_visibility = get_layer_template_visibility(layer_name, 'description', 'attack', platform)
         _write_layer(layer_visibility, mapped_techniques_visibility, 'visibility', name, output_filename)
     else:
         my_techniques, name, platform = load_techniques(filename_techniques)
         mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, platform)
-        layer_both = get_layer_template_layered('Visibility and Detection ' + name, 'description', 'attack', platform)
+        if not layer_name:
+            layer_name = 'Visibility and Detection ' + name
+        layer_both = get_layer_template_layered(layer_name, 'description', 'attack', platform)
         _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name, output_filename)
 
 

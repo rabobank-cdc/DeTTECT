@@ -273,7 +273,7 @@ def _menu_data_source(filename_ds):
                 _menu_data_source(filename_ds)
         if choice == '3':
             print('Writing data sources layer...')
-            generate_data_sources_layer(file_ds, None)
+            generate_data_sources_layer(file_ds, None, None)
             _wait()
         elif choice == '4':
             print('Drawing the graph...')
@@ -352,14 +352,14 @@ def _menu_detection(filename_t):
                 _menu_detection(filename_t)
         if choice == '4':
             print('Writing detection coverage layer...')
-            generate_detection_layer(file_tech, None, False, None)
+            generate_detection_layer(file_tech, None, False, None, None)
             _wait()
         elif choice == '5':
             filename_ds = _select_file(MENU_NAME_DETECTION_COVERAGE_MAPPING, 'data sources (used to add metadata on the '
                                                                              'involved data sources to the heat map)',
                                        FILE_TYPE_DATA_SOURCE_ADMINISTRATION, False)
             print('Writing detection coverage layer with visibility as overlay...')
-            generate_detection_layer(file_tech, filename_ds, True, None)
+            generate_detection_layer(file_tech, filename_ds, True, None, None)
             _wait()
         elif choice == '6':
             print('Drawing the graph...')
@@ -430,11 +430,11 @@ def _menu_visibility(filename_t, filename_ds):
                 _menu_visibility(filename_t, filename_ds)
         if choice == '4':
             print('Writing visibility coverage layer...')
-            generate_visibility_layer(file_tech, filename_ds, False, None)
+            generate_visibility_layer(file_tech, filename_ds, False, None, None)
             _wait()
         elif choice == '5':
             print('Writing visibility coverage layer overlaid with detections...')
-            generate_visibility_layer(file_tech, filename_ds, True, None)
+            generate_visibility_layer(file_tech, filename_ds, True, None, None)
             _wait()
         elif choice == '6':
             print('Drawing the graph...')
@@ -540,7 +540,7 @@ def _menu_groups():
     elif choice == '7':
         if not generate_group_heat_map(groups, groups_overlay, overlay_type, default_stage, default_platform,
                                        software_group, eql_query_visibility, eql_query_detection, False,
-                                       None, include_all_score_objs=eql_all_scores):
+                                       None, None, include_all_score_objs=eql_all_scores):
             _wait()
             _menu_groups()
         _wait()

@@ -8,11 +8,12 @@ from generic import *
 # Imports for pandas and plotly are because of performance reasons in the function that uses these libraries.
 
 
-def generate_data_sources_layer(filename, output_filename):
+def generate_data_sources_layer(filename, output_filename, layer_name):
     """
     Generates a generic layer for data sources.
     :param filename: the filename of the YAML file containing the data sources administration
     :param output_filename: the output filename defined by the user
+    :param layer_name: the name of the Navigator layer
     :return:
     """
     my_data_sources, name, platform, exceptions = _load_data_sources(filename)
@@ -20,7 +21,10 @@ def generate_data_sources_layer(filename, output_filename):
     # Do the mapping between my data sources and MITRE data sources:
     my_techniques = _map_and_colorize_techniques(my_data_sources, platform, exceptions)
 
-    layer = get_layer_template_data_sources("Data sources " + name, 'description', 'attack', platform)
+    if not layer_name:
+        layer_name = 'Data sources ' + name
+
+    layer = get_layer_template_data_sources(layer_name, 'description', 'attack', platform)
     layer['techniques'] = my_techniques
 
     json_string = simplejson.dumps(layer).replace('}, ', '},\n')
