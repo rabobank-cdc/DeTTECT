@@ -22,6 +22,14 @@
             <td><base-input v-model="doc['name']" class="file-detail-edit"></base-input></td>
         </tr>
         <tr>
+            <td>Notes:</td>
+            <td>
+                <div class="textareaFileDetails">
+                    <extended-textarea :data_object="doc" data_field="notes" rows="2" id="notes"></extended-textarea>
+                </div>
+            </td>
+        </tr>
+        <tr>
             <td>Platform:</td>
             <td>
                 <!-- eslint-disable-next-line vue/require-v-for-key -->
@@ -36,27 +44,28 @@
 
 <script>
 import { notificationMixin } from '@/mixins/NotificationMixins.js';
+import ExtendedTextarea from '@/components/Inputs/ExtendedTextarea';
 
 export default {
     mixins: [notificationMixin],
     props: {
         filename: {
             type: String,
-            required: true
+            required: true,
         },
         doc: {
             type: Object,
-            required: true
+            required: true,
         },
         platforms: {
             type: Array,
-            required: true
+            required: true,
         },
         showName: {
             type: Boolean,
             required: false,
-            default: true
-        }
+            default: true,
+        },
     },
     methods: {
         platformEventHandler(event) {
@@ -80,8 +89,11 @@ export default {
             if (this.doc.platform.length == 0) {
                 this.notifyDanger('Missing value', 'No value for platform selected. Please select one or more platforms.');
             }
-        }
-    }
+        },
+    },
+    components: {
+        ExtendedTextarea,
+    },
 };
 </script>
 

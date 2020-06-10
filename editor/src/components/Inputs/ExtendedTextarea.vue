@@ -1,6 +1,12 @@
 <template>
     <div>
-        <textarea rows="4" placeholder=". . ." class="form-control textarea-border pl-md-3" v-model="row.comment"> </textarea>
+        <textarea
+            :rows="rows"
+            placeholder=". . ."
+            class="form-control textarea-border pl-md-3 textarea-customstyle"
+            v-model="data_object[data_field]"
+        >
+        </textarea>
         <div v-b-modal="'comment-modal-' + id" class="icon-example" @click="callCbFunction('comment-modal-' + id)"></div>
         <b-modal :id="'comment-modal-' + id" dialog-class="modal-edit-small" content-class="modal-dark-mode" hide-footer hide-header no-close-on-esc>
             <div class="row">
@@ -27,7 +33,7 @@
                         rows="50"
                         placeholder=". . ."
                         class="form-control textarea-border textarea-modal pl-md-3"
-                        v-model="row.comment"
+                        v-model="data_object[data_field]"
                     ></textarea>
                 </div>
             </div>
@@ -42,25 +48,33 @@ export default {
     },
     components: {},
     props: {
-        row: {
+        data_object: {
             type: Object,
-            required: true
+            required: true,
+        },
+        data_field: {
+            type: String,
+            required: true,
         },
         id: {
             type: String,
-            required: true
+            required: true,
         },
         cb_function: {
             type: Function,
-            required: false
-        }
+            required: false,
+        },
+        rows: {
+            type: String,
+            required: true,
+        },
     },
     methods: {
         callCbFunction(b) {
             if (this.cb_function != undefined) {
                 this.cb_function(b);
             }
-        }
-    }
+        },
+    },
 };
 </script>
