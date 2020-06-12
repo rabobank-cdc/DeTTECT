@@ -320,39 +320,11 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, pl
             x['metadata'].append({'name': '-Available data sources', 'value': my_ds})
             x['metadata'].append({'name': '-ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique['x_mitre_data_sources'],
                                                                                                                            applicable_data_sources))})
-            x['metadata'].append({'name': '---', 'value': '---'})
-
-            # Metadata for detection:
-            cnt = 1
-            tcnt = len([d for d in technique_data['detection'] if get_latest_score(d) >= 0])
-            for detection in technique_data['detection']:
-                d_score = get_latest_score(detection)
-                if d_score >= 0:
-                    location = ', '.join(detection['location'])
-                    applicable_to = ', '.join(detection['applicable_to'])
-                    x['metadata'].append({'name': '-Applicable to', 'value': applicable_to})
-                    x['metadata'].append({'name': '-Detection score', 'value': str(d_score)})
-                    x['metadata'].append({'name': '-Detection location', 'value': location})
-                    x['metadata'].append({'name': '-Technique comment', 'value': detection['comment']})
-                    x['metadata'].append({'name': '-Detection comment', 'value': get_latest_comment(detection)})
-                    if cnt != tcnt:
-                        x['metadata'].append({'name': '---', 'value': '---'})
-                    cnt += 1
-
-            # Metadata for visibility:
-            if tcnt > 0:
-                x['metadata'].append({'name': '---', 'value': '---'})
-            cnt = 1
-            tcnt = len([v for v in technique_data['visibility']])
-            for visibility in technique_data['visibility']:
-                applicable_to = ', '.join(visibility['applicable_to'])
-                x['metadata'].append({'name': '-Applicable to', 'value': applicable_to})
-                x['metadata'].append({'name': '-Visibility score', 'value': str(get_latest_score(visibility))})
-                x['metadata'].append({'name': '-Technique comment', 'value': visibility['comment']})
-                x['metadata'].append({'name': '-Visibility comment', 'value': get_latest_comment(visibility)})
-                if cnt != tcnt:
-                    x['metadata'].append({'name': '---', 'value': '---'})
-                cnt += 1
+            # Metadata for detection and visibility:
+            for obj_type in ['detection', 'visibility']:
+                tcnt = len([obj for obj in technique_data[obj_type] if get_latest_score(obj) >= 0])
+                if tcnt > 0:
+                    x['metadata'] = add_metadata_technique_object(technique_data, obj_type, x['metadata'])
 
             x['metadata'] = make_layer_metadata_compliant(x['metadata'])
             mapped_techniques.append(x)
