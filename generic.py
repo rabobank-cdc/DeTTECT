@@ -243,11 +243,27 @@ def get_layer_template_groups(name, max_count, description, stage, platform, ove
         layer['legendItems'].append({'label': 'Src. of tech. is only software', 'color': COLOR_SOFTWARE})
         layer['legendItems'].append({'label': 'Src. of tech. is group(s)/overlay + software', 'color': COLOR_GROUP_AND_SOFTWARE})
     elif overlay_type == OVERLAY_TYPE_DETECTION:
-        layer['legendItems'].append({'label': 'Tech. in group + detection', 'color': COLOR_GROUP_OVERLAY_MATCH})
-        layer['legendItems'].append({'label': 'Tech. in detection', 'color': COLOR_GROUP_OVERLAY_ONLY_DETECTION})
+        layer['legendItems'].append({'label': 'Tech. in group + detection score 0: Forensics/Context', 'color': COLOR_O_0})
+        layer['legendItems'].append({'label': 'Tech. in group + detection score 1: Basic', 'color': COLOR_O_1})
+        layer['legendItems'].append({'label': 'Tech. in group + detection score 2: Fair', 'color': COLOR_O_2})
+        layer['legendItems'].append({'label': 'Tech. in group + detection score 3: Good', 'color': COLOR_O_3})
+        layer['legendItems'].append({'label': 'Tech. in group + detection score 4: Very good', 'color': COLOR_O_4})
+        layer['legendItems'].append({'label': 'Tech. in group + detection score 5: Excellent', 'color': COLOR_O_5})
+        layer['legendItems'].append({'label': 'Tech. in detection, score 0: Forensics/Context', 'color': COLOR_D_0})
+        layer['legendItems'].append({'label': 'Tech. in detection, score 1: Basic', 'color': COLOR_D_1})
+        layer['legendItems'].append({'label': 'Tech. in detection, score 2: Fair', 'color': COLOR_D_2})
+        layer['legendItems'].append({'label': 'Tech. in detection, score 3: Good', 'color': COLOR_D_3})
+        layer['legendItems'].append({'label': 'Tech. in detection, score 4: Very good', 'color': COLOR_D_4})
+        layer['legendItems'].append({'label': 'Tech. in detection, score 5: Excellent', 'color': COLOR_D_5})
     elif overlay_type == OVERLAY_TYPE_VISIBILITY:
-        layer['legendItems'].append({'label': 'Tech. in group + visibility', 'color': COLOR_GROUP_OVERLAY_MATCH})
-        layer['legendItems'].append({'label': 'Tech. in visibility', 'color': COLOR_GROUP_OVERLAY_ONLY_VISIBILITY})
+        layer['legendItems'].append({'label': 'Tech. in group + visibility score 1: Minimal', 'color': COLOR_O_1})
+        layer['legendItems'].append({'label': 'Tech. in group + visibility score 2: Medium', 'color': COLOR_O_2})
+        layer['legendItems'].append({'label': 'Tech. in group + visibility score 3: Good', 'color': COLOR_O_3})
+        layer['legendItems'].append({'label': 'Tech. in group + visibility score 4: Excellent', 'color': COLOR_O_4})
+        layer['legendItems'].append({'label': 'Tech. in visibility, score 1: Minimal', 'color': COLOR_V_1})
+        layer['legendItems'].append({'label': 'Tech. in visibility, score 2: Medium', 'color': COLOR_V_2})
+        layer['legendItems'].append({'label': 'Tech. in visibility, score 3: Good', 'color': COLOR_V_3})
+        layer['legendItems'].append({'label': 'Tech. in visibility, score 4: Excellent', 'color': COLOR_V_4})
 
     return layer
 
@@ -335,9 +351,16 @@ def get_layer_template_layered(name, description, stage, platform):
     layer = _get_base_template(name, description, stage, platform, 0)
     layer['legendItems'] = \
         [
-            {'label': 'Visibility', 'color': COLOR_OVERLAY_VISIBILITY},
-            {'label': 'Detection', 'color': COLOR_OVERLAY_DETECTION},
-            {'label': 'Visibility and detection', 'color': COLOR_OVERLAY_BOTH}
+            {'label': 'Visibility and detection', 'color': COLOR_OVERLAY_BOTH},
+            {'label': 'Visibility score 1: Minimal', 'color': COLOR_V_1},
+            {'label': 'Visibility score 2: Medium', 'color': COLOR_V_2},
+            {'label': 'Visibility score 3: Good', 'color': COLOR_V_3},
+            {'label': 'Visibility score 4: Excellent', 'color': COLOR_V_4},
+            {'label': 'Detection score 1: Basic', 'color': COLOR_D_1},
+            {'label': 'Detection score 2: Fair', 'color': COLOR_D_2},
+            {'label': 'Detection score 3: Good', 'color': COLOR_D_3},
+            {'label': 'Detection score 4: Very good', 'color': COLOR_D_4},
+            {'label': 'Detection score 5: Excellent', 'color': COLOR_D_5}
     ]
     return layer
 
@@ -710,7 +733,7 @@ def calculate_score(list_detections, zero_value=0):
     number = 0
     for v in list_detections:
         score = get_latest_score(v)
-        if score and score >= 0:
+        if score is not None and score >= 0:
             avg_score += score
             number += 1
 

@@ -44,7 +44,7 @@ COLOR_DS_99p_HAPPY = '#689F38'
 COLOR_DS_100p_HAPPY = '#33691E'
 
 # Detection colors (green range)
-COLOR_D_0 = '#64B5F6'  # Blue: Forensics/Context
+COLOR_D_0 = '#9C27B0'  # Purple: Forensics/Context
 COLOR_D_1 = '#DCEDC8'
 COLOR_D_2 = '#AED581'
 COLOR_D_3 = '#8BC34A'
@@ -56,6 +56,14 @@ COLOR_V_1 = '#BBDEFB'
 COLOR_V_2 = '#64B5F6'
 COLOR_V_3 = '#1976D2'
 COLOR_V_4 = '#0D47A1'
+
+# Orange overlay colors
+COLOR_O_0 = '#FEEED3'
+COLOR_O_1 = '#FDE5BE'
+COLOR_O_2 = '#FDDCA8'
+COLOR_O_3 = '#FBCB7C'
+COLOR_O_4 = '#FAB951'
+COLOR_O_5 = '#F9A825'
 
 COLOR_WHITE = '#FFFFFF'
 

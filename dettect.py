@@ -246,10 +246,9 @@ def _menu(menu_parser):
 
     # todo add search capabilities
     elif args.subparser in ['group', 'g']:
-        if not generate_group_heat_map(args.groups, args.overlay, args.overlay_type, args.stage, args.platform,
-                                       args.software_group, args.search_visibility, args.search_detection, args.health,
-                                       args.output_filename, args.layer_name, include_all_score_objs=args.all_scores):
-            quit()  # something went wrong in executing the search or 0 results where returned
+        generate_group_heat_map(args.groups, args.overlay, args.overlay_type, args.stage, args.platform,
+                                args.software_group, args.search_visibility, args.search_detection, args.health,
+                                args.output_filename, args.layer_name, include_all_score_objs=args.all_scores)
 
     elif args.subparser in ['detection', 'd']:
         if args.overlay:

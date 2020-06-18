@@ -300,9 +300,11 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, pl
         if detection and visibility:
             color = COLOR_OVERLAY_BOTH
         elif detection and not visibility:
-            color = COLOR_OVERLAY_DETECTION
+            s = detection_score
+            color = COLOR_D_0 if s == 0 else COLOR_D_1 if s == 1 else COLOR_D_2 if s == 2 else COLOR_D_3 if s == 3 else COLOR_D_4 if s == 4 else COLOR_D_5 if s == 5 else ''
         elif not detection and visibility:
-            color = COLOR_OVERLAY_VISIBILITY
+            s = visibility_score
+            color = COLOR_V_1 if s == 1 else COLOR_V_2 if s == 2 else COLOR_V_3 if s == 3 else COLOR_V_4 if s == 4 else ''
         else:
             color = COLOR_WHITE
 

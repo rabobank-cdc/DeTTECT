@@ -235,8 +235,8 @@ def _get_detection_techniques(filename):
     groups_dict[group_id]['techniques'] = set()
     groups_dict[group_id]['weight'] = dict()
     for t, v in detection_techniques.items():
-        s = calculate_score(v['detection'])
-        if s > 0:
+        s = calculate_score(v['detection'], zero_value=-1)
+        if s >= 0:
             groups_dict[group_id]['techniques'].add(t)
             groups_dict[group_id]['weight'][t] = 1
 
@@ -302,7 +302,10 @@ def _get_technique_count(groups, groups_overlay, groups_software, overlay_type, 
         dict_tech_score = {}
         list_tech = groups_overlay[overlay_type.upper()]['techniques']
         for tech in list_tech:
-            dict_tech_score[tech] = calculate_score(all_techniques[tech][overlay_type]) + max_count
+            if overlay_type == OVERLAY_TYPE_VISIBILITY:
+                dict_tech_score[tech] = calculate_score(all_techniques[tech]['visibility']) + max_count
+            elif overlay_type == OVERLAY_TYPE_DETECTION:
+                dict_tech_score[tech] = calculate_score(all_techniques[tech]['detection'], zero_value=-1) + max_count
 
     for group, v in groups_overlay.items():
         for tech in v['techniques']:
@@ -388,15 +391,30 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
                 # Determine color:
                 if len(v['groups'].intersection(set(groups.keys()))) > 0:
                     # if the technique is both present in the group (-g/--groups) and the groups overlay (-o/--overlay)
-                    t['color'] = COLOR_GROUP_OVERLAY_MATCH
                     metadata_dict['Group'].add(values['group_name'])
+
+                    # determine the color of the overlay:
+                    # - using groups, it's normal orange
+                    # - using detections, it's 6 variations or orange (score 0 to 5)
+                    # - using visibility, it's 4 variations of orange (score 1 to 4)
+                    if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
+                        if overlay_type == OVERLAY_TYPE_VISIBILITY:
+                            s = calculate_score(all_techniques[tech]['visibility'])
+                            t['color'] = COLOR_O_1 if s == 1 else COLOR_O_2 if s == 2 else COLOR_O_3 if s == 3 else COLOR_O_4 if s == 4 else ''
+                        elif overlay_type == OVERLAY_TYPE_DETECTION:
+                            s = calculate_score(all_techniques[tech]['detection'], zero_value=-1)
+                            t['color'] = COLOR_O_0 if s == 0 else COLOR_O_1 if s == 1 else COLOR_O_2 if s == 2 else COLOR_O_3 if s == 3 else COLOR_O_4 if s == 4 else COLOR_O_5 if s == 5 else ''
+                    else:
+                        t['color'] = COLOR_GROUP_OVERLAY_MATCH
                 else:
                     # the technique is only present in the overlay and not in the provided groups (-g/--groups)
                     if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
                         if overlay_type == OVERLAY_TYPE_VISIBILITY:
-                            t['color'] = COLOR_GROUP_OVERLAY_ONLY_VISIBILITY
+                            s = calculate_score(all_techniques[tech]['visibility'])
+                            t['color'] = COLOR_V_1 if s == 1 else COLOR_V_2 if s == 2 else COLOR_V_3 if s == 3 else COLOR_V_4 if s == 4 else ''
                         elif overlay_type == OVERLAY_TYPE_DETECTION:
-                            t['color'] = COLOR_GROUP_OVERLAY_ONLY_DETECTION
+                            s = calculate_score(all_techniques[tech]['detection'], zero_value=-1)
+                            t['color'] = COLOR_D_0 if s == 0 else COLOR_D_1 if s == 1 else COLOR_D_2 if s == 2 else COLOR_D_3 if s == 3 else COLOR_D_4 if s == 4 else COLOR_D_5 if s == 5 else ''
                     else:
                         t['color'] = COLOR_GROUP_OVERLAY_NO_MATCH
                         if 'Groups' not in metadata_dict:
