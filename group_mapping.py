@@ -425,13 +425,7 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
                 if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
                     t['metadata'].append({'name': '-Overlay', 'value': overlay_type})
                     for obj_type in ['detection', 'visibility']:
-                        t['metadata'].append({'name': '---', 'value': '---'})
-                        t['metadata'].append({'name': '-Applicable to', 'value': ', '.join(set([a for v in all_techniques[tech][obj_type] for a in v['applicable_to']]))})  # noqa
-                        t['metadata'].append({'name': '-' + obj_type.capitalize() + ' score', 'value': ', '.join([str(calculate_score(all_techniques[tech][obj_type]))])})  # noqa
-                        if obj_type == 'detection':
-                            t['metadata'].append({'name': '-' + obj_type.capitalize() + ' location', 'value': ', '.join(set([a for v in all_techniques[tech][obj_type] for a in v['location']]))})  # noqa
-                        t['metadata'].append({'name': '-' + obj_type.capitalize() + ' comment', 'value': ' | '.join(set(filter(lambda x: x != '', map(lambda k: k['comment'], all_techniques[tech][obj_type]))))})  # noqa
-                        t['metadata'].append({'name': '-' + obj_type.capitalize() + ' score comment', 'value': ' | '.join(set(filter(lambda x: x != '', map(lambda i: get_latest_comment(i), all_techniques[tech][obj_type]))))})  # noqa
+                        t['metadata'] = add_metadata_technique_object(all_techniques[tech], obj_type, t['metadata'])
 
         # change the color and add metadata to make the groups software overlay visible
         for group, values in groups_software.items():

@@ -897,6 +897,28 @@ def make_layer_metadata_compliant(metadata):
     return metadata
 
 
+def add_metadata_technique_object(technique, obj_type, metadata):
+    """
+    Add the metadata for a detection or visibility object as used within any type of overlay.
+    :param technique: technique object containing both the visibility and detection object
+    :param obj_type: valid values are 'detection' and 'visibility'
+    :param metadata: a list to which the metadata will be added
+    :return: the created metadata as a list
+    """
+    if obj_type not in ['detection', 'visibility']:
+        raise Exception("Invalid value for 'obj_type' provided.")
+
+    metadata.append({'name': '---', 'value': '---'})
+    metadata.append({'name': '-Applicable to', 'value': ', '.join(set([a for v in technique[obj_type] for a in v['applicable_to']]))})  # noqa
+    metadata.append({'name': '-' + obj_type.capitalize() + ' score', 'value': ', '.join([str(calculate_score(technique[obj_type]))])})  # noqa
+    if obj_type == 'detection':
+        metadata.append({'name': '-' + obj_type.capitalize() + ' location', 'value': ', '.join(set([a for v in technique[obj_type] for a in v['location']]))})  # noqa
+    metadata.append({'name': '-' + obj_type.capitalize() + ' comment', 'value': ' | '.join(set(filter(lambda x: x != '', map(lambda k: k['comment'], technique[obj_type]))))})  # noqa
+    metadata.append({'name': '-' + obj_type.capitalize() + ' score comment', 'value': ' | '.join(set(filter(lambda x: x != '', map(lambda i: get_latest_comment(i), technique[obj_type]))))})  # noqa
+
+    return metadata
+
+
 def get_updates(update_type, sort='modified'):
     """
     Print a list of updates for a techniques, groups or software. Sort by modified or creation date.
