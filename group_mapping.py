@@ -493,7 +493,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
     :param output_filename: output filename defined by the user
     :param layer_name: the name of the Navigator layer
     :param include_all_score_objs: include all score objects within the score_logbook for the EQL query
-    :return: returns nothing when something's wrong
+    :return: returns None when something went wrong
     """
     overlay_dict = {}
     groups_software_dict = {}
@@ -503,7 +503,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
         groups_file_type = check_file(groups, file_type=FILE_TYPE_GROUP_ADMINISTRATION,
                                       health_is_called=health_is_called)
         if not groups_file_type:
-            return
+            return None  # the groups_file_type is not of the type FILE_TYPE_GROUP_ADMINISTRATION
     else:
         # remove whitespaces (leading and trailing), convert to lower case and put in a list
         groups = groups.split(',')
@@ -529,7 +529,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
                 if overlay_type in [OVERLAY_TYPE_VISIBILITY, OVERLAY_TYPE_DETECTION] else None
             overlay_file_type = check_file(overlay, expected_file_type, health_is_called=health_is_called)
             if not overlay_file_type:
-                return
+                return None  # the overlay_file_type is not of the expected type
         else:
             overlay = overlay.split(',')
             overlay = list(map(lambda x: x.strip().lower(), overlay))
@@ -550,18 +550,19 @@ def generate_group_heat_map(groups, overlay, overlay_type, stage, platform, soft
             overlay_dict, all_techniques = _get_visibility_techniques(overlay)
         elif overlay_type == OVERLAY_TYPE_DETECTION:
             overlay_dict, all_techniques = _get_detection_techniques(overlay)
+
     # we are not overlaying visibility or detection, overlay group will therefore contain information on another group
     elif len(overlay) > 0:
         overlay_dict = _get_group_techniques(overlay, stage, platform, overlay_file_type)
         if overlay_dict == -1:
-            return
+            return None  # returns None when the provided Group(s) to be overlaid, contains Groups not part of ATT&CK
 
     groups_dict = _get_group_techniques(groups, stage, platform, groups_file_type)
     if groups_dict == -1:
-        return
+        return None  # returns None when the provided Group contains Groups not part of ATT&CK
     if len(groups_dict) == 0:
         print('[!] Empty layer.')  # the provided groups dit not result in any techniques
-        return
+        return None
 
     # check if we are doing a software group overlay
     if software_groups and overlay:
