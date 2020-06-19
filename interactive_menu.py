@@ -538,11 +538,9 @@ def _menu_groups():
             eql_all_scores = not eql_all_scores
 
     elif choice == '7':
-        if not generate_group_heat_map(groups, groups_overlay, overlay_type, default_stage, default_platform,
-                                       software_group, eql_query_visibility, eql_query_detection, False,
-                                       None, None, include_all_score_objs=eql_all_scores):
-            _wait()
-            _menu_groups()
+        generate_group_heat_map(groups, groups_overlay, overlay_type, default_stage, default_platform,
+                                software_group, eql_query_visibility, eql_query_detection, False,
+                                None, None, include_all_score_objs=eql_all_scores)
         _wait()
     elif choice == '9':
         interactive_menu()
