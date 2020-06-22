@@ -243,11 +243,27 @@ def get_layer_template_groups(name, max_count, description, stage, platform, ove
         layer['legendItems'].append({'label': 'Src. of tech. is only software', 'color': COLOR_SOFTWARE})
         layer['legendItems'].append({'label': 'Src. of tech. is group(s)/overlay + software', 'color': COLOR_GROUP_AND_SOFTWARE})
     elif overlay_type == OVERLAY_TYPE_DETECTION:
-        layer['legendItems'].append({'label': 'Tech. in group + detection', 'color': COLOR_GROUP_OVERLAY_MATCH})
-        layer['legendItems'].append({'label': 'Tech. in detection', 'color': COLOR_GROUP_OVERLAY_ONLY_DETECTION})
+        layer['legendItems'].append({'label': 'Tech. in group + detection score 0: Forensics/Context', 'color': COLOR_O_0})
+        layer['legendItems'].append({'label': 'Tech. in group + detection score 1: Basic', 'color': COLOR_O_1})
+        layer['legendItems'].append({'label': 'Tech. in group + detection score 2: Fair', 'color': COLOR_O_2})
+        layer['legendItems'].append({'label': 'Tech. in group + detection score 3: Good', 'color': COLOR_O_3})
+        layer['legendItems'].append({'label': 'Tech. in group + detection score 4: Very good', 'color': COLOR_O_4})
+        layer['legendItems'].append({'label': 'Tech. in group + detection score 5: Excellent', 'color': COLOR_O_5})
+        layer['legendItems'].append({'label': 'Tech. in detection, score 0: Forensics/Context', 'color': COLOR_D_0})
+        layer['legendItems'].append({'label': 'Tech. in detection, score 1: Basic', 'color': COLOR_D_1})
+        layer['legendItems'].append({'label': 'Tech. in detection, score 2: Fair', 'color': COLOR_D_2})
+        layer['legendItems'].append({'label': 'Tech. in detection, score 3: Good', 'color': COLOR_D_3})
+        layer['legendItems'].append({'label': 'Tech. in detection, score 4: Very good', 'color': COLOR_D_4})
+        layer['legendItems'].append({'label': 'Tech. in detection, score 5: Excellent', 'color': COLOR_D_5})
     elif overlay_type == OVERLAY_TYPE_VISIBILITY:
-        layer['legendItems'].append({'label': 'Tech. in group + visibility', 'color': COLOR_GROUP_OVERLAY_MATCH})
-        layer['legendItems'].append({'label': 'Tech. in visibility', 'color': COLOR_GROUP_OVERLAY_ONLY_VISIBILITY})
+        layer['legendItems'].append({'label': 'Tech. in group + visibility score 1: Minimal', 'color': COLOR_O_1})
+        layer['legendItems'].append({'label': 'Tech. in group + visibility score 2: Medium', 'color': COLOR_O_2})
+        layer['legendItems'].append({'label': 'Tech. in group + visibility score 3: Good', 'color': COLOR_O_3})
+        layer['legendItems'].append({'label': 'Tech. in group + visibility score 4: Excellent', 'color': COLOR_O_4})
+        layer['legendItems'].append({'label': 'Tech. in visibility, score 1: Minimal', 'color': COLOR_V_1})
+        layer['legendItems'].append({'label': 'Tech. in visibility, score 2: Medium', 'color': COLOR_V_2})
+        layer['legendItems'].append({'label': 'Tech. in visibility, score 3: Good', 'color': COLOR_V_3})
+        layer['legendItems'].append({'label': 'Tech. in visibility, score 4: Excellent', 'color': COLOR_V_4})
 
     return layer
 
@@ -335,23 +351,39 @@ def get_layer_template_layered(name, description, stage, platform):
     layer = _get_base_template(name, description, stage, platform, 0)
     layer['legendItems'] = \
         [
-            {'label': 'Visibility', 'color': COLOR_OVERLAY_VISIBILITY},
-            {'label': 'Detection', 'color': COLOR_OVERLAY_DETECTION},
-            {'label': 'Visibility and detection', 'color': COLOR_OVERLAY_BOTH}
+            {'label': 'Visibility and detection', 'color': COLOR_OVERLAY_BOTH},
+            {'label': 'Visibility score 1: Minimal', 'color': COLOR_V_1},
+            {'label': 'Visibility score 2: Medium', 'color': COLOR_V_2},
+            {'label': 'Visibility score 3: Good', 'color': COLOR_V_3},
+            {'label': 'Visibility score 4: Excellent', 'color': COLOR_V_4},
+            {'label': 'Detection score 1: Basic', 'color': COLOR_D_1},
+            {'label': 'Detection score 2: Fair', 'color': COLOR_D_2},
+            {'label': 'Detection score 3: Good', 'color': COLOR_D_3},
+            {'label': 'Detection score 4: Very good', 'color': COLOR_D_4},
+            {'label': 'Detection score 5: Excellent', 'color': COLOR_D_5}
     ]
     return layer
 
 
-def write_file(filename_prefix, filename, content):
+def create_output_filename(filename_prefix, filename):
+    """
+    Creates a filename using pre determined convention.
+    :param filename_prefix: prefix part of the filename
+    :param filename: filename
+    :return:
+    """
+    return '%s_%s' % (filename_prefix, normalize_name_to_filename(filename))
+
+
+def write_file(filename, content):
     """
     Writes content to a file and ensures if the file already exists it won't be overwritten by appending a number
     as suffix.
-    :param filename_prefix: prefix part of the filename
     :param filename: filename
     :param content: the content of the file that needs to be written to the file
     :return:
     """
-    output_filename = 'output/%s_%s' % (filename_prefix, normalize_name_to_filename(filename))
+    output_filename = 'output/%s' % clean_filename(filename)
     output_filename = get_non_existing_filename(output_filename, 'json')
 
     with open(output_filename, 'w') as f:
@@ -367,6 +399,8 @@ def get_non_existing_filename(filename, extension):
     :param extension:
     :return:
     """
+    if filename.endswith('.' + extension):
+        filename = filename.replace('.' + extension, '')
     if os.path.exists('%s.%s' % (filename, extension)):
         suffix = 1
         while os.path.exists('%s_%s.%s' % (filename, suffix, extension)):
@@ -493,7 +527,7 @@ def fix_date_and_remove_null(yaml_file, date, input_type='ruamel'):
     elif input_type == 'file':
         new_lines = yaml_file.readlines()
 
-    fixed_lines = [l.replace('\'' + date + '\'', date).replace('null', '')
+    fixed_lines = [l.replace('\'' + str(date) + '\'', str(date)).replace('null', '')
                    if REGEX_YAML_DATE.match(l) else
                    l.replace('null', '') for l in new_lines]
 
@@ -514,8 +548,15 @@ def get_latest_score_obj(yaml_object):
         newest_score_obj = None
         newest_date = None
         for score_obj in yaml_object['score_logbook']:
-            if not newest_score_obj or score_obj['date'] > newest_date:
-                newest_date = score_obj['date']
+            # Scores in the score_logbook can be dates (yyyy-mm-dd) but also datetimes (yyyy-mm-dd hh:mm:ss.ffffff).
+            # So convert the datetimes to dates to make it possible to compare.
+            if type(score_obj['date']) == dt:  # dt is the name of the datetime class (see import table)
+                score_obj_date = score_obj['date'].date()
+            else:
+                score_obj_date = score_obj['date']
+
+            if not newest_score_obj or score_obj_date > newest_date:
+                newest_date = score_obj_date
                 newest_score_obj = score_obj
 
         return newest_score_obj
@@ -692,7 +733,7 @@ def calculate_score(list_detections, zero_value=0):
     number = 0
     for v in list_detections:
         score = get_latest_score(v)
-        if score and score >= 0:
+        if score is not None and score >= 0:
             avg_score += score
             number += 1
 
@@ -856,6 +897,28 @@ def make_layer_metadata_compliant(metadata):
     return metadata
 
 
+def add_metadata_technique_object(technique, obj_type, metadata):
+    """
+    Add the metadata for a detection or visibility object as used within any type of overlay.
+    :param technique: technique object containing both the visibility and detection object
+    :param obj_type: valid values are 'detection' and 'visibility'
+    :param metadata: a list to which the metadata will be added
+    :return: the created metadata as a list
+    """
+    if obj_type not in ['detection', 'visibility']:
+        raise Exception("Invalid value for 'obj_type' provided.")
+
+    metadata.append({'name': '---', 'value': '---'})
+    metadata.append({'name': '-Applicable to', 'value': ', '.join(set([a for v in technique[obj_type] for a in v['applicable_to']]))})  # noqa
+    metadata.append({'name': '-' + obj_type.capitalize() + ' score', 'value': ', '.join([str(calculate_score(technique[obj_type]))])})  # noqa
+    if obj_type == 'detection':
+        metadata.append({'name': '-' + obj_type.capitalize() + ' location', 'value': ', '.join(set([a for v in technique[obj_type] for a in v['location']]))})  # noqa
+    metadata.append({'name': '-' + obj_type.capitalize() + ' comment', 'value': ' | '.join(set(filter(lambda x: x != '', map(lambda k: k['comment'], technique[obj_type]))))})  # noqa
+    metadata.append({'name': '-' + obj_type.capitalize() + ' score comment', 'value': ' | '.join(set(filter(lambda x: x != '', map(lambda i: get_latest_comment(i), technique[obj_type]))))})  # noqa
+
+    return metadata
+
+
 def get_updates(update_type, sort='modified'):
     """
     Print a list of updates for a techniques, groups or software. Sort by modified or creation date.
@@ -1003,3 +1066,12 @@ def get_platform_from_yaml(yaml_content):
                 valid_platform_list.append(PLATFORMS[p])
         platform = valid_platform_list
     return platform
+
+
+def clean_filename(filename):
+    """
+    Remove invalid characters from filename and maximize it to 200 characters
+    :param filename: Input filename
+    :return: sanitized filename
+    """
+    return filename.replace('/', '').replace('\\', '').replace(':', '')[:200]

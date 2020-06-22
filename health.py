@@ -322,7 +322,7 @@ def _check_health_techniques(filename, technique_content, health_is_called):
                                                              '\' in \'' + obj_type + '\' is NOT a list', health_is_called)
 
                     for okey in obj_keys_not_none:
-                        if okey in obj:
+                        if okey in obj and isinstance(obj[okey], list):
                             none_count = 0
                             for item in obj[okey]:
                                 if item is None:
