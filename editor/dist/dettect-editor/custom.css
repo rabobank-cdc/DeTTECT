@@ -315,6 +315,17 @@ textarea.form-control {
     max-height: 115px !important;
 }
 
+.textareaFileDetails textarea.textarea-customstyle {
+    height: 75px !important;
+}
+
+.textareaFileDetails {
+    margin-top: 6px;
+    margin-bottom: 6px;
+    position: relative;
+    padding-right: 15px;
+}
+
 .modal-content .modal-body textarea {
     height: 52px !important;
 }
@@ -427,14 +438,14 @@ h4 {
 
 .icon-example {
     position: absolute;
-    z-index: 9999;
+    z-index: 1;
     right: 19px;
     bottom: 3px;
 }
 .icon-example:after {
     content: url(img/maximize-2.svg);
     position: absolute;
-    z-index: 9999;
+    z-index: 1;
     right: 6px;
     bottom: 3px;
     cursor: pointer;
