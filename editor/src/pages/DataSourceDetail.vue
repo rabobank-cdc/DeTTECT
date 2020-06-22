@@ -54,7 +54,13 @@
         <div class="row mt-md-0">
             <div class="col-md-11 form-group pr-md-2">
                 <label class="card">Comment</label>
-                <extended-textarea :row="dataSource" id="datasource" :cb_function="editCommentCallback"></extended-textarea>
+                <extended-textarea
+                    :data_object="dataSource"
+                    data_field="comment"
+                    id="datasource"
+                    rows="4"
+                    :cb_function="editCommentCallback"
+                ></extended-textarea>
             </div>
         </div>
         <div class="row mt-md-3 col-md-5">
@@ -153,37 +159,37 @@ export default {
                 '2': 'Fair',
                 '3': 'Good',
                 '4': 'Very good',
-                '5': 'Excellent'
+                '5': 'Excellent',
             },
             dataSourceDefaultKeys: Object.keys(constants.YAML_OBJ_DATA_SOURCES),
             dataSourceSuggestionList: dataSources,
             helptextDataQuality: false,
             helptextDataSourceKVPairs: false,
-            commentModal: false
+            commentModal: false,
         };
     },
     mixins: [pageDetailMixin],
     props: {
         dataSource: {
             type: Object,
-            required: true
+            required: true,
         },
         allDataSources: {
             type: Array,
-            required: true
+            required: true,
         },
         dqHelpText: {
             type: String,
-            required: true
+            required: true,
         },
         dsHelpText: {
             type: String,
-            required: true
+            required: true,
         },
         prevDataSourceQuality: {
             type: Array,
-            required: true
-        }
+            required: true,
+        },
     },
     methods: {
         escapeKeyListener: function(evt) {
@@ -217,7 +223,7 @@ export default {
         },
         editCommentCallback(b) {
             this.commentModal = b;
-        }
+        },
     },
     computed: {
         dsEnabled() {
@@ -227,7 +233,7 @@ export default {
                 }
             }
             return false;
-        }
+        },
     },
     components: {
         DatePicker,
@@ -238,7 +244,7 @@ export default {
         AutoSuggestTitle,
         Modal,
         Icons,
-        ExtendedTextarea
-    }
+        ExtendedTextarea,
+    },
 };
 </script>

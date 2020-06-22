@@ -5,33 +5,41 @@ from datetime import datetime
 # Imports for pandas and plotly are because of performance reasons in the function that uses these libraries.
 
 
-def generate_detection_layer(filename_techniques, filename_data_sources, overlay):
+def generate_detection_layer(filename_techniques, filename_data_sources, overlay, output_filename, layer_name):
     """
     Generates layer for detection coverage and optionally an overlaid version with visibility coverage.
     :param filename_techniques: the filename of the YAML file containing the techniques administration
     :param filename_data_sources: the filename of the YAML file containing the data sources administration
     :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
+    :param layer_name: the name of the Navigator layer
+    :param output_filename: the output filename defined by the user
     :return:
     """
     if not overlay:
         my_techniques, name, platform = load_techniques(filename_techniques)
         mapped_techniques_detection = _map_and_colorize_techniques_for_detections(my_techniques)
-        layer_detection = get_layer_template_detections('Detections ' + name, 'description', 'attack', platform)
-        _write_layer(layer_detection, mapped_techniques_detection, 'detection', name)
+        if not layer_name:
+            layer_name = 'Detections ' + name
+        layer_detection = get_layer_template_detections(layer_name, 'description', 'attack', platform)
+        _write_layer(layer_detection, mapped_techniques_detection, 'detection', name, output_filename)
     else:
         my_techniques, name, platform = load_techniques(filename_techniques)
         my_data_sources = _load_data_sources(filename_data_sources)
         mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, platform)
-        layer_both = get_layer_template_layered('Visibility and Detection ' + name, 'description', 'attack', platform)
-        _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name)
+        if not layer_name:
+            layer_name = 'Visibility and Detection ' + name
+        layer_both = get_layer_template_layered(layer_name, 'description', 'attack', platform)
+        _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name, output_filename)
 
 
-def generate_visibility_layer(filename_techniques, filename_data_sources, overlay):
+def generate_visibility_layer(filename_techniques, filename_data_sources, overlay, output_filename, layer_name):
     """
     Generates layer for visibility coverage and optionally an overlaid version with detection coverage.
     :param filename_techniques: the filename of the YAML file containing the techniques administration
     :param filename_data_sources: the filename of the YAML file containing the data sources administration
     :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
+    :param output_filename: the output filename defined by the user
+    :param layer_name: the name of the Navigator layer
     :return:
     """
     my_data_sources = _load_data_sources(filename_data_sources)
@@ -39,20 +47,25 @@ def generate_visibility_layer(filename_techniques, filename_data_sources, overla
     if not overlay:
         my_techniques, name, platform = load_techniques(filename_techniques)
         mapped_techniques_visibility = _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, platform)
-        layer_visibility = get_layer_template_visibility('Visibility ' + name, 'description', 'attack', platform)
-        _write_layer(layer_visibility, mapped_techniques_visibility, 'visibility', name)
+        if not layer_name:
+            layer_name = 'Visibility ' + name
+        layer_visibility = get_layer_template_visibility(layer_name, 'description', 'attack', platform)
+        _write_layer(layer_visibility, mapped_techniques_visibility, 'visibility', name, output_filename)
     else:
         my_techniques, name, platform = load_techniques(filename_techniques)
         mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, platform)
-        layer_both = get_layer_template_layered('Visibility and Detection ' + name, 'description', 'attack', platform)
-        _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name)
+        if not layer_name:
+            layer_name = 'Visibility and Detection ' + name
+        layer_both = get_layer_template_layered(layer_name, 'description', 'attack', platform)
+        _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name, output_filename)
 
 
-def plot_graph(filename, type_graph):
+def plot_graph(filename, type_graph, output_filename):
     """
     Generates a line graph which shows the improvements on detections through the time.
     :param filename: the filename of the YAML file containing the techniques administration
     :param type_graph: indicates the type of the graph: detection or visibility
+    :param output_filename: the output filename defined by the user
     :return:
     """
     # pylint: disable=unused-variable
@@ -70,7 +83,11 @@ def plot_graph(filename, type_graph):
     df = pd.DataFrame(graph_values).groupby('date', as_index=False)[['count']].sum()
     df['cumcount'] = df['count'].cumsum()
 
-    output_filename = get_non_existing_filename('output/graph_%s' % type_graph, 'html')
+    if not output_filename:
+        output_filename = 'graph_' + type_graph
+    elif output_filename.endswith('.html'):
+        output_filename = output_filename.replace('.html', '')
+    output_filename = get_non_existing_filename('output/' + output_filename, 'html')
 
     import plotly
     import plotly.graph_objs as go
@@ -108,19 +125,26 @@ def _load_data_sources(file):
     return my_data_sources
 
 
-def _write_layer(layer, mapped_techniques, filename_prefix, name):
+def _write_layer(layer, mapped_techniques, filename_prefix, name, output_filename):
     """
     Writes the json layer file to disk.
     :param layer: the prepped layer dictionary
     :param mapped_techniques: the techniques section that will be included in the layer
     :param filename_prefix: the prefix for the output filename
     :param name: the name that will be used in the filename together with the prefix
+    :param output_filename: the output filename defined by the user
     :return:
     """
-
     layer['techniques'] = mapped_techniques
     json_string = simplejson.dumps(layer).replace('}, ', '},\n')
-    write_file(filename_prefix, name, json_string)
+    if not output_filename:
+        output_filename = create_output_filename(filename_prefix, name)
+    else:
+        if output_filename.endswith('.json'):
+            output_filename = output_filename.replace('.json', '')
+        if filename_prefix == 'visibility_and_detection':
+            output_filename += '_overlay'
+    write_file(output_filename, json_string)
 
 
 def _map_and_colorize_techniques_for_detections(my_techniques):
@@ -276,9 +300,11 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, pl
         if detection and visibility:
             color = COLOR_OVERLAY_BOTH
         elif detection and not visibility:
-            color = COLOR_OVERLAY_DETECTION
+            s = detection_score
+            color = COLOR_D_0 if s == 0 else COLOR_D_1 if s == 1 else COLOR_D_2 if s == 2 else COLOR_D_3 if s == 3 else COLOR_D_4 if s == 4 else COLOR_D_5 if s == 5 else ''
         elif not detection and visibility:
-            color = COLOR_OVERLAY_VISIBILITY
+            s = visibility_score
+            color = COLOR_V_1 if s == 1 else COLOR_V_2 if s == 2 else COLOR_V_3 if s == 3 else COLOR_V_4 if s == 4 else ''
         else:
             color = COLOR_WHITE
 
@@ -296,39 +322,11 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, pl
             x['metadata'].append({'name': '-Available data sources', 'value': my_ds})
             x['metadata'].append({'name': '-ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique['x_mitre_data_sources'],
                                                                                                                            applicable_data_sources))})
-            x['metadata'].append({'name': '---', 'value': '---'})
-
-            # Metadata for detection:
-            cnt = 1
-            tcnt = len([d for d in technique_data['detection'] if get_latest_score(d) >= 0])
-            for detection in technique_data['detection']:
-                d_score = get_latest_score(detection)
-                if d_score >= 0:
-                    location = ', '.join(detection['location'])
-                    applicable_to = ', '.join(detection['applicable_to'])
-                    x['metadata'].append({'name': '-Applicable to', 'value': applicable_to})
-                    x['metadata'].append({'name': '-Detection score', 'value': str(d_score)})
-                    x['metadata'].append({'name': '-Detection location', 'value': location})
-                    x['metadata'].append({'name': '-Technique comment', 'value': detection['comment']})
-                    x['metadata'].append({'name': '-Detection comment', 'value': get_latest_comment(detection)})
-                    if cnt != tcnt:
-                        x['metadata'].append({'name': '---', 'value': '---'})
-                    cnt += 1
-
-            # Metadata for visibility:
-            if tcnt > 0:
-                x['metadata'].append({'name': '---', 'value': '---'})
-            cnt = 1
-            tcnt = len([v for v in technique_data['visibility']])
-            for visibility in technique_data['visibility']:
-                applicable_to = ', '.join(visibility['applicable_to'])
-                x['metadata'].append({'name': '-Applicable to', 'value': applicable_to})
-                x['metadata'].append({'name': '-Visibility score', 'value': str(get_latest_score(visibility))})
-                x['metadata'].append({'name': '-Technique comment', 'value': visibility['comment']})
-                x['metadata'].append({'name': '-Visibility comment', 'value': get_latest_comment(visibility)})
-                if cnt != tcnt:
-                    x['metadata'].append({'name': '---', 'value': '---'})
-                cnt += 1
+            # Metadata for detection and visibility:
+            for obj_type in ['detection', 'visibility']:
+                tcnt = len([obj for obj in technique_data[obj_type] if get_latest_score(obj) >= 0])
+                if tcnt > 0:
+                    x['metadata'] = add_metadata_technique_object(technique_data, obj_type, x['metadata'])
 
             x['metadata'] = make_layer_metadata_compliant(x['metadata'])
             mapped_techniques.append(x)
@@ -336,10 +334,11 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, pl
     return mapped_techniques
 
 
-def export_techniques_list_to_excel(filename):
+def export_techniques_list_to_excel(filename, output_filename):
     """
     Makes an overview of the MITRE ATT&CK techniques from the YAML administration file.
     :param filename: the filename of the YAML file containing the techniques administration
+    :param output_filename: the output filename defined by the user
     :return:
     """
     # pylint: disable=unused-variable
@@ -347,7 +346,11 @@ def export_techniques_list_to_excel(filename):
     my_techniques = dict(sorted(my_techniques.items(), key=lambda kv: kv[0], reverse=False))
     mitre_techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
 
-    excel_filename = get_non_existing_filename('output/techniques', 'xlsx')
+    if not output_filename:
+        output_filename = 'techniques'
+    elif output_filename.endswith('.xlsx'):
+        output_filename = output_filename.replace('.xlsx', '')
+    excel_filename = get_non_existing_filename('output/' + output_filename, 'xlsx')
     workbook = xlsxwriter.Workbook(excel_filename)
     worksheet_detections = workbook.add_worksheet('Detections')
     worksheet_visibility = workbook.add_worksheet('Visibility')
