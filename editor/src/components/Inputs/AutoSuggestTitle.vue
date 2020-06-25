@@ -113,13 +113,13 @@ export default {
                     return;
                 }
                 // performs two checks for a valid ID, and exit if not valid
-                if (!this.tmpItemId.match(/\bT\d{4}\b/i)) {
+                if (!this.tmpItemId.match(/\bT\d{4}(\.\d{3}|)\b/i)) {
                     if (event.target.id != 'checkmark') {
                         this.notifyInvalid(this.tmpItemId);
                     }
                     return;
                 }
-                let id = this.tmpItemId.match(/\b(T\d{4})\b/i)[0].toUpperCase();
+                let id = this.tmpItemId.match(/\b(T\d{4}(\.\d{3}|))\b/i)[0].toUpperCase();
                 if (!id.startsWith('T')) {
                     if (event.target.id != 'checkmark') {
                         this.notifyInvalid(id);
