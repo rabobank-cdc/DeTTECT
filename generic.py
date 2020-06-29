@@ -211,7 +211,7 @@ def _get_base_template(name, description, stage, platform, sorting):
     """
     layer = dict()
     layer['name'] = name
-    layer['version'] = '2.2'
+    layer['version'] = '3.0'
     layer['domain'] = 'mitre-enterprise'
     layer['description'] = description
 
@@ -224,8 +224,9 @@ def _get_base_template(name, description, stage, platform, sorting):
         layer['filters'] = {'stages': ['prepare'], 'platforms': platform}
 
     layer['sorting'] = sorting
-    layer['viewMode'] = 0
+    layer['layout'] = {"layout": "flat", "showName": True, "showID": False}
     layer['hideDisable'] = False
+    layer['selectSubtechniquesWithParent'] = False
     layer['techniques'] = []
 
     layer['showTacticRowBackground'] = False
@@ -237,8 +238,7 @@ def _get_base_template(name, description, stage, platform, sorting):
 def get_layer_template_groups(name, max_count, description, stage, platform, overlay_type):
     """
     Prepares a base template for the json layer file that can be loaded into the MITRE ATT&CK Navigator.
-    More information on the version 2.2 layer format:
-    https://github.com/mitre/attack-navigator/blob/master/layers/LAYERFORMATv2_1.md
+    More information on the layer format can be found here: https://github.com/mitre/attack-navigator/blob/master/layers/
     :param name: name
     :param max_count: the sum of all count values
     :param description: description
@@ -287,8 +287,7 @@ def get_layer_template_groups(name, max_count, description, stage, platform, ove
 def get_layer_template_detections(name, description, stage, platform):
     """
     Prepares a base template for the json layer file that can be loaded into the MITRE ATT&CK Navigator.
-    More information on the version 2.2 layer format:
-    https://github.com/mitre/attack-navigator/blob/master/layers/LAYERFORMATv2_1.md
+    More information on the layer format can be found here: https://github.com/mitre/attack-navigator/blob/master/layers/
     :param name: name
     :param description: description
     :param stage: stage (act | prepare)
@@ -311,8 +310,7 @@ def get_layer_template_detections(name, description, stage, platform):
 def get_layer_template_data_sources(name, description, stage, platform):
     """
     Prepares a base template for the json layer file that can be loaded into the MITRE ATT&CK Navigator.
-    More information on the version 2.2 layer format:
-    https://github.com/mitre/attack-navigator/blob/master/layers/LAYERFORMATv2_1.md
+    More information on the layer format can be found here: https://github.com/mitre/attack-navigator/blob/master/layers/
     :param name: name
     :param description: description
     :param stage: stage (act | prepare)
@@ -334,8 +332,7 @@ def get_layer_template_data_sources(name, description, stage, platform):
 def get_layer_template_visibility(name, description, stage, platform):
     """
     Prepares a base template for the json layer file that can be loaded into the MITRE ATT&CK Navigator.
-    More information on the version 2.2 layer format:
-    https://github.com/mitre/attack-navigator/blob/master/layers/LAYERFORMATv2_1.md
+    More information on the layer format can be found here: https://github.com/mitre/attack-navigator/blob/master/layers/
     :param name: name
     :param description: description
     :param stage: stage (act | prepare)
@@ -356,8 +353,7 @@ def get_layer_template_visibility(name, description, stage, platform):
 def get_layer_template_layered(name, description, stage, platform):
     """
     Prepares a base template for the json layer file that can be loaded into the MITRE ATT&CK Navigator.
-    More information on the version 2.2 layer format:
-    https://github.com/mitre/attack-navigator/blob/master/layers/LAYERFORMATv2_1.md
+    More information on the layer format can be found here: https://github.com/mitre/attack-navigator/blob/master/layers/
     :param name: name
     :param description: description
     :param stage: stage (act | prepare)

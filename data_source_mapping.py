@@ -283,6 +283,7 @@ def _map_and_colorize_techniques(my_ds, platforms, exceptions):
                                                                                                                            applicable_data_sources))},
                                  {'name': '-Products', 'value': ', '.join(v['products'])}]
                 d['metadata'] = make_layer_metadata_compliant(d['metadata'])
+                d['showSubtechniques'] = True
 
                 output_techniques.append(d)
 

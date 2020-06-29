@@ -177,6 +177,7 @@ def _map_and_colorize_techniques_for_detections(my_techniques):
                         x['tactic'] = tactic.lower().replace(' ', '-')
                         x['metadata'] = []
                         x['score'] = s
+                        x['showSubtechniques'] = True
                         cnt = 1
                         tcnt = len([d for d in technique_data['detection'] if get_latest_score(d) >= 0])
                         for detection in technique_data['detection']:
@@ -242,6 +243,7 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, 
                                                                                                                                applicable_data_sources))})
                 x['metadata'].append({'name': '---', 'value': '---'})
                 x['score'] = s
+                x['showSubtechniques'] = True
 
                 cnt = 1
                 tcnt = len(technique_data['visibility'])
@@ -328,6 +330,7 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, pl
             x['metadata'].append({'name': '-Available data sources', 'value': my_ds})
             x['metadata'].append({'name': '-ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique['x_mitre_data_sources'],
                                                                                                                            applicable_data_sources))})
+            x['showSubtechniques'] = True
             # Metadata for detection and visibility:
             for obj_type in ['detection', 'visibility']:
                 tcnt = len([obj for obj in technique_data[obj_type] if get_latest_score(obj) >= 0])
