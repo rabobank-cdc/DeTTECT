@@ -1,0 +1,2150 @@
+[
+    {
+        "T1001": [
+            {
+                "id": "T1001",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1002": [
+            {
+                "id": "T1560",
+                "explanation": "Created to consolidate behavior around encrypting and compressing collected data"
+            }
+        ]
+    },
+    {
+        "T1003": [
+            {
+                "id": "T1003",
+                "explanation": "Remains Technique, Renamed, Name change from Credential Dumping and new sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1004": [
+            {
+                "id": "T1547.004",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1005": [
+            {
+                "id": "T1005",
+                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+            }
+        ]
+    },
+    {
+        "T1006": [
+            {
+                "id": "T1006",
+                "explanation": "Remains Technique, Renamed, Name change from File System Logical Offsets"
+            }
+        ]
+    },
+    {
+        "T1007": [
+            {
+                "id": "T1007",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1008": [
+            {
+                "id": "T1008",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1009": [
+            {
+                "id": "T1027.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1010": [
+            {
+                "id": "T1010",
+                "explanation": "Remains Technique, Fixed technique reference in description"
+            }
+        ]
+    },
+    {
+        "T1011": [
+            {
+                "id": "T1011",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1012": [
+            {
+                "id": "T1012",
+                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+            }
+        ]
+    },
+    {
+        "T1013": [
+            {
+                "id": "T1547.010",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1014": [
+            {
+                "id": "T1014",
+                "explanation": "Remains Technique, Minor description update"
+            }
+        ]
+    },
+    {
+        "T1015": [
+            {
+                "id": "T1546.008",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1016": [
+            {
+                "id": "T1016",
+                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+            }
+        ]
+    },
+    {
+        "T1017": [
+            {
+                "id": "T1072",
+                "explanation": "Name change from Application Deployment Software"
+            }
+        ]
+    },
+    {
+        "T1018": [
+            {
+                "id": "T1018",
+                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+            }
+        ]
+    },
+    {
+        "T1019": [
+            {
+                "id": "T1542.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1020": [
+            {
+                "id": "T1020",
+                "explanation": "Remains Technique, Fixed technique reference in description"
+            }
+        ]
+    },
+    {
+        "T1021": [
+            {
+                "id": "T1021",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1022": [
+            {
+                "id": "T1560",
+                "explanation": "Created to consolidate behavior around encrypting and compressing collected data"
+            }
+        ]
+    },
+    {
+        "T1023": [
+            {
+                "id": "T1547.009",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1024": [
+            {
+                "id": "T1573",
+                "explanation": "Created to consolidate behavior around encrypted C2"
+            }
+        ]
+    },
+    {
+        "T1025": [
+            {
+                "id": "T1025",
+                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+            }
+        ]
+    },
+    {
+        "T1026": [
+            {
+                "id": "N/A",
+                "explanation": "Deprecate, Deprecated from ATT&CK due to lack of in the wild use. Existing Group/Software procedure examples did not fit the core idea behind the technique"
+            }
+        ]
+    },
+    {
+        "T1027": [
+            {
+                "id": "T1027",
+                "explanation": "Remains Technique, Minor description update"
+            }
+        ]
+    },
+    {
+        "T1028": [
+            {
+                "id": "T1021.006",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1029": [
+            {
+                "id": "T1029",
+                "explanation": "Remains Technique, Minor description update"
+            }
+        ]
+    },
+    {
+        "T1030": [
+            {
+                "id": "T1030",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1031": [
+            {
+                "id": "T1543.003",
+                "explanation": "Existing technique that became a sub-technique. Consolidates Modify Existing Service and New Service techniques into one sub-technique"
+            }
+        ]
+    },
+    {
+        "T1032": [
+            {
+                "id": "T1573",
+                "explanation": "Created to consolidate behavior around encrypted C2"
+            }
+        ]
+    },
+    {
+        "T1033": [
+            {
+                "id": "T1033",
+                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+            }
+        ]
+    },
+    {
+        "T1034": [
+            {
+                "id": "T1574.007",
+                "explanation": "Deprecated and split into separate Unquoted Path, PATH Environment Variable, and Search Order Hijacking sub-techniques."
+            },
+            {
+                "id": "T1574.008",
+                "explanation": "Deprecated and split into separate Unquoted Path, PATH Environment Variable, and Search Order Hijacking sub-techniques."
+            },
+            {
+                "id": "T1574.009",
+                "explanation": "Deprecated and split into separate Unquoted Path, PATH Environment Variable, and Search Order Hijacking sub-techniques."
+            }
+        ]
+    },
+    {
+        "T1035": [
+            {
+                "id": "T1569.002",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1036": [
+            {
+                "id": "T1036",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1037": [
+            {
+                "id": "T1037",
+                "explanation": "Remove from lateral-movement, Renamed, Name change from Logon Scripts and new sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1038": [
+            {
+                "id": "T1574.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1039": [
+            {
+                "id": "T1039",
+                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+            }
+        ]
+    },
+    {
+        "T1040": [
+            {
+                "id": "T1040",
+                "explanation": "Remains Technique, Minor description update"
+            }
+        ]
+    },
+    {
+        "T1041": [
+            {
+                "id": "T1041",
+                "explanation": "Remains Technique, Renamed, Name change from Exfiltration over Command and Control Channel and added data sources"
+            }
+        ]
+    },
+    {
+        "T1042": [
+            {
+                "id": "T1546.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1043": [
+            {
+                "id": "T1571",
+                "explanation": "Created to refine the idea behind Common and Uncommonly Used Port to focus the behavior on use of a non-standard port for C2 based on the protocol used"
+            }
+        ]
+    },
+    {
+        "T1044": [
+            {
+                "id": "T1574.010",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1045": [
+            {
+                "id": "T1027.002",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1046": [
+            {
+                "id": "T1046",
+                "explanation": "Remains Technique, Minor description update"
+            }
+        ]
+    },
+    {
+        "T1047": [
+            {
+                "id": "T1047",
+                "explanation": "Remains Technique, Minor description update"
+            }
+        ]
+    },
+    {
+        "T1048": [
+            {
+                "id": "T1048",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1049": [
+            {
+                "id": "T1049",
+                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+            }
+        ]
+    },
+    {
+        "T1050": [
+            {
+                "id": "T1543.003",
+                "explanation": "Existing technique that became a sub-technique. Consolidates Modify Existing Service and New Service techniques into one sub-technique"
+            }
+        ]
+    },
+    {
+        "T1051": [
+            {
+                "id": "N/A",
+                "explanation": "Deprecate, Deprecated from ATT&CK due to lack of in the wild use"
+            }
+        ]
+    },
+    {
+        "T1052": [
+            {
+                "id": "T1052",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1053": [
+            {
+                "id": "T1053",
+                "explanation": "Remains Technique, Renamed, Name change from Local Job Scheduling and new sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1054": [
+            {
+                "id": "T1562.006",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1055": [
+            {
+                "id": "T1055",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1056": [
+            {
+                "id": "T1056",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1057": [
+            {
+                "id": "T1057",
+                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+            }
+        ]
+    },
+    {
+        "T1058": [
+            {
+                "id": "T1574.011",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1059": [
+            {
+                "id": "T1059",
+                "explanation": "Remains Technique, Renamed, Name change from Command-Line Interface and new sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1060": [
+            {
+                "id": "T1547.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1061": [
+            {
+                "id": "N/A",
+                "explanation": "Deprecate, Deprecated from ATT&CK because the behavior is redundant and implied by use of remote desktop tools like Remote Desktop Protocol. Existing Group/Software procedure examples were remapped appropriately"
+            }
+        ]
+    },
+    {
+        "T1062": [
+            {
+                "id": "N/A",
+                "explanation": "Deprecate, Deprecated from ATT&CK due to lack of in the wild use"
+            }
+        ]
+    },
+    {
+        "T1063": [
+            {
+                "id": "T1518.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1064": [
+            {
+                "id": "T1059.004",
+                "explanation": "Deprecated and split into separate Bash, VBScript, and Python sub-techniques of Command and Scripting Interpreter."
+            },
+            {
+                "id": "T1059.005",
+                "explanation": "Deprecated and split into separate Bash, VBScript, and Python sub-techniques of Command and Scripting Interpreter."
+            },
+            {
+                "id": "T1059.006",
+                "explanation": "Deprecated and split into separate Bash, VBScript, and Python sub-techniques of Command and Scripting Interpreter."
+            }
+        ]
+    },
+    {
+        "T1065": [
+            {
+                "id": "T1571",
+                "explanation": "Created to refine the idea behind Common and Uncommonly Used Port to focus the behavior on use of a non-standard port for C2 based on the protocol used"
+            }
+        ]
+    },
+    {
+        "T1066": [
+            {
+                "id": "T1027.005",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1067": [
+            {
+                "id": "T1542.003",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1068": [
+            {
+                "id": "T1068",
+                "explanation": "Remains Technique, Minor description update"
+            }
+        ]
+    },
+    {
+        "T1069": [
+            {
+                "id": "T1069",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1070": [
+            {
+                "id": "T1551",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1071": [
+            {
+                "id": "T1071",
+                "explanation": "Remains Technique, Renamed, Name change from Standard Application Layer Protocol and new sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1072": [
+            {
+                "id": "T1072",
+                "explanation": "Remains Technique, Renamed, Name change from Application Deployment Software"
+            }
+        ]
+    },
+    {
+        "T1073": [
+            {
+                "id": "T1574.002",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1074": [
+            {
+                "id": "T1074",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1075": [
+            {
+                "id": "T1550.002",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1076": [
+            {
+                "id": "T1021.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1077": [
+            {
+                "id": "T1021.002",
+                "explanation": "Existing technique that became a sub-technique and was renamed from Windows Admin Shares"
+            }
+        ]
+    },
+    {
+        "T1078": [
+            {
+                "id": "T1078",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1079": [
+            {
+                "id": "T1573",
+                "explanation": "Created to consolidate behavior around encrypted C2"
+            }
+        ]
+    },
+    {
+        "T1080": [
+            {
+                "id": "T1080",
+                "explanation": "Remains Technique, Minor description update"
+            }
+        ]
+    },
+    {
+        "T1081": [
+            {
+                "id": "T1552.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1082": [
+            {
+                "id": "T1082",
+                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+            }
+        ]
+    },
+    {
+        "T1083": [
+            {
+                "id": "T1083",
+                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+            }
+        ]
+    },
+    {
+        "T1084": [
+            {
+                "id": "T1546.003",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1085": [
+            {
+                "id": "T1218.011",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1086": [
+            {
+                "id": "T1059.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1087": [
+            {
+                "id": "T1087",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1088": [
+            {
+                "id": "T1548.002",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1089": [
+            {
+                "id": "T1562.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1090": [
+            {
+                "id": "T1090",
+                "explanation": "Remains Technique, Renamed, Name change from Connection Proxy and new sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1091": [
+            {
+                "id": "T1091",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1092": [
+            {
+                "id": "T1092",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1093": [
+            {
+                "id": "T1055.012",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1094": [
+            {
+                "id": "T1095",
+                "explanation": "Merged with and name change from Standard Non-Application Layer Protocol"
+            }
+        ]
+    },
+    {
+        "T1095": [
+            {
+                "id": "T1095",
+                "explanation": "Remains Technique, Renamed, Name change from Standard Non-Application Layer Protocol"
+            }
+        ]
+    },
+    {
+        "T1096": [
+            {
+                "id": "T1564.004",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1097": [
+            {
+                "id": "T1550.003",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1098": [
+            {
+                "id": "T1098",
+                "explanation": "Remove from credential-access, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1099": [
+            {
+                "id": "T1551.006",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1100": [
+            {
+                "id": "T1505.003",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1101": [
+            {
+                "id": "T1547.005",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1102": [
+            {
+                "id": "T1102",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1103": [
+            {
+                "id": "T1546.010",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1104": [
+            {
+                "id": "T1104",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1105": [
+            {
+                "id": "T1105",
+                "explanation": "Remains Technique, Renamed, Name change from Remote File Copy"
+            }
+        ]
+    },
+    {
+        "T1106": [
+            {
+                "id": "T1106",
+                "explanation": "Remains Technique, Renamed, Name change from Execution through API"
+            }
+        ]
+    },
+    {
+        "T1107": [
+            {
+                "id": "T1551.004",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1108": [
+            {
+                "id": "N/A",
+                "explanation": "Deprecate, Deprecated from ATT&CK because the behavior is too high level and is sufficiently covered by Valid Accounts and External Remote Services. Existing Group/Software procedure examples were remapped appropriately"
+            }
+        ]
+    },
+    {
+        "T1109": [
+            {
+                "id": "T1542.002",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1110": [
+            {
+                "id": "T1110",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1111": [
+            {
+                "id": "T1111",
+                "explanation": "Remains Technique, Minor description update"
+            }
+        ]
+    },
+    {
+        "T1112": [
+            {
+                "id": "T1112",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1113": [
+            {
+                "id": "T1113",
+                "explanation": "Remains Technique, Minor description update"
+            }
+        ]
+    },
+    {
+        "T1114": [
+            {
+                "id": "T1114",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1115": [
+            {
+                "id": "T1115",
+                "explanation": "Remains Technique, Minor description update"
+            }
+        ]
+    },
+    {
+        "T1116": [
+            {
+                "id": "T1553.002",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1117": [
+            {
+                "id": "T1218.010",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1118": [
+            {
+                "id": "T1218.004",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1119": [
+            {
+                "id": "T1119",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1120": [
+            {
+                "id": "T1120",
+                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+            }
+        ]
+    },
+    {
+        "T1121": [
+            {
+                "id": "T1218.009",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1122": [
+            {
+                "id": "T1546.015",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1123": [
+            {
+                "id": "T1123",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1124": [
+            {
+                "id": "T1124",
+                "explanation": "Remains Technique, Minor description update"
+            }
+        ]
+    },
+    {
+        "T1125": [
+            {
+                "id": "T1125",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1126": [
+            {
+                "id": "T1551.005",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1127": [
+            {
+                "id": "T1127",
+                "explanation": "Remains Technique, Renamed, Minor description update, sub-technique added"
+            }
+        ]
+    },
+    {
+        "T1128": [
+            {
+                "id": "T1546.007",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1129": [
+            {
+                "id": "T1129",
+                "explanation": "Remains Technique, Renamed, Name change from Execution through Module Load"
+            }
+        ]
+    },
+    {
+        "T1130": [
+            {
+                "id": "T1553.004",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1131": [
+            {
+                "id": "T1547.002",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1132": [
+            {
+                "id": "T1132",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1133": [
+            {
+                "id": "T1133",
+                "explanation": "Remains Technique, Minor description update"
+            }
+        ]
+    },
+    {
+        "T1134": [
+            {
+                "id": "T1134",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1135": [
+            {
+                "id": "T1135",
+                "explanation": "Remains Technique, Fixed technique reference in description, added Linux, and minor description update"
+            }
+        ]
+    },
+    {
+        "T1136": [
+            {
+                "id": "T1136",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1137": [
+            {
+                "id": "T1137",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1138": [
+            {
+                "id": "T1546.011",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1139": [
+            {
+                "id": "T1552.003",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1140": [
+            {
+                "id": "T1140",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1141": [
+            {
+                "id": "T1056.002",
+                "explanation": "Broken out from pre-defined behavior within Input Capture"
+            }
+        ]
+    },
+    {
+        "T1142": [
+            {
+                "id": "T1555.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1143": [
+            {
+                "id": "T1564.003",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1144": [
+            {
+                "id": "T1553.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1145": [
+            {
+                "id": "T1552.004",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1146": [
+            {
+                "id": "T1551.003",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1147": [
+            {
+                "id": "T1564.002",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1148": [
+            {
+                "id": "T1562.003",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1149": [
+            {
+                "id": "N/A",
+                "explanation": "Deprecate, Deprecated from ATT&CK due to lack of in the wild use"
+            }
+        ]
+    },
+    {
+        "T1150": [
+            {
+                "id": "T1547.011",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1151": [
+            {
+                "id": "T1036.006",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1152": [
+            {
+                "id": "T1569.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1153": [
+            {
+                "id": "N/A",
+                "explanation": "Deprecate, Deprecated from ATT&CK due to lack of in the wild use"
+            }
+        ]
+    },
+    {
+        "T1154": [
+            {
+                "id": "T1546.005",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1155": [
+            {
+                "id": "T1059.002",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1156": [
+            {
+                "id": "T1546.004",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1157": [
+            {
+                "id": "T1574.004",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1158": [
+            {
+                "id": "T1564.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1159": [
+            {
+                "id": "T1543.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1160": [
+            {
+                "id": "T1543.004",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1161": [
+            {
+                "id": "T1546.006",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1162": [
+            {
+                "id": "T1547.011",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1163": [
+            {
+                "id": "T1037.004",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1164": [
+            {
+                "id": "T1547.007",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1165": [
+            {
+                "id": "T1037.005",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1166": [
+            {
+                "id": "T1548.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1167": [
+            {
+                "id": "T1555.002",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1168": [
+            {
+                "id": "T1053",
+                "explanation": "Name change from Local Job Scheduling and new sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1169": [
+            {
+                "id": "T1548.003",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1170": [
+            {
+                "id": "T1218.005",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1171": [
+            {
+                "id": "T1557.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1172": [
+            {
+                "id": "T1090.004",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1173": [
+            {
+                "id": "T1559.002",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1174": [
+            {
+                "id": "T1556.002",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1175": [
+            {
+                "id": "T1021.003",
+                "explanation": "Deprecated and split into separate Component Object Model and Distributed Component Object Model sub-techniques."
+            },
+            {
+                "id": "T1559.001",
+                "explanation": "Deprecated and split into separate Component Object Model and Distributed Component Object Model sub-techniques."
+            }
+        ]
+    },
+    {
+        "T1176": [
+            {
+                "id": "T1176",
+                "explanation": "Remains Technique, Data sources changed and minor description update"
+            }
+        ]
+    },
+    {
+        "T1177": [
+            {
+                "id": "T1547.008",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1178": [
+            {
+                "id": "T1134.005",
+                "explanation": "Added due to manipulation of token information"
+            }
+        ]
+    },
+    {
+        "T1179": [
+            {
+                "id": "T1056.004",
+                "explanation": "Existing technique that became a sub-technique and was renamed from API Hooking. Scope change to only credential access for API hooking was based on available procedure examples"
+            }
+        ]
+    },
+    {
+        "T1180": [
+            {
+                "id": "T1546.002",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1181": [
+            {
+                "id": "T1055.011",
+                "explanation": "Broken out from pre-defined behavior within Process Injection"
+            }
+        ]
+    },
+    {
+        "T1182": [
+            {
+                "id": "T1546.009",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1183": [
+            {
+                "id": "T1546.012",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1184": [
+            {
+                "id": "T1563.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1185": [
+            {
+                "id": "T1185",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1186": [
+            {
+                "id": "T1055.013",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1187": [
+            {
+                "id": "T1187",
+                "explanation": "Remains Technique, Minor description update"
+            }
+        ]
+    },
+    {
+        "T1188": [
+            {
+                "id": "T1090.003",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1189": [
+            {
+                "id": "T1189",
+                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+            }
+        ]
+    },
+    {
+        "T1190": [
+            {
+                "id": "T1190",
+                "explanation": "Remains Technique, Minor description update"
+            }
+        ]
+    },
+    {
+        "T1191": [
+            {
+                "id": "T1218.003",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1192": [
+            {
+                "id": "T1566.002",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1193": [
+            {
+                "id": "T1566.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1194": [
+            {
+                "id": "T1566.003",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1195": [
+            {
+                "id": "T1195",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1196": [
+            {
+                "id": "T1218.002",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1197": [
+            {
+                "id": "T1197",
+                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+            }
+        ]
+    },
+    {
+        "T1198": [
+            {
+                "id": "T1553.003",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1199": [
+            {
+                "id": "T1199",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1200": [
+            {
+                "id": "T1200",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1201": [
+            {
+                "id": "T1201",
+                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+            }
+        ]
+    },
+    {
+        "T1202": [
+            {
+                "id": "T1202",
+                "explanation": "Remains Technique, Minor description update"
+            }
+        ]
+    },
+    {
+        "T1203": [
+            {
+                "id": "T1203",
+                "explanation": "Remains Technique, Minor description update"
+            }
+        ]
+    },
+    {
+        "T1204": [
+            {
+                "id": "T1204",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1205": [
+            {
+                "id": "T1545.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1206": [
+            {
+                "id": "T1548.003",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1207": [
+            {
+                "id": "T1207",
+                "explanation": "Remains Technique, Renamed, Name change from DCShadow"
+            }
+        ]
+    },
+    {
+        "T1208": [
+            {
+                "id": "T1558.003",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1209": [
+            {
+                "id": "T1547.003",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1210": [
+            {
+                "id": "T1210",
+                "explanation": "Remains Technique, Minor description update"
+            }
+        ]
+    },
+    {
+        "T1211": [
+            {
+                "id": "T1211",
+                "explanation": "Remains Technique, Minor description update"
+            }
+        ]
+    },
+    {
+        "T1212": [
+            {
+                "id": "T1212",
+                "explanation": "Remains Technique, Minor description update"
+            }
+        ]
+    },
+    {
+        "T1213": [
+            {
+                "id": "T1213",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1214": [
+            {
+                "id": "T1552.002",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1215": [
+            {
+                "id": "T1547.006",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1216": [
+            {
+                "id": "T1216",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1217": [
+            {
+                "id": "T1217",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1218": [
+            {
+                "id": "T1218",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1219": [
+            {
+                "id": "T1219",
+                "explanation": "Remains Technique, Renamed, Name change from Remote Access Tools and fixed technique reference in description"
+            }
+        ]
+    },
+    {
+        "T1220": [
+            {
+                "id": "T1220",
+                "explanation": "Remains Technique, Minor description update"
+            }
+        ]
+    },
+    {
+        "T1221": [
+            {
+                "id": "T1221",
+                "explanation": "Remains Technique, Minor description update"
+            }
+        ]
+    },
+    {
+        "T1222": [
+            {
+                "id": "T1222",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1223": [
+            {
+                "id": "T1218.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1480": [
+            {
+                "id": "T1480",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1482": [
+            {
+                "id": "T1482",
+                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+            }
+        ]
+    },
+    {
+        "T1483": [
+            {
+                "id": "T1568.002",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1484": [
+            {
+                "id": "T1484",
+                "explanation": "Remains Technique, Minor description update"
+            }
+        ]
+    },
+    {
+        "T1485": [
+            {
+                "id": "T1485",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1486": [
+            {
+                "id": "T1486",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1487": [
+            {
+                "id": "T1561.002",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1488": [
+            {
+                "id": "T1561.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1489": [
+            {
+                "id": "T1489",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1490": [
+            {
+                "id": "T1490",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1491": [
+            {
+                "id": "T1491",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1492": [
+            {
+                "id": "T1565.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1493": [
+            {
+                "id": "T1565.002",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1494": [
+            {
+                "id": "T1565.003",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1495": [
+            {
+                "id": "T1495",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1496": [
+            {
+                "id": "T1496",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1497": [
+            {
+                "id": "T1497",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1498": [
+            {
+                "id": "T1498",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1499": [
+            {
+                "id": "T1499",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1500": [
+            {
+                "id": "T1027.004",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1501": [
+            {
+                "id": "T1543.002",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1502": [
+            {
+                "id": "T1134.004",
+                "explanation": "Added due to manipulation of tokens"
+            }
+        ]
+    },
+    {
+        "T1503": [
+            {
+                "id": "T1555.003",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1504": [
+            {
+                "id": "T1546.013",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1505": [
+            {
+                "id": "T1505",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1506": [
+            {
+                "id": "T1550.004",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1514": [
+            {
+                "id": "T1548.004",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1518": [
+            {
+                "id": "T1518",
+                "explanation": "Remains Technique, New sub-techniques added"
+            }
+        ]
+    },
+    {
+        "T1519": [
+            {
+                "id": "T1546.014",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1522": [
+            {
+                "id": "T1552.005",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1525": [
+            {
+                "id": "T1525",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1526": [
+            {
+                "id": "T1526",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1527": [
+            {
+                "id": "T1550.001",
+                "explanation": "Existing technique that became a sub-technique"
+            }
+        ]
+    },
+    {
+        "T1528": [
+            {
+                "id": "T1528",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1529": [
+            {
+                "id": "T1529",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1530": [
+            {
+                "id": "T1530",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1531": [
+            {
+                "id": "T1531",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1534": [
+            {
+                "id": "T1534",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1535": [
+            {
+                "id": "T1535",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1536": [
+            {
+                "id": "T1536",
+                "explanation": "Remains Technique, Minor description update, removed some data sources"
+            }
+        ]
+    },
+    {
+        "T1537": [
+            {
+                "id": "T1537",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1538": [
+            {
+                "id": "T1538",
+                "explanation": "Remains Technique"
+            }
+        ]
+    },
+    {
+        "T1539": [
+            {
+                "id": "T1539",
+                "explanation": "Remains Technique"
+            }
+        ]
+    }
+]

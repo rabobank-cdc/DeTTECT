@@ -4,11 +4,13 @@ import pickle
 from io import StringIO
 from datetime import datetime as dt
 from ruamel.yaml import YAML
-from upgrade import upgrade_yaml_file
+from upgrade import upgrade_yaml_file, check_yaml_updated_to_sub_techniques
 from constants import *
 from health import check_yaml_file_health
 
 # Due to performance reasons the import of attackcti is within the function that makes use of this library.
+
+local_stix_path = None
 
 
 def _save_attack_data(data, path):
@@ -27,20 +29,32 @@ def _save_attack_data(data, path):
 
 def load_attack_data(data_type):
     """
-    Load the cached ATT&CK data from disk, if not expired (data file on disk is older then EXPIRE_TIME seconds).
+    By default the ATT&CK data is loaded from the online TAXII server or from the local cache directory. The
+    local cache directory will be used if the file is not expired (data file on disk is older then EXPIRE_TIME
+    seconds). When the local_stix_path option is given, the ATT&CK data will be loaded from the given path of
+    a local STIX repository.
     :param data_type: the desired data type, see DATATYPE_XX constants.
     :return: MITRE ATT&CK data object (STIX or custom schema)
     """
-    if os.path.exists("cache/" + data_type):
-        with open("cache/" + data_type, 'rb') as f:
-            cached = pickle.load(f)
-            write_time = cached[1]
-            if not (dt.now() - write_time).total_seconds() >= EXPIRE_TIME:
-                # the first item in the list contains the ATT&CK data
-                return cached[0]
-
     from attackcti import attack_client
-    mitre = attack_client()
+    if local_stix_path is not None:
+        if local_stix_path is not None and os.path.isdir(os.path.join(local_stix_path, 'enterprise-attack')) \
+                and os.path.isdir(os.path.join(local_stix_path, 'pre-attack')) \
+                and os.path.isdir(os.path.join(local_stix_path, 'mobile-attack')):
+            mitre = attack_client(local_path=local_stix_path)
+        else:
+            print('[!] Not a valid local STIX path: ' + local_stix_path)
+            quit()
+    else:
+        if os.path.exists("cache/" + data_type):
+            with open("cache/" + data_type, 'rb') as f:
+                cached = pickle.load(f)
+                write_time = cached[1]
+                if not (dt.now() - write_time).total_seconds() >= EXPIRE_TIME:
+                    # the first item in the list contains the ATT&CK data
+                    return cached[0]
+
+        mitre = attack_client()
 
     attack_data = None
     if data_type == DATA_TYPE_STIX_ALL_RELATIONSHIPS:
@@ -167,7 +181,9 @@ def load_attack_data(data_type):
         attack_data = mitre.get_mobile_mitigations()
         attack_data = mitre.remove_revoked(attack_data)
 
-    _save_attack_data(attack_data, "cache/" + data_type)
+    # Only use cache when using online TAXII server:
+    if local_stix_path is None:
+        _save_attack_data(attack_data, "cache/" + data_type)
 
     return attack_data
 
@@ -863,8 +879,8 @@ def _check_file_type(filename, file_type=None):
 
 def check_file(filename, file_type=None, health_is_called=False):
     """
-    Calls three functions to perform the following checks: is the file a valid YAML file, needs the file to be upgrade,
-    does the file contain errors.
+    Calls four functions to perform the following checks: is the file a valid YAML file, needs the file to be upgraded,
+    does the file contain errors or does the file need a sub-techniques upgrade.
     :param filename: path to a YAML file
     :param file_type: value to check against the 'file_type' key in the YAML file
     :param health_is_called: boolean that specifies if detailed errors in the file will be printed by the function 'check_yaml_file_health'
@@ -877,6 +893,10 @@ def check_file(filename, file_type=None, health_is_called=False):
     if yaml_content:
         upgrade_yaml_file(filename, file_type, yaml_content['version'], load_attack_data(DATA_TYPE_STIX_ALL_TECH))
         check_yaml_file_health(filename, file_type, health_is_called)
+
+        if file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
+            if not check_yaml_updated_to_sub_techniques(filename):
+                return None
 
         return yaml_content['file_type']
 
@@ -1075,3 +1095,28 @@ def clean_filename(filename):
     :return: sanitized filename
     """
     return filename.replace('/', '').replace('\\', '').replace(':', '')[:200]
+
+
+def get_technique_from_yaml(yaml_content, technique_id):
+    """
+    Generic function to lookup a specific technique_id in the YAML content.
+    :param techniques: list with all techniques
+    :param technique_id: technique_id to look for
+    :return: the technique you're searching for. None if not found.
+    """
+    for tech in yaml_content['techniques']:
+        if tech['technique_id'] == technique_id:
+            return tech
+
+
+def remove_technique_from_yaml(yaml_content, technique_id):
+    """
+    Function to delete a specific technique in the YAML content.
+    :param techniques: list with all techniques
+    :param technique_id: technique_id to look for
+    :return: none
+    """
+    for tech in yaml_content['techniques']:
+        if tech['technique_id'] == technique_id:
+            yaml_content['techniques'].remove(tech)
+            return

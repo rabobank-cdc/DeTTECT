@@ -3,6 +3,7 @@ import os
 import signal
 from interactive_menu import *
 from editor import DeTTECTEditor
+import generic
 
 
 def _init_menu():
@@ -62,6 +63,10 @@ def _init_menu():
     parser_data_sources.add_argument('-of', '--output-filename', help='set the output filename')
     parser_data_sources.add_argument('-ln', '--layer-name', help='set the name of the Navigator layer')
     parser_data_sources.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
+    parser_data_sources.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
+                                     'or to use a specific version of STIX objects.')
+    parser_data_sources.add_argument('--update-to-sub-techniques', help='Update the technique administration YAML file'
+                                                                        'to ATT&CK with sub-techniques.', action='store_true')
 
     # create the visibility parser
     parser_visibility = subparsers.add_parser('visibility', aliases=['v'],
@@ -92,13 +97,17 @@ def _init_menu():
     parser_visibility.add_argument('-of', '--output-filename', help='set the output filename')
     parser_visibility.add_argument('-ln', '--layer-name', help='set the name of the Navigator layer')
     parser_visibility.add_argument('--health', help='check the YAML file for errors', action='store_true')
+    parser_visibility.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
+                                   'or to use a specific version of STIX objects.')
+    parser_visibility.add_argument('--update-to-sub-techniques', help='Update the technique administration YAML file'
+                                   'to ATT&CK with sub-techniques.', action='store_true')
 
     # create the detection parser
     parser_detection = subparsers.add_parser('detection', aliases=['d'],
                                              help='detection coverage mapping based on techniques',
                                              description='Create a heat map based on detection scores, overlay '
-                                                         'detections with visibility, generate a detection '
-                                                         'improvement graph, output to Excel or check the health of '
+                                             'detections with visibility, generate a detection '
+                                             'improvement graph, output to Excel or check the health of '
                                                          'the technique administration YAML file.')
     parser_detection.add_argument('-ft', '--file-tech', help='path to the technique administration YAML file (used to '
                                                              'score the level of detection)', required=True)
@@ -124,11 +133,15 @@ def _init_menu():
     parser_detection.add_argument('-of', '--output-filename', help='set the output filename')
     parser_detection.add_argument('-ln', '--layer-name', help='set the name of the Navigator layer')
     parser_detection.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
+    parser_detection.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
+                                  'or to use a specific version of STIX objects.')
+    parser_detection.add_argument('--update-to-sub-techniques', help='Update the technique administration YAML file'
+                                  'to ATT&CK with sub-techniques.', action='store_true')
 
     # create the group parser
     parser_group = subparsers.add_parser('group', aliases=['g'],
                                          description='Create threat actor group heat maps, compare group(s) and '
-                                                     'compare group(s) with visibility and detection coverage.',
+                                         'compare group(s) with visibility and detection coverage.',
                                          help='threat actor group mapping')
     parser_group.add_argument('-g', '--groups', help='specify the ATT&CK Groups to include separated using commas. '
                                                      'Group can be their ID, name or alias (default is all groups). '
@@ -163,11 +176,15 @@ def _init_menu():
     parser_group.add_argument('-of', '--output-filename', help='set the output filename')
     parser_group.add_argument('-ln', '--layer-name', help='set the name of the Navigator layer')
     parser_group.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
+    parser_group.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
+                                                        'or to use a specific version of STIX objects.')
+    parser_group.add_argument('--update-to-sub-techniques', help='Update the technique administration YAML file'
+                              'to ATT&CK with sub-techniques.', action='store_true')
 
     # create the generic parser
     parser_generic = subparsers.add_parser('generic', description='Generic functions which will output to stdout.',
                                            help='includes: statistics on ATT&CK data source and updates on techniques'
-                                                ', groups and software', aliases=['ge'])
+                                           ', groups and software', aliases=['ge'])
 
     parser_generic.add_argument('-ds', '--datasources', help='get a sorted count on how many ATT&CK Enterprise '
                                                              'techniques are covered by a particular Data Source',
@@ -181,6 +198,8 @@ def _init_menu():
     parser_generic.add_argument('--sort', help='sorting of the output from \'-u/--update\' on modified or creation '
                                                'date (default = modified)', choices=['modified', 'created'],
                                 default='modified')
+    parser_generic.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
+                                'or to use a specific version of STIX objects.')
 
     return menu_parser
 
@@ -192,6 +211,13 @@ def _menu(menu_parser):
     :return:
     """
     args = menu_parser.parse_args()
+
+    if 'local_stix_path' in args and args.local_stix_path:
+        generic.local_stix_path = args.local_stix_path
+
+    if 'update_to_sub_techniques' in args and args.update_to_sub_techniques:
+        from upgrade import upgrade_to_sub_techniques
+        upgrade_to_sub_techniques(args.file_tech)
 
     if args.interactive:
         interactive_menu()
