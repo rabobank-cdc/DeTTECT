@@ -2,7 +2,7 @@ import re
 
 APP_NAME = 'DeTT&CT'
 APP_DESC = 'Detect Tactics, Techniques & Combat Threats'
-VERSION = '1.3.1'
+VERSION = '1.4'
 
 EXPIRE_TIME = 60 * 60 * 24
 
@@ -119,14 +119,14 @@ V_UPDATE_ACTION_DIFF = 'the user decides to update or not'
 
 # YAML regex
 REGEX_YAML_VERSION_10 = re.compile(r'^\s*version:\s+1\.0\s*$', re.IGNORECASE)
-REGEX_YAML_TECHNIQUE_ID = re.compile(r'^-\s+technique_id:\s+T[0-9]{4}\s*$', re.IGNORECASE)
-REGEX_YAML_TECHNIQUE_ID_FORMAT = re.compile(r'T[0-9]{4}', re.IGNORECASE)
+REGEX_YAML_TECHNIQUE_ID = re.compile(r'^-\s+technique_id:\s+T\d{4}(\.\d{3}|)\s*$', re.IGNORECASE)
+REGEX_YAML_TECHNIQUE_ID_FORMAT = re.compile(r'T\d{4}(\.\d{3}|)', re.IGNORECASE)
 REGEX_YAML_DETECTION = re.compile(r'^\s+detection:\s*$', re.IGNORECASE)
 REGEX_YAML_VISIBILITY = re.compile(r'^\s+visibility:\s*$', re.IGNORECASE)
 REGEX_YAML_INDENT_CHARS = re.compile(r'(^[\s-]+).*', re.IGNORECASE)
 REGEX_YAML_VALID_DATE = re.compile(r'([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))', re.IGNORECASE)
 REGEX_YAML_DATE = re.compile(r'^[\s-]+date:.*$', re.IGNORECASE)
-REGEX_YAML_TECHNIQUE_ID_GROUP = re.compile(r'^-\s+technique_id:\s+(T[0-9]{4})\s*$', re.IGNORECASE)
+REGEX_YAML_TECHNIQUE_ID_GROUP = re.compile(r'^-\s+technique_id:\s+(T\d{4})\s*$', re.IGNORECASE)
 
 # YAML objects
 YAML_OBJ_VISIBILITY = {'applicable_to': ['all'],

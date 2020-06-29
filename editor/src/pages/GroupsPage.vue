@@ -127,19 +127,19 @@ export default {
             filters: {
                 filter: {
                     value: '',
-                    keys: ['group_name', 'campaign', 'enabled']
-                }
+                    keys: ['group_name', 'campaign', 'enabled'],
+                },
             },
             data_columns: ['group_name', 'campaign', 'enabled'],
             groupFileToRender: 'https://raw.githubusercontent.com/wiki/rabobank-cdc/DeTTECT/YAML-administration-groups.md',
             groupHelpText: null,
-            emptyGroupObject: constants.YAML_OBJ_GROUP
+            emptyGroupObject: constants.YAML_OBJ_GROUP,
         };
     },
     mixins: [pageMixin, notificationMixin],
     components: {
         GroupsDetail,
-        Icons
+        Icons,
     },
     created: function() {
         this.preloadMarkDown();
@@ -215,7 +215,7 @@ export default {
                             }
 
                             for (let x = 0; x < yaml_input.groups[i].technique_id.length; x++) {
-                                if (yaml_input.groups[i].technique_id[x].match(/^T[0-9]{4}$/i) == null) {
+                                if (yaml_input.groups[i].technique_id[x].match(/^T\d{4}(\.\d{3}|)$/i) == null) {
                                     yaml_input.groups[i].technique_id.splice(x, 1);
                                 }
                                 if (yaml_input.groups[i].technique_id[x] != undefined) {
@@ -223,7 +223,7 @@ export default {
                                 }
                             }
                             for (let x = 0; x < yaml_input.groups[i].software_id.length; x++) {
-                                if (yaml_input.groups[i].software_id[x].match(/^S[0-9]{4}$/i) == null) {
+                                if (yaml_input.groups[i].software_id[x].match(/^S\d{4}$/i) == null) {
                                     yaml_input.groups[i].software_id.splice(x, 1);
                                 }
                                 if (yaml_input.groups[i].software_id[x] != undefined) {
@@ -289,20 +289,20 @@ export default {
 
             this.groupHelpText = 'Loading the help content...';
             this.$http.get(this.groupFileToRender).then(
-                response => {
+                (response) => {
                     this.groupHelpText = response.body.replace(/\[(.+)\](\([#\w-]+\))/gm, '$1'); // remove links to other wiki pages
                     this.groupHelpText = this.groupHelpText.match(/## Group object((.*|\n)*)/gim, '$1')[0];
                     this.groupHelpText = this.groupHelpText.replace(/^## Group object/gim, '');
                 },
                 // eslint-disable-next-line no-unused-vars
-                response => {
+                (response) => {
                     this.groupHelpText = 'An error occurred while loading the help content.';
                 }
             );
         },
         notifyInvalidFileType(filename) {
             this.notifyDanger('Invalid YAML file type', "The file '" + filename + "' is not a valid group administration file.");
-        }
+        },
     },
     filters: {
         listToString: function(value) {
@@ -311,8 +311,8 @@ export default {
             } else {
                 return value;
             }
-        }
-    }
+        },
+    },
 };
 </script>
 

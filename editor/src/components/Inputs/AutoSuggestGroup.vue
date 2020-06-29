@@ -42,23 +42,23 @@ import { notificationMixin } from '@/mixins/NotificationMixins.js';
 export default {
     data() {
         return {
-            newID: ''
+            newID: '',
         };
     },
     mixins: [autoSuggestMixins, notificationMixin],
     props: {
         group: {
             type: Object,
-            required: true
+            required: true,
         },
         valueAttr: {
             type: String,
-            required: true
+            required: true,
         },
         platforms: {
             type: Array,
-            required: true
-        }
+            required: true,
+        },
     },
     methods: {
         deleteItem(event) {
@@ -80,11 +80,11 @@ export default {
                 return;
             }
             // performs two checks for a valid ID, and exit if not valid
-            if (!this.newID.match(/\b(S|T)\d{4}\b/i)) {
+            if (!this.newID.match(/\b(S\d{4}|T\d{4}(\.\d{3}|))\b/i)) {
                 this.notifyInvalid(this.newID);
                 return;
             }
-            let id = this.newID.match(/\b((S|T)\d{4})\b/i)[0].toUpperCase();
+            let id = this.newID.match(/\b((S\d{4}|T\d{4}(\.\d{3}|)))\b/i)[0].toUpperCase();
             if ((this.itemIdName == 'technique_id' && !id.startsWith('T')) || (this.itemIdName == 'software_id' && !id.startsWith('S'))) {
                 this.notifyInvalid(id);
                 return;
@@ -113,7 +113,7 @@ export default {
             let title = 'Invalid ' + this.formattedTitle;
             let msg = "'" + id + "' is an invalid " + this.formattedTitle + '.';
             this.notifyWarning(title, msg);
-        }
+        },
     },
     computed: {
         filteredSuggestionList() {
@@ -123,7 +123,7 @@ export default {
             for (let i = 0; i < this.suggestionList.length; i++) {
                 if (
                     this.platforms[0] == 'all' ||
-                    (this.platforms.some(item => this.suggestionList[i]['platforms'].includes(item)) &&
+                    (this.platforms.some((item) => this.suggestionList[i]['platforms'].includes(item)) &&
                         !this.group[this.itemIdName].includes(this.suggestionList[i][this.itemIdName]))
                 ) {
                     tmpList.push(this.suggestionList[i]);
@@ -133,7 +133,7 @@ export default {
         },
         formattedTitle() {
             return this.itemIdName.replace('_', ' ').replace('id', 'ID');
-        }
-    }
+        },
+    },
 };
 </script>
