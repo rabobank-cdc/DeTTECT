@@ -419,7 +419,7 @@ def check_yaml_updated_to_sub_techniques(filename):
         return False
     elif len(auto_updatable_techniques) == 0 and len(manual_update_techniques) > 0:
         print('[!] File: \'' + filename +
-              '\' needs some manual work to upgrade to ATT&CK with sub-techniques. See the list below what needs to be changed.')
+              '\' needs some manual work to upgrade to ATT&CK with sub-techniques. See the list below on what needs to be changed.')
         print('')
         upgrade_to_sub_techniques(filename, notify_only=True)
         return False
