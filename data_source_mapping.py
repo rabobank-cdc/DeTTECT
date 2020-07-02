@@ -278,10 +278,10 @@ def _map_and_colorize_techniques(my_ds, platforms, exceptions):
                 d['comment'] = ''
                 d['enabled'] = True
                 d['tactic'] = tactic.lower().replace(' ', '-')
-                d['metadata'] = [{'name': '-Available data sources', 'value': ', '.join(v['my_data_sources'])},
-                                 {'name': '-ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(v['data_sources'],
-                                                                                                                           applicable_data_sources))},
-                                 {'name': '-Products', 'value': ', '.join(v['products'])}]
+                d['metadata'] = [{'name': 'Available data sources', 'value': ', '.join(v['my_data_sources'])},
+                                 {'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(v['data_sources'],
+                                                                                                                          applicable_data_sources))},
+                                 {'name': 'Products', 'value': ', '.join(v['products'])}]
                 d['metadata'] = make_layer_metadata_compliant(d['metadata'])
                 d['showSubtechniques'] = True
 

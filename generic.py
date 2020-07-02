@@ -924,13 +924,13 @@ def add_metadata_technique_object(technique, obj_type, metadata):
     if obj_type not in ['detection', 'visibility']:
         raise Exception("Invalid value for 'obj_type' provided.")
 
-    metadata.append({'name': '---', 'value': '---'})
-    metadata.append({'name': '-Applicable to', 'value': ', '.join(set([a for v in technique[obj_type] for a in v['applicable_to']]))})  # noqa
-    metadata.append({'name': '-' + obj_type.capitalize() + ' score', 'value': ', '.join([str(calculate_score(technique[obj_type]))])})  # noqa
+    metadata.append({'name': '------', 'value': ' '})
+    metadata.append({'name': 'Applicable to', 'value': ', '.join(set([a for v in technique[obj_type] for a in v['applicable_to']]))})  # noqa
+    metadata.append({'name': '' + obj_type.capitalize() + ' score', 'value': ', '.join([str(calculate_score(technique[obj_type]))])})  # noqa
     if obj_type == 'detection':
-        metadata.append({'name': '-' + obj_type.capitalize() + ' location', 'value': ', '.join(set([a for v in technique[obj_type] for a in v['location']]))})  # noqa
-    metadata.append({'name': '-' + obj_type.capitalize() + ' comment', 'value': ' | '.join(set(filter(lambda x: x != '', map(lambda k: k['comment'], technique[obj_type]))))})  # noqa
-    metadata.append({'name': '-' + obj_type.capitalize() + ' score comment', 'value': ' | '.join(set(filter(lambda x: x != '', map(lambda i: get_latest_comment(i), technique[obj_type]))))})  # noqa
+        metadata.append({'name': '' + obj_type.capitalize() + ' location', 'value': ', '.join(set([a for v in technique[obj_type] for a in v['location']]))})  # noqa
+    metadata.append({'name': '' + obj_type.capitalize() + ' comment', 'value': ' | '.join(set(filter(lambda x: x != '', map(lambda k: k['comment'], technique[obj_type]))))})  # noqa
+    metadata.append({'name': '' + obj_type.capitalize() + ' score comment', 'value': ' | '.join(set(filter(lambda x: x != '', map(lambda i: get_latest_comment(i), technique[obj_type]))))})  # noqa
 
     return metadata
 

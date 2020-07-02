@@ -424,7 +424,7 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
 
                 # Add applicable_to to metadata in case of overlay for detection/visibility:
                 if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
-                    t['metadata'].append({'name': '-Overlay', 'value': overlay_type})
+                    t['metadata'].append({'name': 'Overlay', 'value': overlay_type})
                     for obj_type in ['detection', 'visibility']:
                         t['metadata'] = add_metadata_technique_object(all_techniques[tech], obj_type, t['metadata'])
 
@@ -447,7 +447,7 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
         # create the metadata based on the dict 'metadata_dict'
         i = 0
         for metadata, values in metadata_dict.items():
-            tmp_dict = {'name': '-' + metadata, 'value': ', '.join(values)}
+            tmp_dict = {'name': metadata, 'value': ', '.join(values)}
             t['metadata'].insert(i, tmp_dict)
             i += 1
 
