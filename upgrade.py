@@ -351,7 +351,7 @@ def check_yaml_updated_to_sub_techniques(filename):
     """
     Checks if the YAML technique administration file is already updated to ATT&CK with sub-techniques by comparing the techniques to the the crosswalk file.
     :param filename: YAML administration file
-    :return:
+    :return: return False if an update is required, otherwise True
     """
     from generic import init_yaml, backup_file, fix_date_and_remove_null, load_attack_data, get_technique, get_technique_from_yaml, remove_technique_from_yaml
 
@@ -392,7 +392,7 @@ def check_yaml_updated_to_sub_techniques(filename):
                             manual_update_techniques.append(tech)
 
                         # No conversion: Technique merged with other technique:
-                        # # T1017 is also merged to T1072, unfortunatly the explanation doesn't tell this
+                        # T1017 is also merged to T1072, unfortunately the explanation doesn't tell this
                         elif sub_tech['explanation'] in ["Merged with and name change from Standard Non-Application Layer Protocol"] \
                                 or 'Name change from Application Deployment Software' in sub_tech['explanation']:
                             manual_update_techniques.append(tech)
@@ -415,12 +415,10 @@ def check_yaml_updated_to_sub_techniques(filename):
                             auto_updatable_techniques.append(tech)
 
     if len(auto_updatable_techniques) > 0:
-        print('[!] File: \'' + filename + '\' needs to be updated to ATT&CK with sub-techniques. Use option --update-to-sub-techniques to perform the update.')
+        print('[!] File: \'' + filename + '\' needs to be updated to ATT&CK with sub-techniques. Use the option \'--update-to-sub-techniques\' to perform the update.')
         return False
     elif len(auto_updatable_techniques) == 0 and len(manual_update_techniques) > 0:
-        print('[!] File: \'' + filename +
-              '\' needs some manual work to upgrade to ATT&CK with sub-techniques. See the list below on what needs to be changed.')
-        print('')
+        print('[!] File: \'' + filename + '\' needs some manual work to upgrade to ATT&CK with sub-techniques. See the list below on what needs to be changed.\n')
         upgrade_to_sub_techniques(filename, notify_only=True)
         return False
     elif len(auto_updatable_techniques) == 0 and len(manual_update_techniques) == 0:
@@ -433,9 +431,10 @@ def upgrade_to_sub_techniques(filename, notify_only=False):
     """
     Upgrade the YAML technique administration file to ATT&CK with sub-techniques
     :param filename: YAML administration file
+    :param notify_only: set to True by 'check_yaml_updated_to_sub_techniques' when no automatic upgrade of techniques can be performed because these require manual action
     :return:
     """
-    from generic import init_yaml, backup_file, fix_date_and_remove_null, load_attack_data, get_technique, get_technique_from_yaml, remove_technique_from_yaml, ask_yes_no, local_stix_path
+    from generic import init_yaml, backup_file, load_attack_data, get_technique, get_technique_from_yaml, remove_technique_from_yaml, ask_yes_no, local_stix_path
 
     if not notify_only and not ask_yes_no('DeTT&CT is going to update \'' + filename + '\' to ATT&CK with sub-techniques. A backup of this file will be generated. Do you want to continue:'):
         quit()
@@ -492,7 +491,7 @@ def upgrade_to_sub_techniques(filename, notify_only=False):
                         # Explanations we've missed:
                         else:
                             warning_msgs.append('[!] Explanation \'' + sub_tech['explanation'] +
-                                                '\' in the subtechniques-crosswalk.json provided by MITRE not handled by DeTT&CT. Please check manually. Technique ' + tech)
+                                                '\' in the subtechniques-crosswalk.json provided by MITRE not handled by DeTT&CT. Please check manually. Technique: ' + tech)
 
                         # Perform the renames
                         if 'renamed' in sub_tech['explanation'].lower():
@@ -525,7 +524,7 @@ def upgrade_to_sub_techniques(filename, notify_only=False):
                             ignore_list.append(tech)
 
                         # No conversion: Technique merged with other technique:
-                        # # T1017 is also merged to T1072, unfortunatly the explanation doesn't tell this
+                        # T1017 is also merged to T1072, unfortunately the explanation doesn't tell this
                         elif sub_tech['explanation'] in ["Merged with and name change from Standard Non-Application Layer Protocol"] \
                                 or 'Name change from Application Deployment Software' in sub_tech['explanation']:
                             warning_msgs.append('[!] Technique ' + tech + ' is merged with ' + sub_tech['id'] +
@@ -556,7 +555,7 @@ def upgrade_to_sub_techniques(filename, notify_only=False):
                         # Explanations we've missed:
                         else:
                             warning_msgs.append('[!] Explanation \'' + sub_tech['explanation'] +
-                                                '\' in the subtechniques-crosswalk.json provided by MITRE not handled by DeTT&CT. Please check manually. Technique ' + tech)
+                                                '\' in the subtechniques-crosswalk.json provided by MITRE not handled by DeTT&CT. Please check manually. Technique: ' + tech)
 
                         # Perform the renames
                         if 'renamed' in sub_tech['explanation'].lower():
