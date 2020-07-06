@@ -16,6 +16,21 @@
             <polyline points="5 12 12 5 19 12"></polyline>
         </svg>
         <svg
+            v-if="icon == 'arrow-down'"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            stroke="currentColor"
+            stroke-width="2"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="css-i6dzq1"
+        >
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <polyline points="19 12 12 19 5 12"></polyline>
+        </svg>
+        <svg
             v-if="icon == 'file'"
             viewBox="0 0 24 24"
             width="24"
@@ -125,14 +140,14 @@ export default {
     props: {
         icon: {
             type: String,
-            required: true
+            required: true,
         },
         tooltip: {
             type: String,
             required: false,
-            default: ''
-        }
+            default: '',
+        },
     },
-    methods: {}
+    methods: {},
 };
 </script>
