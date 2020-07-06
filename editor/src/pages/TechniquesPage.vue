@@ -69,6 +69,7 @@
                                 selectedClass="table-selected-custom"
                                 :filters="filters"
                                 class="table-custom"
+                                ref="data_table"
                             >
                                 <thead slot="head">
                                     <v-th sortKey="technique_id" defaultSort="asc" width="200">Technique ID</v-th>
@@ -76,7 +77,7 @@
                                     <th></th>
                                 </thead>
                                 <tbody slot="body" slot-scope="{ displayData }">
-                                    <v-tr v-for="(row, i) in displayData" :key="row.technique_id" :row="row">
+                                    <v-tr v-for="(row, i) in displayData" :key="row.technique_id" :row="row" ref="data_table_rows">
                                         <td>{{ row.technique_id }}</td>
                                         <td>{{ row.technique_name }}</td>
                                         <td>
@@ -102,6 +103,7 @@
                         :allTechniques="doc.techniques"
                         :selectedPlatforms="doc.platform"
                         ref="detailComponent"
+                        :navigateItem="navigateItem"
                     ></techniques-detail>
                 </card>
             </div>
@@ -116,6 +118,7 @@ import jsyaml from 'js-yaml';
 import moment from 'moment';
 import constants from '@/constants';
 import { pageMixin } from '../mixins/PageMixins.js';
+import { navigateMixins } from '../mixins/NavigateMixins.js';
 import { notificationMixin } from '../mixins/NotificationMixins.js';
 import _ from 'lodash';
 
@@ -126,17 +129,17 @@ export default {
             filters: {
                 filter: {
                     value: '',
-                    keys: ['technique_id', 'technique_name'],
-                },
+                    keys: ['technique_id', 'technique_name']
+                }
             },
             data_columns: ['technique_id', 'technique_name'],
-            emptyTechObject: constants.YAML_OBJ_TECHNIQUE,
+            emptyTechObject: constants.YAML_OBJ_TECHNIQUE
         };
     },
-    mixins: [pageMixin, notificationMixin],
+    mixins: [pageMixin, navigateMixins, notificationMixin],
     components: {
         TechniquesDetail,
-        Icons,
+        Icons
     },
     methods: {
         readFile(event) {
@@ -352,7 +355,7 @@ export default {
                         this.unwatchFunction = this.$watch(
                             'doc',
                             // eslint-disable-next-line no-unused-vars
-                            function (after, before) {
+                            function(after, before) {
                                 this.fileChanged = true;
                             },
                             { deep: true }
@@ -504,8 +507,8 @@ export default {
                 technique_id,
                 true
             );
-        },
-    },
+        }
+    }
 };
 </script>
 

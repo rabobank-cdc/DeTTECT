@@ -73,6 +73,7 @@
                                 selectedClass="table-selected-custom"
                                 :filters="filters"
                                 class="table-custom"
+                                ref="data_table"
                             >
                                 <thead slot="head">
                                     <v-th sortKey="data_source_name" defaultSort="asc" width="350">Name</v-th>
@@ -81,7 +82,7 @@
                                     <th></th>
                                 </thead>
                                 <tbody slot="body" slot-scope="{ displayData }">
-                                    <v-tr v-for="(row, i) in displayData" :key="row.data_source_name" :row="row">
+                                    <v-tr v-for="(row, i) in displayData" :key="row.data_source_name" :row="row" ref="data_table_rows">
                                         <td>{{ row.data_source_name }}</td>
                                         <td>{{ row.date_registered }}</td>
                                         <td>{{ row.products | listToString }}</td>
@@ -109,6 +110,7 @@
                         :dqHelpText="dqHelpText"
                         :dsHelpText="dsHelpText"
                         :prevDataSourceQuality="prevDataSourceQuality"
+                        :navigateItem="navigateItem"
                     ></data-source-detail>
                 </card>
             </div>
@@ -122,6 +124,7 @@ import jsyaml from 'js-yaml';
 import moment from 'moment';
 import constants from '@/constants';
 import { pageMixin } from '../mixins/PageMixins.js';
+import { navigateMixins } from '../mixins/NavigateMixins.js';
 import { notificationMixin } from '../mixins/NotificationMixins.js';
 import _ from 'lodash';
 
@@ -144,7 +147,7 @@ export default {
             emptyDataSourceObject: constants.YAML_OBJ_DATA_SOURCES
         };
     },
-    mixins: [pageMixin, notificationMixin],
+    mixins: [pageMixin, navigateMixins, notificationMixin],
     components: {
         DataSourceDetail,
         Icons
@@ -318,26 +321,26 @@ export default {
             // Preload the data quality help text from Github
             this.dqHelpText = 'Loading the help content...';
             this.$http.get(this.dqFileToRender).then(
-                response => {
+                (response) => {
                     // remove links to other wiki pages
                     this.dqHelpText = response.body.replace(/\[(.+)\](\([#\w-]+\))/gm, '$1');
                 },
                 // eslint-disable-next-line no-unused-vars
-                response => {
+                (response) => {
                     this.dqHelpText = 'An error occurred while loading the help content.';
                 }
             );
 
             this.dsHelpText = 'Loading the help content...';
             this.$http.get(this.dsFileToRender).then(
-                response => {
+                (response) => {
                     this.dsHelpText = response.body.replace(/\[(.+)\](\([#\w-]+\))/gm, '$1'); // remove links to other wiki pages
                     this.dsHelpText = this.dsHelpText.match(/## Data source object((.*|\n)*)/gim, '$1')[0];
                     this.dsHelpText = this.dsHelpText.replace(/^## Data source object/gim, '');
                     this.dsHelpText = this.dsHelpText.replace(/^## .+((.*|\n)*)/gim, '');
                 },
                 // eslint-disable-next-line no-unused-vars
-                response => {
+                (response) => {
                     this.dsHelpText = 'An error occurred while loading the help content.';
                 }
             );

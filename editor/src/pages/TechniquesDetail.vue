@@ -12,6 +12,7 @@
             :isAttackEntity="true"
             :platforms="selectedPlatforms"
             notifyText="'ID' is an invalid technique, please comply with the naming scheme: TXXXX - [optional name]."
+            :navigateItem="navigateItem"
         ></auto-suggest-title>
         <applicable-to-collapse
             title="Detection"
@@ -101,6 +102,10 @@ export default {
         selectedPlatforms: {
             type: Array,
             required: true
+        },
+        navigateItem: {
+            type: Function,
+            required: true
         }
     },
     components: {
@@ -113,7 +118,7 @@ export default {
             this.detectionHelpText = 'Loading the help content...';
             this.visibilityHelpText = 'Loading the help content...';
             this.$http.get(this.techniqueHelpUrl).then(
-                response => {
+                (response) => {
                     let responseClean = response.body.replace(/\[(.+)\](\([#\w-]+\))/gm, '$1'); // remove links to other wiki pages
                     this.detectionHelpText = responseClean;
                     this.detectionHelpText = this.detectionHelpText.match(/^## Detection object((.*|\n)*)/gim, '$1')[0];
@@ -126,7 +131,7 @@ export default {
                     this.visibilityHelpText = this.visibilityHelpText.replace(/^## Visibility object/gim, '');
                 },
                 // eslint-disable-next-line no-unused-vars
-                response => {
+                (response) => {
                     this.detectionHelpText = 'An error occurred while loading the help content.';
                     this.visibilityHelpText = 'An error occurred while loading the help content.';
                 }
@@ -134,24 +139,24 @@ export default {
 
             this.detectionScoreHelpText = 'Loading the help content...';
             this.$http.get(this.detectionScoreHelpUrl).then(
-                response => {
+                (response) => {
                     let responseClean = response.body.replace(/\[(.+)\](\([#\w-]+\))/gm, '$1'); // remove links to other wiki pages
                     this.detectionScoreHelpText = responseClean;
                 },
                 // eslint-disable-next-line no-unused-vars
-                response => {
+                (response) => {
                     this.detectionScoreHelpText = 'An error occurred while loading the help content.';
                 }
             );
 
             this.visibilityScoreHelpText = 'Loading the help content...';
             this.$http.get(this.visibilityScoreHelpUrl).then(
-                response => {
+                (response) => {
                     let responseClean = response.body.replace(/\[(.+)\](\([#\w-]+\))/gm, '$1'); // remove links to other wiki pages
                     this.visibilityScoreHelpText = responseClean;
                 },
                 // eslint-disable-next-line no-unused-vars
-                response => {
+                (response) => {
                     this.visibilityScoreHelpText = 'An error occurred while loading the help content.';
                 }
             );

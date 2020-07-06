@@ -27,6 +27,14 @@
                     <span v-else id="detailCard" class="card-title">{{ item[itemIdName] }}</span>
                     <i class="tim-icons icon-pencil icon-color icon-padding cursor-pointer" @click="editItem = true"></i>
                 </div>
+                <div>
+                    <label @click="navigateItem(false)" class="cursor-pointer" :title="'Previous ' + title.toLowerCase()">
+                        <icons icon="arrow-up"></icons>
+                    </label>
+                    <label @click="navigateItem(true)" class="cursor-pointer" :title="'Next ' + title.toLowerCase()">
+                        <icons icon="arrow-down"></icons>
+                    </label>
+                </div>
             </div>
         </div>
     </div>
@@ -35,6 +43,7 @@
 <script>
 import { autoSuggestMixins } from '@/mixins/AutoSuggestMixins.js';
 import { notificationMixin } from '@/mixins/NotificationMixins.js';
+import Icons from '@/components/Icons';
 
 export default {
     data() {
@@ -46,6 +55,7 @@ export default {
             editItem: false
         };
     },
+    components: { Icons },
     mixins: [autoSuggestMixins, notificationMixin],
     props: {
         item: {
@@ -83,6 +93,10 @@ export default {
             type: String,
             required: false,
             default: "'ID' is an invalid TITLE."
+        },
+        navigateItem: {
+            type: Function,
+            required: true
         }
     },
     watch: {
@@ -228,7 +242,7 @@ export default {
                 for (let i = 0; i < this.suggestionList.length; i++) {
                     if (
                         this.platforms[0] == 'all' ||
-                        (this.platforms.some(item => this.suggestionList[i]['platforms'].includes(item)) &&
+                        (this.platforms.some((item) => this.suggestionList[i]['platforms'].includes(item)) &&
                             !this.allItemsIdValues.includes(this.suggestionList[i][this.valueAttr]))
                     ) {
                         tmpList.push(this.suggestionList[i]);

@@ -200,13 +200,47 @@ export const pageMixin = {
                         okTitle: 'Continue',
                         modalClass: 'confirmMessage'
                     })
-                    .then(value => {
+                    .then((value) => {
                         if (value) {
                             this.newFile();
                         }
                     });
             } else {
                 this.newFile();
+            }
+        },
+        navigateItem(next) {
+            let step = 1;
+            if (!next) {
+                step = -1;
+            }
+            // First, loop through the visible rows (this takes the sorting and filtering into account):
+            let table = this.$refs.data_table.$el.rows;
+            let found_index = 0;
+            for (let i = 0; i < table.length; i++) {
+                if (table[i].className == 'table-selected-custom') {
+                    found_index = i;
+                    break;
+                }
+            }
+            // Do not proceed when it's the first or last row:
+            if ((found_index != 0 && !next) || (found_index != table.length - 1 && next)) {
+                // Unset current selected row:
+                this.$refs.data_table.$el.rows[found_index].className = '';
+                this.selectedRow.pop();
+                // Select previous/next row just visually:
+                this.$refs.data_table.$el.rows[found_index + step].className = 'table-selected-custom';
+
+                // Next, loop through the dataset rows, looking for the new selected item to formally select:
+                let rows = this.$refs.data_table_rows;
+                let found_row;
+                for (let i = 0; i < rows.length; i++) {
+                    if (rows[i].$el.className == 'table-selected-custom') {
+                        found_row = rows[i].row;
+                        break;
+                    }
+                }
+                this.selectedRow.push(found_row);
             }
         }
     }

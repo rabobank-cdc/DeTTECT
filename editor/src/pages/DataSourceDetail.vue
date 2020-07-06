@@ -6,6 +6,7 @@
             itemIdName="data_source_name"
             :allItems="allDataSources"
             :suggestionList="dataSourceSuggestionList"
+            :navigateItem="navigateItem"
         ></auto-suggest-title>
         <div class="row mt-md-3">
             <div class="col-md-auto pr-md-0">
@@ -159,37 +160,41 @@ export default {
                 '2': 'Fair',
                 '3': 'Good',
                 '4': 'Very good',
-                '5': 'Excellent',
+                '5': 'Excellent'
             },
             dataSourceDefaultKeys: Object.keys(constants.YAML_OBJ_DATA_SOURCES),
             dataSourceSuggestionList: dataSources,
             helptextDataQuality: false,
             helptextDataSourceKVPairs: false,
-            commentModal: false,
+            commentModal: false
         };
     },
     mixins: [pageDetailMixin],
     props: {
         dataSource: {
             type: Object,
-            required: true,
+            required: true
         },
         allDataSources: {
             type: Array,
-            required: true,
+            required: true
         },
         dqHelpText: {
             type: String,
-            required: true,
+            required: true
         },
         dsHelpText: {
             type: String,
-            required: true,
+            required: true
         },
         prevDataSourceQuality: {
             type: Array,
-            required: true,
+            required: true
         },
+        navigateItem: {
+            type: Function,
+            required: true
+        }
     },
     methods: {
         escapeKeyListener: function(evt) {
@@ -223,7 +228,7 @@ export default {
         },
         editCommentCallback(b) {
             this.commentModal = b;
-        },
+        }
     },
     computed: {
         dsEnabled() {
@@ -233,7 +238,7 @@ export default {
                 }
             }
             return false;
-        },
+        }
     },
     components: {
         DatePicker,
@@ -244,7 +249,7 @@ export default {
         AutoSuggestTitle,
         Modal,
         Icons,
-        ExtendedTextarea,
-    },
+        ExtendedTextarea
+    }
 };
 </script>
