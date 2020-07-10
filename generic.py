@@ -628,7 +628,7 @@ def get_latest_date(yaml_object):
 def get_latest_auto_generated(yaml_object):
     """
     Return the latest auto_generated value present in the score_logbook
-    :param yaml_object: a detection or visibility YAML object
+    :param yaml_object: a visibility YAML object
     :return: True or False
     """
     score_obj = get_latest_score_obj(yaml_object)
