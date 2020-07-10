@@ -9,7 +9,7 @@ techniques:
   #
   # - If desired you are free to add any key-value pairs. This will not impact the functionality of the tool.
 - technique_id: T1222
-  technique_name: File Permissions Modification
+  technique_name: File and Directory Permissions Modification
   detection:
     applicable_to: [all]
     location:
@@ -554,25 +554,6 @@ techniques:
       score: 1
       comment: ''
       auto_generated: true
-- technique_id: T1559.001
-  technique_name: Component Object Model
-  detection:
-    applicable_to: [all]
-    location:
-    - ''
-    comment: ''
-    score_logbook:
-    - date: null
-      score: -1
-      comment: ''
-  visibility:
-    applicable_to: [all]
-    comment: ''
-    score_logbook:
-    - date: 2019-03-01
-      score: 1
-      comment: ''
-      auto_generated: true
 - technique_id: T1185
   technique_name: Man in the Browser
   detection:
@@ -1045,7 +1026,7 @@ techniques:
     - date: 2019-03-01
       score: 2
       comment: ''
-- technique_id: T1551.005
+- technique_id: T1070.005
   technique_name: Network Share Connection Removal
   detection:
     applicable_to: [all]
@@ -1407,7 +1388,7 @@ techniques:
       score: 1
       comment: ''
       auto_generated: true
-- technique_id: T1551.006
+- technique_id: T1070.006
   technique_name: Timestomp
   detection:
     applicable_to: [all]
@@ -1736,29 +1717,6 @@ techniques:
       score: 1
       comment: ''
       auto_generated: true
-- technique_id: T1072
-  technique_name: Software Deployment Tools
-  detection:
-    applicable_to: [all]
-    location:
-    - ''
-    comment: ''
-    score_logbook:
-    - date: null
-      score: -1
-      comment: ''
-  visibility:
-    applicable_to: [all]
-    comment: ''
-    score_logbook:
-    - date: 2019-07-30
-      score: 2
-      comment: 'New data source: Process use of network'
-      auto_generated: true
-    - date: 2019-03-01
-      score: 1
-      comment: ''
-      auto_generated: true
 - technique_id: T1071
   technique_name: Application Layer Protocol
   detection:
@@ -1776,7 +1734,7 @@ techniques:
     - date: 2019-03-01
       score: 2
       comment: ''
-- technique_id: T1551
+- technique_id: T1070
   technique_name: Indicator Removal on Host
   detection:
     applicable_to: [all]
@@ -1856,44 +1814,26 @@ techniques:
       score: 1
       comment: ''
       auto_generated: true
-- technique_id: T1059.004
-  technique_name: Bash
+- technique_id: T1571
+  technique_name: Non-Standard Port
   detection:
     applicable_to: [all]
-    location: [EDR, AV Product]
+    location:
+    - Model B
     comment: ''
     score_logbook:
-    - date: 2018-12-01
-      score: 3
+    - date: 2018-10-01
+      score: 5
       comment: ''
   visibility:
     applicable_to: [all]
     comment: ''
     score_logbook:
     - date: 2019-03-01
-      score: 1
+      score: 3
       comment: ''
-      auto_generated: true
 - technique_id: T1059.005
-  technique_name: VBScript
-  detection:
-    applicable_to: [all]
-    location: [EDR, AV Product]
-    comment: ''
-    score_logbook:
-    - date: 2018-12-01
-      score: 3
-      comment: ''
-  visibility:
-    applicable_to: [all]
-    comment: ''
-    score_logbook:
-    - date: 2019-03-01
-      score: 1
-      comment: ''
-      auto_generated: true
-- technique_id: T1059.006
-  technique_name: Python
+  technique_name: Visual Basic
   detection:
     applicable_to: [all]
     location: [EDR, AV Product]
@@ -2136,25 +2076,6 @@ techniques:
       score: 1
       comment: ''
       auto_generated: true
-- technique_id: T1571
-  technique_name: Non-Standard Port
-  detection:
-    applicable_to: [all]
-    location:
-    - Model B
-    comment: ''
-    score_logbook:
-    - date: 2018-10-01
-      score: 5
-      comment: ''
-  visibility:
-    applicable_to: [all]
-    comment: ''
-    score_logbook:
-    - date: 2019-03-01
-      score: 3
-      comment: ''
-      auto_generated: true
 - technique_id: T1546.001
   technique_name: Change Default File Association
   detection:
@@ -2324,44 +2245,6 @@ techniques:
       score: 2
       comment: ''
       auto_generated: true
-- technique_id: T1574.008
-  technique_name: Path Interception by Search Order Hijacking
-  detection:
-    applicable_to: [all]
-    location:
-    - ''
-    comment: ''
-    score_logbook:
-    - date: null
-      score: -1
-      comment: ''
-  visibility:
-    applicable_to: [all]
-    comment: ''
-    score_logbook:
-    - date: 2019-03-01
-      score: 2
-      comment: ''
-      auto_generated: true
-- technique_id: T1574.009
-  technique_name: Path Interception by Unquoted Path
-  detection:
-    applicable_to: [all]
-    location:
-    - ''
-    comment: ''
-    score_logbook:
-    - date: null
-      score: -1
-      comment: ''
-  visibility:
-    applicable_to: [all]
-    comment: ''
-    score_logbook:
-    - date: 2019-03-01
-      score: 2
-      comment: ''
-      auto_generated: true
 - technique_id: T1033
   technique_name: System Owner/User Discovery
   detection:
@@ -2382,7 +2265,7 @@ techniques:
       comment: ''
       auto_generated: true
 - technique_id: T1543.003
-  technique_name: Existing Service
+  technique_name: Windows Service
   detection:
     applicable_to: [all]
     location:
@@ -2577,6 +2460,29 @@ techniques:
     score_logbook:
     - date: 2017-01-01
       score: 3
+      comment: ''
+  visibility:
+    applicable_to: [all]
+    comment: ''
+    score_logbook:
+    - date: 2019-07-30
+      score: 2
+      comment: 'New data source: Process use of network'
+      auto_generated: true
+    - date: 2019-03-01
+      score: 1
+      comment: ''
+      auto_generated: true
+- technique_id: T1072
+  technique_name: Software Deployment Tools
+  detection:
+    applicable_to: [all]
+    location:
+    - ''
+    comment: ''
+    score_logbook:
+    - date: null
+      score: -1
       comment: ''
   visibility:
     applicable_to: [all]
@@ -2803,7 +2709,7 @@ techniques:
   detection:
     applicable_to: [all]
     location:
-    - Model E
+    - Model D
     comment: ''
     score_logbook:
     - date: 2017-10-10
