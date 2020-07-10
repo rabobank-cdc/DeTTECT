@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1ba167e3c77a713075e7",
+    "revision": "45a936c16107ed98e4c0",
     "url": "/dettect-editor/css/app.1edb8aa1.css"
   },
   {
@@ -48,12 +48,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/dettect-editor/img/maximize-2.svg"
   },
   {
-    "revision": "c18b3662d96611b146c43a95358caa10",
+    "revision": "8eeee23b8ca58f751e47a5cdd46f1859",
     "url": "/dettect-editor/index.html"
   },
   {
-    "revision": "1ba167e3c77a713075e7",
-    "url": "/dettect-editor/js/app.b59a624d.js"
+    "revision": "45a936c16107ed98e4c0",
+    "url": "/dettect-editor/js/app.60038141.js"
   },
   {
     "revision": "719965ee0c633ef202b2",
