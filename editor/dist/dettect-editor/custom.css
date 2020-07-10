@@ -103,7 +103,7 @@ input[type='file'] {
     padding-left: 15px !important;
     padding-right: 15px !important;
     margin-left: 15px !important;
-    width: 80px !important;
+    width: 100px !important;
 }
 
 p.attack-id {
@@ -113,7 +113,7 @@ p.attack-id {
 .attack-span {
     margin: 0px;
     padding: 0px;
-    width: 125px;
+    width: 145px;
 }
 
 .notifications a,
