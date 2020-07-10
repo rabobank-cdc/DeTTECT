@@ -419,7 +419,7 @@ def upgrade_to_sub_techniques(filename, notify_only=False):
     :param notify_only: set to True by 'check_yaml_updated_to_sub_techniques' when no automatic upgrade of techniques can be performed because these require manual action
     :return:
     """
-    from generic import init_yaml, backup_file, load_attack_data, get_technique, get_technique_from_yaml, remove_technique_from_yaml, ask_yes_no, local_stix_path
+    from generic import init_yaml, backup_file, load_attack_data, get_technique, get_technique_from_yaml, remove_technique_from_yaml, ask_yes_no, local_stix_path, get_latest_score, get_latest_auto_generated
 
     if not notify_only and not ask_yes_no('DeTT&CT is going to update \'' + filename + '\' to ATT&CK with sub-techniques. A backup of this file will be generated. Do you want to continue:'):
         quit()
@@ -480,7 +480,17 @@ def upgrade_to_sub_techniques(filename, notify_only=False):
                             change_name = True
                             # Only check if "new sub-techniques added" is within the explanation:
                             if 'new sub-techniques added' in migrate_item['explanation'].lower():
-                                subtech_added_msgs.append(migrate_item['id'])
+                                has_detection = False
+                                is_auto_generated = False
+                                if isinstance(yaml_technique['detection'], dict):  # There is just one detection entry
+                                    has_detection = get_latest_score(yaml_technique['detection']) >= 0
+                                    is_auto_generated = get_latest_auto_generated(yaml_technique['visibility'])
+                                elif isinstance(yaml_technique['detection'], list):  # There are multiple detection entries
+                                    has_detection = len([d for d in yaml_technique['detection'] if get_latest_score(d) >= 0]) > 0
+                                    is_auto_generated = any([get_latest_auto_generated(v) for v in yaml_technique['visibility']])
+
+                                if has_detection or not is_auto_generated:
+                                    subtech_added_msgs.append(migrate_item['id'])
                         elif item['change-type'] == 'Became a Sub-Technique':
                             # Conversion from technique to sub-technique:
                             yaml_technique['technique_id'] = migrate_item['id']
