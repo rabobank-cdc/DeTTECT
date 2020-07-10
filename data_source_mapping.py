@@ -496,7 +496,7 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
                             print(' - Visibility comment: ' + _indent_comment(get_latest_comment(old_vis_obj[obj_idx]), 23))
                             print(' - Auto generated:     ' + str(get_latest_score_obj(old_vis_obj[obj_idx]).get('auto_generated', 'False')))
                             print('NEW score object:')
-                            print(' - Date:               ' + new_score_obj['date'])
+                            print(' - Date:               ' + str(new_score_obj['date']))
                             print(' - Score:              ' + str(new_score_obj['score']))
                             print(' - Visibility comment: ' + _indent_comment(new_score_obj['comment'], 23))
                             print(' - Auto generated:     True')
