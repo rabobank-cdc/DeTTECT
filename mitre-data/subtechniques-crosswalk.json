@@ -3,9 +3,10 @@
         "T1001": [
             {
                 "id": "T1001",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1002": [
@@ -13,15 +14,17 @@
                 "id": "T1560",
                 "explanation": "Created to consolidate behavior around encrypting and compressing collected data"
             }
-        ]
+        ],
+        "change-type": "One or More Techniques Became New Technique"
     },
     {
         "T1003": [
             {
                 "id": "T1003",
-                "explanation": "Remains Technique, Renamed, Name change from Credential Dumping and new sub-techniques added"
+                "explanation": "Renamed, Name change from Credential Dumping and new sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1004": [
@@ -29,39 +32,44 @@
                 "id": "T1547.004",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1005": [
             {
                 "id": "T1005",
-                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+                "explanation": "Fixed technique reference in description and minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1006": [
             {
                 "id": "T1006",
-                "explanation": "Remains Technique, Renamed, Name change from File System Logical Offsets"
+                "explanation": "Renamed, Name change from File System Logical Offsets"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1007": [
             {
                 "id": "T1007",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1008": [
             {
                 "id": "T1008",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1009": [
@@ -69,31 +77,35 @@
                 "id": "T1027.001",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1010": [
             {
                 "id": "T1010",
-                "explanation": "Remains Technique, Fixed technique reference in description"
+                "explanation": "Fixed technique reference in description"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1011": [
             {
                 "id": "T1011",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1012": [
             {
                 "id": "T1012",
-                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+                "explanation": "Fixed technique reference in description and minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1013": [
@@ -101,15 +113,17 @@
                 "id": "T1547.010",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1014": [
             {
                 "id": "T1014",
-                "explanation": "Remains Technique, Minor description update"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1015": [
@@ -117,15 +131,17 @@
                 "id": "T1546.008",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1016": [
             {
                 "id": "T1016",
-                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+                "explanation": "Fixed technique reference in description and minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1017": [
@@ -133,15 +149,17 @@
                 "id": "T1072",
                 "explanation": "Name change from Application Deployment Software"
             }
-        ]
+        ],
+        "change-type": "Merged into Existing Technique"
     },
     {
         "T1018": [
             {
                 "id": "T1018",
-                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+                "explanation": "Fixed technique reference in description and minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1019": [
@@ -149,23 +167,26 @@
                 "id": "T1542.001",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1020": [
             {
                 "id": "T1020",
-                "explanation": "Remains Technique, Fixed technique reference in description"
+                "explanation": "Fixed technique reference in description"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1021": [
             {
                 "id": "T1021",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1022": [
@@ -173,7 +194,8 @@
                 "id": "T1560",
                 "explanation": "Created to consolidate behavior around encrypting and compressing collected data"
             }
-        ]
+        ],
+        "change-type": "One or More Techniques Became New Technique"
     },
     {
         "T1023": [
@@ -181,7 +203,8 @@
                 "id": "T1547.009",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1024": [
@@ -189,31 +212,35 @@
                 "id": "T1573",
                 "explanation": "Created to consolidate behavior around encrypted C2"
             }
-        ]
+        ],
+        "change-type": "One or More Techniques Became New Technique"
     },
     {
         "T1025": [
             {
                 "id": "T1025",
-                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+                "explanation": "Fixed technique reference in description and minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1026": [
             {
                 "id": "N/A",
-                "explanation": "Deprecate, Deprecated from ATT&CK due to lack of in the wild use. Existing Group/Software procedure examples did not fit the core idea behind the technique"
+                "explanation": "Deprecated from ATT&CK due to lack of in the wild use. Existing Group/Software procedure examples did not fit the core idea behind the technique"
             }
-        ]
+        ],
+        "change-type": "Deprecated"
     },
     {
         "T1027": [
             {
                 "id": "T1027",
-                "explanation": "Remains Technique, Minor description update"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1028": [
@@ -221,23 +248,26 @@
                 "id": "T1021.006",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1029": [
             {
                 "id": "T1029",
-                "explanation": "Remains Technique, Minor description update"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1030": [
             {
                 "id": "T1030",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1031": [
@@ -245,7 +275,8 @@
                 "id": "T1543.003",
                 "explanation": "Existing technique that became a sub-technique. Consolidates Modify Existing Service and New Service techniques into one sub-technique"
             }
-        ]
+        ],
+        "change-type": "Multiple Techniques Became New Sub-Technique"
     },
     {
         "T1032": [
@@ -253,15 +284,17 @@
                 "id": "T1573",
                 "explanation": "Created to consolidate behavior around encrypted C2"
             }
-        ]
+        ],
+        "change-type": "One or More Techniques Became New Technique"
     },
     {
         "T1033": [
             {
                 "id": "T1033",
-                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+                "explanation": "Fixed technique reference in description and minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1034": [
@@ -277,7 +310,8 @@
                 "id": "T1574.009",
                 "explanation": "Deprecated and split into separate Unquoted Path, PATH Environment Variable, and Search Order Hijacking sub-techniques."
             }
-        ]
+        ],
+        "change-type": "Became Multiple Sub-Techniques"
     },
     {
         "T1035": [
@@ -285,15 +319,17 @@
                 "id": "T1569.002",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1036": [
             {
                 "id": "T1036",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1037": [
@@ -301,7 +337,8 @@
                 "id": "T1037",
                 "explanation": "Remove from lateral-movement, Renamed, Name change from Logon Scripts and new sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1038": [
@@ -309,31 +346,35 @@
                 "id": "T1574.001",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1039": [
             {
                 "id": "T1039",
-                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+                "explanation": "Fixed technique reference in description and minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1040": [
             {
                 "id": "T1040",
-                "explanation": "Remains Technique, Minor description update"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1041": [
             {
                 "id": "T1041",
-                "explanation": "Remains Technique, Renamed, Name change from Exfiltration over Command and Control Channel and added data sources"
+                "explanation": "Renamed, Name change from Exfiltration over Command and Control Channel and added data sources"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1042": [
@@ -341,15 +382,17 @@
                 "id": "T1546.001",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1043": [
             {
-                "id": "T1571",
-                "explanation": "Created to refine the idea behind Common and Uncommonly Used Port to focus the behavior on use of a non-standard port for C2 based on the protocol used"
+                "id": "N/A",
+                "explanation": "Deprecated from ATT&CK because the behavior is redundant and describes most benign network communications."
             }
-        ]
+        ],
+        "change-type": "Deprecated"
     },
     {
         "T1044": [
@@ -357,7 +400,8 @@
                 "id": "T1574.010",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1045": [
@@ -365,39 +409,44 @@
                 "id": "T1027.002",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1046": [
             {
                 "id": "T1046",
-                "explanation": "Remains Technique, Minor description update"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1047": [
             {
                 "id": "T1047",
-                "explanation": "Remains Technique, Minor description update"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1048": [
             {
                 "id": "T1048",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1049": [
             {
                 "id": "T1049",
-                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+                "explanation": "Fixed technique reference in description and minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1050": [
@@ -405,31 +454,35 @@
                 "id": "T1543.003",
                 "explanation": "Existing technique that became a sub-technique. Consolidates Modify Existing Service and New Service techniques into one sub-technique"
             }
-        ]
+        ],
+        "change-type": "Multiple Techniques Became New Sub-Technique"
     },
     {
         "T1051": [
             {
                 "id": "N/A",
-                "explanation": "Deprecate, Deprecated from ATT&CK due to lack of in the wild use"
+                "explanation": "Deprecated from ATT&CK due to lack of in the wild use"
             }
-        ]
+        ],
+        "change-type": "Deprecated"
     },
     {
         "T1052": [
             {
                 "id": "T1052",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1053": [
             {
                 "id": "T1053",
-                "explanation": "Remains Technique, Renamed, Name change from Local Job Scheduling and new sub-techniques added"
+                "explanation": "Renamed, Name change from Local Job Scheduling and new sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1054": [
@@ -437,31 +490,35 @@
                 "id": "T1562.006",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1055": [
             {
                 "id": "T1055",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1056": [
             {
                 "id": "T1056",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1057": [
             {
                 "id": "T1057",
-                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+                "explanation": "Fixed technique reference in description and minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1058": [
@@ -469,15 +526,17 @@
                 "id": "T1574.011",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1059": [
             {
                 "id": "T1059",
-                "explanation": "Remains Technique, Renamed, Name change from Command-Line Interface and new sub-techniques added"
+                "explanation": "Renamed, Name change from Command-Line Interface and new sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1060": [
@@ -485,23 +544,26 @@
                 "id": "T1547.001",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1061": [
             {
                 "id": "N/A",
-                "explanation": "Deprecate, Deprecated from ATT&CK because the behavior is redundant and implied by use of remote desktop tools like Remote Desktop Protocol. Existing Group/Software procedure examples were remapped appropriately"
+                "explanation": "Deprecated from ATT&CK because the behavior is redundant and implied by use of remote desktop tools like Remote Desktop Protocol. Existing Group/Software procedure examples were remapped appropriately"
             }
-        ]
+        ],
+        "change-type": "Deprecated"
     },
     {
         "T1062": [
             {
                 "id": "N/A",
-                "explanation": "Deprecate, Deprecated from ATT&CK due to lack of in the wild use"
+                "explanation": "Deprecated from ATT&CK due to lack of in the wild use"
             }
-        ]
+        ],
+        "change-type": "Deprecated"
     },
     {
         "T1063": [
@@ -509,23 +571,25 @@
                 "id": "T1518.001",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1064": [
             {
                 "id": "T1059.004",
-                "explanation": "Deprecated and split into separate Bash, VBScript, and Python sub-techniques of Command and Scripting Interpreter."
+                "explanation": "Deprecated and split into separate Unix Shell, Visual Basic, JavaScript/Jscript, and Python sub-techniques of Command and Scripting Interpreter."
             },
             {
                 "id": "T1059.005",
-                "explanation": "Deprecated and split into separate Bash, VBScript, and Python sub-techniques of Command and Scripting Interpreter."
+                "explanation": "Deprecated and split into separate Unix Shell, Visual Basic, JavaScript/Jscript, and Python sub-techniques of Command and Scripting Interpreter."
             },
             {
                 "id": "T1059.006",
-                "explanation": "Deprecated and split into separate Bash, VBScript, and Python sub-techniques of Command and Scripting Interpreter."
+                "explanation": "Deprecated and split into separate Unix Shell, Visual Basic, JavaScript/Jscript, and Python sub-techniques of Command and Scripting Interpreter."
             }
-        ]
+        ],
+        "change-type": "Became Multiple Sub-Techniques"
     },
     {
         "T1065": [
@@ -533,7 +597,8 @@
                 "id": "T1571",
                 "explanation": "Created to refine the idea behind Common and Uncommonly Used Port to focus the behavior on use of a non-standard port for C2 based on the protocol used"
             }
-        ]
+        ],
+        "change-type": "One or More Techniques Became New Technique"
     },
     {
         "T1066": [
@@ -541,7 +606,8 @@
                 "id": "T1027.005",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1067": [
@@ -549,47 +615,53 @@
                 "id": "T1542.003",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1068": [
             {
                 "id": "T1068",
-                "explanation": "Remains Technique, Minor description update"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1069": [
             {
                 "id": "T1069",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1070": [
             {
-                "id": "T1551",
-                "explanation": "Remains Technique"
+                "id": "T1070",
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1071": [
             {
                 "id": "T1071",
-                "explanation": "Remains Technique, Renamed, Name change from Standard Application Layer Protocol and new sub-techniques added"
+                "explanation": "Renamed, Name change from Standard Application Layer Protocol and new sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1072": [
             {
                 "id": "T1072",
-                "explanation": "Remains Technique, Renamed, Name change from Application Deployment Software"
+                "explanation": "Renamed, Name change from Application Deployment Software"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1073": [
@@ -597,15 +669,17 @@
                 "id": "T1574.002",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1074": [
             {
                 "id": "T1074",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1075": [
@@ -613,7 +687,8 @@
                 "id": "T1550.002",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1076": [
@@ -621,7 +696,8 @@
                 "id": "T1021.001",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1077": [
@@ -629,15 +705,17 @@
                 "id": "T1021.002",
                 "explanation": "Existing technique that became a sub-technique and was renamed from Windows Admin Shares"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1078": [
             {
                 "id": "T1078",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1079": [
@@ -645,15 +723,17 @@
                 "id": "T1573",
                 "explanation": "Created to consolidate behavior around encrypted C2"
             }
-        ]
+        ],
+        "change-type": "One or More Techniques Became New Technique"
     },
     {
         "T1080": [
             {
                 "id": "T1080",
-                "explanation": "Remains Technique, Minor description update"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1081": [
@@ -661,23 +741,26 @@
                 "id": "T1552.001",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1082": [
             {
                 "id": "T1082",
-                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+                "explanation": "Fixed technique reference in description and minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1083": [
             {
                 "id": "T1083",
-                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+                "explanation": "Fixed technique reference in description and minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1084": [
@@ -685,7 +768,8 @@
                 "id": "T1546.003",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1085": [
@@ -693,7 +777,8 @@
                 "id": "T1218.011",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1086": [
@@ -701,15 +786,17 @@
                 "id": "T1059.001",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1087": [
             {
                 "id": "T1087",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1088": [
@@ -717,7 +804,8 @@
                 "id": "T1548.002",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1089": [
@@ -725,31 +813,35 @@
                 "id": "T1562.001",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1090": [
             {
                 "id": "T1090",
-                "explanation": "Remains Technique, Renamed, Name change from Connection Proxy and new sub-techniques added"
+                "explanation": "Renamed, Name change from Connection Proxy and new sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1091": [
             {
                 "id": "T1091",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1092": [
             {
                 "id": "T1092",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1093": [
@@ -757,7 +849,8 @@
                 "id": "T1055.012",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1094": [
@@ -765,15 +858,17 @@
                 "id": "T1095",
                 "explanation": "Merged with and name change from Standard Non-Application Layer Protocol"
             }
-        ]
+        ],
+        "change-type": "Merged into Existing Technique"
     },
     {
         "T1095": [
             {
                 "id": "T1095",
-                "explanation": "Remains Technique, Renamed, Name change from Standard Non-Application Layer Protocol"
+                "explanation": "Renamed, Name change from Standard Non-Application Layer Protocol"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1096": [
@@ -781,7 +876,8 @@
                 "id": "T1564.004",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1097": [
@@ -789,7 +885,8 @@
                 "id": "T1550.003",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1098": [
@@ -797,15 +894,17 @@
                 "id": "T1098",
                 "explanation": "Remove from credential-access, New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1099": [
             {
-                "id": "T1551.006",
+                "id": "T1070.006",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1100": [
@@ -813,7 +912,8 @@
                 "id": "T1505.003",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1101": [
@@ -821,15 +921,17 @@
                 "id": "T1547.005",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1102": [
             {
                 "id": "T1102",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1103": [
@@ -837,47 +939,53 @@
                 "id": "T1546.010",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1104": [
             {
                 "id": "T1104",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1105": [
             {
                 "id": "T1105",
-                "explanation": "Remains Technique, Renamed, Name change from Remote File Copy"
+                "explanation": "Renamed, Name change from Remote File Copy"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1106": [
             {
                 "id": "T1106",
-                "explanation": "Remains Technique, Renamed, Name change from Execution through API"
+                "explanation": "Renamed, Name change from Execution through API"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1107": [
             {
-                "id": "T1551.004",
+                "id": "T1070.004",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1108": [
             {
                 "id": "N/A",
-                "explanation": "Deprecate, Deprecated from ATT&CK because the behavior is too high level and is sufficiently covered by Valid Accounts and External Remote Services. Existing Group/Software procedure examples were remapped appropriately"
+                "explanation": "Deprecated from ATT&CK because the behavior is too high level and is sufficiently covered by Valid Accounts and External Remote Services. Existing Group/Software procedure examples were remapped appropriately"
             }
-        ]
+        ],
+        "change-type": "Deprecated"
     },
     {
         "T1109": [
@@ -885,55 +993,62 @@
                 "id": "T1542.002",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1110": [
             {
                 "id": "T1110",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1111": [
             {
                 "id": "T1111",
-                "explanation": "Remains Technique, Minor description update"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1112": [
             {
                 "id": "T1112",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1113": [
             {
                 "id": "T1113",
-                "explanation": "Remains Technique, Minor description update"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1114": [
             {
                 "id": "T1114",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1115": [
             {
                 "id": "T1115",
-                "explanation": "Remains Technique, Minor description update"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1116": [
@@ -941,7 +1056,8 @@
                 "id": "T1553.002",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1117": [
@@ -949,7 +1065,8 @@
                 "id": "T1218.010",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1118": [
@@ -957,23 +1074,26 @@
                 "id": "T1218.004",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1119": [
             {
                 "id": "T1119",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1120": [
             {
                 "id": "T1120",
-                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+                "explanation": "Fixed technique reference in description and minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1121": [
@@ -981,7 +1101,8 @@
                 "id": "T1218.009",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1122": [
@@ -989,47 +1110,53 @@
                 "id": "T1546.015",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1123": [
             {
                 "id": "T1123",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1124": [
             {
                 "id": "T1124",
-                "explanation": "Remains Technique, Minor description update"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1125": [
             {
                 "id": "T1125",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1126": [
             {
-                "id": "T1551.005",
+                "id": "T1070.005",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1127": [
             {
                 "id": "T1127",
-                "explanation": "Remains Technique, Renamed, Minor description update, sub-technique added"
+                "explanation": "Renamed, Minor description update, sub-technique added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1128": [
@@ -1037,15 +1164,17 @@
                 "id": "T1546.007",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1129": [
             {
                 "id": "T1129",
-                "explanation": "Remains Technique, Renamed, Name change from Execution through Module Load"
+                "explanation": "Renamed, Name change from Execution through Module Load"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1130": [
@@ -1053,7 +1182,8 @@
                 "id": "T1553.004",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1131": [
@@ -1061,55 +1191,62 @@
                 "id": "T1547.002",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1132": [
             {
                 "id": "T1132",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1133": [
             {
                 "id": "T1133",
-                "explanation": "Remains Technique, Minor description update"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1134": [
             {
                 "id": "T1134",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1135": [
             {
                 "id": "T1135",
-                "explanation": "Remains Technique, Fixed technique reference in description, added Linux, and minor description update"
+                "explanation": "Fixed technique reference in description, added Linux, and minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1136": [
             {
                 "id": "T1136",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1137": [
             {
                 "id": "T1137",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1138": [
@@ -1117,7 +1254,8 @@
                 "id": "T1546.011",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1139": [
@@ -1125,15 +1263,17 @@
                 "id": "T1552.003",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1140": [
             {
                 "id": "T1140",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1141": [
@@ -1141,7 +1281,8 @@
                 "id": "T1056.002",
                 "explanation": "Broken out from pre-defined behavior within Input Capture"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1142": [
@@ -1149,7 +1290,8 @@
                 "id": "T1555.001",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1143": [
@@ -1157,7 +1299,8 @@
                 "id": "T1564.003",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1144": [
@@ -1165,7 +1308,8 @@
                 "id": "T1553.001",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1145": [
@@ -1173,15 +1317,17 @@
                 "id": "T1552.004",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1146": [
             {
-                "id": "T1551.003",
+                "id": "T1070.003",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1147": [
@@ -1189,7 +1335,8 @@
                 "id": "T1564.002",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1148": [
@@ -1197,15 +1344,17 @@
                 "id": "T1562.003",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1149": [
             {
                 "id": "N/A",
-                "explanation": "Deprecate, Deprecated from ATT&CK due to lack of in the wild use"
+                "explanation": "Deprecated from ATT&CK due to lack of in the wild use"
             }
-        ]
+        ],
+        "change-type": "Deprecated"
     },
     {
         "T1150": [
@@ -1213,7 +1362,8 @@
                 "id": "T1547.011",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Multiple Techniques Became New Sub-Technique"
     },
     {
         "T1151": [
@@ -1221,7 +1371,8 @@
                 "id": "T1036.006",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1152": [
@@ -1229,15 +1380,17 @@
                 "id": "T1569.001",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1153": [
             {
                 "id": "N/A",
-                "explanation": "Deprecate, Deprecated from ATT&CK due to lack of in the wild use"
+                "explanation": "Deprecated from ATT&CK due to lack of in the wild use"
             }
-        ]
+        ],
+        "change-type": "Deprecated"
     },
     {
         "T1154": [
@@ -1245,7 +1398,8 @@
                 "id": "T1546.005",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1155": [
@@ -1253,7 +1407,8 @@
                 "id": "T1059.002",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1156": [
@@ -1261,7 +1416,8 @@
                 "id": "T1546.004",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1157": [
@@ -1269,7 +1425,8 @@
                 "id": "T1574.004",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1158": [
@@ -1277,7 +1434,8 @@
                 "id": "T1564.001",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1159": [
@@ -1285,7 +1443,8 @@
                 "id": "T1543.001",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1160": [
@@ -1293,7 +1452,8 @@
                 "id": "T1543.004",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1161": [
@@ -1301,7 +1461,8 @@
                 "id": "T1546.006",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1162": [
@@ -1309,7 +1470,8 @@
                 "id": "T1547.011",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Multiple Techniques Became New Sub-Technique"
     },
     {
         "T1163": [
@@ -1317,7 +1479,8 @@
                 "id": "T1037.004",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1164": [
@@ -1325,7 +1488,8 @@
                 "id": "T1547.007",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1165": [
@@ -1333,7 +1497,8 @@
                 "id": "T1037.005",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1166": [
@@ -1341,7 +1506,8 @@
                 "id": "T1548.001",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1167": [
@@ -1349,7 +1515,8 @@
                 "id": "T1555.002",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1168": [
@@ -1357,7 +1524,8 @@
                 "id": "T1053",
                 "explanation": "Name change from Local Job Scheduling and new sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Merged into Existing Technique"
     },
     {
         "T1169": [
@@ -1365,7 +1533,8 @@
                 "id": "T1548.003",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Multiple Techniques Became New Sub-Technique"
     },
     {
         "T1170": [
@@ -1373,7 +1542,8 @@
                 "id": "T1218.005",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1171": [
@@ -1381,7 +1551,8 @@
                 "id": "T1557.001",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1172": [
@@ -1389,7 +1560,8 @@
                 "id": "T1090.004",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1173": [
@@ -1397,7 +1569,8 @@
                 "id": "T1559.002",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1174": [
@@ -1405,7 +1578,8 @@
                 "id": "T1556.002",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1175": [
@@ -1417,15 +1591,17 @@
                 "id": "T1559.001",
                 "explanation": "Deprecated and split into separate Component Object Model and Distributed Component Object Model sub-techniques."
             }
-        ]
+        ],
+        "change-type": "Became Multiple Sub-Techniques"
     },
     {
         "T1176": [
             {
                 "id": "T1176",
-                "explanation": "Remains Technique, Data sources changed and minor description update"
+                "explanation": "Data sources changed and minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1177": [
@@ -1433,7 +1609,8 @@
                 "id": "T1547.008",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1178": [
@@ -1441,7 +1618,8 @@
                 "id": "T1134.005",
                 "explanation": "Added due to manipulation of token information"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1179": [
@@ -1449,7 +1627,8 @@
                 "id": "T1056.004",
                 "explanation": "Existing technique that became a sub-technique and was renamed from API Hooking. Scope change to only credential access for API hooking was based on available procedure examples"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1180": [
@@ -1457,7 +1636,8 @@
                 "id": "T1546.002",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1181": [
@@ -1465,7 +1645,8 @@
                 "id": "T1055.011",
                 "explanation": "Broken out from pre-defined behavior within Process Injection"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1182": [
@@ -1473,7 +1654,8 @@
                 "id": "T1546.009",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1183": [
@@ -1481,7 +1663,8 @@
                 "id": "T1546.012",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1184": [
@@ -1489,15 +1672,17 @@
                 "id": "T1563.001",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1185": [
             {
                 "id": "T1185",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1186": [
@@ -1505,15 +1690,17 @@
                 "id": "T1055.013",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1187": [
             {
                 "id": "T1187",
-                "explanation": "Remains Technique, Minor description update"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1188": [
@@ -1521,23 +1708,26 @@
                 "id": "T1090.003",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1189": [
             {
                 "id": "T1189",
-                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+                "explanation": "Fixed technique reference in description and minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1190": [
             {
                 "id": "T1190",
-                "explanation": "Remains Technique, Minor description update"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1191": [
@@ -1545,7 +1735,8 @@
                 "id": "T1218.003",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1192": [
@@ -1553,7 +1744,8 @@
                 "id": "T1566.002",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1193": [
@@ -1561,7 +1753,8 @@
                 "id": "T1566.001",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1194": [
@@ -1569,15 +1762,17 @@
                 "id": "T1566.003",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1195": [
             {
                 "id": "T1195",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1196": [
@@ -1585,15 +1780,17 @@
                 "id": "T1218.002",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1197": [
             {
                 "id": "T1197",
-                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+                "explanation": "Fixed technique reference in description and minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1198": [
@@ -1601,63 +1798,71 @@
                 "id": "T1553.003",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1199": [
             {
                 "id": "T1199",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1200": [
             {
                 "id": "T1200",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1201": [
             {
                 "id": "T1201",
-                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+                "explanation": "Fixed technique reference in description and minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1202": [
             {
                 "id": "T1202",
-                "explanation": "Remains Technique, Minor description update"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1203": [
             {
                 "id": "T1203",
-                "explanation": "Remains Technique, Minor description update"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1204": [
             {
                 "id": "T1204",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1205": [
             {
-                "id": "T1545.001",
-                "explanation": "Existing technique that became a sub-technique"
+                "id": "T1205",
+                "explanation": "Renamed, Technique renamed and sub-technique added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1206": [
@@ -1665,15 +1870,17 @@
                 "id": "T1548.003",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Multiple Techniques Became New Sub-Technique"
     },
     {
         "T1207": [
             {
                 "id": "T1207",
-                "explanation": "Remains Technique, Renamed, Name change from DCShadow"
+                "explanation": "Renamed, Name change from DCShadow"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1208": [
@@ -1681,7 +1888,8 @@
                 "id": "T1558.003",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1209": [
@@ -1689,39 +1897,44 @@
                 "id": "T1547.003",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1210": [
             {
                 "id": "T1210",
-                "explanation": "Remains Technique, Minor description update"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1211": [
             {
                 "id": "T1211",
-                "explanation": "Remains Technique, Minor description update"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1212": [
             {
                 "id": "T1212",
-                "explanation": "Remains Technique, Minor description update"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1213": [
             {
                 "id": "T1213",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1214": [
@@ -1729,7 +1942,8 @@
                 "id": "T1552.002",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1215": [
@@ -1737,63 +1951,71 @@
                 "id": "T1547.006",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1216": [
             {
                 "id": "T1216",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1217": [
             {
                 "id": "T1217",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1218": [
             {
                 "id": "T1218",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1219": [
             {
                 "id": "T1219",
-                "explanation": "Remains Technique, Renamed, Name change from Remote Access Tools and fixed technique reference in description"
+                "explanation": "Renamed, Name change from Remote Access Tools and fixed technique reference in description"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1220": [
             {
                 "id": "T1220",
-                "explanation": "Remains Technique, Minor description update"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1221": [
             {
                 "id": "T1221",
-                "explanation": "Remains Technique, Minor description update"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1222": [
             {
                 "id": "T1222",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1223": [
@@ -1801,23 +2023,26 @@
                 "id": "T1218.001",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1480": [
             {
                 "id": "T1480",
-                "explanation": "Remains Technique"
+                "explanation": "New sub-technique added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1482": [
             {
                 "id": "T1482",
-                "explanation": "Remains Technique, Fixed technique reference in description and minor description update"
+                "explanation": "Fixed technique reference in description and minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1483": [
@@ -1825,31 +2050,35 @@
                 "id": "T1568.002",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1484": [
             {
                 "id": "T1484",
-                "explanation": "Remains Technique, Minor description update"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1485": [
             {
                 "id": "T1485",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1486": [
             {
                 "id": "T1486",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1487": [
@@ -1857,7 +2086,8 @@
                 "id": "T1561.002",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1488": [
@@ -1865,31 +2095,35 @@
                 "id": "T1561.001",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1489": [
             {
                 "id": "T1489",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1490": [
             {
                 "id": "T1490",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1491": [
             {
                 "id": "T1491",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1492": [
@@ -1897,7 +2131,8 @@
                 "id": "T1565.001",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1493": [
@@ -1905,7 +2140,8 @@
                 "id": "T1565.002",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1494": [
@@ -1913,47 +2149,53 @@
                 "id": "T1565.003",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1495": [
             {
                 "id": "T1495",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1496": [
             {
                 "id": "T1496",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1497": [
             {
                 "id": "T1497",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1498": [
             {
                 "id": "T1498",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1499": [
             {
                 "id": "T1499",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1500": [
@@ -1961,7 +2203,8 @@
                 "id": "T1027.004",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1501": [
@@ -1969,7 +2212,8 @@
                 "id": "T1543.002",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1502": [
@@ -1977,7 +2221,8 @@
                 "id": "T1134.004",
                 "explanation": "Added due to manipulation of tokens"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1503": [
@@ -1985,7 +2230,8 @@
                 "id": "T1555.003",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1504": [
@@ -1993,15 +2239,17 @@
                 "id": "T1546.013",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1505": [
             {
                 "id": "T1505",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1506": [
@@ -2009,7 +2257,8 @@
                 "id": "T1550.004",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1514": [
@@ -2017,15 +2266,17 @@
                 "id": "T1548.004",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1518": [
             {
                 "id": "T1518",
-                "explanation": "Remains Technique, New sub-techniques added"
+                "explanation": "New sub-techniques added"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1519": [
@@ -2033,7 +2284,8 @@
                 "id": "T1546.014",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1522": [
@@ -2041,23 +2293,26 @@
                 "id": "T1552.005",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1525": [
             {
                 "id": "T1525",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1526": [
             {
                 "id": "T1526",
-                "explanation": "Remains Technique"
+                "explanation": "Minor description update"
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1527": [
@@ -2065,86 +2320,97 @@
                 "id": "T1550.001",
                 "explanation": "Existing technique that became a sub-technique"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1528": [
             {
                 "id": "T1528",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1529": [
             {
                 "id": "T1529",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1530": [
             {
                 "id": "T1530",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1531": [
             {
                 "id": "T1531",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1534": [
             {
                 "id": "T1534",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1535": [
             {
                 "id": "T1535",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1536": [
             {
-                "id": "T1536",
-                "explanation": "Remains Technique, Minor description update, removed some data sources"
+                "id": "T1578.004",
+                "explanation": "Created as distinct behavior within Modify Cloud Compute Infrastructure"
             }
-        ]
+        ],
+        "change-type": "Became a Sub-Technique"
     },
     {
         "T1537": [
             {
                 "id": "T1537",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1538": [
             {
                 "id": "T1538",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     },
     {
         "T1539": [
             {
                 "id": "T1539",
-                "explanation": "Remains Technique"
+                "explanation": ""
             }
-        ]
+        ],
+        "change-type": "Remains Technique"
     }
 ]
