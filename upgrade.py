@@ -369,50 +369,35 @@ def check_yaml_updated_to_sub_techniques(filename):
     auto_updatable_techniques = []
     manual_update_techniques = []
     for item in conversion_table:
-        for tech in item:
-            for sub_tech in item[tech]:
-                # Check if technique is in YAML file:
-                yaml_technique = get_technique_from_yaml(yaml_content, tech)
-                if yaml_technique is None:
-                    break
-                else:
-                    # Only check technique ID's that changed into something else (other technique or other sub-technique)
-                    if sub_tech['id'] != tech:
-                        # No conversion possible: Multiple techniques became one technique or one sub-technique:
-                        if sub_tech['explanation'] in ["Created to consolidate behavior around encrypted C2",
-                                                       "Created to consolidate behavior around encrypting and compressing collected data",
-                                                       "Created to refine the idea behind Common and Uncommonly Used Port to focus the behavior on use of a non-standard port for C2 based on the protocol used",
-                                                       "Existing technique that became a sub-technique. Consolidates Modify Existing Service and New Service techniques into one sub-technique"]:
-                            manual_update_techniques.append(tech)
+        for element in item:
+            if element.startswith('T'):
+                for migrate_item in item[element]:
+                    # Check if technique is in YAML file:
+                    yaml_technique = get_technique_from_yaml(yaml_content, element)
+                    if yaml_technique is None:
+                        break
+                    else:
+                        # Possible types of changes:
+                        # - Remains Technique
+                        # - Became a Sub-Technique
+                        # - Multiple Techniques Became New Sub-Technique
+                        # - One or More Techniques Became New Technique
+                        # - Merged into Existing Technique
+                        # - Deprecated
+                        # - Became Multiple Sub-Techniques
 
-                        # No conversion: One technique became multiple sub techniques:
-                        elif sub_tech['explanation'] in ["Deprecated and split into separate Bash, VBScript, and Python sub-techniques of Command and Scripting Interpreter.",
-                                                         "Deprecated and split into separate Component Object Model and Distributed Component Object Model sub-techniques.",
-                                                         "Deprecated and split into separate Unquoted Path, PATH Environment Variable, and Search Order Hijacking sub-techniques."]:
-                            manual_update_techniques.append(tech)
-
-                        # No conversion: Technique merged with other technique:
-                        # T1017 is also merged to T1072, unfortunately the explanation doesn't tell this
-                        elif sub_tech['explanation'] in ["Merged with and name change from Standard Non-Application Layer Protocol"] \
-                                or 'Name change from Application Deployment Software' in sub_tech['explanation']:
-                            manual_update_techniques.append(tech)
-
-                        # Remove deprecated items:
-                        elif sub_tech['id'] == 'N/A':
-                            auto_updatable_techniques.append(tech)
-
-                        # Technique ID's that are changed:
-                        # T1070 changed to T1551
-                        elif sub_tech['explanation'] == "Remains Technique":
-                            auto_updatable_techniques.append(tech)
-
-                        # Conversion from technique to sub-technique:
-                        elif 'Existing technique that became a sub-technique' in sub_tech['explanation'] \
-                                or 'Broken out from pre-defined behavior within Input Capture' in sub_tech['explanation'] \
-                                or 'Broken out from pre-defined behavior within Process Injection' in sub_tech['explanation'] \
-                                or 'Added due to manipulation of token information' in sub_tech['explanation'] \
-                                or 'Added due to manipulation of tokens' in sub_tech['explanation']:
-                            auto_updatable_techniques.append(tech)
+                        if item['change-type'] == 'Became a Sub-Technique':
+                            auto_updatable_techniques.append(element)
+                        elif item['change-type'] == 'Multiple Techniques Became New Sub-Technique':
+                            manual_update_techniques.append(element)
+                        elif item['change-type'] == 'One or More Techniques Became New Technique':
+                            manual_update_techniques.append(element)
+                        elif item['change-type'] == 'Merged into Existing Technique':
+                            manual_update_techniques.append(element)
+                        elif item['change-type'] == 'Deprecated':
+                            auto_updatable_techniques.append(element)
+                        elif item['change-type'] == 'Became Multiple Sub-Techniques':
+                            manual_update_techniques.append(element)
 
     if len(auto_updatable_techniques) > 0:
         print('[!] File: \'' + filename + '\' needs to be updated to ATT&CK with sub-techniques. Use the option \'--update-to-sub-techniques\' to perform the update.')
@@ -470,105 +455,74 @@ def upgrade_to_sub_techniques(filename, notify_only=False):
     deprecated_msgs = []
     renamed_msgs = []
     subtech_added_msgs = []
-    new_id_msgs = []
     warning_msgs = []
     for item in conversion_table:
-        for tech in item:
-            for sub_tech in item[tech]:
-                # Check if technique is in YAML file:
-                yaml_technique = get_technique_from_yaml(yaml_content, tech)
+        for element in item:
+            if element.startswith('T'):
+                for migrate_item in item[element]:
+                    # Check if technique is in YAML file:
+                    yaml_technique = get_technique_from_yaml(yaml_content, element)
 
-                # Only apply changes to techniques that are in the YAML file:
-                if yaml_technique is not None and tech not in ignore_list:
-                    # First check the source techniques that are equal to the destination techniques:
-                    if sub_tech['id'] == tech:
-                        # Do nothing for the items with "Remains Technique" because nothing changes.
-                        if 'Remains Technique' in sub_tech['explanation'] \
-                                or 'Remove from lateral-movement, Renamed, Name change from Logon Scripts and new sub-techniques added' in sub_tech['explanation'] \
-                                or 'Remove from credential-access, New sub-techniques added' in sub_tech['explanation']:
-                            pass
+                    # Only apply changes to techniques that are in the YAML file:
+                    if yaml_technique is not None and element not in ignore_list:
+                        change_name = False
+                        # Possible types of changes:
+                        # - Remains Technique
+                        # - Became a Sub-Technique
+                        # - Multiple Techniques Became New Sub-Technique
+                        # - One or More Techniques Became New Technique
+                        # - Merged into Existing Technique
+                        # - Deprecated
+                        # - Became Multiple Sub-Techniques
 
-                        # Explanations we've missed:
-                        else:
-                            warning_msgs.append('[!] Explanation \'' + sub_tech['explanation'] +
-                                                '\' in the subtechniques-crosswalk.json provided by MITRE not handled by DeTT&CT. Please check manually. Technique: ' + tech)
-
-                        # Perform the renames
-                        if 'renamed' in sub_tech['explanation'].lower():
-                            new_name = get_technique(techniques, sub_tech['id'])['name']
-                            if yaml_technique['technique_name'] != new_name:
-                                renamed_msgs.append('[i] Technique ' + tech + ' is renamed from \'' + yaml_technique['technique_name'] +
-                                                    '\' to \'' + new_name + '\'.')
-                                yaml_technique['technique_name'] = new_name
-
-                    # Then check the source techniques that are not equal to the destination techniques:
-                    elif sub_tech['id'] != tech:
-                        # No conversion possible: Multiple techniques became one technique or one sub-technique:
-                        if sub_tech['explanation'] in ["Created to consolidate behavior around encrypted C2",
-                                                       "Created to consolidate behavior around encrypting and compressing collected data",
-                                                       "Created to refine the idea behind Common and Uncommonly Used Port to focus the behavior on use of a non-standard port for C2 based on the protocol used",
-                                                       "Existing technique that became a sub-technique. Consolidates Modify Existing Service and New Service techniques into one sub-technique"]:
-                            text = 'sub-technique' if '.' in sub_tech['id'] else 'technique'
-                            warning_msgs.append('[!] Technique ' + tech + ' has been consolidated with multiple other techniques into one ' +
-                                                text + ': ' + sub_tech['id'] + '. You need to migrate this technique manually.')
-
-                        # No conversion: One technique became multiple sub techniques:
-                        elif sub_tech['explanation'] in ["Deprecated and split into separate Bash, VBScript, and Python sub-techniques of Command and Scripting Interpreter.",
-                                                         "Deprecated and split into separate Component Object Model and Distributed Component Object Model sub-techniques.",
-                                                         "Deprecated and split into separate Unquoted Path, PATH Environment Variable, and Search Order Hijacking sub-techniques."]:
+                        if item['change-type'] == 'Remains Technique':
+                            # No upgrade necessary because techniques "Remains Technique". Only name changes can occur, these will be handled beneath.
+                            change_name = True
+                            # Only check if "new sub-techniques added" is within the explanation:
+                            if 'new sub-techniques added' in migrate_item['explanation'].lower():
+                                subtech_added_msgs.append(migrate_item['id'])
+                        elif item['change-type'] == 'Became a Sub-Technique':
+                            # Conversion from technique to sub-technique:
+                            yaml_technique['technique_id'] = migrate_item['id']
+                            become_subtech_msgs.append('[i] Technique ' + element + ' has become sub-technique: ' +
+                                                       migrate_item['id'] + '. Change applied in the YAML file.')
+                            change_name = True
+                        elif item['change-type'] == 'Multiple Techniques Became New Sub-Technique':
+                            # No conversion possible: Multiple techniques became new sub-technique:
+                            warning_msgs.append(
+                                '[!] Technique ' + element + ' has been consolidated with multiple other techniques into one sub-technique: ' + migrate_item['id'] + '. You need to migrate this technique manually.')
+                        elif item['change-type'] == 'One or More Techniques Became New Technique':
+                            # No conversion possible: One or more techniques became new technique:
+                            warning_msgs.append(
+                                '[!] Technique ' + element + ' has been consolidated (with multiple other techniques) into one technique: ' + migrate_item['id'] + '. You need to migrate this technique manually.')
+                        elif item['change-type'] == 'Merged into Existing Technique':
+                            # No conversion possible: Technique merged into existing technique:
+                            warning_msgs.append('[!] Technique ' + element + ' is merged with ' + migrate_item['id'] +
+                                                '. You need to migrate this technique manually.')
+                        elif item['change-type'] == 'Deprecated':
+                            # Remove deprecated items:
+                            remove_technique_from_yaml(yaml_content, element)
+                            deprecated_msgs.append('[i] Technique ' + element + ' is deprecated. Technique bas been removed from the YAML file.')
+                        elif item['change-type'] == 'Became Multiple Sub-Techniques':
+                            # No conversion: One technique became multiple sub techniques:
                             sub_ids = []
-                            for i in item[tech]:
+                            for i in item[element]:
                                 sub_ids.append(i['id'])
-                            warning_msgs.append('[!] Technique ' + tech + ' is deprecated and split into multiple sub-techniques: ' + ', '.join(sub_ids) +
-                                                '. You need to migrate this technique manually.')
-                            ignore_list.append(tech)
+                            warning_msgs.append('[!] Technique ' + element + ' is deprecated and split into multiple sub-techniques: ' +
+                                                ', '.join(sub_ids) + '. You need to migrate this technique manually.')
+                            ignore_list.append(element)
 
-                        # No conversion: Technique merged with other technique:
-                        # T1017 is also merged to T1072, unfortunately the explanation doesn't tell this
-                        elif sub_tech['explanation'] in ["Merged with and name change from Standard Non-Application Layer Protocol"] \
-                                or 'Name change from Application Deployment Software' in sub_tech['explanation']:
-                            warning_msgs.append('[!] Technique ' + tech + ' is merged with ' + sub_tech['id'] +
-                                                '. You need to migrate this technique manually.')
-
-                        # Remove deprecated items:
-                        elif sub_tech['id'] == 'N/A':
-                            remove_technique_from_yaml(yaml_content, tech)
-                            deprecated_msgs.append('[i] Technique ' + tech + ' is deprecated. Technique bas been removed from the YAML file.')
-
-                        # Technique ID's that are changed:
-                        # T1070 changed to T1551
-                        elif sub_tech['explanation'] == "Remains Technique":
-                            yaml_technique['technique_id'] = sub_tech['id']
-                            new_id_msgs.append('[i] The ID of technique ' + tech + ' is changed to ' + sub_tech['id'] + '.')
-
-                        # Conversion from technique to sub-technique:
-                        elif 'Existing technique that became a sub-technique' in sub_tech['explanation'] \
-                                or 'Broken out from pre-defined behavior within Input Capture' in sub_tech['explanation'] \
-                                or 'Broken out from pre-defined behavior within Process Injection' in sub_tech['explanation'] \
-                                or 'Added due to manipulation of token information' in sub_tech['explanation'] \
-                                or 'Added due to manipulation of tokens' in sub_tech['explanation']:
-                            yaml_technique['technique_id'] = sub_tech['id']
-                            yaml_technique['technique_name'] = get_technique(techniques, sub_tech['id'])['name']
-                            become_subtech_msgs.append('[i] Technique ' + tech + ' has become sub-technique: ' +
-                                                       sub_tech['id'] + '. Change applied in the YAML file.')
-
-                        # Explanations we've missed:
-                        else:
-                            warning_msgs.append('[!] Explanation \'' + sub_tech['explanation'] +
-                                                '\' in the subtechniques-crosswalk.json provided by MITRE not handled by DeTT&CT. Please check manually. Technique: ' + tech)
-
-                        # Perform the renames
-                        if 'renamed' in sub_tech['explanation'].lower():
-                            new_name = get_technique(techniques, sub_tech['id'])['name']
-                            print(tech)
+                        # Get the latest description from ATT&CK:
+                        if change_name and migrate_item['id'] != 'N/A':
+                            new_name = get_technique(techniques, migrate_item['id'])['name']
                             if yaml_technique['technique_name'] != new_name:
-                                renamed_msgs.append('[i] Technique ' + tech + ' is renamed from \'' + yaml_technique['technique_name'] +
-                                                    '\' to \'' + new_name + '\'.')
+                                renamed_msgs.append('[i] Technique ' + element + ' is renamed from \'' +
+                                                    yaml_technique['technique_name'] + '\' to \'' + new_name + '\'.')
                                 yaml_technique['technique_name'] = new_name
 
     # Print the results:
-    if len(become_subtech_msgs + deprecated_msgs + renamed_msgs + subtech_added_msgs + new_id_msgs) > 0:
-        print("Informational messages (no action needed):")
+    if len(become_subtech_msgs + deprecated_msgs + renamed_msgs) > 0:
+        print('Informational messages (no action needed):')
 
         for item in become_subtech_msgs:
             print(item)
@@ -576,21 +530,21 @@ def upgrade_to_sub_techniques(filename, notify_only=False):
             print(item)
         for item in renamed_msgs:
             print(item)
-        for item in subtech_added_msgs:
-            print(item)
-        for item in new_id_msgs:
-            print(item)
         print('')
 
     if len(warning_msgs) > 0:
-        print("Messages that need your attention:")
+        print('Messages that need your attention:')
         for item in warning_msgs:
             print(item)
         print('')
 
-    if len(become_subtech_msgs + deprecated_msgs + renamed_msgs + subtech_added_msgs + new_id_msgs + warning_msgs) == 0:
-        print('[i] No techniques found that need to be updated to ATT&CK sub-techniques.')
+    if len(become_subtech_msgs + deprecated_msgs + renamed_msgs + warning_msgs) == 0:
+        print('[i] No techniques found that need to be updated to ATT&CK sub-techniques.\n')
     else:
+        if len(subtech_added_msgs) > 0:
+            print('The following techniques remained the same technique. However, to multiple techniques, sub-techniques were added. Please review the following list as there might be a sub-technique that fits better. Techniques: ' + ', '.join(subtech_added_msgs))
+            print('')
+
         if not notify_only:
             # Create backup of the YAML file:
             backup_file(filename)
@@ -601,7 +555,11 @@ def upgrade_to_sub_techniques(filename, notify_only=False):
                 string_io.seek(0)
                 new_lines = string_io.readlines()
                 fd.writelines(new_lines)
-                print('File written:   ' + filename)
+                print('File written:   ' + filename + '\n')
+        print('Some last notes before you continue:')
+        print('- Please read MITRE\'s blog for more information on how to migrate techniques that need to be migrated manually: https://medium.com/mitre-attack/attack-with-sub-techniques-is-now-just-attack-8fc20997d8de')
+        print('- It is recommended to run the \'--update function\' in the datasource (ds) mode, to update the visibility scores for all new techniques, new sub-techniques and changed techniques.')
+        print('')
 
     # Quit DeTT&CT when manual work needs to be done:
     if len(warning_msgs) > 0:
