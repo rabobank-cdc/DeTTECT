@@ -1116,3 +1116,37 @@ def remove_technique_from_yaml(yaml_content, technique_id):
         if tech['technique_id'] == technique_id:
             yaml_content['techniques'].remove(tech)
             return
+
+
+def determine_and_set_show_sub_techniques(techniques_layer):
+    """
+    Function to determine if showSubtechniques should be set. And if so, it will be set in the layer dict.
+    :param techniques_layer: dict with items for the Navigator layer file
+    :return:
+    """
+    # determine if technique needs to be collapsed to show sub-techniques
+    # show subtechniques when technique contains subtechniques:
+    for t in techniques_layer:
+        if len(t['techniqueID']) == 5:
+            show_sub_techniques = False
+            for subtech in techniques_layer:
+                if len(subtech['techniqueID']) == 9:
+                    if t['techniqueID'] in subtech['techniqueID']:
+                        show_sub_techniques = True
+                        break
+            t['showSubtechniques'] = show_sub_techniques
+    # add technique with showSubtechnique attribute, when sub-technique is present and technique isn't:
+    techniques_to_add = []
+    for subtech in techniques_layer:
+        if len(subtech['techniqueID']) == 9:
+            technique_present = False
+            for t in techniques_layer:
+                if len(t['techniqueID']) == 5:
+                    if t['techniqueID'] in subtech['techniqueID']:
+                        technique_present = True
+            if not technique_present:
+                new_tech = dict()
+                new_tech['techniqueID'] = subtech['techniqueID'][:5]
+                new_tech['showSubtechniques'] = True
+                techniques_to_add.append(new_tech)
+    techniques_layer.extend(techniques_to_add)

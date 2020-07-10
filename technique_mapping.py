@@ -177,7 +177,6 @@ def _map_and_colorize_techniques_for_detections(my_techniques):
                         x['tactic'] = tactic.lower().replace(' ', '-')
                         x['metadata'] = []
                         x['score'] = s
-                        x['showSubtechniques'] = True
                         cnt = 1
                         tcnt = len([d for d in technique_data['detection'] if get_latest_score(d) >= 0])
                         for detection in technique_data['detection']:
@@ -200,6 +199,8 @@ def _map_and_colorize_techniques_for_detections(my_techniques):
     except Exception as e:
         print('[!] Possible error in YAML file at: %s. Error: %s' % (technique_id, str(e)))
         quit()
+
+    determine_and_set_show_sub_techniques(mapped_techniques)
 
     return mapped_techniques
 
@@ -243,7 +244,6 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, 
                                                                                                                               applicable_data_sources))})
                 x['metadata'].append({'name': '------', 'value': ' '})
                 x['score'] = s
-                x['showSubtechniques'] = True
 
                 cnt = 1
                 tcnt = len(technique_data['visibility'])
@@ -262,22 +262,35 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, 
         else:
             print('[!] Technique ' + technique_id + ' is unknown in ATT&CK. Ignoring this technique.')
 
+    determine_and_set_show_sub_techniques(mapped_techniques)
+
+    # add metadata with ATT&CK data sources for the ones without visibility:
     for t in techniques:
         tech_id = get_attack_id(t)
         if tech_id not in my_techniques.keys():
             tactics = get_tactics(t)
             if tactics:
                 for tactic in tactics:
-                    x = dict()
+                    # look if technique already exists in the layer dict (as a result of determine_and_set_show_sub_techniques):
+                    x = None
+                    exists = False
+                    for t in mapped_techniques:
+                        if t['techniqueID'] == tech_id:
+                            x = t
+                            exists = True
+                            break
+                    if x is None:
+                        x = dict()
                     x['techniqueID'] = tech_id
                     x['comment'] = ''
                     x['enabled'] = True
                     x['tactic'] = tactic.lower().replace(' ', '-')
                     ds = ', '.join(get_applicable_data_sources_technique(t['x_mitre_data_sources'], applicable_data_sources)) if 'x_mitre_data_sources' in t else ''  # noqa
                     x['metadata'] = [{'name': 'ATT&CK data sources', 'value': ds}]
-
                     x['metadata'] = make_layer_metadata_compliant(x['metadata'])
-                    mapped_techniques.append(x)
+
+                    if not exists:
+                        mapped_techniques.append(x)
 
     return mapped_techniques
 
@@ -330,7 +343,6 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, pl
             x['metadata'].append({'name': 'Available data sources', 'value': my_ds})
             x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique['x_mitre_data_sources'],
                                                                                                                           applicable_data_sources))})
-            x['showSubtechniques'] = True
             # Metadata for detection and visibility:
             for obj_type in ['detection', 'visibility']:
                 tcnt = len([obj for obj in technique_data[obj_type] if get_latest_score(obj) >= 0])
@@ -339,6 +351,8 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, pl
 
             x['metadata'] = make_layer_metadata_compliant(x['metadata'])
             mapped_techniques.append(x)
+
+    determine_and_set_show_sub_techniques(mapped_techniques)
 
     return mapped_techniques
 

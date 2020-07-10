@@ -370,7 +370,6 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
         t = dict()
         t['techniqueID'] = tech
         t['score'] = v['count']
-        t['showSubtechniques'] = True
         t['metadata'] = []
         metadata_dict = dict()
 
@@ -453,6 +452,8 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
 
         t['metadata'] = make_layer_metadata_compliant(t['metadata'])
         techniques_layer.append(t)
+
+    determine_and_set_show_sub_techniques(techniques_layer)
 
     return techniques_layer
 
