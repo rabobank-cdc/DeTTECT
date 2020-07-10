@@ -65,7 +65,7 @@ def _init_menu():
     parser_data_sources.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
     parser_data_sources.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
                                      'or to use a specific version of STIX objects.')
-    parser_data_sources.add_argument('--update-to-sub-techniques', help='Update the technique administration YAML file'
+    parser_data_sources.add_argument('--update-to-sub-techniques', help='Update the technique administration YAML file '
                                                                         'to ATT&CK with sub-techniques.', action='store_true')
 
     # create the visibility parser
@@ -99,7 +99,7 @@ def _init_menu():
     parser_visibility.add_argument('--health', help='check the YAML file for errors', action='store_true')
     parser_visibility.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
                                    'or to use a specific version of STIX objects.')
-    parser_visibility.add_argument('--update-to-sub-techniques', help='Update the technique administration YAML file'
+    parser_visibility.add_argument('--update-to-sub-techniques', help='Update the technique administration YAML file '
                                    'to ATT&CK with sub-techniques.', action='store_true')
 
     # create the detection parser
@@ -135,7 +135,7 @@ def _init_menu():
     parser_detection.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
     parser_detection.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
                                   'or to use a specific version of STIX objects.')
-    parser_detection.add_argument('--update-to-sub-techniques', help='Update the technique administration YAML file'
+    parser_detection.add_argument('--update-to-sub-techniques', help='Update the technique administration YAML file '
                                   'to ATT&CK with sub-techniques.', action='store_true')
 
     # create the group parser
@@ -178,7 +178,7 @@ def _init_menu():
     parser_group.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
     parser_group.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
                                                         'or to use a specific version of STIX objects.')
-    parser_group.add_argument('--update-to-sub-techniques', help='Update the technique administration YAML file'
+    parser_group.add_argument('--update-to-sub-techniques', help='Update the technique administration YAML file '
                               'to ATT&CK with sub-techniques.', action='store_true')
 
     # create the generic parser
