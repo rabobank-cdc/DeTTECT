@@ -417,7 +417,7 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
                             t['color'] = COLOR_D_0 if s == 0 else COLOR_D_1 if s == 1 else COLOR_D_2 if s == 2 else COLOR_D_3 if s == 3 else COLOR_D_4 if s == 4 else COLOR_D_5 if s == 5 else ''
                     else:
                         t['color'] = COLOR_GROUP_OVERLAY_NO_MATCH
-                        if 'Groups' not in metadata_dict:
+                        if 'Group' not in metadata_dict:
                             metadata_dict['Group'] = set()
                         metadata_dict['Group'].add(values['group_name'])
 
