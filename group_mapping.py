@@ -375,7 +375,7 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
 
         for group, values in groups.items():
             if tech in values['techniques']:  # we do not color this one because that's done using the scoring
-                if 'Groups' not in metadata_dict:
+                if 'Group' not in metadata_dict:
                     metadata_dict['Group'] = set()
                 metadata_dict['Group'].add(values['group_name'])
 
