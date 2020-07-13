@@ -460,3 +460,7 @@ h4 {
 .sidebar span.logo-normal.custom-title1 {
     margin-top: 4px !important;
 }
+
+.card li {
+    color: rgba(255, 255, 255, 0.8);
+}
