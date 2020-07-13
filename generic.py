@@ -1156,17 +1156,22 @@ def determine_and_set_show_sub_techniques(techniques_layer):
                         break
             t['showSubtechniques'] = show_sub_techniques
     # add technique with showSubtechnique attribute, when sub-technique is present and technique isn't:
-    techniques_to_add = []
+    techniques_to_add = {}
     for subtech in techniques_layer:
         if len(subtech['techniqueID']) == 9:
             technique_present = False
-            for t in techniques_layer:
-                if len(t['techniqueID']) == 5:
-                    if t['techniqueID'] in subtech['techniqueID']:
-                        technique_present = True
+            # Is technique already added:
+            if subtech['techniqueID'][:5] in techniques_to_add.keys():
+                technique_present = True
+            # Is technique already in the techniques_layer:
+            else:
+                for t in techniques_layer:
+                    if len(t['techniqueID']) == 5:
+                        if t['techniqueID'] in subtech['techniqueID']:
+                            technique_present = True
             if not technique_present:
                 new_tech = dict()
                 new_tech['techniqueID'] = subtech['techniqueID'][:5]
                 new_tech['showSubtechniques'] = True
-                techniques_to_add.append(new_tech)
-    techniques_layer.extend(techniques_to_add)
+                techniques_to_add[new_tech['techniqueID']] = new_tech
+    techniques_layer.extend(list(techniques_to_add.values()))

@@ -158,6 +158,7 @@ def _map_and_colorize_techniques_for_detections(my_techniques):
     # Color the techniques based on how the coverage defined in the detections definition and generate a list with
     # techniques to be used in the layer output file.
     mapped_techniques = []
+    technique_id = ""
     try:
         for technique_id, technique_data in my_techniques.items():
             s = calculate_score(technique_data['detection'], zero_value=-1)
@@ -168,32 +169,30 @@ def _map_and_colorize_techniques_for_detections(my_techniques):
                 technique = get_technique(techniques, technique_id)
 
                 if technique is not None:
-                    for tactic in get_tactics(technique):
-                        x = dict()
-                        x['techniqueID'] = technique_id
-                        x['color'] = color
-                        x['comment'] = ''
-                        x['enabled'] = True
-                        x['tactic'] = tactic.lower().replace(' ', '-')
-                        x['metadata'] = []
-                        x['score'] = s
-                        cnt = 1
-                        tcnt = len([d for d in technique_data['detection'] if get_latest_score(d) >= 0])
-                        for detection in technique_data['detection']:
-                            d_score = get_latest_score(detection)
-                            if d_score >= 0:
-                                location = ', '.join(detection['location'])
-                                applicable_to = ', '.join(detection['applicable_to'])
-                                x['metadata'].append({'name': 'Applicable to', 'value': applicable_to})
-                                x['metadata'].append({'name': 'Detection score', 'value': str(d_score)})
-                                x['metadata'].append({'name': 'Detection location', 'value': location})
-                                x['metadata'].append({'name': 'Technique comment', 'value': detection['comment']})
-                                x['metadata'].append({'name': 'Detection comment', 'value': get_latest_comment(detection)})
-                                if cnt != tcnt:
-                                    x['metadata'].append({'name': '------', 'value': ' '})
-                                cnt += 1
-                        x['metadata'] = make_layer_metadata_compliant(x['metadata'])
-                        mapped_techniques.append(x)
+                    x = dict()
+                    x['techniqueID'] = technique_id
+                    x['color'] = color
+                    x['comment'] = ''
+                    x['enabled'] = True
+                    x['metadata'] = []
+                    x['score'] = s
+                    cnt = 1
+                    tcnt = len([d for d in technique_data['detection'] if get_latest_score(d) >= 0])
+                    for detection in technique_data['detection']:
+                        d_score = get_latest_score(detection)
+                        if d_score >= 0:
+                            location = ', '.join(detection['location'])
+                            applicable_to = ', '.join(detection['applicable_to'])
+                            x['metadata'].append({'name': 'Applicable to', 'value': applicable_to})
+                            x['metadata'].append({'name': 'Detection score', 'value': str(d_score)})
+                            x['metadata'].append({'name': 'Detection location', 'value': location})
+                            x['metadata'].append({'name': 'Technique comment', 'value': detection['comment']})
+                            x['metadata'].append({'name': 'Detection comment', 'value': get_latest_comment(detection)})
+                            if cnt != tcnt:
+                                x['metadata'].append({'name': '------', 'value': ' '})
+                            cnt += 1
+                    x['metadata'] = make_layer_metadata_compliant(x['metadata'])
+                    mapped_techniques.append(x)
                 else:
                     print('[!] Technique ' + technique_id + ' is unknown in ATT&CK. Ignoring this technique.')
     except Exception as e:
@@ -231,34 +230,32 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, 
         color = COLOR_V_1 if s == 1 else COLOR_V_2 if s == 2 else COLOR_V_3 if s == 3 else COLOR_V_4 if s == 4 else ''
 
         if technique is not None:
-            for tactic in get_tactics(technique):
-                x = dict()
-                x['techniqueID'] = technique_id
-                x['color'] = color
-                x['comment'] = ''
-                x['enabled'] = True
-                x['tactic'] = tactic.lower().replace(' ', '-')
-                x['metadata'] = []
-                x['metadata'].append({'name': 'Available data sources', 'value': my_ds})
-                x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique['x_mitre_data_sources'],
-                                                                                                                              applicable_data_sources))})
-                x['metadata'].append({'name': '------', 'value': ' '})
-                x['score'] = s
+            x = dict()
+            x['techniqueID'] = technique_id
+            x['color'] = color
+            x['comment'] = ''
+            x['enabled'] = True
+            x['metadata'] = []
+            x['metadata'].append({'name': 'Available data sources', 'value': my_ds})
+            x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique['x_mitre_data_sources'],
+                                                                                                                          applicable_data_sources))})
+            x['metadata'].append({'name': '------', 'value': ' '})
+            x['score'] = s
 
-                cnt = 1
-                tcnt = len(technique_data['visibility'])
-                for visibility in technique_data['visibility']:
-                    applicable_to = ', '.join(visibility['applicable_to'])
-                    x['metadata'].append({'name': 'Applicable to', 'value': applicable_to})
-                    x['metadata'].append({'name': 'Visibility score', 'value': str(get_latest_score(visibility))})
-                    x['metadata'].append({'name': 'Technique comment', 'value': visibility['comment']})
-                    x['metadata'].append({'name': 'Visibility comment', 'value': get_latest_comment(visibility)})
-                    if cnt != tcnt:
-                        x['metadata'].append({'name': '------', 'value': ' '})
-                    cnt += 1
+            cnt = 1
+            tcnt = len(technique_data['visibility'])
+            for visibility in technique_data['visibility']:
+                applicable_to = ', '.join(visibility['applicable_to'])
+                x['metadata'].append({'name': 'Applicable to', 'value': applicable_to})
+                x['metadata'].append({'name': 'Visibility score', 'value': str(get_latest_score(visibility))})
+                x['metadata'].append({'name': 'Technique comment', 'value': visibility['comment']})
+                x['metadata'].append({'name': 'Visibility comment', 'value': get_latest_comment(visibility)})
+                if cnt != tcnt:
+                    x['metadata'].append({'name': '------', 'value': ' '})
+                cnt += 1
 
-                x['metadata'] = make_layer_metadata_compliant(x['metadata'])
-                mapped_techniques.append(x)
+            x['metadata'] = make_layer_metadata_compliant(x['metadata'])
+            mapped_techniques.append(x)
         else:
             print('[!] Technique ' + technique_id + ' is unknown in ATT&CK. Ignoring this technique.')
 
@@ -268,29 +265,25 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, 
     for t in techniques:
         tech_id = get_attack_id(t)
         if tech_id not in my_techniques.keys():
-            tactics = get_tactics(t)
-            if tactics:
-                for tactic in tactics:
-                    # look if technique already exists in the layer dict (as a result of determine_and_set_show_sub_techniques):
-                    x = None
-                    exists = False
-                    for t in mapped_techniques:
-                        if t['techniqueID'] == tech_id:
-                            x = t
-                            exists = True
-                            break
-                    if x is None:
-                        x = dict()
-                    x['techniqueID'] = tech_id
-                    x['comment'] = ''
-                    x['enabled'] = True
-                    x['tactic'] = tactic.lower().replace(' ', '-')
-                    ds = ', '.join(get_applicable_data_sources_technique(t['x_mitre_data_sources'], applicable_data_sources)) if 'x_mitre_data_sources' in t else ''  # noqa
-                    x['metadata'] = [{'name': 'ATT&CK data sources', 'value': ds}]
-                    x['metadata'] = make_layer_metadata_compliant(x['metadata'])
+            # look if technique already exists in the layer dict (as a result of determine_and_set_show_sub_techniques):
+            x = None
+            exists = False
+            for mapped_tech in mapped_techniques:
+                if mapped_tech['techniqueID'] == tech_id:
+                    x = mapped_tech
+                    exists = True
+                    break
+            if x is None:
+                x = dict()
+            x['techniqueID'] = tech_id
+            x['comment'] = ''
+            x['enabled'] = True
+            ds = ', '.join(get_applicable_data_sources_technique(t['x_mitre_data_sources'], applicable_data_sources)) if 'x_mitre_data_sources' in t else ''  # noqa
+            x['metadata'] = [{'name': 'ATT&CK data sources', 'value': ds}]
+            x['metadata'] = make_layer_metadata_compliant(x['metadata'])
 
-                    if not exists:
-                        mapped_techniques.append(x)
+            if not exists:
+                mapped_techniques.append(x)
 
     return mapped_techniques
 
@@ -332,25 +325,23 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, pl
         my_ds = ', '.join(technique_ds_mapping[technique_id]['my_data_sources']) if technique_id in technique_ds_mapping.keys() and technique_ds_mapping[technique_id]['my_data_sources'] else ''  # noqa
 
         technique = get_technique(techniques, technique_id)
-        for tactic in get_tactics(technique):
-            x = dict()
-            x['techniqueID'] = technique_id
-            x['color'] = color
-            x['comment'] = ''
-            x['enabled'] = True
-            x['tactic'] = tactic.lower().replace(' ', '-')
-            x['metadata'] = []
-            x['metadata'].append({'name': 'Available data sources', 'value': my_ds})
-            x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique['x_mitre_data_sources'],
-                                                                                                                          applicable_data_sources))})
-            # Metadata for detection and visibility:
-            for obj_type in ['detection', 'visibility']:
-                tcnt = len([obj for obj in technique_data[obj_type] if get_latest_score(obj) >= 0])
-                if tcnt > 0:
-                    x['metadata'] = add_metadata_technique_object(technique_data, obj_type, x['metadata'])
+        x = dict()
+        x['techniqueID'] = technique_id
+        x['color'] = color
+        x['comment'] = ''
+        x['enabled'] = True
+        x['metadata'] = []
+        x['metadata'].append({'name': 'Available data sources', 'value': my_ds})
+        x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique['x_mitre_data_sources'],
+                                                                                                                      applicable_data_sources))})
+        # Metadata for detection and visibility:
+        for obj_type in ['detection', 'visibility']:
+            tcnt = len([obj for obj in technique_data[obj_type] if get_latest_score(obj) >= 0])
+            if tcnt > 0:
+                x['metadata'] = add_metadata_technique_object(technique_data, obj_type, x['metadata'])
 
-            x['metadata'] = make_layer_metadata_compliant(x['metadata'])
-            mapped_techniques.append(x)
+        x['metadata'] = make_layer_metadata_compliant(x['metadata'])
+        mapped_techniques.append(x)
 
     determine_and_set_show_sub_techniques(mapped_techniques)
 

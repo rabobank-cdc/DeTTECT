@@ -271,20 +271,18 @@ def _map_and_colorize_techniques(my_ds, platforms, exceptions):
     output_techniques = []
     for t, v in my_techniques.items():
         if t not in exceptions and t in technique_colors:
-            for tactic in v['tactics']:
-                d = dict()
-                d['techniqueID'] = t
-                d['color'] = technique_colors[t]
-                d['comment'] = ''
-                d['enabled'] = True
-                d['tactic'] = tactic.lower().replace(' ', '-')
-                d['metadata'] = [{'name': 'Available data sources', 'value': ', '.join(v['my_data_sources'])},
-                                 {'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(v['data_sources'],
-                                                                                                                          applicable_data_sources))},
-                                 {'name': 'Products', 'value': ', '.join(v['products'])}]
-                d['metadata'] = make_layer_metadata_compliant(d['metadata'])
+            d = dict()
+            d['techniqueID'] = t
+            d['color'] = technique_colors[t]
+            d['comment'] = ''
+            d['enabled'] = True
+            d['metadata'] = [{'name': 'Available data sources', 'value': ', '.join(v['my_data_sources'])},
+                             {'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(v['data_sources'],
+                                                                                                                      applicable_data_sources))},
+                             {'name': 'Products', 'value': ', '.join(v['products'])}]
+            d['metadata'] = make_layer_metadata_compliant(d['metadata'])
 
-                output_techniques.append(d)
+            output_techniques.append(d)
 
     determine_and_set_show_sub_techniques(output_techniques)
 
