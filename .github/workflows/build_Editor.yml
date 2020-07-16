@@ -1,6 +1,6 @@
 name: Build the Editor
 
-# Controls when the action will run.
+# Controls when the action will run. Triggers the workflow on push or pull request events
 on:
   push:
     branches: [ master ]
@@ -11,7 +11,7 @@ on:
       - 'editor/package.json'
       - 'editor/vue.config.js'
 jobs:
-  # This workflow contains a single job called "build".
+  # This workflow contains a single job called "build":
   build:
     runs-on: ubuntu-latest
     steps:
@@ -33,11 +33,14 @@ jobs:
         run: rm -r node_modules
         working-directory: ./editor
         
-      - name: Commit and push changes
+      - name: Commit files
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add -A
           git commit -m "New build of the Editor"
-          git push
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.PERSONAL_TOKEN }}
