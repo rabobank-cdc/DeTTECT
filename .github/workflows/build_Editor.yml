@@ -40,7 +40,8 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git commit -m "New build of the Editor" -a
+          git add -A
+          git commit -m "New build of the Editor"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
