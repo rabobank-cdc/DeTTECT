@@ -37,7 +37,7 @@
                             <h4>Keyboard shortcuts</h4>
                             <p>
                                 <ul>
-                                    <li>Shift-Up/Down: go to the next or previous item when editing a data source or technique administration YAML file.</li>
+                                    <li>Ctrl+Shift+Up/Down: go to the next or previous item when editing a data source or technique administration YAML file.</li>
                                 </ul>
                             </p>
                             <h4>Limitations</h4>

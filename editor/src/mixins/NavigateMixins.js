@@ -11,13 +11,11 @@ export const navigateMixins = {
     components: {},
     methods: {
         arrowKeysListener: function(evt) {
-            if (evt.keyCode === 40 && evt.shiftKey) {
-                // Shift + ArrowDown
-                window.getSelection().empty();
+            if (evt.keyCode === 40 && evt.shiftKey && evt.ctrlKey) {
+                // Ctrl + Shift + ArrowDown
                 this.navigateItem(true);
-            } else if (evt.keyCode === 38 && evt.shiftKey) {
-                // Shift + ArrowUp
-                window.getSelection().empty();
+            } else if (evt.keyCode === 38 && evt.shiftKey && evt.ctrlKey) {
+                // Ctrl + Shift + ArrowUp
                 this.navigateItem(false);
             }
         }
