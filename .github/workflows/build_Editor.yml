@@ -1,0 +1,43 @@
+name: Build the Editor
+
+# Controls when the action will run.
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'editor/src/**'
+      - 'editor/public/**'
+      - 'editor/package-lock.json'
+      - 'editor/package.json'
+      - 'editor/vue.config.js'
+jobs:
+  # This workflow contains a single job called "build".
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@master
+        
+      # set up NodeJS
+      - uses: actions/setup-node@master
+        
+      - name: Instal project dependencies
+        run: npm install
+        working-directory: ./editor
+        
+      - name: Build the project
+        run: npm run build
+        working-directory: ./editor
+      
+      - name: Peform post build actions
+        run: rm -r node_modules
+        working-directory: ./editor
+        
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+          git commit -m "New build of the Editor"
+          git push
