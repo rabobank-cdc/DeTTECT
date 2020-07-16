@@ -1,11 +1,11 @@
 **/.git
 .dockerignore
 .gitignore
+.github/
 editor/public/
 editor/src/
 editor/node_modules/
 editor/package-lock.json
 editor/package.json
 editor/vue.config.js
-editor/yarn.lock
 editor/.eslintrc.json
