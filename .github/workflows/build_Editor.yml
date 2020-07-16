@@ -1,6 +1,4 @@
 name: Build the Editor
-
-# Controls when the action will run. Triggers the workflow on push or pull request events
 on:
   push:
     branches: [ master ]
@@ -11,31 +9,30 @@ on:
       - 'editor/package.json'
       - 'editor/vue.config.js'
 jobs:
-  # This workflow contains a single job called "build":
   build:
     runs-on: ubuntu-latest
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
       - uses: actions/checkout@master
         with:
           persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
           fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
-        
+
       # set up NodeJS
       - uses: actions/setup-node@master
-        
+
       - name: Instal project dependencies
         run: npm install
         working-directory: ./editor
-        
+
       - name: Build the project
         run: npm run build
         working-directory: ./editor
-      
+
       - name: Peform post build actions
         run: rm -r node_modules
         working-directory: ./editor
-        
+
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"

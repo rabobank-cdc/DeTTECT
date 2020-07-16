@@ -1,19 +1,15 @@
 name: Update the DeTT&CT Editor on GitHub Pages
-
-# Controls when the action will run. Triggers the workflow on push or pull request events
 on:
   push:
     branches: [ master ]
     paths: 'editor/dist/dettect-editor/**'
-
 jobs:
-  # This workflow contains a single job called "copy"
   copy:
     runs-on: ubuntu-latest
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
     - uses: actions/checkout@v2
-      
+
     - name: Update DeTT&CT Editor
       uses: peaceiris/actions-gh-pages@v3
       with:

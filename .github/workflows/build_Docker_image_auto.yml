@@ -1,0 +1,21 @@
+name: Build Docker image - on release
+on:
+  release:
+    types:
+      - created
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: rabobankcdc/dettect
+          tags: latest
+          tag_with_ref: true
