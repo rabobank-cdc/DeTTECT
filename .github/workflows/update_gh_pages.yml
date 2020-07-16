@@ -4,7 +4,7 @@ name: Update the DeTT&CT Editor on GitHub Pages
 on:
   push:
     branches: [ master ]
-    paths: 'editor/**'
+    paths: 'editor/dist/dettect-editor/**'
 
 jobs:
   # This workflow contains a single job called "copy"
