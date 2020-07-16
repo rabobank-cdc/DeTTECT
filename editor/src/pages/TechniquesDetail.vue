@@ -61,7 +61,7 @@ export default {
             detectionScoreHelpText: null,
             visibilityHelpText: null,
             visibilityScoreHelpText: null,
-            detectionScores: [-1, 1, 2, 3, 4, 5],
+            detectionScores: [-1, 0, 1, 2, 3, 4, 5],
             detectionScoresTooltip: {
                 '-1': 'None',
                 '0': 'Forensics / context',
@@ -69,7 +69,7 @@ export default {
                 '2': 'Fair',
                 '3': 'Good',
                 '4': 'Very good',
-                '5': 'Excellent'
+                '5': 'Excellent',
             },
             detectionScoreDefault: -1,
             visibilityScores: [0, 1, 2, 3, 4],
@@ -78,39 +78,39 @@ export default {
                 '1': 'Minimal',
                 '2': 'Medium',
                 '3': 'Good',
-                '4': 'Excellent'
+                '4': 'Excellent',
             },
             visibilityScoreDefault: 0,
             emptyScoreEntryDetection: constants.YAML_OBJ_SCORE_DETECTION_LOGBOOK,
             emptyScoreEntryVisibility: constants.YAML_OBJ_SCORE_VISIBILITY_LOGBOOK,
             emptyDetectionObject: constants.YAML_OBJ_TECHNIQUE_DETECTION,
-            emptyVisibilityObject: constants.YAML_OBJ_TECHNIQUE_VISIBILITY
+            emptyVisibilityObject: constants.YAML_OBJ_TECHNIQUE_VISIBILITY,
         };
     },
-    created: function() {
+    created: function () {
         this.preloadMarkDown();
     },
     props: {
         technique: {
             type: Object,
-            required: true
+            required: true,
         },
         allTechniques: {
             type: Array,
-            required: true
+            required: true,
         },
         selectedPlatforms: {
             type: Array,
-            required: true
+            required: true,
         },
         navigateItem: {
             type: Function,
-            required: true
-        }
+            required: true,
+        },
     },
     components: {
         AutoSuggestTitle,
-        ApplicableToCollapse
+        ApplicableToCollapse,
     },
     methods: {
         preloadMarkDown() {
@@ -164,7 +164,7 @@ export default {
         closeAllCollapses() {
             this.$refs.collapseDetectionComponent.closeAllCollapses();
             this.$refs.collapseVisibilityComponent.closeAllCollapses();
-        }
-    }
+        },
+    },
 };
 </script>
