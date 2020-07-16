@@ -489,7 +489,9 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
                             print(' - Technique  comment: ' + _indent_comment(old_vis_obj[obj_idx]['comment'], 23))
                             print('')
                             print('OLD score object:')
-                            print(' - Date:               ' + get_latest_date(old_vis_obj[obj_idx]).strftime('%Y-%m-%d'))
+                            old_score_date = get_latest_date(old_vis_obj[obj_idx])
+                            old_score_date = old_score_date.strftime('%Y-%m-%d') if old_score_date is not None else ''
+                            print(' - Date:               ' + old_score_date)
                             print(' - Score:              ' + str(get_latest_score(old_vis_obj[obj_idx])))
                             print(' - Visibility comment: ' + _indent_comment(get_latest_comment(old_vis_obj[obj_idx]), 23))
                             print(' - Auto generated:     ' + str(get_latest_score_obj(old_vis_obj[obj_idx]).get('auto_generated', 'False')))
