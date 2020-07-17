@@ -587,6 +587,10 @@
             {
                 "id": "T1059.006",
                 "explanation": "Deprecated and split into separate Unix Shell, Visual Basic, JavaScript/Jscript, and Python sub-techniques of Command and Scripting Interpreter."
+            },
+            {
+                "id": "T1059.007",
+                "explanation": "Deprecated and split into separate Unix Shell, Visual Basic, JavaScript/Jscript, and Python sub-techniques of Command and Scripting Interpreter."
             }
         ],
         "change-type": "Became Multiple Sub-Techniques"
