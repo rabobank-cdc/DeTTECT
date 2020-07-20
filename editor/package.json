@@ -22,7 +22,6 @@
         "lodash": "^4.17.19",
         "moment": "^2.27.0",
         "node-sass": "^4.14.1",
-        "register-service-worker": "^1.7.1",
         "sass-loader": "^8.0.2",
         "vue": "^2.6.11",
         "vue-directive-tooltip": "^1.6.3",
@@ -42,7 +41,6 @@
     "devDependencies": {
         "@vue/cli-plugin-babel": "^4.4.6",
         "@vue/cli-plugin-eslint": "^4.4.6",
-        "@vue/cli-plugin-pwa": "^4.4.6",
         "@vue/cli-service": "^4.4.6",
         "eslint": "^7.4.0",
         "eslint-loader": "^4.0.2",

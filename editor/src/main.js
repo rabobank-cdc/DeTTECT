@@ -23,7 +23,6 @@ import Tooltip from 'vue-directive-tooltip';
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
 
 import BlackDashboard from './plugins/blackDashboard';
-import './registerServiceWorker';
 Vue.use(BlackDashboard);
 Vue.use(VueRouter);
 Vue.use(RouterPrefetch);
@@ -42,5 +41,5 @@ Vue.use(BootstrapVueIcons);
 /* eslint-disable no-new */
 new Vue({
     router,
-    render: h => h(App)
+    render: (h) => h(App)
 }).$mount('#app');
