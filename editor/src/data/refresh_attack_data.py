@@ -39,7 +39,7 @@ class ATTACKData():
         :param path: file path to write to, including filename
         """
         with open(filename, 'w') as f:
-            json.dump(data, f)
+            json.dump(data, f, indent=2)
 
     def execute_refresh(self):
         """
@@ -77,7 +77,7 @@ class ATTACKData():
             id = self.get_attack_id(t)
             techniques.append({'technique_id': id,
                                'technique_name': t['name'],
-                               'platforms': t['x_mitre_platforms'],
+                               'platforms': sorted(t['x_mitre_platforms']),
                                'autosuggest': id + ' - ' + t['name']})
 
         techniques = sorted(techniques, key=lambda t: t['technique_id'])
@@ -112,7 +112,7 @@ class ATTACKData():
                 id = self.get_attack_id(s)
                 software.append({'software_id': id,
                                  'software_name': s['name'],
-                                 'platforms': list(platforms),
+                                 'platforms': sorted(list(platforms)),
                                  'autosuggest': id + ' - ' + s['name']})
         software = sorted(software, key=lambda s: s['software_id'])
         return software
