@@ -21,7 +21,7 @@ jobs:
       # set up NodeJS
       - uses: actions/setup-node@master
 
-      - name: Instal project dependencies
+      - name: Install project dependencies
         run: npm install
         working-directory: ./editor
 
@@ -29,7 +29,7 @@ jobs:
         run: npm run build
         working-directory: ./editor
 
-      - name: Peform post build actions
+      - name: Perform post build actions
         run: rm -r node_modules
         working-directory: ./editor
 
