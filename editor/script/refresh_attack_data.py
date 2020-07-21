@@ -36,9 +36,9 @@ class ATTACKData():
         """
         Write the json data to disk
         :param data: the MITRE ATT&CK data to save
-        :param path: file path to write to, including filename
+        :param filename: filename of the file written to disk
         """
-        with open(filename, 'w') as f:
+        with open('../src/data/' + filename, 'w') as f:
             json.dump(data, f, indent=2)
 
     def execute_refresh(self):
