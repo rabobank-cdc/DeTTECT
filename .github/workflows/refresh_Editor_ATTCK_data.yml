@@ -20,7 +20,7 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r ./editor/src/data/requirements.txt
+          pip install -r ./editor/script/requirements.txt
       - name: Refresh ATT&CK Data
         working-directory: ./editor/script
         run: |
