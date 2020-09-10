@@ -32,20 +32,23 @@ groups:
       - S0002
     enabled: true
   - group_name: Red team
-    campaign: Ransom
+    campaign: Ransomware
     technique_id:
       - T1078.004
       - T1136.003
       - T1053.005
       - T1055
-      - T1036.003
       - T1003.001
       - T1033
       - T1021.006
       - T1071.001
       - T1001.003
       - T1041
-      - T1486
       - T1039
+      - T1566.002
+      - T1078.002
+      - T1036.003
+      - T1486
+      - T1083
     software_id: []
     enabled: false
