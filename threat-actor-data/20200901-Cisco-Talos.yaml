@@ -1,0 +1,19 @@
+# Source: https://blog.talosintelligence.com/2020/09/CTIR-quarterly-trends-Q4-2020.html
+version: 1
+file_type: group-administration
+platform:
+  - all
+groups:
+  - group_name: Cisco Talos - quarterly report incident response trends in summer 2020
+    campaign: ransomware
+    technique_id:
+      - T1566.001
+      - T1053
+      - T1059.001
+      - T1021.001
+      - T1070
+      - T1132.001
+      - T1486
+    software_id:
+      - S0154
+    enabled: true
