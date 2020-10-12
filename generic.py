@@ -1,9 +1,10 @@
 import os
 import shutil
 import pickle
-from io import StringIO
 from datetime import datetime as dt
+from io import StringIO
 from ruamel.yaml import YAML
+from ruamel.yaml.timestamp import TimeStamp as ruamelTimeStamp
 from upgrade import upgrade_yaml_file, check_yaml_updated_to_sub_techniques
 from constants import *
 from health import check_yaml_file_health
@@ -580,12 +581,7 @@ def get_latest_score_obj(yaml_object):
         newest_score_obj = None
         newest_date = None
         for score_obj in yaml_object['score_logbook']:
-            # Scores in the score_logbook can be dates (yyyy-mm-dd) but also datetimes (yyyy-mm-dd hh:mm:ss.ffffff).
-            # So convert the datetimes to dates to make it possible to compare.
-            if type(score_obj['date']) == dt:  # dt is the name of the datetime class (see import table)
-                score_obj_date = score_obj['date'].date()
-            else:
-                score_obj_date = score_obj['date']
+            score_obj_date = score_obj['date']
 
             if not newest_score_obj or score_obj_date > newest_date:
                 newest_date = score_obj_date
@@ -809,6 +805,45 @@ def set_yaml_dv_comments(yaml_object):
     return yaml_object
 
 
+def traverse_dict(obj, callback=None):
+    """
+    Traverse all items in a dictionary
+    :param obj: dictionary, list or value
+    :param callback: a function that will be called to modify a value
+    :return: value or call callback function
+    """
+    if isinstance(obj, dict):
+        value = {k: traverse_dict(v, callback)
+                 for k, v in obj.items()}
+    elif isinstance(obj, list):
+        value = [traverse_dict(elem, callback)
+                 for elem in obj]
+    else:
+        value = obj
+
+    if callback is None:  # if a callback is provided, call it to get the new value
+        return value
+    else:
+        return callback(value)
+
+
+def _traverse_modify_date(obj):
+    """
+    Make sure that all dates are of the type datetime.date
+    :param obj: dictionary
+    :return: function call
+    """
+    def _transformer(value):
+        if type(value) == dt:
+            value = value.date()
+        elif type(value) == ruamelTimeStamp:
+            value = ruamelTimeStamp.date(value)
+
+        return value
+
+    return traverse_dict(obj, callback=_transformer)
+
+
 def load_techniques(file):
     """
     Loads the techniques (including detection and visibility properties).
@@ -825,6 +860,8 @@ def load_techniques(file):
         _yaml = init_yaml()
         with open(file, 'r') as yaml_file:
             yaml_content = _yaml.load(yaml_file)
+
+    yaml_content = _traverse_modify_date(yaml_content)
 
     for d in yaml_content['techniques']:
         if 'detection' in d:
