@@ -7,28 +7,6 @@ import eql
 from copy import deepcopy
 
 
-def _traverse_dict(obj, callback=None):
-    """
-    Traverse all items in a dictionary
-    :param obj: dictionary, list or value
-    :param callback: a function that will be called to modify a value
-    :return: value or call callback function
-    """
-    if isinstance(obj, dict):
-        value = {k: _traverse_dict(v, callback)
-                 for k, v in obj.items()}
-    elif isinstance(obj, list):
-        value = [_traverse_dict(elem, callback)
-                 for elem in obj]
-    else:
-        value = obj
-
-    if callback is None:  # if a callback is provided, call it to get the new value
-        return value
-    else:
-        return callback(value)
-
-
 def _traverse_modify_date(obj):
     """
     Modifies a datetime.date object to a string value
@@ -42,7 +20,7 @@ def _traverse_modify_date(obj):
         else:
             return value
 
-    return _traverse_dict(obj, callback=_transformer)
+    return traverse_dict(obj, callback=_transformer)
 
 
 def _techniques_to_events(techniques, obj_type, include_all_score_objs):
