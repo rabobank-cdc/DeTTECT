@@ -511,18 +511,18 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
 
                     obj_idx += 1
 
-        # create backup of the current tech. admin YAML file
-        if are_scores_updated:
-            print('')
-            backup_file(file_tech_admin)
+    # create backup of the current tech. admin YAML file
+    if are_scores_updated:
+        print('')
+        backup_file(file_tech_admin)
 
-            yaml_file_tech_admin = fix_date_and_remove_null(yaml_file_tech_admin, today, input_type='ruamel')
+        yaml_file_tech_admin = fix_date_and_remove_null(yaml_file_tech_admin, today, input_type='ruamel')
 
-            with open(file_tech_admin, 'w') as fd:
-                fd.writelines(yaml_file_tech_admin)
-            print('File written:   ' + file_tech_admin)
-        else:
-            print('No visibility scores have been updated.')
+        with open(file_tech_admin, 'w') as fd:
+            fd.writelines(yaml_file_tech_admin)
+        print('File written:   ' + file_tech_admin)
+    else:
+        print('No visibility scores have been updated.')
 
 # pylint: disable=redefined-outer-name
 
