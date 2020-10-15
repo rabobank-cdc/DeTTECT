@@ -205,7 +205,13 @@ export default {
                                     yaml_input.techniques[i].detection[x].applicable_to = ['all'];
                                 }
                                 if (yaml_input.techniques[i].detection[x].location == undefined) {
-                                    yaml_input.techniques[i].detection[x].location = [''];
+                                    yaml_input.techniques[i].detection[x].location = [];
+                                }
+                                let length_location = yaml_input.techniques[i].detection[x].location.length;
+                                while (length_location--) {
+                                    if (yaml_input.techniques[i].detection[x].location[length_location] == '') {
+                                        yaml_input.techniques[i].detection[x].location.splice(length_location, 1);
+                                    }
                                 }
                                 if (yaml_input.techniques[i].detection[x].comment == undefined) {
                                     yaml_input.techniques[i].detection[x].comment = '';
