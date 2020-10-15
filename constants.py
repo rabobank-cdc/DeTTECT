@@ -220,6 +220,6 @@ DATA_SOURCES = {'Windows': ['Access tokens', 'Anti-virus', 'API monitoring', 'Ap
                 'Azure AD': ['API monitoring', 'Authentication logs', 'Azure activity logs', 'Malware reverse engineering', 'Sensor health and status'],
                 'Office 365': ['Anti-virus', 'API monitoring', 'Authentication logs', 'Azure activity logs', 'Data loss prevention', 'Detonation chamber', 'Email gateway', 'Mail server',
                                'Malware reverse engineering', 'Office 365 account logs', 'Office 365 audit logs', 'Office 365 trace logs', 'Sensor health and status'],
-                'Saas': ['Anti-virus', 'API monitoring', 'Application logs', 'Authentication logs', 'Data loss prevention', 'Detonation chamber', 'Email gateway', 'Mail server',
+                'SaaS': ['Anti-virus', 'API monitoring', 'Application logs', 'Authentication logs', 'Data loss prevention', 'Detonation chamber', 'Email gateway', 'Mail server',
                          'Malware reverse engineering', 'OAuth audit logs', 'Sensor health and status', 'Third-party application logs', 'Web application firewall logs', 'Web logs']
                 }
