@@ -163,7 +163,7 @@ def _get_group_techniques(groups, stage, platform, file_type):
     groups_found = set()
 
     # groups is a YAML file
-    if file_type == FILE_TYPE_GROUP_ADMINISTRATION:  # TODO test if this still works
+    if file_type == FILE_TYPE_GROUP_ADMINISTRATION:
         _yaml = init_yaml()
         with open(groups, 'r') as yaml_file:
             config = _yaml.load(yaml_file)
