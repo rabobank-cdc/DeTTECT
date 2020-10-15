@@ -236,9 +236,6 @@ def _get_base_template(name, description, stage, platform, sorting):
     layer['domain'] = 'mitre-enterprise'
     layer['description'] = description
 
-    if platform == 'all':
-        platform = list(PLATFORMS.values())
-
     if stage == 'attack':
         layer['filters'] = {'stages': ['act'], 'platforms': platform}
     else:
@@ -666,7 +663,7 @@ def platform_to_name(platform, separator='-'):
     :param separator: a string value that separates multiple platforms. Default is '-'
     :return: a filename friendly representation of the value of platform
     """
-    if platform == 'all':
+    if set(platform) == set(PLATFORMS.values()) or platform == 'all' or 'all' in platform:
         return 'all'
     elif isinstance(platform, list):
         return separator.join(platform)
@@ -681,12 +678,9 @@ def get_applicable_data_sources_platform(platforms):
     :return: a list of applicable ATT&CK data sources
     """
     applicable_data_sources = set()
-    if platforms == 'all' or 'all' in platforms:
-        for v in DATA_SOURCES.values():
-            applicable_data_sources.update(v)
-    else:
-        for p in platforms:
-            applicable_data_sources.update(DATA_SOURCES[p])
+
+    for p in platforms:
+        applicable_data_sources.update(DATA_SOURCES[p])
 
     return list(applicable_data_sources)
 
@@ -1131,7 +1125,7 @@ def get_platform_from_yaml(yaml_content):
     platform = [p.lower() for p in platform if p is not None]
 
     if platform == ['all']:
-        platform = 'all'
+        platform = list(PLATFORMS.values())
     else:
         valid_platform_list = []
         for p in platform:
@@ -1212,3 +1206,21 @@ def determine_and_set_show_sub_techniques(techniques_layer):
                 new_tech['showSubtechniques'] = True
                 techniques_to_add[new_tech['techniqueID']] = new_tech
     techniques_layer.extend(list(techniques_to_add.values()))
+
+
+def set_platform(platform_yaml, platform_args):
+    """
+    Get the correct value for the ATT&CK platform(s). Use the platform(s) from the YAML file or the ones provided via the CLI arguments.
+    :param platform_yaml: the platform(s) key-value pair from the YAML file
+    :param platform_args: the platform list as provided by the user
+    :return: platform(s) in a list
+    """
+    if isinstance(platform_args, list):
+        if 'all' in platform_args:
+            platform = list(PLATFORMS.values())
+        else:
+            platform = platform_args
+    else:
+        platform = platform_yaml
+
+    return platform

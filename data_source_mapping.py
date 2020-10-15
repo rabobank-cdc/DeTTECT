@@ -8,15 +8,17 @@ from generic import *
 # Imports for pandas and plotly are because of performance reasons in the function that uses these libraries.
 
 
-def generate_data_sources_layer(filename, output_filename, layer_name):
+def generate_data_sources_layer(filename, output_filename, layer_name, platform=None):
     """
     Generates a generic layer for data sources.
     :param filename: the filename of the YAML file containing the data sources administration
     :param output_filename: the output filename defined by the user
     :param layer_name: the name of the Navigator layer
+    :param platform: one or multiple values from PLATFORMS constant
     :return:
     """
-    my_data_sources, name, platform, exceptions = _load_data_sources(filename)
+    my_data_sources, name, platform_yaml, exceptions = _load_data_sources(filename)
+    platform = set_platform(platform_yaml, platform)
 
     # Do the mapping between my data sources and MITRE data sources:
     my_techniques = _map_and_colorize_techniques(my_data_sources, platform, exceptions)
@@ -553,7 +555,7 @@ def generate_technique_administration_file(filename, output_filename, write_file
     # Score visibility based on the number of available data sources and the exceptions
     for t in techniques:
         platforms = t.get('x_mitre_platforms', None)
-        if platform == 'all' or len(set(platforms).intersection(set(platform))) > 0:
+        if len(set(platforms).intersection(set(platform))) > 0:
             # not every technique has data source listed
             if 'x_mitre_data_sources' in t:
                 total_ds_count = _count_applicable_data_sources(t, applicable_data_sources)

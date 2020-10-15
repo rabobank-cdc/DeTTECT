@@ -6,7 +6,7 @@ from eql_yaml import *
 
 groups = 'all'
 software_group = False
-default_platform = 'Windows'
+default_platform = ['Windows']
 default_stage = 'attack'
 default_matrix = 'enterprise'
 groups_overlay = ''
@@ -467,7 +467,7 @@ def _menu_groups():
     print('')
     print('Options:')
     print('1. Software group: %s' % str(software_group))
-    print('2. Platform: %s' % default_platform)
+    print('2. Platform: %s' % ','.join(default_platform))
     print('3. Stage: %s' % default_stage)
     print('4. Groups: %s' % groups)
     print('5. Overlay: ')
@@ -489,7 +489,7 @@ def _menu_groups():
     elif choice == '2':
         print('Specify platform (%s):' % ', '.join(['all'] + list(PLATFORMS.values())))
         p = _ask_input().lower()
-        default_platform = PLATFORMS[p] if p in PLATFORMS.keys() else 'all'
+        default_platform = [PLATFORMS[p]] if p in PLATFORMS.keys() else ['all']
     elif choice == '3':
         print('Specify stage (pre-attack, attack):')
         s = _ask_input().lower()
