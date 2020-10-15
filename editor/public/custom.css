@@ -439,7 +439,7 @@ h4 {
 .icon-example {
     position: absolute;
     z-index: 1;
-    right: 19px;
+    right: 30px;
     bottom: 3px;
 }
 .icon-example:after {
