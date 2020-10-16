@@ -16,21 +16,9 @@ class ATTACKData():
         self.mitre = attack_client()
         self.attack_cti_techniques = self.mitre.get_enterprise_techniques()
         self.attack_cti_techniques = self.mitre.remove_revoked(self.attack_cti_techniques)
-        self.attack_cti_techniques = self.remove_deprecated(self.attack_cti_techniques)
+        self.attack_cti_techniques = self.mitre.remove_deprecated(self.attack_cti_techniques)
         self.attack_cti_software = self.mitre.get_software()
-        self.attack_cti_software = self.remove_deprecated(self.attack_cti_software)
-
-    def remove_deprecated(self, stix_objects):
-        """
-        Remove deprecated STIX objects
-        :param stix_objects: list of STIX objects
-        :return: a list of STIX objects
-        """
-        handle_deprecated = list()
-        for obj in stix_objects:
-            if not('x_mitre_deprecated' in obj.keys() and obj['x_mitre_deprecated'] == True):
-                handle_deprecated.append(obj)
-        return handle_deprecated
+        self.attack_cti_software = self.mitre.remove_deprecated(self.attack_cti_software)
 
     def dump_data(self, data, filename):
         """
