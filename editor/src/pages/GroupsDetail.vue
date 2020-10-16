@@ -21,10 +21,8 @@
                 </div>
             </div>
             <div v-else class="row flex-fill">
-                <div class="col-md-auto pr-md-0 pl-md-0">
-                    <h4 id="detailCard" class="card-title">{{ group.group_name }}</h4>
-                </div>
-                <div class="col-md-auto">
+                <div class="col-md pr-md-0 pl-md-0">
+                    <span id="detailCard" class="card-title">{{ group.group_name }}</span>
                     <i class="tim-icons icon-pencil icon-color icon-padding cursor-pointer" @click="editGroupName = true"></i>
                 </div>
             </div>
