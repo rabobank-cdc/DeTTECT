@@ -2,7 +2,7 @@ import re
 
 APP_NAME = 'DeTT&CT'
 APP_DESC = 'Detect Tactics, Techniques & Combat Threats'
-VERSION = '1.4'
+VERSION = '1.4.1'
 
 EXPIRE_TIME = 60 * 60 * 24
 
