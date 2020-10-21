@@ -78,7 +78,8 @@ def plot_graph(filename, type_graph, output_filename):
     for t in my_techniques.values():
         for item in t[type_graph]:
             date = get_latest_date(item)
-            if date:
+            score = get_latest_score(item)
+            if date and score > 0:
                 yyyymm = date.strftime('%Y-%m')
                 graph_values.append({'date': yyyymm, 'count': 1})
 
