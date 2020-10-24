@@ -42,7 +42,7 @@ def _init_menu():
     parser_data_sources.add_argument('-p', '--platform', action='append', help='specify the platform for the Navigator '
                                      'layer file (default = platform(s) specified in the YAML file). Multiple platforms'
                                      ' can be provided with extra \'-p/--platform\' arguments',
-                                     choices=['all'] + list(PLATFORMS.values()))
+                                     choices=['all'] + list(PLATFORMS.values()), type=_platform_lookup())
     parser_data_sources.add_argument('-s', '--search', help='only include data sources which match the provided EQL '
                                                             'query')
     parser_data_sources.add_argument('-l', '--layer', help='generate a data source layer for the ATT&CK navigator',
@@ -85,7 +85,7 @@ def _init_menu():
     parser_visibility.add_argument('-p', '--platform', action='append', help='specify the platform for the Navigator '
                                    'layer file (default = platform(s) specified in the YAML file). Multiple platforms'
                                    ' can be provided with extra \'-p/--platform\' arguments',
-                                   choices=['all'] + list(PLATFORMS.values()))
+                                   choices=['all'] + list(PLATFORMS.values()), type=_platform_lookup())
     parser_visibility.add_argument('-sd', '--search-detection', help='only include detection objects which match the '
                                                                      'provided EQL query')
     parser_visibility.add_argument('-sv', '--search-visibility', help='only include visibility objects which match the '
@@ -125,7 +125,7 @@ def _init_menu():
     parser_detection.add_argument('-p', '--platform', action='append', help='specify the platform for the Navigator '
                                   'layer file (default = platform(s) specified in the YAML file). Multiple platforms'
                                   ' can be provided with extra \'-p/--platform\' arguments',
-                                  choices=['all'] + list(PLATFORMS.values()))
+                                  choices=['all'] + list(PLATFORMS.values()), type=_platform_lookup())
     parser_detection.add_argument('-sd', '--search-detection', help='only include detection objects which match the '
                                                                     'provided EQL query')
     parser_detection.add_argument('-sv', '--search-visibility', help='only include visibility objects which match the '
@@ -175,8 +175,10 @@ def _init_menu():
                                                        'supports (does not influence the scores). If overlay group(s) '
                                                        'are provided, only software related to those group(s) are '
                                                        'included', action='store_true', default=False)
-    parser_group.add_argument('-p', '--platform', help='specify the platform (default = Windows)',
-                              choices=['all'] + list(PLATFORMS.values()), default=None, action='append')
+    parser_group.add_argument('-p', '--platform', help='specify the platform (default = Windows). Multiple platforms '
+                              'can be provided with extra \'-p/--platform\' arguments',
+                              choices=['all'] + list(PLATFORMS.values()), default=None, action='append',
+                              type=_platform_lookup())
     parser_group.add_argument('-s', '--stage', help='specify the stage (default = attack)',
                               choices=['attack', 'pre-attack'], default='attack')
     parser_group.add_argument('-sd', '--search-detection', help='only include detection objects which match the '
@@ -325,6 +327,14 @@ def _menu(menu_parser):
 
     else:
         menu_parser.print_help()
+
+
+def _platform_lookup():
+    """
+    Lookup the platform value with the correct capitalisation.
+    return: lambda function to be used by argparse type=
+    """
+    return lambda p: PLATFORMS.get(p.lower(), '')
 
 
 def _prepare_folders():
