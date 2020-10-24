@@ -108,6 +108,7 @@ import constants from '@/constants';
 import { pageDetailMixin } from '@/mixins/PageDetailMixins.js';
 import 'vue-directive-tooltip/dist/vueDirectiveTooltip.css';
 
+
 export default {
     data() {
         return {
