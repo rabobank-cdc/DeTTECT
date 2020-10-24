@@ -22,7 +22,7 @@ jobs:
       - uses: actions/setup-node@main
 
       - name: Install project dependencies
-        run: npm install
+        run: npm ci
         working-directory: ./editor
 
       - name: Build the project
