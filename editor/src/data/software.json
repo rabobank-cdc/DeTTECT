@@ -3147,11 +3147,11 @@
   },
   {
     "software_id": "S0449",
-    "software_name": "MAZE",
+    "software_name": "Maze",
     "platforms": [
       "Windows"
     ],
-    "autosuggest": "S0449 - MAZE"
+    "autosuggest": "S0449 - Maze"
   },
   {
     "software_id": "S0450",
@@ -3377,5 +3377,224 @@
       "macOS"
     ],
     "autosuggest": "S0482 - Bundlore"
+  },
+  {
+    "software_id": "S0483",
+    "software_name": "IcedID",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0483 - IcedID"
+  },
+  {
+    "software_id": "S0484",
+    "software_name": "Carberp",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0484 - Carberp"
+  },
+  {
+    "software_id": "S0486",
+    "software_name": "Bonadan",
+    "platforms": [
+      "Linux"
+    ],
+    "autosuggest": "S0486 - Bonadan"
+  },
+  {
+    "software_id": "S0487",
+    "software_name": "Kessel",
+    "platforms": [
+      "Linux"
+    ],
+    "autosuggest": "S0487 - Kessel"
+  },
+  {
+    "software_id": "S0488",
+    "software_name": "CrackMapExec",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0488 - CrackMapExec"
+  },
+  {
+    "software_id": "S0491",
+    "software_name": "StrongPity",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0491 - StrongPity"
+  },
+  {
+    "software_id": "S0492",
+    "software_name": "CookieMiner",
+    "platforms": [
+      "macOS"
+    ],
+    "autosuggest": "S0492 - CookieMiner"
+  },
+  {
+    "software_id": "S0493",
+    "software_name": "GoldenSpy",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0493 - GoldenSpy"
+  },
+  {
+    "software_id": "S0495",
+    "software_name": "RDAT",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0495 - RDAT"
+  },
+  {
+    "software_id": "S0496",
+    "software_name": "REvil",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0496 - REvil"
+  },
+  {
+    "software_id": "S0497",
+    "software_name": "Dacls",
+    "platforms": [
+      "Linux",
+      "Windows",
+      "macOS"
+    ],
+    "autosuggest": "S0497 - Dacls"
+  },
+  {
+    "software_id": "S0498",
+    "software_name": "Cryptoistic",
+    "platforms": [
+      "macOS"
+    ],
+    "autosuggest": "S0498 - Cryptoistic"
+  },
+  {
+    "software_id": "S0499",
+    "software_name": "Hancitor",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0499 - Hancitor"
+  },
+  {
+    "software_id": "S0500",
+    "software_name": "MCMD",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0500 - MCMD"
+  },
+  {
+    "software_id": "S0501",
+    "software_name": "PipeMon",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0501 - PipeMon"
+  },
+  {
+    "software_id": "S0502",
+    "software_name": "Drovorub",
+    "platforms": [
+      "Linux"
+    ],
+    "autosuggest": "S0502 - Drovorub"
+  },
+  {
+    "software_id": "S0503",
+    "software_name": "FrameworkPOS",
+    "platforms": [
+      "AWS",
+      "Azure",
+      "Azure AD",
+      "GCP",
+      "Linux",
+      "Office 365",
+      "SaaS",
+      "Windows",
+      "macOS"
+    ],
+    "autosuggest": "S0503 - FrameworkPOS"
+  },
+  {
+    "software_id": "S0504",
+    "software_name": "Anchor",
+    "platforms": [
+      "Linux",
+      "Windows"
+    ],
+    "autosuggest": "S0504 - Anchor"
+  },
+  {
+    "software_id": "S0508",
+    "software_name": "Ngrok",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0508 - Ngrok"
+  },
+  {
+    "software_id": "S0511",
+    "software_name": "RegDuke",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0511 - RegDuke"
+  },
+  {
+    "software_id": "S0512",
+    "software_name": "FatDuke",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0512 - FatDuke"
+  },
+  {
+    "software_id": "S0514",
+    "software_name": "WellMess",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0514 - WellMess"
+  },
+  {
+    "software_id": "S0515",
+    "software_name": "WellMail",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0515 - WellMail"
+  },
+  {
+    "software_id": "S0516",
+    "software_name": "SoreFang",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0516 - SoreFang"
+  },
+  {
+    "software_id": "S0517",
+    "software_name": "Pillowmint",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0517 - Pillowmint"
+  },
+  {
+    "software_id": "S0518",
+    "software_name": "PolyglotDuke",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0518 - PolyglotDuke"
   }
 ]

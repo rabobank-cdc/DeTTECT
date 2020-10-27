@@ -210,9 +210,6 @@
     "technique_id": "T1018",
     "technique_name": "Remote System Discovery",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP",
       "Linux",
       "Windows",
       "macOS"
@@ -224,10 +221,19 @@
     "technique_name": "Automated Exfiltration",
     "platforms": [
       "Linux",
+      "Network",
       "Windows",
       "macOS"
     ],
     "autosuggest": "T1020 - Automated Exfiltration"
+  },
+  {
+    "technique_id": "T1020.001",
+    "technique_name": "Traffic Duplication",
+    "platforms": [
+      "Network"
+    ],
+    "autosuggest": "T1020.001 - Traffic Duplication"
   },
   {
     "technique_id": "T1021",
@@ -460,6 +466,7 @@
     "technique_id": "T1037",
     "technique_name": "Boot or Logon Initialization Scripts",
     "platforms": [
+      "Linux",
       "Windows",
       "macOS"
     ],
@@ -681,6 +688,14 @@
     "autosuggest": "T1053.005 - Scheduled Task"
   },
   {
+    "technique_id": "T1053.006",
+    "technique_name": "Systemd Timers",
+    "platforms": [
+      "Linux"
+    ],
+    "autosuggest": "T1053.006 - Systemd Timers"
+  },
+  {
     "technique_id": "T1055",
     "technique_name": "Process Injection",
     "platforms": [
@@ -783,6 +798,7 @@
     "technique_name": "Input Capture",
     "platforms": [
       "Linux",
+      "Network",
       "Windows",
       "macOS"
     ],
@@ -793,6 +809,7 @@
     "technique_name": "Keylogging",
     "platforms": [
       "Linux",
+      "Network",
       "Windows",
       "macOS"
     ],
@@ -840,6 +857,7 @@
     "technique_name": "Command and Scripting Interpreter",
     "platforms": [
       "Linux",
+      "Network",
       "Windows",
       "macOS"
     ],
@@ -909,6 +927,14 @@
     "autosuggest": "T1059.007 - JavaScript/JScript"
   },
   {
+    "technique_id": "T1059.008",
+    "technique_name": "Network Device CLI",
+    "platforms": [
+      "Network"
+    ],
+    "autosuggest": "T1059.008 - Network Device CLI"
+  },
+  {
     "technique_id": "T1068",
     "technique_name": "Exploitation for Privilege Escalation",
     "platforms": [
@@ -958,8 +984,12 @@
     "technique_id": "T1069.003",
     "technique_name": "Cloud Groups",
     "platforms": [
+      "AWS",
+      "Azure",
       "Azure AD",
-      "Office 365"
+      "GCP",
+      "Office 365",
+      "SaaS"
     ],
     "autosuggest": "T1069.003 - Cloud Groups"
   },
@@ -995,6 +1025,7 @@
     "technique_name": "Clear Command History",
     "platforms": [
       "Linux",
+      "Windows",
       "macOS"
     ],
     "autosuggest": "T1070.003 - Clear Command History"
@@ -1282,6 +1313,7 @@
     "technique_name": "Proxy",
     "platforms": [
       "Linux",
+      "Network",
       "Windows",
       "macOS"
     ],
@@ -1312,6 +1344,7 @@
     "technique_name": "Multi-hop Proxy",
     "platforms": [
       "Linux",
+      "Network",
       "Windows",
       "macOS"
     ],
@@ -1350,6 +1383,7 @@
     "technique_name": "Non-Application Layer Protocol",
     "platforms": [
       "Linux",
+      "Network",
       "Windows",
       "macOS"
     ],
@@ -1372,12 +1406,14 @@
   },
   {
     "technique_id": "T1098.001",
-    "technique_name": "Additional Azure Service Principal Credentials",
+    "technique_name": "Additional Cloud Credentials",
     "platforms": [
+      "AWS",
       "Azure",
-      "Azure AD"
+      "Azure AD",
+      "GCP"
     ],
-    "autosuggest": "T1098.001 - Additional Azure Service Principal Credentials"
+    "autosuggest": "T1098.001 - Additional Cloud Credentials"
   },
   {
     "technique_id": "T1098.002",
@@ -1785,9 +1821,6 @@
     "technique_id": "T1135",
     "technique_name": "Network Share Discovery",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP",
       "Linux",
       "Windows",
       "macOS"
@@ -1959,6 +1992,7 @@
       "Azure",
       "GCP",
       "Linux",
+      "Network",
       "Windows",
       "macOS"
     ],
@@ -2099,6 +2133,7 @@
     "technique_name": "Traffic Signaling",
     "platforms": [
       "Linux",
+      "Network",
       "Windows",
       "macOS"
     ],
@@ -2109,6 +2144,7 @@
     "technique_name": "Port Knocking",
     "platforms": [
       "Linux",
+      "Network",
       "Windows",
       "macOS"
     ],
@@ -2156,9 +2192,6 @@
     "technique_id": "T1213",
     "technique_name": "Data from Information Repositories",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP",
       "Linux",
       "Office 365",
       "SaaS",
@@ -2299,6 +2332,14 @@
     "autosuggest": "T1218.011 - Rundll32"
   },
   {
+    "technique_id": "T1218.012",
+    "technique_name": "Verclsid",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "T1218.012 - Verclsid"
+  },
+  {
     "technique_id": "T1219",
     "technique_name": "Remote Access Software",
     "platforms": [
@@ -2411,7 +2452,9 @@
     "technique_id": "T1489",
     "technique_name": "Service Stop",
     "platforms": [
-      "Windows"
+      "Linux",
+      "Windows",
+      "macOS"
     ],
     "autosuggest": "T1489 - Service Stop"
   },
@@ -2840,6 +2883,7 @@
     "technique_name": "Pre-OS Boot",
     "platforms": [
       "Linux",
+      "Network",
       "Windows"
     ],
     "autosuggest": "T1542 - Pre-OS Boot"
@@ -2868,6 +2912,22 @@
       "Windows"
     ],
     "autosuggest": "T1542.003 - Bootkit"
+  },
+  {
+    "technique_id": "T1542.004",
+    "technique_name": "ROMMONkit",
+    "platforms": [
+      "Network"
+    ],
+    "autosuggest": "T1542.004 - ROMMONkit"
+  },
+  {
+    "technique_id": "T1542.005",
+    "technique_name": "TFTP Boot",
+    "platforms": [
+      "Network"
+    ],
+    "autosuggest": "T1542.005 - TFTP Boot"
   },
   {
     "technique_id": "T1543",
@@ -3143,6 +3203,14 @@
     "autosuggest": "T1547.011 - Plist Modification"
   },
   {
+    "technique_id": "T1547.012",
+    "technique_name": "Print Processors",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "T1547.012 - Print Processors"
+  },
+  {
     "technique_id": "T1548",
     "technique_name": "Abuse Elevation Control Mechanism",
     "platforms": [
@@ -3163,11 +3231,11 @@
   },
   {
     "technique_id": "T1548.002",
-    "technique_name": "Bypass User Access Control",
+    "technique_name": "Bypass User Account Control",
     "platforms": [
       "Windows"
     ],
-    "autosuggest": "T1548.002 - Bypass User Access Control"
+    "autosuggest": "T1548.002 - Bypass User Account Control"
   },
   {
     "technique_id": "T1548.003",
@@ -3401,6 +3469,7 @@
     "technique_name": "Modify Authentication Process",
     "platforms": [
       "Linux",
+      "Network",
       "Windows",
       "macOS"
     ],
@@ -3432,6 +3501,14 @@
     "autosuggest": "T1556.003 - Pluggable Authentication Modules"
   },
   {
+    "technique_id": "T1556.004",
+    "technique_name": "Network Device Authentication",
+    "platforms": [
+      "Network"
+    ],
+    "autosuggest": "T1556.004 - Network Device Authentication"
+  },
+  {
     "technique_id": "T1557",
     "technique_name": "Man-in-the-Middle",
     "platforms": [
@@ -3448,6 +3525,16 @@
       "Windows"
     ],
     "autosuggest": "T1557.001 - LLMNR/NBT-NS Poisoning and SMB Relay"
+  },
+  {
+    "technique_id": "T1557.002",
+    "technique_name": "ARP Cache Poisoning",
+    "platforms": [
+      "Linux",
+      "Windows",
+      "macOS"
+    ],
+    "autosuggest": "T1557.002 - ARP Cache Poisoning"
   },
   {
     "technique_id": "T1558",
@@ -3480,6 +3567,14 @@
       "Windows"
     ],
     "autosuggest": "T1558.003 - Kerberoasting"
+  },
+  {
+    "technique_id": "T1558.004",
+    "technique_name": "AS-REP Roasting",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "T1558.004 - AS-REP Roasting"
   },
   {
     "technique_id": "T1559",
@@ -3608,12 +3703,13 @@
   },
   {
     "technique_id": "T1562.003",
-    "technique_name": "HISTCONTROL",
+    "technique_name": "Impair Command History Logging",
     "platforms": [
       "Linux",
+      "Windows",
       "macOS"
     ],
-    "autosuggest": "T1562.003 - HISTCONTROL"
+    "autosuggest": "T1562.003 - Impair Command History Logging"
   },
   {
     "technique_id": "T1562.004",
@@ -3644,6 +3740,16 @@
       "GCP"
     ],
     "autosuggest": "T1562.007 - Disable or Modify Cloud Firewall"
+  },
+  {
+    "technique_id": "T1562.008",
+    "technique_name": "Disable Cloud Logs",
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP"
+    ],
+    "autosuggest": "T1562.008 - Disable Cloud Logs"
   },
   {
     "technique_id": "T1563",
@@ -3736,6 +3842,16 @@
       "macOS"
     ],
     "autosuggest": "T1564.006 - Run Virtual Instance"
+  },
+  {
+    "technique_id": "T1564.007",
+    "technique_name": "VBA Stomping",
+    "platforms": [
+      "Linux",
+      "Windows",
+      "macOS"
+    ],
+    "autosuggest": "T1564.007 - VBA Stomping"
   },
   {
     "technique_id": "T1565",
@@ -4123,5 +4239,687 @@
       "GCP"
     ],
     "autosuggest": "T1578.004 - Revert Cloud Instance"
+  },
+  {
+    "technique_id": "T1580",
+    "technique_name": "Cloud Infrastructure Discovery",
+    "platforms": [
+      "AWS",
+      "Azure",
+      "GCP"
+    ],
+    "autosuggest": "T1580 - Cloud Infrastructure Discovery"
+  },
+  {
+    "technique_id": "T1583",
+    "technique_name": "Acquire Infrastructure",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1583 - Acquire Infrastructure"
+  },
+  {
+    "technique_id": "T1583.001",
+    "technique_name": "Domains",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1583.001 - Domains"
+  },
+  {
+    "technique_id": "T1583.002",
+    "technique_name": "DNS Server",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1583.002 - DNS Server"
+  },
+  {
+    "technique_id": "T1583.003",
+    "technique_name": "Virtual Private Server",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1583.003 - Virtual Private Server"
+  },
+  {
+    "technique_id": "T1583.004",
+    "technique_name": "Server",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1583.004 - Server"
+  },
+  {
+    "technique_id": "T1583.005",
+    "technique_name": "Botnet",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1583.005 - Botnet"
+  },
+  {
+    "technique_id": "T1583.006",
+    "technique_name": "Web Services",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1583.006 - Web Services"
+  },
+  {
+    "technique_id": "T1584",
+    "technique_name": "Compromise Infrastructure",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1584 - Compromise Infrastructure"
+  },
+  {
+    "technique_id": "T1584.001",
+    "technique_name": "Domains",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1584.001 - Domains"
+  },
+  {
+    "technique_id": "T1584.002",
+    "technique_name": "DNS Server",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1584.002 - DNS Server"
+  },
+  {
+    "technique_id": "T1584.003",
+    "technique_name": "Virtual Private Server",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1584.003 - Virtual Private Server"
+  },
+  {
+    "technique_id": "T1584.004",
+    "technique_name": "Server",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1584.004 - Server"
+  },
+  {
+    "technique_id": "T1584.005",
+    "technique_name": "Botnet",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1584.005 - Botnet"
+  },
+  {
+    "technique_id": "T1584.006",
+    "technique_name": "Web Services",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1584.006 - Web Services"
+  },
+  {
+    "technique_id": "T1585",
+    "technique_name": "Establish Accounts",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1585 - Establish Accounts"
+  },
+  {
+    "technique_id": "T1585.001",
+    "technique_name": "Social Media Accounts",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1585.001 - Social Media Accounts"
+  },
+  {
+    "technique_id": "T1585.002",
+    "technique_name": "Email Accounts",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1585.002 - Email Accounts"
+  },
+  {
+    "technique_id": "T1586",
+    "technique_name": "Compromise Accounts",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1586 - Compromise Accounts"
+  },
+  {
+    "technique_id": "T1586.001",
+    "technique_name": "Social Media Accounts",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1586.001 - Social Media Accounts"
+  },
+  {
+    "technique_id": "T1586.002",
+    "technique_name": "Email Accounts",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1586.002 - Email Accounts"
+  },
+  {
+    "technique_id": "T1587",
+    "technique_name": "Develop Capabilities",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1587 - Develop Capabilities"
+  },
+  {
+    "technique_id": "T1587.001",
+    "technique_name": "Malware",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1587.001 - Malware"
+  },
+  {
+    "technique_id": "T1587.002",
+    "technique_name": "Code Signing Certificates",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1587.002 - Code Signing Certificates"
+  },
+  {
+    "technique_id": "T1587.003",
+    "technique_name": "Digital Certificates",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1587.003 - Digital Certificates"
+  },
+  {
+    "technique_id": "T1587.004",
+    "technique_name": "Exploits",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1587.004 - Exploits"
+  },
+  {
+    "technique_id": "T1588",
+    "technique_name": "Obtain Capabilities",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1588 - Obtain Capabilities"
+  },
+  {
+    "technique_id": "T1588.001",
+    "technique_name": "Malware",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1588.001 - Malware"
+  },
+  {
+    "technique_id": "T1588.002",
+    "technique_name": "Tool",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1588.002 - Tool"
+  },
+  {
+    "technique_id": "T1588.003",
+    "technique_name": "Code Signing Certificates",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1588.003 - Code Signing Certificates"
+  },
+  {
+    "technique_id": "T1588.004",
+    "technique_name": "Digital Certificates",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1588.004 - Digital Certificates"
+  },
+  {
+    "technique_id": "T1588.005",
+    "technique_name": "Exploits",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1588.005 - Exploits"
+  },
+  {
+    "technique_id": "T1588.006",
+    "technique_name": "Vulnerabilities",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1588.006 - Vulnerabilities"
+  },
+  {
+    "technique_id": "T1589",
+    "technique_name": "Gather Victim Identity Information",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1589 - Gather Victim Identity Information"
+  },
+  {
+    "technique_id": "T1589.001",
+    "technique_name": "Credentials",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1589.001 - Credentials"
+  },
+  {
+    "technique_id": "T1589.002",
+    "technique_name": "Email Addresses",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1589.002 - Email Addresses"
+  },
+  {
+    "technique_id": "T1589.003",
+    "technique_name": "Employee Names",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1589.003 - Employee Names"
+  },
+  {
+    "technique_id": "T1590",
+    "technique_name": "Gather Victim Network Information",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1590 - Gather Victim Network Information"
+  },
+  {
+    "technique_id": "T1590.001",
+    "technique_name": "Domain Properties",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1590.001 - Domain Properties"
+  },
+  {
+    "technique_id": "T1590.002",
+    "technique_name": "DNS",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1590.002 - DNS"
+  },
+  {
+    "technique_id": "T1590.003",
+    "technique_name": "Network Trust Dependencies",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1590.003 - Network Trust Dependencies"
+  },
+  {
+    "technique_id": "T1590.004",
+    "technique_name": "Network Topology",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1590.004 - Network Topology"
+  },
+  {
+    "technique_id": "T1590.005",
+    "technique_name": "IP Addresses",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1590.005 - IP Addresses"
+  },
+  {
+    "technique_id": "T1590.006",
+    "technique_name": "Network Security Appliances",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1590.006 - Network Security Appliances"
+  },
+  {
+    "technique_id": "T1591",
+    "technique_name": "Gather Victim Org Information",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1591 - Gather Victim Org Information"
+  },
+  {
+    "technique_id": "T1591.001",
+    "technique_name": "Determine Physical Locations",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1591.001 - Determine Physical Locations"
+  },
+  {
+    "technique_id": "T1591.002",
+    "technique_name": "Business Relationships",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1591.002 - Business Relationships"
+  },
+  {
+    "technique_id": "T1591.003",
+    "technique_name": "Identify Business Tempo",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1591.003 - Identify Business Tempo"
+  },
+  {
+    "technique_id": "T1591.004",
+    "technique_name": "Identify Roles",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1591.004 - Identify Roles"
+  },
+  {
+    "technique_id": "T1592",
+    "technique_name": "Gather Victim Host Information",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1592 - Gather Victim Host Information"
+  },
+  {
+    "technique_id": "T1592.001",
+    "technique_name": "Hardware",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1592.001 - Hardware"
+  },
+  {
+    "technique_id": "T1592.002",
+    "technique_name": "Software",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1592.002 - Software"
+  },
+  {
+    "technique_id": "T1592.003",
+    "technique_name": "Firmware",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1592.003 - Firmware"
+  },
+  {
+    "technique_id": "T1592.004",
+    "technique_name": "Client Configurations",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1592.004 - Client Configurations"
+  },
+  {
+    "technique_id": "T1593",
+    "technique_name": "Search Open Websites/Domains",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1593 - Search Open Websites/Domains"
+  },
+  {
+    "technique_id": "T1593.001",
+    "technique_name": "Social Media",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1593.001 - Social Media"
+  },
+  {
+    "technique_id": "T1593.002",
+    "technique_name": "Search Engines",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1593.002 - Search Engines"
+  },
+  {
+    "technique_id": "T1594",
+    "technique_name": "Search Victim-Owned Websites",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1594 - Search Victim-Owned Websites"
+  },
+  {
+    "technique_id": "T1595",
+    "technique_name": "Active Scanning",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1595 - Active Scanning"
+  },
+  {
+    "technique_id": "T1595.001",
+    "technique_name": "Scanning IP Blocks",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1595.001 - Scanning IP Blocks"
+  },
+  {
+    "technique_id": "T1595.002",
+    "technique_name": "Vulnerability Scanning",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1595.002 - Vulnerability Scanning"
+  },
+  {
+    "technique_id": "T1596",
+    "technique_name": "Search Open Technical Databases",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1596 - Search Open Technical Databases"
+  },
+  {
+    "technique_id": "T1596.001",
+    "technique_name": "DNS/Passive DNS",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1596.001 - DNS/Passive DNS"
+  },
+  {
+    "technique_id": "T1596.002",
+    "technique_name": "WHOIS",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1596.002 - WHOIS"
+  },
+  {
+    "technique_id": "T1596.003",
+    "technique_name": "Digital Certificates",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1596.003 - Digital Certificates"
+  },
+  {
+    "technique_id": "T1596.004",
+    "technique_name": "CDNs",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1596.004 - CDNs"
+  },
+  {
+    "technique_id": "T1596.005",
+    "technique_name": "Scan Databases",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1596.005 - Scan Databases"
+  },
+  {
+    "technique_id": "T1597",
+    "technique_name": "Search Closed Sources",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1597 - Search Closed Sources"
+  },
+  {
+    "technique_id": "T1597.001",
+    "technique_name": "Threat Intel Vendors",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1597.001 - Threat Intel Vendors"
+  },
+  {
+    "technique_id": "T1597.002",
+    "technique_name": "Purchase Technical Data",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1597.002 - Purchase Technical Data"
+  },
+  {
+    "technique_id": "T1598",
+    "technique_name": "Phishing for Information",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1598 - Phishing for Information"
+  },
+  {
+    "technique_id": "T1598.001",
+    "technique_name": "Spearphishing Service",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1598.001 - Spearphishing Service"
+  },
+  {
+    "technique_id": "T1598.002",
+    "technique_name": "Spearphishing Attachment",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1598.002 - Spearphishing Attachment"
+  },
+  {
+    "technique_id": "T1598.003",
+    "technique_name": "Spearphishing Link",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1598.003 - Spearphishing Link"
+  },
+  {
+    "technique_id": "T1599",
+    "technique_name": "Network Boundary Bridging",
+    "platforms": [
+      "Network"
+    ],
+    "autosuggest": "T1599 - Network Boundary Bridging"
+  },
+  {
+    "technique_id": "T1599.001",
+    "technique_name": "Network Address Translation Traversal",
+    "platforms": [
+      "Network"
+    ],
+    "autosuggest": "T1599.001 - Network Address Translation Traversal"
+  },
+  {
+    "technique_id": "T1600",
+    "technique_name": "Weaken Encryption",
+    "platforms": [
+      "Network"
+    ],
+    "autosuggest": "T1600 - Weaken Encryption"
+  },
+  {
+    "technique_id": "T1600.001",
+    "technique_name": "Reduce Key Space",
+    "platforms": [
+      "Network"
+    ],
+    "autosuggest": "T1600.001 - Reduce Key Space"
+  },
+  {
+    "technique_id": "T1600.002",
+    "technique_name": "Disable Crypto Hardware",
+    "platforms": [
+      "Network"
+    ],
+    "autosuggest": "T1600.002 - Disable Crypto Hardware"
+  },
+  {
+    "technique_id": "T1601",
+    "technique_name": "Modify System Image",
+    "platforms": [
+      "Network"
+    ],
+    "autosuggest": "T1601 - Modify System Image"
+  },
+  {
+    "technique_id": "T1601.001",
+    "technique_name": "Patch System Image",
+    "platforms": [
+      "Network"
+    ],
+    "autosuggest": "T1601.001 - Patch System Image"
+  },
+  {
+    "technique_id": "T1601.002",
+    "technique_name": "Downgrade System Image",
+    "platforms": [
+      "Network"
+    ],
+    "autosuggest": "T1601.002 - Downgrade System Image"
+  },
+  {
+    "technique_id": "T1602",
+    "technique_name": "Data from Configuration Repository",
+    "platforms": [
+      "Network"
+    ],
+    "autosuggest": "T1602 - Data from Configuration Repository"
+  },
+  {
+    "technique_id": "T1602.001",
+    "technique_name": "SNMP (MIB Dump)",
+    "platforms": [
+      "Network"
+    ],
+    "autosuggest": "T1602.001 - SNMP (MIB Dump)"
+  },
+  {
+    "technique_id": "T1602.002",
+    "technique_name": "Network Device Configuration Dump",
+    "platforms": [
+      "Network"
+    ],
+    "autosuggest": "T1602.002 - Network Device Configuration Dump"
   }
 ]
