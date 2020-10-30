@@ -241,7 +241,7 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, 
             x['enabled'] = True
             x['metadata'] = []
             x['metadata'].append({'name': 'Available data sources', 'value': my_ds})
-            x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique['x_mitre_data_sources'],
+            x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique.get('x_mitre_data_sources', ''),
                                                                                                                           applicable_data_sources))})
             x['metadata'].append({'name': '------', 'value': ' '})
             x['score'] = s
@@ -338,7 +338,7 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, pl
         x['enabled'] = True
         x['metadata'] = []
         x['metadata'].append({'name': 'Available data sources', 'value': my_ds})
-        x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique['x_mitre_data_sources'],
+        x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique.get('x_mitre_data_sources', ''),
                                                                                                                       applicable_data_sources))})
         # Metadata for detection and visibility:
         for obj_type in ['detection', 'visibility']:
