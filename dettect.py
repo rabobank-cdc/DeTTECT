@@ -14,7 +14,8 @@ def _init_menu():
     menu_parser = argparse.ArgumentParser(description='Detect Tactics, Techniques & Combat Threats',
                                           epilog='Source: https://github.com/rabobank-cdc/DeTTECT')
     menu_parser.add_argument('--version', action='version', version='%(prog)s ' + VERSION)
-    menu_parser.add_argument('-i', '--interactive', help='launch the interactive menu, which has support for all modes',
+    menu_parser.add_argument('-i', '--interactive', help='launch the interactive menu, which has support for all modes but not '
+                             'all of the arguments that are available in the CLI',
                              action='store_true')
 
     # add subparsers
