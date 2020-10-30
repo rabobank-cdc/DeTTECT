@@ -1,6 +1,6 @@
 FROM python:3.8-slim-buster
 
-LABEL version="1.4.1"
+LABEL version="1.4.2"
 
 # copy DeTT&CT and install the requirements
 COPY . /opt/DeTTECT
