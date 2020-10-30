@@ -335,7 +335,7 @@ def _platform_lookup():
     Lookup the platform value with the correct capitalisation.
     return: lambda function to be used by argparse type=
     """
-    return lambda p: PLATFORMS.get(p.lower(), '')
+    return lambda p: PLATFORMS.get(p.lower(), '') if p.lower() != 'all' else 'all'
 
 
 def _prepare_folders():
