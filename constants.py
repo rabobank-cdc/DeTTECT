@@ -182,8 +182,8 @@ EQL_INVALID_RESULT_TECH = '[!] Invalid technique administration content. Check y
 HEALTH_ERROR_TXT = '[!] The below YAML file contains possible errors. It\'s recommended to check via the ' \
                    '\'--health\' argument or using the option in the interactive menu: \n    - '
 
-PLATFORMS = {'windows': 'Windows', 'linux': 'Linux', 'macos': 'macOS', 'aws': 'AWS', 'gcp': 'GCP', 'azure': 'Azure',
-             'azure ad': 'Azure AD', 'office 365': 'Office 365', 'saas': 'SaaS'}
+PLATFORMS = {'windows': 'Windows', 'linux': 'Linux', 'pre': 'PRE', 'macos': 'macOS', 'aws': 'AWS', 'gcp': 'GCP', 'azure': 'Azure',
+             'azure ad': 'Azure AD', 'office 365': 'Office 365', 'saas': 'SaaS', 'network': 'Network'}
 
 # Data sources applicable per platform
 DATA_SOURCES = {'Windows': ['Access tokens', 'Anti-virus', 'API monitoring', 'Application logs', 'Asset management', 'Authentication logs', 'Binary file metadata', 'BIOS', 'Browser extensions',
@@ -199,6 +199,7 @@ DATA_SOURCES = {'Windows': ['Access tokens', 'Anti-virus', 'API monitoring', 'Ap
                           'Network intrusion detection system', 'Network protocol analysis', 'Packet capture', 'PowerShell logs', 'Process command-line parameters', 'Process monitoring',
                           'Process use of network', 'Sensor health and status', 'Services', 'SSL/TLS inspection', 'System calls', 'Third-party application logs', 'User interface', 'VBR',
                           'Web application firewall logs', 'Web logs', 'Web proxy'],
+                'PRE': ['Domain registration', 'Email gateway', 'Mail server', 'Network device logs', 'Packet capture', 'Social media monitoring', 'SSL/TLS certificates', 'Web logs'],
                 'macOS': ['Anti-virus', 'API monitoring', 'Application logs', 'Asset management', 'Authentication logs', 'Binary file metadata', 'BIOS', 'Browser extensions', 'Component firmware',
                           'Data loss prevention', 'Detonation chamber', 'Digital certificate logs', 'Disk forensics', 'DNS records', 'EFI', 'Email gateway', 'Environment variable', 'File monitoring',
                           'Host network interface', 'Kernel drivers', 'Mail server', 'Malware reverse engineering', 'MBR', 'Named Pipes', 'Netflow/Enclave netflow', 'Network device logs',
@@ -210,7 +211,7 @@ DATA_SOURCES = {'Windows': ['Access tokens', 'Anti-virus', 'API monitoring', 'Ap
                         'Network intrusion detection system', 'Network protocol analysis', 'Packet capture', 'Sensor health and status', 'SSL/TLS inspection', 'Third-party application logs',
                         'Web application firewall logs', 'Web logs', 'Web proxy'],
                 'GCP': ['Anti-virus', 'API monitoring', 'Application logs', 'Asset management', 'Authentication logs', 'Binary file metadata', 'Data loss prevention', 'Detonation chamber',
-                        'DNS records', 'Email gateway', 'File monitoring', 'Mail server', 'Malware reverse engineering', 'Netflow/Enclave netflow', 'Network device logs',
+                        'DNS records', 'Email gateway', 'File monitoring', 'GCP audit logs', 'Mail server', 'Malware reverse engineering', 'Netflow/Enclave netflow', 'Network device logs',
                         'Network intrusion detection system', 'Network protocol analysis', 'Packet capture', 'Sensor health and status', 'SSL/TLS inspection', 'Stackdriver logs',
                         'Third-party application logs', 'Web application firewall logs', 'Web logs', 'Web proxy'],
                 'Azure': ['Anti-virus', 'API monitoring', 'Application logs', 'Asset management', 'Authentication logs', 'Azure activity logs', 'Azure OS logs', 'Binary file metadata',
@@ -221,5 +222,7 @@ DATA_SOURCES = {'Windows': ['Access tokens', 'Anti-virus', 'API monitoring', 'Ap
                 'Office 365': ['Anti-virus', 'API monitoring', 'Authentication logs', 'Azure activity logs', 'Data loss prevention', 'Detonation chamber', 'Email gateway', 'Mail server',
                                'Malware reverse engineering', 'Office 365 account logs', 'Office 365 audit logs', 'Office 365 trace logs', 'Sensor health and status'],
                 'SaaS': ['Anti-virus', 'API monitoring', 'Application logs', 'Authentication logs', 'Data loss prevention', 'Detonation chamber', 'Email gateway', 'Mail server',
-                         'Malware reverse engineering', 'OAuth audit logs', 'Sensor health and status', 'Third-party application logs', 'Web application firewall logs', 'Web logs']
+                         'Malware reverse engineering', 'OAuth audit logs', 'Sensor health and status', 'Third-party application logs', 'Web application firewall logs', 'Web logs'],
+                'Network': ['File monitoring', 'Netflow/Enclave netflow', 'Network device command history', 'Network device configuration', 'Network device logs', 'Network device run-time memory',
+                            'Network protocol analysis', 'Packet capture']
                 }
