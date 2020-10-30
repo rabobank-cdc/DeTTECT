@@ -219,15 +219,11 @@ def _get_base_template(name, description, stage, platform, sorting):
     """
     layer = dict()
     layer['name'] = name
-    layer['version'] = '3.0'
-    layer['domain'] = 'mitre-enterprise'
+    layer['versions'] = {'navigator': '4.0', 'layer': '4.0'}
+    layer['domain'] = 'enterprise-attack'
     layer['description'] = description
 
-    if stage == 'attack':
-        layer['filters'] = {'stages': ['act'], 'platforms': platform}
-    else:
-        layer['filters'] = {'stages': ['prepare'], 'platforms': platform}
-
+    layer['filters'] = {'platforms': platform}
     layer['sorting'] = sorting
     layer['layout'] = {"layout": "flat", "showName": True, "showID": False}
     layer['hideDisable'] = False
