@@ -206,13 +206,12 @@ def init_yaml():
     return _yaml
 
 
-def _get_base_template(name, description, stage, platform, sorting):
+def _get_base_template(name, description, platform, sorting):
     """
     Prepares a base template for the json layer file that can be loaded into the MITRE ATT&CK Navigator.
     More information on the layer format can be found here: https://github.com/mitre/attack-navigator/blob/master/layers/
     :param name: name
     :param description: description
-    :param stage: stage (act | prepare)
     :param platform: platform
     :param sorting: sorting
     :return: layer template dictionary
@@ -236,19 +235,18 @@ def _get_base_template(name, description, stage, platform, sorting):
     return layer
 
 
-def get_layer_template_groups(name, max_count, description, stage, platform, overlay_type):
+def get_layer_template_groups(name, max_count, description, platform, overlay_type):
     """
     Prepares a base template for the json layer file that can be loaded into the MITRE ATT&CK Navigator.
     More information on the layer format can be found here: https://github.com/mitre/attack-navigator/blob/master/layers/
     :param name: name
     :param max_count: the sum of all count values
     :param description: description
-    :param stage: stage (act | prepare)
     :param platform: platform
     :param overlay_type: group, visibility or detection
     :return: layer template dictionary
     """
-    layer = _get_base_template(name, description, stage, platform, 3)
+    layer = _get_base_template(name, description, platform, 3)
     layer['gradient'] = {'colors': [COLOR_GRADIENT_MIN, COLOR_GRADIENT_MAX], 'minValue': 0, 'maxValue': max_count}
     layer['legendItems'] = []
     layer['legendItems'].append({'label': 'Tech. not often used', 'color': COLOR_GRADIENT_MIN})
@@ -285,17 +283,16 @@ def get_layer_template_groups(name, max_count, description, stage, platform, ove
     return layer
 
 
-def get_layer_template_detections(name, description, stage, platform):
+def get_layer_template_detections(name, description, platform):
     """
     Prepares a base template for the json layer file that can be loaded into the MITRE ATT&CK Navigator.
     More information on the layer format can be found here: https://github.com/mitre/attack-navigator/blob/master/layers/
     :param name: name
     :param description: description
-    :param stage: stage (act | prepare)
     :param platform: platform
     :return: layer template dictionary
     """
-    layer = _get_base_template(name, description, stage, platform, 0)
+    layer = _get_base_template(name, description, platform, 0)
     layer['legendItems'] = \
         [
             {'label': 'Detection score 0: Forensics/Context', 'color': COLOR_D_0},
@@ -308,17 +305,16 @@ def get_layer_template_detections(name, description, stage, platform):
     return layer
 
 
-def get_layer_template_data_sources(name, description, stage, platform):
+def get_layer_template_data_sources(name, description, platform):
     """
     Prepares a base template for the json layer file that can be loaded into the MITRE ATT&CK Navigator.
     More information on the layer format can be found here: https://github.com/mitre/attack-navigator/blob/master/layers/
     :param name: name
     :param description: description
-    :param stage: stage (act | prepare)
     :param platform: platform
     :return: layer template dictionary
     """
-    layer = _get_base_template(name, description, stage, platform, 0)
+    layer = _get_base_template(name, description, platform, 0)
     layer['legendItems'] = \
         [
             {'label': '1-25% of data sources available', 'color': COLOR_DS_25p},
@@ -330,17 +326,16 @@ def get_layer_template_data_sources(name, description, stage, platform):
     return layer
 
 
-def get_layer_template_visibility(name, description, stage, platform):
+def get_layer_template_visibility(name, description, platform):
     """
     Prepares a base template for the json layer file that can be loaded into the MITRE ATT&CK Navigator.
     More information on the layer format can be found here: https://github.com/mitre/attack-navigator/blob/master/layers/
     :param name: name
     :param description: description
-    :param stage: stage (act | prepare)
     :param platform: platform
     :return: layer template dictionary
     """
-    layer = _get_base_template(name, description, stage, platform, 0)
+    layer = _get_base_template(name, description, platform, 0)
     layer['legendItems'] = \
         [
             {'label': 'Visibility score 1: Minimal', 'color': COLOR_V_1},
@@ -351,17 +346,16 @@ def get_layer_template_visibility(name, description, stage, platform):
     return layer
 
 
-def get_layer_template_layered(name, description, stage, platform):
+def get_layer_template_layered(name, description, platform):
     """
     Prepares a base template for the json layer file that can be loaded into the MITRE ATT&CK Navigator.
     More information on the layer format can be found here: https://github.com/mitre/attack-navigator/blob/master/layers/
     :param name: name
     :param description: description
-    :param stage: stage (act | prepare)
     :param platform: platform
     :return: layer template dictionary
     """
-    layer = _get_base_template(name, description, stage, platform, 0)
+    layer = _get_base_template(name, description, platform, 0)
     layer['legendItems'] = \
         [
             {'label': 'Visibility and detection', 'color': COLOR_OVERLAY_BOTH},

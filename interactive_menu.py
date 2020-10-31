@@ -7,7 +7,6 @@ from eql_yaml import *
 groups = 'all'
 software_group = False
 default_platform = ['Windows']
-default_stage = 'attack'
 default_matrix = 'enterprise'
 groups_overlay = ''
 overlay_type = 'group'
@@ -460,7 +459,7 @@ def _menu_groups():
     Prints and handles the Threat actor group mapping functionality.
     :return:
     """
-    global groups, software_group, default_platform, default_stage, groups_overlay, overlay_type, eql_all_scores, \
+    global groups, software_group, default_platform, groups_overlay, overlay_type, eql_all_scores, \
         eql_query_detection, eql_query_visibility
     _clear()
     print('Menu: %s' % MENU_NAME_THREAT_ACTOR_GROUP_MAPPING)
@@ -468,12 +467,11 @@ def _menu_groups():
     print('Options:')
     print('1. Software group: %s' % str(software_group))
     print('2. Platform: %s' % ','.join(default_platform))
-    print('3. Stage: %s' % default_stage)
-    print('4. Groups: %s' % groups)
-    print('5. Overlay: ')
+    print('3. Groups: %s' % groups)
+    print('4. Overlay: ')
     print('    - %s: %s' % ('File' if os.path.exists(groups_overlay) else 'Groups', groups_overlay))
     print('    - Type: %s' % overlay_type)
-    print('6. EQL search: ')
+    print('5. EQL search: ')
     eql_d_str = '' if not eql_query_detection else eql_query_detection
     eql_v_str = '' if not eql_query_visibility else eql_query_visibility
     print('    - Only include detection objects which match the EQL query: ' + eql_d_str)
@@ -481,7 +479,7 @@ def _menu_groups():
     print('    - Include all \'score\' objects from the \'score_logbook\' in the EQL search: ' + str(eql_all_scores))
     print('')
     print('Select what you want to do:')
-    print('7. Generate a heat map layer.')
+    print('6. Generate a heat map layer.')
     print('9. Back to main menu.')
     choice = _ask_input()
     if choice == '1':
@@ -491,15 +489,11 @@ def _menu_groups():
         p = _ask_input().lower()
         default_platform = [PLATFORMS[p]] if p in PLATFORMS.keys() else ['all']
     elif choice == '3':
-        print('Specify stage (pre-attack, attack):')
-        s = _ask_input().lower()
-        default_stage = 'pre-attack' if s == 'pre-attack' else 'attack'
-    elif choice == '4':
         print('Specify the groups to include separated using commas. Group can be their ID, name or alias '
               '(default is all groups). Other option is to provide a YAML file with a custom group(s)')
         g = _ask_input()
         groups = g if g != '' else 'all'
-    elif choice == '5':
+    elif choice == '4':
         print('')
         print('1. Overlay with groups.')
         print('2. Overlay with detections.')
@@ -521,7 +515,7 @@ def _menu_groups():
         elif choice == '4':
             overlay_type = ''
             groups_overlay = ''
-    elif choice == '6':
+    elif choice == '5':
         print('')
         print('1. Only include detection objects which match the EQL query: ' + eql_d_str)
         print('2. Only include visibility objects which match the EQL query: ' + eql_v_str)
@@ -537,8 +531,8 @@ def _menu_groups():
         elif choice == '3':
             eql_all_scores = not eql_all_scores
 
-    elif choice == '7':
-        generate_group_heat_map(groups, groups_overlay, overlay_type, default_stage, default_platform,
+    elif choice == '6':
+        generate_group_heat_map(groups, groups_overlay, overlay_type, default_platform,
                                 software_group, eql_query_visibility, eql_query_detection, False,
                                 None, None, include_all_score_objs=eql_all_scores)
         _wait()

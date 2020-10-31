@@ -23,14 +23,14 @@ def generate_detection_layer(filename_techniques, filename_data_sources, overlay
         mapped_techniques_detection = _map_and_colorize_techniques_for_detections(my_techniques)
         if not layer_name:
             layer_name = 'Detections ' + name
-        layer_detection = get_layer_template_detections(layer_name, 'description', 'attack', platform)
+        layer_detection = get_layer_template_detections(layer_name, 'description', platform)
         _write_layer(layer_detection, mapped_techniques_detection, 'detection', name, output_filename)
     else:
         my_data_sources = _load_data_sources(filename_data_sources)
         mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, platform)
         if not layer_name:
             layer_name = 'Visibility and Detection ' + name
-        layer_both = get_layer_template_layered(layer_name, 'description', 'attack', platform)
+        layer_both = get_layer_template_layered(layer_name, 'description', platform)
         _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name, output_filename)
 
 
@@ -53,13 +53,13 @@ def generate_visibility_layer(filename_techniques, filename_data_sources, overla
         mapped_techniques_visibility = _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, platform)
         if not layer_name:
             layer_name = 'Visibility ' + name
-        layer_visibility = get_layer_template_visibility(layer_name, 'description', 'attack', platform)
+        layer_visibility = get_layer_template_visibility(layer_name, 'description', platform)
         _write_layer(layer_visibility, mapped_techniques_visibility, 'visibility', name, output_filename)
     else:
         mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, platform)
         if not layer_name:
             layer_name = 'Visibility and Detection ' + name
-        layer_both = get_layer_template_layered(layer_name, 'description', 'attack', platform)
+        layer_both = get_layer_template_layered(layer_name, 'description', platform)
         _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name, output_filename)
 
 
