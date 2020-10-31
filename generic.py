@@ -1107,7 +1107,7 @@ def get_platform_from_yaml(yaml_content):
         platform = [platform]
     platform = [p.lower() for p in platform if p is not None]
 
-    if platform == ['all']:
+    if 'all' in platform:
         platform = list(PLATFORMS.values())
     else:
         valid_platform_list = []
