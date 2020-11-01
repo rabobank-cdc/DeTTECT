@@ -1,0 +1,94 @@
+name: Update Wiki Help texts
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master ]
+    paths:
+      - 'dettect.py'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          
+      - name: Checkout wiki code
+        uses: actions/checkout@v2
+        with:
+          repository: ${{github.repository}}.wiki
+          path: wiki
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: Update Help-texts.md markdown file
+        run: |
+          HELPFILE='wiki/Help-texts.md'
+          
+          TXT1="Below you will find all the help texts present in \`dettect.py\`:\n- [Main](#main)\n- [Editor](#editor)\n- [Datasource](#datasource)\n- [Visibility](#visibility)\n- [Detection](#detection)\n- [Group](#group)\n- [Generic](#generic)\n\n### Main\n\`python dettect.py -h\`\n\n\`\`\`"
+          echo "${TXT1//'\n'/$'\n'}"  > $HELPFILE
+          python dettect.py -h >> $HELPFILE
+          
+          TXT2="\`\`\`\n\n### Editor\n\`python dettect.py editor -h\`\n\n\`\`\`"
+          echo "${TXT2//'\n'/$'\n'}"  >> $HELPFILE
+          python dettect.py editor -h >> $HELPFILE
+          
+          TXT3="\`\`\`\n\n### Datasource\n\`python dettect.py datasource -h\`\n\n\`\`\`"
+          echo "${TXT3//'\n'/$'\n'}"  >> $HELPFILE
+          python dettect.py ds -h >> $HELPFILE
+          
+          TXT4="\`\`\`\n\n### Visibility\n\`python dettect.py visibility -h\`\n\n\`\`\`"
+          echo "${TXT4//'\n'/$'\n'}"  >> $HELPFILE
+          python dettect.py v -h >> $HELPFILE
+          
+          TXT5="\`\`\`\n\n### Detection\n\`python dettect.py detection -h\`\n\n\`\`\`"
+          echo "${TXT5//'\n'/$'\n'}"  >> $HELPFILE
+          python dettect.py d -h >> $HELPFILE
+          
+          TXT6="\`\`\`\n\n### Group\n\`python dettect.py group -h\`\n\n\`\`\`"
+          echo "${TXT6//'\n'/$'\n'}"  >> $HELPFILE
+          python dettect.py g -h >> $HELPFILE
+          
+          TXT7="\`\`\`\n\n### Generic\n\`python dettect.py generic -h\`\n\n\`\`\`"
+          echo "${TXT7//'\n'/$'\n'}"  >> $HELPFILE
+          python dettect.py ge -h >> $HELPFILE
+          
+          TXT8="\`\`\`"
+          echo "${TXT8//'\n'/$'\n'}"  >> $HELPFILE
+          
+      - name: Check for changes
+        id: changes
+        working-directory: ./wiki
+        run: |
+          OUTPUT=`git status`
+          echo ::set-output name=GIT_STATUS::${OUTPUT}
+          echo $OUTPUT
+          
+      - name: Commit files (if applicable)
+        if: contains(steps.changes.outputs.GIT_STATUS, 'modified')
+        working-directory: ./wiki
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git commit -m "Update Wiki help texts"
+          
+      - name: Push changes (if applicable)
+        if: contains(steps.changes.outputs.GIT_STATUS, 'modified')
+        uses: ad-m/github-push-action@master
+        with:
+          directory: wiki
+          repository: ${{github.repository}}.wiki
+          github_token: ${{ secrets.PERSONAL_TOKEN }}
+          
