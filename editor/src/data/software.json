@@ -380,7 +380,9 @@
       "Azure AD",
       "GCP",
       "Linux",
+      "Network",
       "Office 365",
+      "PRE",
       "SaaS",
       "Windows",
       "macOS"
@@ -644,7 +646,9 @@
       "Azure AD",
       "GCP",
       "Linux",
+      "Network",
       "Office 365",
+      "PRE",
       "SaaS",
       "Windows",
       "macOS"
@@ -1714,7 +1718,9 @@
       "Azure AD",
       "GCP",
       "Linux",
+      "Network",
       "Office 365",
+      "PRE",
       "SaaS",
       "Windows",
       "macOS"
@@ -2823,7 +2829,9 @@
       "Azure AD",
       "GCP",
       "Linux",
+      "Network",
       "Office 365",
+      "PRE",
       "SaaS",
       "Windows",
       "macOS"
@@ -2839,7 +2847,9 @@
       "Azure AD",
       "GCP",
       "Linux",
+      "Network",
       "Office 365",
+      "PRE",
       "SaaS",
       "Windows",
       "macOS"
@@ -3517,7 +3527,9 @@
       "Azure AD",
       "GCP",
       "Linux",
+      "Network",
       "Office 365",
+      "PRE",
       "SaaS",
       "Windows",
       "macOS"
@@ -3596,5 +3608,13 @@
       "Windows"
     ],
     "autosuggest": "S0518 - PolyglotDuke"
+  },
+  {
+    "software_id": "S0519",
+    "software_name": "SYNful Knock",
+    "platforms": [
+      "Network"
+    ],
+    "autosuggest": "S0519 - SYNful Knock"
   }
 ]
