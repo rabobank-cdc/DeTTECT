@@ -26,7 +26,7 @@ def generate_data_sources_layer(filename, output_filename, layer_name, platform=
     if not layer_name:
         layer_name = 'Data sources ' + name
 
-    layer = get_layer_template_data_sources(layer_name, 'description', 'attack', platform)
+    layer = get_layer_template_data_sources(layer_name, 'description', platform)
     layer['techniques'] = my_techniques
 
     json_string = simplejson.dumps(layer).replace('}, ', '},\n')

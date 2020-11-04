@@ -4,7 +4,7 @@ from attackcti import attack_client
 FILE_DATA_SOURCES = 'data_sources.json'
 FILE_TECHNIQUES = 'techniques.json'
 FILE_SOFTWARE = 'software.json'
-PLATFORMS = ['Windows', 'Linux', 'macOS', 'AWS', 'GCP', 'Azure', 'Azure AD', 'Office 365', 'SaaS']
+PLATFORMS = ['Windows', 'Linux', 'macOS', 'PRE', 'AWS', 'GCP', 'Azure', 'Azure AD', 'Office 365', 'SaaS', 'Network']
 
 
 class ATTACKData():

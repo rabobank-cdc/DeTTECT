@@ -14,7 +14,8 @@ def _init_menu():
     menu_parser = argparse.ArgumentParser(description='Detect Tactics, Techniques & Combat Threats',
                                           epilog='Source: https://github.com/rabobank-cdc/DeTTECT')
     menu_parser.add_argument('--version', action='version', version='%(prog)s ' + VERSION)
-    menu_parser.add_argument('-i', '--interactive', help='launch the interactive menu, which has support for all modes',
+    menu_parser.add_argument('-i', '--interactive', help='launch the interactive menu, which has support for all modes but not '
+                             'all of the arguments that are available in the CLI',
                              action='store_true')
 
     # add subparsers
@@ -24,7 +25,7 @@ def _init_menu():
                                                         'group, generic} --help', metavar='', dest='subparser')
 
     parser_editor = subparsers.add_parser('editor', aliases=['e'], help='DeTT&CT Editor',
-                                          description='Start the DeTT&CT Editor for easy editing the YAML administration files.')
+                                          description='Start the DeTT&CT Editor for easy editing the YAML administration files')
     parser_editor.add_argument('-p', '--port', help='port where the webserver listens on (default is 8080)', required=False, default=8080)
 
     # create the data source parser
@@ -68,9 +69,9 @@ def _init_menu():
     parser_data_sources.add_argument('-ln', '--layer-name', help='set the name of the Navigator layer')
     parser_data_sources.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
     parser_data_sources.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
-                                     'or to use a specific version of STIX objects.')
+                                     'or to use a specific version of STIX objects')
     parser_data_sources.add_argument('--update-to-sub-techniques', help='Update the technique administration YAML file '
-                                                                        'to ATT&CK with sub-techniques.', action='store_true')
+                                                                        'to ATT&CK with sub-techniques', action='store_true')
 
     # create the visibility parser
     parser_visibility = subparsers.add_parser('visibility', aliases=['v'],
@@ -106,9 +107,9 @@ def _init_menu():
     parser_visibility.add_argument('-ln', '--layer-name', help='set the name of the Navigator layer')
     parser_visibility.add_argument('--health', help='check the YAML file for errors', action='store_true')
     parser_visibility.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
-                                   'or to use a specific version of STIX objects.')
+                                   'or to use a specific version of STIX objects')
     parser_visibility.add_argument('--update-to-sub-techniques', help='Update the technique administration YAML file '
-                                   'to ATT&CK with sub-techniques.', action='store_true')
+                                   'to ATT&CK with sub-techniques', action='store_true')
 
     # create the detection parser
     parser_detection = subparsers.add_parser('detection', aliases=['d'],
@@ -146,9 +147,9 @@ def _init_menu():
     parser_detection.add_argument('-ln', '--layer-name', help='set the name of the Navigator layer')
     parser_detection.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
     parser_detection.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
-                                  'or to use a specific version of STIX objects.')
+                                  'or to use a specific version of STIX objects')
     parser_detection.add_argument('--update-to-sub-techniques', help='Update the technique administration YAML file '
-                                  'to ATT&CK with sub-techniques.', action='store_true')
+                                  'to ATT&CK with sub-techniques', action='store_true')
 
     # create the group parser
     parser_group = subparsers.add_parser('group', aliases=['g'],
@@ -158,7 +159,7 @@ def _init_menu():
     parser_group.add_argument('-g', '--groups', help='specify the ATT&CK Groups to include. Group can be its ID, '
                                                      'name or alias (default is all groups). Multiple Groups can be '
                                                      'provided with extra \'-g/--group\' arguments. Another option is '
-                                                     'to provide a YAML file with a custom group(s).',
+                                                     'to provide a YAML file with a custom group(s)',
                               default=None, action='append')
     parser_group.add_argument('-o', '--overlay', help='specify what to overlay on the group(s) (provided using the '
                                                       'arguments \-g/--groups\): group(s), visibility or detection. '
@@ -179,8 +180,6 @@ def _init_menu():
                               'can be provided with extra \'-p/--platform\' arguments',
                               choices=['all'] + list(PLATFORMS.values()), default=None, action='append',
                               type=_platform_lookup())
-    parser_group.add_argument('-s', '--stage', help='specify the stage (default = attack)',
-                              choices=['attack', 'pre-attack'], default='attack')
     parser_group.add_argument('-sd', '--search-detection', help='only include detection objects which match the '
                                                                 'provided EQL query')
     parser_group.add_argument('-sv', '--search-visibility', help='only include visibility objects which match the '
@@ -193,9 +192,9 @@ def _init_menu():
     parser_group.add_argument('-ln', '--layer-name', help='set the name of the Navigator layer')
     parser_group.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
     parser_group.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
-                                                        'or to use a specific version of STIX objects.')
+                                                        'or to use a specific version of STIX objects')
     parser_group.add_argument('--update-to-sub-techniques', help='Update the technique administration YAML file '
-                              'to ATT&CK with sub-techniques.', action='store_true')
+                              'to ATT&CK with sub-techniques', action='store_true')
 
     # create the generic parser
     parser_generic = subparsers.add_parser('generic', description='Generic functions which will output to stdout.',
@@ -215,7 +214,7 @@ def _init_menu():
                                                'date (default = modified)', choices=['modified', 'created'],
                                 default='modified')
     parser_generic.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
-                                'or to use a specific version of STIX objects.')
+                                'or to use a specific version of STIX objects')
 
     return menu_parser
 
@@ -288,7 +287,7 @@ def _menu(menu_parser):
 
     # TODO add search capabilities
     elif args.subparser in ['group', 'g']:
-        generate_group_heat_map(args.groups, args.overlay, args.overlay_type, args.stage, args.platform,
+        generate_group_heat_map(args.groups, args.overlay, args.overlay_type, args.platform,
                                 args.software_group, args.search_visibility, args.search_detection, args.health,
                                 args.output_filename, args.layer_name, include_all_score_objs=args.all_scores)
 
@@ -334,7 +333,7 @@ def _platform_lookup():
     Lookup the platform value with the correct capitalisation.
     return: lambda function to be used by argparse type=
     """
-    return lambda p: PLATFORMS.get(p.lower(), '')
+    return lambda p: PLATFORMS.get(p.lower(), '') if p.lower() != 'all' else 'all'
 
 
 def _prepare_folders():
