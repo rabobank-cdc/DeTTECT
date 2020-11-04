@@ -94,23 +94,22 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
     ATT&CK Platform is not part of the EQL search result
     :return: False if no errors have been found, otherwise True
     """
-    from generic import get_applicable_data_sources_platform
+    from generic import get_applicable_data_sources_platform, get_platform_from_yaml
     has_error = False
 
-    platform = ds_content.get('platform', None)
+    platform = get_platform_from_yaml(ds_content)
 
     if not src_eql:
-        if platform != 'all' and platform != ['all']:
-            if isinstance(platform, str):
-                platform = [platform]
-            if platform is None or len(platform) == 0 or platform == '':
-                platform = ['empty']
-            for p in platform:
-                if p.lower() not in PLATFORMS.keys():
-                    has_error = _print_error_msg(
-                        '[!] EMPTY or INVALID value for \'platform\' within the data source admin. '
-                        'file: %s (should be value(s) of: [%s] or all)' % (p, ', '.join(list(PLATFORMS.values()))),
-                        health_is_called)
+        if isinstance(platform, str):
+            platform = [platform]
+        if platform is None or len(platform) == 0 or platform == '':
+            platform = ['empty']
+        for p in platform:
+            if p.lower() not in PLATFORMS.keys():
+                has_error = _print_error_msg(
+                    '[!] EMPTY or INVALID value for \'platform\' within the data source admin. '
+                    'file: %s (should be value(s) of: [%s] or all)' % (p, ', '.join(list(PLATFORMS.values()))),
+                    health_is_called)
 
         ds_list = [kv['data_source_name'].lower() for kv in ds_content['data_sources']]
 
@@ -275,7 +274,7 @@ def _check_health_techniques(filename, technique_content, health_is_called):
         for p in platform:
             if p.lower() not in PLATFORMS.keys():
                 has_error = _print_error_msg(
-                    '[!] EMPTY or INVALID value for \'platform\' within the data source admin. '
+                    '[!] EMPTY or INVALID value for \'platform\' within the technique admin. '
                     'file: %s (should be value(s) of: [%s] or all)' % (p, ', '.join(list(PLATFORMS.values()))),
                     health_is_called)
 

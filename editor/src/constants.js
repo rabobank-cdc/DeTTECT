@@ -85,16 +85,18 @@ export default {
         comment: '',
         auto_generated: false
     },
-    PLATFORMS: ['all', 'Windows', 'Linux', 'macOS', 'AWS', 'GCP', 'Azure', 'Azure AD', 'Office 365', 'SaaS'],
+    PLATFORMS: ['all', 'Windows', 'Linux', 'PRE', 'macOS', 'AWS', 'GCP', 'Azure', 'Azure AD', 'Office 365', 'SaaS', 'Network'],
     PLATFORM_CONVERSION: {
         windows: 'Windows',
         linux: 'Linux',
+        pre: 'PRE',
         macos: 'macOS',
         aws: 'AWS',
         gcp: 'GCP',
         azure: 'Azure',
         'azure ad': 'Azure AD',
         'office 365': 'Office 365',
-        saas: 'SaaS'
+        saas: 'SaaS',
+        network: 'Network'
     }
 };

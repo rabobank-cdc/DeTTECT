@@ -4,7 +4,7 @@ version: 1.0
 file_type: data-source-administration
 name: empty-data-source-admin-file
 # Fill in the correct MITRE ATT&CK enterprise platform(s). Multiple can be included using a list
-# - (Windows, Linux, macOS, AWS, GCP, Azure, Azure AD, Office 365, SaaS)
+# - (Windows, Linux, macOS, PRE, AWS, GCP, Azure, Azure AD, Office 365, SaaS, Network)
 # Also, take into account which data sources are applicable per platform. For more info see:
 # - https://github.com/rabobank-cdc/DeTTECT/wiki/Data-sources-per-platform
 platform:
@@ -24,6 +24,18 @@ data_sources:
       consistency: 0
       retention: 0
   - data_source_name: File monitoring
+    date_registered:
+    date_connected:
+    products: []
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: GCP audit logs
     date_registered:
     date_connected:
     products: []
@@ -119,6 +131,42 @@ data_sources:
       timeliness: 0
       consistency: 0
       retention: 0
+  - data_source_name: Network device command history
+    date_registered:
+    date_connected:
+    products: []
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Network device configuration
+    date_registered:
+    date_connected:
+    products: []
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Network device run-time memory
+    date_registered:
+    date_connected:
+    products: []
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
   - data_source_name: Windows event logs
     date_registered:
     date_connected:
@@ -192,6 +240,18 @@ data_sources:
       consistency: 0
       retention: 0
   - data_source_name: Malware reverse engineering
+    date_registered:
+    date_connected:
+    products: []
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: SSL/TLS certificates
     date_registered:
     date_connected:
     products: []
@@ -371,6 +431,18 @@ data_sources:
       timeliness: 0
       consistency: 0
       retention: 0
+  - data_source_name: Social media monitoring
+    date_registered:
+    date_connected:
+    products: []
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
   - data_source_name: Web logs
     date_registered:
     date_connected:
@@ -480,6 +552,18 @@ data_sources:
       consistency: 0
       retention: 0
   - data_source_name: DNS records
+    date_registered:
+    date_connected:
+    products: []
+    available_for_data_analytics: False
+    comment: ''
+    data_quality:
+      device_completeness: 0
+      data_field_completeness: 0
+      timeliness: 0
+      consistency: 0
+      retention: 0
+  - data_source_name: Domain registration
     date_registered:
     date_connected:
     products: []
