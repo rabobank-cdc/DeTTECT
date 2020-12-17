@@ -8,7 +8,7 @@ groups = 'all'
 software_group = False
 default_platform = ['Windows']
 default_matrix = 'enterprise'
-groups_overlay = ''
+groups_overlay = ['']
 overlay_type = 'group'
 yaml_path = 'sample-data/'
 eql_all_scores = False
@@ -469,7 +469,7 @@ def _menu_groups():
     print('2. Platform: %s' % ','.join(default_platform))
     print('3. Groups: %s' % groups)
     print('4. Overlay: ')
-    print('    - %s: %s' % ('File' if os.path.exists(groups_overlay) else 'Groups', groups_overlay))
+    print('    - %s: %s' % ('File' if os.path.exists(groups_overlay[0]) else 'Groups', ",".join(groups_overlay)))
     print('    - Type: %s' % overlay_type)
     print('5. EQL search: ')
     eql_d_str = '' if not eql_query_detection else eql_query_detection
@@ -505,16 +505,16 @@ def _menu_groups():
                   'A group can be their ID, name or alias separated using commas. Other option is to provide a YAML '
                   'file with a custom group(s).')
             overlay_type = OVERLAY_TYPE_GROUP
-            groups_overlay = _ask_input()
+            groups_overlay = _ask_input().split(",")
         elif choice == '2':
             overlay_type = OVERLAY_TYPE_DETECTION
-            groups_overlay = _select_file(MENU_NAME_THREAT_ACTOR_GROUP_MAPPING, 'techniques', FILE_TYPE_TECHNIQUE_ADMINISTRATION, False)
+            groups_overlay = [_select_file(MENU_NAME_THREAT_ACTOR_GROUP_MAPPING, 'techniques', FILE_TYPE_TECHNIQUE_ADMINISTRATION, False)]
         elif choice == '3':
             overlay_type = OVERLAY_TYPE_VISIBILITY
-            groups_overlay = _select_file(MENU_NAME_THREAT_ACTOR_GROUP_MAPPING, 'techniques', FILE_TYPE_TECHNIQUE_ADMINISTRATION, False)
+            groups_overlay = [_select_file(MENU_NAME_THREAT_ACTOR_GROUP_MAPPING, 'techniques', FILE_TYPE_TECHNIQUE_ADMINISTRATION, False)]
         elif choice == '4':
             overlay_type = ''
-            groups_overlay = ''
+            groups_overlay = ['']
     elif choice == '5':
         print('')
         print('1. Only include detection objects which match the EQL query: ' + eql_d_str)
