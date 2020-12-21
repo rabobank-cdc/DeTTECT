@@ -532,9 +532,13 @@ def _menu_groups():
             eql_all_scores = not eql_all_scores
 
     elif choice == '6':
-        generate_group_heat_map(groups, groups_overlay, overlay_type, default_platform,
+        if groups_overlay == ['']:
+            groups_overlay = None
+        generate_group_heat_map([groups], groups_overlay, overlay_type, default_platform,
                                 software_group, eql_query_visibility, eql_query_detection, False,
                                 None, None, include_all_score_objs=eql_all_scores)
+        if groups_overlay is None:
+            groups_overlay = ['']
         _wait()
     elif choice == '9':
         interactive_menu()

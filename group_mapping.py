@@ -505,8 +505,9 @@ def generate_group_heat_map(groups, overlay, overlay_type, platform, software_gr
                                       health_is_called=health_is_called)
         if not groups_file_type:
             return None  # the groups_file_type is not of the type FILE_TYPE_GROUP_ADMINISTRATION
-    elif isinstance(groups, str):
-        # reached when the groups are provided via the interactive menu
+    elif isinstance(groups[0], str) and len(groups) == 1:
+        # reached when the groups are provided via the interactive menu, or when the CLI only contained one argument
+        groups = groups[0]
         groups = groups.split(',')
         groups = list(map(lambda x: x.strip().lower(), groups))
     else:  # reached when the groups are provided via CLI arguments
