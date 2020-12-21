@@ -218,7 +218,7 @@ def _get_base_template(name, description, platform, sorting):
     """
     layer = dict()
     layer['name'] = name
-    layer['versions'] = {'navigator': '4.0', 'layer': '4.0'}
+    layer['versions'] = {'navigator': '4.1', 'layer': '4.1'}
     layer['domain'] = 'enterprise-attack'
     layer['description'] = description
 
@@ -935,7 +935,7 @@ def make_layer_metadata_compliant(metadata):
     :return: compliant list of metadata dictionaries
     """
     for md_item in metadata:
-        if not md_item['value'] or md_item['value'] == '':
+        if not 'divider' in md_item.keys() and (not md_item['value'] or md_item['value'] == ''):
             md_item['value'] = '-'
 
     return metadata
@@ -952,7 +952,7 @@ def add_metadata_technique_object(technique, obj_type, metadata):
     if obj_type not in ['detection', 'visibility']:
         raise Exception("Invalid value for 'obj_type' provided.")
 
-    metadata.append({'name': '------', 'value': ' '})
+    metadata.append({'divider': True})
     metadata.append({'name': 'Applicable to', 'value': ', '.join(set([a for v in technique[obj_type] for a in v['applicable_to']]))})  # noqa
     metadata.append({'name': '' + obj_type.capitalize() + ' score', 'value': ', '.join([str(calculate_score(technique[obj_type]))])})  # noqa
     if obj_type == 'detection':

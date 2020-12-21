@@ -2,6 +2,7 @@ import simplejson
 import xlsxwriter
 from generic import *
 from datetime import datetime
+from copy import deepcopy
 # Imports for pandas and plotly are because of performance reasons in the function that uses these libraries.
 
 
@@ -193,7 +194,7 @@ def _map_and_colorize_techniques_for_detections(my_techniques):
                             x['metadata'].append({'name': 'Technique comment', 'value': detection['comment']})
                             x['metadata'].append({'name': 'Detection comment', 'value': get_latest_comment(detection)})
                             if cnt != tcnt:
-                                x['metadata'].append({'name': '------', 'value': ' '})
+                                x['metadata'].append({'divider': True})
                             cnt += 1
                     x['metadata'] = make_layer_metadata_compliant(x['metadata'])
                     mapped_techniques.append(x)
@@ -243,7 +244,7 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, 
             x['metadata'].append({'name': 'Available data sources', 'value': my_ds})
             x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique.get('x_mitre_data_sources', ''),
                                                                                                                           applicable_data_sources))})
-            x['metadata'].append({'name': '------', 'value': ' '})
+            x['metadata'].append({'divider': True})
             x['score'] = s
 
             cnt = 1
@@ -255,9 +256,8 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, 
                 x['metadata'].append({'name': 'Technique comment', 'value': visibility['comment']})
                 x['metadata'].append({'name': 'Visibility comment', 'value': get_latest_comment(visibility)})
                 if cnt != tcnt:
-                    x['metadata'].append({'name': '------', 'value': ' '})
+                    x['metadata'].append({'divider': True})
                 cnt += 1
-
             x['metadata'] = make_layer_metadata_compliant(x['metadata'])
             mapped_techniques.append(x)
         else:
