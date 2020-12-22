@@ -132,22 +132,6 @@ def export_data_source_list_to_excel(filename, output_filename, eql_search=False
     # Putting the data sources data:
     y = 3
 
-    # check if an ATT&CK data source is missing from the data source YAML administration file
-    if eql_search:
-        ds_miss_text = 'ATT&CK data source is missing from the YAML file or was excluded by an EQL search'
-    else:
-        ds_miss_text = 'ATT&CK data source is missing from the YAML file'
-    # pylint: disable=consider-iterating-dictionary
-    my_ds_list = [ds.lower() for ds in my_data_sources.keys()]
-    applicable_data_sources = get_applicable_data_sources_platform(platforms)
-
-    for ds in applicable_data_sources:
-        if ds.lower() not in my_ds_list:
-            ds_obj = deepcopy(YAML_OBJ_DATA_SOURCE)
-            ds_obj['data_source_name'] = ds
-            ds_obj['comment'] = ds_miss_text
-            my_data_sources[ds] = ds_obj
-
     for d in sorted(my_data_sources.keys()):
         ds = my_data_sources[d]
         worksheet.write(y, 0, d, valign_top)
