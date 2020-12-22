@@ -82,20 +82,14 @@ FILE_TYPE_TECHNIQUE_ADMINISTRATION = 'technique-administration'
 FILE_TYPE_GROUP_ADMINISTRATION = 'group-administration'
 
 # YAML administration file versions
-FILE_TYPE_DATA_SOURCE_ADMINISTRATION_VERSION = 1.0
+FILE_TYPE_DATA_SOURCE_ADMINISTRATION_VERSION = 1.1
 FILE_TYPE_TECHNIQUE_ADMINISTRATION_VERSION = 1.2
 FILE_TYPE_GROUP_ADMINISTRATION_VERSION = 1.0
 
 # YAML file upgrade text
-FILE_TYPE_TECHNIQUE_ADMINISTRATION_UPGRADE_TEXT = {
-    1.1: "   * Adding new key 'technique_name' containing the ATT&CK technique name.\n"
-         "   * Adding new key 'applicable_to' for both detection and visibility. Default value is ['all'].",
-    1.2: "   * Detection: removing the key-value pair 'date_registered'.\n"
-         "     You will be asked if you still want to keep this key-value pair even though DeTT&CT no longer makes use of it.\n"
-         "   * Detection: the key-value pair 'date_implemented' will be renamed to 'date'.\n"
-         "   * Visibility: adding a new key-value pair 'date'. You will be asked on what date to fill in for the visibility scores already present.\n"
-         "   * Detection and visibility: the key-value pairs 'score' and 'date' are moved into a 'score_logbook'.\n"
-         "     The primary purpose of doing this is to allow you to keep track of changes in the score."}
+FILE_TYPE_DATA_SOURCE_UPGRADE_TEXT = {
+    1.1: "   * Adding a new key 'applicable_to' to the data source objects"
+}
 
 # visibility update questions and answers
 V_UPDATE_Q_ALL_MANUAL = 'For all most recent visibility score objects that are eligible for an update, the key-value pair \'auto-generated\' is set to \'false\' or is not present.\n' \
