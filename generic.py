@@ -915,7 +915,7 @@ def check_file(filename, file_type=None, health_is_called=False):
 
     # if the file is a valid YAML, continue. Else, return None
     if yaml_content:
-        upgrade_yaml_file(filename, file_type, yaml_content['version'], load_attack_data(DATA_TYPE_STIX_ALL_TECH))
+        upgrade_yaml_file(filename, file_type, yaml_content['version'])
         check_yaml_file_health(filename, file_type, health_is_called)
 
         if file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
