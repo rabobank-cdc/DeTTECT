@@ -17,7 +17,7 @@ def generate_data_sources_layer(filename, output_filename, layer_name, platform=
     :param platform: one or multiple values from PLATFORMS constant
     :return:
     """
-    my_data_sources, name, platform_yaml, exceptions = _load_data_sources(filename)
+    my_data_sources, name, platform_yaml, exceptions = load_data_sources(filename)
     platform = set_platform(platform_yaml, platform)
 
     # Do the mapping between my data sources and MITRE data sources:
@@ -43,7 +43,7 @@ def plot_data_sources_graph(filename, output_filename):
     :return:
     """
     # pylint: disable=unused-variable
-    my_data_sources, name, platform, exceptions = _load_data_sources(filename)
+    my_data_sources, name, platform, exceptions = load_data_sources(filename)
 
     graph_values = []
     for t in my_data_sources.values():
@@ -81,7 +81,7 @@ def export_data_source_list_to_excel(filename, output_filename, eql_search=False
     :return:
     """
     # pylint: disable=unused-variable
-    my_data_sources, name, platforms, exceptions = _load_data_sources(filename, filter_empty_scores=False)
+    my_data_sources, name, platforms, exceptions = load_data_sources(filename, filter_empty_scores=False)
     if not output_filename:
         output_filename = 'data_sources'
     elif output_filename.endswith('.xlsx'):
@@ -173,60 +173,6 @@ def export_data_source_list_to_excel(filename, output_filename, eql_search=False
         print("File written:   " + excel_filename)
     except Exception as e:
         print('[!] Error while writing Excel file: %s' % str(e))
-
-
-def _check_data_quality(data_quality, filter_empty_scores):
-    """
-    Checks if at least one of the data quality dimensions is greater than 0, and therefore is considered to be available.
-    :param data_quality: data source data quality YAML object.
-    :param filter_empty_scores: set the data source as available if set to 'False' despite its data quality.
-    :return: True if the data source is available otherwise False.
-    """
-    if not filter_empty_scores:
-        return True
-    elif data_quality['device_completeness'] > 0 or data_quality['data_field_completeness'] > 0 or \
-            data_quality['timeliness'] > 0 or data_quality['consistency'] > 0 or data_quality['retention'] > 0:
-        return True
-
-
-def _load_data_sources(file, filter_empty_scores=True):
-    """
-    Loads the data sources (including all properties) from the given YAML file.
-    :param file: the file location of the YAML file containing the data sources administration or a dict.
-    :param filter_empty_scores: include all data source details objects if set to False despite the data quality.
-    :return: dictionary with data sources, name, platform and exceptions list.
-    """
-    my_data_sources = {}
-
-    if isinstance(file, dict):
-        # file is a dict created due to the use of an EQL query by the user
-        yaml_content = file
-    else:
-        # file is a file location on disk
-        _yaml = init_yaml()
-        with open(file, 'r') as yaml_file:
-            yaml_content = _yaml.load(yaml_file)
-
-    for d in yaml_content['data_sources']:
-        if isinstance(d['data_source'], dict):  # There is just one data source entry
-            if _check_data_quality(d['data_source']['data_quality'], filter_empty_scores):
-                d['data_source'] = set_yaml_dv_comments(d['data_source'])
-                add_entry_to_list_in_dictionary(my_data_sources, d['data_source_name'], 'data_source', d['data_source'])
-        elif isinstance(d['data_source'], list):  # There are multiple data source entries
-            for de in d['data_source']:
-                if _check_data_quality(de['data_quality'], filter_empty_scores):
-                    de = set_yaml_dv_comments(de)
-                    add_entry_to_list_in_dictionary(my_data_sources, d['data_source_name'], 'data_source', de)
-
-    name = yaml_content['name']
-
-    platform = get_platform_from_yaml(yaml_content)
-
-    exceptions = []
-    if 'exceptions' in yaml_content:
-        exceptions = [t['technique_id'] for t in yaml_content['exceptions'] if t['technique_id'] is not None]
-
-    return my_data_sources, name, platform, exceptions
 
 
 def _count_applicable_data_sources(technique, applicable_data_sources):
@@ -543,7 +489,7 @@ def generate_technique_administration_file(filename, output_filename, write_file
     platform(s) specified in the data source YAML file
     :return:
     """
-    my_data_sources, name, platform, exceptions = _load_data_sources(filename)
+    my_data_sources, name, platform, exceptions = load_data_sources(filename)
 
     techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE)
     applicable_data_sources = get_applicable_data_sources_platform(platform)

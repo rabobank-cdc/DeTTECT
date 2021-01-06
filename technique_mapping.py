@@ -27,7 +27,7 @@ def generate_detection_layer(filename_techniques, filename_data_sources, overlay
         layer_detection = get_layer_template_detections(layer_name, 'description', platform)
         _write_layer(layer_detection, mapped_techniques_detection, 'detection', name, output_filename)
     else:
-        my_data_sources = _load_data_sources(filename_data_sources)
+        my_data_sources, _, _, _ = load_data_sources(filename_data_sources)
         mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, platform)
         if not layer_name:
             layer_name = 'Visibility and Detection ' + name
@@ -46,7 +46,7 @@ def generate_visibility_layer(filename_techniques, filename_data_sources, overla
     :param platform: one or multiple values from PLATFORMS constant
     :return:
     """
-    my_data_sources = _load_data_sources(filename_data_sources)
+    my_data_sources, _, _, _ = load_data_sources(filename_data_sources)
     my_techniques, name, platform_yaml = load_techniques(filename_techniques)
     platform = set_platform(platform_yaml, platform)
 
@@ -104,32 +104,6 @@ def plot_graph(filename, type_graph, output_filename):
     print("File written:   " + output_filename)
 
 
-def _load_data_sources(file):
-    """
-    Loads the data sources (including all properties) from the given YAML file.
-    :param file: the file location of the YAML file containing the data sources administration or a dict
-    :return: dictionary with data sources, name, platform and exceptions list.
-    """
-    my_data_sources = {}
-
-    if isinstance(file, dict):
-        # file is a dict instance created due to the use of an EQL query by the user
-        yaml_content = file
-    else:
-        # file is a file location on disk
-        _yaml = init_yaml()
-        with open(file, 'r') as yaml_file:
-            yaml_content = _yaml.load(yaml_file)
-
-    for d in yaml_content['data_sources']:
-        d['comment'] = d.get('comment', '')
-        dq = d['data_quality']
-        if dq['device_completeness'] > 0 and dq['data_field_completeness'] > 0 and dq['timeliness'] > 0 and dq['consistency'] > 0:
-            my_data_sources[d['data_source_name']] = d
-
-    return my_data_sources
-
-
 def _write_layer(layer, mapped_techniques, filename_prefix, name, output_filename):
     """
     Writes the json layer file to disk.
@@ -154,7 +128,8 @@ def _write_layer(layer, mapped_techniques, filename_prefix, name, output_filenam
 
 def _map_and_colorize_techniques_for_detections(my_techniques):
     """
-    Determine the color of the techniques based on the detection score in the given YAML file.
+    Determine the color of the techniques based on the detection score in the given YAML file. Also, it will create
+    much of the content for the Navigator layer.
     :param my_techniques: the configured techniques
     :return: a dictionary with techniques that can be used in the layer's output file
     """
