@@ -175,10 +175,25 @@ def export_data_source_list_to_excel(filename, output_filename, eql_search=False
         print('[!] Error while writing Excel file: %s' % str(e))
 
 
+def _check_data_quality(data_quality, filter_empty_scores):
+    """
+    Checks if at least one of the data quality dimensions is greater than 0, and therefore is considered to be available.
+    :param data_quality: data source data quality YAML object.
+    :param filter_empty_scores: set the data source as available if set to 'False' despite its data quality.
+    :return: True if the data source is available otherwise False.
+    """
+    if not filter_empty_scores:
+        return True
+    elif data_quality['device_completeness'] > 0 or data_quality['data_field_completeness'] > 0 or \
+            data_quality['timeliness'] > 0 or data_quality['consistency'] > 0 or data_quality['retention'] > 0:
+        return True
+
+
 def _load_data_sources(file, filter_empty_scores=True):
     """
     Loads the data sources (including all properties) from the given YAML file.
-    :param file: the file location of the YAML file containing the data sources administration or a dict
+    :param file: the file location of the YAML file containing the data sources administration or a dict.
+    :param filter_empty_scores: include all data source details objects if set to False despite the data quality.
     :return: dictionary with data sources, name, platform and exceptions list.
     """
     my_data_sources = {}
@@ -193,12 +208,15 @@ def _load_data_sources(file, filter_empty_scores=True):
             yaml_content = _yaml.load(yaml_file)
 
     for d in yaml_content['data_sources']:
-        d['comment'] = d.get('comment', '')
-        dq = d['data_quality']
-        if not filter_empty_scores:
-            my_data_sources[d['data_source_name']] = d
-        elif dq['device_completeness'] > 0 or dq['data_field_completeness'] > 0 or dq['timeliness'] > 0 or dq['consistency'] > 0 or dq['retention'] > 0:
-            my_data_sources[d['data_source_name']] = d
+        if isinstance(d['data_source'], dict):  # There is just one data source entry
+            if _check_data_quality(d['data_source']['data_quality'], filter_empty_scores):
+                d['data_source'] = set_yaml_dv_comments(d['data_source'])
+                add_entry_to_list_in_dictionary(my_data_sources, d['data_source_name'], 'data_source', d['data_source'])
+        elif isinstance(d['data_source'], list):  # There are multiple data source entries
+            for de in d['data_source']:
+                if _check_data_quality(de['data_quality'], filter_empty_scores):
+                    de = set_yaml_dv_comments(de)
+                    add_entry_to_list_in_dictionary(my_data_sources, d['data_source_name'], 'data_source', de)
 
     name = yaml_content['name']
 
@@ -228,7 +246,8 @@ def _count_applicable_data_sources(technique, applicable_data_sources):
 
 def _map_and_colorize_techniques(my_ds, platforms, exceptions):
     """
-    Determine the color of the techniques based on how many data sources are available per technique.
+    Determine the color of the techniques based on how many data sources are available per technique. Also, it will create
+    much of the content for the Navigator layer.
     :param my_ds: the configured data sources
     :param platforms: the configured platform(s)
     :param exceptions: the list of ATT&CK technique exception within the data source YAML file
@@ -263,9 +282,10 @@ def _map_and_colorize_techniques(my_ds, platforms, exceptions):
             d['comment'] = ''
             d['enabled'] = True
             d['metadata'] = [{'name': 'Available data sources', 'value': ', '.join(v['my_data_sources'])},
-                             {'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(v['data_sources'],
+                             {'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(v['mitre_data_sources'],
                                                                                                                       applicable_data_sources))},
-                             {'name': 'Products', 'value': ', '.join(v['products'])}]
+                             {'name': 'Products', 'value': ', '.join(v['products'])},
+                             {'name': 'Applicable to', 'value': ', '.join(v['applicable_to'])}]
             d['metadata'] = make_layer_metadata_compliant(d['metadata'])
 
             output_techniques.append(d)

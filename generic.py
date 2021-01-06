@@ -8,6 +8,7 @@ from ruamel.yaml.timestamp import TimeStamp as ruamelTimeStamp
 from upgrade import upgrade_yaml_file, check_yaml_updated_to_sub_techniques
 from constants import *
 from health import check_yaml_file_health
+from itertools import chain
 
 # Due to performance reasons the import of attackcti is within the function that makes use of this library.
 
@@ -695,13 +696,21 @@ def map_techniques_to_data_sources(techniques, my_data_sources):
                 if i_ds in t['x_mitre_data_sources'] and tech_id not in my_techniques.keys():
                     my_techniques[tech_id] = {}
                     my_techniques[tech_id]['my_data_sources'] = [i_ds, ]
-                    my_techniques[tech_id]['data_sources'] = t['x_mitre_data_sources']
+                    my_techniques[tech_id]['mitre_data_sources'] = t['x_mitre_data_sources']
                     # create a list of tactics
                     my_techniques[tech_id]['tactics'] = list(map(lambda k: k['phase_name'], t.get('kill_chain_phases', None)))
-                    my_techniques[tech_id]['products'] = set(my_data_sources[i_ds]['products'])
+                    products = set(chain.from_iterable(map(lambda k: k['products'], my_data_sources[i_ds]['data_source'])))
+                    my_techniques[tech_id]['products'] = products
+
+                    applicable_to = set(chain.from_iterable(map(lambda k: k['applicable_to'], my_data_sources[i_ds]['data_source'])))
+                    my_techniques[tech_id]['applicable_to'] = applicable_to
                 elif t['x_mitre_data_sources'] and i_ds in t['x_mitre_data_sources'] and tech_id in my_techniques.keys():
                     my_techniques[tech_id]['my_data_sources'].append(i_ds)
-                    my_techniques[tech_id]['products'].update(my_data_sources[i_ds]['products'])
+                    products = list(chain.from_iterable(map(lambda k: k['products'], my_data_sources[i_ds]['data_source'])))
+                    my_techniques[tech_id]['products'].update(products)
+
+                    applicable_to = list(chain.from_iterable(map(lambda k: k['applicable_to'], my_data_sources[i_ds]['data_source'])))
+                    my_techniques[tech_id]['applicable_to'].update(applicable_to)
 
     return my_techniques
 
@@ -740,26 +749,26 @@ def calculate_score(list_detections, zero_value=0):
     return avg_score
 
 
-def add_entry_to_list_in_dictionary(dictionary, technique_id, key, entry):
+def add_entry_to_list_in_dictionary(dictionary, key_dict, key_list, entry):
     """
-    Ensures a list will be created if it doesn't exist in the given dict[technique_id][key] and adds the entry to the
-    list. If the dict[technique_id] doesn't exist yet, it will be created.
+    Ensures a list will be created if it doesn't exist in the given dict[key_dict][key_list] and adds the entry to the
+    list. If the dict[key_dict] doesn't exist yet, it will be created.
     :param dictionary: the dictionary
-    :param technique_id: the id of the technique in the main dict
-    :param key: the key where the list in the dictionary resides
+    :param key_dict: the key name in de main dict
+    :param key_list: the key name where the list in the dictionary resides
     :param entry: the entry to add to the list
     :return:
     """
-    if technique_id not in dictionary.keys():
-        dictionary[technique_id] = {}
-    if key not in dictionary[technique_id].keys():
-        dictionary[technique_id][key] = []
-    dictionary[technique_id][key].append(entry)
+    if key_dict not in dictionary.keys():
+        dictionary[key_dict] = {}
+    if key_list not in dictionary[key_dict].keys():
+        dictionary[key_dict][key_list] = []
+    dictionary[key_dict][key_list].append(entry)
 
 
 def set_yaml_dv_comments(yaml_object):
     """
-    Set all comments in the detection or visibility YAML object when the 'comment' key-value pair is missing or is None.
+    Set all comments in the detection, visibility or data source details YAML object when the 'comment' key-value pair is missing or is None.
     This gives the user the flexibility to have YAML files with missing 'comment' key-value pairs.
     :param yaml_object: detection or visibility object
     :return: detection or visibility object for which empty comments are filled with an empty string
