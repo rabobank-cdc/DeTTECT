@@ -42,14 +42,14 @@ def plot_data_sources_graph(filename, output_filename):
     :param output_filename: the output filename defined by the user
     :return:
     """
-    # pylint: disable=unused-variable
-    my_data_sources, name, platform, exceptions = load_data_sources(filename)
+    my_data_sources, name, _, _ = load_data_sources(filename)
 
     graph_values = []
-    for t in my_data_sources.values():
-        if t['date_connected']:
-            yyyymm = t['date_connected'].strftime('%Y-%m')
-            graph_values.append({'date': yyyymm, 'count': 1})
+    for ds_global, ds_detail in my_data_sources.items():
+        for ds in ds_detail['data_source']:
+            if ds['date_connected']:
+                yyyymm = ds['date_connected'].strftime('%Y-%m')
+                graph_values.append({'date': yyyymm, 'count': 1})
 
     import pandas as pd
     df = pd.DataFrame(graph_values).groupby('date', as_index=False)[['count']].sum()
@@ -61,9 +61,9 @@ def plot_data_sources_graph(filename, output_filename):
         output_filename = output_filename.replace('.html', '')
     output_filename = get_non_existing_filename('output/' + output_filename, 'html')
 
-    import plotly
     import plotly.graph_objs as go
-    plotly.offline.plot(
+    import plotly.offline as offline
+    offline.plot(
         {'data': [go.Scatter(x=df['date'], y=df['cumcount'])],
          'layout': go.Layout(title="# of data sources for " + name)},
         filename=output_filename, auto_open=False
@@ -81,7 +81,8 @@ def export_data_source_list_to_excel(filename, output_filename, eql_search=False
     :return:
     """
     # pylint: disable=unused-variable
-    my_data_sources, name, platforms, exceptions = load_data_sources(filename, filter_empty_scores=False)
+    my_data_sources, name, _, _ = load_data_sources(filename, filter_empty_scores=False)
+    my_data_sources = dict(sorted(my_data_sources.items(), key=lambda kv: kv[0], reverse=False))
     if not output_filename:
         output_filename = 'data_sources'
     elif output_filename.endswith('.xlsx'):
@@ -108,65 +109,69 @@ def export_data_source_list_to_excel(filename, output_filename, eql_search=False
 
     # Header columns
     worksheet.write(2, 0, 'Data source name', format_bold_left)
-    worksheet.write(2, 1, 'Date registered', format_bold_left)
-    worksheet.write(2, 2, 'Date connected', format_bold_left)
-    worksheet.write(2, 3, 'Products', format_bold_left)
-    worksheet.write(2, 4, 'Comment', format_bold_left)
-    worksheet.write(2, 5, 'Available for data analytics', format_bold_left)
-    worksheet.write(2, 6, 'DQ: device completeness', format_bold_left)
-    worksheet.write(2, 7, 'DQ: data field completeness', format_bold_left)
-    worksheet.write(2, 8, 'DQ: timeliness', format_bold_left)
-    worksheet.write(2, 9, 'DQ: consistency', format_bold_left)
-    worksheet.write(2, 10, 'DQ: retention', format_bold_left)
-    worksheet.write(2, 11, 'DQ: score', format_bold_left)
+    worksheet.write(2, 1, 'Applicable to', format_bold_left)
+    worksheet.write(2, 2, 'Date registered', format_bold_left)
+    worksheet.write(2, 3, 'Date connected', format_bold_left)
+    worksheet.write(2, 4, 'Products', format_bold_left)
+    worksheet.write(2, 5, 'Comment', format_bold_left)
+    worksheet.write(2, 6, 'Available for data analytics', format_bold_left)
+    worksheet.write(2, 7, 'DQ: device completeness', format_bold_left)
+    worksheet.write(2, 8, 'DQ: data field completeness', format_bold_left)
+    worksheet.write(2, 9, 'DQ: timeliness', format_bold_left)
+    worksheet.write(2, 10, 'DQ: consistency', format_bold_left)
+    worksheet.write(2, 11, 'DQ: retention', format_bold_left)
+    worksheet.write(2, 12, 'DQ: score', format_bold_left)
 
     worksheet.set_column(0, 0, 35)
-    worksheet.set_column(1, 2, 15)
-    worksheet.set_column(3, 3, 35)
-    worksheet.set_column(4, 4, 50)
-    worksheet.set_column(5, 5, 24)
-    worksheet.set_column(6, 7, 25)
-    worksheet.set_column(8, 10, 15)
-    worksheet.set_column(11, 11, 10)
+    worksheet.set_column(1, 1, 18)
+    worksheet.set_column(2, 3, 15)
+    worksheet.set_column(4, 4, 35)
+    worksheet.set_column(5, 5, 50)
+    worksheet.set_column(6, 6, 24)
+    worksheet.set_column(7, 8, 25)
+    worksheet.set_column(9, 11, 15)
+    worksheet.set_column(12, 12, 10)
 
     # Putting the data sources data:
     y = 3
 
-    for d in sorted(my_data_sources.keys()):
-        ds = my_data_sources[d]
-        worksheet.write(y, 0, d, valign_top)
+    for ds_global, ds_detail in my_data_sources.items():
 
-        date_registered = ds['date_registered'].strftime('%Y-%m-%d') if isinstance(ds['date_registered'], datetime) else ds['date_registered']
-        date_connected = ds['date_connected'].strftime('%Y-%m-%d') if isinstance(ds['date_connected'], datetime) else ds['date_connected']
+        for ds in ds_detail['data_source']:
+            worksheet.write(y, 0, ds_global, valign_top)
 
-        worksheet.write(y, 1, str(date_registered).replace('None', ''), valign_top)
-        worksheet.write(y, 2, str(date_connected).replace('None', ''), valign_top)
-        worksheet.write(y, 3, ', '.join(ds['products']).replace('None', ''), valign_top)
-        worksheet.write(y, 4, ds['comment'][:-1] if ds['comment'].endswith('\n') else ds['comment'], wrap_text)
-        worksheet.write(y, 5, str(ds['available_for_data_analytics']), valign_top)
-        worksheet.write(y, 6, ds['data_quality']['device_completeness'], format_center_valign_top)
-        worksheet.write(y, 7, ds['data_quality']['data_field_completeness'], format_center_valign_top)
-        worksheet.write(y, 8, ds['data_quality']['timeliness'], format_center_valign_top)
-        worksheet.write(y, 9, ds['data_quality']['consistency'], format_center_valign_top)
-        worksheet.write(y, 10, ds['data_quality']['retention'], format_center_valign_top)
+            date_registered = ds['date_registered'].strftime('%Y-%m-%d') if isinstance(ds['date_registered'], datetime) else ds['date_registered']
+            date_connected = ds['date_connected'].strftime('%Y-%m-%d') if isinstance(ds['date_connected'], datetime) else ds['date_connected']
 
-        score = 0
-        score_count = 0
-        for k, v in ds['data_quality'].items():
-            # the below DQ dimensions are given more weight in the calculation of the DQ score.
-            if k in ['device_completeness', 'data_field_completeness', 'retention']:
-                score += (v * 2)
-                score_count += 2
-            else:
-                score += v
-                score_count += 1
-        if score > 0:
-            score = score / score_count
+            worksheet.write(y, 1, ', '.join(ds['applicable_to']), wrap_text)
+            worksheet.write(y, 2, str(date_registered).replace('None', ''), valign_top)
+            worksheet.write(y, 3, str(date_connected).replace('None', ''), valign_top)
+            worksheet.write(y, 4, ', '.join(ds['products']).replace('None', ''), valign_top)
+            worksheet.write(y, 5, ds['comment'][:-1] if ds['comment'].endswith('\n') else ds['comment'], wrap_text)
+            worksheet.write(y, 6, str(ds['available_for_data_analytics']), valign_top)
+            worksheet.write(y, 7, ds['data_quality']['device_completeness'], format_center_valign_top)
+            worksheet.write(y, 8, ds['data_quality']['data_field_completeness'], format_center_valign_top)
+            worksheet.write(y, 9, ds['data_quality']['timeliness'], format_center_valign_top)
+            worksheet.write(y, 10, ds['data_quality']['consistency'], format_center_valign_top)
+            worksheet.write(y, 11, ds['data_quality']['retention'], format_center_valign_top)
 
-        worksheet.write(y, 11, score, dq_score_1 if score < 2 else dq_score_2 if score < 3 else dq_score_3 if score < 4 else dq_score_4 if score < 5 else dq_score_5 if score < 6 else no_score)  # noqa
-        y += 1
+            score = 0
+            score_count = 0
+            for k, v in ds['data_quality'].items():
+                # the below DQ dimensions are given more weight in the calculation of the DQ score.
+                if k in ['device_completeness', 'data_field_completeness', 'retention']:
+                    score += (v * 2)
+                    score_count += 2
+                else:
+                    score += v
+                    score_count += 1
+            if score > 0:
+                score = score / score_count
 
-    worksheet.autofilter(2, 0, 2, 11)
+            worksheet.write(y, 12, score, dq_score_1 if score < 2 else dq_score_2 if score < 3 else dq_score_3 if score < 4 else dq_score_4 if score < 5 else dq_score_5 if score < 6 else no_score)  # noqa
+            y += 1
+
+    worksheet.autofilter(2, 0, 2, 12)
     worksheet.freeze_panes(3, 0)
     try:
         workbook.close()
