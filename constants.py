@@ -88,7 +88,8 @@ FILE_TYPE_GROUP_ADMINISTRATION_VERSION = 1.0
 
 # YAML file upgrade text
 FILE_TYPE_DATA_SOURCE_UPGRADE_TEXT = {
-    1.1: "   * Adding a new key 'applicable_to' to the data source objects"
+    1.1: """   * Adding a new object 'systems'
+   * Adding a new key 'applicable_to' to the data source objects"""
 }
 
 # visibility update questions and answers

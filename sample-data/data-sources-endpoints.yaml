@@ -1,7 +1,13 @@
 version: 1.1
 file_type: data-source-administration
 name: endpoints-example
-platform: [Windows, Azure, Azure AD, Office 365]
+systems:
+- applicable_to: all
+  platform:
+  - Windows
+  - Azure
+  - Azure AD
+  - Office 365
 # The list only contains data sources that are applicable to the above platforms. For more info see:
 # - https://github.com/rabobank-cdc/DeTTECT/wiki/Data-sources-per-platform
 data_sources:
@@ -26,8 +32,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -41,8 +47,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -56,8 +62,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -101,8 +107,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -116,8 +122,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -131,8 +137,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -146,8 +152,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -161,8 +167,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -176,8 +182,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -191,8 +197,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -206,8 +212,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -221,8 +227,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -236,8 +242,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -296,8 +302,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -311,8 +317,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -341,8 +347,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -371,8 +377,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -386,8 +392,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -401,8 +407,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -416,8 +422,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -431,8 +437,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -446,8 +452,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -461,8 +467,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -476,8 +482,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -491,8 +497,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -506,8 +512,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -521,8 +527,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -536,8 +542,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -551,8 +557,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -566,8 +572,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -581,8 +587,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: true
     comment: 'At the time of writing: unknown data source within ATT&CK'
@@ -611,8 +617,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -626,8 +632,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -641,8 +647,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -671,8 +677,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -686,8 +692,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -701,8 +707,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -716,8 +722,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -731,8 +737,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -746,8 +752,8 @@ data_sources:
   data_source:
   - applicable_to:
     - all
-    date_registered: 
-    date_connected: 
+    date_registered:
+    date_connected:
     products: []
     available_for_data_analytics: false
     comment: ''
@@ -851,5 +857,5 @@ exceptions:
     # Adding a technique ID below will result in removing that technique in the heat map (meaning not enough data source or quality is available for proper detection).
     # Please note that the below is just an example, many more can exists.
     # Filling in the key-value pair name is optional.
-- technique_id: T1130
+- technique_id: T1553.004
   name: Install Root Certificate

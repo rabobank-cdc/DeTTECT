@@ -5,7 +5,20 @@ name: empty-data-source-admin-file
 # - (Windows, Linux, macOS, PRE, AWS, GCP, Azure, Azure AD, Office 365, SaaS, Network)
 # Also, take into account which data sources are applicable per platform. For more info see:
 # - https://github.com/rabobank-cdc/DeTTECT/wiki/Data-sources-per-platform
-platform:
+systems:
+- applicable_to: all
+  platform:
+  - Windows
+  - Linux
+  - PRE
+  - macOS
+  - AWS
+  - GCP
+  - Azure
+  - Azure AD
+  - Office 365
+  - SaaS
+  - Network
 data_sources:
   # A data source is treated as not available when all dimensions of the data quality have a score of 0.
   # If desired you are free to add any key-value pairs.
