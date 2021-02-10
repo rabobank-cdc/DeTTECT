@@ -8,6 +8,7 @@ from ruamel.yaml.timestamp import TimeStamp as ruamelTimeStamp
 from upgrade import upgrade_yaml_file, check_yaml_updated_to_sub_techniques
 from constants import *
 from health import check_yaml_file_health
+from requests import exceptions
 
 # Due to performance reasons the import of attackcti is within the function that makes use of this library.
 
@@ -54,8 +55,11 @@ def load_attack_data(data_type):
                 if not (dt.now() - write_time).total_seconds() >= EXPIRE_TIME:
                     # the first item in the list contains the ATT&CK data
                     return cached[0]
-
-        mitre = attack_client()
+        try:
+            mitre = attack_client()
+        except exceptions.ConnectionError:
+            print("[!] Cannot connect to MITRE's CTI TAXII server")
+            quit()
 
     attack_data = None
     if data_type == DATA_TYPE_STIX_ALL_RELATIONSHIPS:
