@@ -9,6 +9,7 @@ from upgrade import upgrade_yaml_file, check_yaml_updated_to_sub_techniques
 from constants import *
 from health import check_yaml_file_health
 from requests import exceptions
+from stix2 import datastore
 
 # Due to performance reasons the import of attackcti is within the function that makes use of this library.
 
@@ -57,7 +58,7 @@ def load_attack_data(data_type):
                     return cached[0]
         try:
             mitre = attack_client()
-        except exceptions.ConnectionError:
+        except (exceptions.ConnectionError, datastore.DataSourceError):
             print("[!] Cannot connect to MITRE's CTI TAXII server")
             quit()
 
