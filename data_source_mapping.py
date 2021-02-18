@@ -8,7 +8,7 @@ from generic import *
 # Imports for pandas and plotly are because of performance reasons in the function that uses these libraries.
 
 
-def generate_data_sources_layer(filename, output_filename, layer_name, platform=None):
+def generate_data_sources_layer(filename, output_filename, layer_name):
     """
     Generates a generic layer for data sources.
     :param filename: the filename of the YAML file containing the data sources administration
@@ -17,16 +17,16 @@ def generate_data_sources_layer(filename, output_filename, layer_name, platform=
     :param platform: one or multiple values from PLATFORMS constant
     :return:
     """
-    my_data_sources, name, platform_yaml, exceptions = load_data_sources(filename)
-    platform = set_platform(platform_yaml, platform)
+    my_data_sources, name, systems, exceptions = load_data_sources(filename)
 
     # Do the mapping between my data sources and MITRE data sources:
-    my_techniques = _map_and_colorize_techniques(my_data_sources, platform, exceptions)
+    my_techniques = _map_and_colorize_techniques(my_data_sources, systems, exceptions)
 
     if not layer_name:
         layer_name = 'Data sources ' + name
 
-    layer = get_layer_template_data_sources(layer_name, 'description', platform)
+    platforms = list(set(chain.from_iterable(map(lambda k: k['platform'], systems))))
+    layer = get_layer_template_data_sources(layer_name, 'description', platforms)
     layer['techniques'] = my_techniques
 
     json_string = simplejson.dumps(layer).replace('}, ', '},\n')
@@ -98,6 +98,7 @@ def export_data_source_list_to_excel(filename, output_filename, eql_search=False
     wrap_text = workbook.add_format({'text_wrap': True, 'valign': 'top'})
     valign_top = workbook.add_format({'valign': 'top'})
     no_score = workbook.add_format({'valign': 'top', 'align': 'center'})
+    dq_score_0 = workbook.add_format({'valign': 'top', 'align': 'center'})
     dq_score_1 = workbook.add_format({'valign': 'top', 'align': 'center', 'bg_color': COLOR_DS_25p})
     dq_score_2 = workbook.add_format({'valign': 'top', 'align': 'center', 'bg_color': COLOR_DS_50p})
     dq_score_3 = workbook.add_format({'valign': 'top', 'align': 'center', 'bg_color': COLOR_DS_75p, 'font_color': '#ffffff'})
@@ -168,7 +169,7 @@ def export_data_source_list_to_excel(filename, output_filename, eql_search=False
             if score > 0:
                 score = score / score_count
 
-            worksheet.write(y, 12, score, dq_score_1 if score < 2 else dq_score_2 if score < 3 else dq_score_3 if score < 4 else dq_score_4 if score < 5 else dq_score_5 if score < 6 else no_score)  # noqa
+            worksheet.write(y, 12, score, dq_score_0 if score == 0 else dq_score_1 if score < 2 else dq_score_2 if score < 3 else dq_score_3 if score < 4 else dq_score_4 if score < 5 else dq_score_5 if score < 6 else no_score)  # noqa
             y += 1
 
     worksheet.autofilter(2, 0, 2, 12)
@@ -195,51 +196,110 @@ def _count_applicable_data_sources(technique, applicable_data_sources):
     return applicable_ds_count
 
 
-def _map_and_colorize_techniques(my_ds, platforms, exceptions):
+def _system_in_data_source(data_source, system):
+    """
+    Checks if the provided system is present within the provided YAML global data source object
+    :param data_source: YAML data source object
+    :param system: YAML system object
+    :return: True if present otherwise False
+    """
+    for ds in data_source['data_source']:
+        if system['applicable_to'].lower() in (app_to.lower() for app_to in ds['applicable_to']):
+            return True
+    return False
+
+
+def _map_and_colorize_techniques(my_ds, systems, exceptions):
     """
     Determine the color of the techniques based on how many data sources are available per technique. Also, it will create
     much of the content for the Navigator layer.
     :param my_ds: the configured data sources
-    :param platforms: the configured platform(s)
+    :param systems: the systems YAML object from the data source file
     :param exceptions: the list of ATT&CK technique exception within the data source YAML file
     :return: a dictionary with techniques that can be used in the layer's output file
     """
     techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
-    applicable_data_sources = get_applicable_data_sources_platform(platforms)
-    technique_colors = {}
-
-    # Color the techniques based on how many data sources are available.
-    for t in techniques:
-        if 'x_mitre_data_sources' in t:
-            total_ds_count = _count_applicable_data_sources(t, applicable_data_sources)
-            ds_count = 0
-            for ds in t['x_mitre_data_sources']:
-                if ds in my_ds.keys() and ds in applicable_data_sources:
-                    ds_count += 1
-            if total_ds_count > 0:
-                result = (float(ds_count) / float(total_ds_count)) * 100
-                color = COLOR_DS_25p if result <= 25 else COLOR_DS_50p if result <= 50 else COLOR_DS_75p \
-                    if result <= 75 else COLOR_DS_99p if result <= 99 else COLOR_DS_100p
-                technique_colors[get_attack_id(t)] = color
-
-    my_techniques = map_techniques_to_data_sources(techniques, my_ds)
-
     output_techniques = []
-    for t, v in my_techniques.items():
-        if t not in exceptions and t in technique_colors:
-            d = dict()
-            d['techniqueID'] = t
-            d['color'] = technique_colors[t]
-            d['comment'] = ''
-            d['enabled'] = True
-            d['metadata'] = [{'name': 'Available data sources', 'value': ', '.join(v['my_data_sources'])},
-                             {'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(v['mitre_data_sources'],
-                                                                                                                      applicable_data_sources))},
-                             {'name': 'Products', 'value': ', '.join(v['products'])},
-                             {'name': 'Applicable to', 'value': ', '.join(v['applicable_to'])}]
-            d['metadata'] = make_layer_metadata_compliant(d['metadata'])
 
-            output_techniques.append(d)
+    for t in techniques:
+        if 'x_mitre_data_sources' in t and get_attack_id(t) not in exceptions:
+            ds_scores = []
+            all_applicable_data_sources = set()
+            system_available_data_sources = {}
+
+            # calculate visibility score per system
+            x = 0
+            for system in systems:
+                # the system is relevant for this technique due to a match in ATT&CK platform
+                if len(set(system['platform']).intersection(set(t['x_mitre_platforms']))) > 0:
+                    applicable_data_sources = get_applicable_data_sources_platform(system['platform'])
+                    total_ds_count = _count_applicable_data_sources(t, applicable_data_sources)
+
+                    if total_ds_count > 0:  # the system's platform has data source applicable to this technique
+                        skey = ''.join(system['applicable_to']) + '_' + ''.join(system['platform'])
+                        ds_count = 0
+                        for ds in t['x_mitre_data_sources']:
+                            if ds in applicable_data_sources:
+                                all_applicable_data_sources.add(ds)
+                                # the ATT&CK data source is applicable to this system and available
+                                if ds in my_ds.keys() and _system_in_data_source(my_ds[ds], system):
+                                    if ds_count == 0:
+                                        system_available_data_sources[skey] = [ds]
+                                    else:
+                                        system_available_data_sources[skey].append(ds)
+                                    ds_count += 1
+                        if ds_count > 0:
+                            ds_scores.append((float(ds_count) / float(total_ds_count)) * 100)
+                        else:
+                            ds_scores.append(0)  # the data source is not available for this system
+                    else:
+                        # the technique is applicable to this system (and thus its platform(s)),
+                        # but none of the technique's listed data source are applicable its platform(s)
+                        ds_scores.append(0)
+                x += 1
+
+            # check if not all ds_scores's values are 0. If not the case, we proceed in calculating the avg score
+            # and populating the metadata.
+            if not all(s == 0 for s in ds_scores):
+                avg_ds_score = float(sum(ds_scores)) / float(len(ds_scores))
+
+                color = COLOR_DS_25p if avg_ds_score <= 25 else COLOR_DS_50p if avg_ds_score <= 50 else COLOR_DS_75p \
+                    if avg_ds_score <= 75 else COLOR_DS_99p if avg_ds_score <= 99 else COLOR_DS_100p
+
+                d = dict()
+                d['techniqueID'] = get_attack_id(t)
+                d['color'] = color
+                d['comment'] = ''
+                d['enabled'] = True
+                d['metadata'] = [{'name': 'Technique\'s ATT&CK data sources', 'value': ', '.join(all_applicable_data_sources)}]
+                d['metadata'].append({'divider': True})
+
+                scores_idx = 0
+                divider = 0
+                for system in systems:
+
+                    # the system is relevant for this technique due to a match in ATT&CK platform
+                    if len(set(system['platform']).intersection(set(t['x_mitre_platforms']))) > 0:
+                        skey = ''.join(system['applicable_to']) + '_' + ''.join(system['platform'])
+                        score = ds_scores[scores_idx]
+
+                        if divider != 0:
+                            d['metadata'].append({'divider': True})
+                        divider += 1
+
+                        d['metadata'].append({'name': 'Applicable to', 'value': system['applicable_to']})
+                        app_data_sources = get_applicable_data_sources_technique(
+                            t['x_mitre_data_sources'], get_applicable_data_sources_platform(system['platform']))
+                        d['metadata'].append({'name': 'Applicable data sources', 'value': ', '.join(app_data_sources)})
+                        if score > 0:
+                            d['metadata'].append({'name': 'Available data sources', 'value': ', '.join(system_available_data_sources[skey])})
+                        else:
+                            d['metadata'].append({'name': 'Available data sources', 'value': ''})
+                        d['metadata'].append({'name': 'Score', 'value': str(int(score)) + '%'})
+                    scores_idx += 1
+
+                d['metadata'] = make_layer_metadata_compliant(d['metadata'])
+                output_techniques.append(d)
 
     determine_and_set_show_sub_techniques(output_techniques)
 

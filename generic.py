@@ -697,7 +697,7 @@ def load_data_sources(file, filter_empty_scores=True):
     Loads the data sources (including all properties) from the given YAML file.
     :param file: the file location of the YAML file containing the data sources administration or a dict.
     :param filter_empty_scores: include all data source details objects if set to False despite the data quality.
-    :return: dictionary with data sources, name, platform and exceptions list.
+    :return: dictionary with data sources, name, systems and exceptions list.
     """
     my_data_sources = {}
 
@@ -723,13 +723,24 @@ def load_data_sources(file, filter_empty_scores=True):
 
     name = yaml_content['name']
 
-    platform = get_platform_from_yaml(yaml_content)
+    # make sure the platform values are compliant (including casing) with the ATT&CK platforms
+    systems = yaml_content['systems']
+    for s in systems:
+        s['platform'] = [p.lower() for p in s['platform'] if p is not None]
+        if 'all' in s['platform']:
+            s['platform'] = list(PLATFORMS.values())
+        else:
+            valid_platform_list = []
+            for p in s['platform']:
+                if p in PLATFORMS.keys():
+                    valid_platform_list.append(PLATFORMS[p])
+            s['platform'] = valid_platform_list
 
     exceptions = []
     if 'exceptions' in yaml_content:
         exceptions = [t['technique_id'] for t in yaml_content['exceptions'] if t['technique_id'] is not None]
 
-    return my_data_sources, name, platform, exceptions
+    return my_data_sources, name, systems, exceptions
 
 
 def map_techniques_to_data_sources(techniques, my_data_sources):
