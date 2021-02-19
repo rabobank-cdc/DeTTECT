@@ -222,9 +222,9 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
     output_techniques = []
 
     for t in techniques:
-        if 'x_mitre_data_sources' in t and get_attack_id(t) not in exceptions:
+        tech_id = get_attack_id(t)
+        if 'x_mitre_data_sources' in t and tech_id not in list(map(lambda x: x.upper(), exceptions)):
             ds_scores = []
-            all_applicable_data_sources = set()
             system_available_data_sources = {}
 
             # calculate visibility score per system
@@ -239,22 +239,20 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
                         skey = ''.join(system['applicable_to']) + '_' + ''.join(system['platform'])
                         ds_count = 0
                         for ds in t['x_mitre_data_sources']:
-                            if ds in applicable_data_sources:
-                                all_applicable_data_sources.add(ds)
-                                # the ATT&CK data source is applicable to this system and available
-                                if ds in my_ds.keys() and _system_in_data_source(my_ds[ds], system):
-                                    if ds_count == 0:
-                                        system_available_data_sources[skey] = [ds]
-                                    else:
-                                        system_available_data_sources[skey].append(ds)
-                                    ds_count += 1
+                            # the ATT&CK data source is applicable to this system and available
+                            if ds in applicable_data_sources and ds in my_ds.keys() and _system_in_data_source(my_ds[ds], system):
+                                if ds_count == 0:
+                                    system_available_data_sources[skey] = [ds]
+                                else:
+                                    system_available_data_sources[skey].append(ds)
+                                ds_count += 1
                         if ds_count > 0:
                             ds_scores.append((float(ds_count) / float(total_ds_count)) * 100)
                         else:
-                            ds_scores.append(0)  # the data source is not available for this system
+                            ds_scores.append(0)  # none of the applicable data sources are available for this system
                     else:
                         # the technique is applicable to this system (and thus its platform(s)),
-                        # but none of the technique's listed data source are applicable its platform(s)
+                        # but none of the technique's listed data source are applicable for its platform(s)
                         ds_scores.append(0)
                 x += 1
 
@@ -267,12 +265,11 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
                     if avg_ds_score <= 75 else COLOR_DS_99p if avg_ds_score <= 99 else COLOR_DS_100p
 
                 d = dict()
-                d['techniqueID'] = get_attack_id(t)
+                d['techniqueID'] = tech_id
                 d['color'] = color
                 d['comment'] = ''
                 d['enabled'] = True
-                d['metadata'] = [{'name': 'Technique\'s ATT&CK data sources', 'value': ', '.join(all_applicable_data_sources)}]
-                d['metadata'].append({'divider': True})
+                d['metadata'] = []
 
                 scores_idx = 0
                 divider = 0
@@ -290,11 +287,11 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
                         d['metadata'].append({'name': 'Applicable to', 'value': system['applicable_to']})
                         app_data_sources = get_applicable_data_sources_technique(
                             t['x_mitre_data_sources'], get_applicable_data_sources_platform(system['platform']))
-                        d['metadata'].append({'name': 'Applicable data sources', 'value': ', '.join(app_data_sources)})
                         if score > 0:
                             d['metadata'].append({'name': 'Available data sources', 'value': ', '.join(system_available_data_sources[skey])})
                         else:
                             d['metadata'].append({'name': 'Available data sources', 'value': ''})
+                        d['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(app_data_sources)})
                         d['metadata'].append({'name': 'Score', 'value': str(int(score)) + '%'})
                     scores_idx += 1
 
@@ -554,47 +551,65 @@ def generate_technique_administration_file(filename, output_filename, write_file
     platform(s) specified in the data source YAML file
     :return:
     """
-    my_data_sources, name, platform, exceptions = load_data_sources(filename)
+    my_ds, name, systems, exceptions = load_data_sources(filename)
 
     techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE)
-    applicable_data_sources = get_applicable_data_sources_platform(platform)
+    yaml_platform = list(set(chain.from_iterable(map(lambda k: k['platform'], systems))))
 
     yaml_file = dict()
     yaml_file['version'] = FILE_TYPE_TECHNIQUE_ADMINISTRATION_VERSION
     yaml_file['file_type'] = FILE_TYPE_TECHNIQUE_ADMINISTRATION
     yaml_file['name'] = name
-    yaml_file['platform'] = platform
+    yaml_file['platform'] = yaml_platform
     yaml_file['techniques'] = []
     today = dt.now()
 
     # Score visibility based on the number of available data sources and the exceptions
     for t in techniques:
-        platforms = t.get('x_mitre_platforms', None)
-        if len(set(platforms).intersection(set(platform))) > 0:
-            # not every technique has data source listed
-            if 'x_mitre_data_sources' in t:
-                total_ds_count = _count_applicable_data_sources(t, applicable_data_sources)
-                ds_count = 0
-                for ds in t['x_mitre_data_sources']:
-                    if ds in my_data_sources.keys() and ds in applicable_data_sources:
-                        ds_count += 1
-                if total_ds_count > 0:
-                    result = (float(ds_count) / float(total_ds_count)) * 100
+        mitre_platforms = t.get('x_mitre_platforms', [])  # not every technique has data source listed
+        tech_id = get_attack_id(t)
+        tech = None
+        visibility_obj_count = 0
 
-                    score = 0 if result == 0 else 1 if result <= 49 else 2 if result <= 74 else 3 if result <= 99 else 4
-                else:
-                    score = 0
+        if 'x_mitre_data_sources' in t and tech_id not in list(map(lambda x: x.upper(), exceptions)):
+            # calculate visibility score per system
+            for system in systems:
+                ds_score = -1
+                # the system is relevant for this technique due to a match in ATT&CK platform
+                if len(set(system['platform']).intersection(set(mitre_platforms))) > 0:
+                    applicable_data_sources = get_applicable_data_sources_platform(system['platform'])
+                    total_ds_count = _count_applicable_data_sources(t, applicable_data_sources)
 
-                # Do not add technique if score == 0 or part of the exception list
-                techniques_upper = list(map(lambda x: x.upper(), exceptions))
-                tech_id = get_attack_id(t)
-                if (score > 0 or all_techniques) and tech_id not in techniques_upper:
-                    tech = deepcopy(YAML_OBJ_TECHNIQUE)
-                    tech['technique_id'] = tech_id
-                    tech['technique_name'] = t['name']
-                    tech['visibility']['score_logbook'][0]['score'] = score
-                    tech['visibility']['score_logbook'][0]['date'] = today
-                    yaml_file['techniques'].append(tech)
+                    if total_ds_count > 0:  # the system's platform has data source applicable to this technique
+                        ds_count = 0
+                        for ds in t['x_mitre_data_sources']:
+                            # the ATT&CK data source is applicable to this system and available
+                            if ds in applicable_data_sources and ds in my_ds.keys() and _system_in_data_source(my_ds[ds], system):
+                                ds_count += 1
+                        if ds_count > 0:
+                            result = (float(ds_count) / float(total_ds_count)) * 100
+                            ds_score = 1 if result <= 49 else 2 if result <= 74 else 3 if result <= 99 else 4
+                        else:
+                            ds_score = 0  # none of the applicable data sources are available for this system
+                    else:
+                        # the technique is applicable to this system (and thus its platform(s)),
+                        # but none of the technique's listed data source are applicable for its platform(s)
+                        ds_score = -1
+
+                # Do not add technique if score == 0
+                if ds_score > -1 or all_techniques:
+                    # the ATT&CK technique is not yet part of the YAML file
+                    if visibility_obj_count == 0:
+                        tech = deepcopy(YAML_OBJ_TECHNIQUE)
+                        tech['technique_id'] = tech_id
+                        tech['technique_name'] = t['name']
+                    tech['visibility'].append(deepcopy(YAML_OBJ_VISIBILITY))
+                    tech['visibility'][visibility_obj_count]['score_logbook'][0]['score'] = ds_score
+                    tech['visibility'][visibility_obj_count]['score_logbook'][0]['date'] = today
+                    tech['visibility'][visibility_obj_count]['applicable_to'] = [system['applicable_to']]
+                    visibility_obj_count += 1
+            if tech:
+                yaml_file['techniques'].append(tech)
 
     yaml_file['techniques'] = sorted(yaml_file['techniques'], key=lambda k: k['technique_id'])
 
@@ -612,7 +627,7 @@ def generate_technique_administration_file(filename, output_filename, write_file
         yaml_file_lines = fix_date_and_remove_null(file_lines, today, input_type='list')
 
         if not output_filename:
-            output_filename = 'techniques-administration-' + normalize_name_to_filename(name + '-' + platform_to_name(platform))
+            output_filename = 'techniques-administration-' + normalize_name_to_filename(name + '-' + platform_to_name(yaml_platform))
         elif output_filename.endswith('.yaml'):
             output_filename = output_filename.replace('.yaml', '')
         output_filename = get_non_existing_filename('output/' + output_filename, 'yaml')
