@@ -224,11 +224,11 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
     for t in techniques:
         tech_id = get_attack_id(t)
         if 'x_mitre_data_sources' in t and tech_id not in list(map(lambda x: x.upper(), exceptions)):
+            scores_idx = 0
             ds_scores = []
             system_available_data_sources = {}
 
             # calculate visibility score per system
-            x = 0
             for system in systems:
                 # the system is relevant for this technique due to a match in ATT&CK platform
                 if len(set(system['platform']).intersection(set(t['x_mitre_platforms']))) > 0:
@@ -236,15 +236,14 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
                     total_ds_count = _count_applicable_data_sources(t, applicable_data_sources)
 
                     if total_ds_count > 0:  # the system's platform has data source applicable to this technique
-                        skey = ''.join(system['applicable_to']) + '_' + ''.join(system['platform'])
                         ds_count = 0
                         for ds in t['x_mitre_data_sources']:
                             # the ATT&CK data source is applicable to this system and available
                             if ds in applicable_data_sources and ds in my_ds.keys() and _system_in_data_source(my_ds[ds], system):
                                 if ds_count == 0:
-                                    system_available_data_sources[skey] = [ds]
+                                    system_available_data_sources[scores_idx] = [ds]
                                 else:
-                                    system_available_data_sources[skey].append(ds)
+                                    system_available_data_sources[scores_idx].append(ds)
                                 ds_count += 1
                         if ds_count > 0:
                             ds_scores.append((float(ds_count) / float(total_ds_count)) * 100)
@@ -254,7 +253,7 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
                         # the technique is applicable to this system (and thus its platform(s)),
                         # but none of the technique's listed data source are applicable for its platform(s)
                         ds_scores.append(0)
-                x += 1
+                    scores_idx += 1
 
             # check if not all ds_scores's values are 0. If not the case, we proceed in calculating the avg score
             # and populating the metadata.
@@ -274,10 +273,8 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
                 scores_idx = 0
                 divider = 0
                 for system in systems:
-
                     # the system is relevant for this technique due to a match in ATT&CK platform
                     if len(set(system['platform']).intersection(set(t['x_mitre_platforms']))) > 0:
-                        skey = ''.join(system['applicable_to']) + '_' + ''.join(system['platform'])
                         score = ds_scores[scores_idx]
 
                         if divider != 0:
@@ -288,12 +285,12 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
                         app_data_sources = get_applicable_data_sources_technique(
                             t['x_mitre_data_sources'], get_applicable_data_sources_platform(system['platform']))
                         if score > 0:
-                            d['metadata'].append({'name': 'Available data sources', 'value': ', '.join(system_available_data_sources[skey])})
+                            d['metadata'].append({'name': 'Available data sources', 'value': ', '.join(system_available_data_sources[scores_idx])})
                         else:
                             d['metadata'].append({'name': 'Available data sources', 'value': ''})
                         d['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(app_data_sources)})
                         d['metadata'].append({'name': 'Score', 'value': str(int(score)) + '%'})
-                    scores_idx += 1
+                        scores_idx += 1
 
                 d['metadata'] = make_layer_metadata_compliant(d['metadata'])
                 output_techniques.append(d)
