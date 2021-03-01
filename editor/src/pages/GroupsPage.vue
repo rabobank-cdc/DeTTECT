@@ -127,19 +127,19 @@ export default {
             filters: {
                 filter: {
                     value: '',
-                    keys: ['group_name', 'campaign', 'enabled'],
-                },
+                    keys: ['group_name', 'campaign', 'enabled']
+                }
             },
             data_columns: ['group_name', 'campaign', 'enabled'],
             groupFileToRender: 'https://raw.githubusercontent.com/wiki/rabobank-cdc/DeTTECT/YAML-administration-groups.md',
             groupHelpText: null,
-            emptyGroupObject: constants.YAML_OBJ_GROUP,
+            emptyGroupObject: constants.YAML_OBJ_GROUP
         };
     },
     mixins: [pageMixin, notificationMixin],
     components: {
         GroupsDetail,
-        Icons,
+        Icons
     },
     created: function() {
         this.preloadMarkDown();
@@ -148,7 +148,7 @@ export default {
         readFile(event) {
             // Loads and checks the file content
             try {
-                let yaml_input = jsyaml.safeLoad(event.result);
+                let yaml_input = jsyaml.load(event.result);
 
                 if (yaml_input['file_type'] == 'group-administration') {
                     if (yaml_input['version'] != constants.YAML_DATASOURCES_VERSION) {
@@ -302,7 +302,7 @@ export default {
         },
         notifyInvalidFileType(filename) {
             this.notifyDanger('Invalid YAML file type', "The file '" + filename + "' is not a valid group administration file.");
-        },
+        }
     },
     filters: {
         listToString: function(value) {
@@ -311,8 +311,8 @@ export default {
             } else {
                 return value;
             }
-        },
-    },
+        }
+    }
 };
 </script>
 

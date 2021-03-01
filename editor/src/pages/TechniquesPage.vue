@@ -145,7 +145,7 @@ export default {
         readFile(event) {
             // Loads and checks the file content
             try {
-                let yaml_input = jsyaml.safeLoad(event.result);
+                let yaml_input = jsyaml.load(event.result);
 
                 if (yaml_input['file_type'] == 'technique-administration') {
                     if (yaml_input['version'] != constants.YAML_TECHNIQUES_VERSION) {
