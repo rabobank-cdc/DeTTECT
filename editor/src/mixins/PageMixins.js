@@ -166,7 +166,7 @@ export const pageMixin = {
             let newDoc = _.cloneDeep(this.doc);
             this.convertBeforeDownload(newDoc);
 
-            var blob = new Blob([jsyaml.safeDump(newDoc, { lineWidth: 2000 })], {
+            var blob = new Blob([jsyaml.dump(newDoc, { lineWidth: 2000 })], {
                 type: 'text/plain;charset=utf-8'
             });
             var FileSaver = require('file-saver');

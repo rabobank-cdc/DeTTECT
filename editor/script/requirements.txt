@@ -1,1 +1,2 @@
 attackcti==0.3.3
+taxii2-client==2.2.2

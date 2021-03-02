@@ -3616,5 +3616,53 @@
       "Network"
     ],
     "autosuggest": "S0519 - SYNful Knock"
+  },
+  {
+    "software_id": "S0521",
+    "software_name": "BloodHound",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0521 - BloodHound"
+  },
+  {
+    "software_id": "S0552",
+    "software_name": "AdFind",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0552 - AdFind"
+  },
+  {
+    "software_id": "S0559",
+    "software_name": "Sunburst",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0559 - Sunburst"
+  },
+  {
+    "software_id": "S0560",
+    "software_name": "Teardrop",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0560 - Teardrop"
+  },
+  {
+    "software_id": "S0562",
+    "software_name": "Sunspot",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0562 - Sunspot"
+  },
+  {
+    "software_id": "S0565",
+    "software_name": "Raindrop",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0565 - Raindrop"
   }
 ]

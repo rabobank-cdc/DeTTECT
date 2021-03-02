@@ -1,5 +1,7 @@
 import json
 from attackcti import attack_client
+from requests import exceptions
+from stix2 import datastore
 
 FILE_DATA_SOURCES = 'data_sources.json'
 FILE_TECHNIQUES = 'techniques.json'
@@ -13,7 +15,11 @@ class ATTACKData():
     """
 
     def __init__(self):
-        self.mitre = attack_client()
+        try:
+            self.mitre = attack_client()
+        except (exceptions.ConnectionError, datastore.DataSourceError):
+            print("[!] Cannot connect to MITRE's CTI TAXII server")
+            quit()
         self.attack_cti_techniques = self.mitre.get_enterprise_techniques()
         self.attack_cti_techniques = self.mitre.remove_revoked(self.attack_cti_techniques)
         self.attack_cti_techniques = self.mitre.remove_deprecated(self.attack_cti_techniques)

@@ -2429,6 +2429,23 @@
     "autosuggest": "T1484 - Group Policy Modification"
   },
   {
+    "technique_id": "T1484.001",
+    "technique_name": "Group Policy Modification",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "T1484.001 - Group Policy Modification"
+  },
+  {
+    "technique_id": "T1484.002",
+    "technique_name": "Domain Trust Modification",
+    "platforms": [
+      "Azure AD",
+      "Windows"
+    ],
+    "autosuggest": "T1484.002 - Domain Trust Modification"
+  },
+  {
     "technique_id": "T1485",
     "technique_name": "Data Destruction",
     "platforms": [
@@ -4921,5 +4938,40 @@
       "Network"
     ],
     "autosuggest": "T1602.002 - Network Device Configuration Dump"
+  },
+  {
+    "technique_id": "T1606",
+    "technique_name": "Forge Web Credentials",
+    "platforms": [
+      "Azure AD",
+      "Linux",
+      "Office 365",
+      "SaaS",
+      "Windows",
+      "macOS"
+    ],
+    "autosuggest": "T1606 - Forge Web Credentials"
+  },
+  {
+    "technique_id": "T1606.001",
+    "technique_name": "Web Cookies",
+    "platforms": [
+      "Linux",
+      "SaaS",
+      "Windows",
+      "macOS"
+    ],
+    "autosuggest": "T1606.001 - Web Cookies"
+  },
+  {
+    "technique_id": "T1606.002",
+    "technique_name": "SAML Tokens",
+    "platforms": [
+      "Azure AD",
+      "Office 365",
+      "SaaS",
+      "Windows"
+    ],
+    "autosuggest": "T1606.002 - SAML Tokens"
   }
 ]
