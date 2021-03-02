@@ -1,6 +1,5 @@
 name: Refresh Editor ATT&CK data
 on:
-  workflow_dispatch:
   schedule:
     - cron:  '0 */12 * * *'
 jobs:

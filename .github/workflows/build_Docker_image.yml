@@ -1,0 +1,55 @@
+name: Build Docker image
+on:
+  schedule:
+    - cron:  '0 3 * * 0'
+  push:
+    branches: [ master ]
+    paths-ignore:
+      - '.github/workflows/**'
+  workflow_dispatch:
+    inputs:
+      version_tag:
+        description: 'Format: v[version number]'
+        required: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+        # scheduled run + on push
+      - name: Schedule + push - get the latest version tag
+        if: github.event_name == 'schedule' || github.event_name == 'push'
+        id: previoustag
+        uses: WyriHaximus/github-action-get-previous-tag@v1
+
+      - name: Schedule + push - create version tag
+        if: github.event_name == 'schedule' || github.event_name == 'push'
+        run: |
+          TAG="rabobankcdc/dettect:${{ steps.previoustag.outputs.tag }}"
+          echo "version_tag=${TAG}" >> $GITHUB_ENV
+
+        # manual run
+      - name: Manual - create version tag
+        if: github.event_name == 'workflow_dispatch'
+        run: echo "version_tag=rabobankcdc/dettect:${{ github.event.inputs.version_tag }}" >> $GITHUB_ENV
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v2
+        with:
+          pull: true
+          push: true
+          tags: rabobankcdc/dettect:latest, ${{ env.version_tag }}
