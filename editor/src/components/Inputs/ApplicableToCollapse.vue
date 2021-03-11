@@ -2,7 +2,7 @@
     <div>
         <div class="row mt-md-3">
             <div class="col-md-auto pr-md-0">
-                <h5 class="title mb-md-3">{{ title }}</h5>
+                <h5 class="title mb-md-3">{{ title }} scores</h5>
             </div>
             <div class="col ml-md-0" @click="showHelpText = true">
                 <icons icon="help" tooltip="Click to open more information."></icons>
@@ -59,7 +59,7 @@
                         <list-editor
                             v-if="showLocation"
                             :list="row.location"
-                            :name="'Location of the ' + title.toLowerCase()"
+                            :name="'Location of the ' + title.toLowerCase() + '(s)'"
                             placeholder="location"
                             class="mt-md-2"
                         ></list-editor>
@@ -153,7 +153,7 @@
 
         <div class="row mb-3">
             <div class="col">
-                <button @click="addApplicableTo" class="btn-custom btn btn-secondary button-30">Add {{ title.toLowerCase() }}</button>
+                <button @click="addApplicableTo" class="btn-custom btn btn-secondary button-30">Add {{ title.toLowerCase() }} score</button>
             </div>
         </div>
     </div>
