@@ -115,13 +115,13 @@ def _upgrade_data_source_yaml_10_to_11(file_lines):
         if k == 'name':
             break
         idx += 1
-    yaml_file_new.insert(idx + 1, 'systems', [{'applicable_to': 'all', 'platform': platforms}])
+    yaml_file_new.insert(idx + 1, 'systems', [{'applicable_to': yaml_file['name'], 'platform': platforms}])
 
     # add a new kv-pair applicable_to to every data source
     yaml_file_new['data_sources'] = []
     for ds in yaml_file['data_sources']:
         ds_details_obj = {
-            'applicable_to': ['all']
+            'applicable_to': [yaml_file['name']]
         }
         for k, v in ds.items():
             if k != 'data_source_name':
