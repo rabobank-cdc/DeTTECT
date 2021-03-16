@@ -10,7 +10,7 @@
         </div>
         <!-- eslint-disable-next-line vue/require-v-for-key -->
         <div class="row" v-for="(item, index) in list">
-            <div class="col-md-8 pr-md-0">
+            <div class="col-md-10 pr-md-0">
                 <base-input :value="item" :idx="index" @change="updateItem($event)"></base-input>
             </div>
             <div class="col mt-md-1">
@@ -18,13 +18,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-8 pr-md-0 form-group">
-                <base-input :placeholder="placeholder" v-model="newItem" @keyup.enter="addItem"></base-input>
-            </div>
-            <div class="col">
-                <button class="btn-custom btn btn-secondary button-add" @click="addItem">
-                    Add
-                </button>
+            <div class="col-md-10 pr-md-0 form-group">
+                <base-input :placeholder="placeholder" v-model="newItem" @keyup.enter="addItem" @blur="addItem" addonLeftIcon="tim-icons icon-simple-add"></base-input>
             </div>
         </div>
     </div>
