@@ -4,7 +4,7 @@
 Latest version: [1.4.2](https://github.com/rabobank-cdc/DeTTECT/wiki/Changelog#version-142)
 
 To get started with DeTT&CT, check out one of these resources:
-- This [page](Getting-started) on the Wiki.
+- This [page](https://github.com/rabobank-cdc/DeTTECT/wiki/Getting-started) on the Wiki.
 - Our [talk](https://www.youtube.com/watch?v=_kWpekkhomU) at hack.lu 2019.
 - Blog: [mbsecure.nl/blog/2019/5/dettact-mapping-your-blue-team-to-mitre-attack](https://www.mbsecure.nl/blog/2019/5/dettact-mapping-your-blue-team-to-mitre-attack) or
 - Blog: [siriussecurity.nl/blog/2019/5/8/mapping-your-blue-team-to-mitre-attack](https://www.siriussecurity.nl/blog/2019/5/8/mapping-your-blue-team-to-mitre-attack).
