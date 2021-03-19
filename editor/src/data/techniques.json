@@ -2422,11 +2422,12 @@
   },
   {
     "technique_id": "T1484",
-    "technique_name": "Group Policy Modification",
+    "technique_name": "Domain Policy Modification",
     "platforms": [
+      "Azure AD",
       "Windows"
     ],
-    "autosuggest": "T1484 - Group Policy Modification"
+    "autosuggest": "T1484 - Domain Policy Modification"
   },
   {
     "technique_id": "T1484.001",
