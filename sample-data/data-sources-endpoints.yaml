@@ -2,7 +2,7 @@ version: 1.1
 file_type: data-source-administration
 name: endpoints-example
 systems:
-- applicable_to: all
+- applicable_to: endpoints
   platform:
   - Windows
   - Azure
@@ -16,7 +16,7 @@ data_sources:
 - data_source_name: Process monitoring
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered: 2019-03-01
     date_connected: 2017-01-01
     products: [Windows event log]
@@ -31,7 +31,7 @@ data_sources:
 - data_source_name: File monitoring
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -46,7 +46,7 @@ data_sources:
 - data_source_name: Process command-line parameters
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -61,7 +61,7 @@ data_sources:
 - data_source_name: API monitoring
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -76,7 +76,7 @@ data_sources:
 - data_source_name: Process use of network
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered: 2019-07-25
     date_connected: 2019-07-25
     products: [Sysmon]
@@ -91,7 +91,7 @@ data_sources:
 - data_source_name: Windows Registry
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered: 2019-03-01
     date_connected: 2017-02-01
     products: [Windows event log]
@@ -106,7 +106,7 @@ data_sources:
 - data_source_name: Packet capture
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -121,7 +121,7 @@ data_sources:
 - data_source_name: Authentication logs
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -136,7 +136,7 @@ data_sources:
 - data_source_name: Netflow/Enclave netflow
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -151,7 +151,7 @@ data_sources:
 - data_source_name: Windows event logs
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -166,7 +166,7 @@ data_sources:
 - data_source_name: Binary file metadata
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -181,7 +181,7 @@ data_sources:
 - data_source_name: Network protocol analysis
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -196,7 +196,7 @@ data_sources:
 - data_source_name: DLL monitoring
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -211,7 +211,7 @@ data_sources:
 - data_source_name: Loaded DLLs
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -223,10 +223,10 @@ data_sources:
       timeliness: 0
       consistency: 0
       retention: 0
-- data_source_name: System calls
+- data_source_name: System contains
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -241,7 +241,7 @@ data_sources:
 - data_source_name: Malware reverse engineering
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -256,7 +256,7 @@ data_sources:
 - data_source_name: SSL/TLS inspection
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered: 2019-01-10
     date_connected: 2000-01-01
     products: [Proxy Product]
@@ -271,7 +271,7 @@ data_sources:
 - data_source_name: Anti-virus
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered: 2019-01-10
     date_connected: 2000-01-01
     products: [AV Product]
@@ -286,7 +286,7 @@ data_sources:
 - data_source_name: Network intrusion detection system
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered: 2019-01-10
     date_connected: 2016-01-01
     products: [NIDS]
@@ -301,7 +301,7 @@ data_sources:
 - data_source_name: Data loss prevention
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -316,7 +316,7 @@ data_sources:
 - data_source_name: Application logs
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -331,7 +331,7 @@ data_sources:
 - data_source_name: Email gateway
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered: 2019-01-10
     date_connected: 2000-01-01
     products: [Email Gateway Product]
@@ -346,7 +346,7 @@ data_sources:
 - data_source_name: Network device logs
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -361,7 +361,7 @@ data_sources:
 - data_source_name: Web proxy
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered: 2019-01-10
     date_connected: 2000-01-01
     products: [Proxy Product]
@@ -376,7 +376,7 @@ data_sources:
 - data_source_name: Windows Error Reporting
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -391,7 +391,7 @@ data_sources:
 - data_source_name: Kernel drivers
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -406,7 +406,7 @@ data_sources:
 - data_source_name: User interface
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -421,7 +421,7 @@ data_sources:
 - data_source_name: Host network interface
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -436,7 +436,7 @@ data_sources:
 - data_source_name: Third-party application logs
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -451,7 +451,7 @@ data_sources:
 - data_source_name: Services
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -466,7 +466,7 @@ data_sources:
 - data_source_name: Web logs
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -481,7 +481,7 @@ data_sources:
 - data_source_name: Detonation chamber
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -496,7 +496,7 @@ data_sources:
 - data_source_name: Mail server
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -511,7 +511,7 @@ data_sources:
 - data_source_name: Environment variable
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -526,7 +526,7 @@ data_sources:
 - data_source_name: MBR
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -541,7 +541,7 @@ data_sources:
 - data_source_name: BIOS
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -556,7 +556,7 @@ data_sources:
 - data_source_name: Web application firewall logs
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -571,7 +571,7 @@ data_sources:
 - data_source_name: Asset management
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -586,7 +586,7 @@ data_sources:
 - data_source_name: DHCP
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -601,7 +601,7 @@ data_sources:
 - data_source_name: DNS records
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered: 2019-03-01
     date_connected: 2017-04-01
     products: [Windows DNS server]
@@ -616,7 +616,7 @@ data_sources:
 - data_source_name: Browser extensions
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -631,7 +631,7 @@ data_sources:
 - data_source_name: Access tokens
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -646,7 +646,7 @@ data_sources:
 - data_source_name: Digital certificate logs
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -661,7 +661,7 @@ data_sources:
 - data_source_name: Disk forensics
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered: 2019-01-10
     date_connected: 2019-01-01
     products: [Manual, Commercial tool]
@@ -676,7 +676,7 @@ data_sources:
 - data_source_name: Component firmware
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -691,7 +691,7 @@ data_sources:
 - data_source_name: WMI Objects
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -706,7 +706,7 @@ data_sources:
 - data_source_name: VBR
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -721,7 +721,7 @@ data_sources:
 - data_source_name: Named Pipes
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -736,7 +736,7 @@ data_sources:
 - data_source_name: Sensor health and status
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -751,7 +751,7 @@ data_sources:
 - data_source_name: EFI
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered:
     date_connected:
     products: []
@@ -766,7 +766,7 @@ data_sources:
 - data_source_name: PowerShell logs
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered: 2019-03-01
     date_connected: 2018-05-01
     products: [Windows event log]
@@ -781,7 +781,7 @@ data_sources:
 - data_source_name: Azure OS logs
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered: 2019-11-01
     date_connected: 2019-11-01
     products: [Log Analytics agent]
@@ -796,7 +796,7 @@ data_sources:
 - data_source_name: Azure activity logs
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered: 2019-11-01
     date_connected: 2019-11-01
     products: [Azure]
@@ -811,7 +811,7 @@ data_sources:
 - data_source_name: Office 365 account logs
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered: 2019-11-01
     date_connected: 2019-11-01
     products: [O365]
@@ -826,7 +826,7 @@ data_sources:
 - data_source_name: Office 365 audit logs
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered: 2019-11-01
     date_connected: 2019-11-01
     products: [O365]
@@ -841,7 +841,7 @@ data_sources:
 - data_source_name: Office 365 trace logs
   data_source:
   - applicable_to:
-    - all
+    - endpoints
     date_registered: 2019-11-01
     date_connected: 2019-11-01
     products: [O365]

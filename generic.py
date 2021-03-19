@@ -715,21 +715,15 @@ def load_data_sources(file, filter_empty_scores=True):
         with open(file, 'r') as yaml_file:
             yaml_content = _yaml.load(yaml_file)
 
-    for d in yaml_content['data_sources']:
-        if isinstance(d['data_source'], dict):  # There is just one data source entry
-            if _check_data_quality(d['data_source']['data_quality'], filter_empty_scores):
-                d['data_source'] = set_yaml_dv_comments(d['data_source'])
-                add_entry_to_list_in_dictionary(my_data_sources, d['data_source_name'], 'data_source', d['data_source'])
-        elif isinstance(d['data_source'], list):  # There are multiple data source entries
-            for de in d['data_source']:
-                if _check_data_quality(de['data_quality'], filter_empty_scores):
-                    de = set_yaml_dv_comments(de)
-                    add_entry_to_list_in_dictionary(my_data_sources, d['data_source_name'], 'data_source', de)
+    # remove a system that's appliable_to 'all'. This has no use because its a hardcoded value which takes
+    # the platform values from all systems.
+    systems = yaml_content['systems']
+    systems = [k for k in systems if k['applicable_to'].lower() != 'all']
 
-    name = yaml_content['name']
+    # put all system's applicable_to values into a list
+    all_systems_applicable_to = [k['applicable_to'] for k in systems]
 
     # make sure the platform values are compliant (including casing) with the ATT&CK platforms
-    systems = yaml_content['systems']
     for s in systems:
         s['platform'] = [p.lower() for p in s['platform'] if p is not None]
         if 'all' in s['platform']:
@@ -741,9 +735,26 @@ def load_data_sources(file, filter_empty_scores=True):
                     valid_platform_list.append(PLATFORMS[p])
             s['platform'] = valid_platform_list
 
+    for d in yaml_content['data_sources']:
+        if isinstance(d['data_source'], dict):  # There is just one data source entry
+            if _check_data_quality(d['data_source']['data_quality'], filter_empty_scores):
+                d['data_source'] = set_yaml_dv_comments(d['data_source'])
+                if 'all' in [a.lower() for a in d['data_source']['applicable_to'] if a is not None]:
+                    d['data_source']['applicable_to'] = all_systems_applicable_to
+                add_entry_to_list_in_dictionary(my_data_sources, d['data_source_name'], 'data_source', d['data_source'])
+        elif isinstance(d['data_source'], list):  # There are multiple data source entries
+            for de in d['data_source']:
+                if _check_data_quality(de['data_quality'], filter_empty_scores):
+                    de = set_yaml_dv_comments(de)
+                    if 'all' in [a.lower() for a in de['applicable_to'] if a is not None]:
+                        de['applicable_to'] = all_systems_applicable_to
+                    add_entry_to_list_in_dictionary(my_data_sources, d['data_source_name'], 'data_source', de)
+
     exceptions = []
     if 'exceptions' in yaml_content:
         exceptions = [t['technique_id'] for t in yaml_content['exceptions'] if t['technique_id'] is not None]
+
+    name = yaml_content['name']
 
     return my_data_sources, name, systems, exceptions
 

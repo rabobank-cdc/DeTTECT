@@ -6,7 +6,7 @@ name: empty-data-source-admin-file
 # Also, take into account which data sources are applicable per platform. For more info see:
 # - https://github.com/rabobank-cdc/DeTTECT/wiki/Data-sources-per-platform
 systems:
-- applicable_to: all
+- applicable_to: empty-data-source-admin-file
   platform:
   - Windows
   - Linux
@@ -25,7 +25,7 @@ data_sources:
 - data_source_name: Process monitoring
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -40,7 +40,7 @@ data_sources:
 - data_source_name: File monitoring
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -55,7 +55,7 @@ data_sources:
 - data_source_name: GCP audit logs
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -70,7 +70,7 @@ data_sources:
 - data_source_name: Process command-line parameters
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -85,7 +85,7 @@ data_sources:
 - data_source_name: API monitoring
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -100,7 +100,7 @@ data_sources:
 - data_source_name: Process use of network
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -115,7 +115,7 @@ data_sources:
 - data_source_name: Windows Registry
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -130,7 +130,7 @@ data_sources:
 - data_source_name: Packet capture
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -145,7 +145,7 @@ data_sources:
 - data_source_name: Authentication logs
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -160,7 +160,7 @@ data_sources:
 - data_source_name: Netflow/Enclave netflow
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -175,7 +175,7 @@ data_sources:
 - data_source_name: Network device command history
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -190,7 +190,7 @@ data_sources:
 - data_source_name: Network device configuration
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -205,7 +205,7 @@ data_sources:
 - data_source_name: Network device run-time memory
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -220,7 +220,7 @@ data_sources:
 - data_source_name: Windows event logs
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -235,7 +235,7 @@ data_sources:
 - data_source_name: Binary file metadata
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -250,7 +250,7 @@ data_sources:
 - data_source_name: Network protocol analysis
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -265,7 +265,7 @@ data_sources:
 - data_source_name: DLL monitoring
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -280,7 +280,7 @@ data_sources:
 - data_source_name: Loaded DLLs
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -295,7 +295,7 @@ data_sources:
 - data_source_name: System calls
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -310,7 +310,7 @@ data_sources:
 - data_source_name: Malware reverse engineering
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -325,7 +325,7 @@ data_sources:
 - data_source_name: SSL/TLS certificates
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -340,7 +340,7 @@ data_sources:
 - data_source_name: SSL/TLS inspection
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -355,7 +355,7 @@ data_sources:
 - data_source_name: Anti-virus
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -370,7 +370,7 @@ data_sources:
 - data_source_name: Network intrusion detection system
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -385,7 +385,7 @@ data_sources:
 - data_source_name: Data loss prevention
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -400,7 +400,7 @@ data_sources:
 - data_source_name: Application logs
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -415,7 +415,7 @@ data_sources:
 - data_source_name: Email gateway
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -430,7 +430,7 @@ data_sources:
 - data_source_name: Network device logs
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -445,7 +445,7 @@ data_sources:
 - data_source_name: Web proxy
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -460,7 +460,7 @@ data_sources:
 - data_source_name: Windows Error Reporting
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -475,7 +475,7 @@ data_sources:
 - data_source_name: Kernel drivers
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -490,7 +490,7 @@ data_sources:
 - data_source_name: User interface
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -505,7 +505,7 @@ data_sources:
 - data_source_name: Host network interface
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -520,7 +520,7 @@ data_sources:
 - data_source_name: Third-party application logs
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -535,7 +535,7 @@ data_sources:
 - data_source_name: Services
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -550,7 +550,7 @@ data_sources:
 - data_source_name: Social media monitoring
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -565,7 +565,7 @@ data_sources:
 - data_source_name: Web logs
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -580,7 +580,7 @@ data_sources:
 - data_source_name: Detonation chamber
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -595,7 +595,7 @@ data_sources:
 - data_source_name: Mail server
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -610,7 +610,7 @@ data_sources:
 - data_source_name: Environment variable
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -625,7 +625,7 @@ data_sources:
 - data_source_name: MBR
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -640,7 +640,7 @@ data_sources:
 - data_source_name: BIOS
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -655,7 +655,7 @@ data_sources:
 - data_source_name: Web application firewall logs
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -670,7 +670,7 @@ data_sources:
 - data_source_name: Asset management
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -685,7 +685,7 @@ data_sources:
 - data_source_name: DHCP
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -700,7 +700,7 @@ data_sources:
 - data_source_name: DNS records
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -715,7 +715,7 @@ data_sources:
 - data_source_name: Domain registration
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -730,7 +730,7 @@ data_sources:
 - data_source_name: Browser extensions
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -745,7 +745,7 @@ data_sources:
 - data_source_name: Access tokens
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -760,7 +760,7 @@ data_sources:
 - data_source_name: Digital certificate logs
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -775,7 +775,7 @@ data_sources:
 - data_source_name: Disk forensics
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -790,7 +790,7 @@ data_sources:
 - data_source_name: Component firmware
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -805,7 +805,7 @@ data_sources:
 - data_source_name: WMI Objects
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -820,7 +820,7 @@ data_sources:
 - data_source_name: VBR
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -835,7 +835,7 @@ data_sources:
 - data_source_name: Named Pipes
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -850,7 +850,7 @@ data_sources:
 - data_source_name: Sensor health and status
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -865,7 +865,7 @@ data_sources:
 - data_source_name: EFI
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -880,7 +880,7 @@ data_sources:
 - data_source_name: PowerShell logs
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -895,7 +895,7 @@ data_sources:
 - data_source_name: AWS CloudTrail logs
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -910,7 +910,7 @@ data_sources:
 - data_source_name: AWS OS logs
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -925,7 +925,7 @@ data_sources:
 - data_source_name: Azure OS logs
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -940,7 +940,7 @@ data_sources:
 - data_source_name: Azure activity logs
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -955,7 +955,7 @@ data_sources:
 - data_source_name: OAuth audit logs
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -970,7 +970,7 @@ data_sources:
 - data_source_name: Office 365 account logs
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -985,7 +985,7 @@ data_sources:
 - data_source_name: Office 365 audit logs
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -1000,7 +1000,7 @@ data_sources:
 - data_source_name: Office 365 trace logs
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
@@ -1015,7 +1015,7 @@ data_sources:
 - data_source_name: Stackdriver logs
   data_source:
   - applicable_to:
-    - all
+    - empty-data-source-admin-file
     date_registered:
     date_connected:
     products: []
