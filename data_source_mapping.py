@@ -255,45 +255,47 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
                         ds_scores.append(0)
                     scores_idx += 1
 
-            # check if not all ds_scores's values are 0. If not the case, we proceed in calculating the avg score
-            # and populating the metadata.
+            # Populate the metadata.
+            avg_ds_score = 0
             if not all(s == 0 for s in ds_scores):
                 avg_ds_score = float(sum(ds_scores)) / float(len(ds_scores))
 
-                color = COLOR_DS_25p if avg_ds_score <= 25 else COLOR_DS_50p if avg_ds_score <= 50 else COLOR_DS_75p \
-                    if avg_ds_score <= 75 else COLOR_DS_99p if avg_ds_score <= 99 else COLOR_DS_100p
+            color = COLOR_DS_25p if avg_ds_score <= 25 else COLOR_DS_50p if avg_ds_score <= 50 else COLOR_DS_75p \
+                if avg_ds_score <= 75 else COLOR_DS_99p if avg_ds_score <= 99 else COLOR_DS_100p
 
-                d = dict()
-                d['techniqueID'] = tech_id
+            d = dict()
+            d['techniqueID'] = tech_id
+            if avg_ds_score > 0:
                 d['color'] = color
-                d['comment'] = ''
-                d['enabled'] = True
-                d['metadata'] = []
+            d['comment'] = ''
+            d['enabled'] = True
+            d['metadata'] = []
 
-                scores_idx = 0
-                divider = 0
-                for system in systems:
-                    # the system is relevant for this technique due to a match in ATT&CK platform
-                    if len(set(system['platform']).intersection(set(t['x_mitre_platforms']))) > 0:
-                        score = ds_scores[scores_idx]
+            scores_idx = 0
+            divider = 0
+            for system in systems:
+                # the system is relevant for this technique due to a match in ATT&CK platform
+                if len(set(system['platform']).intersection(set(t['x_mitre_platforms']))) > 0:
+                    score = ds_scores[scores_idx]
 
-                        if divider != 0:
-                            d['metadata'].append({'divider': True})
-                        divider += 1
+                    if divider != 0:
+                        d['metadata'].append({'divider': True})
+                    divider += 1
 
-                        d['metadata'].append({'name': 'Applicable to', 'value': system['applicable_to']})
-                        app_data_sources = get_applicable_data_sources_technique(
-                            t['x_mitre_data_sources'], get_applicable_data_sources_platform(system['platform']))
-                        if score > 0:
-                            d['metadata'].append({'name': 'Available data sources', 'value': ', '.join(system_available_data_sources[scores_idx])})
-                        else:
-                            d['metadata'].append({'name': 'Available data sources', 'value': ''})
-                        d['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(app_data_sources)})
-                        d['metadata'].append({'name': 'Score', 'value': str(int(score)) + '%'})
-                        scores_idx += 1
+                    d['metadata'].append({'name': 'Applicable to', 'value': system['applicable_to']})
+                    app_data_sources = get_applicable_data_sources_technique(
+                        t['x_mitre_data_sources'], get_applicable_data_sources_platform(system['platform']))
+                    if score > 0:
+                        d['metadata'].append({'name': 'Available data sources', 'value': ', '.join(
+                            system_available_data_sources[scores_idx])})
+                    else:
+                        d['metadata'].append({'name': 'Available data sources', 'value': ''})
+                    d['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(app_data_sources)})
+                    d['metadata'].append({'name': 'Score', 'value': str(int(score)) + '%'})
+                    scores_idx += 1
 
-                d['metadata'] = make_layer_metadata_compliant(d['metadata'])
-                output_techniques.append(d)
+            d['metadata'] = make_layer_metadata_compliant(d['metadata'])
+            output_techniques.append(d)
 
     determine_and_set_show_sub_techniques(output_techniques)
 
