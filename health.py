@@ -102,7 +102,7 @@ def _check_for_similar_values(values, values_key_name, health_is_called=False):
 
     if len(similar) > 0:
         has_similar = _print_error_msg(
-            '[!] There are values_non_empty in the key-value pairs for \'' + values_key_name + '\' which are very similar. Correct where necessary:', health_is_called)
+            '[!] There are values in the key-value pairs for \'' + values_key_name + '\' which are very similar. Correct where necessary:', health_is_called)
         for s in similar:
             _print_error_msg('    - ' + s, health_is_called)
 
@@ -123,21 +123,41 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
     from generic import get_platform_from_yaml
     has_error = False
 
-    platform = get_platform_from_yaml(ds_content)
-
     if not src_eql:
-        if isinstance(platform, str):
-            platform = [platform]
-        if platform is None or len(platform) == 0 or platform == '':
-            platform = ['empty']
-        for p in platform:
-            if p.lower() not in PLATFORMS.keys():
-                has_error = _print_error_msg(
-                    '[!] EMPTY or INVALID value for \'platform\' within the data source admin. '
-                    'file: %s (should be value(s) of: [%s] or all)' % (p, ', '.join(list(PLATFORMS.values()))),
-                    health_is_called)
+        systems_applicable_to = set()
+        if 'systems' in ds_content:
+            for system in ds_content['systems']:
+                # check the platform value
+                platform = system['platform']
+                if isinstance(platform, str):
+                    platform = [platform]
+                if platform is None or len(platform) == 0 or platform == '':
+                    platform = ['empty']
+                for p in platform:
+                    if p.lower() not in PLATFORMS.keys():
+                        has_error = _print_error_msg(
+                            '[!] EMPTY or INVALID value for \'platform\' within the data source admin file\'s \'system\' key-value pair: '
+                            '%s (should be value(s) of: [%s] or all)' % (p, ', '.join(list(PLATFORMS.values()))),
+                            health_is_called)
 
-    all_applicable_to = set()
+                # check applicable_to value
+                applicable_to = system['applicable_to']
+                if applicable_to is None or applicable_to == '' or applicable_to.lower() == 'all':
+                    has_error = _print_error_msg(
+                            '[!] EMPTY or INVALID value for \'applicable_to\' within the data source admin file\'s \'system\' key-value pair: '
+                            '%s (should be any string value except an empty string and \'all\')' % applicable_to,
+                            health_is_called)
+                elif applicable_to.lower() not in systems_applicable_to:
+                    systems_applicable_to.add(applicable_to.lower())
+                else:
+                    has_error = _print_error_msg(
+                            '[!] DUPLICATE \'applicable_to\' value within the data source admin file\'s \'system\' key-value pair: '
+                            '%s' % applicable_to, health_is_called)
+        else:
+            has_error = _print_error_msg('[!] The data source administration file is MISSING the key-value pair \'systems\'',
+                                         health_is_called)
+
+    ds_objects_applicable_to = set()
 
     for ds_global_obj in ds_content['data_sources']:
         for key_global in ['data_source_name', 'data_source']:
@@ -216,7 +236,14 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
                                                      '\' the key-value pair \'data_quality\' is NOT a dictionary with data quality dimension scores', health_is_called)
 
                 if 'applicable_to' in ds_details_obj and isinstance(ds_details_obj['applicable_to'], list):
-                    all_applicable_to.update(ds_details_obj['applicable_to'])
+                    ds_objects_applicable_to.update(ds_details_obj['applicable_to'])
+
+    if not src_eql:
+        for ds_a in ds_objects_applicable_to:
+            if ds_a.lower() not in systems_applicable_to:
+                has_error = _print_error_msg('[!] The \'applicable_to\' value: \'%s\' within the data source admin. file is used '
+                                             'by a data source details object without being specified within the \'system\' '
+                                             'key-value pair' % ds_a, health_is_called)
 
     if 'exceptions' in ds_content:
         for tech in ds_content['exceptions']:
@@ -225,8 +252,6 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
         if not REGEX_YAML_TECHNIQUE_ID_FORMAT.match(tech_id) and tech_id != 'None':
             has_error = _print_error_msg(
                 '[!] INVALID technique ID in the \'exceptions\' list of data source admin. file: ' + tech_id, health_is_called)
-
-    has_error = _check_for_similar_values(all_applicable_to, 'applicable_to', health_is_called)
 
     if has_error and not health_is_called and not no_print:
         print(HEALTH_ERROR_TXT + filename)
