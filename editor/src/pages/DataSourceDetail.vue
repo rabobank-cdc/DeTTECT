@@ -35,19 +35,19 @@
             </div>
         </div>
         <div class="row mt-md-2">
-            <div class="col-md-4 pr-md-1">
-                <toggle-button
-                    :state="dataSource.available_for_data_analytics"
-                    name="Available for data analytics"
-                    @toggleButtonUpdated="dataSource.available_for_data_analytics = $event"
-                ></toggle-button>
-            </div>
             <div class="col-md-5 pr-md-1">
                 <toggle-button
                     :state="dsEnabled"
                     name="Data source enabled"
                     @toggleButtonUpdated="toggleEnabled"
                     helpText="Enables a data source by setting all data quality scores to 1, or restore to the previous value. Disables a data source by setting al data quality scores to 0."
+                ></toggle-button>
+            </div>
+            <div class="col-md-4 pr-md-1">
+                <toggle-button
+                    :state="dataSource.available_for_data_analytics"
+                    name="Available for data analytics"
+                    @toggleButtonUpdated="dataSource.available_for_data_analytics = $event"
                 ></toggle-button>
             </div>
         </div>
