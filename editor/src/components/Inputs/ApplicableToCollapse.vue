@@ -40,9 +40,9 @@
                             class="mt-md-2 no-bottom-margin"
                             :externalListToValidate="getApplicableToList()"
                             :helpText="
-                                'Specifies to which type of system this ' +
+                                'Specifies to which type of system(s) this ' +
                                     title.toLowerCase() +
-                                    ' applies to. The value \'all\' can be used to let it apply to every type of system.'
+                                    ' applies. The value \'all\' can be used to let it apply to every type of system.'
                             "
                             notifyText="The value 'KEYNAME' is already part of the applicable_to for this technique. Duplicate entries are not allowed."
                         ></list-editor>
@@ -62,6 +62,9 @@
                             :name="'Location of the ' + title.toLowerCase() + '(s)'"
                             placeholder="location"
                             class="mt-md-2"
+                            :helpText="
+                                'The location(s) where your detection is residing. For example, a specific ID or name of a detection rule/use case, SIEM or product name.'
+                            "
                         ></list-editor>
                         <div class="row mt-md-2">
                             <div class="col">
