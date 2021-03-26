@@ -120,7 +120,6 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
     ATT&CK Platform is not part of the EQL search result
     :return: False if no errors have been found, otherwise True
     """
-    from generic import get_platform_from_yaml
     has_error = False
 
     if not src_eql:
@@ -177,13 +176,13 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
 
                 for okey in obk_keys:
                     if okey not in ds_details_obj:
-                        has_error = _print_error_msg('[!] Data source: \'' + ds_details_obj['data_source_name'] +
+                        has_error = _print_error_msg('[!] Data source: \'' + ds_global_obj['data_source_name'] +
                                                      '\' is MISSING a key-value pair: ' + okey, health_is_called)
 
                 for okey in obj_keys_list:
                     if okey in ds_details_obj:
                         if not isinstance(ds_details_obj[okey], list):
-                            has_error = _print_error_msg('[!] Data source: \'' + ds_details_obj['data_source_name'] + '\' the key-value pair \'' + okey +
+                            has_error = _print_error_msg('[!] Data source: \'' + ds_global_obj['data_source_name'] + '\' the key-value pair \'' + okey +
                                                          '\' is NOT a list', health_is_called)
 
                 for okey in obj_keys_not_none:
@@ -193,10 +192,10 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
                             if item is None:
                                 none_count += 1
                         if none_count == 1:
-                            has_error = _print_error_msg('[!] Data source: \'' + ds_details_obj['data_source_name'] + '\' the key-value pair \'' + okey +
+                            has_error = _print_error_msg('[!] Data source: \'' + ds_global_obj['data_source_name'] + '\' the key-value pair \'' + okey +
                                                          '\' has an EMPTY value  (an empty string is allowed: \'\')', health_is_called)
                         elif none_count > 1:
-                            has_error = _print_error_msg('[!] Data source: \'' + ds_details_obj['data_source_name'] + '\' the key-value pair \'' + okey +
+                            has_error = _print_error_msg('[!] Data source: \'' + ds_global_obj['data_source_name'] + '\' the key-value pair \'' + okey +
                                                          '\' has an EMPTY values  (an empty string is allowed: \'\')', health_is_called)
 
                 for key in ['date_registered', 'date_connected']:
@@ -209,30 +208,30 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
                             # pylint: disable=pointless-statement
                             ds_details_obj[key].day
                         except AttributeError:
-                            has_error = _print_error_msg('[!] Data source: \'' + ds_details_obj['data_source_name'] + '\' has an INVALID data format for the key-value pair \'' + key
+                            has_error = _print_error_msg('[!] Data source: \'' + ds_global_obj['data_source_name'] + '\' has an INVALID data format for the key-value pair \'' + key
                                                          + '\': ' + ds_details_obj[key] + '  (should be YYYY-MM-DD without quotes)', health_is_called)
 
                 if 'available_for_data_analytics' in ds_details_obj:
                     if not isinstance(ds_details_obj['available_for_data_analytics'], bool):
-                        has_error = _print_error_msg('[!] Data source: \'' + ds_details_obj['data_source_name'] +
+                        has_error = _print_error_msg('[!] Data source: \'' + ds_global_obj['data_source_name'] +
                                                      '\' has an INVALID \'available_for_data_analytics\' value: should be set to \'true\' or \'false\'', health_is_called)
 
                 if 'data_quality' in ds_details_obj:
                     if isinstance(ds_details_obj['data_quality'], dict):
                         for dimension in ['device_completeness', 'data_field_completeness', 'timeliness', 'consistency', 'retention']:
                             if dimension not in ds_details_obj['data_quality']:
-                                has_error = _print_error_msg('[!] Data source: \'' + ds_details_obj['data_source_name'] +
+                                has_error = _print_error_msg('[!] Data source: \'' + ds_global_obj['data_source_name'] +
                                                              '\' is MISSING a key-value pair in \'data_quality\': ' + dimension, health_is_called)
                             else:
                                 if isinstance(ds_details_obj['data_quality'][dimension], int):
                                     if not 0 <= ds_details_obj['data_quality'][dimension] <= 5:
-                                        has_error = _print_error_msg('[!] Data source: \'' + ds_details_obj['data_source_name'] + '\' has an INVALID data quality score for the dimension \''
+                                        has_error = _print_error_msg('[!] Data source: \'' + ds_global_obj['data_source_name'] + '\' has an INVALID data quality score for the dimension \''
                                                                      + dimension + '\': ' + str(ds_details_obj['data_quality'][dimension]) + '  (should be between 0 and 5)', health_is_called)
                                 else:
-                                    has_error = _print_error_msg('[!] Data source: \'' + ds_details_obj['data_source_name'] + '\' has an INVALID data quality score for the dimension \'' +
+                                    has_error = _print_error_msg('[!] Data source: \'' + ds_global_obj['data_source_name'] + '\' has an INVALID data quality score for the dimension \'' +
                                                                  dimension + '\': ' + str(ds_details_obj['data_quality'][dimension]) + '  (should be an an integer)', health_is_called)
                     else:
-                        has_error = _print_error_msg('[!] Data source: \'' + ds_details_obj['data_source_name'] +
+                        has_error = _print_error_msg('[!] Data source: \'' + ds_global_obj['data_source_name'] +
                                                      '\' the key-value pair \'data_quality\' is NOT a dictionary with data quality dimension scores', health_is_called)
 
                 if 'applicable_to' in ds_details_obj and isinstance(ds_details_obj['applicable_to'], list):
