@@ -69,18 +69,12 @@ def _data_sources_to_events(data_sources):
     :return: EQL 'events'
     """
     data_source_events = []
-    data_sources = data_sources['data_sources']
 
-    for ds in data_sources:
-        if not isinstance(ds['data_source'], list):
-            ds['data_source'] = [ds['data_source']]
-
-        # loop over all data source objects
-        for obj in ds['data_source']:
-            obj = set_yaml_dv_comments(obj)
-
-            event = deepcopy(obj)
-            event['data_source_name'] = ds['data_source_name']
+    for ds_name, ds_details_objects in data_sources.items():
+        for ds in ds_details_objects['data_source']:
+            ds = set_yaml_dv_comments(ds)
+            event = deepcopy(ds)
+            event['data_source_name'] = ds_name
             data_source_events.append(event)
 
     return data_source_events
@@ -315,6 +309,7 @@ def _prepare_yaml_file(filename, obj_type, include_all_score_objs):
 
     # create EQL events from the list of dictionaries
     if obj_type == 'data_sources':
+        yaml_content_eql, _, _, _ = load_data_sources(yaml_content)
         yaml_content_eql = _data_sources_to_events(yaml_content_eql)
         for e in yaml_content_eql:
             yaml_eql_events.append(eql.Event(obj_type, 0, e))
