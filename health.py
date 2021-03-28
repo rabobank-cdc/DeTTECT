@@ -239,7 +239,7 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
 
     if not src_eql:
         for ds_a in ds_objects_applicable_to:
-            if ds_a.lower() not in systems_applicable_to:
+            if ds_a.lower() not in systems_applicable_to and ds_a.lower() != 'all':
                 has_error = _print_error_msg('[!] The \'applicable_to\' value: \'%s\' within the data source admin. file is used '
                                              'by a data source details object without being specified within the \'system\' '
                                              'key-value pair' % ds_a, health_is_called)
