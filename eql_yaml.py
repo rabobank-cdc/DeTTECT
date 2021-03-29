@@ -75,28 +75,36 @@ def _data_sources_to_events(data_sources):
             ds = set_yaml_dv_comments(ds)
             event = deepcopy(ds)
             event['data_source_name'] = ds_name
-            data_source_events.append(event)
+            for a in event['applicable_to']:
+                event['applicable_to'] = a
+                data_source_events.append(deepcopy(event))
 
     return data_source_events
 
 
-def _object_in_technique(obj_event, technique_yaml, obj_type):
+def _yaml_object_in_list(eql_event, yaml_object, obj_type):
     """
-    - Check if the detection/visibility object already exists within the provided technique object ('technique_yaml')
-    - If it exists return the object's index in the list of other detection/visibility objects to which the
-    'score_logbook' should be added. This is needed for techniques which have multiple visibility or detection objects
-    due to 'applicable_to'
-    :param obj_event: visibility or detection EQL event
-    :param technique_yaml: the technique object that's being reconstructing from the EQL events
-    :param obj_type: 'visibility' or 'detection'
+    - Check if the EQL event/YAML object already exists within the provided list of YAML objects (detection, visibility or data_source)
+    - If it exists return the object's index in the list of other objects to which:
+      * the score_logbook should be added
+      * or, the applicable_to value should added
+
+    This is needed for techniques which have multiple visibility or detection objects,
+    and a data source with multiple applicable_to values
+    :param eql_event: visibility, detection or data_source EQL event
+    :param yaml_object: the technique or data_source object that's being reconstructing from the EQL events
+    :param obj_type: 'visibility', 'detection' or 'data_source'
     :return: -1 if it does not exists, otherwise the index within the list
     """
     idx = 0
-    for obj in technique_yaml[obj_type]:
+    for obj in yaml_object[obj_type]:
         match = True
-        for k, v in obj_event.items():
-            # we need to skip the score_logbook in the comparison this will not match as we are still re-creating the object
-            if (k in obj and obj[k] == v) or k == 'score_logbook':
+        for k, v in eql_event.items():
+            # We need to skip the score_logbook or applicable_to in the comparison.
+            # This will not match as we are still re-creating the object.
+            if (k in obj and obj[k] == v) or \
+                (k == 'score_logbook' and obj_type in ['visibility', 'detection']) or \
+                    (k == 'applicable_to' and obj_type == 'data_source'):
                 continue
             else:
                 match = False
@@ -156,6 +164,7 @@ def _events_to_yaml(query_results, obj_type):
                     ds['date_connected'] = datetime.datetime.strptime(ds['date_connected'], '%Y-%m-%d')
 
                 ds_name = ds['data_source_name']
+                del ds['data_source_name']
 
                 # create the data source dict if not already created
                 if not _value_in_dict_list(data_sources_yaml, 'data_source_name', ds_name):
@@ -167,8 +176,16 @@ def _events_to_yaml(query_results, obj_type):
                     # The data source dict was already created. Get a ds. dict from the list with a specific data source name
                     ds_yaml = _get_item_from_list(data_sources_yaml, 'data_source_name', ds_name)
 
-                del ds['data_source_name']
-                ds_yaml['data_source'].append(deepcopy(ds))
+                # figure out if the data source details object already exists
+                obj_idx = _yaml_object_in_list(ds, ds_yaml, 'data_source')
+
+                # The data source details object is missing, add it to the list
+                if obj_idx == -1:
+                    ds['applicable_to'] = [ds['applicable_to']]
+                    ds_yaml['data_source'].append(deepcopy(ds))
+                else:
+                    # add the applicable_to value to the correct data source details object using 'obj_idx'
+                    ds_yaml['data_source'][obj_idx]['applicable_to'].append(ds['applicable_to'])
 
         except KeyError:
             print(EQL_INVALID_RESULT_DS)
@@ -207,7 +224,7 @@ def _events_to_yaml(query_results, obj_type):
                     tech_yaml = _get_item_from_list(techniques_yaml, 'technique_id', tech_id)
 
                 # figure out if the detection/visibility dict already exists
-                obj_idx = _object_in_technique(obj_event, tech_yaml, obj_type)
+                obj_idx = _yaml_object_in_list(obj_event, tech_yaml, obj_type)
 
                 # create the score object
                 score_obj_yaml = {}
@@ -309,7 +326,7 @@ def _prepare_yaml_file(filename, obj_type, include_all_score_objs):
 
     # create EQL events from the list of dictionaries
     if obj_type == 'data_sources':
-        yaml_content_eql, _, _, _ = load_data_sources(yaml_content)
+        yaml_content_eql, _, _, _ = load_data_sources(yaml_content, filter_empty_scores=False)
         yaml_content_eql = _data_sources_to_events(yaml_content_eql)
         for e in yaml_content_eql:
             yaml_eql_events.append(eql.Event(obj_type, 0, e))
@@ -325,7 +342,7 @@ def _prepare_yaml_file(filename, obj_type, include_all_score_objs):
 
 def _check_query_results(query_results, obj_type):
     """
-    Check if the EQL query provided results that
+    Check if the EQL query provided results
     :param query_results: EQL events
     :param obj_type: 'data_sources', 'visibility' or 'detection'
     :return:
