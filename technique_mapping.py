@@ -6,11 +6,10 @@ from copy import deepcopy
 # Imports for pandas and plotly are because of performance reasons in the function that uses these libraries.
 
 
-def generate_detection_layer(filename_techniques, filename_data_sources, overlay, output_filename, layer_name, platform=None):
+def generate_detection_layer(filename_techniques, overlay, output_filename, layer_name, platform=None):
     """
     Generates layer for detection coverage and optionally an overlaid version with visibility coverage.
     :param filename_techniques: the filename of the YAML file containing the techniques administration
-    :param filename_data_sources: the filename of the YAML file containing the data sources administration
     :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
     :param layer_name: the name of the Navigator layer
     :param output_filename: the output filename defined by the user
@@ -27,19 +26,17 @@ def generate_detection_layer(filename_techniques, filename_data_sources, overlay
         layer_detection = get_layer_template_detections(layer_name, 'description', platform)
         _write_layer(layer_detection, mapped_techniques_detection, 'detection', name, output_filename)
     else:
-        my_data_sources, _, _, _ = load_data_sources(filename_data_sources)
-        mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, platform)
+        mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, platform)
         if not layer_name:
             layer_name = 'Visibility and Detection ' + name
         layer_both = get_layer_template_layered(layer_name, 'description', platform)
         _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name, output_filename)
 
 
-def generate_visibility_layer(filename_techniques, filename_data_sources, overlay, output_filename, layer_name, platform=None):
+def generate_visibility_layer(filename_techniques, overlay, output_filename, layer_name, platform=None):
     """
     Generates layer for visibility coverage and optionally an overlaid version with detection coverage.
     :param filename_techniques: the filename of the YAML file containing the techniques administration
-    :param filename_data_sources: the filename of the YAML file containing the data sources administration
     :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
     :param output_filename: the output filename defined by the user
     :param layer_name: the name of the Navigator layer
