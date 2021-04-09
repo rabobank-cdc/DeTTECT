@@ -771,43 +771,6 @@ def load_data_sources(file, filter_empty_scores=True):
     return my_data_sources, name, systems, exceptions
 
 
-def map_techniques_to_data_sources(techniques, my_data_sources):
-    """
-    This function maps the MITRE ATT&CK techniques to your data sources.
-    :param techniques: list with all MITRE ATT&CK techniques
-    :param my_data_sources: your configured data sources
-    :return: a dictionary containing techniques that can be used in the layer output file.
-    """
-    my_techniques = {}
-    for i_ds in my_data_sources.keys():
-        # Loop through all techniques, to find techniques using that data source:
-        for t in techniques:
-            # If your data source is in the list of data sources for this technique AND if the
-            # technique isn't added yet (by an other data source):
-            tech_id = get_attack_id(t)
-            if 'x_mitre_data_sources' in t:
-                if i_ds in t['x_mitre_data_sources'] and tech_id not in my_techniques.keys():
-                    my_techniques[tech_id] = {}
-                    my_techniques[tech_id]['my_data_sources'] = [i_ds, ]
-                    my_techniques[tech_id]['mitre_data_sources'] = t['x_mitre_data_sources']
-                    # create a list of tactics
-                    my_techniques[tech_id]['tactics'] = list(map(lambda k: k['phase_name'], t.get('kill_chain_phases', None)))
-                    products = set(chain.from_iterable(map(lambda k: k['products'], my_data_sources[i_ds]['data_source'])))
-                    my_techniques[tech_id]['products'] = products
-
-                    applicable_to = set(chain.from_iterable(map(lambda k: k['applicable_to'], my_data_sources[i_ds]['data_source'])))
-                    my_techniques[tech_id]['applicable_to'] = applicable_to
-                elif t['x_mitre_data_sources'] and i_ds in t['x_mitre_data_sources'] and tech_id in my_techniques.keys():
-                    my_techniques[tech_id]['my_data_sources'].append(i_ds)
-                    products = list(chain.from_iterable(map(lambda k: k['products'], my_data_sources[i_ds]['data_source'])))
-                    my_techniques[tech_id]['products'].update(products)
-
-                    applicable_to = list(chain.from_iterable(map(lambda k: k['applicable_to'], my_data_sources[i_ds]['data_source'])))
-                    my_techniques[tech_id]['applicable_to'].update(applicable_to)
-
-    return my_techniques
-
-
 def get_all_mitre_data_sources():
     """
     Gets all the data sources from the techniques and make a set.
@@ -823,16 +786,16 @@ def get_all_mitre_data_sources():
     return data_sources
 
 
-def calculate_score(list_detections, zero_value=0):
+def calculate_score(list_yaml_objects, zero_value=0):
     """
-    Calculates the average score in the given list which may contain multiple detection dictionaries
-    :param list_detections: list
+    Calculates the average score in the given list which may contain multiple detection or visibility dictionaries
+    :param list_yaml_objects: list of detection or visibility objects
     :param zero_value: the value when no scores are there, default 0
     :return: average score
     """
     avg_score = 0
     number = 0
-    for v in list_detections:
+    for v in list_yaml_objects:
         score = get_latest_score(v)
         if score is not None and score >= 0:
             avg_score += score

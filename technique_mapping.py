@@ -46,18 +46,17 @@ def generate_visibility_layer(filename_techniques, filename_data_sources, overla
     :param platform: one or multiple values from PLATFORMS constant
     :return:
     """
-    my_data_sources, _, _, _ = load_data_sources(filename_data_sources)
     my_techniques, name, platform_yaml = load_techniques(filename_techniques)
     platform = set_platform(platform_yaml, platform)
 
     if not overlay:
-        mapped_techniques_visibility = _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, platform)
+        mapped_techniques_visibility = _map_and_colorize_techniques_for_visibility(my_techniques, platform)
         if not layer_name:
             layer_name = 'Visibility ' + name
         layer_visibility = get_layer_template_visibility(layer_name, 'description', platform)
         _write_layer(layer_visibility, mapped_techniques_visibility, 'visibility', name, output_filename)
     else:
-        mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, platform)
+        mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, platform)
         if not layer_name:
             layer_name = 'Visibility and Detection ' + name
         layer_both = get_layer_template_layered(layer_name, 'description', platform)
@@ -184,18 +183,15 @@ def _map_and_colorize_techniques_for_detections(my_techniques):
     return mapped_techniques
 
 
-def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, platforms):
+def _map_and_colorize_techniques_for_visibility(my_techniques, platforms):
     """
     Determine the color of the techniques based on the visibility score in the given YAML file.
     :param my_techniques: the configured techniques
-    :param my_data_sources: the configured data sources
     :param platforms: the configured platform(s)
     :return: a dictionary with techniques that can be used in the layer's output file
     """
     techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
     applicable_data_sources = get_applicable_data_sources_platform(platforms)
-
-    technique_ds_mapping = map_techniques_to_data_sources(techniques, my_data_sources)
 
     # Color the techniques based on how the coverage defined in the detections definition and generate a list with
     # techniques to be used in the layer output file.
@@ -205,7 +201,6 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, 
         if s == 0:
             s = None
 
-        my_ds = ', '.join(technique_ds_mapping[technique_id]['my_data_sources']) if technique_id in technique_ds_mapping.keys() and technique_ds_mapping[technique_id]['my_data_sources'] else ''  # noqa
         technique = get_technique(techniques, technique_id)
         color = COLOR_V_1 if s == 1 else COLOR_V_2 if s == 2 else COLOR_V_3 if s == 3 else COLOR_V_4 if s == 4 else ''
 
@@ -216,7 +211,6 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, 
             x['comment'] = ''
             x['enabled'] = True
             x['metadata'] = []
-            x['metadata'].append({'name': 'Available data sources', 'value': my_ds})
             x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique.get('x_mitre_data_sources', ''),
                                                                                                                           applicable_data_sources))})
             x['metadata'].append({'divider': True})
@@ -267,18 +261,15 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, 
     return mapped_techniques
 
 
-def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, platforms):
+def _map_and_colorize_techniques_for_overlaid(my_techniques, platforms):
     """
     Determine the color of the techniques based on both detection and visibility.
     :param my_techniques: the configured techniques
-    :param my_data_sources: the configured data sources
     :param platforms: the configured platform(s)
     :return: a dictionary with techniques that can be used in the layer's output file
     """
     techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
     applicable_data_sources = get_applicable_data_sources_platform(platforms)
-
-    technique_ds_mapping = map_techniques_to_data_sources(techniques, my_data_sources)
 
     # Color the techniques based on how the coverage defined in the detections definition and generate a list with
     # techniques to be used in the layer output file.
@@ -303,8 +294,6 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, pl
         else:
             color = COLOR_WHITE
 
-        my_ds = ', '.join(technique_ds_mapping[technique_id]['my_data_sources']) if technique_id in technique_ds_mapping.keys() and technique_ds_mapping[technique_id]['my_data_sources'] else ''  # noqa
-
         technique = get_technique(techniques, technique_id)
         x = dict()
         x['techniqueID'] = technique_id
@@ -312,7 +301,6 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, pl
         x['comment'] = ''
         x['enabled'] = True
         x['metadata'] = []
-        x['metadata'].append({'name': 'Available data sources', 'value': my_ds})
         x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique.get('x_mitre_data_sources', ''),
                                                                                                                       applicable_data_sources))})
         # Metadata for detection and visibility:
