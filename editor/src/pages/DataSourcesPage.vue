@@ -335,8 +335,8 @@ export default {
             this.$http.get(this.dsFileToRender).then(
                 (response) => {
                     this.dsHelpText = response.body.replace(/\[(.+)\](\([#\w-]+\))/gm, '$1'); // remove links to other wiki pages
-                    this.dsHelpText = this.dsHelpText.match(/## Data source object((.*|\n)*)/gim, '$1')[0];
-                    this.dsHelpText = this.dsHelpText.replace(/^## Data source object/gim, '');
+                    this.dsHelpText = this.dsHelpText.match(/## Data source details object((.*|\n)*)/gim, '$1')[0];
+                    this.dsHelpText = this.dsHelpText.replace(/^## Data source details object/gim, '');
                     this.dsHelpText = this.dsHelpText.replace(/^## .+((.*|\n)*)/gim, '');
                 },
                 // eslint-disable-next-line no-unused-vars
