@@ -654,6 +654,49 @@ def platform_to_name(platform, separator='-'):
         return ''
 
 
+def get_eql_applicable_to_query(args_applicable_to, filename, type):
+    """
+    Construct the EQL query used to filter on applicable to value(s).
+    :param args_applicable_to: list of applicable to values as provided via user input
+    :param filename: file path of the YAML file
+    :param type: type of EQL query to create
+    :return: EQL query to filter on applicable to value(s)
+    """
+    applicable_to_yaml_values = _get_applicable_to_yaml_values(filename, type)
+
+    for a in args_applicable_to:
+        if a.lower() not in applicable_to_yaml_values:
+            print('[!] \'' + a + '\' is an unknown applicable to value.\n'
+                  '     Known values are: ' + ', '.join(applicable_to_yaml_values))
+            quit()
+
+    applicable_to = ', '.join("'{0}'".format(a) for a in args_applicable_to)
+    applicable_to = "(%s)" % applicable_to
+
+    if type == FILE_TYPE_DATA_SOURCE_ADMINISTRATION:
+        eql_query = 'data_sources where applicable_to in %s' % applicable_to
+
+    return eql_query
+
+
+def _get_applicable_to_yaml_values(filename, type):
+    """
+    Get all the applicable to values, in lower case, from the provided YAML file.
+    :param filename: file path of the YAML file
+    :param type: type of YAML object to get the applicable to values from
+    :retturn: set with all applicable to values in lower case
+    """
+    app_to_values = set()
+
+    if type == FILE_TYPE_DATA_SOURCE_ADMINISTRATION:
+        _, _, systems, _ = load_data_sources(filename)
+
+        for system in systems:
+            app_to_values.add(system['applicable_to'].lower())
+
+    return app_to_values
+
+
 def get_applicable_data_sources_platform(platforms):
     """
     Get the applicable ATT&CK data sources for the provided platform(s)

@@ -316,10 +316,14 @@ def _prepare_yaml_file(filename, obj_type, include_all_score_objs):
     :return: A dict with date fields compatible for JSON and a new key-value pair event-type
     for the EQL engine
     """
-    _yaml = init_yaml()
-
-    with open(filename, 'r') as yaml_file:
-        yaml_content = _yaml.load(yaml_file)
+    if isinstance(filename, dict):
+        # file is a dict created due to the use of an EQL query by the user
+        yaml_content = filename
+    else:
+        # file is a file location on disk
+        _yaml = init_yaml()
+        with open(filename, 'r') as yaml_file:
+            yaml_content = _yaml.load(yaml_file)
 
     yaml_content_eql = _traverse_modify_date(yaml_content)
     yaml_eql_events = []

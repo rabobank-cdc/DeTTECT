@@ -40,10 +40,10 @@ def _init_menu():
                                      required=False)
     parser_data_sources.add_argument('-fd', '--file-ds', help='path to the data source administration YAML file',
                                      required=True)
-    parser_data_sources.add_argument('-p', '--platform', action='append', help='specify the platform for the Navigator '
-                                     'layer file (default = platform(s) specified in the YAML file). Multiple platforms'
-                                     ' can be provided with extra \'-p/--platform\' arguments',
-                                     choices=['all'] + list(PLATFORMS.values()), type=_platform_lookup())
+    parser_data_sources.add_argument('-a', '--applicable-to', action='append', help='specify which data source objects '
+                                     'to include by filtering on applicable to value(s) (used to define the type of '
+                                     'system). You can provide multiple applicable to values with extra '
+                                     '\'-a/--applicable-to\' arguments')
     parser_data_sources.add_argument('-s', '--search', help='only include data sources which match the provided EQL '
                                                             'query')
     parser_data_sources.add_argument('-l', '--layer', help='generate a data source layer for the ATT&CK navigator',
@@ -239,8 +239,13 @@ def _menu(menu_parser):
         if check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.health):
             file_ds = args.file_ds
 
+            if args.applicable_to:
+                eql_search = get_eql_applicable_to_query(args.applicable_to, file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION)
+                file_ds = data_source_search(args.file_ds, eql_search)
+                if not file_ds:
+                    quit()  # something went wrong in executing the search or 0 results where returned
             if args.search:
-                file_ds = data_source_search(args.file_ds, args.search)
+                file_ds = data_source_search(file_ds, args.search)
                 if not file_ds:
                     quit()  # something went wrong in executing the search or 0 results where returned
             if args.update and check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
@@ -272,7 +277,7 @@ def _menu(menu_parser):
             if args.excel:
                 export_techniques_list_to_excel(file_tech, args.output_filename)
 
-    # TODO add search capabilities
+    # TODO add Group EQL search capabilities
     elif args.subparser in ['group', 'g']:
         generate_group_heat_map(args.groups, args.overlay, args.overlay_type, args.platform,
                                 args.software_group, args.search_visibility, args.search_detection, args.health,
