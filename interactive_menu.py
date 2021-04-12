@@ -33,6 +33,9 @@ def _clear():
     print(' ' * int((len(desc) - len(name)) / 2) + name)
     print(desc)
     print(' ' * int((len(desc) - len(version)) / 2) + version)
+    print('\n   [!]  The interactive menu will be removed from DeTT&CT in a   [!]')
+    print('   [!]    future release. We advise using the CLI which is       [!]')
+    print('   [!]      offering support for all features of DeTT&CT.        [!]')
     print('')
 
 
