@@ -1,0 +1,38 @@
+%YAML 1.2
+---
+#  Source: https://www.pwc.co.uk/cyber-security/pdf/pwc-cyber-threats-2020-a-year-in-retrospect.pdf
+version: 1.0
+file_type: group-administration
+platform:
+  - Windows
+  - Linux
+  - macOS
+groups:
+  - group_name: PwC - Cyber Threats 2020 A Year in Retrospect
+    campaign: 
+    technique_id:
+      - T1005
+      - T1027
+      - T1036
+      - T1041
+      - T1056.001
+      - T1057
+      - T1059
+      - T1068
+      - T1070.004
+      - T1071
+      - T1082
+      - T1083
+      - T1133
+      - T1140
+      - T1187
+      - T1195
+      - T1204
+      - T1221
+      - T1486
+      - T1489
+      - T1490
+      - T1547.001
+      - T1566
+    software_id:
+    enabled: true
