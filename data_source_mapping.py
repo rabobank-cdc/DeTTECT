@@ -81,7 +81,7 @@ def export_data_source_list_to_excel(filename, output_filename, eql_search=False
     :return:
     """
     # pylint: disable=unused-variable
-    my_data_sources, name, platforms, exceptions = _load_data_sources(filename, filter_empty_scores=False)
+    my_data_sources, name, platforms, _ = _load_data_sources(filename, filter_empty_scores=False)
     if not output_filename:
         output_filename = 'data_sources'
     elif output_filename.endswith('.xlsx'):
@@ -237,6 +237,7 @@ def _count_applicable_data_sources(technique, applicable_data_sources):
     """
     applicable_ds_count = 0
     for ds in technique['x_mitre_data_sources']:
+        ds = ds.split(':')[1][1:]
         if ds in applicable_data_sources:
             applicable_ds_count += 1
     return applicable_ds_count
@@ -260,6 +261,7 @@ def _map_and_colorize_techniques(my_ds, platforms, exceptions):
             total_ds_count = _count_applicable_data_sources(t, applicable_data_sources)
             ds_count = 0
             for ds in t['x_mitre_data_sources']:
+                ds = ds.split(':')[1][1:]
                 if ds in my_ds.keys() and ds in applicable_data_sources:
                     ds_count += 1
             if total_ds_count > 0:
@@ -561,6 +563,7 @@ def generate_technique_administration_file(filename, output_filename, write_file
                 total_ds_count = _count_applicable_data_sources(t, applicable_data_sources)
                 ds_count = 0
                 for ds in t['x_mitre_data_sources']:
+                    ds = ds.split(':')[1][1:]
                     if ds in my_data_sources.keys() and ds in applicable_data_sources:
                         ds_count += 1
                 if total_ds_count > 0:

@@ -1367,11 +1367,11 @@
   },
   {
     "software_id": "S0167",
-    "software_name": "Matroyshka",
+    "software_name": "Matryoshka",
     "platforms": [
       "Windows"
     ],
-    "autosuggest": "S0167 - Matroyshka"
+    "autosuggest": "S0167 - Matryoshka"
   },
   {
     "software_id": "S0168",
@@ -1625,7 +1625,9 @@
     "software_id": "S0198",
     "software_name": "NETWIRE",
     "platforms": [
-      "Windows"
+      "Linux",
+      "Windows",
+      "macOS"
     ],
     "autosuggest": "S0198 - NETWIRE"
   },
@@ -3254,11 +3256,11 @@
   },
   {
     "software_id": "S0461",
-    "software_name": "SDBot",
+    "software_name": "SDBbot",
     "platforms": [
       "Windows"
     ],
-    "autosuggest": "S0461 - SDBot"
+    "autosuggest": "S0461 - SDBbot"
   },
   {
     "software_id": "S0462",
@@ -3618,12 +3620,142 @@
     "autosuggest": "S0519 - SYNful Knock"
   },
   {
+    "software_id": "S0520",
+    "software_name": "BLINDINGCAN",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0520 - BLINDINGCAN"
+  },
+  {
     "software_id": "S0521",
     "software_name": "BloodHound",
     "platforms": [
       "Windows"
     ],
     "autosuggest": "S0521 - BloodHound"
+  },
+  {
+    "software_id": "S0526",
+    "software_name": "KGH_SPY",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0526 - KGH_SPY"
+  },
+  {
+    "software_id": "S0527",
+    "software_name": "CSPY Downloader",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0527 - CSPY Downloader"
+  },
+  {
+    "software_id": "S0528",
+    "software_name": "Javali",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0528 - Javali"
+  },
+  {
+    "software_id": "S0530",
+    "software_name": "Melcoz",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0530 - Melcoz"
+  },
+  {
+    "software_id": "S0531",
+    "software_name": "Grandoreiro",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0531 - Grandoreiro"
+  },
+  {
+    "software_id": "S0532",
+    "software_name": "Lucifer",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0532 - Lucifer"
+  },
+  {
+    "software_id": "S0533",
+    "software_name": "SLOTHFULMEDIA",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0533 - SLOTHFULMEDIA"
+  },
+  {
+    "software_id": "S0534",
+    "software_name": "Bazar",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0534 - Bazar"
+  },
+  {
+    "software_id": "S0537",
+    "software_name": "HyperStack",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0537 - HyperStack"
+  },
+  {
+    "software_id": "S0538",
+    "software_name": "Crutch",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0538 - Crutch"
+  },
+  {
+    "software_id": "S0543",
+    "software_name": "Spark",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0543 - Spark"
+  },
+  {
+    "software_id": "S0546",
+    "software_name": "SharpStage",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0546 - SharpStage"
+  },
+  {
+    "software_id": "S0547",
+    "software_name": "DropBook",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0547 - DropBook"
+  },
+  {
+    "software_id": "S0551",
+    "software_name": "GoldenEagle",
+    "platforms": [
+      "AWS",
+      "Azure",
+      "Azure AD",
+      "GCP",
+      "Linux",
+      "Network",
+      "Office 365",
+      "PRE",
+      "SaaS",
+      "Windows",
+      "macOS"
+    ],
+    "autosuggest": "S0551 - GoldenEagle"
   },
   {
     "software_id": "S0552",
@@ -3634,28 +3766,68 @@
     "autosuggest": "S0552 - AdFind"
   },
   {
-    "software_id": "S0559",
-    "software_name": "Sunburst",
+    "software_id": "S0553",
+    "software_name": "MoleNet",
     "platforms": [
       "Windows"
     ],
-    "autosuggest": "S0559 - Sunburst"
+    "autosuggest": "S0553 - MoleNet"
+  },
+  {
+    "software_id": "S0554",
+    "software_name": "Egregor",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0554 - Egregor"
+  },
+  {
+    "software_id": "S0556",
+    "software_name": "Pay2Key",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0556 - Pay2Key"
+  },
+  {
+    "software_id": "S0559",
+    "software_name": "SUNBURST",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0559 - SUNBURST"
   },
   {
     "software_id": "S0560",
-    "software_name": "Teardrop",
+    "software_name": "TEARDROP",
     "platforms": [
       "Windows"
     ],
-    "autosuggest": "S0560 - Teardrop"
+    "autosuggest": "S0560 - TEARDROP"
+  },
+  {
+    "software_id": "S0561",
+    "software_name": "GuLoader",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0561 - GuLoader"
   },
   {
     "software_id": "S0562",
-    "software_name": "Sunspot",
+    "software_name": "SUNSPOT",
     "platforms": [
       "Windows"
     ],
-    "autosuggest": "S0562 - Sunspot"
+    "autosuggest": "S0562 - SUNSPOT"
+  },
+  {
+    "software_id": "S0564",
+    "software_name": "BlackMould",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0564 - BlackMould"
   },
   {
     "software_id": "S0565",
@@ -3664,5 +3836,279 @@
       "Windows"
     ],
     "autosuggest": "S0565 - Raindrop"
+  },
+  {
+    "software_id": "S0567",
+    "software_name": "Dtrack",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0567 - Dtrack"
+  },
+  {
+    "software_id": "S0568",
+    "software_name": "EVILNUM",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0568 - EVILNUM"
+  },
+  {
+    "software_id": "S0569",
+    "software_name": "Explosive",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0569 - Explosive"
+  },
+  {
+    "software_id": "S0570",
+    "software_name": "BitPaymer",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0570 - BitPaymer"
+  },
+  {
+    "software_id": "S0572",
+    "software_name": "Caterpillar WebShell",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0572 - Caterpillar WebShell"
+  },
+  {
+    "software_id": "S0574",
+    "software_name": "BendyBear",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0574 - BendyBear"
+  },
+  {
+    "software_id": "S0575",
+    "software_name": "Conti",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0575 - Conti"
+  },
+  {
+    "software_id": "S0576",
+    "software_name": "MegaCortex",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0576 - MegaCortex"
+  },
+  {
+    "software_id": "S0578",
+    "software_name": "SUPERNOVA",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0578 - SUPERNOVA"
+  },
+  {
+    "software_id": "S0579",
+    "software_name": "Waterbear",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0579 - Waterbear"
+  },
+  {
+    "software_id": "S0581",
+    "software_name": "IronNetInjector",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0581 - IronNetInjector"
+  },
+  {
+    "software_id": "S0582",
+    "software_name": "LookBack",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0582 - LookBack"
+  },
+  {
+    "software_id": "S0583",
+    "software_name": "Pysa",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0583 - Pysa"
+  },
+  {
+    "software_id": "S0584",
+    "software_name": "AppleJeus",
+    "platforms": [
+      "Windows",
+      "macOS"
+    ],
+    "autosuggest": "S0584 - AppleJeus"
+  },
+  {
+    "software_id": "S0585",
+    "software_name": "Kerrdown",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0585 - Kerrdown"
+  },
+  {
+    "software_id": "S0586",
+    "software_name": "TAINTEDSCRIBE",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0586 - TAINTEDSCRIBE"
+  },
+  {
+    "software_id": "S0587",
+    "software_name": "Penquin",
+    "platforms": [
+      "Linux"
+    ],
+    "autosuggest": "S0587 - Penquin"
+  },
+  {
+    "software_id": "S0588",
+    "software_name": "GoldMax",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0588 - GoldMax"
+  },
+  {
+    "software_id": "S0589",
+    "software_name": "Sibot",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0589 - Sibot"
+  },
+  {
+    "software_id": "S0590",
+    "software_name": "NBTscan",
+    "platforms": [
+      "Linux",
+      "Windows",
+      "macOS"
+    ],
+    "autosuggest": "S0590 - NBTscan"
+  },
+  {
+    "software_id": "S0591",
+    "software_name": "ConnectWise",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0591 - ConnectWise"
+  },
+  {
+    "software_id": "S0592",
+    "software_name": "RemoteUtilities",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0592 - RemoteUtilities"
+  },
+  {
+    "software_id": "S0593",
+    "software_name": "ECCENTRICBANDWAGON",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0593 - ECCENTRICBANDWAGON"
+  },
+  {
+    "software_id": "S0594",
+    "software_name": "Out1",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0594 - Out1"
+  },
+  {
+    "software_id": "S0595",
+    "software_name": "ThiefQuest",
+    "platforms": [
+      "macOS"
+    ],
+    "autosuggest": "S0595 - ThiefQuest"
+  },
+  {
+    "software_id": "S0596",
+    "software_name": "ShadowPad",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0596 - ShadowPad"
+  },
+  {
+    "software_id": "S0597",
+    "software_name": "GoldFinder",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0597 - GoldFinder"
+  },
+  {
+    "software_id": "S0598",
+    "software_name": "P.A.S. Webshell",
+    "platforms": [
+      "Linux",
+      "Windows"
+    ],
+    "autosuggest": "S0598 - P.A.S. Webshell"
+  },
+  {
+    "software_id": "S0599",
+    "software_name": "Kinsing",
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "autosuggest": "S0599 - Kinsing"
+  },
+  {
+    "software_id": "S0600",
+    "software_name": "Doki",
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "autosuggest": "S0600 - Doki"
+  },
+  {
+    "software_id": "S0601",
+    "software_name": "Hildegard",
+    "platforms": [
+      "Containers",
+      "IaaS",
+      "Linux"
+    ],
+    "autosuggest": "S0601 - Hildegard"
+  },
+  {
+    "software_id": "S0602",
+    "software_name": "Circles",
+    "platforms": [
+      "AWS",
+      "Azure",
+      "Azure AD",
+      "GCP",
+      "Linux",
+      "Network",
+      "Office 365",
+      "PRE",
+      "SaaS",
+      "Windows",
+      "macOS"
+    ],
+    "autosuggest": "S0602 - Circles"
   }
 ]
