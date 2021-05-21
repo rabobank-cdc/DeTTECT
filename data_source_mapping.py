@@ -339,7 +339,7 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
     new_visibility_scores = generate_technique_administration_file(file_data_sources, None, write_file=False)
 
     # we get the date to remove the single quotes at the end of the code
-    today = new_visibility_scores['techniques'][0]['visibility']['score_logbook'][0]['date']
+    today = new_visibility_scores['techniques'][0]['visibility'][0]['score_logbook'][0]['date']
 
     # next we load the current visibility scores from the tech. admin file
     cur_visibility_scores, _, platform_tech_admin = load_techniques(file_tech_admin)
@@ -359,10 +359,7 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
     cur_tech_ids = cur_visibility_scores.keys()
     new_tech_ids = list(map(lambda k: k['technique_id'], new_visibility_scores['techniques']))
 
-    tech_ids_new = []
-    for tid in new_tech_ids:
-        if tid not in cur_tech_ids:
-            tech_ids_new.append(tid)
+    tech_ids_new = [tid for tid in new_tech_ids if tid not in cur_tech_ids]
 
     # Add the new tech. to the ruamel instance: 'yaml_file_tech_admin'
     are_scores_updated = False
@@ -554,6 +551,7 @@ def generate_technique_administration_file(filename, output_filename, write_file
 
     techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE)
     yaml_platform = list(set(chain.from_iterable(map(lambda k: k['platform'], systems))))
+    all_applicable_to_values = set([s['applicable_to'] for s in systems])
 
     yaml_file = dict()
     yaml_file['version'] = FILE_TYPE_TECHNIQUE_ADMINISTRATION_VERSION
@@ -602,12 +600,26 @@ def generate_technique_administration_file(filename, output_filename, write_file
                         tech = deepcopy(YAML_OBJ_TECHNIQUE)
                         tech['technique_id'] = tech_id
                         tech['technique_name'] = t['name']
-                    tech['visibility'].append(deepcopy(YAML_OBJ_VISIBILITY))
-                    tech['visibility'][visibility_obj_count]['score_logbook'][0]['score'] = ds_score
-                    tech['visibility'][visibility_obj_count]['score_logbook'][0]['date'] = today
-                    tech['visibility'][visibility_obj_count]['applicable_to'] = [system['applicable_to']]
-                    visibility_obj_count += 1
+
+                    # check if we have already have a visibility object with this exact same score
+                    same_score = False
+                    if visibility_obj_count > 0:
+                        for vis_obj in tech['visibility']:
+                            if vis_obj['score_logbook'][0]['score'] == ds_score:
+                                vis_obj['applicable_to'].append(system['applicable_to'])
+                                same_score = True
+                                break
+                    if not same_score:
+                        tech['visibility'].append(deepcopy(YAML_OBJ_VISIBILITY))
+                        tech['visibility'][visibility_obj_count]['score_logbook'][0]['score'] = ds_score
+                        tech['visibility'][visibility_obj_count]['score_logbook'][0]['date'] = today
+                        tech['visibility'][visibility_obj_count]['applicable_to'] = [system['applicable_to']]
+                        visibility_obj_count += 1
             if tech:
+                # check if we have an applicable to value that can be replaced by the value 'all'
+                for vis_obj in tech['visibility']:
+                    if all_applicable_to_values == set(vis_obj['applicable_to']):
+                        vis_obj['applicable_to'] = ['all']
                 yaml_file['techniques'].append(tech)
 
     yaml_file['techniques'] = sorted(yaml_file['techniques'], key=lambda k: k['technique_id'])
