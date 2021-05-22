@@ -238,6 +238,7 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
                     if total_ds_count > 0:  # the system's platform has data source applicable to this technique
                         ds_count = 0
                         for ds in t['x_mitre_data_sources']:
+                            ds = ds.split(':')[1][1:]
                             # the ATT&CK data source is applicable to this system and available
                             if ds in applicable_data_sources and ds in my_ds.keys() and _system_in_data_source(my_ds[ds], system):
                                 if ds_count == 0:
@@ -580,6 +581,7 @@ def generate_technique_administration_file(filename, output_filename, write_file
                     if total_ds_count > 0:  # the system's platform has data source applicable to this technique
                         ds_count = 0
                         for ds in t['x_mitre_data_sources']:
+                            ds = ds.split(':')[1][1:]
                             # the ATT&CK data source is applicable to this system and available
                             if ds in applicable_data_sources and ds in my_ds.keys() and _system_in_data_source(my_ds[ds], system):
                                 ds_count += 1

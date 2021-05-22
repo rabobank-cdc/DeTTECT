@@ -224,7 +224,7 @@ def _get_base_template(name, description, platform, sorting):
     """
     layer = dict()
     layer['name'] = name
-    layer['versions'] = {'navigator': '4.1', 'layer': '4.1'}
+    layer['versions'] = {'navigator': '4.3', 'layer': '4.2'}
     layer['domain'] = 'enterprise-attack'
     layer['description'] = description
 
@@ -719,7 +719,10 @@ def get_applicable_data_sources_technique(technique_data_sources, platform_appli
     :return: a list of applicable data sources
     """
     applicable_data_sources = set()
+
     for ds in technique_data_sources:
+        if ':' in ds:  # the param technique_data_sources comes from STIX
+            ds = ds.split(':')[1][1:]
         if ds in platform_applicable_data_sources:
             applicable_data_sources.add(ds)
 
@@ -1009,6 +1012,27 @@ def _check_file_type(filename, file_type=None):
             return yaml_content
 
 
+def _check_for_old_data_sources(filename):
+    """
+    Check if the data source administration YAML file contains ATT&CK v8 data sources.
+    :param filename: path to data source YAML file
+    :return: True if no ATT&CK v8 data sources are found, else False is returned
+    """
+    _yaml = init_yaml()
+    with open(filename, 'r') as yaml_file:
+        yaml_content = _yaml.load(yaml_file)
+
+    data_sources = set([ds['data_source_name'] for ds in yaml_content['data_sources']])
+
+    if data_sources.intersection(DATA_SOURCES_ATTACK_V8):
+        print('[!] File: \'' + filename + '\' needs to be manually updated to have the new ATT&CK v9 '
+              'data sources/data components as it currently contains ATT&CK v8 data sources.\n' '    Not having the new '
+              'data sources/data components will result in reduced functionality of DeTT&CT.')
+        return False
+    else:
+        return True
+
+
 def check_file(filename, file_type=None, health_is_called=False):
     """
     Calls four functions to perform the following checks: is the file a valid YAML file, needs the file to be upgraded,
@@ -1029,6 +1053,9 @@ def check_file(filename, file_type=None, health_is_called=False):
         if file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
             if not check_yaml_updated_to_sub_techniques(filename):
                 return None
+            if file_type == FILE_TYPE_DATA_SOURCE_ADMINISTRATION:
+                if not _check_for_old_data_sources(filename):
+                    return None
 
         return yaml_content['file_type']
 
@@ -1193,7 +1220,7 @@ def get_statistics_data_sources():
     print(str_format.format('Count', 'Data Source'))
     print('-' * 50)
     for k, v in data_sources_dict_sorted.items():
-        print(str_format.format(str(v['count']), k))
+        print(str_format.format(str(v['count']), k.split(':')[1][1:]))
 
 
 def get_platform_from_yaml(yaml_content):

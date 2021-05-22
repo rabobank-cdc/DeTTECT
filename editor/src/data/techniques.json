@@ -207,6 +207,16 @@
     "autosuggest": "T1016 - System Network Configuration Discovery"
   },
   {
+    "technique_id": "T1016.001",
+    "technique_name": "Internet Connection Discovery",
+    "platforms": [
+      "Linux",
+      "Windows",
+      "macOS"
+    ],
+    "autosuggest": "T1016.001 - Internet Connection Discovery"
+  },
+  {
     "technique_id": "T1018",
     "technique_name": "Remote System Discovery",
     "platforms": [
@@ -399,6 +409,7 @@
     "technique_id": "T1036",
     "technique_name": "Masquerading",
     "platforms": [
+      "Containers",
       "Linux",
       "Windows",
       "macOS"
@@ -447,6 +458,7 @@
     "technique_id": "T1036.005",
     "technique_name": "Match Legitimate Name or Location",
     "platforms": [
+      "Containers",
       "Linux",
       "Windows",
       "macOS"
@@ -498,11 +510,12 @@
   },
   {
     "technique_id": "T1037.004",
-    "technique_name": "Rc.common",
+    "technique_name": "RC Scripts",
     "platforms": [
+      "Linux",
       "macOS"
     ],
-    "autosuggest": "T1037.004 - Rc.common"
+    "autosuggest": "T1037.004 - RC Scripts"
   },
   {
     "technique_id": "T1037.005",
@@ -527,6 +540,7 @@
     "technique_name": "Network Sniffing",
     "platforms": [
       "Linux",
+      "Network",
       "Windows",
       "macOS"
     ],
@@ -546,9 +560,8 @@
     "technique_id": "T1046",
     "technique_name": "Network Service Scanning",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP",
+      "Containers",
+      "IaaS",
       "Linux",
       "Windows",
       "macOS"
@@ -607,9 +620,7 @@
     "technique_id": "T1049",
     "technique_name": "System Network Connections Discovery",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP",
+      "IaaS",
       "Linux",
       "Windows",
       "macOS"
@@ -640,6 +651,7 @@
     "technique_id": "T1053",
     "technique_name": "Scheduled Task/Job",
     "platforms": [
+      "Containers",
       "Linux",
       "Windows",
       "macOS"
@@ -694,6 +706,14 @@
       "Linux"
     ],
     "autosuggest": "T1053.006 - Systemd Timers"
+  },
+  {
+    "technique_id": "T1053.007",
+    "technique_name": "Container Orchestration Job",
+    "platforms": [
+      "Containers"
+    ],
+    "autosuggest": "T1053.007 - Container Orchestration Job"
   },
   {
     "technique_id": "T1055",
@@ -918,13 +938,13 @@
   },
   {
     "technique_id": "T1059.007",
-    "technique_name": "JavaScript/JScript",
+    "technique_name": "JavaScript",
     "platforms": [
       "Linux",
       "Windows",
       "macOS"
     ],
-    "autosuggest": "T1059.007 - JavaScript/JScript"
+    "autosuggest": "T1059.007 - JavaScript"
   },
   {
     "technique_id": "T1059.008",
@@ -938,6 +958,7 @@
     "technique_id": "T1068",
     "technique_name": "Exploitation for Privilege Escalation",
     "platforms": [
+      "Containers",
       "Linux",
       "Windows",
       "macOS"
@@ -948,10 +969,9 @@
     "technique_id": "T1069",
     "technique_name": "Permission Groups Discovery",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Google Workspace",
+      "IaaS",
       "Linux",
       "Office 365",
       "SaaS",
@@ -984,10 +1004,9 @@
     "technique_id": "T1069.003",
     "technique_name": "Cloud Groups",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Google Workspace",
+      "IaaS",
       "Office 365",
       "SaaS"
     ],
@@ -997,6 +1016,7 @@
     "technique_id": "T1070",
     "technique_name": "Indicator Removal on Host",
     "platforms": [
+      "Containers",
       "Linux",
       "Windows",
       "macOS"
@@ -1122,9 +1142,7 @@
     "technique_id": "T1074",
     "technique_name": "Data Staged",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP",
+      "IaaS",
       "Linux",
       "Windows",
       "macOS"
@@ -1145,9 +1163,7 @@
     "technique_id": "T1074.002",
     "technique_name": "Remote Data Staging",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP",
+      "IaaS",
       "Linux",
       "Windows",
       "macOS"
@@ -1158,10 +1174,10 @@
     "technique_id": "T1078",
     "technique_name": "Valid Accounts",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Containers",
+      "Google Workspace",
+      "IaaS",
       "Linux",
       "Office 365",
       "SaaS",
@@ -1174,10 +1190,10 @@
     "technique_id": "T1078.001",
     "technique_name": "Default Accounts",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Containers",
+      "Google Workspace",
+      "IaaS",
       "Linux",
       "Office 365",
       "SaaS",
@@ -1200,6 +1216,7 @@
     "technique_id": "T1078.003",
     "technique_name": "Local Accounts",
     "platforms": [
+      "Containers",
       "Linux",
       "Windows",
       "macOS"
@@ -1210,10 +1227,9 @@
     "technique_id": "T1078.004",
     "technique_name": "Cloud Accounts",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Google Workspace",
+      "IaaS",
       "Office 365",
       "SaaS"
     ],
@@ -1231,9 +1247,7 @@
     "technique_id": "T1082",
     "technique_name": "System Information Discovery",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP",
+      "IaaS",
       "Linux",
       "Windows",
       "macOS"
@@ -1254,10 +1268,9 @@
     "technique_id": "T1087",
     "technique_name": "Account Discovery",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Google Workspace",
+      "IaaS",
       "Linux",
       "Office 365",
       "SaaS",
@@ -1290,6 +1303,7 @@
     "technique_id": "T1087.003",
     "technique_name": "Email Account",
     "platforms": [
+      "Google Workspace",
       "Office 365",
       "Windows"
     ],
@@ -1299,10 +1313,9 @@
     "technique_id": "T1087.004",
     "technique_name": "Cloud Account",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Google Workspace",
+      "IaaS",
       "Office 365",
       "SaaS"
     ],
@@ -1393,10 +1406,9 @@
     "technique_id": "T1098",
     "technique_name": "Account Manipulation",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Google Workspace",
+      "IaaS",
       "Linux",
       "Office 365",
       "Windows",
@@ -1408,10 +1420,8 @@
     "technique_id": "T1098.001",
     "technique_name": "Additional Cloud Credentials",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP"
+      "IaaS"
     ],
     "autosuggest": "T1098.001 - Additional Cloud Credentials"
   },
@@ -1515,10 +1525,10 @@
     "technique_id": "T1110",
     "technique_name": "Brute Force",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Containers",
+      "Google Workspace",
+      "IaaS",
       "Linux",
       "Office 365",
       "SaaS",
@@ -1531,10 +1541,10 @@
     "technique_id": "T1110.001",
     "technique_name": "Password Guessing",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Containers",
+      "Google Workspace",
+      "IaaS",
       "Linux",
       "Office 365",
       "SaaS",
@@ -1559,10 +1569,10 @@
     "technique_id": "T1110.003",
     "technique_name": "Password Spraying",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Containers",
+      "Google Workspace",
+      "IaaS",
       "Linux",
       "Office 365",
       "SaaS",
@@ -1575,10 +1585,10 @@
     "technique_id": "T1110.004",
     "technique_name": "Credential Stuffing",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Containers",
+      "Google Workspace",
+      "IaaS",
       "Linux",
       "Office 365",
       "SaaS",
@@ -1619,6 +1629,7 @@
     "technique_id": "T1114",
     "technique_name": "Email Collection",
     "platforms": [
+      "Google Workspace",
       "Office 365",
       "Windows"
     ],
@@ -1636,6 +1647,7 @@
     "technique_id": "T1114.002",
     "technique_name": "Remote Email Collection",
     "platforms": [
+      "Google Workspace",
       "Office 365",
       "Windows"
     ],
@@ -1645,6 +1657,7 @@
     "technique_id": "T1114.003",
     "technique_name": "Email Forwarding Rule",
     "platforms": [
+      "Google Workspace",
       "Office 365",
       "Windows"
     ],
@@ -1764,6 +1777,7 @@
     "technique_id": "T1133",
     "technique_name": "External Remote Services",
     "platforms": [
+      "Containers",
       "Linux",
       "Windows"
     ],
@@ -1831,10 +1845,9 @@
     "technique_id": "T1136",
     "technique_name": "Create Account",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Google Workspace",
+      "IaaS",
       "Linux",
       "Office 365",
       "Windows",
@@ -1866,10 +1879,9 @@
     "technique_id": "T1136.003",
     "technique_name": "Cloud Account",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Google Workspace",
+      "IaaS",
       "Office 365"
     ],
     "autosuggest": "T1136.003 - Cloud Account"
@@ -1988,9 +2000,8 @@
     "technique_id": "T1190",
     "technique_name": "Exploit Public-Facing Application",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP",
+      "Containers",
+      "IaaS",
       "Linux",
       "Network",
       "Windows",
@@ -2050,9 +2061,7 @@
     "technique_id": "T1199",
     "technique_name": "Trusted Relationship",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP",
+      "IaaS",
       "Linux",
       "SaaS",
       "Windows",
@@ -2102,6 +2111,8 @@
     "technique_id": "T1204",
     "technique_name": "User Execution",
     "platforms": [
+      "Containers",
+      "IaaS",
       "Linux",
       "Windows",
       "macOS"
@@ -2127,6 +2138,15 @@
       "macOS"
     ],
     "autosuggest": "T1204.002 - Malicious File"
+  },
+  {
+    "technique_id": "T1204.003",
+    "technique_name": "Malicious Image",
+    "platforms": [
+      "Containers",
+      "IaaS"
+    ],
+    "autosuggest": "T1204.003 - Malicious Image"
   },
   {
     "technique_id": "T1205",
@@ -2192,6 +2212,7 @@
     "technique_id": "T1213",
     "technique_name": "Data from Information Repositories",
     "platforms": [
+      "Google Workspace",
       "Linux",
       "Office 365",
       "SaaS",
@@ -2450,6 +2471,7 @@
     "technique_id": "T1485",
     "technique_name": "Data Destruction",
     "platforms": [
+      "IaaS",
       "Linux",
       "Windows",
       "macOS"
@@ -2460,6 +2482,7 @@
     "technique_id": "T1486",
     "technique_name": "Data Encrypted for Impact",
     "platforms": [
+      "IaaS",
       "Linux",
       "Windows",
       "macOS"
@@ -2490,9 +2513,7 @@
     "technique_id": "T1491",
     "technique_name": "Defacement",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP",
+      "IaaS",
       "Linux",
       "Windows",
       "macOS"
@@ -2513,9 +2534,7 @@
     "technique_id": "T1491.002",
     "technique_name": "External Defacement",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP",
+      "IaaS",
       "Linux",
       "Windows",
       "macOS"
@@ -2536,9 +2555,8 @@
     "technique_id": "T1496",
     "technique_name": "Resource Hijacking",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP",
+      "Containers",
+      "IaaS",
       "Linux",
       "Windows",
       "macOS"
@@ -2589,10 +2607,10 @@
     "technique_id": "T1498",
     "technique_name": "Network Denial of Service",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Containers",
+      "Google Workspace",
+      "IaaS",
       "Linux",
       "Office 365",
       "SaaS",
@@ -2605,10 +2623,9 @@
     "technique_id": "T1498.001",
     "technique_name": "Direct Network Flood",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Google Workspace",
+      "IaaS",
       "Linux",
       "Office 365",
       "SaaS",
@@ -2621,10 +2638,9 @@
     "technique_id": "T1498.002",
     "technique_name": "Reflection Amplification",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Google Workspace",
+      "IaaS",
       "Linux",
       "Office 365",
       "SaaS",
@@ -2637,10 +2653,10 @@
     "technique_id": "T1499",
     "technique_name": "Endpoint Denial of Service",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Containers",
+      "Google Workspace",
+      "IaaS",
       "Linux",
       "Office 365",
       "SaaS",
@@ -2663,10 +2679,9 @@
     "technique_id": "T1499.002",
     "technique_name": "Service Exhaustion Flood",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Google Workspace",
+      "IaaS",
       "Linux",
       "Office 365",
       "SaaS",
@@ -2679,10 +2694,9 @@
     "technique_id": "T1499.003",
     "technique_name": "Application Exhaustion Flood",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Google Workspace",
+      "IaaS",
       "Linux",
       "Office 365",
       "SaaS",
@@ -2695,10 +2709,9 @@
     "technique_id": "T1499.004",
     "technique_name": "Application or System Exploitation",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Google Workspace",
+      "IaaS",
       "Linux",
       "Office 365",
       "SaaS",
@@ -2749,10 +2762,9 @@
     "technique_id": "T1518",
     "technique_name": "Software Discovery",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Google Workspace",
+      "IaaS",
       "Linux",
       "Office 365",
       "SaaS",
@@ -2765,10 +2777,9 @@
     "technique_id": "T1518.001",
     "technique_name": "Security Software Discovery",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Google Workspace",
+      "IaaS",
       "Linux",
       "Office 365",
       "SaaS",
@@ -2779,22 +2790,20 @@
   },
   {
     "technique_id": "T1525",
-    "technique_name": "Implant Container Image",
+    "technique_name": "Implant Internal Image",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP"
+      "Containers",
+      "IaaS"
     ],
-    "autosuggest": "T1525 - Implant Container Image"
+    "autosuggest": "T1525 - Implant Internal Image"
   },
   {
     "technique_id": "T1526",
     "technique_name": "Cloud Service Discovery",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Google Workspace",
+      "IaaS",
       "Office 365",
       "SaaS"
     ],
@@ -2805,6 +2814,7 @@
     "technique_name": "Steal Application Access Token",
     "platforms": [
       "Azure AD",
+      "Google Workspace",
       "Office 365",
       "SaaS"
     ],
@@ -2824,9 +2834,7 @@
     "technique_id": "T1530",
     "technique_name": "Data from Cloud Storage Object",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP"
+      "IaaS"
     ],
     "autosuggest": "T1530 - Data from Cloud Storage Object"
   },
@@ -2844,6 +2852,7 @@
     "technique_id": "T1534",
     "technique_name": "Internal Spearphishing",
     "platforms": [
+      "Google Workspace",
       "Linux",
       "Office 365",
       "SaaS",
@@ -2856,9 +2865,7 @@
     "technique_id": "T1535",
     "technique_name": "Unused/Unsupported Cloud Regions",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP"
+      "IaaS"
     ],
     "autosuggest": "T1535 - Unused/Unsupported Cloud Regions"
   },
@@ -2866,9 +2873,7 @@
     "technique_id": "T1537",
     "technique_name": "Transfer Data to Cloud Account",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP"
+      "IaaS"
     ],
     "autosuggest": "T1537 - Transfer Data to Cloud Account"
   },
@@ -2876,10 +2881,9 @@
     "technique_id": "T1538",
     "technique_name": "Cloud Service Dashboard",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Google Workspace",
+      "IaaS",
       "Office 365"
     ],
     "autosuggest": "T1538 - Cloud Service Dashboard"
@@ -2888,6 +2892,7 @@
     "technique_id": "T1539",
     "technique_name": "Steal Web Session Cookie",
     "platforms": [
+      "Google Workspace",
       "Linux",
       "Office 365",
       "SaaS",
@@ -3025,12 +3030,12 @@
   },
   {
     "technique_id": "T1546.004",
-    "technique_name": ".bash_profile and .bashrc",
+    "technique_name": "Unix Shell Configuration Modification",
     "platforms": [
       "Linux",
       "macOS"
     ],
-    "autosuggest": "T1546.004 - .bash_profile and .bashrc"
+    "autosuggest": "T1546.004 - Unix Shell Configuration Modification"
   },
   {
     "technique_id": "T1546.005",
@@ -3229,6 +3234,22 @@
     "autosuggest": "T1547.012 - Print Processors"
   },
   {
+    "technique_id": "T1547.013",
+    "technique_name": "XDG Autostart Entries",
+    "platforms": [
+      "Linux"
+    ],
+    "autosuggest": "T1547.013 - XDG Autostart Entries"
+  },
+  {
+    "technique_id": "T1547.014",
+    "technique_name": "Active Setup",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "T1547.014 - Active Setup"
+  },
+  {
     "technique_id": "T1548",
     "technique_name": "Abuse Elevation Control Mechanism",
     "platforms": [
@@ -3276,6 +3297,7 @@
     "technique_id": "T1550",
     "technique_name": "Use Alternate Authentication Material",
     "platforms": [
+      "Google Workspace",
       "Office 365",
       "SaaS",
       "Windows"
@@ -3286,6 +3308,7 @@
     "technique_id": "T1550.001",
     "technique_name": "Application Access Token",
     "platforms": [
+      "Google Workspace",
       "Office 365",
       "SaaS"
     ],
@@ -3311,6 +3334,7 @@
     "technique_id": "T1550.004",
     "technique_name": "Web Session Cookie",
     "platforms": [
+      "Google Workspace",
       "Office 365",
       "SaaS"
     ],
@@ -3320,10 +3344,10 @@
     "technique_id": "T1552",
     "technique_name": "Unsecured Credentials",
     "platforms": [
-      "AWS",
-      "Azure",
       "Azure AD",
-      "GCP",
+      "Containers",
+      "Google Workspace",
+      "IaaS",
       "Linux",
       "Office 365",
       "SaaS",
@@ -3336,9 +3360,8 @@
     "technique_id": "T1552.001",
     "technique_name": "Credentials In Files",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP",
+      "Containers",
+      "IaaS",
       "Linux",
       "Windows",
       "macOS"
@@ -3376,9 +3399,7 @@
     "technique_id": "T1552.005",
     "technique_name": "Cloud Instance Metadata API",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP"
+      "IaaS"
     ],
     "autosuggest": "T1552.005 - Cloud Instance Metadata API"
   },
@@ -3389,6 +3410,14 @@
       "Windows"
     ],
     "autosuggest": "T1552.006 - Group Policy Preferences"
+  },
+  {
+    "technique_id": "T1552.007",
+    "technique_name": "Container API",
+    "platforms": [
+      "Containers"
+    ],
+    "autosuggest": "T1552.007 - Container API"
   },
   {
     "technique_id": "T1553",
@@ -3436,6 +3465,23 @@
     "autosuggest": "T1553.004 - Install Root Certificate"
   },
   {
+    "technique_id": "T1553.005",
+    "technique_name": "Mark-of-the-Web Bypass",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "T1553.005 - Mark-of-the-Web Bypass"
+  },
+  {
+    "technique_id": "T1553.006",
+    "technique_name": "Code Signing Policy Modification",
+    "platforms": [
+      "Windows",
+      "macOS"
+    ],
+    "autosuggest": "T1553.006 - Code Signing Policy Modification"
+  },
+  {
     "technique_id": "T1554",
     "technique_name": "Compromise Client Software Binary",
     "platforms": [
@@ -3481,6 +3527,24 @@
       "macOS"
     ],
     "autosuggest": "T1555.003 - Credentials from Web Browsers"
+  },
+  {
+    "technique_id": "T1555.004",
+    "technique_name": "Windows Credential Manager",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "T1555.004 - Windows Credential Manager"
+  },
+  {
+    "technique_id": "T1555.005",
+    "technique_name": "Password Managers",
+    "platforms": [
+      "Linux",
+      "Windows",
+      "macOS"
+    ],
+    "autosuggest": "T1555.005 - Password Managers"
   },
   {
     "technique_id": "T1556",
@@ -3692,10 +3756,10 @@
     "technique_id": "T1562",
     "technique_name": "Impair Defenses",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP",
+      "Containers",
+      "IaaS",
       "Linux",
+      "Office 365",
       "Windows",
       "macOS"
     ],
@@ -3705,6 +3769,8 @@
     "technique_id": "T1562.001",
     "technique_name": "Disable or Modify Tools",
     "platforms": [
+      "Containers",
+      "IaaS",
       "Linux",
       "Windows",
       "macOS"
@@ -3753,9 +3819,7 @@
     "technique_id": "T1562.007",
     "technique_name": "Disable or Modify Cloud Firewall",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP"
+      "IaaS"
     ],
     "autosuggest": "T1562.007 - Disable or Modify Cloud Firewall"
   },
@@ -3763,9 +3827,7 @@
     "technique_id": "T1562.008",
     "technique_name": "Disable Cloud Logs",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP"
+      "IaaS"
     ],
     "autosuggest": "T1562.008 - Disable Cloud Logs"
   },
@@ -3915,6 +3977,7 @@
     "technique_id": "T1566",
     "technique_name": "Phishing",
     "platforms": [
+      "Google Workspace",
       "Linux",
       "Office 365",
       "SaaS",
@@ -3937,6 +4000,7 @@
     "technique_id": "T1566.002",
     "technique_name": "Spearphishing Link",
     "platforms": [
+      "Google Workspace",
       "Linux",
       "Office 365",
       "SaaS",
@@ -4154,11 +4218,12 @@
   },
   {
     "technique_id": "T1574.006",
-    "technique_name": "LD_PRELOAD",
+    "technique_name": "Dynamic Linker Hijacking",
     "platforms": [
-      "Linux"
+      "Linux",
+      "macOS"
     ],
-    "autosuggest": "T1574.006 - LD_PRELOAD"
+    "autosuggest": "T1574.006 - Dynamic Linker Hijacking"
   },
   {
     "technique_id": "T1574.007",
@@ -4212,9 +4277,7 @@
     "technique_id": "T1578",
     "technique_name": "Modify Cloud Compute Infrastructure",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP"
+      "IaaS"
     ],
     "autosuggest": "T1578 - Modify Cloud Compute Infrastructure"
   },
@@ -4222,9 +4285,7 @@
     "technique_id": "T1578.001",
     "technique_name": "Create Snapshot",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP"
+      "IaaS"
     ],
     "autosuggest": "T1578.001 - Create Snapshot"
   },
@@ -4232,9 +4293,7 @@
     "technique_id": "T1578.002",
     "technique_name": "Create Cloud Instance",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP"
+      "IaaS"
     ],
     "autosuggest": "T1578.002 - Create Cloud Instance"
   },
@@ -4242,9 +4301,7 @@
     "technique_id": "T1578.003",
     "technique_name": "Delete Cloud Instance",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP"
+      "IaaS"
     ],
     "autosuggest": "T1578.003 - Delete Cloud Instance"
   },
@@ -4252,9 +4309,7 @@
     "technique_id": "T1578.004",
     "technique_name": "Revert Cloud Instance",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP"
+      "IaaS"
     ],
     "autosuggest": "T1578.004 - Revert Cloud Instance"
   },
@@ -4262,9 +4317,7 @@
     "technique_id": "T1580",
     "technique_name": "Cloud Infrastructure Discovery",
     "platforms": [
-      "AWS",
-      "Azure",
-      "GCP"
+      "IaaS"
     ],
     "autosuggest": "T1580 - Cloud Infrastructure Discovery"
   },
@@ -4945,6 +4998,7 @@
     "technique_name": "Forge Web Credentials",
     "platforms": [
       "Azure AD",
+      "Google Workspace",
       "Linux",
       "Office 365",
       "SaaS",
@@ -4969,10 +5023,112 @@
     "technique_name": "SAML Tokens",
     "platforms": [
       "Azure AD",
+      "Google Workspace",
       "Office 365",
       "SaaS",
       "Windows"
     ],
     "autosuggest": "T1606.002 - SAML Tokens"
+  },
+  {
+    "technique_id": "T1608",
+    "technique_name": "Stage Capabilities",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1608 - Stage Capabilities"
+  },
+  {
+    "technique_id": "T1608.001",
+    "technique_name": "Upload Malware",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1608.001 - Upload Malware"
+  },
+  {
+    "technique_id": "T1608.002",
+    "technique_name": "Upload Tool",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1608.002 - Upload Tool"
+  },
+  {
+    "technique_id": "T1608.003",
+    "technique_name": "Install Digital Certificate",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1608.003 - Install Digital Certificate"
+  },
+  {
+    "technique_id": "T1608.004",
+    "technique_name": "Drive-by Target",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1608.004 - Drive-by Target"
+  },
+  {
+    "technique_id": "T1608.005",
+    "technique_name": "Link Target",
+    "platforms": [
+      "PRE"
+    ],
+    "autosuggest": "T1608.005 - Link Target"
+  },
+  {
+    "technique_id": "T1609",
+    "technique_name": "Container Administration Command",
+    "platforms": [
+      "Containers"
+    ],
+    "autosuggest": "T1609 - Container Administration Command"
+  },
+  {
+    "technique_id": "T1610",
+    "technique_name": "Deploy Container",
+    "platforms": [
+      "Containers"
+    ],
+    "autosuggest": "T1610 - Deploy Container"
+  },
+  {
+    "technique_id": "T1611",
+    "technique_name": "Escape to Host",
+    "platforms": [
+      "Containers",
+      "Linux",
+      "Windows"
+    ],
+    "autosuggest": "T1611 - Escape to Host"
+  },
+  {
+    "technique_id": "T1612",
+    "technique_name": "Build Image on Host",
+    "platforms": [
+      "Containers"
+    ],
+    "autosuggest": "T1612 - Build Image on Host"
+  },
+  {
+    "technique_id": "T1613",
+    "technique_name": "Container and Resource Discovery",
+    "platforms": [
+      "Containers"
+    ],
+    "autosuggest": "T1613 - Container and Resource Discovery"
+  },
+  {
+    "technique_id": "T1614",
+    "technique_name": "System Location Discovery",
+    "platforms": [
+      "IaaS",
+      "Linux",
+      "Windows",
+      "macOS"
+    ],
+    "autosuggest": "T1614 - System Location Discovery"
   }
 ]
