@@ -43,11 +43,14 @@ class DeTTECTEditor:
         Starts the webserver on the given port.
         """
         try:
-            os.chdir('./editor/dist')
+            #os.chdir('./editor/dist')
+            web = os.path.join(os.getcwd(),'editor/dist/dettect-editor/')
+            os.chdir(web)
             self.httpd = TCPServer(('', self.port), QuietHTTPRequestHandler)
 
             print("Editor started at port %d" % self.port)
-            url = 'http://localhost:%d/dettect-editor' % self.port
+            #url = 'http://localhost:%d/dettect-editor' % self.port
+            url = 'http://localhost:%d' % self.port
 
             if not os.getenv('DeTTECT_DOCKER_CONTAINER'):
                 print("Opening webbrowser: " + url)
