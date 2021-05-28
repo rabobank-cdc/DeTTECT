@@ -1,0 +1,13 @@
+%YAML 1.2
+---
+#  Source: https://news.sophos.com/en-us/2021/05/18/the-active-adversary-playbook-2021/
+version: 1.0
+file_type: group-administration
+platform:
+  - all
+groups:
+  - group_name: Sophos
+    campaign: Top 5 techniques observed with each tactic in 2020/2021
+    technique_id: [T1003, T1005, T1007, T1008, T1016, T1021.001, T1021.002, T1033, T1036, T1039, T1040, T1041, T1046, T1047, T1048, T1053, T1059, T1070, T1074, T1078, T1082, T1090, T1098, T1105, T1110, T1112, T1133, T1190, T1195, T1204, T1218, T1409, T1485, T1486, T1489, T1490, T1496, T1537, T1543, T1546.007, T1547.001, T1547.010, T1550.002, T1550.003, T1552.002, T1552.004, T1560.001, T1562.001, T1566, T1567.001, T1567.002, T1569, T1570, T1572]
+    software_id: []
+    enabled: True

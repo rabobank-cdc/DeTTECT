@@ -1,0 +1,37 @@
+%YAML 1.2
+---
+# Source: https://www.rapid7.com/research/report/2020Q2-threat-report/
+version: 1
+file_type: group-administration
+platform:
+  - all
+groups:
+  - group_name: Rapid7
+    campaign: 2020 Q2 Threat Report - cumulative by industry
+    technique_id:
+      T1078: 184
+      T1036: 103
+      T1072: 55
+      T1218.010: 33
+      T1566.002: 28
+      T1059: 20
+      T1218.011: 18
+      T1059.001: 17
+      # T1064: 17     Report was mentioning "Scripting", which is a deprecated technique that was split into multiple sub-techniques. Therefore this figure is merged with T1059.
+      T1204: 15
+      T1218: 9
+      T1219: 8
+      T1547.001: 5
+      T1562.006: 5
+      T1053.005: 4
+      T1047: 4
+      T1114: 3
+      T1496: 3
+      T1082: 2
+      T1027: 2
+      T1557.001: 1
+      T1110: 1
+      T1560: 1
+      T1562.001: 1
+    software_id:
+    enabled: true
