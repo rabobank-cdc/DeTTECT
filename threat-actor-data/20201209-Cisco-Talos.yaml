@@ -1,0 +1,13 @@
+%YAML 1.2
+---
+# Source: https://blog.talosintelligence.com/2020/12/quarterly-ir-report-fall-2020-q4.html
+version: 1
+file_type: group-administration
+platform:
+  - all
+groups:
+  - group_name: Cisco Talos
+    campaign: Quarterly Report - Incident Response trends from Fall 2020
+    technique_id: [T1003, T1021.001, T1059.001, T1070, T1078, T1082, T1132.001, T1484, T1486, T1543, T1560.001, T1567]
+    software_id:
+    enabled: true
