@@ -236,21 +236,28 @@ export default {
         filteredSuggestionList() {
             // Returns a filtered list of IDs which are not part of any of the selected platforms, and which are not already part of the YAML file.
             // This will only execute if every item in the `suggestionList` contains a key-value pair 'platforms', which must be the case when 'platforms' is not null.
+            // When platforms is null, it will do a basic check to make sure that items are not already part of the YAML file.
             if (this.platforms != null) {
                 let tmpList = [];
 
                 for (let i = 0; i < this.suggestionList.length; i++) {
                     if (
-                        this.platforms[0] == 'all' ||
-                        (this.platforms.some((item) => this.suggestionList[i]['platforms'].includes(item)) &&
-                            !this.allItemsIdValues.includes(this.suggestionList[i][this.valueAttr]))
+                        (this.platforms[0] == 'all' ||
+                        this.platforms.some((item) => this.suggestionList[i]['platforms'].includes(item))) &&
+                            !this.allItemsIdValues.includes(this.suggestionList[i][this.valueAttr])
                     ) {
                         tmpList.push(this.suggestionList[i]);
                     }
                 }
                 return tmpList;
             } else {
-                return this.suggestionList;
+                let tmpList = [];
+                for (let i = 0; i < this.suggestionList.length; i++) {
+                    if(!this.allItemsIdValues.includes(this.suggestionList[i])){
+                        tmpList.push(this.suggestionList[i]);
+                    }
+                }
+                return tmpList;
             }
         }
     }
