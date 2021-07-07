@@ -2,6 +2,7 @@
     <div class="form-group">
         <label v-if="showLabel" class="card">{{ name }}</label>
         <datepicker
+            :key="id"
             :value="date"
             @selected="updateDate"
             format="yyyy-MM-dd"
@@ -30,6 +31,10 @@ export default {
             type: Boolean,
             required: false,
             default: true
+        },
+        id: {
+            type: String,
+            required: true
         }
     },
     methods: {
