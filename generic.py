@@ -1053,9 +1053,9 @@ def check_file(filename, file_type=None, health_is_called=False):
         if file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
             if not check_yaml_updated_to_sub_techniques(filename):
                 return None
-            if file_type == FILE_TYPE_DATA_SOURCE_ADMINISTRATION:
-                if not _check_for_old_data_sources(filename):
-                    return None
+        if file_type == FILE_TYPE_DATA_SOURCE_ADMINISTRATION:
+            if not _check_for_old_data_sources(filename):
+                return None
 
         return yaml_content['file_type']
 

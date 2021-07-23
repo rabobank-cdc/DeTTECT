@@ -27,11 +27,17 @@
                 <date-picker
                     :date="dataSource.date_registered"
                     name="Date registered"
-                    @dateUpdated="dataSource.date_registered = $event"
+                    :id="dataSource.data_source_name"
+                    @dateUpdated="dataSource.date_registered = $event;"
                 ></date-picker>
             </div>
             <div class="col-md-4 pr-md-1">
-                <date-picker :date="dataSource.date_connected" name="Date connected" @dateUpdated="dataSource.date_connected = $event"></date-picker>
+                <date-picker
+                    :date="dataSource.date_connected"
+                    name="Date connected"
+                    :id="dataSource.data_source_name"
+                    @dateUpdated="dataSource.date_connected = $event;"
+                ></date-picker>
             </div>
         </div>
         <div class="row mt-md-2">

@@ -18,7 +18,7 @@
         "case-insensitive": "^1.0.0",
         "file-saver": "^2.0.5",
         "jquery": "^3.6.0",
-        "js-yaml": "^4.0.0",
+        "js-yaml": "^4.1.0",
         "lodash": "^4.17.21",
         "moment": "^2.29.1",
         "node-sass": "^4.14.1",
@@ -42,9 +42,9 @@
         "@vue/cli-plugin-babel": "^4.5.12",
         "@vue/cli-plugin-eslint": "^4.5.12",
         "@vue/cli-service": "^4.5.12",
-        "eslint": "^7.24.0",
+        "eslint": "^7.25.0",
         "eslint-loader": "^4.0.2",
-        "eslint-plugin-vue": "^7.8.0",
+        "eslint-plugin-vue": "^7.9.0",
         "vue-template-compiler": "^2.6.12"
     },
     "browserslist": [

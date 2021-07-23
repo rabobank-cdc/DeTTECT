@@ -37,15 +37,10 @@
         </div>
         <div class="row">
             <div class="col-md-4 pr-md-0">
-                <base-input v-model="newKey" placeholder="key" @keyup.enter="addProperty"></base-input>
+                <base-input v-model="newKey" placeholder="key" @keyup.enter="addProperty" addonLeftIcon="tim-icons icon-simple-add"></base-input>
             </div>
-            <div class="col-md-5 pr-md-0">
-                <base-input v-model="newValue" placeholder="value" @keyup.enter="addProperty" @keydown.tab="addProperty"></base-input>
-            </div>
-            <div class="col-md-2">
-                <button class="btn-custom btn btn-secondary button-add" @click="addProperty">
-                    Add
-                </button>
+            <div class="col-md-6">
+                <base-input v-model="newValue" placeholder="value" @keyup.enter="addProperty" @keydown.tab="addProperty" @blur="addProperty" addonLeftIcon="tim-icons icon-simple-add"></base-input>
             </div>
         </div>
     </div>

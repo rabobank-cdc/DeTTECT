@@ -1,0 +1,13 @@
+%YAML 1.2
+---
+#  Source: https://www.mcafee.com/enterprise/en-us/assets/reports/rp-quarterly-threats-apr-2021.pdf
+version: 1.0
+file_type: group-administration
+platform:
+  - all
+groups:
+  - group_name: McAfee
+    campaign: Labs Threats Report - April 2021 (top 5 per tactic)
+    technique_id: [T1190, T1091, T1078, T1189, T1566, T1204, T1059, T1047, T1053.005, T1547.001, T1574.002 , T1037.005, T1055, T1068, T1027, T1140, T1036, T1112, T1056, T1003, T1056.001, T1110, T1539, T1082, T1083, T1057, T1012, T1033, T1105, T1210, T1037, T1021, T1005, T1113, T1119, T1074]
+    software_id: []
+    enabled: True

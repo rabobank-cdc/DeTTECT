@@ -191,6 +191,7 @@ def _count_applicable_data_sources(technique, applicable_data_sources):
     """
     applicable_ds_count = 0
     for ds in technique['x_mitre_data_sources']:
+        ds = ds.split(':')[1][1:]
         if ds in applicable_data_sources:
             applicable_ds_count += 1
     return applicable_ds_count

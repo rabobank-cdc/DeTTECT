@@ -39,10 +39,16 @@
             </div>
             <div class="col-md-0"></div>
         </div>
-        <div v-for="(v, index) in item" :key="componentKey">
+        <div v-for="(v, index) in item" :key="index">
             <div class="row score-logbook">
                 <div class="col-md-2 pr-md-0">
-                    <date-picker :showLabel="false" :date="v.date" name="Date" @dateUpdated="updateDate(index, $event)"></date-picker>
+                    <date-picker
+                        :showLabel="false"
+                        :date="v.date"
+                        name="Date"
+                        @dateUpdated="updateDate(index, $event)"
+                        :id="index.toString()"
+                    ></date-picker>
                 </div>
                 <div class="col-md-3">
                     <score-slider
@@ -105,7 +111,6 @@ export default {
     data() {
         return {
             newScore: this.defaultScore,
-            componentKey: 0
         };
     },
     mixins: [notificationMixin],
@@ -155,11 +160,6 @@ export default {
         this.sortOnDates();
     },
     methods: {
-        forceRerender() {
-            // This functions make sure to force a re-render of the component when called.
-            // (note: it will cause a vue js warning msg in the browser console when in dev mode)
-            this.componentKey += 1;
-        },
         addNewItem() {
             for (let i = 0; i < this.item.length; i++) {
                 if (this.item[i].date == null) {
@@ -205,8 +205,6 @@ export default {
             for (let i = 0; i < sorted.length; i++) {
                 this.item.push(sorted[i]);
             }
-            // Dirty fix to make sure to force a re-render to make sure the displayed dates are correct
-            this.forceRerender();
         },
         showHelptextScore(event) {
             this.$emit('showHelptextScoreNow', event);

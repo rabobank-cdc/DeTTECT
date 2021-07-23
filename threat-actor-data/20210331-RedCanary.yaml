@@ -1,0 +1,33 @@
+%YAML 1.2
+---
+version: 1.0
+file_type: group-administration
+platform:
+  - Windows
+  - Linux
+  - macOS
+groups:
+  - group_name: RedCanary - 2021 Threat Detection Report
+    campaign:
+    technique_id:
+      T1059: 4798     #  organisations affected: 72,2%
+      T1059.001: 2366 #  organisations affected: 48,7%
+      T1059.003: 1984 #  organisations affected: 38,4%
+      T1218: 3755     #  organisations affected: 49,3%
+      T1218.011: 2380 #  organisations affected: 30%
+      T1218.005: 738  #  organisations affected: 18,8%
+      T1543: 3197     #  organisations affected: 32,8%
+      T1543.003: 3324 #  organisations affected: 4,9%
+      T1053: 3258     #  organisations affected: 32,8%
+      T1053.005: 2740 #  organisations affected: 27,6%
+      T1003: 1554     #  organisations affected: 19,1%
+      T1003.001: 1447 #  organisations affected: 15,5%
+      T1055: 1425     #  organisations affected: 31,6%
+      T1027: 1341     #  organisations affected: 32,8%
+      T1105: 1149     #  organisations affected: 27,6%
+      T1569: 909      #  organisations affected: 20,3%
+      T1569.002: 892  #  organisations affected: 19,2%
+      T1036: 906      #  organisations affected: 31,2%
+      T1036.003: 624  #  organisations affected: 23,1%
+    software_id:    []
+    enabled:        True
