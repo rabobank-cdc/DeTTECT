@@ -1,14 +1,19 @@
-version: 1
+version: 1.1
 file_type: data-source-administration
 name: endpoints-example
-platform:
+systems:
+- applicable_to: endpoints-example
+  platform:
   - Windows
 data_sources:
-  - data_source_name: Command Execution
-    date_registered: 2021-05-05T00:00:00.000Z
-    date_connected: 2020-03-10T00:00:00.000Z
+- data_source_name: Command Execution
+  data_source:
+  - applicable_to:
+    - endpoints-example
+    date_registered: 2021-05-05T00:00:00Z
+    date_connected: 2020-03-10T00:00:00Z
     products:
-      - Sysmon
+    - Sysmon
     available_for_data_analytics: true
     comment: ''
     data_quality:
@@ -17,11 +22,14 @@ data_sources:
       timeliness: 1
       consistency: 1
       retention: 1
-  - data_source_name: Process Creation
-    date_registered: 2021-05-05T00:00:00.000Z
-    date_connected: 2020-03-10T00:00:00.000Z
+- data_source_name: Process Creation
+  data_source:
+  - applicable_to:
+    - endpoints-example
+    date_registered: 2021-05-05T00:00:00Z
+    date_connected: 2020-03-10T00:00:00Z
     products:
-      - Sysmon
+    - Sysmon
     available_for_data_analytics: true
     comment: ''
     data_quality:
@@ -30,11 +38,14 @@ data_sources:
       timeliness: 1
       consistency: 1
       retention: 1
-  - data_source_name: Windows Registry Key Creation
-    date_registered: 2021-05-05T00:00:00.000Z
-    date_connected: 2020-03-10T00:00:00.000Z
+- data_source_name: Windows Registry Key Creation
+  data_source:
+  - applicable_to:
+    - endpoints-example
+    date_registered: 2021-05-05T00:00:00Z
+    date_connected: 2020-03-10T00:00:00Z
     products:
-      - Sysmon
+    - Sysmon
     available_for_data_analytics: true
     comment: ''
     data_quality:
@@ -43,11 +54,14 @@ data_sources:
       timeliness: 1
       consistency: 1
       retention: 1
-  - data_source_name: Windows Registry Key Modification
-    date_registered: 2021-05-05T00:00:00.000Z
-    date_connected: 2020-03-10T00:00:00.000Z
+- data_source_name: Windows Registry Key Modification
+  data_source:
+  - applicable_to:
+    - endpoints-example
+    date_registered: 2021-05-05T00:00:00Z
+    date_connected: 2020-03-10T00:00:00Z
     products:
-      - Sysmon
+    - Sysmon
     available_for_data_analytics: true
     comment: ''
     data_quality:
@@ -56,11 +70,14 @@ data_sources:
       timeliness: 1
       consistency: 1
       retention: 1
-  - data_source_name: Windows Registry Key Deletion
-    date_registered: 2021-05-05T00:00:00.000Z
-    date_connected: 2020-04-29T00:00:00.000Z
+- data_source_name: Windows Registry Key Deletion
+  data_source:
+  - applicable_to:
+    - endpoints-example
+    date_registered: 2021-05-05T00:00:00Z
+    date_connected: 2020-04-29T00:00:00Z
     products:
-      - Sysmon
+    - Sysmon
     available_for_data_analytics: true
     comment: ''
     data_quality:
@@ -69,11 +86,14 @@ data_sources:
       timeliness: 1
       consistency: 1
       retention: 1
-  - data_source_name: WMI Creation
-    date_registered: 2021-05-05T00:00:00.000Z
-    date_connected: 2020-03-10T00:00:00.000Z
+- data_source_name: WMI Creation
+  data_source:
+  - applicable_to:
+    - endpoints-example
+    date_registered: 2021-05-05T00:00:00Z
+    date_connected: 2020-03-10T00:00:00Z
     products:
-      - Sysmon
+    - Sysmon
     available_for_data_analytics: true
     comment: ''
     data_quality:
@@ -82,11 +102,14 @@ data_sources:
       timeliness: 1
       consistency: 1
       retention: 1
-  - data_source_name: User Account Authentication
-    date_registered: 2021-05-05T00:00:00.000Z
-    date_connected: 2020-01-16T00:00:00.000Z
+- data_source_name: User Account Authentication
+  data_source:
+  - applicable_to:
+    - endpoints-example
+    date_registered: 2021-05-05T00:00:00Z
+    date_connected: 2020-01-16T00:00:00Z
     products:
-      - Windows Security Log
+    - Windows Security Log
     available_for_data_analytics: true
     comment: ''
     data_quality:
@@ -95,11 +118,14 @@ data_sources:
       timeliness: 1
       consistency: 1
       retention: 1
-  - data_source_name: Network Connection Creation
-    date_registered: 2021-05-05T00:00:00.000Z
-    date_connected: 2020-03-10T00:00:00.000Z
+- data_source_name: Network Connection Creation
+  data_source:
+  - applicable_to:
+    - endpoints-example
+    date_registered: 2021-05-05T00:00:00Z
+    date_connected: 2020-03-10T00:00:00Z
     products:
-      - Sysmon
+    - Sysmon
     available_for_data_analytics: true
     comment: ''
     data_quality:
@@ -108,11 +134,14 @@ data_sources:
       timeliness: 1
       consistency: 1
       retention: 1
-  - data_source_name: Network Traffic Content
-    date_registered: 2021-05-05T00:00:00.000Z
-    date_connected: 2020-01-14T00:00:00.000Z
+- data_source_name: Network Traffic Content
+  data_source:
+  - applicable_to:
+    - endpoints-example
+    date_registered: 2021-05-05T00:00:00Z
+    date_connected: 2020-01-14T00:00:00Z
     products:
-      - Web proxy
+    - Web proxy
     available_for_data_analytics: true
     comment: ''
     data_quality:
@@ -121,11 +150,14 @@ data_sources:
       timeliness: 1
       consistency: 1
       retention: 1
-  - data_source_name: OS API Execution
-    date_registered: 2021-05-05T00:00:00.000Z
-    date_connected: 2020-05-07T00:00:00.000Z
+- data_source_name: OS API Execution
+  data_source:
+  - applicable_to:
+    - endpoints-example
+    date_registered: 2021-05-05T00:00:00Z
+    date_connected: 2020-05-07T00:00:00Z
     products:
-      - Sysmon
+    - Sysmon
     available_for_data_analytics: true
     comment: ''
     data_quality:
@@ -134,4 +166,5 @@ data_sources:
       timeliness: 1
       consistency: 1
       retention: 1
-notes: This file serves purely as an example to showcase the functionality of DeTT&CT and does not mean to be representative of a real environment.
+notes: This file serves purely as an example to showcase the functionality of DeTT&CT
+  and does not mean to be representative of a real environment.
