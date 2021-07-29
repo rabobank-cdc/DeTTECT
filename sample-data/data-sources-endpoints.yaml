@@ -1,19 +1,36 @@
 version: 1.1
 file_type: data-source-administration
-name: endpoints-example
+name: Data sources sample
 systems:
-- applicable_to: endpoints-example
+- applicable_to: Windows workstations
   platform:
   - Windows
+- applicable_to: Linux servers
+  platform:
+  - Linux
 data_sources:
 - data_source_name: Command Execution
   data_source:
   - applicable_to:
-    - endpoints-example
-    date_registered: 2021-05-05T00:00:00Z
+    - Windows workstations
+    date_registered: 2021-06-08T00:00:00Z
     date_connected: 2020-03-10T00:00:00Z
     products:
     - Sysmon
+    available_for_data_analytics: true
+    comment: ''
+    data_quality:
+      device_completeness: 1
+      data_field_completeness: 1
+      timeliness: 1
+      consistency: 1
+      retention: 1
+  - applicable_to:
+    - Linux servers
+    date_registered: 2021-06-08T00:00:00Z
+    date_connected: 2020-04-13T00:00:00Z
+    products:
+    - eBPF telemetry agent
     available_for_data_analytics: true
     comment: ''
     data_quality:
@@ -25,8 +42,8 @@ data_sources:
 - data_source_name: Process Creation
   data_source:
   - applicable_to:
-    - endpoints-example
-    date_registered: 2021-05-05T00:00:00Z
+    - Windows workstations
+    date_registered: 2021-06-08T00:00:00Z
     date_connected: 2020-03-10T00:00:00Z
     products:
     - Sysmon
@@ -38,11 +55,25 @@ data_sources:
       timeliness: 1
       consistency: 1
       retention: 1
+  - applicable_to:
+    - Linux servers
+    date_registered: 2021-06-08T00:00:00Z
+    date_connected: 2020-04-13T00:00:00Z
+    products:
+    - eBPF telemetry agent
+    available_for_data_analytics: true
+    comment: ''
+    data_quality:
+      device_completeness: 1
+      data_field_completeness: 1
+      timeliness: 1
+      consistency: 1
+      retention: 1
 - data_source_name: Windows Registry Key Creation
   data_source:
   - applicable_to:
-    - endpoints-example
-    date_registered: 2021-05-05T00:00:00Z
+    - Windows workstations
+    date_registered: 2021-06-08T00:00:00Z
     date_connected: 2020-03-10T00:00:00Z
     products:
     - Sysmon
@@ -57,8 +88,8 @@ data_sources:
 - data_source_name: Windows Registry Key Modification
   data_source:
   - applicable_to:
-    - endpoints-example
-    date_registered: 2021-05-05T00:00:00Z
+    - Windows workstations
+    date_registered: 2021-06-08T00:00:00Z
     date_connected: 2020-03-10T00:00:00Z
     products:
     - Sysmon
@@ -73,8 +104,8 @@ data_sources:
 - data_source_name: Windows Registry Key Deletion
   data_source:
   - applicable_to:
-    - endpoints-example
-    date_registered: 2021-05-05T00:00:00Z
+    - Windows workstations
+    date_registered: 2021-06-08T00:00:00Z
     date_connected: 2020-04-29T00:00:00Z
     products:
     - Sysmon
@@ -89,9 +120,9 @@ data_sources:
 - data_source_name: WMI Creation
   data_source:
   - applicable_to:
-    - endpoints-example
-    date_registered: 2021-05-05T00:00:00Z
-    date_connected: 2020-03-10T00:00:00Z
+    - Windows workstations
+    date_registered: 2021-06-08T00:00:00Z
+    date_connected: 2020-05-05T00:00:00Z
     products:
     - Sysmon
     available_for_data_analytics: true
@@ -105,8 +136,8 @@ data_sources:
 - data_source_name: User Account Authentication
   data_source:
   - applicable_to:
-    - endpoints-example
-    date_registered: 2021-05-05T00:00:00Z
+    - Windows workstations
+    date_registered: 2021-06-08T00:00:00Z
     date_connected: 2020-01-16T00:00:00Z
     products:
     - Windows Security Log
@@ -118,11 +149,25 @@ data_sources:
       timeliness: 1
       consistency: 1
       retention: 1
+  - applicable_to:
+    - Linux servers
+    date_registered: 2021-06-08T00:00:00Z
+    date_connected: 2020-03-20T00:00:00Z
+    products:
+    - /var/log/auth.log
+    available_for_data_analytics: true
+    comment: ''
+    data_quality:
+      device_completeness: 1
+      data_field_completeness: 1
+      timeliness: 1
+      consistency: 1
+      retention: 1
 - data_source_name: Network Connection Creation
   data_source:
   - applicable_to:
-    - endpoints-example
-    date_registered: 2021-05-05T00:00:00Z
+    - Windows workstations
+    date_registered: 2021-06-08T00:00:00Z
     date_connected: 2020-03-10T00:00:00Z
     products:
     - Sysmon
@@ -134,14 +179,29 @@ data_sources:
       timeliness: 1
       consistency: 1
       retention: 1
-- data_source_name: Network Traffic Content
+  - applicable_to:
+    - Linux servers
+    date_registered: 2021-06-08T00:00:00Z
+    date_connected: 2020-04-13T00:00:00Z
+    products:
+    - eBPF telemetry agent
+    available_for_data_analytics: true
+    comment: ''
+    data_quality:
+      device_completeness: 1
+      data_field_completeness: 1
+      timeliness: 1
+      consistency: 1
+      retention: 1
+- data_source_name: Firewall rule modification
   data_source:
   - applicable_to:
-    - endpoints-example
-    date_registered: 2021-05-05T00:00:00Z
+    - Windows workstations
+    - Linux servers
+    date_registered: 2021-06-08T00:00:00Z
     date_connected: 2020-01-14T00:00:00Z
     products:
-    - Web proxy
+    - Firewall appliance
     available_for_data_analytics: true
     comment: ''
     data_quality:
@@ -153,8 +213,8 @@ data_sources:
 - data_source_name: OS API Execution
   data_source:
   - applicable_to:
-    - endpoints-example
-    date_registered: 2021-05-05T00:00:00Z
+    - Windows workstations
+    date_registered: 2021-06-08T00:00:00Z
     date_connected: 2020-05-07T00:00:00Z
     products:
     - Sysmon
@@ -166,5 +226,25 @@ data_sources:
       timeliness: 1
       consistency: 1
       retention: 1
-notes: This file serves purely as an example to showcase the functionality of DeTT&CT
-  and does not mean to be representative of a real environment.
+  - applicable_to:
+    - Linux servers
+    date_registered: 2021-06-08T00:00:00Z
+    date_connected: 2020-05-28T00:00:00Z
+    products:
+    - eBPF telemetry agent
+    available_for_data_analytics: true
+    comment: ''
+    data_quality:
+      device_completeness: 1
+      data_field_completeness: 1
+      timeliness: 1
+      consistency: 1
+      retention: 1
+notes: This file serves purely as an example to showcase the functionality of DeTT&CT and does not mean to be representative of a real environment.
+  Also, note that this file is currently not in sync with the technique administration sample file.
+exceptions:
+    # Adding a technique ID below will result in removing that technique in the heat map (meaning not enough data source or quality is available for proper detection).
+    # Please note that the below is just an example, many more can exists.
+    # Filling in the key-value pair name is optional.
+    - technique_id: T1553.004
+      name: Install Root Certificate
