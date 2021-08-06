@@ -5,45 +5,57 @@
                 <icons icon="arrow-up"></icons>
             </label>
         </div>
-
         <div class="row" id="pageTop">
             <div class="col">
                 <div class="card card-card">
-                    <div class="card-header">
-                        <h2 class="card-title"><i class="tim-icons icon-coins"></i> Data Sources</h2>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn mr-md-3" @click="askNewFile">
-                                    <icons icon="file-empty"></icons>
-                                    &nbsp;New file
-                                </button>
-                                <label class="custom-file-upload">
-                                    <icons icon="file"></icons>
-                                    &nbsp;Select YAML file
-                                    <file-reader @load="readFile($event)" :setFileNameFn="setFileName" :id="'dsFileReader'"></file-reader>
-                                </label>
-                                <label v-if="fileChanged" class="pl-2">
+                    <div class="row cursor-pointer" @click="hideFileDetails(!file_details_visible)">
+                        <div class="col-md-7">
+                            <div class="card-header">
+                            <h2 class="card-title">
+                                <i class="tim-icons icon-coins"></i> Data Sources{{showFileName}}
+                            </h2>
+                            </div>
+                        </div>
+                        <div class="col mt-3 text-right">
+                            <label v-if="fileChanged" class="pl-2">
                                     <icons icon="text-balloon"></icons>
                                     You have unsaved changes. You may want to save the file to preserve your changes.</label
-                                >
-                            </div>
+                            >
                         </div>
-                        <div v-if="doc != null" class="row pt-md-2">
-                            <div class="col">
-                                <file-details :filename="filename" :doc="doc" :platforms="platforms"></file-details>
-                            </div>
-                        </div>
-                        <div v-if="doc != null" class="row pt-md-2">
-                            <div class="col card-text">
-                                <button type="button" class="btn" @click="downloadYaml('data_sources', 'data_source_name')">
-                                    <icons icon="save"></icons>
-                                    &nbsp;Save YAML file
-                                </button>
-                            </div>
+                        <div class="col-md-0 mt-3 mr-4 text-right">
+                            <icons :icon="(file_details_visible) ? 'collapse' : 'expand'"></icons>
                         </div>
                     </div>
+                    <b-collapse id="collapse-ds" v-model="file_details_visible">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <button type="button" class="btn mr-md-3" @click="askNewFile">
+                                        <icons icon="file-empty"></icons>
+                                        &nbsp;New file
+                                    </button>
+                                    <label class="custom-file-upload">
+                                        <icons icon="file"></icons>
+                                        &nbsp;Select YAML file
+                                        <file-reader @load="readFile($event)" :setFileNameFn="setFileName" :id="'dsFileReader'"></file-reader>
+                                    </label>
+                                </div>
+                            </div>
+                            <div v-if="doc != null" class="row pt-md-2">
+                                <div class="col">
+                                    <file-details :filename="filename" :doc="doc" :platforms="platforms" :platformConversion="platformConversion" systemsOrPlatforms="systems"></file-details>
+                                </div>
+                            </div>
+                            <div v-if="doc != null" class="row pt-md-2">
+                                <div class="col card-text">
+                                    <button type="button" class="btn" @click="downloadYaml('data_sources', 'data_source_name')">
+                                        <icons icon="save"></icons>
+                                        &nbsp;Save YAML file
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </b-collapse>
                 </div>
             </div>
         </div>
@@ -334,10 +346,14 @@ export default {
             this.dsHelpText = 'Loading the help content...';
             this.$http.get(this.dsFileToRender).then(
                 (response) => {
-                    this.dsHelpText = response.body.replace(/\[(.+)\](\([#\w-]+\))/gm, '$1'); // remove links to other wiki pages
-                    this.dsHelpText = this.dsHelpText.match(/## Data source details object((.*|\n)*)/gim, '$1')[0];
-                    this.dsHelpText = this.dsHelpText.replace(/^## Data source details object/gim, '');
-                    this.dsHelpText = this.dsHelpText.replace(/^## .+((.*|\n)*)/gim, '');
+                    try {
+                        this.dsHelpText = response.body.replace(/\[(.+)\](\([#\w-]+\))/gm, '$1'); // remove links to other wiki pages
+                        this.dsHelpText = this.dsHelpText.match(/## Data source details object((.*|\n)*)/gim, '$1')[0];
+                        this.dsHelpText = this.dsHelpText.replace(/^## Data source details object/gim, '');
+                        this.dsHelpText = this.dsHelpText.replace(/^## .+((.*|\n)*)/gim, '');
+                    } catch (e) {
+                        this.dsHelpText = 'An error occurred while loading the help content.';
+                    }
                 },
                 // eslint-disable-next-line no-unused-vars
                 (response) => {
@@ -347,6 +363,12 @@ export default {
         },
         notifyInvalidFileType(filename) {
             this.notifyDanger('Invalid YAML file type', "The file '" + filename + "' is not a valid data source administration file.");
+        },
+        hideFileDetails(state) {
+            if(this.doc != null && this.$route.name == 'datasources'){
+                this.file_details_visible = state;
+                this.changePageTitle();
+            }
         }
     },
     filters: {

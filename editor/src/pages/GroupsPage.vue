@@ -9,41 +9,54 @@
         <div class="row" id="pageTop">
             <div class="col">
                 <div class="card card-card">
-                    <div class="card-header">
-                        <h2 class="card-title"><i class="tim-icons icon-single-02"></i> Groups</h2>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn mr-md-3" @click="askNewFile">
-                                    <icons icon="file-empty"></icons>
-                                    &nbsp;New file
-                                </button>
-                                <label class="custom-file-upload">
-                                    <icons icon="file"></icons>
-                                    &nbsp;Select YAML file
-                                    <file-reader @load="readFile($event)" :setFileNameFn="setFileName" :id="'groupFileReader'"></file-reader>
-                                </label>
-                                <label v-if="fileChanged" class="pl-2">
+                    <div class="row cursor-pointer" @click="hideFileDetails(!file_details_visible)">
+                        <div class="col-md-7">
+                            <div class="card-header">
+                            <h2 class="card-title">
+                                <i class="tim-icons icon-single-02"></i> Groups{{showFileName}}
+                            </h2>
+                            </div>
+                        </div>
+                        <div class="col mt-3 text-right">
+                            <label v-if="fileChanged" class="pl-2">
                                     <icons icon="text-balloon"></icons>
                                     You have unsaved changes. You may want to save the file to preserve your changes.</label
-                                >
-                            </div>
+                            >
                         </div>
-                        <div v-if="doc != null" class="row pt-md-2">
-                            <div class="col">
-                                <file-details :filename="filename" :doc="doc" :platforms="platforms" :showName="false"></file-details>
-                            </div>
-                        </div>
-                        <div v-if="doc != null" class="row pt-md-2">
-                            <div class="col card-text">
-                                <button type="button" class="btn" @click="downloadYaml('groups', 'group_name')">
-                                    <icons icon="save"></icons>
-                                    &nbsp;Save YAML file
-                                </button>
-                            </div>
+                        <div class="col-md-0 mt-3 mr-4 text-right">
+                            <icons :icon="(file_details_visible) ? 'collapse' : 'expand'"></icons>
                         </div>
                     </div>
+                    <b-collapse id="collapse-ds" v-model="file_details_visible">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <button type="button" class="btn mr-md-3" @click="askNewFile">
+                                        <icons icon="file-empty"></icons>
+                                        &nbsp;New file
+                                    </button>
+                                    <label class="custom-file-upload">
+                                        <icons icon="file"></icons>
+                                        &nbsp;Select YAML file
+                                        <file-reader @load="readFile($event)" :setFileNameFn="setFileName" :id="'groupFileReader'"></file-reader>
+                                    </label>
+                                </div>
+                            </div>
+                            <div v-if="doc != null" class="row pt-md-2">
+                                <div class="col">
+                                    <file-details :filename="filename" :doc="doc" :platforms="platforms" :showName="false" systemsOrPlatforms="platforms"></file-details>
+                                </div>
+                            </div>
+                            <div v-if="doc != null" class="row pt-md-2">
+                                <div class="col card-text">
+                                    <button type="button" class="btn" @click="downloadYaml('groups', 'group_name')">
+                                        <icons icon="save"></icons>
+                                        &nbsp;Save YAML file
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </b-collapse>
                 </div>
             </div>
         </div>
@@ -151,7 +164,7 @@ export default {
                 let yaml_input = jsyaml.load(event.result);
 
                 if (yaml_input['file_type'] == 'group-administration') {
-                    if (yaml_input['version'] != constants.YAML_DATASOURCES_VERSION) {
+                    if (yaml_input['version'] != constants.YAML_GROUPS_VERSION) {
                         this.notifyDanger('Invalid file version', 'The version of the YAML file is not supported by this version of the Editor.');
                     } else {
                         ///////////////////////////////////////////////
@@ -273,7 +286,11 @@ export default {
             this.setWatch();
         },
         cleanupBeforeDownload() {
-            // empty function. must be here to make downloadYaml() work for every page
+            // Check platform:
+            if (this.doc.platform.length == 0) {
+                this.notifyDanger('Missing value', 'No value for platform selected. Please select one or more platforms.');
+                return;
+            }
         },
         convertBeforeDownload() {
             // empty function. must be here to make downloadYaml() work for every page
@@ -290,9 +307,14 @@ export default {
             this.groupHelpText = 'Loading the help content...';
             this.$http.get(this.groupFileToRender).then(
                 (response) => {
-                    this.groupHelpText = response.body.replace(/\[(.+)\](\([#\w-]+\))/gm, '$1'); // remove links to other wiki pages
-                    this.groupHelpText = this.groupHelpText.match(/## Group object((.*|\n)*)/gim, '$1')[0];
-                    this.groupHelpText = this.groupHelpText.replace(/^## Group object/gim, '');
+                    try {
+                        this.groupHelpText = response.body.replace(/\[(.+)\](\([#\w-]+\))/gm, '$1'); // remove links to other wiki pages
+                        this.groupHelpText = this.groupHelpText.match(/## Group object((.*|\n)*)/gim, '$1')[0];
+                        this.groupHelpText = this.groupHelpText.replace(/^## Group object/gim, '');
+                    } catch (e) {
+                        this.groupHelpText = 'An error occurred while loading the help content.';
+                    }
+
                 },
                 // eslint-disable-next-line no-unused-vars
                 (response) => {
@@ -302,6 +324,12 @@ export default {
         },
         notifyInvalidFileType(filename) {
             this.notifyDanger('Invalid YAML file type', "The file '" + filename + "' is not a valid group administration file.");
+        },
+        hideFileDetails(state) {
+            if(this.doc != null && this.$route.name == 'groups'){
+                this.file_details_visible = state;
+                this.changePageTitle();
+            }
         }
     },
     filters: {

@@ -1,12 +1,12 @@
 export default {
-    YAML_DATASOURCES_VERSION: 1.0,
+    YAML_DATASOURCES_VERSION: 1.1,
     YAML_TECHNIQUES_VERSION: 1.2,
     YAML_GROUPS_VERSION: 1.0,
     YAML_OBJ_NEW_DATA_SOURCES_FILE: {
         version: 1.0,
         file_type: 'data-source-administration',
         name: 'example',
-        platform: ['all'],
+        systems: [{'applicable_to': 'Systems', 'platform': ['all']}],
         data_sources: []
     },
     YAML_OBJ_DATA_SOURCES: {

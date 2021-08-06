@@ -119,16 +119,24 @@ export default {
             this.visibilityHelpText = 'Loading the help content...';
             this.$http.get(this.techniqueHelpUrl).then(
                 (response) => {
-                    let responseClean = response.body.replace(/\[(.+)\](\([#\w-]+\))/gm, '$1'); // remove links to other wiki pages
-                    this.detectionHelpText = responseClean;
-                    this.detectionHelpText = this.detectionHelpText.match(/^## Detection object((.*|\n)*)/gim, '$1')[0];
-                    this.detectionHelpText = this.detectionHelpText.replace(/^## Visibility object((.*|\n)*)/gim, '');
-                    this.detectionHelpText = this.detectionHelpText.replace(/^## Detection object/gim, '');
+                    try {
+                        let responseClean = response.body.replace(/\[(.+)\](\([#\w-]+\))/gm, '$1'); // remove links to other wiki pages
+                        this.detectionHelpText = responseClean;
+                        this.detectionHelpText = this.detectionHelpText.match(/^## Detection object((.*|\n)*)/gim, '$1')[0];
+                        this.detectionHelpText = this.detectionHelpText.replace(/^## Visibility object((.*|\n)*)/gim, '');
+                        this.detectionHelpText = this.detectionHelpText.replace(/^## Detection object/gim, '');
+                    } catch (e) {
+                        this.detectionHelpText = 'An error occurred while loading the help content.';
+                    }
 
-                    this.visibilityHelpText = responseClean;
-                    this.visibilityHelpText = this.visibilityHelpText.match(/^## Visibility object((.*|\n)*)/gim, '$1')[0];
-                    this.visibilityHelpText = this.visibilityHelpText.replace(/^## Score object((.*|\n)*)/gim, '');
-                    this.visibilityHelpText = this.visibilityHelpText.replace(/^## Visibility object/gim, '');
+                    try {
+                        this.visibilityHelpText = responseClean;
+                        this.visibilityHelpText = this.visibilityHelpText.match(/^## Visibility object((.*|\n)*)/gim, '$1')[0];
+                        this.visibilityHelpText = this.visibilityHelpText.replace(/^## Score object((.*|\n)*)/gim, '');
+                        this.visibilityHelpText = this.visibilityHelpText.replace(/^## Visibility object/gim, '');
+                    } catch (e) {
+                        this.visibilityHelpText = 'An error occurred while loading the help content.';
+                    }
                 },
                 // eslint-disable-next-line no-unused-vars
                 (response) => {

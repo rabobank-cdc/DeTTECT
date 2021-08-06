@@ -5,45 +5,57 @@
                 <icons icon="arrow-up"></icons>
             </label>
         </div>
-
         <div class="row" id="pageTop">
             <div class="col">
                 <div class="card card-card">
-                    <div class="card-header">
-                        <h2 class="card-title"><i class="tim-icons icon-zoom-split"></i> Techniques</h2>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn mr-md-3" @click="askNewFile">
-                                    <icons icon="file-empty"></icons>
-                                    &nbsp;New file
-                                </button>
-                                <label class="custom-file-upload">
-                                    <icons icon="file"></icons>
-                                    &nbsp;Select YAML file
-                                    <file-reader @load="readFile($event)" :setFileNameFn="setFileName" :id="'techniqueFileReader'"></file-reader>
-                                </label>
-                                <label v-if="fileChanged" class="pl-2">
+                    <div class="row cursor-pointer" @click="hideFileDetails(!file_details_visible)">
+                        <div class="col-md-7">
+                            <div class="card-header">
+                            <h2 class="card-title">
+                                <i class="tim-icons icon-zoom-split"></i> Techniques{{showFileName}}
+                            </h2>
+                            </div>
+                        </div>
+                        <div class="col mt-3 text-right">
+                            <label v-if="fileChanged" class="pl-2">
                                     <icons icon="text-balloon"></icons>
                                     You have unsaved changes. You may want to save the file to preserve your changes.</label
-                                >
-                            </div>
+                            >
                         </div>
-                        <div v-if="doc != null" class="row pt-md-2">
-                            <div class="col">
-                                <file-details :filename="filename" :doc="doc" :platforms="platforms"></file-details>
-                            </div>
-                        </div>
-                        <div v-if="doc != null" class="row pt-md-2">
-                            <div class="col card-text">
-                                <button type="button" class="btn" @click="downloadYaml('techniques', 'technique_id')">
-                                    <icons icon="save"></icons>
-                                    &nbsp;Save YAML file
-                                </button>
-                            </div>
+                        <div class="col-md-0 mt-3 mr-4 text-right">
+                            <icons :icon="(file_details_visible) ? 'collapse' : 'expand'"></icons>
                         </div>
                     </div>
+                    <b-collapse id="collapse-ds" v-model="file_details_visible">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <button type="button" class="btn mr-md-3" @click="askNewFile">
+                                        <icons icon="file-empty"></icons>
+                                        &nbsp;New file
+                                    </button>
+                                    <label class="custom-file-upload">
+                                        <icons icon="file"></icons>
+                                        &nbsp;Select YAML file
+                                        <file-reader @load="readFile($event)" :setFileNameFn="setFileName" :id="'techniqueFileReader'"></file-reader>
+                                    </label>
+                                </div>
+                            </div>
+                            <div v-if="doc != null" class="row pt-md-2">
+                                <div class="col">
+                                    <file-details :filename="filename" :doc="doc" :platforms="platforms" systemsOrPlatforms="platforms"></file-details>
+                                </div>
+                            </div>
+                            <div v-if="doc != null" class="row pt-md-2">
+                                <div class="col card-text">
+                                    <button type="button" class="btn" @click="downloadYaml('techniques', 'technique_id')">
+                                        <icons icon="save"></icons>
+                                        &nbsp;Save YAML file
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </b-collapse>
                 </div>
             </div>
         </div>
@@ -414,6 +426,12 @@ export default {
             }
         },
         cleanupBeforeDownload() {
+            // Check platform:
+            if (this.doc.platform.length == 0) {
+                this.notifyDanger('Missing value', 'No value for platform selected. Please select one or more platforms.');
+                return;
+            }
+
             // Remove empty score logbook rows in detection:
             for (let i = 0; i < this.doc.techniques.length; i++) {
                 for (let x = 0; x < this.doc.techniques[i].detection.length; x++) {
@@ -513,6 +531,12 @@ export default {
                 technique_id,
                 true
             );
+        },
+        hideFileDetails(state) {
+            if(this.doc != null && this.$route.name == 'techniques'){
+                this.file_details_visible = state;
+                this.changePageTitle();
+            }
         }
     }
 };

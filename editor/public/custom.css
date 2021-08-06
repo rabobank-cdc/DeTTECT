@@ -53,6 +53,12 @@ input[type='file'] {
 
 .table-file-details td {
     vertical-align: middle;
+
+}
+
+.table-file-details td.vtop {
+    vertical-align: top;
+    padding-top: 6px;
 }
 
 .table-file-details .form-group {
@@ -463,4 +469,74 @@ h4 {
 
 .card li {
     color: rgba(255, 255, 255, 0.8);
+}
+
+.platform-chooser-input {
+    color: white;
+    background-color: #000;
+}
+
+.platform-chooser-tag {
+    color: red;
+}
+
+.table-file-details .d-flex .bg-transparent {
+    background-color: #27293D !important;
+    height: calc(1.6rem);
+}
+
+.table-file-details .b-form-tags.focus {
+    background-color: #27293D !important;
+}
+
+.table-file-details .badge-secondary {
+    background-color: rgb(0, 191, 154);
+    color:rgb(43, 53, 83);
+}
+
+.table-file-details .btn {
+    margin: 0px 3px 0px 0px;
+}
+
+.table-file-details .b-form-tag, .table-file-details .invalid-feedback {
+    font-size: 100%
+}
+
+.list-editor-extended .form-group div.form-control {
+    padding: 1px 1px 5px 5px !important;
+    height: calc(2.25rem + 2px);
+}
+
+.list-editor-extended .platform-chooser-input {
+    padding: 1px 1px 2px 5px !important;
+}
+
+.custom-select.is-valid {
+    border-color: #e14eca !important;
+}
+
+.b-form-tags.focus.is-valid {
+    box-shadow: none !important;
+}
+
+.b-form-tags.focus {
+    box-shadow: none !important;
+    border-color: #e14eca !important;
+}
+
+.b-form-tags {
+    border-color: #2b3553 !important;
+}
+
+div.d-flex input.b-form-tags-input.platform-chooser-input {
+    width: 90px !important;
+}
+
+.table-file-details .invalid-feedback {
+    font-size: 0.75rem;
+}
+
+#tags-validation-help {
+    padding-left: 7px;
+    font-size: 0.7rem;
 }

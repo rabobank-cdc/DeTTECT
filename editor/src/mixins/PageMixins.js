@@ -37,12 +37,22 @@ export const pageMixin = {
             fileChanged: false,
             unwatchFunction: null,
             deletedRows: [],
-            platforms: constants.PLATFORMS
+            platforms: constants.PLATFORMS,
+            platformConversion: constants.PLATFORM_CONVERSION,
+            lastScrollPosition: 0,
+            file_details_visible: true,
+            showFileName: ''
         };
     },
     components: {
         FileReader,
         FileDetails
+    },
+    mounted () {
+        window.addEventListener('scroll', this.onScroll)
+    },
+    destroyed () {
+        window.removeEventListener('scroll', this.onScroll)
     },
     methods: {
         navigateToTop() {
@@ -156,12 +166,6 @@ export const pageMixin = {
 
             this.cleanupBeforeDownload();
 
-            // Check platform:
-            if (this.doc.platform.length == 0) {
-                this.notifyDanger('Missing value', 'No value for platform selected. Please select one or more platforms.');
-                return;
-            }
-
             // Copy the doc variable before downloading to convert some values specific for the type of page
             let newDoc = _.cloneDeep(this.doc);
             this.convertBeforeDownload(newDoc);
@@ -241,6 +245,21 @@ export const pageMixin = {
                     }
                 }
                 this.selectedRow.push(found_row);
+            }
+        },
+        onScroll () {
+            const currentScrollPosition = window.pageYOffset;
+            if (Math.abs(currentScrollPosition - this.lastScrollPosition) > 80) {
+                this.hideFileDetails(false);
+                this.lastScrollPosition = currentScrollPosition
+            }
+        },
+        changePageTitle () {
+            if(this.file_details_visible){
+                this.showFileName = '';
+            }
+            else if(this.filename != ''){
+                this.showFileName = ': ' + this.filename;
             }
         }
     }
