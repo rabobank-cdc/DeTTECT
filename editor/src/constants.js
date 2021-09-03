@@ -3,7 +3,7 @@ export default {
     YAML_TECHNIQUES_VERSION: 1.2,
     YAML_GROUPS_VERSION: 1.0,
     YAML_OBJ_NEW_DATA_SOURCES_FILE: {
-        version: 1.0,
+        version: 1.1,
         file_type: 'data-source-administration',
         name: 'example',
         systems: [{'applicable_to': 'Systems', 'platform': ['all']}],
@@ -11,18 +11,23 @@ export default {
     },
     YAML_OBJ_DATA_SOURCES: {
         data_source_name: '',
-        date_registered: null,
-        date_connected: null,
-        products: [],
-        available_for_data_analytics: false,
-        comment: '',
-        data_quality: {
-            device_completeness: 0,
-            data_field_completeness: 0,
-            timeliness: 0,
-            consistency: 0,
-            retention: 0
-        }
+        data_source: [
+            {
+                applicable_to: ['all'],
+                date_registered: null,
+                date_connected: null,
+                products: [],
+                available_for_data_analytics: false,
+                comment: '',
+                data_quality: {
+                    device_completeness: 0,
+                    data_field_completeness: 0,
+                    timeliness: 0,
+                    consistency: 0,
+                    retention: 0
+                }
+            }
+        ]
     },
     YAML_OBJ_NEW_GROUPS_FILE: {
         version: 1.0,

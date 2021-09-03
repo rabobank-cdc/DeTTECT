@@ -540,3 +540,13 @@ div.d-flex input.b-form-tags-input.platform-chooser-input {
     padding-left: 7px;
     font-size: 0.7rem;
 }
+
+select.form-control option {
+    color: black;
+    font-size: 0.875rem !important;
+    line-height: 1.35em;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] {
+    color: #576FAD !important;
+}

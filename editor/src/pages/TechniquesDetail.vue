@@ -14,7 +14,7 @@
             notifyText="'ID' is an invalid technique, please comply with the naming scheme: TXXXX - [optional name]."
             :navigateItem="navigateItem"
         ></auto-suggest-title>
-        <applicable-to-collapse
+        <applicable-to-collapse-techniques
             title="Detection"
             :applicable_to="technique.detection"
             :helpText="detectionHelpText"
@@ -26,8 +26,8 @@
             :emptyScoreEntry="emptyScoreEntryDetection"
             :emptyObject="emptyDetectionObject"
             ref="collapseDetectionComponent"
-        ></applicable-to-collapse>
-        <applicable-to-collapse
+        ></applicable-to-collapse-techniques>
+        <applicable-to-collapse-techniques
             title="Visibility"
             :applicable_to="technique.visibility"
             :showLocation="false"
@@ -40,13 +40,13 @@
             :emptyScoreEntry="emptyScoreEntryVisibility"
             :emptyObject="emptyVisibilityObject"
             ref="collapseVisibilityComponent"
-        ></applicable-to-collapse>
+        ></applicable-to-collapse-techniques>
     </div>
 </template>
 
 <script>
 import AutoSuggestTitle from '@/components/Inputs/AutoSuggestTitle';
-import ApplicableToCollapse from '@/components/Inputs/ApplicableToCollapse';
+import ApplicableToCollapseTechniques from '@/components/Inputs/ApplicableToCollapseTechniques';
 import constants from '@/constants';
 import techniques from '@/data/techniques';
 
@@ -110,7 +110,7 @@ export default {
     },
     components: {
         AutoSuggestTitle,
-        ApplicableToCollapse,
+        ApplicableToCollapseTechniques,
     },
     methods: {
         preloadMarkDown() {

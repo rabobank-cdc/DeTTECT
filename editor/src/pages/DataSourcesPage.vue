@@ -81,7 +81,7 @@
                             <base-input v-model="filters.filter.value" placeholder="filter" />
                             <v-table
                                 :data="doc.data_sources"
-                                @selectionChanged="selectItem($event)"
+                                @selectionChanged="selectDataSource($event)"
                                 selectedClass="table-selected-custom"
                                 :filters="filters"
                                 class="table-custom"
@@ -119,10 +119,12 @@
                         v-if="getSelectedItem() != null"
                         :dataSource="getSelectedItem()"
                         :allDataSources="doc.data_sources"
+                        :allSystems="doc.systems"
                         :dqHelpText="dqHelpText"
                         :dsHelpText="dsHelpText"
                         :prevDataSourceQuality="prevDataSourceQuality"
                         :navigateItem="navigateItem"
+                        ref="detailComponent"
                     ></data-source-detail>
                 </card>
             </div>
@@ -369,6 +371,12 @@ export default {
                 this.file_details_visible = state;
                 this.changePageTitle();
             }
+        },
+        selectDataSource(event) {
+            if (this.$refs.detailComponent != undefined) {
+                this.$refs.detailComponent.closeAllCollapses();
+            }
+            this.selectItem(event);
         }
     },
     filters: {
