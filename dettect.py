@@ -296,8 +296,6 @@ def _menu(menu_parser):
             if not args.file_ds:
                 print('[!] An overlay requires the data source administration YAML file (\'-fd, --file-ds\')')
                 quit()
-            if not check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.health):
-                quit()
 
         if check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
             file_tech = args.file_tech
