@@ -31,7 +31,11 @@
                         Options: {{ values.join(', ') }}
                         </div>
                     </template>
+
                 </b-form-group>
+                <div v-if="checkInUseFunction(item.applicable_to)" id="tags-validation-help">
+                    <label class="label-warning" id="warningText">No data source is using this system.</label>
+                </div>
             </div>
             <div class="col mt-md-1">
                 <i class="tim-icons icon-trash-simple icon-color icon-padding cursor-pointer" @click="deleteItem($event, index)"></i>
@@ -98,6 +102,11 @@ export default {
             type: Array,
             required: false,
             default: () => []
+        },
+        checkInUseFunction: {
+            type: Function,
+            required: false,
+            default: () => false
         }
     },
     methods: {

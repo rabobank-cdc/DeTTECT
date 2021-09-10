@@ -42,6 +42,7 @@
                     :values="platforms"
                     :valuesConversion="platformConversion"
                     :reservedKeywords="['all']"
+                    :checkInUseFunction="checkSystemNotInUse"
                 ></list-editor-extended>
             </td>
         </tr>
@@ -115,6 +116,20 @@ export default {
                 this.notifyDanger('Missing value', 'No value for platform selected. Please select one or more platforms.');
             }
         },
+        checkSystemNotInUse(system) {
+
+            let inUse = false;
+            for (let i = 0; i < this.doc.data_sources.length; i++) {
+                for (let j = 0; j < this.doc.data_sources[i].data_source.length; j++) {
+                    for (let k = 0; k < this.doc.data_sources[i].data_source[j].applicable_to.length; k++) {
+                        if(this.doc.data_sources[i].data_source[j].applicable_to[k] == system){
+                            inUse = true;
+                        }
+                    }
+                }
+            }
+            return !inUse;
+        }
     },
     components: {
         ExtendedTextarea,

@@ -183,11 +183,12 @@ export default {
                         // Health checks before assignment to this.doc:
                         ///////////////////////////////////////////////
 
-                        // Fix missing or empty platform:
+                        // Fix missing or empty systems field:
                         if (yaml_input.systems == undefined || yaml_input.systems == null) {
                             yaml_input.systems = _.cloneDeep(constants.YAML_OBJ_NEW_DATA_SOURCES_FILE['systems']);
                         }
                         else {
+                            // Fix missing or empty applicable_to and platform fields:
                             for (let i = 0; i < yaml_input.systems.length; i++) {
                                 if(yaml_input.systems[i].applicable_to == undefined || yaml_input.systems[i].applicable_to == null) {
                                     yaml_input.systems[i].applicable_to = 'empty' +i;
@@ -219,45 +220,47 @@ export default {
                             }
                         }
 
-                        // Fix missing/invalid fields: 'products', available_for_data_analytics, data_quality
+                        // Fix missing/invalid fields for data_source items: products, available_for_data_analytics, data_quality
                         for (let i = 0; i < yaml_input.data_sources.length; i++) {
-                            if (yaml_input.data_sources[i].products == undefined) {
-                                yaml_input.data_sources[i].products = [];
-                            }
+                            for (let j = 0; j < yaml_input.data_sources[i].data_source.length; j++) {
+                                if (yaml_input.data_sources[i].data_source[j].products == undefined) {
+                                    yaml_input.data_sources[i].data_source[j].products = [];
+                                }
 
-                            if (yaml_input.data_sources[i].available_for_data_analytics == undefined) {
-                                yaml_input.data_sources[i].available_for_data_analytics = false;
-                            }
+                                if (yaml_input.data_sources[i].data_source[j].available_for_data_analytics == undefined) {
+                                    yaml_input.data_sources[i].data_source[j].available_for_data_analytics = false;
+                                }
 
-                            if (typeof yaml_input.data_sources[i].available_for_data_analytics != 'boolean') {
-                                yaml_input.data_sources[i].available_for_data_analytics = false;
-                            }
+                                if (typeof yaml_input.data_sources[i].data_source[j].available_for_data_analytics != 'boolean') {
+                                    yaml_input.data_sources[i].data_source[j].available_for_data_analytics = false;
+                                }
 
-                            if (yaml_input.data_sources[i].data_quality == undefined) {
-                                yaml_input.data_sources[i].data_quality = {
-                                    device_completeness: 0,
-                                    data_field_completeness: 0,
-                                    timeliness: 0,
-                                    consistency: 0,
-                                    retention: 0
-                                };
-                            }
+                                if (yaml_input.data_sources[i].data_source[j].data_quality == undefined) {
+                                    yaml_input.data_sources[i].data_source[j].data_quality = {
+                                        device_completeness: 0,
+                                        data_field_completeness: 0,
+                                        timeliness: 0,
+                                        consistency: 0,
+                                        retention: 0
+                                    };
+                                }
 
-                            yaml_input.data_sources[i].data_quality.device_completeness = this.fixSDataQualityScore(
-                                yaml_input.data_sources[i].data_quality.device_completeness
-                            );
-                            yaml_input.data_sources[i].data_quality.data_field_completeness = this.fixSDataQualityScore(
-                                yaml_input.data_sources[i].data_quality.data_field_completeness
-                            );
-                            yaml_input.data_sources[i].data_quality.timeliness = this.fixSDataQualityScore(
-                                yaml_input.data_sources[i].data_quality.timeliness
-                            );
-                            yaml_input.data_sources[i].data_quality.consistency = this.fixSDataQualityScore(
-                                yaml_input.data_sources[i].data_quality.consistency
-                            );
-                            yaml_input.data_sources[i].data_quality.retention = this.fixSDataQualityScore(
-                                yaml_input.data_sources[i].data_quality.retention
-                            );
+                                yaml_input.data_sources[i].data_source[j].data_quality.device_completeness = this.fixSDataQualityScore(
+                                    yaml_input.data_sources[i].data_source[j].data_quality.device_completeness
+                                );
+                                yaml_input.data_sources[i].data_source[j].data_quality.data_field_completeness = this.fixSDataQualityScore(
+                                    yaml_input.data_sources[i].data_source[j].data_quality.data_field_completeness
+                                );
+                                yaml_input.data_sources[i].data_source[j].data_quality.timeliness = this.fixSDataQualityScore(
+                                    yaml_input.data_sources[i].data_source[j].data_quality.timeliness
+                                );
+                                yaml_input.data_sources[i].data_source[j].data_quality.consistency = this.fixSDataQualityScore(
+                                    yaml_input.data_sources[i].data_source[j].data_quality.consistency
+                                );
+                                yaml_input.data_sources[i].data_source[j].data_quality.retention = this.fixSDataQualityScore(
+                                    yaml_input.data_sources[i].data_source[j].data_quality.retention
+                                );
+                            }
                         }
 
                         // For the following fields it's not a problem is they are missing because the GUI solves/handles this properly:
@@ -272,15 +275,17 @@ export default {
                             this.selectedRow.pop();
                         }
 
-                        // Fix the date to be in the correct date format (YYY-MM-DD):
+                        // Fix the date to be in the correct date format (YYYY-MM-DD):
                         for (let i = 0; i < this.doc.data_sources.length; i++) {
-                            let dr = this.doc.data_sources[i]['date_registered'];
-                            let dv = this.doc.data_sources[i]['date_connected'];
-                            if (dr != null) {
-                                this.doc.data_sources[i]['date_registered'] = moment(dr, 'DD/MM/YYYY').format('YYYY-MM-DD');
-                            }
-                            if (dv != null) {
-                                this.doc.data_sources[i]['date_connected'] = moment(dv, 'DD/MM/YYYY').format('YYYY-MM-DD');
+                            for (let j = 0; j < this.doc.data_sources[i].data_source.length; j++) {
+                                let dr = this.doc.data_sources[i].data_source[j]['date_registered'];
+                                let dv = this.doc.data_sources[i].data_source[j]['date_connected'];
+                                if (dr != null) {
+                                    this.doc.data_sources[i].data_source[j]['date_registered'] = moment(dr, 'DD/MM/YYYY').format('YYYY-MM-DD');
+                                }
+                                if (dv != null) {
+                                    this.doc.data_sources[i].data_source[j]['date_connected'] = moment(dv, 'DD/MM/YYYY').format('YYYY-MM-DD');
+                                }
                             }
                         }
 
@@ -327,11 +332,13 @@ export default {
         convertBeforeDownload(newDoc) {
             // Convert the date (which is a string in the GUI) to a real Date object in the YAML file
             for (let i = 0; i < newDoc.data_sources.length; i++) {
-                if (newDoc.data_sources[i]['date_registered'] != null) {
-                    newDoc.data_sources[i]['date_registered'] = new Date(newDoc.data_sources[i]['date_registered']);
-                }
-                if (newDoc.data_sources[i]['date_connected'] != null) {
-                    newDoc.data_sources[i]['date_connected'] = new Date(newDoc.data_sources[i]['date_connected']);
+                for (let j = 0; j < newDoc.data_sources[i].data_source.length; j++) {
+                    if (newDoc.data_sources[i].data_source[j]['date_registered'] != null) {
+                        newDoc.data_sources[i].data_source[j]['date_registered'] = new Date(newDoc.data_sources[i].data_source[j]['date_registered']);
+                    }
+                    if (newDoc.data_sources[i].data_source[j]['date_connected'] != null) {
+                        newDoc.data_sources[i].data_source[j]['date_connected'] = new Date(newDoc.data_sources[i].data_source[j]['date_connected']);
+                    }
                 }
             }
         },
