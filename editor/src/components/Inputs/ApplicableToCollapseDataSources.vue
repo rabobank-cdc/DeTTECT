@@ -32,6 +32,16 @@
                             "
                             notifyText="The value 'KEYNAME' is already part of the applicable_to for this data source. Duplicate entries are not allowed."
                         ></list-editor-with-selects>
+                        <div class="row mt-md-0 mb-md-2" v-if="row.applicable_to.length == 0">
+                            <div class="col-md-auto pr-md-0">
+                                <i class="tim-icons icon-alert-circle-exc icon-color-warning"></i>
+                            </div>
+                            <div class="col-md-auto pl-md-2">
+                                <label class="label-warning" id="warningText"
+                                    >The applicable_to field should be filled in order for DeTT&CT to work properly.</label
+                                >
+                            </div>
+                        </div>
                         <div class="row mt-md-3">
                             <div class="col-md-auto pr-md-0">
                                 <h5 class="title mb-md-3">Data source key-value pairs</h5>
