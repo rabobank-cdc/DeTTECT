@@ -64,7 +64,7 @@ export default {
             {
                 applicable_to: ['all'],
                 comment: '',
-                score_logbook: [{ date: null, score: 0, comment: '', auto_generated: false }]
+                score_logbook: [{ date: null, score: 0, comment: '', auto_generated: true }]
             }
         ]
     },
@@ -77,7 +77,7 @@ export default {
     YAML_OBJ_TECHNIQUE_VISIBILITY: {
         applicable_to: ['all'],
         comment: '',
-        score_logbook: [{ date: null, score: 0, comment: '', auto_generated: false }]
+        score_logbook: [{ date: null, score: 0, comment: '', auto_generated: true }]
     },
     YAML_OBJ_SCORE_DETECTION_LOGBOOK: {
         date: null,
