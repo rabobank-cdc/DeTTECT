@@ -184,30 +184,40 @@ export default {
                         ///////////////////////////////////////////////
 
                         // Fix missing or empty platform:
-                        if (yaml_input.platform == undefined || yaml_input.platform == null) {
-                            yaml_input.platform = [];
+                        if (yaml_input.systems == undefined || yaml_input.systems == null) {
+                            yaml_input.systems = _.cloneDeep(constants.YAML_OBJ_NEW_DATA_SOURCES_FILE['systems']);
                         }
-
-                        // Fix a single platform string to list
-                        if (typeof yaml_input.platform == 'string') {
-                            yaml_input.platform = [yaml_input.platform];
-                        }
-
-                        // Only use valid platform values (in right casing):
-                        let valid_platforms = [];
-                        for (let i = 0; i < yaml_input.platform.length; i++) {
-                            if (this.platforms.indexOf(yaml_input.platform[i]) < 0) {
-                                let p = yaml_input.platform[i].toLowerCase();
-                                if (Object.keys(constants.PLATFORM_CONVERSION).indexOf(p) >= 0) {
-                                    valid_platforms.push(constants.PLATFORM_CONVERSION[p]);
-                                } else {
-                                    this.notifyDanger('Invalid value', 'Invalid value for platform was found in the YAML file and was removed.');
+                        else {
+                            for (let i = 0; i < yaml_input.systems.length; i++) {
+                                if(yaml_input.systems[i].applicable_to == undefined || yaml_input.systems[i].applicable_to == null) {
+                                    yaml_input.systems[i].applicable_to = 'empty' +i;
                                 }
-                            } else {
-                                valid_platforms.push(yaml_input.platform[i]);
+                                if(yaml_input.systems[i].platform == undefined || yaml_input.systems[i].platform == null) {
+                                    yaml_input.systems[i].platform = [];
+                                }
+
+                                // Fix a single platform string to list
+                                if (typeof yaml_input.systems[i].platform == 'string') {
+                                    yaml_input.systems[i].platform = [yaml_input.systems[i].platform];
+                                }
+
+                                let valid_platforms = [];
+                                for (let j = 0; j < yaml_input.systems[i].platform.length; j++) {
+                                    // Only use valid platform values (in right casing):
+                                    if (this.platforms.indexOf(yaml_input.systems[i].platform[j]) < 0) {
+                                        let p = yaml_input.systems[i].platform[j].toLowerCase();
+                                        if (Object.keys(constants.PLATFORM_CONVERSION).indexOf(p) >= 0) {
+                                            valid_platforms.push(constants.PLATFORM_CONVERSION[p]);
+                                        } else {
+                                            this.notifyDanger('Invalid value', 'Invalid value for platform was found in the YAML file and was removed.');
+                                        }
+                                    } else {
+                                        valid_platforms.push(yaml_input.systems[i].platform[j]);
+                                    }
+                                }
+                                yaml_input.systems[i].platform = valid_platforms;
                             }
                         }
-                        yaml_input.platform = valid_platforms;
 
                         // Fix missing/invalid fields: 'products', available_for_data_analytics, data_quality
                         for (let i = 0; i < yaml_input.data_sources.length; i++) {
@@ -285,7 +295,7 @@ export default {
                     this.notifyInvalidFileType(this.selected_filename);
                 }
             } catch (e) {
-                // alert(e);
+                alert(e);
                 this.notifyInvalidFileType(this.selected_filename);
             }
         },

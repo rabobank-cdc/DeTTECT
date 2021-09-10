@@ -41,6 +41,7 @@
                     subject_text="platform"
                     :values="platforms"
                     :valuesConversion="platformConversion"
+                    :reservedKeywords="['all']"
                 ></list-editor-extended>
             </td>
         </tr>
@@ -75,11 +76,11 @@ export default {
         },
         platforms: {
             type: Array,
-            required: false,
+            required: true,
         },
         platformConversion: {
             type: Object,
-            required: false
+            required: true
         },
         showName: {
             type: Boolean,

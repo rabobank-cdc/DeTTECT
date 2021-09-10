@@ -93,14 +93,23 @@ export default {
         subject_text: {
             type: String,
             required: true
+        },
+        reservedKeywords: {
+            type: Array,
+            required: false,
+            default: () => []
         }
     },
     methods: {
         addItem() {
             // add an item to the list
             let applicable_to_values = this.list.map(value => value.applicable_to);
-            if (this.caseInsensitive(applicable_to_values).includes(this.newItem)) {
+            if (this.reservedKeywords.includes(this.newItem)) {
+                this.notifyReservedKeyword(this.newItem);
+                this.newItem = '';
+            } else if (this.caseInsensitive(applicable_to_values).includes(this.newItem)) {
                 this.notifyDuplicate(this.newItem);
+                this.newItem = '';
             } else if (this.newItem != '') {
                 this.list.push({'applicable_to': this.newItem, 'platform': ['all']});
                 this.newItem = '';
@@ -126,6 +135,11 @@ export default {
         notifyDuplicate(keyName) {
             let title = 'Duplicate value';
             let msg = this.notifyText.replace('KEYNAME', keyName);
+            this.notifyWarning(title, msg);
+        },
+        notifyReservedKeyword(keyName) {
+            let title = 'Reserved keyword';
+            let msg = "'" + keyName +"' is a reserved keyword. You cannot use this value."
             this.notifyWarning(title, msg);
         },
         validator(value) {
