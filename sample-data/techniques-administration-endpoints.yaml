@@ -3,7 +3,7 @@ file_type: technique-administration
 name: example
 platform:
   - Windows
-  - Azure
+  - IaaS
   - Azure AD
   - Office 365
   # - Note that detection and visibility are independent from each other.
