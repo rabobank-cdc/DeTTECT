@@ -224,13 +224,15 @@ def _get_base_template(name, description, platform, sorting):
     """
     layer = dict()
     layer['name'] = name
-    layer['versions'] = {'navigator': '4.3', 'layer': '4.2'}
+    layer['versions'] = {'navigator': '4.4', 'layer': '4.2'}
     layer['domain'] = 'enterprise-attack'
     layer['description'] = description
 
     layer['filters'] = {'platforms': platform}
     layer['sorting'] = sorting
-    layer['layout'] = {"layout": "flat", "showName": True, "showID": False}
+    layer['layout'] = {"layout": "flat", "aggregateFunction": "sum",
+                       "showAggregateScores": True, "countUnscored": False,
+                       "showName": True, "showID": False}
     layer['hideDisable'] = False
     layer['selectSubtechniquesWithParent'] = False
     layer['techniques'] = []
@@ -563,7 +565,7 @@ def get_latest_score_obj(yaml_object):
         for score_obj in yaml_object['score_logbook']:
             score_obj_date = score_obj['date']
 
-            if not newest_score_obj or score_obj_date > newest_date:
+            if not newest_score_obj or (score_obj_date and score_obj_date > newest_date):
                 newest_date = score_obj_date
                 newest_score_obj = score_obj
 

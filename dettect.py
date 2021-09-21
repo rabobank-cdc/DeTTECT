@@ -284,6 +284,11 @@ def _menu(menu_parser):
                                 args.output_filename, args.layer_name, include_all_score_objs=args.all_scores)
 
     elif args.subparser in ['detection', 'd']:
+        if args.overlay:
+            if not args.file_ds:
+                print('[!] An overlay requires the data source administration YAML file (\'-fd, --file-ds\')')
+                quit()
+
         if check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
             file_tech = args.file_tech
 
