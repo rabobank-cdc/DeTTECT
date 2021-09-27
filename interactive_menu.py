@@ -3,6 +3,7 @@ from data_source_mapping import *
 from technique_mapping import *
 from group_mapping import *
 from eql_yaml import *
+from generic_mode import *
 
 groups = 'all'
 software_group = False

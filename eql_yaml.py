@@ -1,10 +1,10 @@
-from generic import *
-from health import *
 import datetime
 import sys
-from pprint import pprint
 import eql
+from pprint import pprint
 from copy import deepcopy
+from generic import *
+from health import *
 
 
 def _traverse_modify_date(obj):
@@ -406,6 +406,24 @@ def _execute_eql_query(events, query):
     return query_results
 
 
+def _get_applicable_to_yaml_values(filename, type):
+    """
+    Get all the applicable to values, in lower case, from the provided YAML file.
+    :param filename: file path of the YAML file
+    :param type: type of YAML object to get the applicable to values from
+    :retturn: set with all applicable to values in lower case
+    """
+    app_to_values = set()
+
+    if type == FILE_TYPE_DATA_SOURCE_ADMINISTRATION:
+        _, _, systems, _ = load_data_sources(filename)
+
+        for system in systems:
+            app_to_values.add(system['applicable_to'].lower())
+
+    return app_to_values
+
+
 def techniques_search(filename, query_visibility=None, query_detection=None, include_all_score_objs=False):
     """
     Perform an EQL search on the technique administration file.
@@ -477,3 +495,28 @@ def data_source_search(filename, query=''):
     else:
         # when using an EQL query that does not result in a dict having valid YAML objects, return None
         return None
+
+
+def get_eql_applicable_to_query(args_applicable_to, filename, type):
+    """
+    Construct the EQL query used to filter on applicable to value(s).
+    :param args_applicable_to: list of applicable to values as provided via user input
+    :param filename: file path of the YAML file
+    :param type: type of EQL query to create
+    :return: EQL query to filter on applicable to value(s)
+    """
+    applicable_to_yaml_values = _get_applicable_to_yaml_values(filename, type)
+
+    for a in args_applicable_to:
+        if a.lower() not in applicable_to_yaml_values:
+            print('[!] \'' + a + '\' is an unknown applicable to value.\n'
+                  '     Known values are: ' + ', '.join(applicable_to_yaml_values))
+            quit()
+
+    applicable_to = ', '.join("'{0}'".format(a) for a in args_applicable_to)
+    applicable_to = "(%s)" % applicable_to
+
+    if type == FILE_TYPE_DATA_SOURCE_ADMINISTRATION:
+        eql_query = 'data_sources where applicable_to in %s' % applicable_to
+
+    return eql_query

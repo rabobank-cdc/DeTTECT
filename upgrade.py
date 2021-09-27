@@ -1,8 +1,8 @@
-from constants import *
 import simplejson
+import os
 from io import StringIO
 from copy import deepcopy
-import os
+from constants import *
 
 
 def _create_upgrade_text(file_type, file_version):
@@ -21,55 +21,6 @@ def _create_upgrade_text(file_type, file_version):
                 text += FILE_TYPE_DATA_SOURCE_UPGRADE_TEXT[version] + '\n'
 
         return text
-
-
-def upgrade_yaml_file(filename, file_type, file_version):
-    """
-    Main function to upgrade the YAML file to a new version
-    :param filename: YAML administration file
-    :param file_type: YAML file type
-    :param file_version: version of the YAML file
-    :return:
-    """
-    from generic import ask_yes_no, backup_file
-
-    is_upgraded = False
-
-    # noinspection PyDictCreation
-    data_source_upgrade_func = {}
-    data_source_upgrade_func[1.1] = _upgrade_data_source_yaml_10_to_11
-
-    with open(filename, 'r') as file:
-        file_new_lines = file.readlines()
-
-    if file_type == FILE_TYPE_DATA_SOURCE_ADMINISTRATION:
-        if file_version < FILE_TYPE_DATA_SOURCE_ADMINISTRATION_VERSION:
-            upgrade_text = _create_upgrade_text(file_type, file_version)
-            print(upgrade_text)
-            upgrade_question = 'Do you want to upgrade the below file. A backup will be created of the current file.\n' + \
-                               '[!] Not upgrading the file will brake functionality within DeTT&CT.\n' + \
-                               ' - ' + filename
-            if ask_yes_no(upgrade_question):
-                is_upgraded = True
-                # create backup of the non-upgraded file
-                backup_file(filename)
-
-                for tech_f in data_source_upgrade_func.keys():
-                    if file_version < tech_f:
-                        file_new_lines = data_source_upgrade_func[tech_f](file_new_lines)
-            else:
-                print('Upgrade cancelled\n')
-                print('-' * 80)
-                return
-
-    if is_upgraded:
-        # write the upgraded file to disk
-        with open(filename, 'w') as f:
-            f.writelines(file_new_lines)
-            print('Written upgraded file: ' + filename)
-
-        print('\nUpgrade complete')
-        print('-' * 80)
 
 
 def _print_error_msg(msg):
@@ -135,6 +86,19 @@ def _upgrade_data_source_yaml_10_to_11(file_lines):
     # remove the single quotes around the date
     new_lines = fix_date_and_remove_null(yaml_file_new, '', input_type='ruamel')
     return new_lines
+
+
+def _remove_technique_from_yaml(yaml_content, technique_id):
+    """
+    Function to delete a specific technique in the YAML content.
+    :param techniques: list with all techniques
+    :param technique_id: technique_id to look for
+    :return: none
+    """
+    for tech in yaml_content['techniques']:
+        if tech['technique_id'] == technique_id:
+            yaml_content['techniques'].remove(tech)
+            return
 
 
 def _check_yaml_file_health_v10(file_lines):
@@ -212,13 +176,62 @@ def _check_yaml_file_health_v10(file_lines):
         return True
 
 
+def upgrade_yaml_file(filename, file_type, file_version):
+    """
+    Main function to upgrade the YAML file to a new version
+    :param filename: YAML administration file
+    :param file_type: YAML file type
+    :param file_version: version of the YAML file
+    :return:
+    """
+    from generic import ask_yes_no
+
+    is_upgraded = False
+
+    # noinspection PyDictCreation
+    data_source_upgrade_func = {}
+    data_source_upgrade_func[1.1] = _upgrade_data_source_yaml_10_to_11
+
+    with open(filename, 'r') as file:
+        file_new_lines = file.readlines()
+
+    if file_type == FILE_TYPE_DATA_SOURCE_ADMINISTRATION:
+        if file_version < FILE_TYPE_DATA_SOURCE_ADMINISTRATION_VERSION:
+            upgrade_text = _create_upgrade_text(file_type, file_version)
+            print(upgrade_text)
+            upgrade_question = 'Do you want to upgrade the below file. A backup will be created of the current file.\n' + \
+                               '[!] Not upgrading the file will brake functionality within DeTT&CT.\n' + \
+                               ' - ' + filename
+            if ask_yes_no(upgrade_question):
+                is_upgraded = True
+                # create backup of the non-upgraded file
+                backup_file(filename)
+
+                for tech_f in data_source_upgrade_func.keys():
+                    if file_version < tech_f:
+                        file_new_lines = data_source_upgrade_func[tech_f](file_new_lines)
+            else:
+                print('Upgrade cancelled\n')
+                print('-' * 80)
+                return
+
+    if is_upgraded:
+        # write the upgraded file to disk
+        with open(filename, 'w') as f:
+            f.writelines(file_new_lines)
+            print('Written upgraded file: ' + filename)
+
+        print('\nUpgrade complete')
+        print('-' * 80)
+
+
 def check_yaml_updated_to_sub_techniques(filename):
     """
     Checks if the YAML technique administration file is already updated to ATT&CK with sub-techniques by comparing the techniques to the the crosswalk file.
     :param filename: YAML administration file
     :return: return False if an update is required, otherwise True
     """
-    from generic import init_yaml, backup_file, fix_date_and_remove_null, load_attack_data, get_technique, get_technique_from_yaml, remove_technique_from_yaml
+    from generic import init_yaml, get_technique_from_yaml
 
     # Open the crosswalk file from MITRE:
     conversion_table = None
@@ -284,7 +297,7 @@ def upgrade_to_sub_techniques(filename, notify_only=False):
     :param notify_only: set to True by 'check_yaml_updated_to_sub_techniques' when no automatic upgrade of techniques can be performed because these require manual action
     :return:
     """
-    from generic import init_yaml, backup_file, load_attack_data, get_technique, get_technique_from_yaml, remove_technique_from_yaml, ask_yes_no, local_stix_path, get_latest_score, get_latest_auto_generated
+    from generic import init_yaml, load_attack_data, get_technique, get_technique_from_yaml, ask_yes_no, local_stix_path, get_latest_score, get_latest_auto_generated
 
     if not notify_only and not ask_yes_no('DeTT&CT is going to update \'' + filename + '\' to ATT&CK with sub-techniques. A backup of this file will be generated. Do you want to continue:'):
         quit()
@@ -376,7 +389,7 @@ def upgrade_to_sub_techniques(filename, notify_only=False):
                                                 '. You need to migrate this technique manually.')
                         elif item['change-type'] == 'Deprecated':
                             # Remove deprecated items:
-                            remove_technique_from_yaml(yaml_content, element)
+                            _remove_technique_from_yaml(yaml_content, element)
                             deprecated_msgs.append('[i] Technique ' + element + ' is deprecated. Technique bas been removed from the YAML file.')
                         elif item['change-type'] == 'Became Multiple Sub-Techniques':
                             # No conversion: One technique became multiple sub techniques:

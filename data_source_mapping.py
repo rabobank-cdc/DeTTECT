@@ -1,11 +1,161 @@
-from copy import deepcopy
-from datetime import datetime
 import xlsxwriter
 import simplejson
+from copy import deepcopy
+from datetime import datetime
+from itertools import chain
 from generic import *
-
-
+from file_output import *
+from navigator_layer import *
 # Imports for pandas and plotly are because of performance reasons in the function that uses these libraries.
+
+
+def _count_applicable_data_sources(technique, applicable_data_sources):
+    """
+    get the count of applicable data sources for the provided technique.
+    This takes into account which data sources are applicable for a platform(s)
+    :param technique: ATT&CK CTI technique object
+    :param applicable_data_sources: a list of applicable ATT&CK data sources
+    :return: a count of the applicable data sources for this technique
+    """
+    applicable_ds_count = 0
+    for ds in technique['x_mitre_data_sources']:
+        ds = ds.split(':')[1][1:]
+        if ds in applicable_data_sources:
+            applicable_ds_count += 1
+    return applicable_ds_count
+
+
+def _system_in_data_source(data_source, system):
+    """
+    Checks if the provided system is present within the provided YAML global data source object
+    :param data_source: YAML data source object
+    :param system: YAML system object
+    :return: True if present otherwise False
+    """
+    for ds in data_source['data_source']:
+        if system['applicable_to'].lower() in (app_to.lower() for app_to in ds['applicable_to']):
+            return True
+    return False
+
+
+def _map_and_colorize_techniques(my_ds, systems, exceptions):
+    """
+    Determine the color of the techniques based on how many data sources are available per technique. Also, it will create
+    much of the content for the Navigator layer.
+    :param my_ds: the configured data sources
+    :param systems: the systems YAML object from the data source file
+    :param exceptions: the list of ATT&CK technique exception within the data source YAML file
+    :return: a dictionary with techniques that can be used in the layer's output file
+    """
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE)
+    output_techniques = []
+
+    for t in techniques:
+        tech_id = get_attack_id(t)
+        if 'x_mitre_data_sources' in t and tech_id not in list(map(lambda x: x.upper(), exceptions)):
+            scores_idx = 0
+            ds_scores = []
+            system_available_data_sources = {}
+
+            # calculate visibility score per system
+            for system in systems:
+                # the system is relevant for this technique due to a match in ATT&CK platform
+                if len(set(system['platform']).intersection(set(t['x_mitre_platforms']))) > 0:
+                    applicable_data_sources = get_applicable_data_sources_platform(system['platform'])
+                    total_ds_count = _count_applicable_data_sources(t, applicable_data_sources)
+
+                    if total_ds_count > 0:  # the system's platform has data source applicable to this technique
+                        ds_count = 0
+                        for ds in t['x_mitre_data_sources']:
+                            ds = ds.split(':')[1][1:]
+                            # the ATT&CK data source is applicable to this system and available
+                            if ds in applicable_data_sources and ds in my_ds.keys() and _system_in_data_source(my_ds[ds], system):
+                                if ds_count == 0:
+                                    system_available_data_sources[scores_idx] = [ds]
+                                else:
+                                    system_available_data_sources[scores_idx].append(ds)
+                                ds_count += 1
+                        if ds_count > 0:
+                            ds_scores.append((float(ds_count) / float(total_ds_count)) * 100)
+                        else:
+                            ds_scores.append(0)  # none of the applicable data sources are available for this system
+                    else:
+                        # the technique is applicable to this system (and thus its platform(s)),
+                        # but none of the technique's listed data source are applicable for its platform(s)
+                        ds_scores.append(0)
+                    scores_idx += 1
+
+            # Populate the metadata.
+            avg_ds_score = 0
+            if not all(s == 0 for s in ds_scores):
+                avg_ds_score = float(sum(ds_scores)) / float(len(ds_scores))
+
+            color = COLOR_DS_25p if avg_ds_score <= 25 else COLOR_DS_50p if avg_ds_score <= 50 else COLOR_DS_75p \
+                if avg_ds_score <= 75 else COLOR_DS_99p if avg_ds_score <= 99 else COLOR_DS_100p
+
+            d = dict()
+            d['techniqueID'] = tech_id
+            if avg_ds_score > 0:
+                d['color'] = color
+            d['comment'] = ''
+            d['enabled'] = True
+            d['metadata'] = []
+
+            scores_idx = 0
+            divider = 0
+            for system in systems:
+                # the system is relevant for this technique due to a match in ATT&CK platform
+                if len(set(system['platform']).intersection(set(t['x_mitre_platforms']))) > 0:
+                    score = ds_scores[scores_idx]
+
+                    if divider != 0:
+                        d['metadata'].append({'divider': True})
+                    divider += 1
+
+                    d['metadata'].append({'name': 'Applicable to', 'value': system['applicable_to']})
+                    app_data_sources = get_applicable_data_sources_technique(
+                        t['x_mitre_data_sources'], get_applicable_data_sources_platform(system['platform']))
+                    if score > 0:
+                        d['metadata'].append({'name': 'Available data sources', 'value': ', '.join(
+                            system_available_data_sources[scores_idx])})
+                    else:
+                        d['metadata'].append({'name': 'Available data sources', 'value': ''})
+                    d['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(app_data_sources)})
+                    d['metadata'].append({'name': 'Score', 'value': str(int(score)) + '%'})
+                    scores_idx += 1
+
+            d['metadata'] = make_layer_metadata_compliant(d['metadata'])
+            output_techniques.append(d)
+
+    determine_and_set_show_sub_techniques(output_techniques)
+
+    return output_techniques
+
+
+def _indent_comment(comment, indent):
+    """
+    Indent a multiline  general, visibility, detection comment by x spaces
+    :param comment: The comment to indent
+    :param indent: The number of spaces to use in the indent
+    :return: indented comment or the original
+    """
+    if '\n' in comment:
+        new_comment = comment.replace('\n', '\n' + ' ' * indent)
+        return new_comment
+    else:
+        return comment
+
+
+def _get_technique_yaml_obj(techniques, tech_id):
+    """
+    Get at technique YAML obj from the provided list of techniques YAML objects which as the provided technique ID
+    :param techniques: list of technique YAML objects
+    :param tech_id: ATT&CK ID
+    :return: technique YAML obj
+    """
+    for tech in techniques:
+        if tech['technique_id'] == tech_id:
+            return tech
 
 
 def generate_data_sources_layer(filename, output_filename, layer_name):
@@ -179,155 +329,6 @@ def export_data_source_list_to_excel(filename, output_filename, eql_search=False
         print("File written:   " + excel_filename)
     except Exception as e:
         print('[!] Error while writing Excel file: %s' % str(e))
-
-
-def _count_applicable_data_sources(technique, applicable_data_sources):
-    """
-    get the count of applicable data sources for the provided technique.
-    This takes into account which data sources are applicable for a platform(s)
-    :param technique: ATT&CK CTI technique object
-    :param applicable_data_sources: a list of applicable ATT&CK data sources
-    :return: a count of the applicable data sources for this technique
-    """
-    applicable_ds_count = 0
-    for ds in technique['x_mitre_data_sources']:
-        ds = ds.split(':')[1][1:]
-        if ds in applicable_data_sources:
-            applicable_ds_count += 1
-    return applicable_ds_count
-
-
-def _system_in_data_source(data_source, system):
-    """
-    Checks if the provided system is present within the provided YAML global data source object
-    :param data_source: YAML data source object
-    :param system: YAML system object
-    :return: True if present otherwise False
-    """
-    for ds in data_source['data_source']:
-        if system['applicable_to'].lower() in (app_to.lower() for app_to in ds['applicable_to']):
-            return True
-    return False
-
-
-def _map_and_colorize_techniques(my_ds, systems, exceptions):
-    """
-    Determine the color of the techniques based on how many data sources are available per technique. Also, it will create
-    much of the content for the Navigator layer.
-    :param my_ds: the configured data sources
-    :param systems: the systems YAML object from the data source file
-    :param exceptions: the list of ATT&CK technique exception within the data source YAML file
-    :return: a dictionary with techniques that can be used in the layer's output file
-    """
-    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
-    output_techniques = []
-
-    for t in techniques:
-        tech_id = get_attack_id(t)
-        if 'x_mitre_data_sources' in t and tech_id not in list(map(lambda x: x.upper(), exceptions)):
-            scores_idx = 0
-            ds_scores = []
-            system_available_data_sources = {}
-
-            # calculate visibility score per system
-            for system in systems:
-                # the system is relevant for this technique due to a match in ATT&CK platform
-                if len(set(system['platform']).intersection(set(t['x_mitre_platforms']))) > 0:
-                    applicable_data_sources = get_applicable_data_sources_platform(system['platform'])
-                    total_ds_count = _count_applicable_data_sources(t, applicable_data_sources)
-
-                    if total_ds_count > 0:  # the system's platform has data source applicable to this technique
-                        ds_count = 0
-                        for ds in t['x_mitre_data_sources']:
-                            ds = ds.split(':')[1][1:]
-                            # the ATT&CK data source is applicable to this system and available
-                            if ds in applicable_data_sources and ds in my_ds.keys() and _system_in_data_source(my_ds[ds], system):
-                                if ds_count == 0:
-                                    system_available_data_sources[scores_idx] = [ds]
-                                else:
-                                    system_available_data_sources[scores_idx].append(ds)
-                                ds_count += 1
-                        if ds_count > 0:
-                            ds_scores.append((float(ds_count) / float(total_ds_count)) * 100)
-                        else:
-                            ds_scores.append(0)  # none of the applicable data sources are available for this system
-                    else:
-                        # the technique is applicable to this system (and thus its platform(s)),
-                        # but none of the technique's listed data source are applicable for its platform(s)
-                        ds_scores.append(0)
-                    scores_idx += 1
-
-            # Populate the metadata.
-            avg_ds_score = 0
-            if not all(s == 0 for s in ds_scores):
-                avg_ds_score = float(sum(ds_scores)) / float(len(ds_scores))
-
-            color = COLOR_DS_25p if avg_ds_score <= 25 else COLOR_DS_50p if avg_ds_score <= 50 else COLOR_DS_75p \
-                if avg_ds_score <= 75 else COLOR_DS_99p if avg_ds_score <= 99 else COLOR_DS_100p
-
-            d = dict()
-            d['techniqueID'] = tech_id
-            if avg_ds_score > 0:
-                d['color'] = color
-            d['comment'] = ''
-            d['enabled'] = True
-            d['metadata'] = []
-
-            scores_idx = 0
-            divider = 0
-            for system in systems:
-                # the system is relevant for this technique due to a match in ATT&CK platform
-                if len(set(system['platform']).intersection(set(t['x_mitre_platforms']))) > 0:
-                    score = ds_scores[scores_idx]
-
-                    if divider != 0:
-                        d['metadata'].append({'divider': True})
-                    divider += 1
-
-                    d['metadata'].append({'name': 'Applicable to', 'value': system['applicable_to']})
-                    app_data_sources = get_applicable_data_sources_technique(
-                        t['x_mitre_data_sources'], get_applicable_data_sources_platform(system['platform']))
-                    if score > 0:
-                        d['metadata'].append({'name': 'Available data sources', 'value': ', '.join(
-                            system_available_data_sources[scores_idx])})
-                    else:
-                        d['metadata'].append({'name': 'Available data sources', 'value': ''})
-                    d['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(app_data_sources)})
-                    d['metadata'].append({'name': 'Score', 'value': str(int(score)) + '%'})
-                    scores_idx += 1
-
-            d['metadata'] = make_layer_metadata_compliant(d['metadata'])
-            output_techniques.append(d)
-
-    determine_and_set_show_sub_techniques(output_techniques)
-
-    return output_techniques
-
-
-def _indent_comment(comment, indent):
-    """
-    Indent a multiline  general, visibility, detection comment by x spaces
-    :param comment: The comment to indent
-    :param indent: The number of spaces to use in the indent
-    :return: indented comment or the original
-    """
-    if '\n' in comment:
-        new_comment = comment.replace('\n', '\n' + ' ' * indent)
-        return new_comment
-    else:
-        return comment
-
-
-def _get_technique_yaml_obj(techniques, tech_id):
-    """
-    Get at technique YAML obj from the provided list of techniques YAML objects which as the provided technique ID
-    :param techniques: list of technique YAML objects
-    :param tech_id: ATT&CK ID
-    :return: technique YAML obj
-    """
-    for tech in techniques:
-        if tech['technique_id'] == tech_id:
-            return tech
 
 
 def update_technique_administration_file(file_data_sources, file_tech_admin):
