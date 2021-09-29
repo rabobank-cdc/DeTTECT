@@ -338,7 +338,7 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
             if not isinstance(ds_global_obj['data_source'], list):
                 ds_global_obj['data_source'] = [ds_global_obj['data_source']]
 
-            obj_applicable_to = []
+            glb_obj_applicable_to = []
             for ds_details_obj in ds_global_obj['data_source']:
                 obk_keys = ['applicable_to', 'date_registered', 'date_connected',
                             'products', 'available_for_data_analytics', 'comment', 'data_quality']
@@ -407,13 +407,17 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
 
                 if 'applicable_to' in ds_details_obj and isinstance(ds_details_obj['applicable_to'], list):
                     ds_objects_applicable_to.update(ds_details_obj['applicable_to'])
-                    obj_applicable_to.extend(ds_details_obj['applicable_to'])
+                    glb_obj_applicable_to.extend(ds_details_obj['applicable_to'])
 
-            if len(obj_applicable_to) > len(set(obj_applicable_to)):
+                    if len(ds_details_obj['applicable_to']) > 1 and 'all' in [a.lower() for a in ds_details_obj['applicable_to']]:
+                        has_error = _print_error_msg('[!] Data source: \'' + ds_global_obj['data_source_name'] + '\' has \'all\' as system value ' +
+                                                     'within the key-value pair \'applicable_to\', plus additional systems (the build-in system \'all\' ' +
+                                                     'cannot be combined with other systems).', health_is_called)
+
+            if len(glb_obj_applicable_to) > len(set(glb_obj_applicable_to)):
                 has_error = _print_error_msg('[!] Data source: \'' + ds_global_obj['data_source_name'] + '\' has DUPLICATE system values ' +
                                              'within the key-value pair \'applicable_to\' (a system can only be part of one ' +
                                              'applicable_to key-value pair within the same data source).', health_is_called)
-
     if not src_eql:
         for ds_a in ds_objects_applicable_to:
             if ds_a.lower() not in systems_applicable_to and ds_a.lower() != 'all':
