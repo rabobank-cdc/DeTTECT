@@ -225,6 +225,7 @@ def _check_health_techniques(filename, technique_content, health_is_called):
             if obj_type not in v:
                 has_error = _print_error_msg('[!] Technique ID: ' + tech + ' is MISSING a key-value pair: ' + obj_type, health_is_called)
             else:
+                obj_applicable_to = []
                 for obj in v[obj_type]:
                     obj_keys = ['applicable_to', 'comment', 'score_logbook']
                     obj_keys_list = ['applicable_to']
@@ -263,6 +264,12 @@ def _check_health_techniques(filename, technique_content, health_is_called):
 
                     if 'applicable_to' in obj and isinstance(obj['applicable_to'], list):
                         all_applicable_to.update(obj['applicable_to'])
+                        obj_applicable_to.extend(obj['applicable_to'])
+
+                if len(obj_applicable_to) > len(set(obj_applicable_to)):
+                    has_error = _print_error_msg('[!] Technique ID: ' + tech + ' the key-value pair \'applicable_to\' in \'' + obj_type +
+                                                 '\' has DUPLICATE system values (a system can only be part of one ' +
+                                                 'applicable_to key-value pair within the same technique).', health_is_called)
 
     has_error = _check_for_similar_values(all_applicable_to, 'applicable_to', health_is_called)
 
@@ -331,6 +338,7 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
             if not isinstance(ds_global_obj['data_source'], list):
                 ds_global_obj['data_source'] = [ds_global_obj['data_source']]
 
+            obj_applicable_to = []
             for ds_details_obj in ds_global_obj['data_source']:
                 obk_keys = ['applicable_to', 'date_registered', 'date_connected',
                             'products', 'available_for_data_analytics', 'comment', 'data_quality']
@@ -399,6 +407,12 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
 
                 if 'applicable_to' in ds_details_obj and isinstance(ds_details_obj['applicable_to'], list):
                     ds_objects_applicable_to.update(ds_details_obj['applicable_to'])
+                    obj_applicable_to.extend(ds_details_obj['applicable_to'])
+
+            if len(obj_applicable_to) > len(set(obj_applicable_to)):
+                has_error = _print_error_msg('[!] Data source: \'' + ds_global_obj['data_source_name'] + '\' has DUPLICATE system values ' +
+                                             'within the key-value pair \'applicable_to\' (a system can only be part of one ' +
+                                             'applicable_to key-value pair within the same data source).', health_is_called)
 
     if not src_eql:
         for ds_a in ds_objects_applicable_to:
