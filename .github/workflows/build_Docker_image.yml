@@ -15,6 +15,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+        # Sleep for 5 minutes to prevent having the Docker image from building twice.
+        # This will happen when dealing with a code change in the Editor.
+      - name: Sleep for 5 minutes
+        run: sleep 300
+        shell: bash
+    
         # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
       - name: Checkout code
         uses: actions/checkout@v2
