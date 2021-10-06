@@ -3,6 +3,7 @@ import os
 from io import StringIO
 from copy import deepcopy
 from constants import *
+from file_output import backup_file
 
 
 def _create_upgrade_text(file_type, file_version):
