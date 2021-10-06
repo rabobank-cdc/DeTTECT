@@ -81,7 +81,7 @@ export default {
         },
         platformConversion: {
             type: Object,
-            required: true
+            required: false
         },
         showName: {
             type: Boolean,
