@@ -89,7 +89,32 @@ FILE_TYPE_GROUP_ADMINISTRATION_VERSION = 1.0
 # YAML file upgrade text
 FILE_TYPE_DATA_SOURCE_UPGRADE_TEXT = {
     1.1: """   * Adding a new object 'systems'
-   * Adding a new key-value pair 'applicable_to' to the data source objects"""
+   * Adding a new key-value pair 'applicable_to' to the data source objects
+
+   [!] ----------------------------------------------------------------------[!]
+
+   This upgrade can only ensure the data format will be in line with v1.1. But
+   cannot handle how you've recorded information on your data sources. It's
+   therefore advised to put some manual work into the data source administration
+   file after this upgrade. For example, to do things like:
+     - Assign data sources to the correct type of Systems
+       (which are furthermore linked to ATT&CK platforms).
+     - As we recommend and explain on the Wiki, have matching
+       Systems/applicable to between your technique and data source YAML files.
+     - Merge multiple data source files into one single file when you had
+       multiple data source files per ATT&CK platform, type of system,
+       environment, etc. The new v1.1 data format supports combining all of that
+       within the same data source YAML file using the new Systems object.
+
+    You can find further information on this new applicable to/type of System
+    functionality on the following URLs:
+    - Applicable to / type of System:
+       https://github.com/rabobank-cdc/DeTTECT/wiki/how-to-use-the-framework#matching-system--applicable-to-values
+    - The new Systems object:
+       https://github.com/rabobank-cdc/DeTTECT/wiki/YAML-administration-data-sources#Systems
+
+   [!] ----------------------------------------------------------------------[!]
+   """
 }
 
 # visibility update questions and answers
