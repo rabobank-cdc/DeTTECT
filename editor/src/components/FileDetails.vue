@@ -43,6 +43,8 @@
                     :valuesConversion="platformConversion"
                     :reservedKeywords="['all']"
                     :checkInUseFunction="checkSystemNotInUse"
+                    :postRemoveFunction="removeApplicableToFromDataSources"
+                    :postUpdateFunction="updateNameApplicableToForDataSources"
                 ></list-editor-extended>
             </td>
         </tr>
@@ -117,7 +119,6 @@ export default {
             }
         },
         checkSystemNotInUse(system) {
-
             let inUse = false;
             for (let i = 0; i < this.doc.data_sources.length; i++) {
                 for (let j = 0; j < this.doc.data_sources[i].data_source.length; j++) {
@@ -129,6 +130,34 @@ export default {
                 }
             }
             return !inUse;
+        },
+        removeApplicableToFromDataSources(name) {
+            for (let i = 0; i < this.doc.data_sources.length; i++) {
+                for (let j = 0; j < this.doc.data_sources[i].data_source.length; j++) {
+                    for (let k = 0; k < this.doc.data_sources[i].data_source[j].applicable_to.length; k++) {
+                        if(this.doc.data_sources[i].data_source[j].applicable_to[k] == name){
+                            this.doc.data_sources[i].data_source[j].applicable_to.splice(k, 1);
+
+                            if(this.doc.data_sources[i].data_source[j].applicable_to.length == 0){
+                                this.doc.data_sources[i].data_source[j].applicable_to.push('all');
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+        },
+        updateNameApplicableToForDataSources(old_name, new_name) {
+            for (let i = 0; i < this.doc.data_sources.length; i++) {
+                for (let j = 0; j < this.doc.data_sources[i].data_source.length; j++) {
+                    for (let k = 0; k < this.doc.data_sources[i].data_source[j].applicable_to.length; k++) {
+                        if(this.doc.data_sources[i].data_source[j].applicable_to[k] == old_name){
+                            this.doc.data_sources[i].data_source[j].applicable_to[k] = new_name;
+                            break;
+                        }
+                    }
+                }
+            }
         }
     },
     components: {
