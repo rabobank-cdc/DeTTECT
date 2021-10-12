@@ -149,6 +149,11 @@ export default {
             }
         },
         deleteItem(event, index) {
+            // don't remove the default item if it's the only item:
+            if(this.list.length == 1 && this.list[0]['applicable_to'] == constants.YAML_OBJ_NEW_DATA_SOURCES_FILE['systems'][0]['applicable_to']){
+                return;
+            }
+
             // call post remove function
             if(this.postRemoveFunction != undefined){
                 this.postRemoveFunction(this.list[index].applicable_to);
@@ -157,7 +162,6 @@ export default {
             // remove an item from the list
             this.list.splice(index, 1);
             if(this.list.length == 0){
-                // this.list.push({'applicable_to': 'Default', 'platform': ['all']})
                 this.list.push(_.cloneDeep(constants.YAML_OBJ_NEW_DATA_SOURCES_FILE['systems'][0]));
             }
         },
