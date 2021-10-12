@@ -303,7 +303,7 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
                 if platform is None or len(platform) == 0 or platform == '':
                     platform = ['empty']
                 for p in platform:
-                    if p.lower() not in PLATFORMS.keys():
+                    if p.lower() not in PLATFORMS.keys() and p.lower() != 'all':
                         has_error = _print_error_msg(
                             '[!] EMPTY or INVALID value for \'platform\' within the data source admin file\'s \'system\' key-value pair: '
                             '%s (should be value(s) of: [%s] or all)' % (p, ', '.join(list(PLATFORMS.values()))),
