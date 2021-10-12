@@ -1,0 +1,592 @@
+[
+    {
+        "technique_id": "T1001",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1001.001",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1001.002",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1001.003",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1003",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1003.006",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1011",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1011.001",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1020",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1041",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1048",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "DNS [DeTT&CT data source]",
+            "Email [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1048.001",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "DNS [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1048.002",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1048.003",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "DNS [DeTT&CT data source]",
+            "Email [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1070",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1070.005",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1071",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "DNS [DeTT&CT data source]",
+            "Email [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1071.001",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1071.002",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1071.003",
+        "custom_data_sources": [
+            "Email [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1071.004",
+        "custom_data_sources": [
+            "DNS [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1090",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1090.001",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1090.002",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1090.003",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1090.004",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1095",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1102",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1102.001",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1102.002",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1102.003",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1105",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1132",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "DNS [DeTT&CT data source]",
+            "Email [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1132.001",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "DNS [DeTT&CT data source]",
+            "Email [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1132.002",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "DNS [DeTT&CT data source]",
+            "Email [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1187",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1189",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1190",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1200",
+        "custom_data_sources": [
+            "DHCP [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1204",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1204.001",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1205",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1207",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1210",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1219",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1221",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1491",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1491.001",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1491.002",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1499",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1499.001",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1499.002",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1499.003",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1499.004",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1505",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1505.003",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1534",
+        "custom_data_sources": [
+            "Email [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1557.002",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1563",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1563.001",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1563.002",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1565",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1565.002",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1566",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "Email [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1566.001",
+        "custom_data_sources": [
+            "Email [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1566.002",
+        "custom_data_sources": [
+            "Email [DeTT&CT data source]",
+            "Web [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1566.003",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1567",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1567.001",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1567.002",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1568",
+        "custom_data_sources": [
+            "DNS [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1568.002",
+        "custom_data_sources": [
+            "DNS [DeTT&CT data source]",
+            "Web [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1568.003",
+        "custom_data_sources": [
+            "DNS [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1570",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1571",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1572",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "DNS [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1573",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1573.001",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1573.002",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1595",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1595.002",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1598",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]",
+            "Email [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1598.001",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1598.002",
+        "custom_data_sources": [
+            "Email [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1598.003",
+        "custom_data_sources": [
+            "Email [DeTT&CT data source]",
+            "Web [DeTT&CT data source]"
+        ]
+    },
+    {
+        "technique_id": "T1599",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1599.001",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1602",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1602.001",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1602.002",
+        "custom_data_sources": [
+            "Network Traffic Content"
+        ]
+    },
+    {
+        "technique_id": "T1612",
+        "custom_data_sources": [
+            "Web [DeTT&CT data source]"
+        ]
+    }
+]

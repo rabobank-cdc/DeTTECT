@@ -50,6 +50,7 @@
 </template>
 <script>
 import Icons from '@/components/Icons';
+import constants from '@/constants';
 import { notificationMixin } from '@/mixins/NotificationMixins.js';
 
 export default {
@@ -138,7 +139,8 @@ export default {
             // remove an item from the list
             this.list.splice(index, 1);
             if(this.list.length == 0){
-                this.list.push({'applicable_to': 'Systems', 'platform': ['all']})
+                // this.list.push({'applicable_to': 'Default', 'platform': ['all']})
+                this.list.push(_.cloneDeep(constants.YAML_OBJ_NEW_DATA_SOURCES_FILE['systems'][0]));
             }
         },
         notifyDuplicate(keyName) {

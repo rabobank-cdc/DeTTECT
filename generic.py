@@ -9,6 +9,7 @@ from stix2 import datastore
 from constants import *
 from upgrade import upgrade_yaml_file, check_yaml_updated_to_sub_techniques
 from health import check_yaml_file_health
+import dateutil.parser
 
 # Due to performance reasons the import of attackcti is within the function that makes use of this library.
 
@@ -27,6 +28,79 @@ def _save_attack_data(data, path):
         os.mkdir('cache/')
     with open(path, 'wb') as f:
         pickle.dump([data, dt.now()], f)
+
+
+def _date_hook(json_dict):
+    """
+    Parses STIX dates so that they can be used as date object in dictionaries. Function is used as object_hook function in the JSON serialize.
+    :param json_dict: the dictionary with STIX data
+    :return:
+    """
+    for (key, value) in json_dict.items():
+        if key == 'created':
+            json_dict['created'] = dateutil.parser.parse(value)
+        elif key == 'modified':
+            json_dict['modified'] = dateutil.parser.parse(value)
+    return json_dict
+
+
+def _convert_stix_techniques_to_dict(stix_attack_data):
+    """
+    Convert the STIX list with AttackPatterns to a dictionary for easier use in python and also include the technique_id and custom data sources.
+    :param stix_attack_data: the MITRE ATT&CK STIX dataset with techniques
+    :return: list with dictionaries containing all techniques from the input stix_attack_data
+    """
+    attack_data = []
+    for stix_tech in stix_attack_data:
+        tech = json.loads(stix_tech.serialize(), object_hook=_date_hook)
+
+        # Add technique_id as key, because it's hard to get from STIX:
+        tech['technique_id'] = get_attack_id(stix_tech)
+
+        # Create empty x_mitre_data_sources key for techniques without data sources:
+        if 'x_mitre_data_sources' not in tech.keys():
+            tech['x_mitre_data_sources'] = []
+
+        tech['custom_data_sources'] = []
+        for custom in CUSTOM_DATA_SOURCES:
+            if tech['technique_id'] == custom['technique_id']:
+                # When a technique has just 1 custom data source which is 'Network Traffic Content' then ignore this one. This means that we
+                # evaluated if that technique needs a custom data source but it has not.
+                if not (len(custom['custom_data_sources']) == 1 and custom['custom_data_sources'][0] == 'Network Traffic Content'):
+                    tech['custom_data_sources'] = custom['custom_data_sources']
+
+                    # Remove 'Network Traffic Content' from x_mitre_data_sources when it's not listed as custom data source. In this situation
+                    # we are intentionally replacing the 'Network Traffic Content' with our custom data sources.
+                    if 'Network Traffic Content' not in custom['custom_data_sources'] and 'Network Traffic: Network Traffic Content' in tech['x_mitre_data_sources']:
+                        tech['x_mitre_data_sources'].remove('Network Traffic: Network Traffic Content')
+
+                    # Remove 'Network Traffic Content' from the custom data sources list when having both custom data sources ánd 'Network Traffic Content'.
+                    # That's the case where we keep 'Network Traffic Content' in the x_mitre_data_sources list.
+                    if 'Network Traffic Content' in custom['custom_data_sources']:
+                        tech['custom_data_sources'].remove('Network Traffic Content')
+                break
+
+        attack_data.append(tech)
+
+    return attack_data
+
+
+def _convert_stix_groups_to_dict(stix_attack_data):
+    """
+    Convert the STIX list with IntrusionSet to a dictionary for easier use in python and also include the group_id.
+    :param stix_attack_data: the MITRE ATT&CK STIX dataset with groups
+    :return: list with dictionaries containing all groups from the input stix_attack_data
+    """
+    attack_data = []
+    for stix_tech in stix_attack_data:
+        tech = json.loads(stix_tech.serialize(), object_hook=_date_hook)
+
+        # Add group_id as key, because it's hard to get from STIX:
+        tech['group_id'] = get_attack_id(stix_tech)
+
+        attack_data.append(tech)
+
+    return attack_data
 
 
 def load_attack_data(data_type):
@@ -67,9 +141,10 @@ def load_attack_data(data_type):
         attack_data = mitre.remove_revoked(attack_data)
         attack_data = mitre.remove_deprecated(attack_data)
     elif data_type == DATA_TYPE_STIX_ALL_TECH_ENTERPRISE:
-        attack_data = mitre.get_enterprise_techniques()
-        attack_data = mitre.remove_revoked(attack_data)
-        attack_data = mitre.remove_deprecated(attack_data)
+        stix_attack_data = mitre.get_enterprise_techniques()
+        stix_attack_data = mitre.remove_revoked(stix_attack_data)
+        stix_attack_data = mitre.remove_deprecated(stix_attack_data)
+        attack_data = _convert_stix_techniques_to_dict(stix_attack_data)
     elif data_type == DATA_TYPE_CUSTOM_TECH_BY_GROUP:
         # First we need to know which technique references (STIX Object type 'attack-pattern') we have for all
         # groups. This results in a dict: {group_id: Gxxxx, technique_ref/attack-pattern_ref: ...}
@@ -109,13 +184,15 @@ def load_attack_data(data_type):
         attack_data = all_group_use
 
     elif data_type == DATA_TYPE_STIX_ALL_TECH:
-        attack_data = mitre.get_techniques()
-        attack_data = mitre.remove_revoked(attack_data)
-        attack_data = mitre.remove_deprecated(attack_data)
+        stix_attack_data = mitre.get_techniques()
+        stix_attack_data = mitre.remove_revoked(stix_attack_data)
+        stix_attack_data = mitre.remove_deprecated(stix_attack_data)
+        attack_data = _convert_stix_techniques_to_dict(stix_attack_data)
     elif data_type == DATA_TYPE_STIX_ALL_GROUPS:
-        attack_data = mitre.get_groups()
-        attack_data = mitre.remove_revoked(attack_data)
-        attack_data = mitre.remove_deprecated(attack_data)
+        stix_attack_data = mitre.get_groups()
+        stix_attack_data = mitre.remove_revoked(stix_attack_data)
+        stix_attack_data = mitre.remove_deprecated(stix_attack_data)
+        attack_data = _convert_stix_groups_to_dict(stix_attack_data)
     elif data_type == DATA_TYPE_STIX_ALL_SOFTWARE:
         attack_data = mitre.get_software()
         attack_data = mitre.remove_revoked(attack_data)
@@ -429,6 +506,20 @@ def get_applicable_data_sources_platform(platforms):
     return list(applicable_data_sources)
 
 
+def get_applicable_custom_data_sources_platform(platforms):
+    """
+    Get the applicable custom data sources for the provided platform(s)
+    :param platforms: the ATT&CK platform(s)
+    :return: a list of applicable ATT&CK data sources
+    """
+    applicable_custom_data_sources = set()
+
+    for p in platforms:
+        applicable_custom_data_sources.update(CUSTOM_DATA_SOURCES_PLATFORMS[p])
+
+    return list(applicable_custom_data_sources)
+
+
 def get_applicable_data_sources_technique(technique_data_sources, platform_applicable_data_sources):
     """
     Get the applicable ATT&CK data sources for the provided technique's data sources (for which the source is ATT&CK CTI)
@@ -445,6 +536,22 @@ def get_applicable_data_sources_technique(technique_data_sources, platform_appli
             applicable_data_sources.add(ds)
 
     return list(applicable_data_sources)
+
+
+def get_applicable_custom_data_sources_technique(technique_custom_data_sources, platform_applicable_custom_data_sources):
+    """
+    Get the applicable custom data sources for the provided technique's custom data sources.
+    :param technique_data_sources: the ATT&CK technique's custom data sources
+    :param platform_applicable_data_sources: a list of applicable custom data sources based on 'CUSTOM_DATA_SOURCES_PLATFORMS'
+    :return: a list of applicable data sources
+    """
+    applicable_custom_data_sources = set()
+
+    for ds in technique_custom_data_sources:
+        if ds in platform_applicable_custom_data_sources:
+            applicable_custom_data_sources.add(ds)
+
+    return list(applicable_custom_data_sources)
 
 
 def _check_data_quality(data_quality, filter_empty_scores):

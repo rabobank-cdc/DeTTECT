@@ -9,19 +9,26 @@ from navigator_layer import *
 # Imports for pandas and plotly are because of performance reasons in the function that uses these libraries.
 
 
-def _count_applicable_data_sources(technique, applicable_data_sources):
+def _count_applicable_data_sources(technique, applicable_data_sources, applicable_custom_data_sources):
     """
-    get the count of applicable data sources for the provided technique.
-    This takes into account which data sources are applicable for a platform(s)
+    get the count of applicable (custom) data sources for the provided technique.
+    This takes into account which data sources are applicable for a platform(s).
     :param technique: ATT&CK CTI technique object
     :param applicable_data_sources: a list of applicable ATT&CK data sources
+    :param applicable_custom_data_sources: a list of applicable custom data sources
     :return: a count of the applicable data sources for this technique
     """
     applicable_ds_count = 0
+
     for ds in technique['x_mitre_data_sources']:
         ds = ds.split(':')[1][1:]
         if ds in applicable_data_sources:
             applicable_ds_count += 1
+
+    for ds in technique['custom_data_sources']:
+        if ds in applicable_custom_data_sources:
+            applicable_ds_count += 1
+
     return applicable_ds_count
 
 
@@ -51,8 +58,8 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
     output_techniques = []
 
     for t in techniques:
-        tech_id = get_attack_id(t)
-        if 'x_mitre_data_sources' in t and tech_id not in list(map(lambda x: x.upper(), exceptions)):
+        tech_id = t['technique_id']
+        if tech_id not in list(map(lambda x: x.upper(), exceptions)):
             scores_idx = 0
             ds_scores = []
             system_available_data_sources = {}
@@ -62,7 +69,8 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
                 # the system is relevant for this technique due to a match in ATT&CK platform
                 if len(set(system['platform']).intersection(set(t['x_mitre_platforms']))) > 0:
                     applicable_data_sources = get_applicable_data_sources_platform(system['platform'])
-                    total_ds_count = _count_applicable_data_sources(t, applicable_data_sources)
+                    applicable_custom_data_sources = get_applicable_custom_data_sources_platform(system['platform'])
+                    total_ds_count = _count_applicable_data_sources(t, applicable_data_sources, applicable_custom_data_sources)
 
                     if total_ds_count > 0:  # the system's platform has data source applicable to this technique
                         ds_count = 0
@@ -75,6 +83,15 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
                                 else:
                                     system_available_data_sources[scores_idx].append(ds)
                                 ds_count += 1
+
+                        for cdc in t['custom_data_sources']:
+                            if cdc in applicable_custom_data_sources and cdc in my_ds.keys() and _system_in_data_source(my_ds[cdc], system):
+                                if ds_count == 0:
+                                    system_available_data_sources[scores_idx] = [cdc]
+                                else:
+                                    system_available_data_sources[scores_idx].append(cdc)
+                                ds_count += 1
+
                         if ds_count > 0:
                             ds_scores.append((float(ds_count) / float(total_ds_count)) * 100)
                         else:
@@ -113,14 +130,18 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
                     divider += 1
 
                     d['metadata'].append({'name': 'Applicable to', 'value': system['applicable_to']})
-                    app_data_sources = get_applicable_data_sources_technique(
-                        t['x_mitre_data_sources'], get_applicable_data_sources_platform(system['platform']))
+
+                    app_data_sources = get_applicable_data_sources_technique(t['x_mitre_data_sources'], get_applicable_data_sources_platform(system['platform']))
+                    app_custom_data_sources = get_applicable_custom_data_sources_technique(t['custom_data_sources'], get_applicable_custom_data_sources_platform(system['platform']))
+
                     if score > 0:
                         d['metadata'].append({'name': 'Available data sources', 'value': ', '.join(
                             system_available_data_sources[scores_idx])})
                     else:
                         d['metadata'].append({'name': 'Available data sources', 'value': ''})
+
                     d['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(app_data_sources)})
+                    d['metadata'].append({'name': 'Custom data sources', 'value': ', '.join(app_custom_data_sources)})
                     d['metadata'].append({'name': 'Score', 'value': str(int(score)) + '%'})
                     scores_idx += 1
 
@@ -567,18 +588,19 @@ def generate_technique_administration_file(filename, output_filename, write_file
     # Score visibility based on the number of available data sources and the exceptions
     for t in techniques:
         mitre_platforms = t.get('x_mitre_platforms', [])  # not every technique has data source listed
-        tech_id = get_attack_id(t)
+        tech_id = t['technique_id']
         tech = None
         visibility_obj_count = 0
 
-        if 'x_mitre_data_sources' in t and tech_id not in list(map(lambda x: x.upper(), exceptions)):
+        if tech_id not in list(map(lambda x: x.upper(), exceptions)):
             # calculate visibility score per system
             for system in systems:
                 ds_score = -1
                 # the system is relevant for this technique due to a match in ATT&CK platform
                 if len(set(system['platform']).intersection(set(mitre_platforms))) > 0:
                     applicable_data_sources = get_applicable_data_sources_platform(system['platform'])
-                    total_ds_count = _count_applicable_data_sources(t, applicable_data_sources)
+                    applicable_custom_data_sources = get_applicable_custom_data_sources_platform(system['platform'])
+                    total_ds_count = _count_applicable_data_sources(t, applicable_data_sources, applicable_custom_data_sources)
 
                     if total_ds_count > 0:  # the system's platform has data source applicable to this technique
                         ds_count = 0
@@ -587,6 +609,11 @@ def generate_technique_administration_file(filename, output_filename, write_file
                             # the ATT&CK data source is applicable to this system and available
                             if ds in applicable_data_sources and ds in my_ds.keys() and _system_in_data_source(my_ds[ds], system):
                                 ds_count += 1
+
+                        for cdc in t['custom_data_sources']:
+                            if cdc in applicable_custom_data_sources and cdc in my_ds.keys() and _system_in_data_source(my_ds[cdc], system):
+                                ds_count += 1
+
                         if ds_count > 0:
                             result = (float(ds_count) / float(total_ds_count)) * 100
                             ds_score = 1 if result <= 49 else 2 if result <= 74 else 3 if result <= 99 else 4

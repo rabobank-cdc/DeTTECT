@@ -12,7 +12,7 @@ def get_statistics_data_sources():
     # {data_source: {techniques: [T0001, ...}, count: ...}
     data_sources_dict = {}
     for tech in techniques:
-        tech_id = get_attack_id(tech)
+        tech_id = tech['technique_id']
         # Not every technique has a data source listed
         data_sources = tech.get('x_mitre_data_sources', None)
         if data_sources:
@@ -91,11 +91,11 @@ def get_updates(update_type, sort='modified'):
 
         for t in sorted_techniques:
 
-            if get_attack_id(t) == None:
+            if t['technique_id'] == None:
                 pprint(t)
                 quit()
 
-            print(get_attack_id(t) + ' ' + t['name'])
+            print(t['technique_id'] + ' ' + t['name'])
             print(' ' * 6 + 'created:  ' + t['created'].strftime('%Y-%m-%d'))
             print(' ' * 6 + 'modified: ' + t['modified'].strftime('%Y-%m-%d'))
             print(' ' * 6 + 'matrix:   ' + t['external_references'][0]['source_name'][6:])

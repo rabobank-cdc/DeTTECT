@@ -85,11 +85,10 @@ class ATTACKData():
 
         data_sources = []
         for t in self.attack_cti_techniques:
-            if 'x_mitre_data_sources' in t.keys():
-                for ds in t['x_mitre_data_sources']:
-                    ds = ds.split(':')[1][1:]
-                    if ds not in data_sources:
-                        data_sources.append(ds)
+            for ds in t['x_mitre_data_sources']:
+                ds = ds.split(':')[1][1:]
+                if ds not in data_sources:
+                    data_sources.append(ds)
         return sorted(data_sources)
 
     def get_all_software(self):

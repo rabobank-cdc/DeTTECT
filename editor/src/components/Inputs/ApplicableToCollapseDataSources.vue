@@ -4,7 +4,7 @@
             <label>Applicable to</label>
 
             <div v-for="(row, i) in dataSource.data_source" :key="i" :row="row">
-                <div class="collapseHeader">
+                <div id="collapseHeader">
                     <div class="row">
                         <div class="col-md-10 cursor-pointer" v-b-toggle="'collapse-ds-' + i">
                             <i class="when-opened tim-icons icon-minimal-up"></i>
@@ -18,7 +18,7 @@
                 </div>
 
                 <b-collapse :id="'collapse-ds-' + i" ref="collapseComponent">
-                    <b-card class="collapseContent">
+                    <b-card id="collapseContent">
                         <list-editor-with-selects
                             :list="row.applicable_to"
                             :newItems="allSystems"

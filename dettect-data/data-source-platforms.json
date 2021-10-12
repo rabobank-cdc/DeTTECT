@@ -1,0 +1,43 @@
+{
+    "ATT&CK": {
+        "PRE": [],
+
+        "Windows": ["User Account Creation", "Volume Enumeration", "Scheduled Job Modification", "Driver Load", "OS API Execution", "Active Directory Object Access", "Web Credential Usage", "Firewall Metadata", "WMI Creation", "Host Status", "User Account Deletion", "Firewall Enumeration", "User Account Metadata", "Module Load", "Service Modification", "Active Directory Object Deletion", "Volume Metadata", "User Account Authentication", "File Deletion", "Service Metadata", "File Modification", "Drive Creation", "User Account Modification", "Volume Creation", "Windows Registry Key Deletion", "Group Enumeration", "Windows Registry Key Modification", "File Metadata", "File Access", "Logon Session Metadata", "Logon Session Creation", "Network Share Access", "Drive Access", "Process Access", "Windows Registry Key Access", "Network Traffic Content", "Scheduled Job Metadata", "Active Directory Object Modification", "Process Termination", "Application Log Content", "Command Execution", "Driver Metadata", "Drive Modification", "Service Creation", "Group Metadata", "Firewall Rule Modification", "Group Modification", "Network Traffic Flow", "Process Creation", "Volume Modification", "Volume Deletion", "Scheduled Job Creation", "Script Execution", "File Content", "File Creation", "Active Directory Object Creation", "Active Directory Credential Request", "Process Metadata", "Firewall Disable", "Web Credential Creation", "Windows Registry Key Creation", "Network Connection Creation", "Firmware Modification"],
+
+        "macOS": ["User Account Creation", "Volume Enumeration", "Scheduled Job Modification", "Driver Load", "OS API Execution", "Web Credential Usage", "Firewall Metadata", "Host Status", "User Account Deletion", "Firewall Enumeration", "User Account Metadata", "Module Load", "Service Modification", "Volume Metadata", "User Account Authentication", "File Deletion", "Service Metadata", "File Modification", "Drive Creation", "User Account Modification", "Volume Creation", "File Metadata", "File Access", "Logon Session Metadata", "Kernel Module Load", "Logon Session Creation", "Network Share Access", "Drive Access", "Process Access", "Network Traffic Content", "Scheduled Job Metadata", "Process Termination", "Application Log Content", "Driver Metadata", "Drive Modification", "Service Creation", "Firewall Rule Modification", "Network Traffic Flow", "Process Creation", "Volume Modification", "Volume Deletion", "Scheduled Job Creation", "File Content", "File Creation", "Process Metadata", "Firewall Disable", "Web Credential Creation", "Network Connection Creation", "Firmware Modification", "Command Execution"],
+
+        "Linux": ["User Account Creation", "Volume Enumeration", "Scheduled Job Modification", "Driver Load", "OS API Execution", "Web Credential Usage", "Firewall Metadata", "Host Status", "User Account Deletion", "Firewall Enumeration", "User Account Metadata", "Module Load", "Service Modification", "Volume Metadata", "User Account Authentication", "File Deletion", "Service Metadata", "File Modification", "Drive Creation", "User Account Modification", "Volume Creation", "File Metadata", "File Access", "Logon Session Metadata", "Kernel Module Load", "Logon Session Creation", "Network Share Access", "Drive Access", "Process Access", "Network Traffic Content", "Scheduled Job Metadata", "Process Termination", "Application Log Content", "Command Execution", "Driver Metadata", "Drive Modification", "Service Creation", "Firewall Rule Modification", "Network Traffic Flow", "Process Creation", "Volume Modification", "Volume Deletion", "Scheduled Job Creation", "File Content", "File Creation", "Process Metadata", "Firewall Disable", "Web Credential Creation", "Network Connection Creation", "Firmware Modification"],
+
+        "Office 365": ["User Account Creation", "Web Credential Usage", "Firewall Metadata", "User Account Deletion", "Firewall Enumeration", "User Account Metadata", "User Account Authentication", "User Account Modification", "Group Enumeration", "Logon Session Metadata", "Logon Session Creation", "Application Log Content", "Cloud Service Modification", "Cloud Service Metadata", "Group Metadata", "Firewall Rule Modification", "Group Modification", "Cloud Service Enumeration", "Cloud Service Disable", "Firewall Disable", "Web Credential Creation"],
+
+        "Azure AD": ["User Account Creation", "Active Directory Object Access", "Web Credential Usage", "Firewall Metadata", "User Account Deletion", "Firewall Enumeration", "User Account Metadata", "Active Directory Object Deletion", "User Account Authentication", "User Account Modification", "Group Enumeration", "Logon Session Metadata", "Logon Session Creation", "Active Directory Object Modification", "Cloud Service Modification", "Cloud Service Metadata", "Group Metadata", "Firewall Rule Modification", "Group Modification", "Cloud Service Enumeration", "Active Directory Object Creation", "Active Directory Credential Request", "Cloud Service Disable", "Firewall Disable", "Web Credential Creation"],
+
+        "Google Workspace": ["User Account Creation", "User Account Deletion", "Logon Session Metadata", "Firewall Rule Modification", "Web Credential Usage", "Group Enumeration", "Group Modification", "Firewall Metadata", "User Account Modification", "Firewall Disable", "Group Metadata", "Web Credential Creation", "Application Log Content", "User Account Metadata", "Cloud Service Disable", "Cloud Service Metadata", "Firewall Enumeration", "Cloud Service Enumeration", "Logon Session Creation", "User Account Authentication", "Cloud Service Modification"],
+
+        "IaaS": ["User Account Creation", "Cloud Storage Metadata", "Volume Enumeration", "Snapshot Creation", "Instance Metadata", "Instance Deletion", "Firewall Metadata", "Volume Metadata", "User Account Deletion", "Cloud Storage Access", "User Account Metadata", "Firewall Enumeration", "Cloud Storage Deletion", "Cloud Storage Modification", "Instance Creation", "User Account Authentication", "Instance Stop", "Volume Creation", "Group Enumeration", "Snapshot Metadata", "Logon Session Metadata", "Logon Session Creation", "Instance Start", "Image Deletion", "Network Traffic Content", "Image Creation", "Cloud Storage Creation", "Application Log Content", "Cloud Service Modification", "Cloud Service Metadata", "Group Metadata", "Snapshot Deletion", "Firewall Rule Modification", "Image Modification", "Snapshot Modification", "Instance Modification", "Cloud Service Enumeration", "Network Traffic Flow", "Instance Enumeration", "Snapshot Enumeration", "Volume Modification", "Volume Deletion", "Group Modification", "Image Metadata", "Cloud Service Disable", "Firewall Disable", "Cloud Storage Enumeration", "User Account Modification", "Network Connection Creation"],
+
+        "SaaS": ["User Account Creation", "Web Credential Usage", "Firewall Metadata", "User Account Deletion", "Firewall Enumeration", "User Account Metadata", "User Account Authentication", "User Account Modification", "Group Enumeration", "Logon Session Metadata", "Logon Session Creation", "Application Log Content", "Cloud Service Modification", "Cloud Service Metadata", "Group Metadata", "Firewall Rule Modification", "Group Modification", "Cloud Service Enumeration", "Cloud Service Disable", "Firewall Disable", "Web Credential Creation"],
+
+        "Network": ["File Access", "File Deletion", "File Modification", "File Creation", "File Content", "Command Execution", "File Metadata"],
+
+        "Containers": ["User Account Creation", "Container Metadata", "User Account Authentication", "Cluster Metadata", "Pod Enumeration", "Container Creation", "Scheduled Job Modification", "Scheduled Job Creation", "Pod Metadata", "Pod Modification", "Container Enumeration", "Container Start", "Scheduled Job Metadata", "Command Execution", "Pod Creation", "User Account Deletion", "User Account Modification", "User Account Metadata"]
+    },
+
+    "CUSTOM_DATA_SOURCES": {
+        "Windows": ["Web [DeTT&CT data source]", "DNS [DeTT&CT data source]", "DHCP [DeTT&CT data source]", "Email [DeTT&CT data source]"],
+
+        "macOS": ["Web [DeTT&CT data source]", "DNS [DeTT&CT data source]", "DHCP [DeTT&CT data source]", "Email [DeTT&CT data source]"],
+
+        "Linux": ["Web [DeTT&CT data source]", "DNS [DeTT&CT data source]", "DHCP [DeTT&CT data source]", "Email [DeTT&CT data source]"],
+
+        "IaaS": ["Web [DeTT&CT data source]", "DNS [DeTT&CT data source]", "DHCP [DeTT&CT data source]", "Email [DeTT&CT data source]"],
+
+        "PRE": [],
+        "Office 365": [],
+        "Azure AD": [],
+        "Google Workspace": [],
+        "SaaS": [],
+        "Network": [],
+        "Containers": []
+    }
+}

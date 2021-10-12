@@ -25,13 +25,14 @@ import ApplicableToCollapseDataSources from '@/components/Inputs/ApplicableToCol
 import AutoSuggestTitle from '@/components/Inputs/AutoSuggestTitle';
 import Icons from '@/components/Icons';
 import dataSources from '@/data/data_sources';
+import customDataSources from '@/data/custom_data_sources';
 import { pageDetailMixin } from '../mixins/PageDetailMixins.js';
 import _ from 'lodash';
 
 export default {
     data() {
         return {
-            dataSourceSuggestionList: dataSources
+            dataSourceSuggestionList: dataSources.concat(customDataSources).sort()
         };
     },
     mixins: [pageDetailMixin],

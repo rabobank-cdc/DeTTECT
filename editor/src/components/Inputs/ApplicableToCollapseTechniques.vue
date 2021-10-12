@@ -18,7 +18,7 @@
         <div class="mb-3">
             <label>Applicable to</label>
             <div v-for="(row, i) in applicable_to" :key="i" :row="row">
-                <div class="collapseHeader">
+                <div id="collapseHeader">
                     <div class="row">
                         <div class="col-md-10 cursor-pointer" v-b-toggle="'collapse-' + title.toLowerCase() + '-' + i">
                             <i class="when-opened tim-icons icon-minimal-up"></i>
@@ -32,7 +32,7 @@
                 </div>
 
                 <b-collapse :id="'collapse-' + title.toLowerCase() + '-' + i" ref="collapseComponent">
-                    <b-card class="collapseContent">
+                    <b-card id="collapseContent">
                         <list-editor
                             :list="row.applicable_to"
                             :name="'Change applicable to value(s)'"
