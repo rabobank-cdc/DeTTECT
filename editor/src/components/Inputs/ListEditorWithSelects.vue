@@ -88,8 +88,17 @@ export default {
             if (this.caseInsensitive(this.list).includes(this.newItem) || this.caseInsensitive(this.externalListToValidate).includes(this.newItem)) {
                 this.notifyDuplicate(this.newItem);
             } else if (this.newItem != '') {
+                if(this.newItem == this.defaultItem){
+                    this.list.splice(0, this.list.length);
+                }
+
                 this.list.push(this.newItem);
                 this.newItem = '';
+
+                if(this.list.length > 1 && this.list.includes(this.defaultItem)){
+                    let remove_index = this.list.indexOf(this.defaultItem);
+                    this.list.splice(remove_index, 1);
+                }
             }
         },
         updateItem(event) {

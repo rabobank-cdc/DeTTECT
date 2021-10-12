@@ -39,7 +39,7 @@ def _upgrade_data_source_yaml_10_to_11(file_lines):
 
     # we will first do a health check on the data source admin file version 1.0. Having health issues in the file could
     # result in an upgraded file with errors.
-    print('Checking the health of the file before we to the upgrade from version 1.0 to 1.1')
+    print('Checking the health of the file before we do the upgrade from version 1.0 to 1.1')
     healthy_file = _check_yaml_file_health_v10(file_lines)
     if not healthy_file:
         print('[!] Health issues found. It is advisable first to fix the health issues before continuing the upgrade.')
@@ -61,19 +61,29 @@ def _upgrade_data_source_yaml_10_to_11(file_lines):
         platforms = list(PLATFORMS.values())
     del yaml_file_new['platform']
 
+    # ask for the applicable_to value to be used
+    applicable_to = ''
+    while not re.match('^.+$', applicable_to,):
+        applicable_to = input("What value for 'applicable_to' do you want to use for the to be created System object?\n\
+Default = " + yaml_file['name'] + "\n\n >>   (Press Enter to use the default): ")
+        print(applicable_to)
+        if applicable_to == '':
+            applicable_to = yaml_file['name']
+        print('')
+
     # add a new kv-pair systems
     idx = 0
     for k, v in yaml_file_new.items():
         if k == 'name':
             break
         idx += 1
-    yaml_file_new.insert(idx + 1, 'systems', [{'applicable_to': yaml_file['name'], 'platform': platforms}])
+    yaml_file_new.insert(idx + 1, 'systems', [{'applicable_to': applicable_to, 'platform': platforms}])
 
     # add a new kv-pair applicable_to to every data source
     yaml_file_new['data_sources'] = []
     for ds in yaml_file['data_sources']:
         ds_details_obj = {
-            'applicable_to': [yaml_file['name']]
+            'applicable_to': [applicable_to]
         }
         for k, v in ds.items():
             if k != 'data_source_name':

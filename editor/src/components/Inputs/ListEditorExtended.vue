@@ -108,6 +108,14 @@ export default {
             type: Function,
             required: false,
             default: () => false
+        },
+        postRemoveFunction: {
+            type: Function,
+            required: false
+        },
+        postUpdateFunction: {
+            type: Function,
+            required: false
         }
     },
     methods: {
@@ -132,10 +140,20 @@ export default {
             if (this.caseInsensitive(applicable_to_values).includes(value)) {
                 this.notifyDuplicate(value);
             } else if (value != '') {
+                // call post update function:
+                if(this.postUpdateFunction != undefined){
+                    this.postUpdateFunction(this.list[index].applicable_to, event.target.value);
+                }
+
                 this.list[index].applicable_to = value;
             }
         },
         deleteItem(event, index) {
+            // call post remove function
+            if(this.postRemoveFunction != undefined){
+                this.postRemoveFunction(this.list[index].applicable_to);
+            }
+
             // remove an item from the list
             this.list.splice(index, 1);
             if(this.list.length == 0){
