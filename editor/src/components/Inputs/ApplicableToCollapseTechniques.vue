@@ -45,6 +45,10 @@
                                     ' applies. The value \'all\' can be used to let it apply to every type of system.'
                             "
                             notifyText="The value 'KEYNAME' is already part of the applicable_to for this technique. Duplicate entries are not allowed."
+                            :suggestionList="applicableToSuggestionList"
+                            :defaultValueExclusive="defaultValueExclusive"
+                            :isErrorFunction="isErrorFunction"
+                            errorText="The value 'all' is exclusive for the visibility's applicable_to values and can therefore not be combined with other applicable_to values. Remove 'all' to let DeTT&CT work properly."
                         ></list-editor>
                         <div class="row mt-md-0 mb-md-2" v-if="row.applicable_to.length == 0">
                             <div class="col-md-auto pr-md-0">
@@ -231,6 +235,15 @@ export default {
         emptyObject: {
             type: Object,
             required: true
+        },
+        applicableToSuggestionList: {
+            type: Array,
+            required: true
+        },
+        defaultValueExclusive: {
+            type: Boolean,
+            required: false,
+            default: false
         }
     },
     components: {
@@ -345,6 +358,9 @@ export default {
         },
         editCommentCallback(b) {
             this.commentModal = b;
+        },
+        isErrorFunction(item, list) {
+            return (this.defaultValueExclusive && item == 'all' && list.length > 1) ? true : false
         }
     }
 };

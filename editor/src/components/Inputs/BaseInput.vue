@@ -19,7 +19,7 @@
             </span>
         </slot>
         <slot>
-            <input :value="value" v-bind="$attrs" v-on="listeners" class="form-control" aria-describedby="addon-right addon-left" />
+            <input :value="value" v-bind="$attrs" v-on="listeners" :class="inputStyle" aria-describedby="addon-right addon-left" ref="inputRef" v-b-tooltip.hover.left :title="errorText" />
         </slot>
         <slot name="addonRight">
             <span v-if="addonRightIcon" class="input-group-append">
@@ -51,6 +51,16 @@ export default {
         addonLeftIcon: {
             type: String,
             description: 'Input icon on the left'
+        },
+        showError: {
+            type: Boolean,
+            required: false,
+            default: false
+        },
+        errorText: {
+            type: String,
+            required: false,
+            default: ''
         }
     },
     model: {
@@ -74,6 +84,13 @@ export default {
                 blur: this.onBlur,
                 focus: this.onFocus
             };
+        },
+        inputStyle() {
+            let style = "form-control"
+            if(this.showError){
+                style += " error"
+            }
+            return style
         }
     },
     methods: {
@@ -87,6 +104,10 @@ export default {
         onBlur(evt) {
             this.focused = false;
             this.$emit('blur', evt.target.value);
+        },
+        focus() {
+            this.focused = true;
+            this.$refs.inputRef.focus();
         }
     }
 };

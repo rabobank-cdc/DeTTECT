@@ -11,21 +11,38 @@
         <!-- eslint-disable-next-line vue/require-v-for-key -->
         <div class="row" v-for="(item, index) in list">
             <div class="col-md-10 pr-md-0">
-                <base-input :value="item" :idx="index" @change="updateItem($event)"></base-input>
+                <base-input :value="item" :idx="index" :key="index" @change="updateItem($event)" :showError="isErrorFunction(item, list)" :errorText="getErrorText(item, list)"></base-input>
             </div>
             <div class="col mt-md-1">
                 <i class="tim-icons icon-trash-simple icon-color icon-padding cursor-pointer" :idx="index" @click="deleteItem($event)"></i>
             </div>
         </div>
-        <div class="row">
+        <div class="row" v-if="suggestionList.length == 0">
             <div class="col-md-10 pr-md-0 form-group">
                 <base-input :placeholder="placeholder" v-model="newItem" @keyup.enter="addItem" @blur="addItem" addonLeftIcon="tim-icons icon-simple-add"></base-input>
+            </div>
+        </div>
+        <div class="row" v-else>
+            <div class="col-md-10 pr-md-0 form-group customAutoCompletestyle">
+                <vue-simple-suggest
+                    :list="suggestionListIncludingDefault"
+                    :max-suggestions="0"
+                    :filter-by-query="true"
+                    :styles="autoCompleteStyle"
+                    @select="selectedItemFromList"
+                    @blur="addItem"
+                    ref="suggestListVue"
+                >
+                    <base-input :placeholder="placeholder" v-model="newItem" @keyup.enter="addItemSuggestList" addonLeftIcon="tim-icons icon-simple-add" ref="suggestListInput"></base-input>
+                </vue-simple-suggest>
             </div>
         </div>
     </div>
 </template>
 <script>
 import Icons from '@/components/Icons';
+import VueSimpleSuggest from 'vue-simple-suggest';
+import 'vue-simple-suggest/dist/styles.css';
 import { notificationMixin } from '@/mixins/NotificationMixins.js';
 
 export default {
@@ -34,11 +51,22 @@ export default {
             // eslint-disable-next-line no-undef
             caseInsensitive: require('case-insensitive'),
             newItem: '',
+            autoCompleteStyle: {
+                defaultInput: 'autocomplete-input',
+                suggestions: 'autocomplete-result',
+                suggestItem: 'autocomplete-suggest'
+            }
         };
     },
     mixins: [notificationMixin],
     components: {
         Icons,
+        VueSimpleSuggest
+    },
+    computed: {
+        suggestionListIncludingDefault: function () {
+            return [...new Set([this.defaultValue].concat(this.suggestionList))]
+        }
     },
     props: {
         list: {
@@ -66,15 +94,63 @@ export default {
             required: false,
             default: "The value 'KEYNAME' is already part of the list. Duplicate entries are not allowed.",
         },
+        suggestionList: {
+            type: Array,
+            required: false,
+            default: () => []
+        },
+        defaultValue: {
+            type: String,
+            required: false,
+            default: 'all'
+        },
+        defaultValueExclusive: {
+            type: Boolean,
+            required: false,
+            default: false
+        },
+        isErrorFunction: {
+            type: Function,
+            required: false,
+            default: () => false
+        },
+        errorText: {
+            type: String,
+            required: false,
+            default: ''
+        }
     },
     methods: {
+        selectedItemFromList(value) {
+            this.newItem = value;
+            this.$refs.suggestListInput.focus();
+        },
+        addItemKeyboard(event) {
+            this.addItem(event.target.value);
+        },
         addItem() {
-            // add an item to the list
-            if (this.caseInsensitive(this.list).includes(this.newItem) || this.caseInsensitive(this.externalListToValidate).includes(this.newItem)) {
-                this.notifyDuplicate(this.newItem);
-            } else if (this.newItem != '') {
-                this.list.push(this.newItem);
+            if(this.defaultValueExclusive && this.newItem == 'all'){
+                this.list.splice(0, this.list.length);
+                this.list.push('all')
                 this.newItem = '';
+            }
+            else{
+                // add an item to the list
+                if (this.caseInsensitive(this.list).includes(this.newItem) || this.caseInsensitive(this.externalListToValidate).includes(this.newItem)) {
+                    this.notifyDuplicate(this.newItem);
+                } else if (this.newItem != '') {
+                    this.list.push(this.newItem);
+                    this.newItem = '';
+
+                    if(this.defaultValueExclusive && this.list.indexOf('all') >= 0){
+                        this.list.splice(this.list.indexOf('all'), 1);
+                    }
+                }
+            }
+        },
+        addItemSuggestList() {
+            if(this.$refs.suggestListVue.hovered == null){
+                this.addItem()
             }
         },
         updateItem(event) {
@@ -96,6 +172,12 @@ export default {
             let msg = this.notifyText.replace('KEYNAME', keyName);
             this.notifyWarning(title, msg);
         },
+        getErrorText(item, list) {
+            if(this.isErrorFunction(item, list)){
+                return this.errorText
+            }
+            else{ return ''}
+        }
     },
 };
 </script>

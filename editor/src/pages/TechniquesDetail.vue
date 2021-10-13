@@ -26,6 +26,8 @@
             :emptyScoreEntry="emptyScoreEntryDetection"
             :emptyObject="emptyDetectionObject"
             ref="collapseDetectionComponent"
+            :applicableToSuggestionList="getApplicableToValues()"
+            :defaultValueExclusive="false"
         ></applicable-to-collapse-techniques>
         <applicable-to-collapse-techniques
             title="Visibility"
@@ -40,6 +42,8 @@
             :emptyScoreEntry="emptyScoreEntryVisibility"
             :emptyObject="emptyVisibilityObject"
             ref="collapseVisibilityComponent"
+            :applicableToSuggestionList="getApplicableToValues()"
+            :defaultValueExclusive="true"
         ></applicable-to-collapse-techniques>
     </div>
 </template>
@@ -173,6 +177,26 @@ export default {
             this.$refs.collapseDetectionComponent.closeAllCollapses();
             this.$refs.collapseVisibilityComponent.closeAllCollapses();
         },
+        getApplicableToValues() {
+            let applicable_to_values = new Set();
+            for (let i = 0; i < this.allTechniques.length; i++) {
+                for (let j = 0; j < this.allTechniques[i].detection.length; j++) {
+                    for (let x = 0; x < this.allTechniques[i].detection[j].applicable_to.length; x++){
+                        applicable_to_values.add(this.allTechniques[i].detection[j].applicable_to[x]);
+                    }
+                }
+            }
+            for (let i = 0; i < this.allTechniques.length; i++) {
+                for (let j = 0; j < this.allTechniques[i].visibility.length; j++) {
+                    for (let x = 0; x < this.allTechniques[i].visibility[j].applicable_to.length; x++){
+                        applicable_to_values.add(this.allTechniques[i].visibility[j].applicable_to[x]);
+                    }
+                }
+            }
+            let applicable_to_values_array = Array.from(applicable_to_values)
+            applicable_to_values_array.sort()
+            return applicable_to_values_array
+        }
     },
 };
 </script>

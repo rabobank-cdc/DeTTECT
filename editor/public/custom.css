@@ -208,13 +208,24 @@ div#pageTop.row .col h2 {
     font-weight: 300;
 }
 
-.autocomplete-input {
+.autocomplete-input, .customAutoCompletestyle .vue-simple-suggest input {
     background-color: #27293d !important;
     border-color: #2b3553 !important;
     border-radius: 0.4285rem !important;
     font-size: 0.75rem !important;
     color: rgb(255, 255, 255, 0.8) !important;
     padding: 9px 18px 9px 18px !important;
+}
+
+.customAutoCompletestyle .vue-simple-suggest.designed .input-wrapper input {
+    width: 1% !important;
+    border-left: 0 none !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.customAutoCompletestyle .vue-simple-suggest.designed .input-group-focus input{
+    border-color:#e14eca !important
 }
 
 .autocomplete-result {
@@ -561,4 +572,8 @@ select.form-control option {
 
 .table-file-details .no-bottom-margin .form-group {
     margin-bottom: 0px !important;
+}
+
+input.error, option.error {
+    border-color: #ff0000 !important;
 }

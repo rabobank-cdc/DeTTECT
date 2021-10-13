@@ -31,6 +31,8 @@
                                 'Specifies to which type of system(s) this data source applies. The value \'all\' can be used to let it apply to every type of system.'
                             "
                             notifyText="The value 'KEYNAME' is already part of the applicable_to for this data source. Duplicate entries are not allowed."
+                            :isErrorFunction="isErrorFunction"
+                            :getErrorTextFunction="getErrorText"
                         ></list-editor-with-selects>
                         <div class="row mt-md-0 mb-md-2" v-if="row.applicable_to.length == 0">
                             <div class="col-md-auto pr-md-0">
@@ -245,6 +247,15 @@ export default {
             required: true
         }
     },
+    computed: {
+        allSystemsValues() {
+            let systems = [];
+            for(let i=0; i<this.allSystems.length; i++){
+                systems.push(this.allSystems[i]['applicable_to'])
+            }
+            return systems
+        }
+    },
     components: {
         ListEditor,
         ListEditorWithSelects,
@@ -338,6 +349,21 @@ export default {
                 }
             }
             return false;
+        },
+        isErrorFunction(item, list) {
+            if((item == 'all' && list.length > 1) || (!this.allSystemsValues.includes(item))){
+                return true
+            }
+            else { return false }
+        },
+        getErrorText(item, list) {
+            if(item == 'all' && list.length > 1){
+                return "The value 'all' is exclusive for the data source's applicable_to values and can therefore not be combined with other applicable_to values. Remove 'all' to let DeTT&CT work properly."
+            }
+            else if (!this.allSystems.includes(item)) {
+                return "The value '" + item +"' is not specified within the 'systems' key-value pair. Add this applicable_to value to the 'systems' key-value pair, otherwise it will be ignored."
+            }
+            else{ return ''}
         }
     }
 };

@@ -11,7 +11,7 @@
         <!-- eslint-disable-next-line vue/require-v-for-key -->
         <div class="row" v-for="(item, index) in list">
             <div class="col-md-10 pr-md-0">
-                <base-input readonly :value="item" :idx="index" @change="updateItem($event)"></base-input>
+                <base-input readonly :value="item" :idx="index" @change="updateItem($event)" :showError="isErrorFunction(item, list)" :errorText="getErrorTextFunction(item, list)"></base-input>
             </div>
             <div class="col mt-md-1">
                 <i class="tim-icons icon-trash-simple icon-color icon-padding cursor-pointer" :idx="index" @click="deleteItem($event)"></i>
@@ -80,6 +80,16 @@ export default {
         },
         defaultItem: {
             type: String
+        },
+        isErrorFunction: {
+            type: Function,
+            required: false,
+            default: () => false
+        },
+        getErrorTextFunction: {
+            type: Function,
+            required: false,
+            default: () => ''
         }
     },
     methods: {
@@ -123,7 +133,7 @@ export default {
             let title = 'Duplicate value';
             let msg = this.notifyText.replace('KEYNAME', keyName);
             this.notifyWarning(title, msg);
-        },
+        }
     },
 };
 </script>
