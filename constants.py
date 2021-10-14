@@ -206,4 +206,4 @@ DATA_SOURCES = {}
 with open(os.path.dirname(__file__) +'/dettect-data/data_source_platforms.json', 'r') as input_file:
     input_data = json.load(input_file)
     DATA_SOURCES = input_data['ATT&CK']
-    CUSTOM_DATA_SOURCES_PLATFORMS = input_data['CUSTOM_DATA_SOURCES']
+    CUSTOM_DATA_SOURCES_PLATFORMS = input_data['DeTT&CT']

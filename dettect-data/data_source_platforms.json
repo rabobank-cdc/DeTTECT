@@ -23,7 +23,7 @@
         "Containers": ["User Account Creation", "Container Metadata", "User Account Authentication", "Cluster Metadata", "Pod Enumeration", "Container Creation", "Scheduled Job Modification", "Scheduled Job Creation", "Pod Metadata", "Pod Modification", "Container Enumeration", "Container Start", "Scheduled Job Metadata", "Command Execution", "Pod Creation", "User Account Deletion", "User Account Modification", "User Account Metadata"]
     },
 
-    "CUSTOM_DATA_SOURCES": {
+    "DeTT&CT": {
         "Windows": ["Web [DeTT&CT data source]", "DNS [DeTT&CT data source]", "DHCP [DeTT&CT data source]", "Email [DeTT&CT data source]"],
 
         "macOS": ["Web [DeTT&CT data source]", "DNS [DeTT&CT data source]", "DHCP [DeTT&CT data source]", "Email [DeTT&CT data source]"],
