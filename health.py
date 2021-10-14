@@ -305,7 +305,7 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
                 for p in platform:
                     if p.lower() not in PLATFORMS.keys() and p.lower() != 'all':
                         has_error = _print_error_msg(
-                            '[!] EMPTY or INVALID value for \'platform\' within the data source admin file\'s \'system\' key-value pair: '
+                            '[!] EMPTY or INVALID value for \'platform\' within the data source admin file\'s \'systems\' key-value pair: '
                             '%s (should be value(s) of: [%s] or all)' % (p, ', '.join(list(PLATFORMS.values()))),
                             health_is_called)
 
@@ -313,14 +313,14 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
                 applicable_to = system['applicable_to']
                 if applicable_to is None or applicable_to == '' or applicable_to.lower() == 'all':
                     has_error = _print_error_msg(
-                            '[!] EMPTY or INVALID value for \'applicable_to\' within the data source admin file\'s \'system\' key-value pair: '
+                            '[!] EMPTY or INVALID value for \'applicable_to\' within the data source admin file\'s \'systems\' key-value pair: '
                             '%s (should be any string value except an empty string and \'all\')' % applicable_to,
                             health_is_called)
                 elif applicable_to.lower() not in systems_applicable_to:
                     systems_applicable_to.add(applicable_to.lower())
                 else:
                     has_error = _print_error_msg(
-                            '[!] DUPLICATE \'applicable_to\' value within the data source admin file\'s \'system\' key-value pair: '
+                            '[!] DUPLICATE \'applicable_to\' value within the data source admin file\'s \'systems\' key-value pair: '
                             '%s' % applicable_to, health_is_called)
         else:
             has_error = _print_error_msg('[!] The data source administration file is MISSING the key-value pair \'systems\'',
@@ -422,7 +422,7 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
         for ds_a in ds_objects_applicable_to:
             if ds_a.lower() not in systems_applicable_to and ds_a.lower() != 'all':
                 has_error = _print_error_msg('[!] The \'applicable_to\' value: \'%s\' within the data source admin. file is used '
-                                             'by a data source details object without being specified within the \'system\' '
+                                             'by a data source details object without being specified within the \'systems\' '
                                              'key-value pair' % ds_a, health_is_called)
 
     if 'exceptions' in ds_content:
