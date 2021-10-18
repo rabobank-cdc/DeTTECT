@@ -32,7 +32,7 @@ def _count_applicable_data_sources(technique, applicable_data_sources, applicabl
     return applicable_ds_count
 
 
-def _system_in_data_source(data_source, system):
+def _system_in_data_source_details_object(data_source, system):
     """
     Checks if the provided system is present within the provided YAML global data source object
     :param data_source: YAML data source object
@@ -72,12 +72,12 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
                     applicable_custom_data_sources = get_applicable_custom_data_sources_platform(system['platform'])
                     total_ds_count = _count_applicable_data_sources(t, applicable_data_sources, applicable_custom_data_sources)
 
-                    if total_ds_count > 0:  # the system's platform has data source applicable to this technique
+                    if total_ds_count > 0:  # the system's platform has a data source applicable to this technique
                         ds_count = 0
                         for ds in t['x_mitre_data_sources']:
                             ds = ds.split(':')[1][1:]
                             # the ATT&CK data source is applicable to this system and available
-                            if ds in applicable_data_sources and ds in my_ds.keys() and _system_in_data_source(my_ds[ds], system):
+                            if ds in applicable_data_sources and ds in my_ds.keys() and _system_in_data_source_details_object(my_ds[ds], system):
                                 if ds_count == 0:
                                     system_available_data_sources[scores_idx] = [ds]
                                 else:
@@ -85,7 +85,7 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
                                 ds_count += 1
 
                         for cdc in t['custom_data_sources']:
-                            if cdc in applicable_custom_data_sources and cdc in my_ds.keys() and _system_in_data_source(my_ds[cdc], system):
+                            if cdc in applicable_custom_data_sources and cdc in my_ds.keys() and _system_in_data_source_details_object(my_ds[cdc], system):
                                 if ds_count == 0:
                                     system_available_data_sources[scores_idx] = [cdc]
                                 else:
@@ -131,8 +131,10 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
 
                     d['metadata'].append({'name': 'Applicable to', 'value': system['applicable_to']})
 
-                    app_data_sources = get_applicable_data_sources_technique(t['x_mitre_data_sources'], get_applicable_data_sources_platform(system['platform']))
-                    app_custom_data_sources = get_applicable_custom_data_sources_technique(t['custom_data_sources'], get_applicable_custom_data_sources_platform(system['platform']))
+                    app_data_sources = get_applicable_data_sources_technique(
+                        t['x_mitre_data_sources'], get_applicable_data_sources_platform(system['platform']))
+                    app_custom_data_sources = get_applicable_custom_data_sources_technique(
+                        t['custom_data_sources'], get_applicable_custom_data_sources_platform(system['platform']))
 
                     if score > 0:
                         d['metadata'].append({'name': 'Available data sources', 'value': ', '.join(
@@ -607,11 +609,11 @@ def generate_technique_administration_file(filename, output_filename, write_file
                         for ds in t['x_mitre_data_sources']:
                             ds = ds.split(':')[1][1:]
                             # the ATT&CK data source is applicable to this system and available
-                            if ds in applicable_data_sources and ds in my_ds.keys() and _system_in_data_source(my_ds[ds], system):
+                            if ds in applicable_data_sources and ds in my_ds.keys() and _system_in_data_source_details_object(my_ds[ds], system):
                                 ds_count += 1
 
                         for cdc in t['custom_data_sources']:
-                            if cdc in applicable_custom_data_sources and cdc in my_ds.keys() and _system_in_data_source(my_ds[cdc], system):
+                            if cdc in applicable_custom_data_sources and cdc in my_ds.keys() and _system_in_data_source_details_object(my_ds[cdc], system):
                                 ds_count += 1
 
                         if ds_count > 0:
