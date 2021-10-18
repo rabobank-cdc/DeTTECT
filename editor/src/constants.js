@@ -6,7 +6,7 @@ export default {
         version: 1.1,
         file_type: 'data-source-administration',
         name: 'example',
-        systems: [{'applicable_to': 'Default', 'platform': ['all']}],
+        systems: [{ applicable_to: 'default', platform: ['all'] }],
         data_sources: []
     },
     YAML_OBJ_DATA_SOURCES: {

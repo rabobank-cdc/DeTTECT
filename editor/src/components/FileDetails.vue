@@ -31,7 +31,7 @@
         </tr>
         <tr v-if="systemsOrPlatforms == 'systems'">
             <td class="vtop">Systems:</td>
-            <td width=1000>
+            <td width="1000">
                 <list-editor-extended
                     name="platform-selector"
                     :list="doc.systems"
@@ -42,7 +42,6 @@
                     :values="platforms"
                     :valuesConversion="platformConversion"
                     :reservedKeywords="['all']"
-                    :checkInUseFunction="checkSystemNotInUse"
                     :postRemoveFunction="removeApplicableToFromDataSources"
                     :postUpdateFunction="updateNameApplicableToForDataSources"
                 ></list-editor-extended>
@@ -71,15 +70,15 @@ export default {
     props: {
         filename: {
             type: String,
-            required: true,
+            required: true
         },
         doc: {
             type: Object,
-            required: true,
+            required: true
         },
         platforms: {
             type: Array,
-            required: true,
+            required: true
         },
         platformConversion: {
             type: Object,
@@ -88,7 +87,7 @@ export default {
         showName: {
             type: Boolean,
             required: false,
-            default: true,
+            default: true
         },
         systemsOrPlatforms: {
             type: String,
@@ -118,27 +117,14 @@ export default {
                 this.notifyDanger('Missing value', 'No value for platform selected. Please select one or more platforms.');
             }
         },
-        checkSystemNotInUse(system) {
-            let inUse = false;
-            for (let i = 0; i < this.doc.data_sources.length; i++) {
-                for (let j = 0; j < this.doc.data_sources[i].data_source.length; j++) {
-                    for (let k = 0; k < this.doc.data_sources[i].data_source[j].applicable_to.length; k++) {
-                        if(this.doc.data_sources[i].data_source[j].applicable_to[k] == system){
-                            inUse = true;
-                        }
-                    }
-                }
-            }
-            return !inUse;
-        },
         removeApplicableToFromDataSources(name) {
             for (let i = 0; i < this.doc.data_sources.length; i++) {
                 for (let j = 0; j < this.doc.data_sources[i].data_source.length; j++) {
                     for (let k = 0; k < this.doc.data_sources[i].data_source[j].applicable_to.length; k++) {
-                        if(this.doc.data_sources[i].data_source[j].applicable_to[k] == name){
+                        if (this.doc.data_sources[i].data_source[j].applicable_to[k] == name) {
                             this.doc.data_sources[i].data_source[j].applicable_to.splice(k, 1);
 
-                            if(this.doc.data_sources[i].data_source[j].applicable_to.length == 0){
+                            if (this.doc.data_sources[i].data_source[j].applicable_to.length == 0) {
                                 this.doc.data_sources[i].data_source[j].applicable_to.push('all');
                             }
                             break;
@@ -151,7 +137,7 @@ export default {
             for (let i = 0; i < this.doc.data_sources.length; i++) {
                 for (let j = 0; j < this.doc.data_sources[i].data_source.length; j++) {
                     for (let k = 0; k < this.doc.data_sources[i].data_source[j].applicable_to.length; k++) {
-                        if(this.doc.data_sources[i].data_source[j].applicable_to[k] == old_name){
+                        if (this.doc.data_sources[i].data_source[j].applicable_to[k] == old_name) {
                             this.doc.data_sources[i].data_source[j].applicable_to[k] = new_name;
                             break;
                         }
@@ -163,7 +149,7 @@ export default {
     components: {
         ExtendedTextarea,
         ListEditorExtended
-    },
+    }
 };
 </script>
 

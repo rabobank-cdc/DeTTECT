@@ -589,29 +589,22 @@ def load_data_sources(file, filter_empty_scores=True):
     # we have todo this in two phases to bring the 'systems' kv-pair applicable_to values in sync with the data sources details object's applicable_to values
     # phase 1:
     #  - keep data sources which are enabled (DQ check)
-    #  - store the data source details' applicable_to values in a set (data_source_applicable_to)
     #  - add the data source to a dictionary we can iterate over more easily (my_data_sources)
-    data_source_applicable_to = set()
     for ds_global in yaml_content['data_sources']:
         if isinstance(ds_global['data_source'], dict):  # There is just one data source entry
             if _check_data_quality(ds_global['data_source']['data_quality'], filter_empty_scores):
-                data_source_applicable_to.update(ds_global['data_source']['applicable_to'])
                 _add_entry_to_list_in_dictionary(my_data_sources, ds_global['data_source_name'], 'data_source', ds_global['data_source'])
         elif isinstance(ds_global['data_source'], list):  # There are multiple data source entries
             for ds_details in ds_global['data_source']:
                 if _check_data_quality(ds_details['data_quality'], filter_empty_scores):
-                    data_source_applicable_to.update(ds_details['applicable_to'])
                     _add_entry_to_list_in_dictionary(my_data_sources, ds_global['data_source_name'], 'data_source', ds_details)
-
-    data_source_applicable_to = {a.lower() for a in data_source_applicable_to if a.lower() != 'all'}
 
     # phase 2:
     # - put all system's applicable_to values into a list (all_systems_applicable_to) and only keep:
-    #   * the ones part of data_source_applicable_to
     #   * not equal to 'all' (because it's a hardcoded value which translates to all applicable_to values from the data source details objects)
     # - iterate over all data sources details objects and replace 'all' with all_systems_applicable_to
     systems = yaml_content['systems']
-    systems = [k for k in systems if k['applicable_to'].lower() != 'all' and k['applicable_to'].lower() in data_source_applicable_to]
+    systems = [k for k in systems if k['applicable_to'].lower() != 'all']
 
     all_systems_applicable_to = [k['applicable_to'] for k in systems]
 

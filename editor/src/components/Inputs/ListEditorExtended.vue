@@ -13,12 +13,12 @@
                         :input-attrs="{ 'aria-describedby': 'tags-validation-help' }"
                         :tag-validator="validator"
                         separator=""
-                        :placeholder="'Enter ' +subject_text"
-                        :invalid-tag-text="'Invalid ' +subject_text"
-                        :duplicate-tag-text="'Duplicate ' +subject_text"
+                        :placeholder="'Enter ' + subject_text"
+                        :invalid-tag-text="'Invalid ' + subject_text"
+                        :duplicate-tag-text="'Duplicate ' + subject_text"
                         input-class="platform-chooser-input"
                         :remove-on-delete="true"
-                        @input="checkInput($event,index)"
+                        @input="checkInput($event, index)"
                     >
                     </b-form-tags>
 
@@ -27,15 +27,9 @@
                     </template>
 
                     <template #description>
-                        <div id="tags-validation-help">
-                        Options: {{ values.join(', ') }}
-                        </div>
+                        <div id="tags-validation-help">Options: {{ values.join(', ') }}</div>
                     </template>
-
                 </b-form-group>
-                <div v-if="checkInUseFunction(item.applicable_to)" id="tags-validation-help">
-                    <label class="label-warning" id="warningText">No data source is using this system.</label>
-                </div>
             </div>
             <div class="col mt-md-1">
                 <i class="tim-icons icon-trash-simple icon-color icon-padding cursor-pointer" @click="deleteItem($event, index)"></i>
@@ -43,7 +37,13 @@
         </div>
         <div class="row">
             <div class="col-md-3 pr-md-0 form-group">
-                <base-input :placeholder="placeholder" v-model="newItem" @keyup.enter="addItem" @blur="addItem" addonLeftIcon="tim-icons icon-simple-add"></base-input>
+                <base-input
+                    :placeholder="placeholder"
+                    v-model="newItem"
+                    @keyup.enter="addItem"
+                    @blur="addItem"
+                    addonLeftIcon="tim-icons icon-simple-add"
+                ></base-input>
             </div>
         </div>
     </div>
@@ -63,33 +63,33 @@ export default {
     },
     mixins: [notificationMixin],
     components: {
-        Icons,
+        Icons
     },
     props: {
         list: {
             type: Array,
-            required: true,
+            required: true
         },
         name: {
             type: String,
-            required: true,
+            required: true
         },
         placeholder: {
             type: String,
-            required: true,
+            required: true
         },
         helpText: {
             type: String,
-            default: '',
+            default: ''
         },
         notifyText: {
             type: String,
             required: false,
-            default: "The value 'KEYNAME' is already part of the list. Duplicate entries are not allowed.",
+            default: "The value 'KEYNAME' is already part of the list. Duplicate entries are not allowed."
         },
         values: {
             type: Array,
-            required: true,
+            required: true
         },
         valuesConversion: {
             type: Object,
@@ -104,11 +104,6 @@ export default {
             required: false,
             default: () => []
         },
-        checkInUseFunction: {
-            type: Function,
-            required: false,
-            default: () => false
-        },
         postRemoveFunction: {
             type: Function,
             required: false
@@ -121,7 +116,7 @@ export default {
     methods: {
         addItem() {
             // add an item to the list
-            let applicable_to_values = this.list.map(value => value.applicable_to);
+            let applicable_to_values = this.list.map((value) => value.applicable_to);
             if (this.reservedKeywords.includes(this.newItem)) {
                 this.notifyReservedKeyword(this.newItem);
                 this.newItem = '';
@@ -129,19 +124,19 @@ export default {
                 this.notifyDuplicate(this.newItem);
                 this.newItem = '';
             } else if (this.newItem != '') {
-                this.list.push({'applicable_to': this.newItem, 'platform': ['all']});
+                this.list.push({ applicable_to: this.newItem, platform: ['all'] });
                 this.newItem = '';
             }
         },
         updateItem(event, index) {
             // called when an item in the list is changed
-            let applicable_to_values = this.list.map(value => value.applicable_to);
+            let applicable_to_values = this.list.map((value) => value.applicable_to);
             let value = event.target.value;
             if (this.caseInsensitive(applicable_to_values).includes(value)) {
                 this.notifyDuplicate(value);
             } else if (value != '') {
                 // call post update function:
-                if(this.postUpdateFunction != undefined){
+                if (this.postUpdateFunction != undefined) {
                     this.postUpdateFunction(this.list[index].applicable_to, event.target.value);
                 }
 
@@ -150,18 +145,18 @@ export default {
         },
         deleteItem(event, index) {
             // don't remove the default item if it's the only item:
-            if(this.list.length == 1 && this.list[0]['applicable_to'] == constants.YAML_OBJ_NEW_DATA_SOURCES_FILE['systems'][0]['applicable_to']){
+            if (this.list.length == 1 && this.list[0]['applicable_to'] == constants.YAML_OBJ_NEW_DATA_SOURCES_FILE['systems'][0]['applicable_to']) {
                 return;
             }
 
             // call post remove function
-            if(this.postRemoveFunction != undefined){
+            if (this.postRemoveFunction != undefined) {
                 this.postRemoveFunction(this.list[index].applicable_to);
             }
 
             // remove an item from the list
             this.list.splice(index, 1);
-            if(this.list.length == 0){
+            if (this.list.length == 0) {
                 this.list.push(_.cloneDeep(constants.YAML_OBJ_NEW_DATA_SOURCES_FILE['systems'][0]));
             }
         },
@@ -172,25 +167,23 @@ export default {
         },
         notifyReservedKeyword(keyName) {
             let title = 'Reserved keyword';
-            let msg = "'" + keyName +"' is a reserved keyword. You cannot use this value."
+            let msg = "'" + keyName + "' is a reserved keyword. You cannot use this value.";
             this.notifyWarning(title, msg);
         },
         validator(value) {
-            return this.values.map(value => value.toLowerCase()).includes(value.toLowerCase()) || value == 'all';
+            return this.values.map((value) => value.toLowerCase()).includes(value.toLowerCase()) || value == 'all';
         },
         checkInput(event, index) {
-            if(this.list[index].platform.length == 0) {
+            if (this.list[index].platform.length == 0) {
                 this.list[index].platform = ['all'];
-            }
-            else if(this.list[index].platform[this.list[index].platform.length-1] == 'all') {
+            } else if (this.list[index].platform[this.list[index].platform.length - 1] == 'all') {
                 this.list[index].platform = ['all'];
-            }
-            else {
-                for (let i=0; i < this.list[index].platform.length; i++) {
+            } else {
+                for (let i = 0; i < this.list[index].platform.length; i++) {
                     this.list[index].platform[i] = this.valuesConversion[this.list[index].platform[i].toLowerCase()];
                 }
             }
         }
-    },
+    }
 };
 </script>
