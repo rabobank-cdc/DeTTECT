@@ -266,6 +266,11 @@ def _check_health_techniques(filename, technique_content, health_is_called):
                         all_applicable_to.update(obj['applicable_to'])
                         obj_applicable_to.extend(obj['applicable_to'])
 
+                        if obj_type == 'visibility' and len(set(obj['applicable_to'])) > 1 and 'all' in [a.lower() for a in obj['applicable_to'] if a is not None]:
+                            has_error = _print_error_msg('[!] Technique ID: ' + tech + ' the key-value pair \'applicable_to\' in \'' + obj_type +
+                                                         '\' has \'all\' as a value that is not exclusively used (\'all\' can not be combined ' +
+                                                         'with other applicable_to values in a visibility object).', health_is_called)
+
                 if len(obj_applicable_to) > len(set(obj_applicable_to)):
                     has_error = _print_error_msg('[!] Technique ID: ' + tech + ' the key-value pair \'applicable_to\' in \'' + obj_type +
                                                  '\' has DUPLICATE system values (a system can only be part of one ' +
@@ -409,7 +414,7 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
                     ds_objects_applicable_to.update(ds_details_obj['applicable_to'])
                     glb_obj_applicable_to.extend(ds_details_obj['applicable_to'])
 
-                    if len(ds_details_obj['applicable_to']) > 1 and 'all' in [a.lower() for a in ds_details_obj['applicable_to']]:
+                    if len(ds_details_obj['applicable_to']) > 1 and 'all' in [a.lower() for a in ds_details_obj['applicable_to'] if a is not None]:
                         has_error = _print_error_msg('[!] Data source: \'' + ds_global_obj['data_source_name'] + '\' has \'all\' as system value ' +
                                                      'within the key-value pair \'applicable_to\', plus additional systems (the build-in system \'all\' ' +
                                                      'cannot be combined with other systems).', health_is_called)
