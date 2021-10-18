@@ -64,7 +64,7 @@
                                     :date="row.date_registered"
                                     name="Date registered"
                                     :id="i.toString()"
-                                    @dateUpdated="row.date_registered = $event;"
+                                    @dateUpdated="row.date_registered = $event"
                                 ></date-picker>
                             </div>
                             <div class="col-md-4 pr-md-1">
@@ -72,7 +72,7 @@
                                     :date="row.date_connected"
                                     name="Date connected"
                                     :id="i.toString()"
-                                    @dateUpdated="row.date_connected = $event;"
+                                    @dateUpdated="row.date_connected = $event"
                                 ></date-picker>
                             </div>
                         </div>
@@ -250,10 +250,10 @@ export default {
     computed: {
         allSystemsValues() {
             let systems = [];
-            for(let i=0; i<this.allSystems.length; i++){
-                systems.push(this.allSystems[i]['applicable_to'])
+            for (let i = 0; i < this.allSystems.length; i++) {
+                systems.push(this.allSystems[i]['applicable_to']);
             }
-            return systems
+            return systems;
         }
     },
     components: {
@@ -319,7 +319,7 @@ export default {
         toggleEnabled(i) {
             // disable or enable a data source
             let ds_name = this.dataSource['data_source_name'];
-            let ds_applicable_to = this.dataSource.data_source[i].applicable_to.join(',')
+            let ds_applicable_to = this.dataSource.data_source[i].applicable_to.join(',');
             if (this.dsEnabled(i)) {
                 this.prevDataSourceQuality[ds_name] = [];
                 this.prevDataSourceQuality[ds_name][ds_applicable_to] = _.cloneDeep(this.dataSource.data_source[i].data_quality);
@@ -328,7 +328,7 @@ export default {
                 }
             } else {
                 if (ds_name in this.prevDataSourceQuality) {
-                    if(ds_applicable_to in this.prevDataSourceQuality[ds_name]){
+                    if (ds_applicable_to in this.prevDataSourceQuality[ds_name]) {
                         this.dataSource.data_source[i].data_quality = _.cloneDeep(this.prevDataSourceQuality[ds_name][ds_applicable_to]);
                     }
                 } else {
@@ -351,19 +351,24 @@ export default {
             return false;
         },
         isErrorFunction(item, list) {
-            if((item == 'all' && list.length > 1) || (!this.allSystemsValues.includes(item))){
-                return true
+            if ((item == 'all' && list.length > 1) || (!this.allSystemsValues.includes(item) && item != 'all')) {
+                return true;
+            } else {
+                return false;
             }
-            else { return false }
         },
         getErrorText(item, list) {
-            if(item == 'all' && list.length > 1){
-                return "The value 'all' is exclusive for the data source's applicable_to values and can therefore not be combined with other applicable_to values. Remove 'all' to let DeTT&CT work properly."
+            if (item == 'all' && list.length > 1) {
+                return "The value 'all' is exclusive for the data source's applicable_to values and can therefore not be combined with other applicable_to values. Remove 'all' to let DeTT&CT work properly.";
+            } else if (!this.allSystems.includes(item) && item != 'all') {
+                return (
+                    "The value '" +
+                    item +
+                    "' is not specified within the 'systems' key-value pair. Add this applicable_to value to the 'systems' key-value pair, otherwise it will be ignored."
+                );
+            } else {
+                return '';
             }
-            else if (!this.allSystems.includes(item)) {
-                return "The value '" + item +"' is not specified within the 'systems' key-value pair. Add this applicable_to value to the 'systems' key-value pair, otherwise it will be ignored."
-            }
-            else{ return ''}
         }
     }
 };
