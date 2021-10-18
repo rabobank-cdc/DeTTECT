@@ -12,15 +12,25 @@ on:
         description: 'Format: v[version number]'
         required: true
 jobs:
-  build:
+  skip_duplicate: # Prevent having the Docker image from building twice.
+                  # This will happen when dealing with a code change in the Editor.
     runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ steps.skip_check.outputs.should_skip }}
     steps:
-        # Sleep for 5 minutes to prevent having the Docker image from building twice.
-        # This will happen when dealing with a code change in the Editor.
+        # Sleep for 5 minutes
       - name: Sleep for 5 minutes
         run: sleep 300
         shell: bash
-    
+      - id: skip_check
+        uses: fkirc/skip-duplicate-actions@master
+        with:
+          concurrent_skipping: 'outdated_runs'
+  build:
+    needs: skip_duplicate
+    if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
+    runs-on: ubuntu-latest
+    steps:  
         # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
       - name: Checkout code
         uses: actions/checkout@v2
