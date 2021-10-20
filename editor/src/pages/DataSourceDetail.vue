@@ -85,7 +85,6 @@ export default {
         makeDataSourceSuggestionList() {
             // Make the data source suggestionlist based on both data sources and custom data sources and check if the platform of these
             // (custom) data sources corresponds to the selected platforms within the systems key-value pair.
-            window.console.log(this.selectedPlatforms);
             let suggestionList = new Set();
             for (let i = 0; i < this.selectedPlatforms.length; i++) {
                 for (let j = 0; j < dataSources.length; j++) {

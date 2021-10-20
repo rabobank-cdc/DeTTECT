@@ -262,7 +262,6 @@ export default {
             } else if (evt.keyCode === 27 && this.showHelpText) {
                 this.showHelpText = false;
             } else if (evt.keyCode === 27 && this.currentModal != '' && this.commentModal == '') {
-                console.log('hide');
                 this.$bvModal.hide(this.currentModal);
             } else if (evt.keyCode === 27 && this.commentModal != '') {
                 this.$bvModal.hide(this.commentModal);
@@ -360,7 +359,7 @@ export default {
             this.commentModal = b;
         },
         isErrorFunction(item, list) {
-            return (this.defaultValueExclusive && item == 'all' && list.length > 1) ? true : false
+            return this.defaultValueExclusive && item == 'all' && list.length > 1 ? true : false;
         }
     }
 };
