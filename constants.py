@@ -23,6 +23,7 @@ COLOR_GROUP_OVERLAY_MATCH = '#f9a825'            # orange
 COLOR_GROUP_OVERLAY_NO_MATCH = '#ffee58'         # yellow
 COLOR_SOFTWARE = '#0d47a1 '                      # dark blue
 COLOR_GROUP_AND_SOFTWARE = '#64b5f6 '            # light blue
+COLOR_GRADIENT_DISABLE = '#ffffff'               # white
 COLOR_GRADIENT_MIN = '#ffcece'                   # light red
 COLOR_GRADIENT_MAX = '#ff0000'                   # red
 COLOR_TACTIC_ROW_BACKGRND = '#dddddd'            # light grey
