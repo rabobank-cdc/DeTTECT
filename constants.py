@@ -199,11 +199,11 @@ DATA_SOURCES_ATTACK_V8 = set(['Access tokens', 'Anti-virus', 'API monitoring', '
                               'Network device configuration', 'Network device logs', 'Network device run-time memory', 'Network intrusion detection system', 'Network protocol analysis', 'OAuth audit logs', 'Office 365 account logs', 'Office 365 audit logs', 'Office 365 trace logs', 'Packet capture', 'PowerShell logs', 'Process command-line parameters', 'Process monitoring', 'Process use of network', 'Sensor health and status', 'Services', 'Social media monitoring', 'SSL/TLS certificates', 'SSL/TLS inspection', 'Stackdriver logs', 'System calls', 'Third-party application logs', 'User interface', 'VBR', 'Web application firewall logs', 'Web logs', 'Web proxy', 'Windows Error Reporting', 'Windows event logs', 'Windows Registry', 'WMI Objects'])
 
 CUSTOM_DATA_SOURCES = {}
-with open(os.path.dirname(__file__) +'/dettect-data/custom_data_sources.json', 'r') as input_file:
+with open(os.path.dirname(__file__) +'/data/custom_data_sources.json', 'r') as input_file:
     CUSTOM_DATA_SOURCES = json.load(input_file)
 
 DATA_SOURCES = {}
-with open(os.path.dirname(__file__) +'/dettect-data/data_source_platforms.json', 'r') as input_file:
+with open(os.path.dirname(__file__) +'/data/data_source_platforms.json', 'r') as input_file:
     input_data = json.load(input_file)
     DATA_SOURCES = input_data['ATT&CK']
     CUSTOM_DATA_SOURCES_PLATFORMS = input_data['DeTT&CT']
