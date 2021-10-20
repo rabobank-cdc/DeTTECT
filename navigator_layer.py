@@ -129,6 +129,7 @@ def get_layer_template_detections(name, description, platform):
     :return: layer template dictionary
     """
     layer = _get_base_template(name, description, platform, 0)
+    layer['gradient'] = {'colors': [COLOR_GRADIENT_DISABLE, COLOR_GRADIENT_DISABLE], 'minValue': 0, 'maxValue': 10000}
     layer['legendItems'] = \
         [
             {'label': 'Detection score 0: Forensics/Context', 'color': COLOR_D_0},
@@ -172,6 +173,7 @@ def get_layer_template_visibility(name, description, platform):
     :return: layer template dictionary
     """
     layer = _get_base_template(name, description, platform, 0)
+    layer['gradient'] = {'colors': [COLOR_GRADIENT_DISABLE, COLOR_GRADIENT_DISABLE], 'minValue': 0, 'maxValue': 10000}
     layer['legendItems'] = \
         [
             {'label': 'Visibility score 1: Minimal', 'color': COLOR_V_1},
