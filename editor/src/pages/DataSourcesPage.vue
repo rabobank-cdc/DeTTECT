@@ -11,19 +11,17 @@
                     <div class="row cursor-pointer" @click="hideFileDetails(!file_details_visible)">
                         <div class="col-md-7">
                             <div class="card-header">
-                            <h2 class="card-title">
-                                <i class="tim-icons icon-coins"></i> Data Sources{{showFileName}}
-                            </h2>
+                                <h2 class="card-title"><i class="tim-icons icon-coins"></i> Data Sources{{ showFileName }}</h2>
                             </div>
                         </div>
                         <div class="col mt-3 text-right">
                             <label v-if="fileChanged" class="pl-2">
-                                    <icons icon="text-balloon"></icons>
-                                    You have unsaved changes. You may want to save the file to preserve your changes.</label
+                                <icons icon="text-balloon"></icons>
+                                You have unsaved changes. You may want to save the file to preserve your changes.</label
                             >
                         </div>
                         <div class="col-md-0 mt-3 mr-4 text-right">
-                            <icons :icon="(file_details_visible) ? 'collapse' : 'expand'"></icons>
+                            <icons :icon="file_details_visible ? 'collapse' : 'expand'"></icons>
                         </div>
                     </div>
                     <b-collapse id="collapse-ds" v-model="file_details_visible">
@@ -43,7 +41,13 @@
                             </div>
                             <div v-if="doc != null" class="row pt-md-2">
                                 <div class="col">
-                                    <file-details :filename="filename" :doc="doc" :platforms="platforms" :platformConversion="platformConversion" systemsOrPlatforms="systems"></file-details>
+                                    <file-details
+                                        :filename="filename"
+                                        :doc="doc"
+                                        :platforms="platforms"
+                                        :platformConversion="platformConversion"
+                                        systemsOrPlatforms="systems"
+                                    ></file-details>
                                 </div>
                             </div>
                             <div v-if="doc != null" class="row pt-md-2">
@@ -89,15 +93,15 @@
                             >
                                 <thead slot="head">
                                     <v-th sortKey="data_source_name" defaultSort="asc" width="350">Name</v-th>
-                                    <v-th sortKey="date_registered" width="200">Date registered</v-th>
-                                    <v-th sortKey="products" width="350">Products</v-th>
+                                    <v-th :sortKey="joinedApplicableTo" width="500">Applicable to</v-th>
                                     <th></th>
                                 </thead>
                                 <tbody slot="body" slot-scope="{ displayData }">
                                     <v-tr v-for="(row, i) in displayData" :key="row.data_source_name" :row="row" ref="data_table_rows">
                                         <td>{{ row.data_source_name }}</td>
-                                        <td>{{ row.date_registered }}</td>
-                                        <td>{{ row.products | listToString }}</td>
+                                        <td>
+                                            {{ joinedApplicableTo(row) }}
+                                        </td>
                                         <td>
                                             <i
                                                 class="tim-icons icon-trash-simple cursor-pointer"
@@ -186,14 +190,13 @@ export default {
                         // Fix missing or empty systems field:
                         if (yaml_input.systems == undefined || yaml_input.systems == null) {
                             yaml_input.systems = _.cloneDeep(constants.YAML_OBJ_NEW_DATA_SOURCES_FILE['systems']);
-                        }
-                        else {
+                        } else {
                             // Fix missing or empty applicable_to and platform fields:
                             for (let i = 0; i < yaml_input.systems.length; i++) {
-                                if(yaml_input.systems[i].applicable_to == undefined || yaml_input.systems[i].applicable_to == null) {
-                                    yaml_input.systems[i].applicable_to = 'empty' +i;
+                                if (yaml_input.systems[i].applicable_to == undefined || yaml_input.systems[i].applicable_to == null) {
+                                    yaml_input.systems[i].applicable_to = 'empty' + i;
                                 }
-                                if(yaml_input.systems[i].platform == undefined || yaml_input.systems[i].platform == null) {
+                                if (yaml_input.systems[i].platform == undefined || yaml_input.systems[i].platform == null) {
                                     yaml_input.systems[i].platform = [];
                                 }
 
@@ -210,7 +213,10 @@ export default {
                                         if (Object.keys(constants.PLATFORM_CONVERSION).indexOf(p) >= 0) {
                                             valid_platforms.push(constants.PLATFORM_CONVERSION[p]);
                                         } else {
-                                            this.notifyDanger('Invalid value', 'Invalid value for platform was found in the YAML file and was removed.');
+                                            this.notifyDanger(
+                                                'Invalid value',
+                                                'Invalid value for platform was found in the YAML file and was removed.'
+                                            );
                                         }
                                     } else {
                                         valid_platforms.push(yaml_input.systems[i].platform[j]);
@@ -384,7 +390,7 @@ export default {
             this.notifyDanger('Invalid YAML file type', "The file '" + filename + "' is not a valid data source administration file.");
         },
         hideFileDetails(state) {
-            if(this.doc != null && this.$route.name == 'datasources'){
+            if (this.doc != null && this.$route.name == 'datasources') {
                 this.file_details_visible = state;
                 this.changePageTitle();
             }
@@ -394,6 +400,13 @@ export default {
                 this.$refs.detailComponent.closeAllCollapses();
             }
             this.selectItem(event);
+        },
+        joinedApplicableTo(row) {
+            return row.data_source
+                .map(function(row) {
+                    return row.applicable_to;
+                })
+                .join(', ');
         }
     },
     filters: {
