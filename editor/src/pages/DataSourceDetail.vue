@@ -35,7 +35,7 @@ export default {
             selectedPlatforms: Array
         };
     },
-    created: function () {
+    created: function() {
         this.getSelectedPlatforms();
     },
     mixins: [pageDetailMixin],
@@ -80,27 +80,31 @@ export default {
                     selectedPlatforms.add(this.allSystems[i].platform[j]);
                 }
             }
-            this.selectedPlatforms = Array.from(selectedPlatforms)
+            this.selectedPlatforms = Array.from(selectedPlatforms);
         },
         makeDataSourceSuggestionList() {
             // Make the data source suggestionlist based on both data sources and custom data sources and check if the platform of these
             // (custom) data sources corresponds to the selected platforms within the systems key-value pair.
-            let suggestionList = new Set()
-            for(let i = 0; i < this.selectedPlatforms.length; i++){
-                for(let j = 0; j < dataSources.length; j++) {
-                    if(dataSourcePlatforms['ATT&CK'][this.selectedPlatforms[i]].includes(dataSources[j])) {
+            window.console.log(this.selectedPlatforms);
+            let suggestionList = new Set();
+            for (let i = 0; i < this.selectedPlatforms.length; i++) {
+                for (let j = 0; j < dataSources.length; j++) {
+                    if (this.selectedPlatforms[i] == 'all' || dataSourcePlatforms['ATT&CK'][this.selectedPlatforms[i]].includes(dataSources[j])) {
                         suggestionList.add(dataSources[j]);
                     }
                 }
 
-                for(let j = 0; j < customDataSources.length; j++) {
-                    if(dataSourcePlatforms['DeTT&CT'][this.selectedPlatforms[i]].includes(customDataSources[j])) {
+                for (let j = 0; j < customDataSources.length; j++) {
+                    if (
+                        this.selectedPlatforms[i] == 'all' ||
+                        dataSourcePlatforms['DeTT&CT'][this.selectedPlatforms[i]].includes(customDataSources[j])
+                    ) {
                         suggestionList.add(customDataSources[j]);
                     }
                 }
             }
 
-            return Array.from(suggestionList).sort()
+            return Array.from(suggestionList).sort();
         }
     },
     components: {
