@@ -246,7 +246,7 @@ def check_yaml_updated_to_sub_techniques(filename):
 
     # Open the crosswalk file from MITRE:
     conversion_table = None
-    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'mitre-data/subtechniques_crosswalk.json'), 'r') as f:
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data/subtechniques_crosswalk.json'), 'r') as f:
         conversion_table = simplejson.load(f)
 
     # Open the techniques YAML file:
@@ -315,7 +315,7 @@ def upgrade_to_sub_techniques(filename, notify_only=False):
 
     # Open the crosswalk file from MITRE:
     conversion_table = None
-    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'mitre-data/subtechniques_crosswalk.json'), 'r') as f:
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data/subtechniques_crosswalk.json'), 'r') as f:
         conversion_table = simplejson.load(f)
 
     # Open the techniques YAML file:
