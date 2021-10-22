@@ -525,7 +525,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, platform, software_gr
     if platform == None and platform_yaml != None:
         platform = platform_yaml
     elif platform == None:
-        platform = ['Windows']
+        platform = list(PLATFORMS.values()) # 'all'
     elif 'all' in platform:
         platform = list(PLATFORMS.values())
 
