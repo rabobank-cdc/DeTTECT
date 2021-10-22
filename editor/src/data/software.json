@@ -1265,7 +1265,9 @@
     "software_id": "S0154",
     "software_name": "Cobalt Strike",
     "platforms": [
-      "Windows"
+      "Linux",
+      "Windows",
+      "macOS"
     ],
     "autosuggest": "S0154 - Cobalt Strike"
   },
@@ -3572,6 +3574,14 @@
     "autosuggest": "S0512 - FatDuke"
   },
   {
+    "software_id": "S0513",
+    "software_name": "LiteDuke",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0513 - LiteDuke"
+  },
+  {
     "software_id": "S0514",
     "software_name": "WellMess",
     "platforms": [
@@ -4110,5 +4120,420 @@
       "macOS"
     ],
     "autosuggest": "S0602 - Circles"
+  },
+  {
+    "software_id": "S0603",
+    "software_name": "Stuxnet",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0603 - Stuxnet"
+  },
+  {
+    "software_id": "S0604",
+    "software_name": "Industroyer",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0604 - Industroyer"
+  },
+  {
+    "software_id": "S0605",
+    "software_name": "EKANS",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0605 - EKANS"
+  },
+  {
+    "software_id": "S0606",
+    "software_name": "Bad Rabbit",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0606 - Bad Rabbit"
+  },
+  {
+    "software_id": "S0607",
+    "software_name": "KillDisk",
+    "platforms": [
+      "Linux",
+      "Windows"
+    ],
+    "autosuggest": "S0607 - KillDisk"
+  },
+  {
+    "software_id": "S0608",
+    "software_name": "Conficker",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0608 - Conficker"
+  },
+  {
+    "software_id": "S0609",
+    "software_name": "TRITON",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0609 - TRITON"
+  },
+  {
+    "software_id": "S0610",
+    "software_name": "SideTwist",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0610 - SideTwist"
+  },
+  {
+    "software_id": "S0611",
+    "software_name": "Clop",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0611 - Clop"
+  },
+  {
+    "software_id": "S0612",
+    "software_name": "WastedLocker",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0612 - WastedLocker"
+  },
+  {
+    "software_id": "S0613",
+    "software_name": "PS1",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0613 - PS1"
+  },
+  {
+    "software_id": "S0614",
+    "software_name": "CostaBricks",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0614 - CostaBricks"
+  },
+  {
+    "software_id": "S0615",
+    "software_name": "SombRAT",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0615 - SombRAT"
+  },
+  {
+    "software_id": "S0616",
+    "software_name": "DEATHRANSOM",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0616 - DEATHRANSOM"
+  },
+  {
+    "software_id": "S0617",
+    "software_name": "HELLOKITTY",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0617 - HELLOKITTY"
+  },
+  {
+    "software_id": "S0618",
+    "software_name": "FIVEHANDS",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0618 - FIVEHANDS"
+  },
+  {
+    "software_id": "S0622",
+    "software_name": "AppleSeed",
+    "platforms": [
+      "Android",
+      "Windows"
+    ],
+    "autosuggest": "S0622 - AppleSeed"
+  },
+  {
+    "software_id": "S0623",
+    "software_name": "Siloscape",
+    "platforms": [
+      "Containers",
+      "Windows"
+    ],
+    "autosuggest": "S0623 - Siloscape"
+  },
+  {
+    "software_id": "S0624",
+    "software_name": "Ecipekac",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0624 - Ecipekac"
+  },
+  {
+    "software_id": "S0625",
+    "software_name": "Cuba",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0625 - Cuba"
+  },
+  {
+    "software_id": "S0626",
+    "software_name": "P8RAT",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0626 - P8RAT"
+  },
+  {
+    "software_id": "S0627",
+    "software_name": "SodaMaster",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0627 - SodaMaster"
+  },
+  {
+    "software_id": "S0628",
+    "software_name": "FYAnti",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0628 - FYAnti"
+  },
+  {
+    "software_id": "S0629",
+    "software_name": "RainyDay",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0629 - RainyDay"
+  },
+  {
+    "software_id": "S0630",
+    "software_name": "Nebulae",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0630 - Nebulae"
+  },
+  {
+    "software_id": "S0631",
+    "software_name": "Chaes",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0631 - Chaes"
+  },
+  {
+    "software_id": "S0632",
+    "software_name": "GrimAgent",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0632 - GrimAgent"
+  },
+  {
+    "software_id": "S0633",
+    "software_name": "Sliver",
+    "platforms": [
+      "Linux",
+      "Windows",
+      "macOS"
+    ],
+    "autosuggest": "S0633 - Sliver"
+  },
+  {
+    "software_id": "S0634",
+    "software_name": "EnvyScout",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0634 - EnvyScout"
+  },
+  {
+    "software_id": "S0635",
+    "software_name": "BoomBox",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0635 - BoomBox"
+  },
+  {
+    "software_id": "S0636",
+    "software_name": "VaporRage",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0636 - VaporRage"
+  },
+  {
+    "software_id": "S0637",
+    "software_name": "NativeZone",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0637 - NativeZone"
+  },
+  {
+    "software_id": "S0638",
+    "software_name": "Babuk",
+    "platforms": [
+      "Linux",
+      "Windows"
+    ],
+    "autosuggest": "S0638 - Babuk"
+  },
+  {
+    "software_id": "S0639",
+    "software_name": "Seth-Locker",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0639 - Seth-Locker"
+  },
+  {
+    "software_id": "S0640",
+    "software_name": "Avaddon",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0640 - Avaddon"
+  },
+  {
+    "software_id": "S0641",
+    "software_name": "Kobalos",
+    "platforms": [
+      "Linux"
+    ],
+    "autosuggest": "S0641 - Kobalos"
+  },
+  {
+    "software_id": "S0642",
+    "software_name": "BADFLICK",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0642 - BADFLICK"
+  },
+  {
+    "software_id": "S0643",
+    "software_name": "Peppy",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0643 - Peppy"
+  },
+  {
+    "software_id": "S0644",
+    "software_name": "ObliqueRAT",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0644 - ObliqueRAT"
+  },
+  {
+    "software_id": "S0645",
+    "software_name": "Wevtutil",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0645 - Wevtutil"
+  },
+  {
+    "software_id": "S0646",
+    "software_name": "SpicyOmelette",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0646 - SpicyOmelette"
+  },
+  {
+    "software_id": "S0647",
+    "software_name": "Turian",
+    "platforms": [
+      "Linux",
+      "Windows"
+    ],
+    "autosuggest": "S0647 - Turian"
+  },
+  {
+    "software_id": "S0648",
+    "software_name": "JSS Loader",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0648 - JSS Loader"
+  },
+  {
+    "software_id": "S0649",
+    "software_name": "SMOKEDHAM",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0649 - SMOKEDHAM"
+  },
+  {
+    "software_id": "S0650",
+    "software_name": "QakBot",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0650 - QakBot"
+  },
+  {
+    "software_id": "S0651",
+    "software_name": "BoxCaon",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0651 - BoxCaon"
+  },
+  {
+    "software_id": "S0652",
+    "software_name": "MarkiRAT",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0652 - MarkiRAT"
+  },
+  {
+    "software_id": "S0653",
+    "software_name": "xCaon",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0653 - xCaon"
+  },
+  {
+    "software_id": "S0654",
+    "software_name": "ProLock",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0654 - ProLock"
+  },
+  {
+    "software_id": "S0657",
+    "software_name": "BLUELIGHT",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "S0657 - BLUELIGHT"
+  },
+  {
+    "software_id": "S0658",
+    "software_name": "XCSSET",
+    "platforms": [
+      "macOS"
+    ],
+    "autosuggest": "S0658 - XCSSET"
   }
 ]

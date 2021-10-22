@@ -135,7 +135,8 @@
     "technique_id": "T1007",
     "technique_name": "System Service Discovery",
     "platforms": [
-      "Windows"
+      "Windows",
+      "macOS"
     ],
     "autosuggest": "T1007 - System Service Discovery"
   },
@@ -376,6 +377,16 @@
     "autosuggest": "T1027.005 - Indicator Removal from Tools"
   },
   {
+    "technique_id": "T1027.006",
+    "technique_name": "HTML Smuggling",
+    "platforms": [
+      "Linux",
+      "Windows",
+      "macOS"
+    ],
+    "autosuggest": "T1027.006 - HTML Smuggling"
+  },
+  {
     "technique_id": "T1029",
     "technique_name": "Scheduled Transfer",
     "platforms": [
@@ -450,7 +461,8 @@
     "technique_name": "Masquerade Task or Service",
     "platforms": [
       "Linux",
-      "Windows"
+      "Windows",
+      "macOS"
     ],
     "autosuggest": "T1036.004 - Masquerade Task or Service"
   },
@@ -473,6 +485,14 @@
       "macOS"
     ],
     "autosuggest": "T1036.006 - Space after Filename"
+  },
+  {
+    "technique_id": "T1036.007",
+    "technique_name": "Double File Extension",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "T1036.007 - Double File Extension"
   },
   {
     "technique_id": "T1037",
@@ -684,14 +704,6 @@
     "autosuggest": "T1053.003 - Cron"
   },
   {
-    "technique_id": "T1053.004",
-    "technique_name": "Launchd",
-    "platforms": [
-      "macOS"
-    ],
-    "autosuggest": "T1053.004 - Launchd"
-  },
-  {
     "technique_id": "T1053.005",
     "technique_name": "Scheduled Task",
     "platforms": [
@@ -839,6 +851,7 @@
     "technique_id": "T1056.002",
     "technique_name": "GUI Input Capture",
     "platforms": [
+      "Linux",
       "Windows",
       "macOS"
     ],
@@ -970,6 +983,7 @@
     "technique_name": "Permission Groups Discovery",
     "platforms": [
       "Azure AD",
+      "Containers",
       "Google Workspace",
       "IaaS",
       "Linux",
@@ -1239,7 +1253,11 @@
     "technique_id": "T1080",
     "technique_name": "Taint Shared Content",
     "platforms": [
-      "Windows"
+      "Linux",
+      "Office 365",
+      "SaaS",
+      "Windows",
+      "macOS"
     ],
     "autosuggest": "T1080 - Taint Shared Content"
   },
@@ -1630,8 +1648,10 @@
     "technique_name": "Email Collection",
     "platforms": [
       "Google Workspace",
+      "Linux",
       "Office 365",
-      "Windows"
+      "Windows",
+      "macOS"
     ],
     "autosuggest": "T1114 - Email Collection"
   },
@@ -1658,8 +1678,10 @@
     "technique_name": "Email Forwarding Rule",
     "platforms": [
       "Google Workspace",
+      "Linux",
       "Office 365",
-      "Windows"
+      "Windows",
+      "macOS"
     ],
     "autosuggest": "T1114.003 - Email Forwarding Rule"
   },
@@ -1779,7 +1801,8 @@
     "platforms": [
       "Containers",
       "Linux",
-      "Windows"
+      "Windows",
+      "macOS"
     ],
     "autosuggest": "T1133 - External Remote Services"
   },
@@ -1971,11 +1994,11 @@
   },
   {
     "technique_id": "T1185",
-    "technique_name": "Man in the Browser",
+    "technique_name": "Browser Session Hijacking",
     "platforms": [
       "Windows"
     ],
-    "autosuggest": "T1185 - Man in the Browser"
+    "autosuggest": "T1185 - Browser Session Hijacking"
   },
   {
     "technique_id": "T1187",
@@ -2083,6 +2106,7 @@
     "technique_id": "T1201",
     "technique_name": "Password Policy Discovery",
     "platforms": [
+      "IaaS",
       "Linux",
       "Windows",
       "macOS"
@@ -2213,6 +2237,7 @@
     "technique_name": "Data from Information Repositories",
     "platforms": [
       "Google Workspace",
+      "IaaS",
       "Linux",
       "Office 365",
       "SaaS",
@@ -2237,6 +2262,14 @@
       "Windows"
     ],
     "autosuggest": "T1213.002 - Sharepoint"
+  },
+  {
+    "technique_id": "T1213.003",
+    "technique_name": "Code Repositories",
+    "platforms": [
+      "SaaS"
+    ],
+    "autosuggest": "T1213.003 - Code Repositories"
   },
   {
     "technique_id": "T1216",
@@ -2359,6 +2392,22 @@
       "Windows"
     ],
     "autosuggest": "T1218.012 - Verclsid"
+  },
+  {
+    "technique_id": "T1218.013",
+    "technique_name": "Mavinject",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "T1218.013 - Mavinject"
+  },
+  {
+    "technique_id": "T1218.014",
+    "technique_name": "MMC",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "T1218.014 - MMC"
   },
   {
     "technique_id": "T1219",
@@ -2757,6 +2806,14 @@
       "macOS"
     ],
     "autosuggest": "T1505.003 - Web Shell"
+  },
+  {
+    "technique_id": "T1505.004",
+    "technique_name": "IIS Components",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "T1505.004 - IIS Components"
   },
   {
     "technique_id": "T1518",
@@ -3250,6 +3307,14 @@
     "autosuggest": "T1547.014 - Active Setup"
   },
   {
+    "technique_id": "T1547.015",
+    "technique_name": "Login Items",
+    "platforms": [
+      "macOS"
+    ],
+    "autosuggest": "T1547.015 - Login Items"
+  },
+  {
     "technique_id": "T1548",
     "technique_name": "Abuse Elevation Control Mechanism",
     "platforms": [
@@ -3298,6 +3363,7 @@
     "technique_name": "Use Alternate Authentication Material",
     "platforms": [
       "Google Workspace",
+      "IaaS",
       "Office 365",
       "SaaS",
       "Windows"
@@ -3335,6 +3401,7 @@
     "technique_name": "Web Session Cookie",
     "platforms": [
       "Google Workspace",
+      "IaaS",
       "Office 365",
       "SaaS"
     ],
@@ -3592,13 +3659,13 @@
   },
   {
     "technique_id": "T1557",
-    "technique_name": "Man-in-the-Middle",
+    "technique_name": "Adversary-in-the-Middle",
     "platforms": [
       "Linux",
       "Windows",
       "macOS"
     ],
-    "autosuggest": "T1557 - Man-in-the-Middle"
+    "autosuggest": "T1557 - Adversary-in-the-Middle"
   },
   {
     "technique_id": "T1557.001",
@@ -3622,7 +3689,9 @@
     "technique_id": "T1558",
     "technique_name": "Steal or Forge Kerberos Tickets",
     "platforms": [
-      "Windows"
+      "Linux",
+      "Windows",
+      "macOS"
     ],
     "autosuggest": "T1558 - Steal or Forge Kerberos Tickets"
   },
@@ -3662,7 +3731,8 @@
     "technique_id": "T1559",
     "technique_name": "Inter-Process Communication",
     "platforms": [
-      "Windows"
+      "Windows",
+      "macOS"
     ],
     "autosuggest": "T1559 - Inter-Process Communication"
   },
@@ -3759,6 +3829,7 @@
       "Containers",
       "IaaS",
       "Linux",
+      "Network",
       "Office 365",
       "Windows",
       "macOS"
@@ -3832,6 +3903,24 @@
     "autosuggest": "T1562.008 - Disable Cloud Logs"
   },
   {
+    "technique_id": "T1562.009",
+    "technique_name": "Safe Mode Boot",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "T1562.009 - Safe Mode Boot"
+  },
+  {
+    "technique_id": "T1562.010",
+    "technique_name": "Downgrade Attack",
+    "platforms": [
+      "Linux",
+      "Windows",
+      "macOS"
+    ],
+    "autosuggest": "T1562.010 - Downgrade Attack"
+  },
+  {
     "technique_id": "T1563",
     "technique_name": "Remote Service Session Hijacking",
     "platforms": [
@@ -3863,6 +3952,7 @@
     "technique_name": "Hide Artifacts",
     "platforms": [
       "Linux",
+      "Office 365",
       "Windows",
       "macOS"
     ],
@@ -3882,6 +3972,7 @@
     "technique_id": "T1564.002",
     "technique_name": "Hidden Users",
     "platforms": [
+      "Windows",
       "macOS"
     ],
     "autosuggest": "T1564.002 - Hidden Users"
@@ -3932,6 +4023,25 @@
       "macOS"
     ],
     "autosuggest": "T1564.007 - VBA Stomping"
+  },
+  {
+    "technique_id": "T1564.008",
+    "technique_name": "Email Hiding Rules",
+    "platforms": [
+      "Linux",
+      "Office 365",
+      "Windows",
+      "macOS"
+    ],
+    "autosuggest": "T1564.008 - Email Hiding Rules"
+  },
+  {
+    "technique_id": "T1564.009",
+    "technique_name": "Resource Forking",
+    "platforms": [
+      "macOS"
+    ],
+    "autosuggest": "T1564.009 - Resource Forking"
   },
   {
     "technique_id": "T1565",
@@ -4999,6 +5109,7 @@
     "platforms": [
       "Azure AD",
       "Google Workspace",
+      "IaaS",
       "Linux",
       "Office 365",
       "SaaS",
@@ -5011,6 +5122,7 @@
     "technique_id": "T1606.001",
     "technique_name": "Web Cookies",
     "platforms": [
+      "IaaS",
       "Linux",
       "SaaS",
       "Windows",
@@ -5024,6 +5136,7 @@
     "platforms": [
       "Azure AD",
       "Google Workspace",
+      "IaaS",
       "Office 365",
       "SaaS",
       "Windows"
@@ -5130,5 +5243,41 @@
       "macOS"
     ],
     "autosuggest": "T1614 - System Location Discovery"
+  },
+  {
+    "technique_id": "T1614.001",
+    "technique_name": "System Language Discovery",
+    "platforms": [
+      "Linux",
+      "Windows",
+      "macOS"
+    ],
+    "autosuggest": "T1614.001 - System Language Discovery"
+  },
+  {
+    "technique_id": "T1615",
+    "technique_name": "Group Policy Discovery",
+    "platforms": [
+      "Windows"
+    ],
+    "autosuggest": "T1615 - Group Policy Discovery"
+  },
+  {
+    "technique_id": "T1619",
+    "technique_name": "Cloud Storage Object Discovery",
+    "platforms": [
+      "IaaS"
+    ],
+    "autosuggest": "T1619 - Cloud Storage Object Discovery"
+  },
+  {
+    "technique_id": "T1620",
+    "technique_name": "Reflective Code Loading",
+    "platforms": [
+      "Linux",
+      "Windows",
+      "macOS"
+    ],
+    "autosuggest": "T1620 - Reflective Code Loading"
   }
 ]
