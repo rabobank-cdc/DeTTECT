@@ -16,7 +16,7 @@ jobs:
       - name: Checkout wiki code
         uses: actions/checkout@v2
         with:
-          repository: ${{github.repository}}
+          repository: ${{github.repository}}.wiki
           path: wiki
           persist-credentials: false
           fetch-depth: 0
@@ -85,9 +85,9 @@ jobs:
 
       - name: Push changes (if applicable)
         if: contains(steps.changes.outputs.GIT_STATUS, 'modified')
-        uses: ad-m/github-push-action@master
+        uses: SwiftDocOrg/github-wiki-publish-action@v1
         with:
-          directory: wiki
-          repository: ${{github.repository}}
-          github_token: ${{ secrets.PERSONAL_TOKEN }}
+          path: "wiki"
+        env:
+          GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
 
