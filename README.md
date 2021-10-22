@@ -1,7 +1,7 @@
 <img src="https://github.com/rabobank-cdc/DeTTECT/wiki/images/logo.png" alt="DeTT&CT" width=30% height=30%>
 
 #### Detect Tactics, Techniques & Combat Threats
-Latest version: [1.4.3](https://github.com/rabobank-cdc/DeTTECT/wiki/Changelog#version-143)
+Latest version: [1.4.4](https://github.com/rabobank-cdc/DeTTECT/wiki/Changelog#version-144)
 
 To get started with DeTT&CT, check out one of these resources:
 - This [page](https://github.com/rabobank-cdc/DeTTECT/wiki/Getting-started) on the Wiki.
