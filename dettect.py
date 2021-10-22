@@ -172,7 +172,7 @@ def _init_menu():
                                                        'supports (does not influence the scores). If overlay group(s) '
                                                        'are provided, only software related to those group(s) are '
                                                        'included', action='store_true', default=False)
-    parser_group.add_argument('-p', '--platform', help='specify the platform (default = Windows). Multiple platforms '
+    parser_group.add_argument('-p', '--platform', help='specify the platform (default = all). Multiple platforms '
                               'can be provided with extra \'-p/--platform\' arguments',
                               choices=['all'] + list(PLATFORMS.values()), default=None, action='append',
                               type=_platform_lookup())
