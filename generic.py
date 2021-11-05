@@ -628,7 +628,7 @@ def load_data_sources(file, filter_empty_scores=True):
 
     exceptions = []
     if 'exceptions' in yaml_content:
-        exceptions = [t['technique_id'] for t in yaml_content['exceptions'] if t['technique_id'] is not None]
+        exceptions = [t['technique_id'].upper() for t in yaml_content['exceptions'] if t['technique_id'] is not None]
 
     name = yaml_content['name']
 
