@@ -50,7 +50,7 @@
                         <div class="col-md-5">
                             <h4>Authors and contributions</h4>
                             <p>DeTT&CT is developed and maintained by <a href="https://github.com/marcusbakker" target="_blank">Marcus Bakker</a> (Twitter: <a href="https://twitter.com/Bakk3rM" target="_blank">@Bakk3rM</a>) and
-                            <a href="https://github.com/rubinatorz" target="_blank">Ruben Bouman</a> (Twitter: <a href="https://twitter.com/rubenb_2/" target="_blank">@rubenb_2</a>). Feel free to contact, DMs are open.</p>
+                            <a href="https://github.com/rubinatorz" target="_blank">Ruben Bouman</a> (Twitter: <a href="https://twitter.com/rubinatorz/" target="_blank">@rubinatorz</a>). Feel free to contact, DMs are open.</p>
                             <p>We do appreciate if you ask any question on how to use DeTT&CT by making a GitHub issue. Having the questions and answers over there will greatly help others having similar questions and challenges.</p>
 
                             <p class="mt-md-2"> We welcome contributions! Contributions can be both in code, as well as in ideas you might have for further development, usability improvements, etc.</p>
