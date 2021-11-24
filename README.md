@@ -1,4 +1,5 @@
-<img src="https://github.com/rabobank-cdc/DeTTECT/wiki/images/logo.png" alt="DeTT&CT" width=30% height=30%>
+<img src="https://github.com/rabobank-cdc/DeTTECT/wiki/images/logo_dark.png#gh-dark-mode-only" alt="DeTT&CT" width=30% height=30%>
+<img src="https://github.com/rabobank-cdc/DeTTECT/wiki/images/logo.png#gh-light-mode-only" alt="DeTT&CT" width=30% height=30%>`
 
 #### Detect Tactics, Techniques & Combat Threats
 Latest version: [1.4.4](https://github.com/rabobank-cdc/DeTTECT/wiki/Changelog#version-144)
