@@ -4171,14 +4171,6 @@
     "autosuggest": "S0608 - Conficker"
   },
   {
-    "software_id": "S0609",
-    "software_name": "TRITON",
-    "platforms": [
-      "Windows"
-    ],
-    "autosuggest": "S0609 - TRITON"
-  },
-  {
     "software_id": "S0610",
     "software_name": "SideTwist",
     "platforms": [
