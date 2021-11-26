@@ -24,13 +24,13 @@
     },
 
     "DeTT&CT": {
-        "Windows": ["Web [DeTT&CT data source]", "DNS [DeTT&CT data source]", "DHCP [DeTT&CT data source]", "Email [DeTT&CT data source]"],
+        "Windows": ["Web [DeTT&CT data source]", "Internal DNS [DeTT&CT data source]", "DHCP [DeTT&CT data source]", "Email [DeTT&CT data source]"],
 
-        "macOS": ["Web [DeTT&CT data source]", "DNS [DeTT&CT data source]", "DHCP [DeTT&CT data source]", "Email [DeTT&CT data source]"],
+        "macOS": ["Web [DeTT&CT data source]", "Internal DNS [DeTT&CT data source]", "DHCP [DeTT&CT data source]", "Email [DeTT&CT data source]"],
 
-        "Linux": ["Web [DeTT&CT data source]", "DNS [DeTT&CT data source]", "DHCP [DeTT&CT data source]", "Email [DeTT&CT data source]"],
+        "Linux": ["Web [DeTT&CT data source]", "Internal DNS [DeTT&CT data source]", "DHCP [DeTT&CT data source]", "Email [DeTT&CT data source]"],
 
-        "IaaS": ["Web [DeTT&CT data source]", "DNS [DeTT&CT data source]", "DHCP [DeTT&CT data source]", "Email [DeTT&CT data source]"],
+        "IaaS": ["Web [DeTT&CT data source]", "Internal DNS [DeTT&CT data source]", "DHCP [DeTT&CT data source]", "Email [DeTT&CT data source]"],
 
         "PRE": [],
         "Office 365": [],
