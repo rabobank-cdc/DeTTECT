@@ -47,8 +47,8 @@ def _system_in_data_source_details_object(data_source, system):
 
 def _map_and_colorize_techniques(my_ds, systems, exceptions):
     """
-    Determine the color of the techniques based on how many data sources are available per technique. Also, it will create
-    much of the content for the Navigator layer.
+    Determine the color of the technique based on how many data sources are available per technique. Also, it will
+    create much of the content for the Navigator layer.
     :param my_ds: the configured data sources
     :param systems: the systems YAML object from the data source file
     :param exceptions: the list of ATT&CK technique exception within the data source YAML file
@@ -157,7 +157,7 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
 
 def _indent_comment(comment, indent):
     """
-    Indent a multiline  general, visibility, detection comment by x spaces
+    Indent a multiline general, visibility, detection comment by x spaces
     :param comment: The comment to indent
     :param indent: The number of spaces to use in the indent
     :return: indented comment or the original
@@ -354,6 +354,115 @@ def export_data_source_list_to_excel(filename, output_filename, eql_search=False
         print('[!] Error while writing Excel file: %s' % str(e))
 
 
+def _print_ds_systems(systems):
+    """
+    Print the data source systems key-value pair to stdout
+    :param systems: systems key value pair
+    :return:
+    """
+    print(' ' * 4 + 'Data source administration \'systems\' key-value pair:')
+    for s in systems:
+        print(' ' * 4 + '  * applicable_to: ' + s['applicable_to'])
+        for p in s['platform']:
+            print(' ' * 4 + '     - ' + p)
+
+
+def _print_tech_visibility_object_diff(old_tech, new_tech, tech_id, tech_name):
+    """
+    Print the 'diff' of the old and and the new visibility object(s) as part of a technique
+    :param old_vis_obj: old technique object
+    :param new_vis_obj: new technique object
+    :param tech_id: technique ID of the visibility object
+    :param tech_name: technique name
+    :return:
+    """
+    print('\n')
+    print('Technique: ' + tech_id + ' / ' + tech_name)
+    print('')
+    print('OLD visibility object(s):')
+    for old_vis_obj in old_tech['visibility']:
+        old_score_date = get_latest_date(old_vis_obj)
+        old_score_date = old_score_date.strftime('%Y-%m-%d') if old_score_date is not None else ''
+        print(' - Applicable to: ' + ', '.join(old_vis_obj['applicable_to']))
+        print('   * Date:                     ' + old_score_date)
+        print('   * Score:                    ' + str(get_latest_score(old_vis_obj)))
+        print('   * Visibility score comment: ' + _indent_comment(get_latest_comment(old_vis_obj), 31))
+        print('   * Auto generated:           ' + str(get_latest_score_obj(old_vis_obj).get('auto_generated', 'False')))
+    print('NEW visibility object(s):')
+    for new_vis_obj in new_tech['visibility']:
+        new_score_date = new_vis_obj['score_logbook'][0]['date'].strftime('%Y-%m-%d')
+        print(' - Applicable to: ' + ', '.join(new_vis_obj['applicable_to']))
+        print('   * Date:                     ' + new_score_date)
+        print('   * Score:                    ' + str(new_vis_obj['score_logbook'][0]['score']))
+        print('   * Visibility score comment: ' + _indent_comment(new_vis_obj['score_logbook'][0]['comment'], 31))
+        print('   * Auto generated:           True')
+    print('\n')
+
+
+def _print_visibility_object_diff(old_vis_obj, new_vis_obj, tech_id, tech_name):
+    """
+    Print the 'diff' of the old and and the new visibility object
+    :param old_vis_obj: old visibility object
+    :param new_vis_obj: new visibility object
+    :param tech_id: technique ID of the visibility object
+    :param tech_name: technique name
+    :return:
+    """
+    print('\n')
+    print('Visibility object:')
+    print(' - ATT&CK ID/name            ' + tech_id + ' / ' + tech_name)
+    print(' - Applicable to:            ' + ', '.join(old_vis_obj['applicable_to']))
+    print(' - Visibility comment:       ' + _indent_comment(old_vis_obj['comment'], 29))
+    print('')
+    print('OLD score object:')
+    old_score_date = get_latest_date(old_vis_obj)
+    old_score_date = old_score_date.strftime('%Y-%m-%d') if old_score_date is not None else ''
+    new_score_date = new_vis_obj['score_logbook'][0]['date'].strftime('%Y-%m-%d')
+    print(' - Date:                     ' + old_score_date)
+    print(' - Score:                    ' + str(get_latest_score(old_vis_obj)))
+    print(' - Visibility score comment: ' + _indent_comment(get_latest_comment(old_vis_obj), 29))
+    print(' - Auto generated:           ' + str(get_latest_score_obj(old_vis_obj).get('auto_generated', 'False')))
+    print('NEW score object:')
+    print(' - Date:                     ' + new_score_date)
+    print(' - Score:                    ' + str(new_vis_obj['score_logbook'][0]['score']))
+    print(' - Visibility score comment: ' + _indent_comment(new_vis_obj['score_logbook'][0]['comment'], 29))
+    print(' - Auto generated:           True')
+    print('\n')
+
+
+def _print_progress_visibility_update(count, total):
+    """
+    Print the progress of the visibility update to stdout
+    :parm count: counter / how far are we in the progress?
+    :param total: total techniques to process
+    :return:
+    """
+    print(' \n' + '-' * 80)
+    percentage = round((100 * count) / total, 0)
+    tmp_txt1 = 'Progress: ' + str(percentage) + '% '
+    tmp_txt2 = '[techniques remaining to be checked ' + str(total - count) + ']'
+    print(tmp_txt1 + ' ' * (80 - len(tmp_txt1 + tmp_txt2)) + tmp_txt2)
+
+
+def _add_visibility_object_to_dict(dict_vis_objects, tech_id, vis_obj):
+    """
+    Add visibility object(s) to a dict with the structure {tech_id: [visibility_obj]}
+    :param dict_vis_objects: the dictionary to add the visibility object(s) to
+    :param tech_id: the technique ID to which the visibility object(s) needs to be added
+    :param vis_obj: the visibility object(s) to add to the dictionary
+    return: updated dict_vis_objects
+    """
+    if tech_id not in dict_vis_objects:
+        dict_vis_objects[tech_id] = []
+
+        if isinstance(vis_obj, list):
+            dict_vis_objects[tech_id].extend(deepcopy(vis_obj))
+        else:
+            dict_vis_objects[tech_id].append(deepcopy(vis_obj))
+
+    return dict_vis_objects
+
+
 def update_technique_administration_file(file_data_sources, file_tech_admin):
     """
     Update the visibility scores in the provided technique administration file
@@ -361,201 +470,344 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
     :param file_tech_admin: file location of the tech. admin. file
     :return:
     """
+    file_updated = False
+
     # first we generate the new visibility scores contained within a temporary tech. admin YAML 'file'
     new_visibility_scores = generate_technique_administration_file(file_data_sources, None, write_file=False)
 
-    # we get the date to remove the single quotes at the end of the code
+    # we get the date to remove the single quotes from the date at the end of of this function's code
     today = new_visibility_scores['techniques'][0]['visibility'][0]['score_logbook'][0]['date']
 
-    # next we load the current visibility scores from the tech. admin file
+    # next, we load the current visibility scores from the tech. admin file
     cur_visibility_scores, _, platform_tech_admin = load_techniques(file_tech_admin)
 
-    # if the platform does not match between the data source and tech. admin file we return
-    if set(new_visibility_scores['platform']) != set(platform_tech_admin):
-        print('[!] The MITRE ATT&CK platform key-value pair in the data source administration and technique '
-              'administration file do not match.\n    Visibility update canceled.')
+    # last, we get the systems kv-pair from the data source file
+    _, _, systems, _ = load_data_sources(file_data_sources)
+
+    # if the tech admin. file has a platform not present in the DS admin. file we return
+    if len(set(platform_tech_admin).difference(set(new_visibility_scores['platform']))) > 0:
+        print('[!] the technique administration file\'s key-value pair \'platform\' has ATT&CK platform(s) that are not '
+              'part of the data source administration \'systems\' key-value pair. This should be fixed before the '
+              'visibility update can continue.')
+        print('\n    Technique administration \'platform\' key-value pair:')
+        for p in platform_tech_admin:
+            print('      - ' + p)
+        print('')
+        _print_ds_systems(systems)
+        print('\nVisibility update canceled.')
+
         return
 
-    # we did not return, so init
+    # if the tech admin. file has an applicable_to value not present in the DS admin. file we return
+    app_ds = set([s['applicable_to'].lower() for s in systems])
+    app_tech = {}  # applicable_to: {app_to: ..., tech_ids: ...} - we have app_to in here to preserve the casing when printing
+    for tech_id, v in cur_visibility_scores.items():
+        for vis in v['visibility']:
+            for a in vis['applicable_to']:
+                a_low = a.lower()
+                if a_low != 'all':
+                    if a_low not in app_tech:
+                        app_tech[a_low] = {}
+                        app_tech[a_low]['app_to'] = a
+                        app_tech[a_low]['tech_id'] = []
+                    app_tech[a_low]['tech_id'].append(tech_id)
+
+    if len(set(app_tech).difference(app_ds)) > 0:
+        print('[!] the technique administration file has visibility objects with \'applicable_to\' values that are not '
+              'present in the data source administration \'systems\' key-value pair. This should be fixed before the '
+              'visibility update can continue.')
+        print('\n    Technique administration \'applicable_to\' values used within visibility objects:')
+        for k, v in app_tech.items():
+            print('      * applicable_to: ' + v['app_to'])
+            print('        Used in technique(s): ' + ', '.join(v['tech_id']) + '\n')
+        print('')
+        _print_ds_systems(systems)
+        print('\nVisibility update canceled.')
+
+        return
+
+    # we did not return, so init and start the upgrade :-)
     _yaml = init_yaml()
     with open(file_tech_admin) as fd:
-        yaml_file_tech_admin = _yaml.load(fd)
+        yaml_file_tech_admin_updated = _yaml.load(fd)
 
-    # check if we have tech IDs for which we now have visibility, but which were not yet part of the tech. admin file
-    cur_tech_ids = cur_visibility_scores.keys()
-    new_tech_ids = list(map(lambda k: k['technique_id'], new_visibility_scores['techniques']))
+    # set the comment
+    comment = ''
+    if ask_yes_no('\nDo you want to fill in the visibility comment for the added and/or updated scores?'):
+        comment = input(' >>   Comment: ')
+        print('')
 
-    tech_ids_new = [tid for tid in new_tech_ids if tid not in cur_tech_ids]
-
-    # Add the new tech. to the ruamel instance: 'yaml_file_tech_admin'
-    are_scores_updated = False
-    tech_new_print = []
-    if len(tech_ids_new) > 0:
-
-        # do we want fill in a comment for all updated visibility scores?
-        comment = ''
-        if ask_yes_no('\nDo you want to fill in the visibility comment for the updated scores?'):
-            comment = input(' >>   Visibility comment for in the new \'score\' object: ')
-            print('')
-
-        # add new techniques and set the comment
+    # Set the comment for all new visibility scores. We will also be needing this later in the code to update
+    # the scores of already present techniques. Therefore, we will add the comment already to every visibility object
+    if comment != '':
         x = 0
         for new_tech in new_visibility_scores['techniques']:
+            for visibility_obj in new_tech['visibility']:
+                visibility_obj['score_logbook'][0]['comment'] = comment
+        x += 1
 
-            # set the comment for all new visibility scores
-            # we will also be needing this later in the code to update the scores of already present techniques
-            new_visibility_scores['techniques'][x]['visibility']['score_logbook'][0]['comment'] = comment
+    # check if the DS admin. file has an ATT&CK platform (part of systems) not part of the tech admin. file.
+    # If yes, add this platform the the tech admin. file's 'platform' kv pair
+    ds_platforms_not_in_tech = set(new_visibility_scores['platform']).difference(set(platform_tech_admin))
+    if len(ds_platforms_not_in_tech) > 0:
+        print('As part of the \'systems\' key-value pair, the data source administration file has ATT&CK platform(s) '
+              'that are not part of the technique administration file. Therefore, the following platform(s) will be added '
+              'to the \'platform\' key-value par as part of the technique administration file:')
+        for p in ds_platforms_not_in_tech:
+            print(' - ' + p)
 
+        yaml_file_tech_admin_updated['platform'].extend(ds_platforms_not_in_tech)
+        file_updated = True
+        input('\n' + TXT_ANY_KEY_TO_CONTINUE)
+        print('\n')
+
+    # check if we have tech IDs for which we now have visibility, but which were not yet part of the tech. admin file
+    cur_tech_ids = set(cur_visibility_scores.keys())
+    new_tech_ids = set(map(lambda k: k['technique_id'], new_visibility_scores['techniques']))
+    tech_ids_new = new_tech_ids.difference(cur_tech_ids)
+
+    # Add the new tech. to the ruamel instance: 'yaml_file_tech_admin'
+    if len(tech_ids_new) > 0:
+        file_updated = True
+        x = 0
+        for new_tech in new_visibility_scores['techniques']:
             if new_tech['technique_id'] in tech_ids_new:
-                are_scores_updated = True
-                yaml_file_tech_admin['techniques'].append(new_tech)
-                tech_new_print.append(' - ' + new_tech['technique_id'] + '\n')
+                yaml_file_tech_admin_updated['techniques'].append(new_tech)
             x += 1
 
-        print('The following new technique IDs are added to the technique administration file with a visibility '
-              'score derived from the nr. of data sources:')
-        print(''.join(tech_new_print))
-    else:
-        print(' - No new techniques, for which we now have visibility, have been added to the techniques administration file.')
+        print('The following new technique IDs will be added to the technique administration file with a visibility '
+              'score derived from the nr. of available data sources:')
+        print_tech_ids_list = [' ']
+        x = 0
+        for tech_id in sorted(tech_ids_new):
+            if not len(print_tech_ids_list[x]) + len(tech_id) + 2 <= 80:
+                x += 1
+                print_tech_ids_list.append(' ')
+            print_tech_ids_list[x] += tech_id + ", "
+        print_tech_ids_list[x] = print_tech_ids_list[x][:-2]
+        print('\n'.join(print_tech_ids_list))
 
-    # determine how visibility scores have been assigned in the current YAML file (auto, manually or mixed)
-    # also determine if we have any scores that can be updated
-    manually_scored = False
-    auto_scored = False
-    mix_scores = False
-    updated_vis_score_cnt = 0
-    for cur_tech, cur_values in cur_visibility_scores.items():
-        new_tech = _get_technique_yaml_obj(new_visibility_scores['techniques'], cur_tech)
-        if new_tech:  # new_tech will be None if technique_id is part of the 'exception' list within the
-            # data source administration file
-            new_score = new_tech['visibility']['score_logbook'][0]['score']
+    input('\n' + TXT_ANY_KEY_TO_CONTINUE)
+    print('\n')
 
-            for cur_obj in cur_values['visibility']:
-                old_score = get_latest_score(cur_obj)
+    # Remove techniques which we no longer need
+    new_visibility_scores['techniques'] = [tech for tech in new_visibility_scores['techniques']
+                                           if tech['technique_id'] not in tech_ids_new]
 
-                if get_latest_auto_generated(cur_obj) and old_score != new_score:
-                    auto_scored = True
-                    updated_vis_score_cnt += 1
-                elif old_score != new_score:
-                    manually_scored = True
-                    updated_vis_score_cnt += 1
+    # Update visibility objects for which we have
+    #  - A match on the applicable_to value(s) between the old and new visibility object
+    #  - A different visibility score (otherwise there is no need to update)
+    #    (update = adding a new score logbook entry)
+    print('We will now start with updating techniques\' visibility scores for which we have an EXACT match on \'applicable_to\' values.')
+    input('\n' + TXT_ANY_KEY_TO_CONTINUE)
+    print('\n')
 
-            if manually_scored and auto_scored:
-                mix_scores = True
+    new_vis_objects = {}  # {tech_id: [visibility_obj]}
 
-    # stop if none of the present visibility scores are eligible for an update
-    if not mix_scores and not manually_scored and not auto_scored:
-        print(' - None of the already present techniques has a visibility score that is eligible for an update.')
-    else:
-        print('\nA total of ' + str(updated_vis_score_cnt) + ' visibility scores are eligible for an update.\n')
-        # ask how the score should be updated
-        answer = 0
-        if mix_scores:
-            answer = ask_multiple_choice(V_UPDATE_Q_MIXED, [V_UPDATE_ANSWER_3, V_UPDATE_ANSWER_4,
-                                                            V_UPDATE_ANSWER_1, V_UPDATE_ANSWER_2, V_UPDATE_ANSWER_CANCEL])
-        elif manually_scored:
-            answer = ask_multiple_choice(V_UPDATE_Q_ALL_MANUAL, [V_UPDATE_ANSWER_1, V_UPDATE_ANSWER_2, V_UPDATE_ANSWER_CANCEL])
-        elif auto_scored:
-            answer = ask_multiple_choice(V_UPDATE_Q_ALL_AUTO, [V_UPDATE_ANSWER_1, V_UPDATE_ANSWER_2, V_UPDATE_ANSWER_CANCEL])
-        if answer == V_UPDATE_ANSWER_CANCEL:
-            return
+    new_visibility_scores_updated = deepcopy(new_visibility_scores)
+    cur_visibility_scores_updated = deepcopy(cur_visibility_scores)
 
-        # identify which visibility scores have changed and set the action to perform on the score
-        # tech_update {tech_id: ..., {obj_idx: { action: 1|2|3, score_obj: {...} } } }
-        tech_update = dict()
-        for new_tech in new_visibility_scores['techniques']:
-            tech_id = new_tech['technique_id']
-            new_score_obj = new_tech['visibility']['score_logbook'][0]
-            new_score = new_score_obj['score']
+    answer_yes_to_all_auto_gen_false = False
+    answer_yes_to_all_auto_gen_true = False
+    answer_no_to_all_auto_gen_false = False
+    answer_no_to_all_auto_gen_true = False
+    we_have_updated_scores = False
 
-            if tech_id in cur_visibility_scores:
-                old_visibility_objects = cur_visibility_scores[tech_id]['visibility']
-                obj_idx = 0
-                for old_vis_obj in old_visibility_objects:
-                    old_score = get_latest_score(old_vis_obj)
-                    auto_gen = get_latest_auto_generated(old_vis_obj)
+    total_tech_ids = len(new_visibility_scores['techniques'])
+    tech_ids_to_delete = set()
+    tech_idxs_to_delete = set()
+    idx_tech_id = 0
+    for new_tech in new_visibility_scores['techniques']:
+        tech_id = new_tech['technique_id']
+        tech_name = new_tech['technique_name']
 
-                    # continue if score can be updated
-                    if old_score != new_score:
-                        if tech_id not in tech_update:
-                            tech_update[tech_id] = dict()
+        if tech_id in cur_visibility_scores:
+            idx_new_vis_obj = 0
+            set_new_vis_obj_del = set()
+            set_old_vis_obj_del = set()
 
-                        if (answer == V_UPDATE_ANSWER_1) or (answer == V_UPDATE_ANSWER_3 and auto_gen):
-                            tech_update[tech_id][obj_idx] = {'action': V_UPDATE_ACTION_AUTO, 'score_obj': new_score_obj}
-                        elif answer == V_UPDATE_ANSWER_2:
-                            tech_update[tech_id][obj_idx] = {'action': V_UPDATE_ACTION_DIFF, 'score_obj': new_score_obj}
-                        elif answer == V_UPDATE_ANSWER_4:
-                            if auto_gen:
-                                tech_update[tech_id][obj_idx] = {'action': V_UPDATE_ACTION_AUTO, 'score_obj': new_score_obj}
+            for new_vis_obj in new_tech['visibility']:
+                idx_old_vis_obj = 0
+
+                for old_vis_obj in cur_visibility_scores[tech_id]['visibility']:
+                    # we have a MATCH on the applicable_to value between the old and new visibility object
+                    if set(new_vis_obj['applicable_to']) == set(old_vis_obj['applicable_to']):
+
+                        # we can ignore the update if the score stays the same
+                        if new_vis_obj['score_logbook'][0]['score'] != get_latest_score(old_vis_obj):
+                            answer = -1
+                            old_score_auto_generated = get_latest_auto_generated(old_vis_obj)
+
+                            # based on the answer provided by the user we can skip asking for user input, and hence printing the diff
+                            if (not(old_score_auto_generated) and not(answer_yes_to_all_auto_gen_false) and not(answer_no_to_all_auto_gen_false)) \
+                                    or (not(answer_yes_to_all_auto_gen_true) and not(answer_no_to_all_auto_gen_true)):
+                                _print_progress_visibility_update(idx_tech_id + 1, total_tech_ids)
+                                _print_visibility_object_diff(old_vis_obj, new_vis_obj, tech_id, tech_name)
+
+                            if not(old_score_auto_generated) and not(answer_yes_to_all_auto_gen_false) and not(answer_no_to_all_auto_gen_false):
+                                print('[!] The OLD score was set manually (auto_generated = false). But, The NEW score '
+                                      'is derived from the nr. of available data sources.\n')
+                                answer = ask_multiple_choice('Update the score?', ['Yes', 'No',
+                                                                                   'Yes to ALL (where OLD score has auto_generated = false)',
+                                                                                   'No to ALL (where OLD score has auto_generated = false)'])
+                                answer_yes_to_all_auto_gen_false = True if answer == 3 else False
+                                answer_no_to_all_auto_gen_false = True if answer == 4 else False
+                            elif not(answer_yes_to_all_auto_gen_true) and not(answer_no_to_all_auto_gen_true):
+                                print('Both the OLD and NEW scores were derived from the nr. of available data sources '
+                                      '(auto_generated = true).\n')
+                                answer = ask_multiple_choice('Update the score?', ['Yes', 'No',
+                                                                                   'Yes to ALL (where OLD score has auto_generated = true)',
+                                                                                   'No to ALL (where OLD score has auto_generated = true)'])
+                                answer_yes_to_all_auto_gen_true = True if answer == 3 else False
+                                answer_no_to_all_auto_gen_true = True if answer == 4 else False
+
+                            # update the score / add a new score logbook entry
+                            if (old_score_auto_generated and answer_yes_to_all_auto_gen_true) or \
+                                    (not(old_score_auto_generated) and answer_yes_to_all_auto_gen_false) or answer == 1:
+                                file_updated = True
+                                we_have_updated_scores = True
+
+                                old_vis_obj['score_logbook'].insert(0, new_vis_obj['score_logbook'][0])
+
+                                upd_str = ' - Updated a visibility score in technique: {0:<10} (applicable to: {1})'
+                                print(upd_str.format(tech_id, ', '.join(old_vis_obj['applicable_to'])))
                             else:
-                                tech_update[tech_id][obj_idx] = {'action': V_UPDATE_ACTION_DIFF, 'score_obj': new_score_obj}
-                    obj_idx += 1
+                                not_upd_str = ' - A visibility score in this technique was NOT updated: {0:<10} (applicable to: {1})'
+                                print(not_upd_str.format(tech_id, ', '.join(old_vis_obj['applicable_to'])))
 
-        # perform the above set actions
-        score_updates_handled = 0
-        for old_tech in yaml_file_tech_admin['techniques']:
-            tech_id = old_tech['technique_id']
-            tech_name = old_tech['technique_name']
-            obj_idx = 0
-            if tech_id in tech_update:
-                if isinstance(old_tech['visibility'], list):
-                    old_vis_obj = old_tech['visibility']
-                else:
-                    old_vis_obj = [old_tech['visibility']]
+                        # add the updated score, or keep the old score
+                        new_vis_objects = _add_visibility_object_to_dict(new_vis_objects, tech_id, old_vis_obj)
 
-                while obj_idx <= len(tech_update[tech_id]):
-                    # continue if an action has been set for this visibility object
-                    if obj_idx in tech_update[tech_id]:
-                        update_action = tech_update[tech_id][obj_idx]['action']
-                        new_score_obj = tech_update[tech_id][obj_idx]['score_obj']
+                        set_new_vis_obj_del.add(idx_new_vis_obj)
+                        set_old_vis_obj_del.add(idx_old_vis_obj)
 
-                        if update_action == V_UPDATE_ACTION_AUTO:
-                            are_scores_updated = True
-                            old_vis_obj[obj_idx]['score_logbook'].insert(0, new_score_obj)
-                            print(' - Updated a score in technique ID: ' + tech_id +
-                                  '   (applicable to: ' + ', '.join(old_vis_obj[obj_idx]['applicable_to']) + ')')
-                        elif update_action == V_UPDATE_ACTION_DIFF:
-                            print('-' * 80)
-                            tmp_txt = '[updates remaining: ' + str(updated_vis_score_cnt - score_updates_handled) + ']'
-                            print(' ' * (80 - len(tmp_txt)) + tmp_txt)
-                            print('')
-                            print('Visibility object:')
-                            print(' - ATT&CK ID/name      ' + tech_id + ' / ' + tech_name)
-                            print(' - Applicable to:      ' + ', '.join(old_vis_obj[obj_idx]['applicable_to']))
-                            print(' - Technique  comment: ' + _indent_comment(old_vis_obj[obj_idx]['comment'], 23))
-                            print('')
-                            print('OLD score object:')
-                            old_score_date = get_latest_date(old_vis_obj[obj_idx])
-                            old_score_date = old_score_date.strftime('%Y-%m-%d') if old_score_date is not None else ''
-                            print(' - Date:               ' + old_score_date)
-                            print(' - Score:              ' + str(get_latest_score(old_vis_obj[obj_idx])))
-                            print(' - Visibility comment: ' + _indent_comment(get_latest_comment(old_vis_obj[obj_idx]), 23))
-                            print(' - Auto generated:     ' + str(get_latest_score_obj(old_vis_obj[obj_idx]).get('auto_generated', 'False')))
-                            print('NEW score object:')
-                            print(' - Date:               ' + str(new_score_obj['date']))
-                            print(' - Score:              ' + str(new_score_obj['score']))
-                            print(' - Visibility comment: ' + _indent_comment(new_score_obj['comment'], 23))
-                            print(' - Auto generated:     True')
-                            print('')
-                            if ask_yes_no('Update the score?'):
-                                are_scores_updated = True
-                                old_vis_obj[obj_idx]['score_logbook'].insert(0, new_score_obj)
-                                print(' - Updated a score in technique ID: ' + tech_id +
-                                      '   (applicable to: ' + ', '.join(old_vis_obj[obj_idx]['applicable_to']) + ')')
+                    idx_old_vis_obj += 1
+                idx_new_vis_obj += 1
 
-                        score_updates_handled += 1
+            # delete visibility objects (old and new) which we processed (possibly including the technique itself)
+            for idx in sorted(set_new_vis_obj_del, reverse=True):
+                del new_visibility_scores_updated['techniques'][idx_tech_id]['visibility'][idx]
 
-                    obj_idx += 1
+            if len(new_visibility_scores_updated['techniques'][idx_tech_id]['visibility']) == 0:
+                tech_idxs_to_delete.add(idx_tech_id)
+
+            for idx in sorted(set_old_vis_obj_del, reverse=True):
+                del cur_visibility_scores_updated[tech_id]['visibility'][idx]
+
+            if len(cur_visibility_scores_updated[tech_id]['visibility']) == 0:
+                tech_ids_to_delete.add(tech_id)
+
+        idx_tech_id += 1
+
+    # delete techniques which no longer have any visibility objects
+    for idx in sorted(tech_idxs_to_delete, reverse=True):
+        del new_visibility_scores_updated['techniques'][idx]
+    for tech_id in tech_ids_to_delete:
+        del cur_visibility_scores_updated[tech_id]
+
+    if not(we_have_updated_scores):
+        print(' - No visibility scores were found eligible for an update, or you rejected all eligible updates.')
+
+    # Update visibility objects for which we have
+    #  - NO match on the applicable_to value(s) between the old and new visibility object
+    #    (update = adding new or replacing existing objects)
+    print('\nWe will now start with updating techniques\' visibility scores for which we have NO match on \'applicable_to\' values.')
+    input('\n' + TXT_ANY_KEY_TO_CONTINUE)
+    print('\n')
+
+    answer_yes_to_all_auto_gen_false = False
+    answer_yes_to_all_auto_gen_true = False
+    answer_no_to_all_auto_gen_false = False
+    answer_no_to_all_auto_gen_true = False
+    we_have_updated_scores = False
+
+    total_tech_ids = len(new_visibility_scores_updated['techniques'])
+    idx_tech_id = 0
+
+    for new_tech in new_visibility_scores_updated['techniques']:
+        tech_id = new_tech['technique_id']
+        tech_name = new_tech['technique_name']
+
+        if tech_id not in cur_visibility_scores_updated:
+            # We can add this visibility object without asking the user, because it (and thus its applicable_to value)
+            # was never part of the cur/old technique administration file. We are sure of that because visibility objects
+            # for which we had an EXACT match were removed. In this particular case that resulted in the deletion of the
+            # techniques itself (as it had zero visibility objects remaining)
+            file_updated = True
+            we_have_updated_scores = True
+
+            new_vis_objects = _add_visibility_object_to_dict(new_vis_objects, tech_id, new_tech['visibility'])
+            applicable_to = list(set(chain.from_iterable(map(lambda k: k['applicable_to'], new_tech['visibility']))))
+
+            not_upd_str = ' - A new visibility object was added to technique: {0:<10} (applicable to: {1})'
+            print(not_upd_str.format(tech_id, ', '.join(applicable_to)))
+        else:
+            answer = -1
+            list_old_score_auto_generated = [get_latest_auto_generated(old_vis_obj)
+                                             for old_vis_obj in cur_visibility_scores_updated[tech_id]['visibility']]
+            old_score_auto_generated = True if True in list_old_score_auto_generated else False
+
+            # based on the answer provided by the user we can skip asking for user input, and hence printing the diff
+            if (not(old_score_auto_generated) and not(answer_yes_to_all_auto_gen_false) and not(answer_no_to_all_auto_gen_false)) \
+                    or (not(answer_yes_to_all_auto_gen_true) and not(answer_no_to_all_auto_gen_true)):
+                _print_progress_visibility_update(idx_tech_id + 1, total_tech_ids)
+                _print_tech_visibility_object_diff(cur_visibility_scores_updated[tech_id], new_tech, tech_id, tech_name)
+
+            if not(old_score_auto_generated) and not(answer_yes_to_all_auto_gen_false) and not(answer_no_to_all_auto_gen_false):
+                print('[!] At least one OLD score was set manually (auto_generated = false). '
+                      'But, The NEW score(s) are derived from the nr. of available data sources.\n')
+                answer = ask_multiple_choice('Replace the OLD the visibility objects(s)?', ['Yes', 'No',
+                                                                                            'Yes to ALL (where at least one OLD score has auto_generated = false)',
+                                                                                            'No to ALL (where at least one OLD score has auto_generated = false)'])
+                answer_yes_to_all_auto_gen_false = True if answer == 3 else False
+                answer_no_to_all_auto_gen_false = True if answer == 4 else False
+            elif not(answer_yes_to_all_auto_gen_true) and not(answer_no_to_all_auto_gen_true):
+                print('Both the OLD and NEW scores were derived from the nr. of available data sources '
+                      '(auto_generated = true).\n')
+                answer = ask_multiple_choice('Replace the OLD visibility object(s)?', ['Yes', 'No',
+                                                                                       'Yes to ALL (where OLD score has auto_generated = true)',
+                                                                                       'No to ALL (where OLD score has auto_generated = true)'])
+                answer_yes_to_all_auto_gen_true = True if answer == 3 else False
+                answer_no_to_all_auto_gen_true = True if answer == 4 else False
+
+            # replace the visibility objects or keep the existing ones
+            if (old_score_auto_generated and answer_yes_to_all_auto_gen_true) or \
+                    (not(old_score_auto_generated) and answer_yes_to_all_auto_gen_false) or answer == 1:
+                file_updated = True
+                we_have_updated_scores = True
+
+                new_vis_objects = _add_visibility_object_to_dict(new_vis_objects, tech_id, new_tech['visibility'])
+                applicable_to = list(set(chain.from_iterable(map(lambda k: k['applicable_to'], new_tech['visibility']))))
+
+                upd_str = ' - Replaced a visibility score in technique: {0:<10} (applicable to: {1})'
+                print(upd_str.format(tech_id, ', '.join(applicable_to)))
+            else:
+                new_vis_objects = _add_visibility_object_to_dict(new_vis_objects, tech_id, cur_visibility_scores_updated[tech_id]['visibility'])
+                applicable_to = list(set(chain.from_iterable(
+                    map(lambda k: k['applicable_to'], cur_visibility_scores_updated[tech_id]['visibility']))))
+
+                not_upd_str = ' - A visibility score in this technique was NOT updated: {0:<10} (applicable to: {1})'
+                print(not_upd_str.format(tech_id, ', '.join(applicable_to)))
+
+        idx_tech_id += 1
+
+    # Update visibility objects in the technique administration file that will be written to disk
+    idx_tech = 0
+    for tech in yaml_file_tech_admin_updated['techniques']:
+        tech_id = tech['technique_id']
+        if tech_id not in tech_ids_new:
+            yaml_file_tech_admin_updated['techniques'][idx_tech]['visibility'] = new_vis_objects[tech_id]
+        idx_tech += 1
 
     # create backup of the current tech. admin YAML file
-    if are_scores_updated:
+    if file_updated:
         print('')
         backup_file(file_tech_admin)
 
-        yaml_file_tech_admin = fix_date_and_remove_null(yaml_file_tech_admin, today, input_type='ruamel')
+        yaml_file_tech_admin_updated = fix_date_and_remove_null(yaml_file_tech_admin_updated, today, input_type='ruamel')
 
         with open(file_tech_admin, 'w') as fd:
-            fd.writelines(yaml_file_tech_admin)
+            fd.writelines(yaml_file_tech_admin_updated)
         print('File written:   ' + file_tech_admin)
     else:
         print('No visibility scores have been updated.')
@@ -626,8 +878,8 @@ def generate_technique_administration_file(filename, output_filename, write_file
                         # but none of the technique's listed data source are applicable for its platform(s)
                         ds_score = -1
 
-                # Do not add technique if score == 0
-                if ds_score > -1 or all_techniques:
+                # Do not add technique if score == 0 or the user want every technique to be added
+                if ds_score > 0 or all_techniques:
                     # the ATT&CK technique is not yet part of the YAML file
                     if visibility_obj_count == 0:
                         tech = deepcopy(YAML_OBJ_TECHNIQUE)

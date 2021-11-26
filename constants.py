@@ -120,25 +120,8 @@ FILE_TYPE_DATA_SOURCE_UPGRADE_TEXT = {
    """
 }
 
-# visibility update questions and answers
-V_UPDATE_Q_ALL_MANUAL = 'For all most recent visibility score objects that are eligible for an update, the key-value pair \'auto-generated\' is set to \'false\' or is not present.\n' \
-                        'This implies that these scores are manually assigned. How do you want to proceed?:'
-V_UPDATE_Q_ALL_AUTO = 'For all most recent visibility score objects that are eligible for an update, the key-value pair \'auto-generated\' is set to \'true\'. \n' \
-                      'This implies that these scores are auto-generated. How do you want to proceed?:'
-V_UPDATE_Q_MIXED = 'You have visibility scores that are eligible for an update, which are manually assigned and which are calculated based on the nr. of data sources (i.e. auto-generated = true)\n' \
-                   'How do you want to proceed?'
-V_UPDATE_ANSWER_1 = 'Update all visibility scores that have changed.'
-V_UPDATE_ANSWER_2 = 'Decide per visibility score, that has changed if you want to update or not.\n' \
-                    'Both the current and new visibility score will be printed.'
-V_UPDATE_ANSWER_3 = 'Only auto-update the visibility scores, that have changed, which have \'auto-generated = true\''
-V_UPDATE_ANSWER_4 = '- Auto-update the visibility scores, that have changed, which have \'auto-generated = true\'.\n' \
-                    '- And decide per manually assigned visibility score, that has changed, if you want to update or not.\n' \
-                    '  Both the current and new visibility score will be printed.'
-V_UPDATE_ANSWER_CANCEL = 'Cancel.'
-
-# update actions for visibility scores
-V_UPDATE_ACTION_AUTO = 'auto update'
-V_UPDATE_ACTION_DIFF = 'the user decides to update or not'
+# Text for user to enter key to continue
+TXT_ANY_KEY_TO_CONTINUE = 'Press a key to continue'
 
 # YAML regex
 REGEX_YAML_VERSION_10 = re.compile(r'^\s*version:\s+1\.0\s*$', re.IGNORECASE)

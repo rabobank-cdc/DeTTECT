@@ -54,7 +54,7 @@ def _wait():
     :return:
     """
     print('')
-    print('Press a key to continue')
+    print(TXT_ANY_KEY_TO_CONTINUE)
     input('')
 
 
