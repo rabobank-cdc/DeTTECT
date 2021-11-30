@@ -24,7 +24,7 @@ DeTT&CT provides the following functionality:
 The coloured visualisations are created with the help of MITRE's [ATT&CK™ Navigator](https://github.com/mitre-attack/attack-navigator).
 
 ## Authors and contributions
-This project is developed and maintained by [Marcus Bakker](https://github.com/marcusbakker) (Twitter: [@bakk3rm](https://twitter.com/bakk3rm)) and [Ruben Bouman](https://github.com/rubinatorz) (Twitter: [@rubinatorz](https://twitter.com/rubinatorz/)). Feel free to contact, DMs are open. We do appreciate if you ask any question on how to use DeTT&CT by making a GitHub issue. Having the questions and answers over there will greatly help others having similar questions and challenges.
+This project is developed and maintained by [Marcus Bakker](https://github.com/marcusbakker) (Twitter: [@Bakk3rM](https://twitter.com/Bakk3rM)) and [Ruben Bouman](https://github.com/rubinatorz) (Twitter: [@rubinatorz](https://twitter.com/rubinatorz/)). Feel free to contact, DMs are open. We do appreciate if you ask any question on how to use DeTT&CT by making a GitHub issue. Having the questions and answers over there will greatly help others having similar questions and challenges.
 
 We welcome contributions! Contributions can be both in code and in ideas you might have for further development, usability improvements, etc.
 
