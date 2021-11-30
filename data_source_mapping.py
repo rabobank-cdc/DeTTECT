@@ -221,8 +221,8 @@ def plot_data_sources_graph(filename, output_filename):
     for ds_global, ds_detail in my_data_sources.items():
         for ds in ds_detail['data_source']:
             if ds['date_connected']:
-                yyyymm = ds['date_connected'].strftime('%Y-%m')
-                graph_values.append({'date': yyyymm, 'count': 1})
+                yyyymmdd = ds['date_connected'].strftime('%Y-%m-%d')
+                graph_values.append({'date': yyyymmdd, 'count': 1})
 
     import pandas as pd
     df = pd.DataFrame(graph_values).groupby('date', as_index=False)[['count']].sum()
