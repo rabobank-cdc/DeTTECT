@@ -239,7 +239,7 @@ export default {
             required: true
         },
         prevDataSourceQuality: {
-            type: Array,
+            type: Object,
             required: true
         },
         allSystems: {
@@ -321,7 +321,10 @@ export default {
             let ds_name = this.dataSource['data_source_name'];
             let ds_applicable_to = this.dataSource.data_source[i].applicable_to.join(',');
             if (this.dsEnabled(i)) {
-                this.prevDataSourceQuality[ds_name] = [];
+                if (!(ds_name in this.prevDataSourceQuality)) {
+                    this.prevDataSourceQuality[ds_name] = {};
+                }
+
                 this.prevDataSourceQuality[ds_name][ds_applicable_to] = _.cloneDeep(this.dataSource.data_source[i].data_quality);
                 for (let key in this.dataSource.data_source[i].data_quality) {
                     this.dataSource.data_source[i].data_quality[key] = 0;
