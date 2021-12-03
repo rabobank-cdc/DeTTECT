@@ -68,27 +68,27 @@ export default {
             detectionScores: [-1, 0, 1, 2, 3, 4, 5],
             detectionScoresTooltip: {
                 '-1': 'None',
-                '0': 'Forensics / context',
-                '1': 'Basic',
-                '2': 'Fair',
-                '3': 'Good',
-                '4': 'Very good',
-                '5': 'Excellent',
+                0: 'Forensics / context',
+                1: 'Basic',
+                2: 'Fair',
+                3: 'Good',
+                4: 'Very good',
+                5: 'Excellent'
             },
             detectionScoreDefault: -1,
             visibilityScores: [0, 1, 2, 3, 4],
             visibilityScoresTooltip: {
-                '0': 'None',
-                '1': 'Minimal',
-                '2': 'Medium',
-                '3': 'Good',
-                '4': 'Excellent',
+                0: 'None',
+                1: 'Minimal',
+                2: 'Medium',
+                3: 'Good',
+                4: 'Excellent'
             },
             visibilityScoreDefault: 0,
             emptyScoreEntryDetection: constants.YAML_OBJ_SCORE_DETECTION_LOGBOOK,
             emptyScoreEntryVisibility: constants.YAML_OBJ_SCORE_VISIBILITY_LOGBOOK,
             emptyDetectionObject: constants.YAML_OBJ_TECHNIQUE_DETECTION,
-            emptyVisibilityObject: constants.YAML_OBJ_TECHNIQUE_VISIBILITY,
+            emptyVisibilityObject: constants.YAML_OBJ_TECHNIQUE_VISIBILITY
         };
     },
     created: function () {
@@ -97,24 +97,24 @@ export default {
     props: {
         technique: {
             type: Object,
-            required: true,
+            required: true
         },
         allTechniques: {
             type: Array,
-            required: true,
+            required: true
         },
         selectedPlatforms: {
             type: Array,
-            required: true,
+            required: true
         },
         navigateItem: {
             type: Function,
-            required: true,
-        },
+            required: true
+        }
     },
     components: {
         AutoSuggestTitle,
-        ApplicableToCollapseTechniques,
+        ApplicableToCollapseTechniques
     },
     methods: {
         preloadMarkDown() {
@@ -124,7 +124,7 @@ export default {
             this.$http.get(this.techniqueHelpUrl).then(
                 (response) => {
                     try {
-                        let responseClean = response.body.replace(/\[(.+)\](\([#\w-]+\))/gm, '$1'); // remove links to other wiki pages
+                        var responseClean = response.body.replace(/\[(.+)\](\([#\w-]+\))/gm, '$1'); // remove links to other wiki pages
                         this.detectionHelpText = responseClean;
                         this.detectionHelpText = this.detectionHelpText.match(/^## Detection object((.*|\n)*)/gim, '$1')[0];
                         this.detectionHelpText = this.detectionHelpText.replace(/^## Visibility object((.*|\n)*)/gim, '');
@@ -181,22 +181,22 @@ export default {
             let applicable_to_values = new Set();
             for (let i = 0; i < this.allTechniques.length; i++) {
                 for (let j = 0; j < this.allTechniques[i].detection.length; j++) {
-                    for (let x = 0; x < this.allTechniques[i].detection[j].applicable_to.length; x++){
+                    for (let x = 0; x < this.allTechniques[i].detection[j].applicable_to.length; x++) {
                         applicable_to_values.add(this.allTechniques[i].detection[j].applicable_to[x]);
                     }
                 }
             }
             for (let i = 0; i < this.allTechniques.length; i++) {
                 for (let j = 0; j < this.allTechniques[i].visibility.length; j++) {
-                    for (let x = 0; x < this.allTechniques[i].visibility[j].applicable_to.length; x++){
+                    for (let x = 0; x < this.allTechniques[i].visibility[j].applicable_to.length; x++) {
                         applicable_to_values.add(this.allTechniques[i].visibility[j].applicable_to[x]);
                     }
                 }
             }
-            let applicable_to_values_array = Array.from(applicable_to_values)
-            applicable_to_values_array.sort()
-            return applicable_to_values_array
+            let applicable_to_values_array = Array.from(applicable_to_values);
+            applicable_to_values_array.sort();
+            return applicable_to_values_array;
         }
-    },
+    }
 };
 </script>

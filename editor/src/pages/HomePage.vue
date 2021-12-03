@@ -17,9 +17,7 @@
                                 <ul
                                     ><li><a href="https://github.com/rabobank-cdc/DeTTECT/wiki/Getting-started" target="_blank">Getting started with DeTT&CT</a></li>
                                     <li><a href="https://github.com/rabobank-cdc/DeTTECT/wiki/dettect-editor" target="_blank">DeTT&CT Editor</a></li>
-                                    <li>
-                                        <a href="https://github.com/rabobank-cdc/DeTTECT/wiki/Future-dev#dettct-editor" target="_blank">Future developments</a>
-                                    </li></ul>
+                                    </ul>
                             </p>
                         </div>
                         <div class="col-md-5">

@@ -1,7 +1,8 @@
-<img src="https://github.com/rabobank-cdc/DeTTECT/wiki/images/logo.png" alt="DeTT&CT" width=30% height=30%>
+<img src="https://github.com/rabobank-cdc/DeTTECT/wiki/images/logo_dark.png#gh-dark-mode-only" alt="DeTT&CT" width=30% height=30%>
+<img src="https://github.com/rabobank-cdc/DeTTECT/wiki/images/logo.png#gh-light-mode-only" alt="DeTT&CT" width=30% height=30%>
 
 #### Detect Tactics, Techniques & Combat Threats
-Latest version: [1.4.3](https://github.com/rabobank-cdc/DeTTECT/wiki/Changelog#version-143)
+Latest version: [1.5.0](https://github.com/rabobank-cdc/DeTTECT/wiki/Changelog#version-150)
 
 To get started with DeTT&CT, check out one of these resources:
 - This [page](https://github.com/rabobank-cdc/DeTTECT/wiki/Getting-started) on the Wiki.
@@ -23,7 +24,7 @@ DeTT&CT provides the following functionality:
 The coloured visualisations are created with the help of MITRE's [ATT&CK™ Navigator](https://github.com/mitre-attack/attack-navigator).
 
 ## Authors and contributions
-This project is developed and maintained by [Marcus Bakker](https://github.com/marcusbakker) (Twitter: [@bakk3rm](https://twitter.com/bakk3rm)) and [Ruben Bouman](https://github.com/rubinatorz) (Twitter: [@rubinatorz](https://twitter.com/rubinatorz/)). Feel free to contact, DMs are open. We do appreciate if you ask any question on how to use DeTT&CT by making a GitHub issue. Having the questions and answers over there will greatly help others having similar questions and challenges.
+This project is developed and maintained by [Marcus Bakker](https://github.com/marcusbakker) (Twitter: [@Bakk3rM](https://twitter.com/Bakk3rM)) and [Ruben Bouman](https://github.com/rubinatorz) (Twitter: [@rubinatorz](https://twitter.com/rubinatorz/)). Feel free to contact, DMs are open. We do appreciate if you ask any question on how to use DeTT&CT by making a GitHub issue. Having the questions and answers over there will greatly help others having similar questions and challenges.
 
 We welcome contributions! Contributions can be both in code and in ideas you might have for further development, usability improvements, etc.
 

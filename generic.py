@@ -364,7 +364,7 @@ def ask_multiple_choice(question, list_answers):
         answer = input(' >>   ')
         print('')
 
-    return list_answers[int(answer) - 1]
+    return int(answer)
 
 
 def fix_date_and_remove_null(yaml_file, date, input_type='ruamel'):

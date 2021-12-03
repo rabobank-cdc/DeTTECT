@@ -303,7 +303,7 @@ def generate_visibility_layer(filename_techniques, overlay, output_filename, lay
 
 def plot_graph(filename, type_graph, output_filename):
     """
-    Generates a line graph which shows the improvements on detections through the time.
+    Generates a line graph which shows the improvements on detections or visibility through time.
     :param filename: the filename of the YAML file containing the techniques administration
     :param type_graph: indicates the type of the graph: detection or visibility
     :param output_filename: the output filename defined by the user
@@ -318,8 +318,8 @@ def plot_graph(filename, type_graph, output_filename):
             date = get_latest_date(item)
             score = get_latest_score(item)
             if date and score > 0:
-                yyyymm = date.strftime('%Y-%m')
-                graph_values.append({'date': yyyymm, 'count': 1})
+                yyyymmdd = date.strftime('%Y-%m-%d')
+                graph_values.append({'date': yyyymmdd, 'count': 1})
 
     import pandas as pd
     df = pd.DataFrame(graph_values).groupby('date', as_index=False)[['count']].sum()
