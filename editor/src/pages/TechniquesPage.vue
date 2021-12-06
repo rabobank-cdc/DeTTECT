@@ -84,7 +84,8 @@
                     </div>
                     <div class="row mt-md-2">
                         <div class="col">
-                            <base-input v-model="filters.filter.value" placeholder="filter" />
+                            <base-input v-model="filters.filter.value" placeholder="filter" @keyup="countTechniques()" @change="countTechniques()" />
+                            <div class="search-summary">Showing {{ techniques_count }} of {{ doc.techniques.length }} techniques</div>
                             <v-table
                                 :data="doc.techniques"
                                 @selectionChanged="selectTechnique($event)"
@@ -155,7 +156,8 @@ export default {
                 }
             },
             data_columns: ['technique_id', 'technique_name'],
-            emptyTechObject: constants.YAML_OBJ_TECHNIQUE
+            emptyTechObject: constants.YAML_OBJ_TECHNIQUE,
+            techniques_count: 0
         };
     },
     mixins: [pageMixin, navigateMixins, notificationMixin],
@@ -510,6 +512,7 @@ export default {
                 this.$refs.detailComponent.closeAllCollapses();
             }
             this.selectItem(event);
+            this.countTechniques();
         },
         selectTechniqueId(technique_id) {
             let row = null;
@@ -525,6 +528,7 @@ export default {
         },
         deleteTechnique(event) {
             this.deleteItem(event, 'techniques', 'technique_id', 'Technique', this.recoverDeletedTechnique);
+            this.countTechniques();
         },
         recoverDeletedTechnique(technique_id) {
             this.recoverDeletedItem('techniques', technique_id);
@@ -546,6 +550,15 @@ export default {
             if (this.doc != null && this.$route.name == 'techniques' && !this.file_details_lock) {
                 this.file_details_visible = state;
                 this.changePageTitle();
+            }
+        },
+        countTechniques() {
+            if (this.$refs.data_table != undefined) {
+                setTimeout(() => {
+                    this.techniques_count = this.$refs.data_table.$el.rows.length;
+                }, 100);
+            } else {
+                this.techniques_count = 0;
             }
         }
     }

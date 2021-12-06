@@ -481,8 +481,6 @@ export default {
         },
         countDataSources() {
             if (this.$refs.data_table != undefined) {
-                // this.data_sources_count = this.$refs.data_table.$el.rows.length;
-
                 setTimeout(() => {
                     this.data_sources_count = this.$refs.data_table.$el.rows.length;
                 }, 100);
