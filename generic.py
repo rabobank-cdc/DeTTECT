@@ -487,7 +487,7 @@ def platform_to_name(platform, separator='-'):
     if set(platform) == set(PLATFORMS.values()) or platform == 'all' or 'all' in platform:
         return 'all'
     elif isinstance(platform, list):
-        return separator.join(platform)
+        return separator.join(sorted(platform))
     else:
         return ''
 
