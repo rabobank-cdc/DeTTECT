@@ -1,9 +1,11 @@
+from stix2 import datastore, Filter
+from requests import exceptions
+from attackcti import attack_client
+from shutil import copyfile
 import json
 import re
-from shutil import copyfile
-from attackcti import attack_client
-from requests import exceptions
-from stix2 import datastore, Filter
+from logging import getLogger, ERROR as LOGERROR
+getLogger("taxii2client").setLevel(LOGERROR)
 
 FILE_PATH_EDITOR_DATA = '../src/data/'
 FILE_PATH_CLI_DATA = '../../data/'

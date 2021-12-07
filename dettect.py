@@ -1,10 +1,12 @@
+from generic_mode import *
+from interactive_menu import *
+from editor import DeTTECTEditor
 import argparse
 import os
 import signal
 import generic
-from editor import DeTTECTEditor
-from interactive_menu import *
-from generic_mode import *
+from logging import getLogger, ERROR as LOGERROR
+getLogger("taxii2client").setLevel(LOGERROR)
 
 
 def _init_menu():
