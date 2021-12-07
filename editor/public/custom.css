@@ -53,7 +53,6 @@ input[type='file'] {
 
 .table-file-details td {
     vertical-align: middle;
-
 }
 
 .table-file-details td.vtop {
@@ -208,7 +207,9 @@ div#pageTop.row .col h2 {
     font-weight: 300;
 }
 
-.autocomplete-input, .customAutoCompletestyle .vue-simple-suggest input {
+.autocomplete-input,
+.customAutoCompletestyleInputWithIcon .vue-simple-suggest input,
+.customAutoCompletestyleInput .vue-simple-suggest input {
     background-color: #27293d !important;
     border-color: #2b3553 !important;
     border-radius: 0.4285rem !important;
@@ -217,15 +218,20 @@ div#pageTop.row .col h2 {
     padding: 9px 18px 9px 18px !important;
 }
 
-.customAutoCompletestyle .vue-simple-suggest.designed .input-wrapper input {
+.customAutoCompletestyleInputWithIcon .vue-simple-suggest.designed .input-wrapper input {
     width: 1% !important;
     border-left: 0 none !important;
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
 }
 
-.customAutoCompletestyle .vue-simple-suggest.designed .input-group-focus input{
-    border-color:#e14eca !important
+.customAutoCompletestyleInputWithIcon .vue-simple-suggest.designed .input-group-focus input,
+.customAutoCompletestyleInput .vue-simple-suggest.designed .input-group-focus input {
+    border-color: #e14eca !important;
+}
+
+.customAutoCompletestyleInput .vue-simple-suggest.designed .input-wrapper input {
+    width: 100%;
 }
 
 .autocomplete-result {
@@ -496,25 +502,26 @@ h4 {
 }
 
 .table-file-details .d-flex .bg-transparent {
-    background-color: #27293D !important;
+    background-color: #27293d !important;
     height: calc(1.6rem);
 }
 
 .table-file-details .b-form-tags.focus {
-    background-color: #27293D !important;
+    background-color: #27293d !important;
 }
 
 .table-file-details .badge-secondary {
     background-color: rgb(0, 191, 154);
-    color:rgb(43, 53, 83);
+    color: rgb(43, 53, 83);
 }
 
 .table-file-details .btn {
     margin: 0px 3px 0px 0px;
 }
 
-.table-file-details .b-form-tag, .table-file-details .invalid-feedback {
-    font-size: 100%
+.table-file-details .b-form-tag,
+.table-file-details .invalid-feedback {
+    font-size: 100%;
 }
 
 .list-editor-extended .form-group div.form-control {
@@ -562,8 +569,10 @@ select.form-control option {
     line-height: 1.35em;
 }
 
-.form-control[disabled], .form-control[readonly], fieldset[disabled] {
-    color: #576FAD !important;
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] {
+    color: #576fad !important;
 }
 
 .b-form-tags .b-form-tags-list .b-form-tag {
@@ -574,6 +583,13 @@ select.form-control option {
     margin-bottom: 0px !important;
 }
 
-input.error, option.error {
+input.error,
+option.error,
+.vue-simple-suggest.designed .input-wrapper input.error {
     border-color: #ff0000 !important;
+}
+
+.search-summary {
+    margin-left: 10px;
+    font-size: 9pt;
 }

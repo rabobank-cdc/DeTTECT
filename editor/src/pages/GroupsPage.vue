@@ -12,19 +12,17 @@
                     <div class="row cursor-pointer" @click="hideFileDetails(!file_details_visible)">
                         <div class="col-md-7">
                             <div class="card-header">
-                            <h2 class="card-title">
-                                <i class="tim-icons icon-single-02"></i> Groups{{showFileName}}
-                            </h2>
+                                <h2 class="card-title"><i class="tim-icons icon-single-02"></i> Groups{{ showFileName }}</h2>
                             </div>
                         </div>
                         <div class="col mt-3 text-right">
                             <label v-if="fileChanged" class="pl-2">
-                                    <icons icon="text-balloon"></icons>
-                                    You have unsaved changes. You may want to save the file to preserve your changes.</label
+                                <icons icon="text-balloon"></icons>
+                                You have unsaved changes. You may want to save the file to preserve your changes.</label
                             >
                         </div>
-                        <div class="col-md-0 mt-3 mr-4 text-right">
-                            <icons :icon="(file_details_visible) ? 'collapse' : 'expand'"></icons>
+                        <div class="col-md-0 mt-3 mr-4 text-right" :title="file_details_visible ? 'Collapse File Details' : 'Expand File Details'">
+                            <icons :icon="file_details_visible ? 'collapse' : 'expand'"></icons>
                         </div>
                     </div>
                     <b-collapse id="collapse-ds" v-model="file_details_visible">
@@ -44,7 +42,13 @@
                             </div>
                             <div v-if="doc != null" class="row pt-md-2">
                                 <div class="col">
-                                    <file-details :filename="filename" :doc="doc" :platforms="platforms" :showName="false" systemsOrPlatforms="platforms"></file-details>
+                                    <file-details
+                                        :filename="filename"
+                                        :doc="doc"
+                                        :platforms="platforms"
+                                        :showName="false"
+                                        systemsOrPlatforms="platforms"
+                                    ></file-details>
                                 </div>
                             </div>
                             <div v-if="doc != null" class="row pt-md-2">
@@ -53,6 +57,13 @@
                                         <icons icon="save"></icons>
                                         &nbsp;Save YAML file
                                     </button>
+                                </div>
+                                <div
+                                    class="col-md-0 mt-3 mr-4 text-right cursor-pointer"
+                                    @click="file_details_lock = !file_details_lock"
+                                    :title="file_details_lock ? 'File Details: locked' : 'File Details: auto hide'"
+                                >
+                                    <icons :icon="file_details_lock ? 'lock' : 'unlock'"></icons>
                                 </div>
                             </div>
                         </div>
@@ -314,7 +325,6 @@ export default {
                     } catch (e) {
                         this.groupHelpText = 'An error occurred while loading the help content.';
                     }
-
                 },
                 // eslint-disable-next-line no-unused-vars
                 (response) => {
@@ -326,7 +336,7 @@ export default {
             this.notifyDanger('Invalid YAML file type', "The file '" + filename + "' is not a valid group administration file.");
         },
         hideFileDetails(state) {
-            if(this.doc != null && this.$route.name == 'groups'){
+            if (this.doc != null && this.$route.name == 'groups' && !this.file_details_lock) {
                 this.file_details_visible = state;
                 this.changePageTitle();
             }

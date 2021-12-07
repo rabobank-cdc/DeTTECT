@@ -57,7 +57,7 @@ export default {
             required: true
         },
         prevDataSourceQuality: {
-            type: Array,
+            type: Object,
             required: true
         },
         navigateItem: {

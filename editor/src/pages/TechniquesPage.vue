@@ -11,19 +11,17 @@
                     <div class="row cursor-pointer" @click="hideFileDetails(!file_details_visible)">
                         <div class="col-md-7">
                             <div class="card-header">
-                            <h2 class="card-title">
-                                <i class="tim-icons icon-zoom-split"></i> Techniques{{showFileName}}
-                            </h2>
+                                <h2 class="card-title"><i class="tim-icons icon-zoom-split"></i> Techniques{{ showFileName }}</h2>
                             </div>
                         </div>
                         <div class="col mt-3 text-right">
                             <label v-if="fileChanged" class="pl-2">
-                                    <icons icon="text-balloon"></icons>
-                                    You have unsaved changes. You may want to save the file to preserve your changes.</label
+                                <icons icon="text-balloon"></icons>
+                                You have unsaved changes. You may want to save the file to preserve your changes.</label
                             >
                         </div>
-                        <div class="col-md-0 mt-3 mr-4 text-right">
-                            <icons :icon="(file_details_visible) ? 'collapse' : 'expand'"></icons>
+                        <div class="col-md-0 mt-3 mr-4 text-right" :title="file_details_visible ? 'Collapse File Details' : 'Expand File Details'">
+                            <icons :icon="file_details_visible ? 'collapse' : 'expand'"></icons>
                         </div>
                     </div>
                     <b-collapse id="collapse-ds" v-model="file_details_visible">
@@ -43,7 +41,12 @@
                             </div>
                             <div v-if="doc != null" class="row pt-md-2">
                                 <div class="col">
-                                    <file-details :filename="filename" :doc="doc" :platforms="platforms" systemsOrPlatforms="platforms"></file-details>
+                                    <file-details
+                                        :filename="filename"
+                                        :doc="doc"
+                                        :platforms="platforms"
+                                        systemsOrPlatforms="platforms"
+                                    ></file-details>
                                 </div>
                             </div>
                             <div v-if="doc != null" class="row pt-md-2">
@@ -52,6 +55,13 @@
                                         <icons icon="save"></icons>
                                         &nbsp;Save YAML file
                                     </button>
+                                </div>
+                                <div
+                                    class="col-md-0 mt-3 mr-4 text-right cursor-pointer"
+                                    @click="file_details_lock = !file_details_lock"
+                                    :title="file_details_lock ? 'File Details: locked' : 'File Details: auto hide'"
+                                >
+                                    <icons :icon="file_details_lock ? 'lock' : 'unlock'"></icons>
                                 </div>
                             </div>
                         </div>
@@ -74,7 +84,8 @@
                     </div>
                     <div class="row mt-md-2">
                         <div class="col">
-                            <base-input v-model="filters.filter.value" placeholder="filter" />
+                            <base-input v-model="filters.filter.value" placeholder="filter" @keyup="countTechniques()" @change="countTechniques()" />
+                            <div class="search-summary">Showing {{ techniques_count }} of {{ doc.techniques.length }} techniques</div>
                             <v-table
                                 :data="doc.techniques"
                                 @selectionChanged="selectTechnique($event)"
@@ -145,7 +156,8 @@ export default {
                 }
             },
             data_columns: ['technique_id', 'technique_name'],
-            emptyTechObject: constants.YAML_OBJ_TECHNIQUE
+            emptyTechObject: constants.YAML_OBJ_TECHNIQUE,
+            techniques_count: 0
         };
     },
     mixins: [pageMixin, navigateMixins, notificationMixin],
@@ -500,6 +512,7 @@ export default {
                 this.$refs.detailComponent.closeAllCollapses();
             }
             this.selectItem(event);
+            this.countTechniques();
         },
         selectTechniqueId(technique_id) {
             let row = null;
@@ -515,6 +528,7 @@ export default {
         },
         deleteTechnique(event) {
             this.deleteItem(event, 'techniques', 'technique_id', 'Technique', this.recoverDeletedTechnique);
+            this.countTechniques();
         },
         recoverDeletedTechnique(technique_id) {
             this.recoverDeletedItem('techniques', technique_id);
@@ -533,9 +547,18 @@ export default {
             );
         },
         hideFileDetails(state) {
-            if(this.doc != null && this.$route.name == 'techniques'){
+            if (this.doc != null && this.$route.name == 'techniques' && !this.file_details_lock) {
                 this.file_details_visible = state;
                 this.changePageTitle();
+            }
+        },
+        countTechniques() {
+            if (this.$refs.data_table != undefined) {
+                setTimeout(() => {
+                    this.techniques_count = this.$refs.data_table.$el.rows.length;
+                }, 100);
+            } else {
+                this.techniques_count = 0;
             }
         }
     }

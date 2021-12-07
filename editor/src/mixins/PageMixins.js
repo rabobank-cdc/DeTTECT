@@ -41,6 +41,7 @@ export const pageMixin = {
             platformConversion: constants.PLATFORM_CONVERSION,
             lastScrollPosition: 0,
             file_details_visible: true,
+            file_details_lock: false,
             showFileName: ''
         };
     },

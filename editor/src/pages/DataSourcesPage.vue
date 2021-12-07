@@ -20,7 +20,7 @@
                                 You have unsaved changes. You may want to save the file to preserve your changes.</label
                             >
                         </div>
-                        <div class="col-md-0 mt-3 mr-4 text-right">
+                        <div class="col-md-0 mt-3 mr-4 text-right" :title="file_details_visible ? 'Collapse File Details' : 'Expand File Details'">
                             <icons :icon="file_details_visible ? 'collapse' : 'expand'"></icons>
                         </div>
                     </div>
@@ -57,6 +57,13 @@
                                         &nbsp;Save YAML file
                                     </button>
                                 </div>
+                                <div
+                                    class="col-md-0 mt-3 mr-4 text-right cursor-pointer"
+                                    @click="file_details_lock = !file_details_lock"
+                                    :title="file_details_lock ? 'File Details: locked' : 'File Details: auto hide'"
+                                >
+                                    <icons :icon="file_details_lock ? 'lock' : 'unlock'"></icons>
+                                </div>
                             </div>
                         </div>
                     </b-collapse>
@@ -77,12 +84,23 @@
                                     <icons icon="plus"></icons>
                                     &nbsp;Add data source
                                 </button>
+                                &nbsp;
+                                <button type="button" class="btn btn-secondary" @click="addAllDataSources()">
+                                    <icons icon="plus-filled"></icons>
+                                    &nbsp;Add all data sources
+                                </button>
                             </p>
                         </div>
                     </div>
                     <div class="row mt-md-2">
                         <div class="col">
-                            <base-input v-model="filters.filter.value" placeholder="filter" />
+                            <base-input
+                                v-model="filters.filter.value"
+                                placeholder="filter"
+                                @keyup="countDataSources()"
+                                @change="countDataSources()"
+                            />
+                            <div class="search-summary">Showing {{ data_sources_count }} of {{ doc.data_sources.length }} data sources</div>
                             <v-table
                                 :data="doc.data_sources"
                                 @selectionChanged="selectDataSource($event)"
@@ -144,6 +162,9 @@ import constants from '@/constants';
 import { pageMixin } from '../mixins/PageMixins.js';
 import { navigateMixins } from '../mixins/NavigateMixins.js';
 import { notificationMixin } from '../mixins/NotificationMixins.js';
+import dataSources from '@/data/data_sources';
+import customDataSources from '@/data/custom_data_sources';
+import dataSourcePlatforms from '@/data/data_source_platforms';
 import _ from 'lodash';
 
 export default {
@@ -153,16 +174,18 @@ export default {
             filters: {
                 filter: {
                     value: '',
-                    keys: ['data_source_name', 'date_registered', 'products']
+                    keys: ['data_source_name']
                 }
             },
-            prevDataSourceQuality: [],
+            prevDataSourceQuality: {},
             data_columns: ['data_source_name', 'date_registered', 'products'],
             dqFileToRender: 'https://raw.githubusercontent.com/wiki/rabobank-cdc/DeTTECT/Data-quality-scoring.md',
             dqHelpText: null,
             dsFileToRender: 'https://raw.githubusercontent.com/wiki/rabobank-cdc/DeTTECT/YAML-administration-data-sources.md',
             dsHelpText: null,
-            emptyDataSourceObject: constants.YAML_OBJ_DATA_SOURCES
+            emptyDataSourceObject: constants.YAML_OBJ_DATA_SOURCES,
+            selectedPlatforms: Array,
+            data_sources_count: 0
         };
     },
     mixins: [pageMixin, navigateMixins, notificationMixin],
@@ -295,7 +318,7 @@ export default {
                             }
                         }
 
-                        this.prevDataSourceQuality = [];
+                        this.prevDataSourceQuality = {};
                         this.fileChanged = false;
                         this.setWatch();
 
@@ -350,6 +373,53 @@ export default {
         },
         deleteDataSource(event) {
             this.deleteItem(event, 'data_sources', 'data_source_name', 'Data source', this.recoverDeletedDataSource);
+            this.countDataSources();
+        },
+        getSelectedPlatforms() {
+            let selectedPlatforms = new Set();
+            for (let i = 0; i < this.doc.systems.length; i++) {
+                for (let j = 0; j < this.doc.systems[i].platform.length; j++) {
+                    selectedPlatforms.add(this.doc.systems[i].platform[j]);
+                }
+            }
+            this.selectedPlatforms = Array.from(selectedPlatforms);
+        },
+        addAllDataSources() {
+            this.getSelectedPlatforms();
+            // Add all data sources based on both data sources and custom data sources and check if the platform of these
+            // (custom) data sources corresponds to the selected platforms within the systems key-value pair.
+            let current_ds_in_file = [];
+            for (let i = 0; i < this.doc.data_sources.length; i++) {
+                current_ds_in_file.push(this.doc.data_sources[i].data_source_name);
+            }
+
+            for (let i = 0; i < this.selectedPlatforms.length; i++) {
+                for (let j = 0; j < dataSources.length; j++) {
+                    if (this.selectedPlatforms[i] == 'all' || dataSourcePlatforms['ATT&CK'][this.selectedPlatforms[i]].includes(dataSources[j])) {
+                        if (!current_ds_in_file.includes(dataSources[j])) {
+                            let newrow = _.cloneDeep(this.emptyDataSourceObject);
+                            newrow.data_source_name = dataSources[j];
+                            this.doc.data_sources.push(newrow);
+                            current_ds_in_file.push(dataSources[j]);
+                        }
+                    }
+                }
+
+                for (let j = 0; j < customDataSources.length; j++) {
+                    if (
+                        this.selectedPlatforms[i] == 'all' ||
+                        dataSourcePlatforms['DeTT&CT'][this.selectedPlatforms[i]].includes(customDataSources[j])
+                    ) {
+                        if (!current_ds_in_file.includes(dataSources[j])) {
+                            let newrow = _.cloneDeep(this.emptyDataSourceObject);
+                            newrow.data_source_name = customDataSources[j];
+                            this.doc.data_sources.push(newrow);
+                            current_ds_in_file.push(customDataSources[j]);
+                        }
+                    }
+                }
+            }
+            this.countDataSources();
         },
         recoverDeletedDataSource(data_source_name) {
             this.recoverDeletedItem('data_sources', data_source_name);
@@ -390,7 +460,7 @@ export default {
             this.notifyDanger('Invalid YAML file type', "The file '" + filename + "' is not a valid data source administration file.");
         },
         hideFileDetails(state) {
-            if (this.doc != null && this.$route.name == 'datasources') {
+            if (this.doc != null && this.$route.name == 'datasources' && !this.file_details_lock) {
                 this.file_details_visible = state;
                 this.changePageTitle();
             }
@@ -400,6 +470,7 @@ export default {
                 this.$refs.detailComponent.closeAllCollapses();
             }
             this.selectItem(event);
+            this.countDataSources();
         },
         joinedApplicableTo(row) {
             return row.data_source
@@ -407,6 +478,15 @@ export default {
                     return row.applicable_to;
                 })
                 .join(', ');
+        },
+        countDataSources() {
+            if (this.$refs.data_table != undefined) {
+                setTimeout(() => {
+                    this.data_sources_count = this.$refs.data_table.$el.rows.length;
+                }, 100);
+            } else {
+                this.data_sources_count = 0;
+            }
         }
     },
     filters: {
