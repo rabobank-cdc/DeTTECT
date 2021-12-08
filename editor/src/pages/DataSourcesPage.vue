@@ -163,7 +163,7 @@ import { pageMixin } from '../mixins/PageMixins.js';
 import { navigateMixins } from '../mixins/NavigateMixins.js';
 import { notificationMixin } from '../mixins/NotificationMixins.js';
 import dataSources from '@/data/data_sources';
-import customDataSources from '@/data/custom_data_sources';
+import customDataSources from '@/data/dettect_data_sources';
 import dataSourcePlatforms from '@/data/data_source_platforms';
 import _ from 'lodash';
 
@@ -193,7 +193,7 @@ export default {
         DataSourceDetail,
         Icons
     },
-    created: function() {
+    created: function () {
         this.preloadMarkDown();
     },
     methods: {
@@ -386,8 +386,8 @@ export default {
         },
         addAllDataSources() {
             this.getSelectedPlatforms();
-            // Add all data sources based on both data sources and custom data sources and check if the platform of these
-            // (custom) data sources corresponds to the selected platforms within the systems key-value pair.
+            // Add all data sources based on both data sources and DeTT&CT data sources and check if the platform of these
+            // (DeTT&CT) data sources corresponds to the selected platforms within the systems key-value pair.
             let current_ds_in_file = [];
             for (let i = 0; i < this.doc.data_sources.length; i++) {
                 current_ds_in_file.push(this.doc.data_sources[i].data_source_name);
@@ -474,7 +474,7 @@ export default {
         },
         joinedApplicableTo(row) {
             return row.data_source
-                .map(function(row) {
+                .map(function (row) {
                     return row.applicable_to;
                 })
                 .join(', ');
@@ -490,7 +490,7 @@ export default {
         }
     },
     filters: {
-        listToString: function(value) {
+        listToString: function (value) {
             if (Array.isArray(value)) {
                 return value.join(', ');
             } else {

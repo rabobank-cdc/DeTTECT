@@ -46,7 +46,7 @@ def _date_hook(json_dict):
 
 def _convert_stix_techniques_to_dict(stix_attack_data):
     """
-    Convert the STIX list with AttackPatterns to a dictionary for easier use in python and also include the technique_id and custom data sources.
+    Convert the STIX list with AttackPatterns to a dictionary for easier use in python and also include the technique_id and DeTT&CT data sources.
     :param stix_attack_data: the MITRE ATT&CK STIX dataset with techniques
     :return: list with dictionaries containing all techniques from the input stix_attack_data
     """
@@ -61,23 +61,23 @@ def _convert_stix_techniques_to_dict(stix_attack_data):
         if 'x_mitre_data_sources' not in tech.keys():
             tech['x_mitre_data_sources'] = []
 
-        tech['custom_data_sources'] = []
-        for custom in CUSTOM_DATA_SOURCES:
+        tech['dettect_data_sources'] = []
+        for custom in DETTECT_DATA_SOURCES:
             if tech['technique_id'] == custom['technique_id']:
-                # When a technique has just 1 custom data source which is 'Network Traffic Content' then ignore this one. This means that we
-                # evaluated if that technique needs a custom data source but it has not.
-                if not (len(custom['custom_data_sources']) == 1 and custom['custom_data_sources'][0] == 'Network Traffic Content'):
-                    tech['custom_data_sources'] = custom['custom_data_sources']
+                # When a technique has just 1 DeTT&CT data source which is 'Network Traffic Content' then ignore this one. This means that we
+                # evaluated if that technique needs a DeTT&CT data source but it has not.
+                if not (len(custom['dettect_data_sources']) == 1 and custom['dettect_data_sources'][0] == 'Network Traffic Content'):
+                    tech['dettect_data_sources'] = custom['dettect_data_sources']
 
-                    # Remove 'Network Traffic Content' from x_mitre_data_sources when it's not listed as custom data source. In this situation
-                    # we are intentionally replacing the 'Network Traffic Content' with our custom data sources.
-                    if 'Network Traffic Content' not in custom['custom_data_sources'] and 'Network Traffic: Network Traffic Content' in tech['x_mitre_data_sources']:
+                    # Remove 'Network Traffic Content' from x_mitre_data_sources when it's not listed as DeTT&CT data source. In this situation
+                    # we are intentionally replacing the 'Network Traffic Content' with our DeTT&CT data sources.
+                    if 'Network Traffic Content' not in custom['dettect_data_sources'] and 'Network Traffic: Network Traffic Content' in tech['x_mitre_data_sources']:
                         tech['x_mitre_data_sources'].remove('Network Traffic: Network Traffic Content')
 
-                    # Remove 'Network Traffic Content' from the custom data sources list when having both custom data sources ánd 'Network Traffic Content'.
+                    # Remove 'Network Traffic Content' from the DeTT&CT data sources list when having both DeTT&CT data sources ánd 'Network Traffic Content'.
                     # That's the case where we keep 'Network Traffic Content' in the x_mitre_data_sources list.
-                    if 'Network Traffic Content' in custom['custom_data_sources']:
-                        tech['custom_data_sources'].remove('Network Traffic Content')
+                    if 'Network Traffic Content' in custom['dettect_data_sources']:
+                        tech['dettect_data_sources'].remove('Network Traffic Content')
                 break
 
         attack_data.append(tech)
@@ -506,18 +506,18 @@ def get_applicable_data_sources_platform(platforms):
     return list(applicable_data_sources)
 
 
-def get_applicable_custom_data_sources_platform(platforms):
+def get_applicable_dettect_data_sources_platform(platforms):
     """
-    Get the applicable custom data sources for the provided platform(s)
+    Get the applicable DeTT&CT data sources for the provided platform(s)
     :param platforms: the ATT&CK platform(s)
     :return: a list of applicable ATT&CK data sources
     """
-    applicable_custom_data_sources = set()
+    applicable_dettect_data_sources = set()
 
     for p in platforms:
-        applicable_custom_data_sources.update(CUSTOM_DATA_SOURCES_PLATFORMS[p])
+        applicable_dettect_data_sources.update(DETTECT_DATA_SOURCES_PLATFORMS[p])
 
-    return list(applicable_custom_data_sources)
+    return list(applicable_dettect_data_sources)
 
 
 def get_applicable_data_sources_technique(technique_data_sources, platform_applicable_data_sources):
@@ -538,20 +538,20 @@ def get_applicable_data_sources_technique(technique_data_sources, platform_appli
     return list(applicable_data_sources)
 
 
-def get_applicable_custom_data_sources_technique(technique_custom_data_sources, platform_applicable_custom_data_sources):
+def get_applicable_dettect_data_sources_technique(technique_dettect_data_sources, platform_applicable_dettect_data_sources):
     """
-    Get the applicable custom data sources for the provided technique's custom data sources.
-    :param technique_data_sources: the ATT&CK technique's custom data sources
-    :param platform_applicable_data_sources: a list of applicable custom data sources based on 'CUSTOM_DATA_SOURCES_PLATFORMS'
+    Get the applicable DeTT&CT data sources for the provided technique's DeTT&CT data sources.
+    :param technique_data_sources: the ATT&CK technique's DeTT&CT data sources
+    :param platform_applicable_data_sources: a list of applicable DeTT&CT data sources based on 'DETTECT_DATA_SOURCES_PLATFORMS'
     :return: a list of applicable data sources
     """
-    applicable_custom_data_sources = set()
+    applicable_dettect_data_sources = set()
 
-    for ds in technique_custom_data_sources:
-        if ds in platform_applicable_custom_data_sources:
-            applicable_custom_data_sources.add(ds)
+    for ds in technique_dettect_data_sources:
+        if ds in platform_applicable_dettect_data_sources:
+            applicable_dettect_data_sources.add(ds)
 
-    return list(applicable_custom_data_sources)
+    return list(applicable_dettect_data_sources)
 
 
 def _check_data_quality(data_quality, filter_empty_scores):

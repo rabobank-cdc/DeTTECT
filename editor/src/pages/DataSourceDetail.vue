@@ -24,7 +24,7 @@
 import ApplicableToCollapseDataSources from '@/components/Inputs/ApplicableToCollapseDataSources';
 import AutoSuggestTitle from '@/components/Inputs/AutoSuggestTitle';
 import dataSources from '@/data/data_sources';
-import customDataSources from '@/data/custom_data_sources';
+import customDataSources from '@/data/dettect_data_sources';
 import dataSourcePlatforms from '@/data/data_source_platforms';
 import { pageDetailMixin } from '../mixins/PageDetailMixins.js';
 import _ from 'lodash';
@@ -35,7 +35,7 @@ export default {
             selectedPlatforms: Array
         };
     },
-    created: function() {
+    created: function () {
         this.getSelectedPlatforms();
     },
     mixins: [pageDetailMixin],
@@ -83,8 +83,8 @@ export default {
             this.selectedPlatforms = Array.from(selectedPlatforms);
         },
         makeDataSourceSuggestionList() {
-            // Make the data source suggestionlist based on both data sources and custom data sources and check if the platform of these
-            // (custom) data sources corresponds to the selected platforms within the systems key-value pair.
+            // Make the data source suggestionlist based on both data sources and DeTT&CT data sources and check if the platform of these
+            // (DeTT&CT) data sources corresponds to the selected platforms within the systems key-value pair.
             let suggestionList = new Set();
             for (let i = 0; i < this.selectedPlatforms.length; i++) {
                 for (let j = 0; j < dataSources.length; j++) {

@@ -9,13 +9,13 @@ from navigator_layer import *
 # Imports for pandas and plotly are because of performance reasons in the function that uses these libraries.
 
 
-def _count_applicable_data_sources(technique, applicable_data_sources, applicable_custom_data_sources):
+def _count_applicable_data_sources(technique, applicable_data_sources, applicable_dettect_data_sources):
     """
-    get the count of applicable (custom) data sources for the provided technique.
+    get the count of applicable (DeTT&CT) data sources for the provided technique.
     This takes into account which data sources are applicable for a platform(s).
     :param technique: ATT&CK CTI technique object
     :param applicable_data_sources: a list of applicable ATT&CK data sources
-    :param applicable_custom_data_sources: a list of applicable custom data sources
+    :param applicable_dettect_data_sources: a list of applicable DeTT&CT data sources
     :return: a count of the applicable data sources for this technique
     """
     applicable_ds_count = 0
@@ -25,8 +25,8 @@ def _count_applicable_data_sources(technique, applicable_data_sources, applicabl
         if ds in applicable_data_sources:
             applicable_ds_count += 1
 
-    for ds in technique['custom_data_sources']:
-        if ds in applicable_custom_data_sources:
+    for ds in technique['dettect_data_sources']:
+        if ds in applicable_dettect_data_sources:
             applicable_ds_count += 1
 
     return applicable_ds_count
@@ -69,8 +69,8 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
                 # the system is relevant for this technique due to a match in ATT&CK platform
                 if len(set(system['platform']).intersection(set(t['x_mitre_platforms']))) > 0:
                     applicable_data_sources = get_applicable_data_sources_platform(system['platform'])
-                    applicable_custom_data_sources = get_applicable_custom_data_sources_platform(system['platform'])
-                    total_ds_count = _count_applicable_data_sources(t, applicable_data_sources, applicable_custom_data_sources)
+                    applicable_dettect_data_sources = get_applicable_dettect_data_sources_platform(system['platform'])
+                    total_ds_count = _count_applicable_data_sources(t, applicable_data_sources, applicable_dettect_data_sources)
 
                     if total_ds_count > 0:  # the system's platform has a data source applicable to this technique
                         ds_count = 0
@@ -84,8 +84,8 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
                                     system_available_data_sources[scores_idx].append(ds)
                                 ds_count += 1
 
-                        for cdc in t['custom_data_sources']:
-                            if cdc in applicable_custom_data_sources and cdc in my_ds.keys() and _system_in_data_source_details_object(my_ds[cdc], system):
+                        for cdc in t['dettect_data_sources']:
+                            if cdc in applicable_dettect_data_sources and cdc in my_ds.keys() and _system_in_data_source_details_object(my_ds[cdc], system):
                                 if ds_count == 0:
                                     system_available_data_sources[scores_idx] = [cdc]
                                 else:
@@ -133,8 +133,8 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
 
                     app_data_sources = get_applicable_data_sources_technique(
                         t['x_mitre_data_sources'], get_applicable_data_sources_platform(system['platform']))
-                    app_custom_data_sources = get_applicable_custom_data_sources_technique(
-                        t['custom_data_sources'], get_applicable_custom_data_sources_platform(system['platform']))
+                    app_dettect_data_sources = get_applicable_dettect_data_sources_technique(
+                        t['dettect_data_sources'], get_applicable_dettect_data_sources_platform(system['platform']))
 
                     if score > 0:
                         d['metadata'].append({'name': 'Available data sources', 'value': ', '.join(
@@ -143,7 +143,7 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
                         d['metadata'].append({'name': 'Available data sources', 'value': ''})
 
                     d['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(app_data_sources)})
-                    d['metadata'].append({'name': 'Custom data sources', 'value': ', '.join(app_custom_data_sources)})
+                    d['metadata'].append({'name': 'DeTT&CT data sources', 'value': ', '.join(app_dettect_data_sources)})
                     d['metadata'].append({'name': 'Score', 'value': str(int(score)) + '%'})
                     scores_idx += 1
 
@@ -853,8 +853,8 @@ def generate_technique_administration_file(filename, output_filename, write_file
                 # the system is relevant for this technique due to a match in ATT&CK platform
                 if len(set(system['platform']).intersection(set(mitre_platforms))) > 0:
                     applicable_data_sources = get_applicable_data_sources_platform(system['platform'])
-                    applicable_custom_data_sources = get_applicable_custom_data_sources_platform(system['platform'])
-                    total_ds_count = _count_applicable_data_sources(t, applicable_data_sources, applicable_custom_data_sources)
+                    applicable_dettect_data_sources = get_applicable_dettect_data_sources_platform(system['platform'])
+                    total_ds_count = _count_applicable_data_sources(t, applicable_data_sources, applicable_dettect_data_sources)
 
                     if total_ds_count > 0:  # the system's platform has data source applicable to this technique
                         ds_count = 0
@@ -864,8 +864,8 @@ def generate_technique_administration_file(filename, output_filename, write_file
                             if ds in applicable_data_sources and ds in my_ds.keys() and _system_in_data_source_details_object(my_ds[ds], system):
                                 ds_count += 1
 
-                        for cdc in t['custom_data_sources']:
-                            if cdc in applicable_custom_data_sources and cdc in my_ds.keys() and _system_in_data_source_details_object(my_ds[cdc], system):
+                        for cdc in t['dettect_data_sources']:
+                            if cdc in applicable_dettect_data_sources and cdc in my_ds.keys() and _system_in_data_source_details_object(my_ds[cdc], system):
                                 ds_count += 1
 
                         if ds_count > 0:

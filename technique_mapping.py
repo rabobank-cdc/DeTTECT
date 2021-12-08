@@ -114,7 +114,7 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, platforms):
     """
     techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE)
     applicable_data_sources = get_applicable_data_sources_platform(platforms)
-    applicable_custom_data_sources = get_applicable_custom_data_sources_platform(platforms)
+    applicable_dettect_data_sources = get_applicable_dettect_data_sources_platform(platforms)
 
     # Color the techniques based on how the coverage defined in the detections definition and generate a list with
     # techniques to be used in the layer output file.
@@ -136,8 +136,8 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, platforms):
             x['metadata'] = []
             x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique.get('x_mitre_data_sources', ''),
                                                                                                                           applicable_data_sources))})
-            x['metadata'].append({'name': 'Custom data sources', 'value': ', '.join(get_applicable_custom_data_sources_technique(technique['custom_data_sources'],
-                                                                                                                                 applicable_custom_data_sources))})
+            x['metadata'].append({'name': 'DeTT&CT data sources', 'value': ', '.join(get_applicable_dettect_data_sources_technique(technique['dettect_data_sources'],
+                                                                                                                                  applicable_dettect_data_sources))})
             x['metadata'].append({'divider': True})
             x['score'] = s
 
@@ -178,8 +178,8 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, platforms):
             x['enabled'] = True
             x['metadata'] = [{'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(t['x_mitre_data_sources'],
                                                                                                                       applicable_data_sources))}]
-            x['metadata'].append({'name': 'Custom data sources', 'value': ', '.join(get_applicable_custom_data_sources_technique(t['custom_data_sources'],
-                                                                                                                                 applicable_custom_data_sources))})
+            x['metadata'].append({'name': 'DeTT&CT data sources', 'value': ', '.join(get_applicable_dettect_data_sources_technique(t['dettect_data_sources'],
+                                                                                                                                  applicable_dettect_data_sources))})
             x['metadata'] = make_layer_metadata_compliant(x['metadata'])
 
             if not exists:
@@ -197,7 +197,7 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, platforms):
     """
     techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE)
     applicable_data_sources = get_applicable_data_sources_platform(platforms)
-    applicable_custom_data_sources = get_applicable_custom_data_sources_platform(platforms)
+    applicable_dettect_data_sources = get_applicable_dettect_data_sources_platform(platforms)
 
     # Color the techniques based on how the coverage defined in the detections definition and generate a list with
     # techniques to be used in the layer output file.
@@ -231,8 +231,8 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, platforms):
         x['metadata'] = []
         x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique.get('x_mitre_data_sources', ''),
                                                                                                                       applicable_data_sources))})
-        x['metadata'].append({'name': 'Custom data sources', 'value': ', '.join(get_applicable_custom_data_sources_technique(technique['custom_data_sources'],
-                                                                                                                             applicable_custom_data_sources))})
+        x['metadata'].append({'name': 'DeTT&CT data sources', 'value': ', '.join(get_applicable_dettect_data_sources_technique(technique['dettect_data_sources'],
+                                                                                                                              applicable_dettect_data_sources))})
         # Metadata for detection and visibility:
         for obj_type in ['detection', 'visibility']:
             tcnt = len([obj for obj in technique_data[obj_type] if get_latest_score(obj) >= 0])
