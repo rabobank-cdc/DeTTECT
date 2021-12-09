@@ -7,10 +7,10 @@ import re
 from logging import getLogger, ERROR as LOGERROR
 getLogger("taxii2client").setLevel(LOGERROR)
 
-FILE_PATH_EDITOR_DATA = '../src/data/'
-FILE_PATH_CLI_DATA = '../../data/'
-FILE_PATH_EDITOR_CONSTANTS = '../src/constants.js'
-FILE_PATH_WIKI = '../../wiki/'
+FILE_PATH_EDITOR_DATA = '../../../editor/src/data/'
+FILE_PATH_CLI_DATA = '../../../data/'
+FILE_PATH_EDITOR_CONSTANTS = '../../../editor/src/constants.js'
+FILE_PATH_WIKI = '../../../wiki/'
 
 FILE_DATA_SOURCES = 'data_sources.json'
 FILE_TECHNIQUES = 'techniques.json'
