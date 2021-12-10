@@ -14,14 +14,14 @@ def get_statistics_data_sources():
     for tech in techniques:
         tech_id = tech['technique_id']
         # Not every technique has a data source listed
-        data_sources = tech.get('x_mitre_data_sources', None)
-        if data_sources:
-            for ds in data_sources:
-                if ds not in data_sources_dict:
-                    data_sources_dict[ds] = {'techniques': [tech_id], 'count': 1}
-                else:
-                    data_sources_dict[ds]['techniques'].append(tech_id)
-                    data_sources_dict[ds]['count'] += 1
+        data_sources = tech.get('x_mitre_data_sources', [])
+        dettect_data_sources = tech.get('dettect_data_sources', [])
+        for ds in data_sources + dettect_data_sources:
+            if ds not in data_sources_dict:
+                data_sources_dict[ds] = {'techniques': [tech_id], 'count': 1}
+            else:
+                data_sources_dict[ds]['techniques'].append(tech_id)
+                data_sources_dict[ds]['count'] += 1
 
     # sort the dict on the value of 'count'
     data_sources_dict_sorted = dict(sorted(data_sources_dict.items(), key=lambda kv: kv[1]['count'], reverse=True))
@@ -29,7 +29,10 @@ def get_statistics_data_sources():
     print(str_format.format('Count', 'Data Source'))
     print('-' * 50)
     for k, v in data_sources_dict_sorted.items():
-        print(str_format.format(str(v['count']), k.split(':')[1][1:]))
+        if ':' in k:
+            print(str_format.format(str(v['count']), k.split(':')[1][1:]))
+        else:
+            print(str_format.format(str(v['count']), k))
 
 
 def get_statistics_mitigations(matrix):
