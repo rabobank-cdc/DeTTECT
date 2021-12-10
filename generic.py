@@ -61,23 +61,24 @@ def _convert_stix_techniques_to_dict(stix_attack_data):
         if 'x_mitre_data_sources' not in tech.keys():
             tech['x_mitre_data_sources'] = []
 
-        tech['dettect_data_sources'] = []
+        dds_key = 'dettect_data_sources'
+        tech[dds_key] = []
         for custom in DETTECT_DATA_SOURCES:
             if tech['technique_id'] == custom['technique_id']:
                 # When a technique has just 1 DeTT&CT data source which is 'Network Traffic Content' then ignore this one. This means that we
                 # evaluated if that technique needs a DeTT&CT data source but it has not.
-                if not (len(custom['dettect_data_sources']) == 1 and custom['dettect_data_sources'][0] == 'Network Traffic Content'):
-                    tech['dettect_data_sources'] = custom['dettect_data_sources']
+                if not (len(custom[dds_key]) == 1 and custom[dds_key][0] == 'Network Traffic Content'):
+                    tech[dds_key] = custom[dds_key]
 
                     # Remove 'Network Traffic Content' from x_mitre_data_sources when it's not listed as DeTT&CT data source. In this situation
                     # we are intentionally replacing the 'Network Traffic Content' with our DeTT&CT data sources.
-                    if 'Network Traffic Content' not in custom['dettect_data_sources'] and 'Network Traffic: Network Traffic Content' in tech['x_mitre_data_sources']:
+                    if 'Network Traffic Content' not in custom[dds_key] and 'Network Traffic: Network Traffic Content' in tech['x_mitre_data_sources']:
                         tech['x_mitre_data_sources'].remove('Network Traffic: Network Traffic Content')
 
                     # Remove 'Network Traffic Content' from the DeTT&CT data sources list when having both DeTT&CT data sources ánd 'Network Traffic Content'.
                     # That's the case where we keep 'Network Traffic Content' in the x_mitre_data_sources list.
-                    if 'Network Traffic Content' in custom['dettect_data_sources']:
-                        tech['dettect_data_sources'].remove('Network Traffic Content')
+                    if 'Network Traffic Content' in custom[dds_key]:
+                        tech[dds_key].remove('Network Traffic Content')
                 break
 
         attack_data.append(tech)
