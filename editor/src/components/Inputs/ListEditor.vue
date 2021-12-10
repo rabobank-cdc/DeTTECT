@@ -52,7 +52,7 @@
                             :value="item"
                             :idx="index"
                             :key="index"
-                            @change="updateItem($event)"
+                            @change="updateItem(item, $event)"
                             :showError="isErrorFunction(item, list)"
                             :errorText="getErrorText(item, list)"
                         ></base-input>
@@ -177,9 +177,13 @@ export default {
         },
         addItem() {
             if (this.defaultValueExclusive && this.newItem == 'all') {
-                this.list.splice(0, this.list.length);
-                this.list.push('all');
-                this.newItem = '';
+                if (this.caseInsensitive(this.externalListToValidate).includes(this.newItem)) {
+                    this.notifyDuplicate(this.newItem);
+                } else {
+                    this.list.splice(0, this.list.length);
+                    this.list.push('all');
+                    this.newItem = '';
+                }
             } else {
                 // add an item to the list
                 if (

@@ -91,7 +91,7 @@ export default {
             emptyVisibilityObject: constants.YAML_OBJ_TECHNIQUE_VISIBILITY
         };
     },
-    created: function () {
+    created: function() {
         this.preloadMarkDown();
     },
     props: {
@@ -179,6 +179,7 @@ export default {
         },
         getApplicableToValues() {
             let applicable_to_values = new Set();
+            applicable_to_values.add('all');
             for (let i = 0; i < this.allTechniques.length; i++) {
                 for (let j = 0; j < this.allTechniques[i].detection.length; j++) {
                     for (let x = 0; x < this.allTechniques[i].detection[j].applicable_to.length; x++) {
