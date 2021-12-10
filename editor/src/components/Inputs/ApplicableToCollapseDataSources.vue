@@ -317,7 +317,8 @@ export default {
             }
         },
         toggleEnabled(i) {
-            // disable or enable a data source
+            /* eslint-disable */
+            // disable or enable a data source and make sure the history is saved and restored
             let ds_name = this.dataSource['data_source_name'];
             let ds_applicable_to = this.dataSource.data_source[i].applicable_to.join(',');
             if (this.dsEnabled(i)) {
@@ -330,17 +331,15 @@ export default {
                     this.dataSource.data_source[i].data_quality[key] = 0;
                 }
             } else {
-                if (ds_name in this.prevDataSourceQuality) {
-                    if (ds_applicable_to in this.prevDataSourceQuality[ds_name]) {
-                        this.dataSource.data_source[i].data_quality = _.cloneDeep(this.prevDataSourceQuality[ds_name][ds_applicable_to]);
-                    }
+                if (ds_name in this.prevDataSourceQuality && ds_applicable_to in this.prevDataSourceQuality[ds_name]) {
+                    this.dataSource.data_source[i].data_quality = _.cloneDeep(this.prevDataSourceQuality[ds_name][ds_applicable_to]);
                 } else {
-                    // eslint-disable-next-line no-redeclare
                     for (let key in this.dataSource.data_source[i].data_quality) {
                         this.dataSource.data_source[i].data_quality[key] = 1;
                     }
                 }
             }
+            /* eslint-enable */
         },
         editCommentCallback(b) {
             this.commentModal = b;
