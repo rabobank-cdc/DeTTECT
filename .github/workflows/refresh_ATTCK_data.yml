@@ -70,7 +70,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -A
-          git commit -m "Update Wiki help texts"
+          git commit -m "Update Wiki text"
 
       - name: Wiki - push changes (if applicable)
         if: contains(steps.changeswiki.outputs.GIT_STATUS_WIKI, 'modified')
