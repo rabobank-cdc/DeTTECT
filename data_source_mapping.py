@@ -455,10 +455,10 @@ def _add_visibility_object_to_dict(dict_vis_objects, tech_id, vis_obj):
     if tech_id not in dict_vis_objects:
         dict_vis_objects[tech_id] = []
 
-        if isinstance(vis_obj, list):
-            dict_vis_objects[tech_id].extend(deepcopy(vis_obj))
-        else:
-            dict_vis_objects[tech_id].append(deepcopy(vis_obj))
+    if isinstance(vis_obj, list):
+        dict_vis_objects[tech_id].extend(deepcopy(vis_obj))
+    else:
+        dict_vis_objects[tech_id].append(deepcopy(vis_obj))
 
     return dict_vis_objects
 
