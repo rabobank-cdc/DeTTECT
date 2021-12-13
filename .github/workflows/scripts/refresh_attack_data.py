@@ -24,8 +24,7 @@ MATRIX_ICS = 'mitre-ics-attack'
 
 WIKI_TEXT = [
     'The below mapping from data sources/data components to platforms is created on the information provided by MITRE within the [data source objects](https://attack.mitre.org/datasources/). Also, note that the below is only listing data components that are actually referenced by a technique. Therefore it does not include all data components as referenced in the [data source YAML files](https://github.com/mitre-attack/attack-datasources).',
-    '',
-    'How the DeTT&CT data sources are mapped to platforms can be found [here](dettect-data-sources).']
+    '']
 
 
 class ATTACKData():
@@ -104,6 +103,7 @@ class ATTACKData():
 
         lines = WIKI_TEXT
 
+        # create the table heading
         l1 = '| Data source | '
         for p in platforms:
             l1 += p + ' | '
@@ -114,6 +114,32 @@ class ATTACKData():
             l2 += ' ---- |'
         lines.append(l2)
 
+        # the first entries of the Markdown table will consist of the DeTT&CT data sources
+        dds_json = None
+        with open(FILE_PATH_CLI_DATA + FILE_DATA_SOURCES_PLATFORMS, 'r') as f:
+            dds_json = json.load(f)['DeTT&CT']
+
+        dds_per_platform = {}  # {dettect data source: set(platforms)}
+        for p, ds in dds_json.items():
+            for ds in ds:
+                if ds not in dds_per_platform:
+                    dds_per_platform[ds] = set()
+                dds_per_platform[ds].add(p)
+
+        for dds in sorted(dds_per_platform.keys()):
+            dds_part_1 = dds.removesuffix(' [DeTT&CT data source]')
+            url = 'dettect-data-sources#' + dds_part_1.replace(' ', '-')
+            row = '| [' + dds_part_1 + '](' + url + ') *[DeTT&CT data source]* | '
+
+            for p in platforms:
+                if p in dds_per_platform[dds]:
+                    row += ' X |'
+                else:
+                    row += '   |'
+
+            lines.append(row)
+
+        # add the ATT&CK data sources to the Markdown table
         for ds in data_sources_sorted:
             for dc in sorted(data_source_dict[ds]['data_components']):
                 url = data_source_dict[ds]['wiki_url'] + '/#' + dc.replace(' ', '%20')
