@@ -527,11 +527,11 @@ export default {
             }
         },
         deleteTechnique(event) {
-            this.deleteItem(event, 'techniques', 'technique_id', 'Technique', this.recoverDeletedTechnique);
+            this.deleteItem(event, 'techniques', ['technique_id'], 'Technique', this.recoverDeletedTechnique);
             this.countTechniques();
         },
         recoverDeletedTechnique(technique_id) {
-            this.recoverDeletedItem('techniques', technique_id);
+            this.recoverDeletedItem('techniques', technique_id, this.doc.techniques, ['technique_id']);
         },
         notifyInvalidFileType(filename) {
             this.notifyDanger('Invalid YAML file type', "The file '" + filename + "' is not a valid technique administration file.");

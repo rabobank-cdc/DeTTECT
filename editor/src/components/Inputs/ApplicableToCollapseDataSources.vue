@@ -98,7 +98,7 @@
                             <div class="col-md-11 form-group pr-md-2">
                                 <label class="card">Comment</label>
                                 <extended-textarea
-                                    :data_object="dataSource"
+                                    :data_object="row"
                                     data_field="comment"
                                     id="datasource"
                                     rows="4"

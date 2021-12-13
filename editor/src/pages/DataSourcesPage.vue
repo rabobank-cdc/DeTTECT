@@ -193,7 +193,7 @@ export default {
         DataSourceDetail,
         Icons
     },
-    created: function () {
+    created: function() {
         this.preloadMarkDown();
     },
     methods: {
@@ -372,7 +372,7 @@ export default {
             }
         },
         deleteDataSource(event) {
-            this.deleteItem(event, 'data_sources', 'data_source_name', 'Data source', this.recoverDeletedDataSource);
+            this.deleteItem(event, 'data_sources', ['data_source_name'], 'Data source', this.recoverDeletedDataSource);
             this.countDataSources();
         },
         getSelectedPlatforms() {
@@ -410,7 +410,7 @@ export default {
                         this.selectedPlatforms[i] == 'all' ||
                         dataSourcePlatforms['DeTT&CT'][this.selectedPlatforms[i]].includes(customDataSources[j])
                     ) {
-                        if (!current_ds_in_file.includes(dataSources[j])) {
+                        if (!current_ds_in_file.includes(customDataSources[j])) {
                             let newrow = _.cloneDeep(this.emptyDataSourceObject);
                             newrow.data_source_name = customDataSources[j];
                             this.doc.data_sources.push(newrow);
@@ -422,7 +422,7 @@ export default {
             this.countDataSources();
         },
         recoverDeletedDataSource(data_source_name) {
-            this.recoverDeletedItem('data_sources', data_source_name);
+            this.recoverDeletedItem('data_sources', data_source_name, this.doc.data_sources, ['data_source_name']);
         },
         preloadMarkDown() {
             // Preload the data quality help text from Github
@@ -474,7 +474,7 @@ export default {
         },
         joinedApplicableTo(row) {
             return row.data_source
-                .map(function (row) {
+                .map(function(row) {
                     return row.applicable_to;
                 })
                 .join(', ');
@@ -490,7 +490,7 @@ export default {
         }
     },
     filters: {
-        listToString: function (value) {
+        listToString: function(value) {
             if (Array.isArray(value)) {
                 return value.join(', ');
             } else {

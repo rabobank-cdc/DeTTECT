@@ -110,6 +110,7 @@
                                                 class="tim-icons icon-trash-simple cursor-pointer"
                                                 :idx="i"
                                                 :group_name="row.group_name"
+                                                :campaign="row.campaign"
                                                 @click="deleteGroup($event)"
                                             />
                                         </td>
@@ -307,10 +308,10 @@ export default {
             // empty function. must be here to make downloadYaml() work for every page
         },
         deleteGroup(event) {
-            this.deleteItem(event, 'groups', 'group_name', 'Group', this.recoverDeletedGroup);
+            this.deleteItem(event, 'groups', ['group_name', 'campaign'], 'Group', this.recoverDeletedGroup);
         },
         recoverDeletedGroup(group_name) {
-            this.recoverDeletedItem('groups', group_name);
+            this.recoverDeletedItem('groups', group_name, this.doc.groups, ['group_name', 'campaign']);
         },
         preloadMarkDown() {
             // Preload the group help text from Github
