@@ -42,6 +42,127 @@ See below an example of mapping your data sources to ATT&CK, which gives you a r
 
  <img src="https://raw.githubusercontent.com/wiki/rabobank-cdc/DeTTECT/images/example_data_sources.png" alt="DeTT&CT - Data quality">
 
+\
+Using the command `python dettect.py generic -ds`, you can determine which data sources within ATT&CK cover the most techniques. This can, for example, be useful to guide you in identifying which data sources will provide you with a lot of visibility and are hence a good candidate to have available in a SIEM (like) solution.
+
+```
+Count  Data Source
+--------------------------------------------------
+255    Command Execution
+206    Process Creation
+98     File Modification
+88     File Creation
+82     Network Traffic Flow
+78     OS API Execution
+70     Network Traffic Content
+58     Windows Registry Key Modification
+58     Network Connection Creation
+55     Application Log Content
+50     Module Load
+46     File Access
+46     Web [DeTT&CT data source]
+37     File Metadata
+32     Logon Session Creation
+26     Script Execution
+22     Response Content
+21     Internal DNS [DeTT&CT data source]
+20     User Account Authentication
+18     Process Access
+17     Windows Registry Key Creation
+17     Email [DeTT&CT data source]
+15     Service Creation
+15     Host Status
+13     Active Directory Object Modification
+12     Service Metadata
+11     Process Metadata
+10     Driver Load
+10     File Deletion
+9      Firmware Modification
+9      Logon Session Metadata
+9      Process Modification
+8      User Account Metadata
+7      Windows Registry Key Access
+7      Scheduled Job Creation
+7      Malware Metadata
+7      Active Directory Credential Request
+6      Container Creation
+6      Web Credential Usage
+6      Response Metadata
+6      User Account Creation
+6      Drive Modification
+6      User Account Modification
+5      Instance Creation
+5      Active DNS
+5      Passive DNS
+5      Network Share Access
+5      Drive Access
+5      Service Modification
+4      Image Creation
+4      Instance Start
+4      Active Directory Object Creation
+4      Malware Content
+4      Social Media
+4      Domain Registration
+4      Drive Creation
+4      Windows Registry Key Deletion
+3      Active Directory Object Access
+3      Instance Metadata
+3      Container Start
+3      Web Credential Creation
+3      Firewall Rule Modification
+3      Firewall Disable
+3      Instance Deletion
+3      Snapshot Creation
+3      Process Termination
+2      Cloud Storage Enumeration
+2      Cloud Storage Access
+2      Pod Metadata
+2      Active Directory Object Deletion
+2      Cloud Service Modification
+2      Cloud Service Disable
+2      Certificate Registration
+2      Cloud Storage Metadata
+2      Instance Modification
+2      Instance Stop
+2      Firewall Metadata
+2      Firewall Enumeration
+2      Group Enumeration
+2      Group Metadata
+2      Image Metadata
+2      Scheduled Job Metadata
+2      Scheduled Job Modification
+2      Kernel Module Load
+2      WMI Creation
+2      Group Modification
+2      Driver Metadata
+2      Snapshot Modification
+2      Snapshot Deletion
+2      Volume Deletion
+2      Cloud Storage Modification
+2      Cloud Service Enumeration
+1      Cluster Metadata
+1      Container Enumeration
+1      Container Metadata
+1      Pod Enumeration
+1      Pod Creation
+1      Pod Modification
+1      Instance Enumeration
+1      Snapshot Metadata
+1      Snapshot Enumeration
+1      Volume Metadata
+1      Volume Enumeration
+1      Named Pipe Metadata
+1      User Account Deletion
+1      Image Modification
+1      Volume Creation
+1      Volume Modification
+1      Cloud Storage Creation
+1      Cloud Service Metadata
+1      Image Deletion
+1      Cloud Storage Deletion
+1      DHCP [DeTT&CT data source]
+```
+
 ## Installation and requirements
 
 See our GitHub Wiki: [Installation and requirements](https://github.com/rabobank-cdc/DeTTECT/wiki/Installation-and-requirements).
