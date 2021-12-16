@@ -128,7 +128,7 @@ class ATTACKData():
 
         for dds in sorted(dds_per_platform.keys()):
             dds_part_1 = dds.removesuffix(' [DeTT&CT data source]')
-            url = 'dettect-data-sources#' + dds_part_1.replace(' ', '-')
+            url = 'DeTT&CT-data-sources#' + dds_part_1.replace(' ', '-')
             row = '| [' + dds_part_1 + '](' + url + ') *[DeTT&CT data source]* | '
 
             for p in platforms:
