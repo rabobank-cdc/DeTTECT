@@ -14,7 +14,7 @@
             notifyText="'ID' is an invalid technique, please comply with the naming scheme: TXXXX - [optional name]."
             :navigateItem="navigateItem"
         ></auto-suggest-title>
-        <applicable-to-collapse
+        <applicable-to-collapse-techniques
             title="Detection"
             :applicable_to="technique.detection"
             :helpText="detectionHelpText"
@@ -26,8 +26,10 @@
             :emptyScoreEntry="emptyScoreEntryDetection"
             :emptyObject="emptyDetectionObject"
             ref="collapseDetectionComponent"
-        ></applicable-to-collapse>
-        <applicable-to-collapse
+            :applicableToSuggestionList="getApplicableToValues()"
+            :defaultValueExclusive="false"
+        ></applicable-to-collapse-techniques>
+        <applicable-to-collapse-techniques
             title="Visibility"
             :applicable_to="technique.visibility"
             :showLocation="false"
@@ -40,13 +42,15 @@
             :emptyScoreEntry="emptyScoreEntryVisibility"
             :emptyObject="emptyVisibilityObject"
             ref="collapseVisibilityComponent"
-        ></applicable-to-collapse>
+            :applicableToSuggestionList="getApplicableToValues()"
+            :defaultValueExclusive="true"
+        ></applicable-to-collapse-techniques>
     </div>
 </template>
 
 <script>
 import AutoSuggestTitle from '@/components/Inputs/AutoSuggestTitle';
-import ApplicableToCollapse from '@/components/Inputs/ApplicableToCollapse';
+import ApplicableToCollapseTechniques from '@/components/Inputs/ApplicableToCollapseTechniques';
 import constants from '@/constants';
 import techniques from '@/data/techniques';
 
@@ -64,53 +68,53 @@ export default {
             detectionScores: [-1, 0, 1, 2, 3, 4, 5],
             detectionScoresTooltip: {
                 '-1': 'None',
-                '0': 'Forensics / context',
-                '1': 'Basic',
-                '2': 'Fair',
-                '3': 'Good',
-                '4': 'Very good',
-                '5': 'Excellent',
+                0: 'Forensics / context',
+                1: 'Basic',
+                2: 'Fair',
+                3: 'Good',
+                4: 'Very good',
+                5: 'Excellent'
             },
             detectionScoreDefault: -1,
             visibilityScores: [0, 1, 2, 3, 4],
             visibilityScoresTooltip: {
-                '0': 'None',
-                '1': 'Minimal',
-                '2': 'Medium',
-                '3': 'Good',
-                '4': 'Excellent',
+                0: 'None',
+                1: 'Minimal',
+                2: 'Medium',
+                3: 'Good',
+                4: 'Excellent'
             },
             visibilityScoreDefault: 0,
             emptyScoreEntryDetection: constants.YAML_OBJ_SCORE_DETECTION_LOGBOOK,
             emptyScoreEntryVisibility: constants.YAML_OBJ_SCORE_VISIBILITY_LOGBOOK,
             emptyDetectionObject: constants.YAML_OBJ_TECHNIQUE_DETECTION,
-            emptyVisibilityObject: constants.YAML_OBJ_TECHNIQUE_VISIBILITY,
+            emptyVisibilityObject: constants.YAML_OBJ_TECHNIQUE_VISIBILITY
         };
     },
-    created: function () {
+    created: function() {
         this.preloadMarkDown();
     },
     props: {
         technique: {
             type: Object,
-            required: true,
+            required: true
         },
         allTechniques: {
             type: Array,
-            required: true,
+            required: true
         },
         selectedPlatforms: {
             type: Array,
-            required: true,
+            required: true
         },
         navigateItem: {
             type: Function,
-            required: true,
-        },
+            required: true
+        }
     },
     components: {
         AutoSuggestTitle,
-        ApplicableToCollapse,
+        ApplicableToCollapseTechniques
     },
     methods: {
         preloadMarkDown() {
@@ -119,16 +123,24 @@ export default {
             this.visibilityHelpText = 'Loading the help content...';
             this.$http.get(this.techniqueHelpUrl).then(
                 (response) => {
-                    let responseClean = response.body.replace(/\[(.+)\](\([#\w-]+\))/gm, '$1'); // remove links to other wiki pages
-                    this.detectionHelpText = responseClean;
-                    this.detectionHelpText = this.detectionHelpText.match(/^## Detection object((.*|\n)*)/gim, '$1')[0];
-                    this.detectionHelpText = this.detectionHelpText.replace(/^## Visibility object((.*|\n)*)/gim, '');
-                    this.detectionHelpText = this.detectionHelpText.replace(/^## Detection object/gim, '');
+                    try {
+                        var responseClean = response.body.replace(/\[(.+)\](\([#\w-]+\))/gm, '$1'); // remove links to other wiki pages
+                        this.detectionHelpText = responseClean;
+                        this.detectionHelpText = this.detectionHelpText.match(/^## Detection object((.*|\n)*)/gim, '$1')[0];
+                        this.detectionHelpText = this.detectionHelpText.replace(/^## Visibility object((.*|\n)*)/gim, '');
+                        this.detectionHelpText = this.detectionHelpText.replace(/^## Detection object/gim, '');
+                    } catch (e) {
+                        this.detectionHelpText = 'An error occurred while loading the help content.';
+                    }
 
-                    this.visibilityHelpText = responseClean;
-                    this.visibilityHelpText = this.visibilityHelpText.match(/^## Visibility object((.*|\n)*)/gim, '$1')[0];
-                    this.visibilityHelpText = this.visibilityHelpText.replace(/^## Score object((.*|\n)*)/gim, '');
-                    this.visibilityHelpText = this.visibilityHelpText.replace(/^## Visibility object/gim, '');
+                    try {
+                        this.visibilityHelpText = responseClean;
+                        this.visibilityHelpText = this.visibilityHelpText.match(/^## Visibility object((.*|\n)*)/gim, '$1')[0];
+                        this.visibilityHelpText = this.visibilityHelpText.replace(/^## Score object((.*|\n)*)/gim, '');
+                        this.visibilityHelpText = this.visibilityHelpText.replace(/^## Visibility object/gim, '');
+                    } catch (e) {
+                        this.visibilityHelpText = 'An error occurred while loading the help content.';
+                    }
                 },
                 // eslint-disable-next-line no-unused-vars
                 (response) => {
@@ -165,6 +177,27 @@ export default {
             this.$refs.collapseDetectionComponent.closeAllCollapses();
             this.$refs.collapseVisibilityComponent.closeAllCollapses();
         },
-    },
+        getApplicableToValues() {
+            let applicable_to_values = new Set();
+            applicable_to_values.add('all');
+            for (let i = 0; i < this.allTechniques.length; i++) {
+                for (let j = 0; j < this.allTechniques[i].detection.length; j++) {
+                    for (let x = 0; x < this.allTechniques[i].detection[j].applicable_to.length; x++) {
+                        applicable_to_values.add(this.allTechniques[i].detection[j].applicable_to[x]);
+                    }
+                }
+            }
+            for (let i = 0; i < this.allTechniques.length; i++) {
+                for (let j = 0; j < this.allTechniques[i].visibility.length; j++) {
+                    for (let x = 0; x < this.allTechniques[i].visibility[j].applicable_to.length; x++) {
+                        applicable_to_values.add(this.allTechniques[i].visibility[j].applicable_to[x]);
+                    }
+                }
+            }
+            let applicable_to_values_array = Array.from(applicable_to_values);
+            applicable_to_values_array.sort();
+            return applicable_to_values_array;
+        }
+    }
 };
 </script>

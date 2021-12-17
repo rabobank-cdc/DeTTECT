@@ -1,9 +1,12 @@
+from generic_mode import *
+from interactive_menu import *
+from editor import DeTTECTEditor
 import argparse
 import os
 import signal
-from interactive_menu import *
-from editor import DeTTECTEditor
 import generic
+from logging import getLogger, ERROR as LOGERROR
+getLogger("taxii2client").setLevel(LOGERROR)
 
 
 def _init_menu():
@@ -40,10 +43,10 @@ def _init_menu():
                                      required=False)
     parser_data_sources.add_argument('-fd', '--file-ds', help='path to the data source administration YAML file',
                                      required=True)
-    parser_data_sources.add_argument('-p', '--platform', action='append', help='specify the platform for the Navigator '
-                                     'layer file (default = platform(s) specified in the YAML file). Multiple platforms'
-                                     ' can be provided with extra \'-p/--platform\' arguments',
-                                     choices=['all'] + list(PLATFORMS.values()), type=_platform_lookup())
+    parser_data_sources.add_argument('-a', '--applicable-to', action='append', help='specify which data source objects '
+                                     'to include by filtering on applicable to value(s) (used to define the type of '
+                                     'system). You can provide multiple applicable to values with extra '
+                                     '\'-a/--applicable-to\' arguments')
     parser_data_sources.add_argument('-s', '--search', help='only include data sources which match the provided EQL '
                                                             'query')
     parser_data_sources.add_argument('-l', '--layer', help='generate a data source layer for the ATT&CK navigator',
@@ -81,8 +84,6 @@ def _init_menu():
                                                           'health of the technique administration YAML file.')
     parser_visibility.add_argument('-ft', '--file-tech', help='path to the technique administration YAML file (used to '
                                                               'score the level of visibility)', required=True)
-    parser_visibility.add_argument('-fd', '--file-ds', help='path to the data source administration YAML file (used to '
-                                                            'add metadata on the involved data sources)')
     parser_visibility.add_argument('-p', '--platform', action='append', help='specify the platform for the Navigator '
                                    'layer file (default = platform(s) specified in the YAML file). Multiple platforms'
                                    ' can be provided with extra \'-p/--platform\' arguments',
@@ -120,9 +121,6 @@ def _init_menu():
                                              'the technique administration YAML file.')
     parser_detection.add_argument('-ft', '--file-tech', help='path to the technique administration YAML file (used to '
                                                              'score the level of detection)', required=True)
-    parser_detection.add_argument('-fd', '--file-ds', help='path to the data source administration YAML file (used in '
-                                                           'the overlay with visibility to add metadata on the '
-                                                           'involved data sources)')
     parser_detection.add_argument('-p', '--platform', action='append', help='specify the platform for the Navigator '
                                   'layer file (default = platform(s) specified in the YAML file). Multiple platforms'
                                   ' can be provided with extra \'-p/--platform\' arguments',
@@ -244,14 +242,19 @@ def _menu(menu_parser):
         if check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.health):
             file_ds = args.file_ds
 
+            if args.applicable_to:
+                eql_search = get_eql_applicable_to_query(args.applicable_to, file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION)
+                file_ds = data_source_search(args.file_ds, eql_search)
+                if not file_ds:
+                    quit()  # something went wrong in executing the search or 0 results where returned
             if args.search:
-                file_ds = data_source_search(args.file_ds, args.search)
+                file_ds = data_source_search(file_ds, args.search)
                 if not file_ds:
                     quit()  # something went wrong in executing the search or 0 results where returned
             if args.update and check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
                 update_technique_administration_file(file_ds, args.file_tech)
             if args.layer:
-                generate_data_sources_layer(file_ds, args.output_filename, args.layer_name, args.platform)
+                generate_data_sources_layer(file_ds, args.output_filename, args.layer_name)
             if args.excel:
                 export_data_source_list_to_excel(file_ds, args.output_filename, eql_search=args.search)
             if args.graph:
@@ -260,14 +263,6 @@ def _menu(menu_parser):
                 generate_technique_administration_file(file_ds, args.output_filename, all_techniques=args.yaml_all_techniques)
 
     elif args.subparser in ['visibility', 'v']:
-        if args.layer or args.overlay:
-            if not args.file_ds:
-                print('[!] Generating a visibility layer or an overlay requires the data source '
-                      'administration YAML file (\'-fd, --file-ds\')')
-                quit()
-            if not check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.health):
-                quit()
-
         if check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
             file_tech = args.file_tech
 
@@ -277,26 +272,21 @@ def _menu(menu_parser):
                 if not file_tech:
                     quit()  # something went wrong in executing the search or 0 results where returned
             if args.layer:
-                generate_visibility_layer(file_tech, args.file_ds, False, args.output_filename, args.layer_name, args.platform)
+                generate_visibility_layer(file_tech, False, args.output_filename, args.layer_name, args.platform)
             if args.overlay:
-                generate_visibility_layer(file_tech, args.file_ds, True, args.output_filename, args.layer_name, args.platform)
+                generate_visibility_layer(file_tech, True, args.output_filename, args.layer_name, args.platform)
             if args.graph:
                 plot_graph(file_tech, 'visibility', args.output_filename)
             if args.excel:
                 export_techniques_list_to_excel(file_tech, args.output_filename)
 
-    # TODO add search capabilities
+    # TODO add Group EQL search capabilities
     elif args.subparser in ['group', 'g']:
         generate_group_heat_map(args.groups, args.overlay, args.overlay_type, args.platform,
                                 args.software_group, args.search_visibility, args.search_detection, args.health,
                                 args.output_filename, args.layer_name, include_all_score_objs=args.all_scores)
 
     elif args.subparser in ['detection', 'd']:
-        if args.overlay:
-            if not args.file_ds:
-                print('[!] An overlay requires the data source administration YAML file (\'-fd, --file-ds\')')
-                quit()
-
         if check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
             file_tech = args.file_tech
 
@@ -306,9 +296,9 @@ def _menu(menu_parser):
                 if not file_tech:
                     quit()  # something went wrong in executing the search or 0 results where returned
             if args.layer:
-                generate_detection_layer(file_tech, args.file_ds, False, args.output_filename, args.layer_name, args.platform)
-            if args.overlay and check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.health):
-                generate_detection_layer(file_tech, args.file_ds, True, args.output_filename, args.layer_name, args.platform)
+                generate_detection_layer(file_tech, False, args.output_filename, args.layer_name, args.platform)
+            if args.overlay:
+                generate_detection_layer(file_tech, True, args.output_filename, args.layer_name, args.platform)
             if args.graph:
                 plot_graph(file_tech, 'detection', args.output_filename)
             if args.excel:

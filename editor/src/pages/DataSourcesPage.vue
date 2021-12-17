@@ -5,45 +5,68 @@
                 <icons icon="arrow-up"></icons>
             </label>
         </div>
-
         <div class="row" id="pageTop">
             <div class="col">
                 <div class="card card-card">
-                    <div class="card-header">
-                        <h2 class="card-title"><i class="tim-icons icon-coins"></i> Data Sources</h2>
+                    <div class="row cursor-pointer" @click="hideFileDetails(!file_details_visible)">
+                        <div class="col-md-7">
+                            <div class="card-header">
+                                <h2 class="card-title"><i class="tim-icons icon-coins"></i> Data Sources{{ showFileName }}</h2>
+                            </div>
+                        </div>
+                        <div class="col mt-3 text-right">
+                            <label v-if="fileChanged" class="pl-2">
+                                <icons icon="text-balloon"></icons>
+                                You have unsaved changes. You may want to save the file to preserve your changes.</label
+                            >
+                        </div>
+                        <div class="col-md-0 mt-3 mr-4 text-right" :title="file_details_visible ? 'Collapse File Details' : 'Expand File Details'">
+                            <icons :icon="file_details_visible ? 'collapse' : 'expand'"></icons>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn mr-md-3" @click="askNewFile">
-                                    <icons icon="file-empty"></icons>
-                                    &nbsp;New file
-                                </button>
-                                <label class="custom-file-upload">
-                                    <icons icon="file"></icons>
-                                    &nbsp;Select YAML file
-                                    <file-reader @load="readFile($event)" :setFileNameFn="setFileName" :id="'dsFileReader'"></file-reader>
-                                </label>
-                                <label v-if="fileChanged" class="pl-2">
-                                    <icons icon="text-balloon"></icons>
-                                    You have unsaved changes. You may want to save the file to preserve your changes.</label
+                    <b-collapse id="collapse-ds" v-model="file_details_visible">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <button type="button" class="btn mr-md-3" @click="askNewFile">
+                                        <icons icon="file-empty"></icons>
+                                        &nbsp;New file
+                                    </button>
+                                    <label class="custom-file-upload">
+                                        <icons icon="file"></icons>
+                                        &nbsp;Select YAML file
+                                        <file-reader @load="readFile($event)" :setFileNameFn="setFileName" :id="'dsFileReader'"></file-reader>
+                                    </label>
+                                </div>
+                            </div>
+                            <div v-if="doc != null" class="row pt-md-2">
+                                <div class="col">
+                                    <file-details
+                                        :filename="filename"
+                                        :doc="doc"
+                                        :platforms="platforms"
+                                        :platformConversion="platformConversion"
+                                        systemsOrPlatforms="systems"
+                                    ></file-details>
+                                </div>
+                            </div>
+                            <div v-if="doc != null" class="row pt-md-2">
+                                <div class="col card-text">
+                                    <button type="button" class="btn" @click="downloadYaml('data_sources', 'data_source_name')">
+                                        <icons icon="save"></icons>
+                                        &nbsp;Save YAML file
+                                    </button>
+                                </div>
+                                <div
+                                    class="col-md-0 mt-3 mr-4 text-right cursor-pointer"
+                                    @click="file_details_lock = !file_details_lock"
+                                    :title="file_details_lock ? 'File Details: locked' : 'File Details: auto hide'"
                                 >
+                                    <icons :icon="file_details_lock ? 'lock' : 'unlock'"></icons>
+                                </div>
                             </div>
                         </div>
-                        <div v-if="doc != null" class="row pt-md-2">
-                            <div class="col">
-                                <file-details :filename="filename" :doc="doc" :platforms="platforms"></file-details>
-                            </div>
-                        </div>
-                        <div v-if="doc != null" class="row pt-md-2">
-                            <div class="col card-text">
-                                <button type="button" class="btn" @click="downloadYaml('data_sources', 'data_source_name')">
-                                    <icons icon="save"></icons>
-                                    &nbsp;Save YAML file
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    </b-collapse>
                 </div>
             </div>
         </div>
@@ -61,15 +84,26 @@
                                     <icons icon="plus"></icons>
                                     &nbsp;Add data source
                                 </button>
+                                &nbsp;
+                                <button type="button" class="btn btn-secondary" @click="addAllDataSources()">
+                                    <icons icon="plus-filled"></icons>
+                                    &nbsp;Add all data sources
+                                </button>
                             </p>
                         </div>
                     </div>
                     <div class="row mt-md-2">
                         <div class="col">
-                            <base-input v-model="filters.filter.value" placeholder="filter" />
+                            <base-input
+                                v-model="filters.filter.value"
+                                placeholder="filter"
+                                @keyup="countDataSources()"
+                                @change="countDataSources()"
+                            />
+                            <div class="search-summary">Showing {{ data_sources_count }} of {{ doc.data_sources.length }} data sources</div>
                             <v-table
                                 :data="doc.data_sources"
-                                @selectionChanged="selectItem($event)"
+                                @selectionChanged="selectDataSource($event)"
                                 selectedClass="table-selected-custom"
                                 :filters="filters"
                                 class="table-custom"
@@ -77,15 +111,15 @@
                             >
                                 <thead slot="head">
                                     <v-th sortKey="data_source_name" defaultSort="asc" width="350">Name</v-th>
-                                    <v-th sortKey="date_registered" width="200">Date registered</v-th>
-                                    <v-th sortKey="products" width="350">Products</v-th>
+                                    <v-th :sortKey="joinedApplicableTo" width="500">Applicable to</v-th>
                                     <th></th>
                                 </thead>
                                 <tbody slot="body" slot-scope="{ displayData }">
                                     <v-tr v-for="(row, i) in displayData" :key="row.data_source_name" :row="row" ref="data_table_rows">
                                         <td>{{ row.data_source_name }}</td>
-                                        <td>{{ row.date_registered }}</td>
-                                        <td>{{ row.products | listToString }}</td>
+                                        <td>
+                                            {{ joinedApplicableTo(row) }}
+                                        </td>
                                         <td>
                                             <i
                                                 class="tim-icons icon-trash-simple cursor-pointer"
@@ -107,10 +141,12 @@
                         v-if="getSelectedItem() != null"
                         :dataSource="getSelectedItem()"
                         :allDataSources="doc.data_sources"
+                        :allSystems="doc.systems"
                         :dqHelpText="dqHelpText"
                         :dsHelpText="dsHelpText"
                         :prevDataSourceQuality="prevDataSourceQuality"
                         :navigateItem="navigateItem"
+                        ref="detailComponent"
                     ></data-source-detail>
                 </card>
             </div>
@@ -126,6 +162,9 @@ import constants from '@/constants';
 import { pageMixin } from '../mixins/PageMixins.js';
 import { navigateMixins } from '../mixins/NavigateMixins.js';
 import { notificationMixin } from '../mixins/NotificationMixins.js';
+import dataSources from '@/data/data_sources';
+import customDataSources from '@/data/dettect_data_sources';
+import dataSourcePlatforms from '@/data/data_source_platforms';
 import _ from 'lodash';
 
 export default {
@@ -135,16 +174,18 @@ export default {
             filters: {
                 filter: {
                     value: '',
-                    keys: ['data_source_name', 'date_registered', 'products']
+                    keys: ['data_source_name']
                 }
             },
-            prevDataSourceQuality: [],
+            prevDataSourceQuality: {},
             data_columns: ['data_source_name', 'date_registered', 'products'],
             dqFileToRender: 'https://raw.githubusercontent.com/wiki/rabobank-cdc/DeTTECT/Data-quality-scoring.md',
             dqHelpText: null,
             dsFileToRender: 'https://raw.githubusercontent.com/wiki/rabobank-cdc/DeTTECT/YAML-administration-data-sources.md',
             dsHelpText: null,
-            emptyDataSourceObject: constants.YAML_OBJ_DATA_SOURCES
+            emptyDataSourceObject: constants.YAML_OBJ_DATA_SOURCES,
+            selectedPlatforms: Array,
+            data_sources_count: 0
         };
     },
     mixins: [pageMixin, navigateMixins, notificationMixin],
@@ -169,71 +210,86 @@ export default {
                         // Health checks before assignment to this.doc:
                         ///////////////////////////////////////////////
 
-                        // Fix missing or empty platform:
-                        if (yaml_input.platform == undefined || yaml_input.platform == null) {
-                            yaml_input.platform = [];
-                        }
-
-                        // Fix a single platform string to list
-                        if (typeof yaml_input.platform == 'string') {
-                            yaml_input.platform = [yaml_input.platform];
-                        }
-
-                        // Only use valid platform values (in right casing):
-                        let valid_platforms = [];
-                        for (let i = 0; i < yaml_input.platform.length; i++) {
-                            if (this.platforms.indexOf(yaml_input.platform[i]) < 0) {
-                                let p = yaml_input.platform[i].toLowerCase();
-                                if (Object.keys(constants.PLATFORM_CONVERSION).indexOf(p) >= 0) {
-                                    valid_platforms.push(constants.PLATFORM_CONVERSION[p]);
-                                } else {
-                                    this.notifyDanger('Invalid value', 'Invalid value for platform was found in the YAML file and was removed.');
+                        // Fix missing or empty systems field:
+                        if (yaml_input.systems == undefined || yaml_input.systems == null) {
+                            yaml_input.systems = _.cloneDeep(constants.YAML_OBJ_NEW_DATA_SOURCES_FILE['systems']);
+                        } else {
+                            // Fix missing or empty applicable_to and platform fields:
+                            for (let i = 0; i < yaml_input.systems.length; i++) {
+                                if (yaml_input.systems[i].applicable_to == undefined || yaml_input.systems[i].applicable_to == null) {
+                                    yaml_input.systems[i].applicable_to = 'empty' + i;
                                 }
-                            } else {
-                                valid_platforms.push(yaml_input.platform[i]);
+                                if (yaml_input.systems[i].platform == undefined || yaml_input.systems[i].platform == null) {
+                                    yaml_input.systems[i].platform = [];
+                                }
+
+                                // Fix a single platform string to list
+                                if (typeof yaml_input.systems[i].platform == 'string') {
+                                    yaml_input.systems[i].platform = [yaml_input.systems[i].platform];
+                                }
+
+                                let valid_platforms = [];
+                                for (let j = 0; j < yaml_input.systems[i].platform.length; j++) {
+                                    // Only use valid platform values (in right casing):
+                                    if (this.platforms.indexOf(yaml_input.systems[i].platform[j]) < 0) {
+                                        let p = yaml_input.systems[i].platform[j].toLowerCase();
+                                        if (Object.keys(constants.PLATFORM_CONVERSION).indexOf(p) >= 0) {
+                                            valid_platforms.push(constants.PLATFORM_CONVERSION[p]);
+                                        } else {
+                                            this.notifyDanger(
+                                                'Invalid value',
+                                                'Invalid value for platform was found in the YAML file and was removed.'
+                                            );
+                                        }
+                                    } else {
+                                        valid_platforms.push(yaml_input.systems[i].platform[j]);
+                                    }
+                                }
+                                yaml_input.systems[i].platform = valid_platforms;
                             }
                         }
-                        yaml_input.platform = valid_platforms;
 
-                        // Fix missing/invalid fields: 'products', available_for_data_analytics, data_quality
+                        // Fix missing/invalid fields for data_source items: products, available_for_data_analytics, data_quality
                         for (let i = 0; i < yaml_input.data_sources.length; i++) {
-                            if (yaml_input.data_sources[i].products == undefined) {
-                                yaml_input.data_sources[i].products = [];
-                            }
+                            for (let j = 0; j < yaml_input.data_sources[i].data_source.length; j++) {
+                                if (yaml_input.data_sources[i].data_source[j].products == undefined) {
+                                    yaml_input.data_sources[i].data_source[j].products = [];
+                                }
 
-                            if (yaml_input.data_sources[i].available_for_data_analytics == undefined) {
-                                yaml_input.data_sources[i].available_for_data_analytics = false;
-                            }
+                                if (yaml_input.data_sources[i].data_source[j].available_for_data_analytics == undefined) {
+                                    yaml_input.data_sources[i].data_source[j].available_for_data_analytics = false;
+                                }
 
-                            if (typeof yaml_input.data_sources[i].available_for_data_analytics != 'boolean') {
-                                yaml_input.data_sources[i].available_for_data_analytics = false;
-                            }
+                                if (typeof yaml_input.data_sources[i].data_source[j].available_for_data_analytics != 'boolean') {
+                                    yaml_input.data_sources[i].data_source[j].available_for_data_analytics = false;
+                                }
 
-                            if (yaml_input.data_sources[i].data_quality == undefined) {
-                                yaml_input.data_sources[i].data_quality = {
-                                    device_completeness: 0,
-                                    data_field_completeness: 0,
-                                    timeliness: 0,
-                                    consistency: 0,
-                                    retention: 0
-                                };
-                            }
+                                if (yaml_input.data_sources[i].data_source[j].data_quality == undefined) {
+                                    yaml_input.data_sources[i].data_source[j].data_quality = {
+                                        device_completeness: 0,
+                                        data_field_completeness: 0,
+                                        timeliness: 0,
+                                        consistency: 0,
+                                        retention: 0
+                                    };
+                                }
 
-                            yaml_input.data_sources[i].data_quality.device_completeness = this.fixSDataQualityScore(
-                                yaml_input.data_sources[i].data_quality.device_completeness
-                            );
-                            yaml_input.data_sources[i].data_quality.data_field_completeness = this.fixSDataQualityScore(
-                                yaml_input.data_sources[i].data_quality.data_field_completeness
-                            );
-                            yaml_input.data_sources[i].data_quality.timeliness = this.fixSDataQualityScore(
-                                yaml_input.data_sources[i].data_quality.timeliness
-                            );
-                            yaml_input.data_sources[i].data_quality.consistency = this.fixSDataQualityScore(
-                                yaml_input.data_sources[i].data_quality.consistency
-                            );
-                            yaml_input.data_sources[i].data_quality.retention = this.fixSDataQualityScore(
-                                yaml_input.data_sources[i].data_quality.retention
-                            );
+                                yaml_input.data_sources[i].data_source[j].data_quality.device_completeness = this.fixSDataQualityScore(
+                                    yaml_input.data_sources[i].data_source[j].data_quality.device_completeness
+                                );
+                                yaml_input.data_sources[i].data_source[j].data_quality.data_field_completeness = this.fixSDataQualityScore(
+                                    yaml_input.data_sources[i].data_source[j].data_quality.data_field_completeness
+                                );
+                                yaml_input.data_sources[i].data_source[j].data_quality.timeliness = this.fixSDataQualityScore(
+                                    yaml_input.data_sources[i].data_source[j].data_quality.timeliness
+                                );
+                                yaml_input.data_sources[i].data_source[j].data_quality.consistency = this.fixSDataQualityScore(
+                                    yaml_input.data_sources[i].data_source[j].data_quality.consistency
+                                );
+                                yaml_input.data_sources[i].data_source[j].data_quality.retention = this.fixSDataQualityScore(
+                                    yaml_input.data_sources[i].data_source[j].data_quality.retention
+                                );
+                            }
                         }
 
                         // For the following fields it's not a problem is they are missing because the GUI solves/handles this properly:
@@ -248,19 +304,21 @@ export default {
                             this.selectedRow.pop();
                         }
 
-                        // Fix the date to be in the correct date format (YYY-MM-DD):
+                        // Fix the date to be in the correct date format (YYYY-MM-DD):
                         for (let i = 0; i < this.doc.data_sources.length; i++) {
-                            let dr = this.doc.data_sources[i]['date_registered'];
-                            let dv = this.doc.data_sources[i]['date_connected'];
-                            if (dr != null) {
-                                this.doc.data_sources[i]['date_registered'] = moment(dr, 'DD/MM/YYYY').format('YYYY-MM-DD');
-                            }
-                            if (dv != null) {
-                                this.doc.data_sources[i]['date_connected'] = moment(dv, 'DD/MM/YYYY').format('YYYY-MM-DD');
+                            for (let j = 0; j < this.doc.data_sources[i].data_source.length; j++) {
+                                let dr = this.doc.data_sources[i].data_source[j]['date_registered'];
+                                let dv = this.doc.data_sources[i].data_source[j]['date_connected'];
+                                if (dr != null) {
+                                    this.doc.data_sources[i].data_source[j]['date_registered'] = moment(dr, 'DD/MM/YYYY').format('YYYY-MM-DD');
+                                }
+                                if (dv != null) {
+                                    this.doc.data_sources[i].data_source[j]['date_connected'] = moment(dv, 'DD/MM/YYYY').format('YYYY-MM-DD');
+                                }
                             }
                         }
 
-                        this.prevDataSourceQuality = [];
+                        this.prevDataSourceQuality = {};
                         this.fileChanged = false;
                         this.setWatch();
 
@@ -271,7 +329,7 @@ export default {
                     this.notifyInvalidFileType(this.selected_filename);
                 }
             } catch (e) {
-                // alert(e);
+                alert(e);
                 this.notifyInvalidFileType(this.selected_filename);
             }
         },
@@ -303,19 +361,68 @@ export default {
         convertBeforeDownload(newDoc) {
             // Convert the date (which is a string in the GUI) to a real Date object in the YAML file
             for (let i = 0; i < newDoc.data_sources.length; i++) {
-                if (newDoc.data_sources[i]['date_registered'] != null) {
-                    newDoc.data_sources[i]['date_registered'] = new Date(newDoc.data_sources[i]['date_registered']);
-                }
-                if (newDoc.data_sources[i]['date_connected'] != null) {
-                    newDoc.data_sources[i]['date_connected'] = new Date(newDoc.data_sources[i]['date_connected']);
+                for (let j = 0; j < newDoc.data_sources[i].data_source.length; j++) {
+                    if (newDoc.data_sources[i].data_source[j]['date_registered'] != null) {
+                        newDoc.data_sources[i].data_source[j]['date_registered'] = new Date(newDoc.data_sources[i].data_source[j]['date_registered']);
+                    }
+                    if (newDoc.data_sources[i].data_source[j]['date_connected'] != null) {
+                        newDoc.data_sources[i].data_source[j]['date_connected'] = new Date(newDoc.data_sources[i].data_source[j]['date_connected']);
+                    }
                 }
             }
         },
         deleteDataSource(event) {
-            this.deleteItem(event, 'data_sources', 'data_source_name', 'Data source', this.recoverDeletedDataSource);
+            this.deleteItem(event, 'data_sources', ['data_source_name'], 'Data source', this.recoverDeletedDataSource);
+            this.countDataSources();
+        },
+        getSelectedPlatforms() {
+            let selectedPlatforms = new Set();
+            for (let i = 0; i < this.doc.systems.length; i++) {
+                for (let j = 0; j < this.doc.systems[i].platform.length; j++) {
+                    selectedPlatforms.add(this.doc.systems[i].platform[j]);
+                }
+            }
+            this.selectedPlatforms = Array.from(selectedPlatforms);
+        },
+        addAllDataSources() {
+            this.getSelectedPlatforms();
+            // Add all data sources based on both data sources and DeTT&CT data sources and check if the platform of these
+            // (DeTT&CT) data sources corresponds to the selected platforms within the systems key-value pair.
+            let current_ds_in_file = [];
+            for (let i = 0; i < this.doc.data_sources.length; i++) {
+                current_ds_in_file.push(this.doc.data_sources[i].data_source_name);
+            }
+
+            for (let i = 0; i < this.selectedPlatforms.length; i++) {
+                for (let j = 0; j < dataSources.length; j++) {
+                    if (this.selectedPlatforms[i] == 'all' || dataSourcePlatforms['ATT&CK'][this.selectedPlatforms[i]].includes(dataSources[j])) {
+                        if (!current_ds_in_file.includes(dataSources[j])) {
+                            let newrow = _.cloneDeep(this.emptyDataSourceObject);
+                            newrow.data_source_name = dataSources[j];
+                            this.doc.data_sources.push(newrow);
+                            current_ds_in_file.push(dataSources[j]);
+                        }
+                    }
+                }
+
+                for (let j = 0; j < customDataSources.length; j++) {
+                    if (
+                        this.selectedPlatforms[i] == 'all' ||
+                        dataSourcePlatforms['DeTT&CT'][this.selectedPlatforms[i]].includes(customDataSources[j])
+                    ) {
+                        if (!current_ds_in_file.includes(customDataSources[j])) {
+                            let newrow = _.cloneDeep(this.emptyDataSourceObject);
+                            newrow.data_source_name = customDataSources[j];
+                            this.doc.data_sources.push(newrow);
+                            current_ds_in_file.push(customDataSources[j]);
+                        }
+                    }
+                }
+            }
+            this.countDataSources();
         },
         recoverDeletedDataSource(data_source_name) {
-            this.recoverDeletedItem('data_sources', data_source_name);
+            this.recoverDeletedItem('data_sources', data_source_name, this.doc.data_sources, ['data_source_name']);
         },
         preloadMarkDown() {
             // Preload the data quality help text from Github
@@ -334,10 +441,14 @@ export default {
             this.dsHelpText = 'Loading the help content...';
             this.$http.get(this.dsFileToRender).then(
                 (response) => {
-                    this.dsHelpText = response.body.replace(/\[(.+)\](\([#\w-]+\))/gm, '$1'); // remove links to other wiki pages
-                    this.dsHelpText = this.dsHelpText.match(/## Data source object((.*|\n)*)/gim, '$1')[0];
-                    this.dsHelpText = this.dsHelpText.replace(/^## Data source object/gim, '');
-                    this.dsHelpText = this.dsHelpText.replace(/^## .+((.*|\n)*)/gim, '');
+                    try {
+                        this.dsHelpText = response.body.replace(/\[(.+)\](\([#\w-]+\))/gm, '$1'); // remove links to other wiki pages
+                        this.dsHelpText = this.dsHelpText.match(/## Data source details object((.*|\n)*)/gim, '$1')[0];
+                        this.dsHelpText = this.dsHelpText.replace(/^## Data source details object/gim, '');
+                        this.dsHelpText = this.dsHelpText.replace(/^## .+((.*|\n)*)/gim, '');
+                    } catch (e) {
+                        this.dsHelpText = 'An error occurred while loading the help content.';
+                    }
                 },
                 // eslint-disable-next-line no-unused-vars
                 (response) => {
@@ -347,6 +458,35 @@ export default {
         },
         notifyInvalidFileType(filename) {
             this.notifyDanger('Invalid YAML file type', "The file '" + filename + "' is not a valid data source administration file.");
+        },
+        hideFileDetails(state) {
+            if (this.doc != null && this.$route.name == 'datasources' && !this.file_details_lock) {
+                this.file_details_visible = state;
+                this.changePageTitle();
+            }
+        },
+        selectDataSource(event) {
+            if (this.$refs.detailComponent != undefined) {
+                this.$refs.detailComponent.closeAllCollapses();
+            }
+            this.selectItem(event);
+            this.countDataSources();
+        },
+        joinedApplicableTo(row) {
+            return row.data_source
+                .map(function(row) {
+                    return row.applicable_to;
+                })
+                .join(', ');
+        },
+        countDataSources() {
+            if (this.$refs.data_table != undefined) {
+                setTimeout(() => {
+                    this.data_sources_count = this.$refs.data_table.$el.rows.length;
+                }, 100);
+            } else {
+                this.data_sources_count = 0;
+            }
         }
     },
     filters: {

@@ -3,6 +3,7 @@ from data_source_mapping import *
 from technique_mapping import *
 from group_mapping import *
 from eql_yaml import *
+from generic_mode import *
 
 groups = 'all'
 software_group = False
@@ -33,6 +34,9 @@ def _clear():
     print(' ' * int((len(desc) - len(name)) / 2) + name)
     print(desc)
     print(' ' * int((len(desc) - len(version)) / 2) + version)
+    print('\n   [!]  The interactive menu will be removed from DeTT&CT in a   [!]')
+    print('   [!]    future release. We advise using the CLI which is       [!]')
+    print('   [!]      offering support for all features of DeTT&CT.        [!]')
     print('')
 
 
@@ -50,7 +54,7 @@ def _wait():
     :return:
     """
     print('')
-    print('Press a key to continue')
+    print(TXT_ANY_KEY_TO_CONTINUE)
     input('')
 
 
@@ -72,8 +76,8 @@ def interactive_menu():
     if choice == '1':
         _menu_data_source(_select_file(MENU_NAME_DATA_SOURCE_MAPPING, 'data sources', FILE_TYPE_DATA_SOURCE_ADMINISTRATION))
     elif choice == '2':
-        _menu_visibility(_select_file(MENU_NAME_VISIBILITY_MAPPING, 'techniques (used to score the level of visibility)', FILE_TYPE_TECHNIQUE_ADMINISTRATION),
-                         _select_file(MENU_NAME_VISIBILITY_MAPPING, 'data sources (used to add metadata on the involved data sources to the heat map)', FILE_TYPE_DATA_SOURCE_ADMINISTRATION, False))
+        _menu_visibility(_select_file(MENU_NAME_VISIBILITY_MAPPING,
+                                      'techniques (used to score the level of visibility)', FILE_TYPE_TECHNIQUE_ADMINISTRATION))
     elif choice == '3':
         _menu_detection(_select_file(MENU_NAME_DETECTION_COVERAGE_MAPPING, 'techniques', FILE_TYPE_TECHNIQUE_ADMINISTRATION))
     elif choice == '4':
@@ -351,14 +355,11 @@ def _menu_detection(filename_t):
                 _menu_detection(filename_t)
         if choice == '4':
             print('Writing detection coverage layer...')
-            generate_detection_layer(file_tech, None, False, None, None)
+            generate_detection_layer(file_tech, False, None, None)
             _wait()
         elif choice == '5':
-            filename_ds = _select_file(MENU_NAME_DETECTION_COVERAGE_MAPPING, 'data sources (used to add metadata on the '
-                                                                             'involved data sources to the heat map)',
-                                       FILE_TYPE_DATA_SOURCE_ADMINISTRATION, False)
             print('Writing detection coverage layer with visibility as overlay...')
-            generate_detection_layer(file_tech, filename_ds, True, None, None)
+            generate_detection_layer(file_tech, True, None, None)
             _wait()
         elif choice == '6':
             print('Drawing the graph...')
@@ -379,11 +380,10 @@ def _menu_detection(filename_t):
     _menu_detection(filename_t)
 
 
-def _menu_visibility(filename_t, filename_ds):
+def _menu_visibility(filename_t):
     """
     Prints and handles the Visibility coverage mapping functionality.
     :param filename_t:
-    :param filename_ds:
     :return:
     """
     global eql_all_scores, eql_query_detection, eql_query_visibility
@@ -393,7 +393,6 @@ def _menu_visibility(filename_t, filename_ds):
     print('Menu: %s' % MENU_NAME_VISIBILITY_MAPPING)
     print('')
     print('Selected techniques YAML file: %s' % filename_str)
-    print('Selected data source YAML file: %s' % filename_ds)
     print('')
     print('Options:')
     eql_d_str = '' if not eql_query_detection else eql_query_detection
@@ -426,14 +425,14 @@ def _menu_visibility(filename_t, filename_ds):
                                           include_all_score_objs=eql_all_scores)
             if not file_tech:
                 _wait()  # something went wrong in executing the search or 0 results where returned
-                _menu_visibility(filename_t, filename_ds)
+                _menu_visibility(filename_t)
         if choice == '4':
             print('Writing visibility coverage layer...')
-            generate_visibility_layer(file_tech, filename_ds, False, None, None)
+            generate_visibility_layer(file_tech, False, None, None)
             _wait()
         elif choice == '5':
             print('Writing visibility coverage layer overlaid with detections...')
-            generate_visibility_layer(file_tech, filename_ds, True, None, None)
+            generate_visibility_layer(file_tech, True, None, None)
             _wait()
         elif choice == '6':
             print('Drawing the graph...')
@@ -451,7 +450,7 @@ def _menu_visibility(filename_t, filename_ds):
         interactive_menu()
     elif choice == 'q':
         quit()
-    _menu_visibility(filename_t, filename_ds)
+    _menu_visibility(filename_t)
 
 
 def _menu_groups():

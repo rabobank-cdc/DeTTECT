@@ -1,6 +1,6 @@
-FROM python:3.8-slim-buster
+FROM python:3.10-slim-bullseye
 
-LABEL version="1.4.4"
+LABEL version="1.5.0"
 
 # copy DeTT&CT and install the requirements
 COPY . /opt/DeTTECT

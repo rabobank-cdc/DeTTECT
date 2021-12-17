@@ -22,14 +22,32 @@
             <td><base-input v-model="doc['name']" class="file-detail-edit"></base-input></td>
         </tr>
         <tr>
-            <td>Notes:</td>
+            <td class="vtop">Notes:</td>
             <td>
                 <div class="textareaFileDetails">
                     <extended-textarea :data_object="doc" data_field="notes" rows="2" id="notes"></extended-textarea>
                 </div>
             </td>
         </tr>
-        <tr>
+        <tr v-if="systemsOrPlatforms == 'systems'">
+            <td class="vtop">Systems:</td>
+            <td width="1000">
+                <list-editor-extended
+                    name="platform-selector"
+                    :list="doc.systems"
+                    class="mt-md-2 no-bottom-margin list-editor-extended"
+                    notifyText="'KEYNAME' already exists. Duplicate entries are not allowed."
+                    placeholder="applicable to"
+                    subject_text="platform"
+                    :values="platforms"
+                    :valuesConversion="platformConversion"
+                    :reservedKeywords="['all']"
+                    :postRemoveFunction="removeApplicableToFromDataSources"
+                    :postUpdateFunction="updateNameApplicableToForDataSources"
+                ></list-editor-extended>
+            </td>
+        </tr>
+        <tr v-else>
             <td>Platform:</td>
             <td>
                 <!-- eslint-disable-next-line vue/require-v-for-key -->
@@ -45,27 +63,36 @@
 <script>
 import { notificationMixin } from '@/mixins/NotificationMixins.js';
 import ExtendedTextarea from '@/components/Inputs/ExtendedTextarea';
+import ListEditorExtended from '@/components/Inputs/ListEditorExtended';
 
 export default {
     mixins: [notificationMixin],
     props: {
         filename: {
             type: String,
-            required: true,
+            required: true
         },
         doc: {
             type: Object,
-            required: true,
+            required: true
         },
         platforms: {
             type: Array,
-            required: true,
+            required: true
+        },
+        platformConversion: {
+            type: Object,
+            required: false
         },
         showName: {
             type: Boolean,
             required: false,
-            default: true,
+            default: true
         },
+        systemsOrPlatforms: {
+            type: String,
+            required: true
+        }
     },
     methods: {
         platformEventHandler(event) {
@@ -90,10 +117,39 @@ export default {
                 this.notifyDanger('Missing value', 'No value for platform selected. Please select one or more platforms.');
             }
         },
+        removeApplicableToFromDataSources(name) {
+            for (let i = 0; i < this.doc.data_sources.length; i++) {
+                for (let j = 0; j < this.doc.data_sources[i].data_source.length; j++) {
+                    for (let k = 0; k < this.doc.data_sources[i].data_source[j].applicable_to.length; k++) {
+                        if (this.doc.data_sources[i].data_source[j].applicable_to[k] == name) {
+                            this.doc.data_sources[i].data_source[j].applicable_to.splice(k, 1);
+
+                            if (this.doc.data_sources[i].data_source[j].applicable_to.length == 0) {
+                                this.doc.data_sources[i].data_source[j].applicable_to.push('all');
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+        },
+        updateNameApplicableToForDataSources(old_name, new_name) {
+            for (let i = 0; i < this.doc.data_sources.length; i++) {
+                for (let j = 0; j < this.doc.data_sources[i].data_source.length; j++) {
+                    for (let k = 0; k < this.doc.data_sources[i].data_source[j].applicable_to.length; k++) {
+                        if (this.doc.data_sources[i].data_source[j].applicable_to[k] == old_name) {
+                            this.doc.data_sources[i].data_source[j].applicable_to[k] = new_name;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     },
     components: {
         ExtendedTextarea,
-    },
+        ListEditorExtended
+    }
 };
 </script>
 

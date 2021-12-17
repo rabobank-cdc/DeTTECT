@@ -5,45 +5,67 @@
                 <icons icon="arrow-up"></icons>
             </label>
         </div>
-
         <div class="row" id="pageTop">
             <div class="col">
                 <div class="card card-card">
-                    <div class="card-header">
-                        <h2 class="card-title"><i class="tim-icons icon-zoom-split"></i> Techniques</h2>
+                    <div class="row cursor-pointer" @click="hideFileDetails(!file_details_visible)">
+                        <div class="col-md-7">
+                            <div class="card-header">
+                                <h2 class="card-title"><i class="tim-icons icon-zoom-split"></i> Techniques{{ showFileName }}</h2>
+                            </div>
+                        </div>
+                        <div class="col mt-3 text-right">
+                            <label v-if="fileChanged" class="pl-2">
+                                <icons icon="text-balloon"></icons>
+                                You have unsaved changes. You may want to save the file to preserve your changes.</label
+                            >
+                        </div>
+                        <div class="col-md-0 mt-3 mr-4 text-right" :title="file_details_visible ? 'Collapse File Details' : 'Expand File Details'">
+                            <icons :icon="file_details_visible ? 'collapse' : 'expand'"></icons>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn mr-md-3" @click="askNewFile">
-                                    <icons icon="file-empty"></icons>
-                                    &nbsp;New file
-                                </button>
-                                <label class="custom-file-upload">
-                                    <icons icon="file"></icons>
-                                    &nbsp;Select YAML file
-                                    <file-reader @load="readFile($event)" :setFileNameFn="setFileName" :id="'techniqueFileReader'"></file-reader>
-                                </label>
-                                <label v-if="fileChanged" class="pl-2">
-                                    <icons icon="text-balloon"></icons>
-                                    You have unsaved changes. You may want to save the file to preserve your changes.</label
+                    <b-collapse id="collapse-ds" v-model="file_details_visible">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <button type="button" class="btn mr-md-3" @click="askNewFile">
+                                        <icons icon="file-empty"></icons>
+                                        &nbsp;New file
+                                    </button>
+                                    <label class="custom-file-upload">
+                                        <icons icon="file"></icons>
+                                        &nbsp;Select YAML file
+                                        <file-reader @load="readFile($event)" :setFileNameFn="setFileName" :id="'techniqueFileReader'"></file-reader>
+                                    </label>
+                                </div>
+                            </div>
+                            <div v-if="doc != null" class="row pt-md-2">
+                                <div class="col">
+                                    <file-details
+                                        :filename="filename"
+                                        :doc="doc"
+                                        :platforms="platforms"
+                                        systemsOrPlatforms="platforms"
+                                    ></file-details>
+                                </div>
+                            </div>
+                            <div v-if="doc != null" class="row pt-md-2">
+                                <div class="col card-text">
+                                    <button type="button" class="btn" @click="downloadYaml('techniques', 'technique_id')">
+                                        <icons icon="save"></icons>
+                                        &nbsp;Save YAML file
+                                    </button>
+                                </div>
+                                <div
+                                    class="col-md-0 mt-3 mr-4 text-right cursor-pointer"
+                                    @click="file_details_lock = !file_details_lock"
+                                    :title="file_details_lock ? 'File Details: locked' : 'File Details: auto hide'"
                                 >
+                                    <icons :icon="file_details_lock ? 'lock' : 'unlock'"></icons>
+                                </div>
                             </div>
                         </div>
-                        <div v-if="doc != null" class="row pt-md-2">
-                            <div class="col">
-                                <file-details :filename="filename" :doc="doc" :platforms="platforms"></file-details>
-                            </div>
-                        </div>
-                        <div v-if="doc != null" class="row pt-md-2">
-                            <div class="col card-text">
-                                <button type="button" class="btn" @click="downloadYaml('techniques', 'technique_id')">
-                                    <icons icon="save"></icons>
-                                    &nbsp;Save YAML file
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    </b-collapse>
                 </div>
             </div>
         </div>
@@ -62,7 +84,8 @@
                     </div>
                     <div class="row mt-md-2">
                         <div class="col">
-                            <base-input v-model="filters.filter.value" placeholder="filter" />
+                            <base-input v-model="filters.filter.value" placeholder="filter" @keyup="countTechniques()" @change="countTechniques()" />
+                            <div class="search-summary">Showing {{ techniques_count }} of {{ doc.techniques.length }} techniques</div>
                             <v-table
                                 :data="doc.techniques"
                                 @selectionChanged="selectTechnique($event)"
@@ -133,7 +156,8 @@ export default {
                 }
             },
             data_columns: ['technique_id', 'technique_name'],
-            emptyTechObject: constants.YAML_OBJ_TECHNIQUE
+            emptyTechObject: constants.YAML_OBJ_TECHNIQUE,
+            techniques_count: 0
         };
     },
     mixins: [pageMixin, navigateMixins, notificationMixin],
@@ -414,6 +438,12 @@ export default {
             }
         },
         cleanupBeforeDownload() {
+            // Check platform:
+            if (this.doc.platform.length == 0) {
+                this.notifyDanger('Missing value', 'No value for platform selected. Please select one or more platforms.');
+                return;
+            }
+
             // Remove empty score logbook rows in detection:
             for (let i = 0; i < this.doc.techniques.length; i++) {
                 for (let x = 0; x < this.doc.techniques[i].detection.length; x++) {
@@ -482,6 +512,7 @@ export default {
                 this.$refs.detailComponent.closeAllCollapses();
             }
             this.selectItem(event);
+            this.countTechniques();
         },
         selectTechniqueId(technique_id) {
             let row = null;
@@ -496,10 +527,11 @@ export default {
             }
         },
         deleteTechnique(event) {
-            this.deleteItem(event, 'techniques', 'technique_id', 'Technique', this.recoverDeletedTechnique);
+            this.deleteItem(event, 'techniques', ['technique_id'], 'Technique', this.recoverDeletedTechnique);
+            this.countTechniques();
         },
         recoverDeletedTechnique(technique_id) {
-            this.recoverDeletedItem('techniques', technique_id);
+            this.recoverDeletedItem('techniques', technique_id, this.doc.techniques, ['technique_id']);
         },
         notifyInvalidFileType(filename) {
             this.notifyDanger('Invalid YAML file type', "The file '" + filename + "' is not a valid technique administration file.");
@@ -513,6 +545,21 @@ export default {
                 technique_id,
                 true
             );
+        },
+        hideFileDetails(state) {
+            if (this.doc != null && this.$route.name == 'techniques' && !this.file_details_lock) {
+                this.file_details_visible = state;
+                this.changePageTitle();
+            }
+        },
+        countTechniques() {
+            if (this.$refs.data_table != undefined) {
+                setTimeout(() => {
+                    this.techniques_count = this.$refs.data_table.$el.rows.length;
+                }, 100);
+            } else {
+                this.techniques_count = 0;
+            }
         }
     }
 };

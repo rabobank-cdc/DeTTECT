@@ -37,12 +37,23 @@ export const pageMixin = {
             fileChanged: false,
             unwatchFunction: null,
             deletedRows: [],
-            platforms: constants.PLATFORMS
+            platforms: constants.PLATFORMS,
+            platformConversion: constants.PLATFORM_CONVERSION,
+            lastScrollPosition: 0,
+            file_details_visible: true,
+            file_details_lock: false,
+            showFileName: ''
         };
     },
     components: {
         FileReader,
         FileDetails
+    },
+    mounted () {
+        window.addEventListener('scroll', this.onScroll)
+    },
+    destroyed () {
+        window.removeEventListener('scroll', this.onScroll)
     },
     methods: {
         navigateToTop() {
@@ -95,11 +106,19 @@ export const pageMixin = {
                 return null;
             }
         },
-        deleteItem(event, type, key, title, cb_function) {
-            let key_id = event.target.getAttribute(key);
+        deleteItem(event, type, keys, title, cb_function) {
+            // Save the information to make undelete possible
+            let key_id = event.target.getAttribute(keys[0])
+            for(let i = 1; i < keys.length; i++){
+                key_id = key_id + '-' + event.target.getAttribute(keys[i]);
+            }
             let index = -1;
             for (let i = 0; i < this.doc[type].length; i++) {
-                if (key_id == this.doc[type][i][key]) {
+                let key_to_check = this.doc[type][i][keys[0]];
+                for(let j = 1; j < keys.length; j++){
+                    key_to_check = key_to_check + '-' + this.doc[type][i][keys[j]];
+                }
+                if (key_id == key_to_check) {
                     index = i;
                     break;
                 }
@@ -112,24 +131,45 @@ export const pageMixin = {
             // the below code results in hiding the details page when deleting:
             // - an empty item (i.e. without a name)
             // - the selected item
-            if (this.selectedRow != null && this.selectedRow.length > 0 && (key_id == '' || key_id == this.selectedRow[0][key])) {
-                this.selectedRow.pop();
+            if (this.selectedRow != null && this.selectedRow.length > 0) {
+                let selected_key_id = this.selectedRow[0][keys[0]];
+                for (let i = 1; i < keys.length; i++){
+                    selected_key_id = selected_key_id + '-' + this.selectedRow[0][keys[i]];
+                }
+                if (key_id == '' || key_id == selected_key_id) {
+                    this.selectedRow.pop();
+                }
             }
+
+            // The actual delete
             this.doc[type].splice(index, 1);
             let msg = '';
             key_id == '' ? (msg = 'The empty ' + title.toLowerCase() + ' is removed.') : (msg = title + " '" + key_id + "' is removed.");
             this.notifyInfoWithCallback('Removal status', msg, cb_function, 'Undo this action', key_id);
         },
-        recoverDeletedItem(type, key) {
+        recoverDeletedItem(type, event_key, all_items, keys) {
             // Recover deleted item (also works for multiple deleted items)
             let recoverRow = null;
             for (let i = 0; i < this.deletedRows.length; i++) {
-                if (key == this.deletedRows[i]['key']) {
+                if (event_key == this.deletedRows[i]['key']) {
                     recoverRow = this.deletedRows[i]['value'];
                     break;
                 }
             }
             if (recoverRow != null) {
+                // Check if the item was added meanwhile:
+                for (let i = 0; i < all_items.length; i++) {
+                    let key_id = all_items[i][keys[0]];
+                    for(let j = 1; j < keys.length; j++){
+                        key_id = key_id + '-' + all_items[i][keys[j]];
+                    }
+
+
+                    if(event_key == key_id){
+                        return;
+                    }
+                }
+
                 this.doc[type].push(recoverRow);
                 this.selectedRow.pop();
                 this.selectedRow.push(recoverRow);
@@ -155,12 +195,6 @@ export const pageMixin = {
             }
 
             this.cleanupBeforeDownload();
-
-            // Check platform:
-            if (this.doc.platform.length == 0) {
-                this.notifyDanger('Missing value', 'No value for platform selected. Please select one or more platforms.');
-                return;
-            }
 
             // Copy the doc variable before downloading to convert some values specific for the type of page
             let newDoc = _.cloneDeep(this.doc);
@@ -241,6 +275,21 @@ export const pageMixin = {
                     }
                 }
                 this.selectedRow.push(found_row);
+            }
+        },
+        onScroll () {
+            const currentScrollPosition = window.pageYOffset;
+            if (Math.abs(currentScrollPosition - this.lastScrollPosition) > 80) {
+                this.hideFileDetails(false);
+                this.lastScrollPosition = currentScrollPosition
+            }
+        },
+        changePageTitle () {
+            if(this.file_details_visible){
+                this.showFileName = '';
+            }
+            else if(this.filename != ''){
+                this.showFileName = ': ' + this.filename;
             }
         }
     }

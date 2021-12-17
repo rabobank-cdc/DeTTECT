@@ -1,10 +1,9 @@
 import webbrowser
 import os
-import sys
 import signal
-from http.server import HTTPServer, SimpleHTTPRequestHandler
-from socketserver import TCPServer
 import threading
+from http.server import SimpleHTTPRequestHandler
+from socketserver import TCPServer
 
 
 class QuietHTTPRequestHandler(SimpleHTTPRequestHandler):

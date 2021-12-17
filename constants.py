@@ -1,8 +1,10 @@
 import re
+import json
+import os
 
 APP_NAME = 'DeTT&CT'
 APP_DESC = 'Detect Tactics, Techniques & Combat Threats'
-VERSION = '1.4.4'
+VERSION = '1.5.0'
 
 EXPIRE_TIME = 60 * 60 * 24
 
@@ -83,40 +85,43 @@ FILE_TYPE_TECHNIQUE_ADMINISTRATION = 'technique-administration'
 FILE_TYPE_GROUP_ADMINISTRATION = 'group-administration'
 
 # YAML administration file versions
-FILE_TYPE_DATA_SOURCE_ADMINISTRATION_VERSION = 1.0
+FILE_TYPE_DATA_SOURCE_ADMINISTRATION_VERSION = 1.1
 FILE_TYPE_TECHNIQUE_ADMINISTRATION_VERSION = 1.2
 FILE_TYPE_GROUP_ADMINISTRATION_VERSION = 1.0
 
 # YAML file upgrade text
-FILE_TYPE_TECHNIQUE_ADMINISTRATION_UPGRADE_TEXT = {
-    1.1: "   * Adding new key 'technique_name' containing the ATT&CK technique name.\n"
-         "   * Adding new key 'applicable_to' for both detection and visibility. Default value is ['all'].",
-    1.2: "   * Detection: removing the key-value pair 'date_registered'.\n"
-         "     You will be asked if you still want to keep this key-value pair even though DeTT&CT no longer makes use of it.\n"
-         "   * Detection: the key-value pair 'date_implemented' will be renamed to 'date'.\n"
-         "   * Visibility: adding a new key-value pair 'date'. You will be asked on what date to fill in for the visibility scores already present.\n"
-         "   * Detection and visibility: the key-value pairs 'score' and 'date' are moved into a 'score_logbook'.\n"
-         "     The primary purpose of doing this is to allow you to keep track of changes in the score."}
+FILE_TYPE_DATA_SOURCE_UPGRADE_TEXT = {
+    1.1: """   * Adding a new object 'systems'
+   * Adding a new key-value pair 'applicable_to' to the data source objects
 
-# visibility update questions and answers
-V_UPDATE_Q_ALL_MANUAL = 'For all most recent visibility score objects that are eligible for an update, the key-value pair \'auto-generated\' is set to \'false\' or is not present.\n' \
-                        'This implies that these scores are manually assigned. How do you want to proceed?:'
-V_UPDATE_Q_ALL_AUTO = 'For all most recent visibility score objects that are eligible for an update, the key-value pair \'auto-generated\' is set to \'true\'. \n' \
-                      'This implies that these scores are auto-generated. How do you want to proceed?:'
-V_UPDATE_Q_MIXED = 'You have visibility scores that are eligible for an update, which are manually assigned and which are calculated based on the nr. of data sources (i.e. auto-generated = true)\n' \
-                   'How do you want to proceed?'
-V_UPDATE_ANSWER_1 = 'Update all visibility scores that have changed.'
-V_UPDATE_ANSWER_2 = 'Decide per visibility score, that has changed if you want to update or not.\n' \
-                    'Both the current and new visibility score will be printed.'
-V_UPDATE_ANSWER_3 = 'Only auto-update the visibility scores, that have changed, which have \'auto-generated = true\''
-V_UPDATE_ANSWER_4 = '- Auto-update the visibility scores, that have changed, which have \'auto-generated = true\'.\n' \
-                    '- And decide per manually assigned visibility score, that has changed, if you want to update or not.\n' \
-                    '  Both the current and new visibility score will be printed.'
-V_UPDATE_ANSWER_CANCEL = 'Cancel.'
+   [!] ----------------------------------------------------------------------[!]
 
-# update actions for visibility scores
-V_UPDATE_ACTION_AUTO = 'auto update'
-V_UPDATE_ACTION_DIFF = 'the user decides to update or not'
+   This upgrade can only ensure the data format will be in line with v1.1. But
+   cannot handle how you've recorded information on your data sources. It's
+   therefore advised to put some manual work into the data source administration
+   file after this upgrade. For example, to do things like:
+     - Assign data sources to the correct type of Systems
+       (which are furthermore linked to ATT&CK platforms).
+     - As we recommend and explain on the Wiki, have matching
+       Systems/applicable to between your technique and data source YAML files.
+     - Merge multiple data source files into one single file when you had
+       multiple data source files per ATT&CK platform, type of system,
+       environment, etc. The new v1.1 data format supports combining all of that
+       within the same data source YAML file using the new Systems object.
+
+    You can find further information on this new applicable to/type of System
+    functionality on the following URLs:
+    - Applicable to / type of System:
+       https://github.com/rabobank-cdc/DeTTECT/wiki/how-to-use-the-framework#matching-system--applicable-to-values
+    - The new Systems object:
+       https://github.com/rabobank-cdc/DeTTECT/wiki/YAML-administration-data-sources#Systems
+
+   [!] ----------------------------------------------------------------------[!]
+   """
+}
+
+# Text for user to enter key to continue
+TXT_ANY_KEY_TO_CONTINUE = 'Press a key to continue'
 
 # YAML regex
 REGEX_YAML_VERSION_10 = re.compile(r'^\s*version:\s+1\.0\s*$', re.IGNORECASE)
@@ -154,20 +159,7 @@ YAML_OBJ_DETECTION = {'applicable_to': ['all'],
 YAML_OBJ_TECHNIQUE = {'technique_id': '',
                       'technique_name': '',
                       'detection': YAML_OBJ_DETECTION,
-                      'visibility': YAML_OBJ_VISIBILITY}
-
-YAML_OBJ_DATA_SOURCE = {'data_source_name': '',
-                        'date_registered': None,
-                        'date_connected': None,
-                        'products': [''],
-                        'available_for_data_analytics': False,
-                        'comment': '',
-                        'data_quality': {
-                            'device_completeness': 0,
-                            'data_field_completeness': 0,
-                            'timeliness': 0,
-                            'consistency': 0,
-                            'retention': 0}}
+                      'visibility': []}
 
 # Interactive menu
 MENU_NAME_DATA_SOURCE_MAPPING = 'Data source mapping'
@@ -187,29 +179,15 @@ PLATFORMS = {'pre': 'PRE', 'windows': 'Windows', 'macos': 'macOS', 'linux': 'Lin
              'azure ad': 'Azure AD', 'google workspace': 'Google Workspace', 'iaas': 'IaaS', 'saas': 'SaaS',
              'network': 'Network', 'containers': 'Containers'}
 
-DATA_SOURCES = {
-                'PRE': ['Malware Metadata', 'Malware Content', 'Social Media', 'Response Metadata', 'Response Content', 'Certificate Registration', 'Passive DNS', 'Active DNS', 'Domain Registration'],
-
-                'Windows': ['Firmware Modification', 'User Account Metadata', 'User Account Creation', 'User Account Deletion', 'User Account Modification', 'User Account Authentication', 'Scheduled Job Metadata', 'Scheduled Job Creation', 'Scheduled Job Modification', 'WMI Creation', 'Web Credential Creation', 'Web Credential Usage', 'Process Metadata', 'Process Creation', 'Process Termination', 'Process Modification', 'Process Access', 'OS API Execution', 'Module Load', 'Script Execution', 'Host Status', 'Application Log Content', 'Drive Creation', 'Drive Modification', 'Drive Access', 'Command Execution', 'Firewall Metadata', 'Firewall Disable', 'Firewall Rule Modification', 'Firewall Enumeration', 'Service Metadata', 'Service Creation', 'Service Modification', 'File Metadata', 'File Creation', 'File Deletion', 'File Access', 'File Modification', 'Named Pipe Metadata', 'Windows Registry Key Creation', 'Windows Registry Key Deletion', 'Windows Registry Key Modification', 'Windows Registry Key Access', 'Active Directory Object Creation', 'Active Directory Object Deletion', 'Active Directory Object Modification', 'Active Directory Credential Request', 'Active Directory Object Access', 'Driver Metadata', 'Driver Load', 'Logon Session Metadata', 'Logon Session Creation', 'Network Traffic Flow', 'Network Traffic Content', 'Network Connection Creation', 'Network Share Access', 'Volume Creation', 'Volume Modification', 'Volume Deletion', 'Volume Metadata', 'Volume Enumeration', 'Group Metadata', 'Group Enumeration', 'Group Modification'],
-
-                'macOS': ['Firmware Modification', 'User Account Metadata', 'User Account Creation', 'User Account Deletion', 'User Account Modification', 'User Account Authentication', 'Scheduled Job Metadata', 'Scheduled Job Creation', 'Scheduled Job Modification', 'Web Credential Creation', 'Web Credential Usage', 'Kernel Module Load', 'Process Metadata', 'Process Creation', 'Process Termination', 'Process Modification', 'Process Access', 'OS API Execution', 'Module Load', 'Host Status', 'Application Log Content', 'Drive Creation', 'Drive Modification', 'Drive Access', 'Command Execution', 'Firewall Metadata', 'Firewall Disable', 'Firewall Rule Modification', 'Firewall Enumeration', 'Service Metadata', 'Service Creation', 'Service Modification', 'File Metadata', 'File Creation', 'File Deletion', 'File Access', 'File Modification', 'Named Pipe Metadata', 'Driver Metadata', 'Driver Load', 'Logon Session Metadata', 'Logon Session Creation', 'Network Traffic Flow', 'Network Traffic Content', 'Network Connection Creation', 'Network Share Access', 'Volume Creation', 'Volume Modification', 'Volume Deletion', 'Volume Metadata', 'Volume Enumeration'],
-
-                'Linux': ['Firmware Modification', 'User Account Metadata', 'User Account Creation', 'User Account Deletion', 'User Account Modification', 'User Account Authentication', 'Scheduled Job Metadata', 'Scheduled Job Creation', 'Scheduled Job Modification', 'Web Credential Creation', 'Web Credential Usage', 'Kernel Module Load', 'Process Metadata', 'Process Creation', 'Process Termination', 'Process Modification', 'Process Access', 'OS API Execution', 'Module Load', 'Host Status', 'Application Log Content', 'Drive Creation', 'Drive Modification', 'Drive Access', 'Command Execution', 'Firewall Metadata', 'Firewall Disable', 'Firewall Rule Modification', 'Firewall Enumeration', 'Service Metadata', 'Service Creation', 'Service Modification', 'File Metadata', 'File Creation', 'File Deletion', 'File Access', 'File Modification', 'Named Pipe Metadata', 'Driver Metadata', 'Driver Load', 'Logon Session Metadata', 'Logon Session Creation', 'Network Traffic Flow', 'Network Traffic Content', 'Network Connection Creation', 'Network Share Access', 'Volume Creation', 'Volume Modification', 'Volume Deletion', 'Volume Metadata', 'Volume Enumeration'],
-
-                'Office 365': ['User Account Metadata', 'User Account Creation', 'User Account Deletion', 'User Account Modification', 'User Account Authentication', 'Web Credential Creation', 'Web Credential Usage', 'Application Log Content', 'Firewall Metadata', 'Firewall Disable', 'Firewall Rule Modification', 'Firewall Enumeration', 'Cloud Service Metadata', 'Cloud Service Disable', 'Cloud Service Enumeration', 'Cloud Service Modification', 'Logon Session Metadata', 'Logon Session Creation', 'Group Metadata', 'Group Enumeration', 'Group Modification'],
-
-                'Azure AD': ['User Account Metadata', 'User Account Creation', 'User Account Deletion', 'User Account Modification', 'User Account Authentication', 'Web Credential Creation', 'Web Credential Usage', 'Firewall Metadata', 'Firewall Disable', 'Firewall Rule Modification', 'Firewall Enumeration', 'Cloud Service Metadata', 'Cloud Service Disable', 'Cloud Service Enumeration', 'Cloud Service Modification', 'Active Directory Object Creation', 'Active Directory Object Deletion', 'Active Directory Object Modification', 'Active Directory Credential Request', 'Active Directory Object Access', 'Logon Session Metadata', 'Logon Session Creation', 'Group Metadata', 'Group Enumeration', 'Group Modification'],
-
-                'Google Workspace': ['User Account Metadata', 'User Account Creation', 'User Account Deletion', 'User Account Modification', 'User Account Authentication', 'Web Credential Creation', 'Web Credential Usage', 'Application Log Content', 'Firewall Metadata', 'Firewall Disable', 'Firewall Rule Modification', 'Firewall Enumeration', 'Cloud Service Metadata', 'Cloud Service Disable', 'Cloud Service Enumeration', 'Cloud Service Modification', 'Logon Session Metadata', 'Logon Session Creation', 'Group Metadata', 'Group Enumeration', 'Group Modification'],
-
-                'IaaS': ['User Account Metadata', 'User Account Creation', 'User Account Deletion', 'User Account Modification', 'User Account Authentication', 'Image Creation', 'Image Modification', 'Image Deletion', 'Image Metadata', 'Cloud Storage Creation', 'Cloud Storage Modification', 'Cloud Storage Deletion', 'Cloud Storage Metadata', 'Cloud Storage Enumeration', 'Cloud Storage Access', 'Application Log Content', 'Firewall Metadata', 'Firewall Disable', 'Firewall Rule Modification', 'Firewall Enumeration', 'Snapshot Creation', 'Snapshot Modification', 'Snapshot Deletion', 'Snapshot Metadata', 'Snapshot Enumeration', 'Cloud Service Metadata', 'Cloud Service Disable', 'Cloud Service Enumeration', 'Cloud Service Modification', 'Logon Session Metadata', 'Logon Session Creation', 'Network Traffic Flow', 'Network Traffic Content', 'Network Connection Creation', 'Instance Creation', 'Instance Modification', 'Instance Deletion', 'Instance Metadata', 'Instance Enumeration', 'Instance Start', 'Instance Stop', 'Volume Creation', 'Volume Modification', 'Volume Deletion', 'Volume Metadata', 'Volume Enumeration', 'Group Metadata', 'Group Enumeration', 'Group Modification'],
-
-                'SaaS': ['User Account Metadata', 'User Account Creation', 'User Account Deletion', 'User Account Modification', 'User Account Authentication', 'Web Credential Creation', 'Web Credential Usage', 'Application Log Content', 'Firewall Metadata', 'Firewall Disable', 'Firewall Rule Modification', 'Firewall Enumeration', 'Cloud Service Metadata', 'Cloud Service Disable', 'Cloud Service Enumeration', 'Cloud Service Modification', 'Logon Session Metadata', 'Logon Session Creation', 'Group Metadata', 'Group Enumeration', 'Group Modification'],
-
-                'Network': ['Command Execution', 'File Metadata', 'File Creation', 'File Deletion', 'File Access', 'File Modification'],
-
-                'Containers': ['User Account Metadata', 'User Account Creation', 'User Account Deletion', 'User Account Modification', 'User Account Authentication', 'Scheduled Job Metadata', 'Scheduled Job Creation', 'Scheduled Job Modification', 'Pod Creation', 'Pod Modification', 'Pod Metadata', 'Pod Enumeration', 'Command Execution', 'Cluster Metadata', 'Container Creation', 'Container Metadata', 'Container Enumeration', 'Container Start']
-                }
-
 DATA_SOURCES_ATTACK_V8 = set(['Access tokens', 'Anti-virus', 'API monitoring', 'Application logs', 'Asset management', 'Authentication logs', 'AWS CloudTrail logs', 'AWS OS logs', 'Azure activity logs', 'Azure OS logs', 'Binary file metadata', 'BIOS', 'Browser extensions', 'Component firmware', 'Data loss prevention', 'Detonation chamber', 'Digital certificate logs', 'Disk forensics', 'DLL monitoring', 'DNS records', 'Domain registration', 'EFI', 'Email gateway', 'Environment variable', 'File monitoring', 'GCP audit logs', 'Host network interface', 'Kernel drivers', 'Loaded DLLs', 'Mail server', 'Malware reverse engineering', 'MBR', 'Named Pipes', 'Netflow/Enclave netflow', 'Network device command history',
                               'Network device configuration', 'Network device logs', 'Network device run-time memory', 'Network intrusion detection system', 'Network protocol analysis', 'OAuth audit logs', 'Office 365 account logs', 'Office 365 audit logs', 'Office 365 trace logs', 'Packet capture', 'PowerShell logs', 'Process command-line parameters', 'Process monitoring', 'Process use of network', 'Sensor health and status', 'Services', 'Social media monitoring', 'SSL/TLS certificates', 'SSL/TLS inspection', 'Stackdriver logs', 'System calls', 'Third-party application logs', 'User interface', 'VBR', 'Web application firewall logs', 'Web logs', 'Web proxy', 'Windows Error Reporting', 'Windows event logs', 'Windows Registry', 'WMI Objects'])
+
+DETTECT_DATA_SOURCES = {}
+with open(os.path.dirname(__file__) + '/data/dettect_data_sources.json', 'r') as input_file:
+    DETTECT_DATA_SOURCES = json.load(input_file)
+
+DATA_SOURCES = {}
+with open(os.path.dirname(__file__) + '/data/data_source_platforms.json', 'r') as input_file:
+    input_data = json.load(input_file)
+    DATA_SOURCES = input_data['ATT&CK']
+    DETTECT_DATA_SOURCES_PLATFORMS = input_data['DeTT&CT']

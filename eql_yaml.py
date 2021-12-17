@@ -1,10 +1,10 @@
-from generic import *
-from health import *
 import datetime
 import sys
-from pprint import pprint
 import eql
+from pprint import pprint
 from copy import deepcopy
+from generic import *
+from health import *
 
 
 def _traverse_modify_date(obj):
@@ -62,23 +62,49 @@ def _techniques_to_events(techniques, obj_type, include_all_score_objs):
     return technique_events
 
 
-def _object_in_technique(obj_event, technique_yaml, obj_type):
+def _data_sources_to_events(data_sources):
     """
-    - Check if the detection/visibility object already exists within the provided technique object ('technique_yaml')
-    - If it exists return the object's index in the list of other detection/visibility objects to which the
-    'score_logbook' should be added. This is needed for techniques which have multiple visibility or detection objects
-    due to 'applicable_to'
-    :param obj_event: visibility or detection EQL event
-    :param technique_yaml: the technique object that's being reconstructing from the EQL events
-    :param obj_type: 'visibility' or 'detection'
+    Transform data source objects into EQL 'events'
+    :param data_sources: data sources within a list
+    :return: EQL 'events'
+    """
+    data_source_events = []
+
+    for ds_name, ds_details_objects in data_sources.items():
+        for ds in ds_details_objects['data_source']:
+            ds = set_yaml_dv_comments(ds)
+            event = deepcopy(ds)
+            event['data_source_name'] = ds_name
+            for a in event['applicable_to']:
+                event['applicable_to'] = a
+                data_source_events.append(deepcopy(event))
+
+    return data_source_events
+
+
+def _yaml_object_in_list(eql_event, yaml_object, obj_type):
+    """
+    - Check if the EQL event/YAML object already exists within the provided list of YAML objects (detection, visibility or data_source)
+    - If it exists return the object's index in the list of other objects to which:
+      * the score_logbook should be added
+      * or, the applicable_to value should added
+
+    This is needed for techniques which have multiple visibility or detection objects,
+    and a data source with multiple applicable_to values
+    :param eql_event: visibility, detection or data_source EQL event
+    :param yaml_object: the technique or data_source object that's being reconstructing from the EQL events
+    :param obj_type: 'visibility', 'detection' or 'data_source'
     :return: -1 if it does not exists, otherwise the index within the list
     """
     idx = 0
-    for obj in technique_yaml[obj_type]:
+    for obj in yaml_object[obj_type]:
         match = True
-        for k, v in obj_event.items():
-            # we need to skip the score_logbook in the comparison this will not match as we are still re-creating the object
-            if (k in obj and obj[k] == v) or k == 'score_logbook':
+        for k, v in eql_event.items():
+            # We need to skip the score_logbook or applicable_to in the comparison.
+            # This will not match as we are still re-creating the object.
+            if (k in obj and obj[k] == v) or \
+                (k == 'score_logbook' and obj_type in ['visibility', 'detection']) or \
+                    (k == 'applicable_to' and obj_type == 'data_source'):
                 continue
             else:
                 match = False
@@ -105,16 +131,16 @@ def _value_in_dict_list(dict_list, dict_key, dict_value):
         return False
 
 
-def _get_technique_from_list(techniques, tech_id):
+def _get_item_from_list(items, item_id_name, item_id_value):
     """
     Get a technique object from a list of techniques objects that matches the provided technique ID
-    :param techniques: list of techniques
-    :param tech_id: technique_id
-    :return: technique object or None of no match is found
+    :param items: list of techniques or data souces
+    :param item_id: technique_id or data_source_name
+    :return: technique / data source object or None of no match is found
     """
-    for tech in techniques:
-        if tech['technique_id'] == tech_id:
-            return tech
+    for i in items:
+        if i[item_id_name] == item_id_value:
+            return i
     return None
 
 
@@ -127,14 +153,40 @@ def _events_to_yaml(query_results, obj_type):
     """
 
     if obj_type == 'data_sources':
+        data_sources_yaml = []
         try:
-            for r in query_results:
-                if r['date_registered'] and isinstance(r['date_registered'], str):
-                    r['date_registered'] = REGEX_YAML_VALID_DATE.match(r['date_registered']).group(1)
-                    r['date_registered'] = datetime.datetime.strptime(r['date_registered'], '%Y-%m-%d')
-                if r['date_connected'] and isinstance(r['date_connected'], str):
-                    r['date_connected'] = REGEX_YAML_VALID_DATE.match(r['date_connected']).group(1)
-                    r['date_connected'] = datetime.datetime.strptime(r['date_connected'], '%Y-%m-%d')
+            for ds in query_results:
+                if ds['date_registered'] and isinstance(ds['date_registered'], str):
+                    ds['date_registered'] = REGEX_YAML_VALID_DATE.match(ds['date_registered']).group(1)
+                    ds['date_registered'] = datetime.datetime.strptime(ds['date_registered'], '%Y-%m-%d')
+                if ds['date_connected'] and isinstance(ds['date_connected'], str):
+                    ds['date_connected'] = REGEX_YAML_VALID_DATE.match(ds['date_connected']).group(1)
+                    ds['date_connected'] = datetime.datetime.strptime(ds['date_connected'], '%Y-%m-%d')
+
+                ds_name = ds['data_source_name']
+                del ds['data_source_name']
+
+                # create the data source dict if not already created
+                if not _value_in_dict_list(data_sources_yaml, 'data_source_name', ds_name):
+                    ds_yaml = {
+                        'data_source_name': ds_name, 'data_source': []
+                    }
+                    data_sources_yaml.append(ds_yaml)
+                else:
+                    # The data source dict was already created. Get a ds. dict from the list with a specific data source name
+                    ds_yaml = _get_item_from_list(data_sources_yaml, 'data_source_name', ds_name)
+
+                # figure out if the data source details object already exists
+                obj_idx = _yaml_object_in_list(ds, ds_yaml, 'data_source')
+
+                # The data source details object is missing, add it to the list
+                if obj_idx == -1:
+                    ds['applicable_to'] = [ds['applicable_to']]
+                    ds_yaml['data_source'].append(deepcopy(ds))
+                else:
+                    # add the applicable_to value to the correct data source details object using 'obj_idx'
+                    ds_yaml['data_source'][obj_idx]['applicable_to'].append(ds['applicable_to'])
+
         except KeyError:
             print(EQL_INVALID_RESULT_DS)
             pprint(query_results)
@@ -143,13 +195,13 @@ def _events_to_yaml(query_results, obj_type):
 
         # Set 'src_eql' to true. EQL results will not contain the platform, but just data source YAML objects.
         # In addition, the search may have excluded certain data sources
-        if check_health_data_sources(None, {'data_sources': query_results}, health_is_called=False, no_print=True,
+        if check_health_data_sources(None, {'data_sources': data_sources_yaml}, health_is_called=False, no_print=True,
                                      src_eql=True):
             print(EQL_INVALID_RESULT_DS)
             pprint(query_results)
             return None
 
-        return query_results
+        return data_sources_yaml
 
     elif obj_type in ['visibility', 'detection']:
         try:
@@ -169,10 +221,10 @@ def _events_to_yaml(query_results, obj_type):
                     techniques_yaml.append(tech_yaml)
                 else:
                     # The technique dict was already created. Get a tech. dict from the list with a specific tech. ID
-                    tech_yaml = _get_technique_from_list(techniques_yaml, tech_id)
+                    tech_yaml = _get_item_from_list(techniques_yaml, 'technique_id', tech_id)
 
                 # figure out if the detection/visibility dict already exists
-                obj_idx = _object_in_technique(obj_event, tech_yaml, obj_type)
+                obj_idx = _yaml_object_in_list(obj_event, tech_yaml, obj_type)
 
                 # create the score object
                 score_obj_yaml = {}
@@ -215,7 +267,7 @@ def _merge_yaml(yaml_content_org, yaml_content_visibility=None, yaml_content_det
 
         # combine visibility objects with detection objects
         for tech_vis in yaml_content_visibility:
-            detection = _get_technique_from_list(yaml_content_detection, tech_vis['technique_id'])
+            detection = _get_item_from_list(yaml_content_detection, 'technique_id', tech_vis['technique_id'])
             if detection:
                 detection = detection['detection']
             else:
@@ -239,14 +291,14 @@ def _merge_yaml(yaml_content_org, yaml_content_visibility=None, yaml_content_det
         techniques_yaml = yaml_content_visibility
 
         for tech_yaml in techniques_yaml:
-            tech_org = _get_technique_from_list(yaml_content_org['techniques'], tech_yaml['technique_id'])
+            tech_org = _get_item_from_list(yaml_content_org['techniques'], 'technique_id', tech_yaml['technique_id'])
             tech_yaml['detection'] = tech_org['detection']
     # only a detection EQL query was provided
     elif yaml_content_detection:
         techniques_yaml = yaml_content_detection
 
         for tech_yaml in techniques_yaml:
-            tech_org = _get_technique_from_list(yaml_content_org['techniques'], tech_yaml['technique_id'])
+            tech_org = _get_item_from_list(yaml_content_org['techniques'], 'technique_id', tech_yaml['technique_id'])
             tech_yaml['visibility'] = tech_org['visibility']
 
     # create the final technique administration YAML 'file'/dict
@@ -260,22 +312,28 @@ def _prepare_yaml_file(filename, obj_type, include_all_score_objs):
     """
     Prepare the YAML file such that it can be used for EQL
     :param filename: file location of the YAML file
-    :param obj_type: technique administration file ('techniques') or data source administration file ('data_sources')
+    :param obj_type: technique administration file ('visibility' or 'detection') or data source administration file ('data_source')
     :return: A dict with date fields compatible for JSON and a new key-value pair event-type
     for the EQL engine
     """
-    _yaml = init_yaml()
-
-    with open(filename, 'r') as yaml_file:
-        yaml_content = _yaml.load(yaml_file)
+    if isinstance(filename, dict):
+        # file is a dict created due to the use of an EQL query by the user
+        yaml_content = filename
+    else:
+        # file is a file location on disk
+        _yaml = init_yaml()
+        with open(filename, 'r') as yaml_file:
+            yaml_content = _yaml.load(yaml_file)
 
     yaml_content_eql = _traverse_modify_date(yaml_content)
     yaml_eql_events = []
 
     # create EQL events from the list of dictionaries
     if obj_type == 'data_sources':
-        for item in yaml_content_eql[obj_type]:
-            yaml_eql_events.append(eql.Event(obj_type, 0, item))
+        yaml_content_eql, _, _, _ = load_data_sources(yaml_content, filter_empty_scores=False)
+        yaml_content_eql = _data_sources_to_events(yaml_content_eql)
+        for e in yaml_content_eql:
+            yaml_eql_events.append(eql.Event(obj_type, 0, e))
 
     # flatten the technique administration file to EQL events
     elif obj_type in ['visibility', 'detection']:
@@ -288,7 +346,7 @@ def _prepare_yaml_file(filename, obj_type, include_all_score_objs):
 
 def _check_query_results(query_results, obj_type):
     """
-    Check if the EQL query provided results that
+    Check if the EQL query provided results
     :param query_results: EQL events
     :param obj_type: 'data_sources', 'visibility' or 'detection'
     :return:
@@ -346,6 +404,24 @@ def _execute_eql_query(events, query):
     engine.stream_events(events)
 
     return query_results
+
+
+def _get_applicable_to_yaml_values(filename, type):
+    """
+    Get all the applicable to values, in lower case, from the provided YAML file.
+    :param filename: file path of the YAML file
+    :param type: type of YAML object to get the applicable to values from
+    :retturn: set with all applicable to values in lower case
+    """
+    app_to_values = set()
+
+    if type == FILE_TYPE_DATA_SOURCE_ADMINISTRATION:
+        _, _, systems, _ = load_data_sources(filename)
+
+        for system in systems:
+            app_to_values.add(system['applicable_to'].lower())
+
+    return app_to_values
 
 
 def techniques_search(filename, query_visibility=None, query_detection=None, include_all_score_objs=False):
@@ -419,3 +495,28 @@ def data_source_search(filename, query=''):
     else:
         # when using an EQL query that does not result in a dict having valid YAML objects, return None
         return None
+
+
+def get_eql_applicable_to_query(args_applicable_to, filename, type):
+    """
+    Construct the EQL query used to filter on applicable to value(s).
+    :param args_applicable_to: list of applicable to values as provided via user input
+    :param filename: file path of the YAML file
+    :param type: type of EQL query to create
+    :return: EQL query to filter on applicable to value(s)
+    """
+    applicable_to_yaml_values = _get_applicable_to_yaml_values(filename, type)
+
+    for a in args_applicable_to:
+        if a.lower() not in applicable_to_yaml_values:
+            print('[!] \'' + a + '\' is an unknown applicable to value.\n'
+                  '     Known values are: ' + ', '.join(applicable_to_yaml_values))
+            quit()
+
+    applicable_to = ', '.join("'{0}'".format(a) for a in args_applicable_to)
+    applicable_to = "(%s)" % applicable_to
+
+    if type == FILE_TYPE_DATA_SOURCE_ADMINISTRATION:
+        eql_query = 'data_sources where applicable_to in %s' % applicable_to
+
+    return eql_query

@@ -18,7 +18,7 @@
         <div class="mb-3">
             <label>Applicable to</label>
             <div v-for="(row, i) in applicable_to" :key="i" :row="row">
-                <div class="collapseHeader">
+                <div id="collapseHeader">
                     <div class="row">
                         <div class="col-md-10 cursor-pointer" v-b-toggle="'collapse-' + title.toLowerCase() + '-' + i">
                             <i class="when-opened tim-icons icon-minimal-up"></i>
@@ -32,7 +32,7 @@
                 </div>
 
                 <b-collapse :id="'collapse-' + title.toLowerCase() + '-' + i" ref="collapseComponent">
-                    <b-card class="collapseContent">
+                    <b-card id="collapseContent">
                         <list-editor
                             :list="row.applicable_to"
                             :name="'Change applicable to value(s)'"
@@ -45,6 +45,10 @@
                                     ' applies. The value \'all\' can be used to let it apply to every type of system.'
                             "
                             notifyText="The value 'KEYNAME' is already part of the applicable_to for this technique. Duplicate entries are not allowed."
+                            :suggestionList="applicableToSuggestionList"
+                            :defaultValueExclusive="defaultValueExclusive"
+                            :isErrorFunction="isErrorFunction"
+                            errorText="The value 'all' is exclusive for the visibility's applicable_to values and can therefore not be combined with other applicable_to values. Remove 'all' to let DeTT&CT work properly."
                         ></list-editor>
                         <div class="row mt-md-0 mb-md-2" v-if="row.applicable_to.length == 0">
                             <div class="col-md-auto pr-md-0">
@@ -231,6 +235,15 @@ export default {
         emptyObject: {
             type: Object,
             required: true
+        },
+        applicableToSuggestionList: {
+            type: Array,
+            required: true
+        },
+        defaultValueExclusive: {
+            type: Boolean,
+            required: false,
+            default: false
         }
     },
     components: {
@@ -249,7 +262,6 @@ export default {
             } else if (evt.keyCode === 27 && this.showHelpText) {
                 this.showHelpText = false;
             } else if (evt.keyCode === 27 && this.currentModal != '' && this.commentModal == '') {
-                console.log('hide');
                 this.$bvModal.hide(this.currentModal);
             } else if (evt.keyCode === 27 && this.commentModal != '') {
                 this.$bvModal.hide(this.commentModal);
@@ -345,6 +357,9 @@ export default {
         },
         editCommentCallback(b) {
             this.commentModal = b;
+        },
+        isErrorFunction(item, list) {
+            return this.defaultValueExclusive && item == 'all' && list.length > 1 ? true : false;
         }
     }
 };

@@ -1,133 +1,28 @@
 import simplejson
 import xlsxwriter
-from generic import *
 from datetime import datetime
-from copy import deepcopy
+from generic import *
+from file_output import *
+from navigator_layer import *
 # Imports for pandas and plotly are because of performance reasons in the function that uses these libraries.
 
 
-def generate_detection_layer(filename_techniques, filename_data_sources, overlay, output_filename, layer_name, platform=None):
+def _set_platform(platform_yaml, platform_args):
     """
-    Generates layer for detection coverage and optionally an overlaid version with visibility coverage.
-    :param filename_techniques: the filename of the YAML file containing the techniques administration
-    :param filename_data_sources: the filename of the YAML file containing the data sources administration
-    :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
-    :param layer_name: the name of the Navigator layer
-    :param output_filename: the output filename defined by the user
-    :param platform: one or multiple values from PLATFORMS constant
-    :return:
+    Get the correct value for the ATT&CK platform(s). Use the platform(s) from the YAML file or the ones provided via the CLI arguments.
+    :param platform_yaml: the platform(s) key-value pair from the YAML file
+    :param platform_args: the platform list as provided by the user
+    :return: platform(s) in a list
     """
-    my_techniques, name, platform_yaml = load_techniques(filename_techniques)
-    platform = set_platform(platform_yaml, platform)
-
-    if not overlay:
-        mapped_techniques_detection = _map_and_colorize_techniques_for_detections(my_techniques)
-        if not layer_name:
-            layer_name = 'Detections ' + name
-        layer_detection = get_layer_template_detections(layer_name, 'description', platform)
-        _write_layer(layer_detection, mapped_techniques_detection, 'detection', name, output_filename)
+    if isinstance(platform_args, list):
+        if 'all' in platform_args:
+            platform = list(PLATFORMS.values())
+        else:
+            platform = platform_args
     else:
-        my_data_sources = _load_data_sources(filename_data_sources)
-        mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, platform)
-        if not layer_name:
-            layer_name = 'Visibility and Detection ' + name
-        layer_both = get_layer_template_layered(layer_name, 'description', platform)
-        _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name, output_filename)
+        platform = platform_yaml
 
-
-def generate_visibility_layer(filename_techniques, filename_data_sources, overlay, output_filename, layer_name, platform=None):
-    """
-    Generates layer for visibility coverage and optionally an overlaid version with detection coverage.
-    :param filename_techniques: the filename of the YAML file containing the techniques administration
-    :param filename_data_sources: the filename of the YAML file containing the data sources administration
-    :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
-    :param output_filename: the output filename defined by the user
-    :param layer_name: the name of the Navigator layer
-    :param platform: one or multiple values from PLATFORMS constant
-    :return:
-    """
-    my_data_sources = _load_data_sources(filename_data_sources)
-    my_techniques, name, platform_yaml = load_techniques(filename_techniques)
-    platform = set_platform(platform_yaml, platform)
-
-    if not overlay:
-        mapped_techniques_visibility = _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, platform)
-        if not layer_name:
-            layer_name = 'Visibility ' + name
-        layer_visibility = get_layer_template_visibility(layer_name, 'description', platform)
-        _write_layer(layer_visibility, mapped_techniques_visibility, 'visibility', name, output_filename)
-    else:
-        mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, platform)
-        if not layer_name:
-            layer_name = 'Visibility and Detection ' + name
-        layer_both = get_layer_template_layered(layer_name, 'description', platform)
-        _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name, output_filename)
-
-
-def plot_graph(filename, type_graph, output_filename):
-    """
-    Generates a line graph which shows the improvements on detections through the time.
-    :param filename: the filename of the YAML file containing the techniques administration
-    :param type_graph: indicates the type of the graph: detection or visibility
-    :param output_filename: the output filename defined by the user
-    :return:
-    """
-    # pylint: disable=unused-variable
-    my_techniques, name, platform = load_techniques(filename)
-
-    graph_values = []
-    for t in my_techniques.values():
-        for item in t[type_graph]:
-            date = get_latest_date(item)
-            score = get_latest_score(item)
-            if date and score > 0:
-                yyyymm = date.strftime('%Y-%m')
-                graph_values.append({'date': yyyymm, 'count': 1})
-
-    import pandas as pd
-    df = pd.DataFrame(graph_values).groupby('date', as_index=False)[['count']].sum()
-    df['cumcount'] = df['count'].cumsum()
-
-    if not output_filename:
-        output_filename = 'graph_' + type_graph
-    elif output_filename.endswith('.html'):
-        output_filename = output_filename.replace('.html', '')
-    output_filename = get_non_existing_filename('output/' + output_filename, 'html')
-
-    import plotly
-    import plotly.graph_objs as go
-    plotly.offline.plot(
-        {'data': [go.Scatter(x=df['date'], y=df['cumcount'])],
-         'layout': go.Layout(title="# of %s items for %s" % (type_graph, name))},
-        filename=output_filename, auto_open=False
-    )
-    print("File written:   " + output_filename)
-
-
-def _load_data_sources(file):
-    """
-    Loads the data sources (including all properties) from the given YAML file.
-    :param file: the file location of the YAML file containing the data sources administration or a dict
-    :return: dictionary with data sources, name, platform and exceptions list.
-    """
-    my_data_sources = {}
-
-    if isinstance(file, dict):
-        # file is a dict instance created due to the use of an EQL query by the user
-        yaml_content = file
-    else:
-        # file is a file location on disk
-        _yaml = init_yaml()
-        with open(file, 'r') as yaml_file:
-            yaml_content = _yaml.load(yaml_file)
-
-    for d in yaml_content['data_sources']:
-        d['comment'] = d.get('comment', '')
-        dq = d['data_quality']
-        if dq['device_completeness'] > 0 and dq['data_field_completeness'] > 0 and dq['timeliness'] > 0 and dq['consistency'] > 0:
-            my_data_sources[d['data_source_name']] = d
-
-    return my_data_sources
+    return platform
 
 
 def _write_layer(layer, mapped_techniques, filename_prefix, name, output_filename):
@@ -154,11 +49,12 @@ def _write_layer(layer, mapped_techniques, filename_prefix, name, output_filenam
 
 def _map_and_colorize_techniques_for_detections(my_techniques):
     """
-    Determine the color of the techniques based on the detection score in the given YAML file.
+    Determine the color of the techniques based on the detection score in the given YAML file. Also, it will create
+    much of the content for the Navigator layer.
     :param my_techniques: the configured techniques
     :return: a dictionary with techniques that can be used in the layer's output file
     """
-    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE)
 
     # Color the techniques based on how the coverage defined in the detections definition and generate a list with
     # techniques to be used in the layer output file.
@@ -209,18 +105,16 @@ def _map_and_colorize_techniques_for_detections(my_techniques):
     return mapped_techniques
 
 
-def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, platforms):
+def _map_and_colorize_techniques_for_visibility(my_techniques, platforms):
     """
     Determine the color of the techniques based on the visibility score in the given YAML file.
     :param my_techniques: the configured techniques
-    :param my_data_sources: the configured data sources
     :param platforms: the configured platform(s)
     :return: a dictionary with techniques that can be used in the layer's output file
     """
-    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE)
     applicable_data_sources = get_applicable_data_sources_platform(platforms)
-
-    technique_ds_mapping = map_techniques_to_data_sources(techniques, my_data_sources)
+    applicable_dettect_data_sources = get_applicable_dettect_data_sources_platform(platforms)
 
     # Color the techniques based on how the coverage defined in the detections definition and generate a list with
     # techniques to be used in the layer output file.
@@ -230,7 +124,6 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, 
         if s == 0:
             s = None
 
-        my_ds = ', '.join(technique_ds_mapping[technique_id]['my_data_sources']) if technique_id in technique_ds_mapping.keys() and technique_ds_mapping[technique_id]['my_data_sources'] else ''  # noqa
         technique = get_technique(techniques, technique_id)
         color = COLOR_V_1 if s == 1 else COLOR_V_2 if s == 2 else COLOR_V_3 if s == 3 else COLOR_V_4 if s == 4 else ''
 
@@ -241,9 +134,10 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, 
             x['comment'] = ''
             x['enabled'] = True
             x['metadata'] = []
-            x['metadata'].append({'name': 'Available data sources', 'value': my_ds})
             x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique.get('x_mitre_data_sources', ''),
                                                                                                                           applicable_data_sources))})
+            x['metadata'].append({'name': 'DeTT&CT data sources', 'value': ', '.join(get_applicable_dettect_data_sources_technique(technique['dettect_data_sources'],
+                                                                                                                                  applicable_dettect_data_sources))})
             x['metadata'].append({'divider': True})
             x['score'] = s
 
@@ -282,8 +176,10 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, 
             x['techniqueID'] = tech_id
             x['comment'] = ''
             x['enabled'] = True
-            ds = ', '.join(get_applicable_data_sources_technique(t['x_mitre_data_sources'], applicable_data_sources)) if 'x_mitre_data_sources' in t else ''  # noqa
-            x['metadata'] = [{'name': 'ATT&CK data sources', 'value': ds}]
+            x['metadata'] = [{'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(t['x_mitre_data_sources'],
+                                                                                                                      applicable_data_sources))}]
+            x['metadata'].append({'name': 'DeTT&CT data sources', 'value': ', '.join(get_applicable_dettect_data_sources_technique(t['dettect_data_sources'],
+                                                                                                                                  applicable_dettect_data_sources))})
             x['metadata'] = make_layer_metadata_compliant(x['metadata'])
 
             if not exists:
@@ -292,18 +188,16 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, my_data_sources, 
     return mapped_techniques
 
 
-def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, platforms):
+def _map_and_colorize_techniques_for_overlaid(my_techniques, platforms):
     """
     Determine the color of the techniques based on both detection and visibility.
     :param my_techniques: the configured techniques
-    :param my_data_sources: the configured data sources
     :param platforms: the configured platform(s)
     :return: a dictionary with techniques that can be used in the layer's output file
     """
-    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE)
     applicable_data_sources = get_applicable_data_sources_platform(platforms)
-
-    technique_ds_mapping = map_techniques_to_data_sources(techniques, my_data_sources)
+    applicable_dettect_data_sources = get_applicable_dettect_data_sources_platform(platforms)
 
     # Color the techniques based on how the coverage defined in the detections definition and generate a list with
     # techniques to be used in the layer output file.
@@ -328,8 +222,6 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, pl
         else:
             color = COLOR_WHITE
 
-        my_ds = ', '.join(technique_ds_mapping[technique_id]['my_data_sources']) if technique_id in technique_ds_mapping.keys() and technique_ds_mapping[technique_id]['my_data_sources'] else ''  # noqa
-
         technique = get_technique(techniques, technique_id)
         x = dict()
         x['techniqueID'] = technique_id
@@ -337,9 +229,10 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, pl
         x['comment'] = ''
         x['enabled'] = True
         x['metadata'] = []
-        x['metadata'].append({'name': 'Available data sources', 'value': my_ds})
         x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique.get('x_mitre_data_sources', ''),
                                                                                                                       applicable_data_sources))})
+        x['metadata'].append({'name': 'DeTT&CT data sources', 'value': ', '.join(get_applicable_dettect_data_sources_technique(technique['dettect_data_sources'],
+                                                                                                                              applicable_dettect_data_sources))})
         # Metadata for detection and visibility:
         for obj_type in ['detection', 'visibility']:
             tcnt = len([obj for obj in technique_data[obj_type] if get_latest_score(obj) >= 0])
@@ -354,6 +247,100 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, my_data_sources, pl
     return mapped_techniques
 
 
+def generate_detection_layer(filename_techniques, overlay, output_filename, layer_name, platform=None):
+    """
+    Generates layer for detection coverage and optionally an overlaid version with visibility coverage.
+    :param filename_techniques: the filename of the YAML file containing the techniques administration
+    :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
+    :param layer_name: the name of the Navigator layer
+    :param output_filename: the output filename defined by the user
+    :param platform: one or multiple values from PLATFORMS constant
+    :return:
+    """
+    my_techniques, name, platform_yaml = load_techniques(filename_techniques)
+    platform = _set_platform(platform_yaml, platform)
+
+    if not overlay:
+        mapped_techniques_detection = _map_and_colorize_techniques_for_detections(my_techniques)
+        if not layer_name:
+            layer_name = 'Detections ' + name
+        layer_detection = get_layer_template_detections(layer_name, 'description', platform)
+        _write_layer(layer_detection, mapped_techniques_detection, 'detection', name, output_filename)
+    else:
+        mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, platform)
+        if not layer_name:
+            layer_name = 'Visibility and Detection ' + name
+        layer_both = get_layer_template_layered(layer_name, 'description', platform)
+        _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name, output_filename)
+
+
+def generate_visibility_layer(filename_techniques, overlay, output_filename, layer_name, platform=None):
+    """
+    Generates layer for visibility coverage and optionally an overlaid version with detection coverage.
+    :param filename_techniques: the filename of the YAML file containing the techniques administration
+    :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
+    :param output_filename: the output filename defined by the user
+    :param layer_name: the name of the Navigator layer
+    :param platform: one or multiple values from PLATFORMS constant
+    :return:
+    """
+    my_techniques, name, platform_yaml = load_techniques(filename_techniques)
+    platform = _set_platform(platform_yaml, platform)
+
+    if not overlay:
+        mapped_techniques_visibility = _map_and_colorize_techniques_for_visibility(my_techniques, platform)
+        if not layer_name:
+            layer_name = 'Visibility ' + name
+        layer_visibility = get_layer_template_visibility(layer_name, 'description', platform)
+        _write_layer(layer_visibility, mapped_techniques_visibility, 'visibility', name, output_filename)
+    else:
+        mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, platform)
+        if not layer_name:
+            layer_name = 'Visibility and Detection ' + name
+        layer_both = get_layer_template_layered(layer_name, 'description', platform)
+        _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name, output_filename)
+
+
+def plot_graph(filename, type_graph, output_filename):
+    """
+    Generates a line graph which shows the improvements on detections or visibility through time.
+    :param filename: the filename of the YAML file containing the techniques administration
+    :param type_graph: indicates the type of the graph: detection or visibility
+    :param output_filename: the output filename defined by the user
+    :return:
+    """
+    # pylint: disable=unused-variable
+    my_techniques, name, platform = load_techniques(filename)
+
+    graph_values = []
+    for t in my_techniques.values():
+        for item in t[type_graph]:
+            date = get_latest_date(item)
+            score = get_latest_score(item)
+            if date and score > 0:
+                yyyymmdd = date.strftime('%Y-%m-%d')
+                graph_values.append({'date': yyyymmdd, 'count': 1})
+
+    import pandas as pd
+    df = pd.DataFrame(graph_values).groupby('date', as_index=False)[['count']].sum()
+    df['cumcount'] = df['count'].cumsum()
+
+    if not output_filename:
+        output_filename = 'graph_' + type_graph
+    elif output_filename.endswith('.html'):
+        output_filename = output_filename.replace('.html', '')
+    output_filename = get_non_existing_filename('output/' + output_filename, 'html')
+
+    import plotly
+    import plotly.graph_objs as go
+    plotly.offline.plot(
+        {'data': [go.Scatter(x=df['date'], y=df['cumcount'])],
+         'layout': go.Layout(title="# of %s items for %s" % (type_graph, name))},
+        filename=output_filename, auto_open=False
+    )
+    print("File written:   " + output_filename)
+
+
 def export_techniques_list_to_excel(filename, output_filename):
     """
     Makes an overview of the MITRE ATT&CK techniques from the YAML administration file.
@@ -364,7 +351,7 @@ def export_techniques_list_to_excel(filename, output_filename):
     # pylint: disable=unused-variable
     my_techniques, name, platform = load_techniques(filename)
     my_techniques = dict(sorted(my_techniques.items(), key=lambda kv: kv[0], reverse=False))
-    mitre_techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
+    mitre_techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE)
 
     if not output_filename:
         output_filename = 'techniques'

@@ -1,6 +1,8 @@
 import simplejson
-from generic import *
 from eql_yaml import techniques_search
+from generic import *
+from navigator_layer import *
+from file_output import *
 
 CG_GROUPS = {}
 
@@ -525,7 +527,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, platform, software_gr
     if platform == None and platform_yaml != None:
         platform = platform_yaml
     elif platform == None:
-        platform = list(PLATFORMS.values()) # 'all'
+        platform = list(PLATFORMS.values())  # 'all'
     elif 'all' in platform:
         platform = list(PLATFORMS.values())
 
