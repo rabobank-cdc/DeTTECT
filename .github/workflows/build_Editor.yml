@@ -8,6 +8,7 @@ on:
       - 'editor/package-lock.json'
       - 'editor/package.json'
       - 'editor/vue.config.js'
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
