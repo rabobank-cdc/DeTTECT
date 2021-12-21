@@ -16,7 +16,7 @@
                                 Useful links on the Wiki:
                                 <ul
                                     ><li><a href="https://github.com/rabobank-cdc/DeTTECT/wiki/Getting-started" target="_blank">Getting started with DeTT&CT</a></li>
-                                    <li><a href="https://github.com/rabobank-cdc/DeTTECT/wiki/dettect-editor" target="_blank">DeTT&CT Editor</a></li>
+                                    <li><a href="https://github.com/rabobank-cdc/DeTTECT/wiki/DeTT&CT-Editor" target="_blank">DeTT&CT Editor</a></li>
                                     </ul>
                             </p>
                         </div>
