@@ -28,9 +28,9 @@ jobs:
           concurrent_skipping: 'outdated_runs'
   build:
     needs: skip_duplicate
-    if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
+    if: ${{ needs.skip_duplicate.outputs.should_skip != 'true' }}
     runs-on: ubuntu-latest
-    steps:  
+    steps:
         # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
       - name: Checkout code
         uses: actions/checkout@v2
