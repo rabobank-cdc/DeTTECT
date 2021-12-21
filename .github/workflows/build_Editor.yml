@@ -22,7 +22,7 @@ jobs:
       # set up NodeJS
       - uses: actions/setup-node@main
         with:
-          node-version: '14'
+          node-version: '16'
 
       - name: Install project dependencies
         run: npm ci
