@@ -1,0 +1,29 @@
+version: 1.2
+file_type: technique-administration
+name: example techniques ICS
+attack_matrix: ics
+platform:
+- Windows
+- Linux
+techniques:
+- technique_id: T0817
+  technique_name: Drive-by Compromise
+  detection:
+  - applicable_to:
+    - all
+    location: []
+    comment: ''
+    score_logbook:
+    - date:
+      score: -1
+      comment: ''
+  visibility:
+  - applicable_to:
+    - all
+    comment: ''
+    score_logbook:
+    - date:
+      score: 0
+      comment:
+notes: This file serves purely as an example to showcase the functionality of DeTT&CT
+  and does not mean to be representative of a real environment.

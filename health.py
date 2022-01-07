@@ -187,11 +187,15 @@ def _check_health_techniques(filename, technique_content, health_is_called):
     :return:
     """
     from generic import load_techniques
-
     has_error = False
 
-    platform = technique_content.get('platform', None)
+    # Check attack_matrix attribute (is optional):
+    if 'attack_matrix' in technique_content:
+        if not technique_content['attack_matrix'].lower() in ATTACK_MATRIX_SUPPORT:
+            has_error = _print_error_msg('[!] INVALID attack_matrix value in technique administration file: %s. Must be one of: %s' %
+                                         (technique_content['attack_matrix'], ', '.join(ATTACK_MATRIX_SUPPORT)), health_is_called)
 
+    platform = technique_content.get('platform', None)
     if platform != 'all' and platform != ['all']:
         if isinstance(platform, str):
             platform = [platform]
@@ -200,7 +204,7 @@ def _check_health_techniques(filename, technique_content, health_is_called):
         for p in platform:
             if p.lower() not in PLATFORMS.keys():
                 has_error = _print_error_msg(
-                    '[!] EMPTY or INVALID value for \'platform\' within the technique admin. '
+                    '[!] EMPTY or INVALID value for \'platform\' within the technique administration '
                     'file: %s (should be value(s) of: [%s] or all)' % (p, ', '.join(list(PLATFORMS.values()))),
                     health_is_called)
 
@@ -276,7 +280,7 @@ def _check_health_techniques(filename, technique_content, health_is_called):
                                                  '\' has DUPLICATE system values (a system can only be part of one ' +
                                                  'applicable_to key-value pair within the same technique).', health_is_called)
 
-    has_error = _check_for_similar_values(all_applicable_to, 'applicable_to', health_is_called)
+    has_error = has_error if not _check_for_similar_values(all_applicable_to, 'applicable_to', health_is_called) else True
 
     if has_error and not health_is_called:
         print(HEALTH_ERROR_TXT + filename)
@@ -297,6 +301,12 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
     """
     has_error = False
 
+    # Check attack_matrix attribute (is optional):
+    if 'attack_matrix' in ds_content:
+        if not ds_content['attack_matrix'].lower() in ATTACK_MATRIX_SUPPORT:
+            has_error = _print_error_msg('[!] INVALID attack_matrix value in data source administration file: %s. Must be one of: %s' %
+                                         (ds_content['attack_matrix'], ', '.join(ATTACK_MATRIX_SUPPORT)), health_is_called)
+
     if not src_eql:
         systems_applicable_to = set()
         if 'systems' in ds_content:
@@ -310,7 +320,7 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
                 for p in platform:
                     if p.lower() not in PLATFORMS.keys() and p.lower() != 'all':
                         has_error = _print_error_msg(
-                            '[!] EMPTY or INVALID value for \'platform\' within the data source admin file\'s \'systems\' key-value pair: '
+                            '[!] EMPTY or INVALID value for \'platform\' within the data source administration file\'s \'systems\' key-value pair: '
                             '%s (should be value(s) of: [%s] or all)' % (p, ', '.join(list(PLATFORMS.values()))),
                             health_is_called)
 
@@ -318,14 +328,14 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
                 applicable_to = system['applicable_to']
                 if applicable_to is None or applicable_to == '' or applicable_to.lower() == 'all':
                     has_error = _print_error_msg(
-                            '[!] EMPTY or INVALID value for \'applicable_to\' within the data source admin file\'s \'systems\' key-value pair: '
+                            '[!] EMPTY or INVALID value for \'applicable_to\' within the data source administration file\'s \'systems\' key-value pair: '
                             '%s (should be any string value except an empty string and \'all\')' % applicable_to,
                             health_is_called)
                 elif applicable_to.lower() not in systems_applicable_to:
                     systems_applicable_to.add(applicable_to.lower())
                 else:
                     has_error = _print_error_msg(
-                            '[!] DUPLICATE \'applicable_to\' value within the data source admin file\'s \'systems\' key-value pair: '
+                            '[!] DUPLICATE \'applicable_to\' value within the data source administration file\'s \'systems\' key-value pair: '
                             '%s' % applicable_to, health_is_called)
         else:
             has_error = _print_error_msg('[!] The data source administration file is MISSING the key-value pair \'systems\'',
@@ -426,7 +436,7 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
     if not src_eql:
         for ds_a in ds_objects_applicable_to:
             if ds_a.lower() not in systems_applicable_to and ds_a.lower() != 'all':
-                has_error = _print_error_msg('[!] The \'applicable_to\' value: \'%s\' within the data source admin. file is used '
+                has_error = _print_error_msg('[!] The \'applicable_to\' value: \'%s\' within the data source administration file is used '
                                              'by a data source details object without being specified within the \'systems\' '
                                              'key-value pair' % ds_a, health_is_called)
 
@@ -436,7 +446,7 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
 
         if not REGEX_YAML_TECHNIQUE_ID_FORMAT.match(tech_id) and tech_id != 'None':
             has_error = _print_error_msg(
-                '[!] INVALID technique ID in the \'exceptions\' list of data source admin. file: ' + tech_id, health_is_called)
+                '[!] INVALID technique ID in the \'exceptions\' list of data source administration file: ' + tech_id, health_is_called)
 
     if has_error and not health_is_called and not no_print:
         print(HEALTH_ERROR_TXT + filename)

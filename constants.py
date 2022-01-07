@@ -20,6 +20,9 @@ DATA_TYPE_STIX_ALL_RELATIONSHIPS = 'mitre_all_relationships'
 DATA_TYPE_STIX_ALL_ENTERPRISE_MITIGATIONS = 'mitre_all_mitigations_enterprise'
 DATA_TYPE_STIX_ALL_MOBILE_MITIGATIONS = 'mitre_all_mitigations_mobile'
 
+# ATT&CK matrix support:
+ATTACK_MATRIX_SUPPORT = ['enterprise', 'ics']
+
 # Group colors
 COLOR_GROUP_OVERLAY_MATCH = '#f9a825'            # orange
 COLOR_GROUP_OVERLAY_NO_MATCH = '#ffee58'         # yellow

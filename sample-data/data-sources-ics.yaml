@@ -1,0 +1,25 @@
+version: 1.1
+file_type: data-source-administration
+name: Data sources ICS sample
+attack_matrix: ics
+systems:
+  - applicable_to: Windows workstations
+    platform:
+      - Windows
+data_sources:
+  - data_source_name: Process Creation
+    data_source:
+      - applicable_to:
+          - Windows workstations
+        date_registered: 2022-01-07T00:00:00.000Z
+        date_connected: 2022-01-07T00:00:00.000Z
+        products:
+          - Sysmon
+        available_for_data_analytics: true
+        comment: ''
+        data_quality:
+          device_completeness: 1
+          data_field_completeness: 1
+          timeliness: 1
+          consistency: 1
+          retention: 1
