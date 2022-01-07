@@ -1,7 +1,7 @@
 version: 1.2
 file_type: technique-administration
 name: example
-attack_matrix: enterprise
+domain: enterprise-attack
 platform:
 - Windows
 - Linux

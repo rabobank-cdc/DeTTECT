@@ -1,7 +1,7 @@
 version: 1.2
 file_type: technique-administration
 name: example techniques ICS
-attack_matrix: ics
+domain: ics-attack
 platform:
 - Windows
 - Linux

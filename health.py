@@ -189,11 +189,11 @@ def _check_health_techniques(filename, technique_content, health_is_called):
     from generic import load_techniques
     has_error = False
 
-    # Check attack_matrix attribute (is optional):
-    if 'attack_matrix' in technique_content:
-        if not technique_content['attack_matrix'].lower() in ATTACK_MATRIX_SUPPORT:
-            has_error = _print_error_msg('[!] INVALID attack_matrix value in technique administration file: %s. Must be one of: %s' %
-                                         (technique_content['attack_matrix'], ', '.join(ATTACK_MATRIX_SUPPORT)), health_is_called)
+    # Check domain attribute (is optional):
+    if 'domain' in technique_content:
+        if not technique_content['domain'].lower() in DETTECT_DOMAIN_SUPPORT:
+            has_error = _print_error_msg('[!] INVALID domain value in technique administration file: %s. Must be one of: %s' %
+                                         (technique_content['domain'], ', '.join(DETTECT_DOMAIN_SUPPORT)), health_is_called)
 
     platform = technique_content.get('platform', None)
     if platform != 'all' and platform != ['all']:
@@ -301,11 +301,11 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
     """
     has_error = False
 
-    # Check attack_matrix attribute (is optional):
-    if 'attack_matrix' in ds_content:
-        if not ds_content['attack_matrix'].lower() in ATTACK_MATRIX_SUPPORT:
-            has_error = _print_error_msg('[!] INVALID attack_matrix value in data source administration file: %s. Must be one of: %s' %
-                                         (ds_content['attack_matrix'], ', '.join(ATTACK_MATRIX_SUPPORT)), health_is_called)
+    # Check domain attribute (is optional):
+    if 'domain' in ds_content:
+        if not ds_content['domain'].lower() in DETTECT_DOMAIN_SUPPORT:
+            has_error = _print_error_msg('[!] INVALID domain value in data source administration file: %s. Should be one of: %s' %
+                                         (ds_content['domain'], ', '.join(DETTECT_DOMAIN_SUPPORT)), health_is_called)
 
     if not src_eql:
         systems_applicable_to = set()
