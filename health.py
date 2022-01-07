@@ -276,7 +276,7 @@ def _check_health_techniques(filename, technique_content, health_is_called):
                                                  '\' has DUPLICATE system values (a system can only be part of one ' +
                                                  'applicable_to key-value pair within the same technique).', health_is_called)
 
-    has_error = _check_for_similar_values(all_applicable_to, 'applicable_to', health_is_called)
+    has_error = has_error if not _check_for_similar_values(all_applicable_to, 'applicable_to', health_is_called) else True
 
     if has_error and not health_is_called:
         print(HEALTH_ERROR_TXT + filename)
