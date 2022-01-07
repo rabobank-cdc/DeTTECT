@@ -1,5 +1,6 @@
 version: 1
 file_type: group-administration
+domain: enterprise-attack
 platform:
   - Windows
   - Azure AD
