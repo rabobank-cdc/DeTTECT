@@ -13,7 +13,7 @@ def _get_base_template(name, description, platform, sorting):
     """
     layer = dict()
     layer['name'] = name
-    layer['versions'] = {'navigator': '4.4', 'layer': '4.2'}
+    layer['versions'] = {'navigator': '4.5', 'layer': '4.3'}
     layer['domain'] = 'enterprise-attack'
     layer['description'] = description
 
