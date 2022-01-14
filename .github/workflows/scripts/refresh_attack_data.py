@@ -385,6 +385,5 @@ class ATTACKData():
 
 if __name__ == "__main__":
     attack_data = ATTACKData()
-    # attack_data.execute_refresh_json_data()
-    # attack_data.execute_refresh_wiki()
-    print(str(attack_data._get_data_components_from_techniques(attack_data.attack_cti_techniques_ics)).replace("'", '"'))
+    attack_data.execute_refresh_json_data()
+    attack_data.execute_refresh_wiki()
