@@ -21,7 +21,7 @@ DeTT&CT provides the following functionality:
 - Map threat actor behaviours.
 - Compare visibility, detection coverage and threat actor behaviours to uncover possible improvements in detection and visibility (which is based on your available data sources). This can help you to prioritise your blue teaming efforts.
 
-The coloured visualisations are created with the help of MITRE's [ATT&CK™ Navigator](https://github.com/mitre-attack/attack-navigator).
+The coloured visualisations are created with the help of MITRE's [ATT&CK™ Navigator](https://mitre-attack.github.io/attack-navigator/#comment_underline=false). *For layer files created by DeTT&CT, we recommend using this URL to the Navigator as it will make sure metadata in the layer file does not have a yellow underline: [https://mitre-attack.github.io/attack-navigator/#comment_underline=false](https://mitre-attack.github.io/attack-navigator/#comment_underline=false)*
 
 ## Authors and contributions
 This project is developed and maintained by [Marcus Bakker](https://github.com/marcusbakker) (Twitter: [@Bakk3rM](https://twitter.com/Bakk3rM)) and [Ruben Bouman](https://github.com/rubinatorz) (Twitter: [@rubinatorz](https://twitter.com/rubinatorz/)). Feel free to contact, DMs are open. We do appreciate if you ask any question on how to use DeTT&CT by making a GitHub issue. Having the questions and answers over there will greatly help others having similar questions and challenges.
@@ -36,7 +36,7 @@ The work of others inspired some functionality within DeTT&CT:
 
 ## Example
 
-YAML files are used for administrating scores and relevant properties. All of which can be visualised by loading JSON layer files into the [ATT&CK Navigator](https://github.com/mitre-attack/attack-navigator) (some types of scores and properties can also be exported to Excel).
+YAML files are used for administrating scores and relevant properties. All of which can be visualised by loading JSON layer files into the [ATT&CK Navigator](https://mitre-attack.github.io/attack-navigator/#comment_underline=false) (some types of scores and properties can also be exported to Excel).
 
 See below an example of mapping your data sources to ATT&CK, which gives you a rough overview of your visibility coverage:
 
