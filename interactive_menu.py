@@ -484,9 +484,9 @@ def _menu_groups():
     if choice == '1':
         software_group = not software_group
     elif choice == '2':
-        print('Specify platform (%s):' % ', '.join(['all'] + list(PLATFORMS.values())))
+        print('Specify platform (%s):' % ', '.join(['all'] + list(PLATFORMS_ENTERPRISE.values())))
         p = _ask_input().lower()
-        default_platform = [PLATFORMS[p]] if p in PLATFORMS.keys() else ['all']
+        default_platform = [PLATFORMS_ENTERPRISE[p]] if p in PLATFORMS_ENTERPRISE.keys() else ['all']
     elif choice == '3':
         print('Specify the groups to include separated using commas. Group can be their ID, name or alias '
               '(default is all groups). Other option is to provide a YAML file with a custom group(s)')

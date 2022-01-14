@@ -87,7 +87,7 @@ def _init_menu():
     parser_visibility.add_argument('-p', '--platform', action='append', help='specify the platform for the Navigator '
                                    'layer file (default = platform(s) specified in the YAML file). Multiple platforms'
                                    ' can be provided with extra \'-p/--platform\' arguments',
-                                   choices=['all'] + list(PLATFORMS.values()), type=_platform_lookup())
+                                   choices=['all'] + list(PLATFORMS_ENTERPRISE.values()), type=_platform_lookup())
     parser_visibility.add_argument('-sd', '--search-detection', help='only include detection objects which match the '
                                                                      'provided EQL query')
     parser_visibility.add_argument('-sv', '--search-visibility', help='only include visibility objects which match the '
@@ -124,7 +124,7 @@ def _init_menu():
     parser_detection.add_argument('-p', '--platform', action='append', help='specify the platform for the Navigator '
                                   'layer file (default = platform(s) specified in the YAML file). Multiple platforms'
                                   ' can be provided with extra \'-p/--platform\' arguments',
-                                  choices=['all'] + list(PLATFORMS.values()), type=_platform_lookup())
+                                  choices=['all'] + list(PLATFORMS_ENTERPRISE.values()), type=_platform_lookup())
     parser_detection.add_argument('-sd', '--search-detection', help='only include detection objects which match the '
                                                                     'provided EQL query')
     parser_detection.add_argument('-sv', '--search-visibility', help='only include visibility objects which match the '
@@ -176,7 +176,7 @@ def _init_menu():
                                                        'included', action='store_true', default=False)
     parser_group.add_argument('-p', '--platform', help='specify the platform (default = all). Multiple platforms '
                               'can be provided with extra \'-p/--platform\' arguments',
-                              choices=['all'] + list(PLATFORMS.values()), default=None, action='append',
+                              choices=['all'] + list(PLATFORMS_ENTERPRISE.values()), default=None, action='append',
                               type=_platform_lookup())
     parser_group.add_argument('-sd', '--search-detection', help='only include detection objects which match the '
                                                                 'provided EQL query')
@@ -321,7 +321,7 @@ def _platform_lookup():
     Lookup the platform value with the correct capitalisation.
     return: lambda function to be used by argparse type=
     """
-    return lambda p: PLATFORMS.get(p.lower(), '') if p.lower() != 'all' else 'all'
+    return lambda p: PLATFORMS_ENTERPRISE.get(p.lower(), '') if p.lower() != 'all' else 'all'
 
 
 def _prepare_folders():

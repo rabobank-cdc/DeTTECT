@@ -58,7 +58,7 @@ def _upgrade_data_source_yaml_10_to_11(file_lines):
 
     platforms = get_platform_from_yaml(yaml_file_new)
     if platforms == []:
-        platforms = list(PLATFORMS.values())
+        platforms = list(PLATFORMS_ENTERPRISE.values())
     del yaml_file_new['platform']
 
     # ask for the applicable_to value to be used
@@ -132,10 +132,10 @@ def _check_yaml_file_health_v10(file_lines):
     if platform is None or len(platform) == 0 or platform == '':
         platform = ['empty']
     for p in platform:
-        if p.lower() not in PLATFORMS.keys():
+        if p.lower() not in PLATFORMS_ENTERPRISE.keys():
             has_error = _print_error_msg(
                 '[!] EMPTY or INVALID value for \'platform\' within the data source admin. '
-                'file: %s (should be value(s) of: [%s] or all)' % (p, ', '.join(list(PLATFORMS.values()))))
+                'file: %s (should be value(s) of: [%s] or all)' % (p, ', '.join(list(PLATFORMS_ENTERPRISE.values()))))
 
     for ds in ds_content['data_sources']:
         # check for missing keys

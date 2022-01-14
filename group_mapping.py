@@ -226,7 +226,7 @@ def _get_detection_techniques(filename):
     # { group_id: {group_name: NAME, techniques: set{id, ...} } }
     groups_dict = {}
 
-    detection_techniques, name, platform = load_techniques(filename)
+    detection_techniques, name, platform, domain = load_techniques(filename)
 
     group_id = 'DETECTION'
     groups_dict[group_id] = {}
@@ -251,7 +251,7 @@ def _get_visibility_techniques(filename):
     # { group_id: {group_name: NAME, techniques: set{id, ...} } }
     groups_dict = {}
 
-    visibility_techniques, name, platform = load_techniques(filename)
+    visibility_techniques, name, platform, domain = load_techniques(filename)
 
     group_id = 'VISIBILITY'
     groups_dict[group_id] = {}
@@ -517,19 +517,21 @@ def generate_group_heat_map(groups, overlay, overlay_type, platform, software_gr
 
     # set the correct value for platform
     platform_yaml = None
+    domain = 'enterprise-attack'
     if groups_file_type == FILE_TYPE_GROUP_ADMINISTRATION:
         _yaml = init_yaml()
         with open(groups, 'r') as yaml_file:
             group_file = _yaml.load(yaml_file)
 
-        platform_yaml = get_platform_from_yaml(group_file)
+        domain = 'enterprise-attack' if 'domain' not in group_file.keys() else group_file['domain']
+        platform_yaml = get_platform_from_yaml(group_file, domain)
 
     if platform == None and platform_yaml != None:
         platform = platform_yaml
     elif platform == None:
-        platform = list(PLATFORMS.values())  # 'all'
+        platform = list(PLATFORMS_ENTERPRISE.values())  # 'all'
     elif 'all' in platform:
-        platform = list(PLATFORMS.values())
+        platform = list(PLATFORMS_ENTERPRISE.values())
 
     overlay_file_type = None
     if overlay:
@@ -597,22 +599,22 @@ def generate_group_heat_map(groups, overlay, overlay_type, platform, software_gr
         groups_list = _get_group_list(groups_dict, groups_file_type)
     overlay_list = _get_group_list(overlay_dict, overlay_file_type)
 
-    desc = 'stage: attack | platform(s): ' + platform_to_name(platform, separator=', ') + ' | group(s): ' \
+    desc = 'stage: attack | platform(s): ' + platform_to_name(platform, domain, separator=', ') + ' | group(s): ' \
         + ', '.join(groups_list) + ' | overlay group(s): ' + ', '.join(overlay_list)
 
     if not layer_name:
-        layer_name = 'Attack - ' + platform_to_name(platform, separator=', ')
+        layer_name = 'Attack - ' + platform_to_name(platform, domain, separator=', ')
 
-    layer = get_layer_template_groups(layer_name, max_count, desc, platform, overlay_type)
+    layer = get_layer_template_groups(layer_name, max_count, desc, platform, overlay_type, domain)
     layer['techniques'] = technique_layer
 
     json_string = simplejson.dumps(layer).replace('}, ', '},\n')
 
     if not output_filename:
         if overlay:
-            filename = platform_to_name(platform) + '_' + '_'.join(groups_list) + '-overlay_' + '_'.join(overlay_list)
+            filename = platform_to_name(platform, domain) + '_' + '_'.join(groups_list) + '-overlay_' + '_'.join(overlay_list)
         else:
-            filename = platform_to_name(platform) + '_' + '_'.join(groups_list)
+            filename = platform_to_name(platform, domain) + '_' + '_'.join(groups_list)
 
         filename = create_output_filename('attack', filename)
         write_file(filename, json_string)

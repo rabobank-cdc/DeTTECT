@@ -79,4 +79,4 @@ def normalize_name_to_filename(name):
     :param name: input filename
     :return: normalized filename
     """
-    return name.lower().replace(' ', '-')
+    return name.lower().replace(' ', '-').replace('/', '-')

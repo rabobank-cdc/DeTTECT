@@ -1,5 +1,5 @@
 {
-  "ATT&CK": {
+  "ATT&CK-Enterprise": {
     "Azure AD": [
       "Group Enumeration",
       "Group Modification",
@@ -359,7 +359,20 @@
       "Firmware Modification"
     ]
   },
-  "DeTT&CT": {
+  "ATT&CK-ICS": {
+    "Control Server": ["Application Log Content", "Asset Inventory", "Command Execution", "Device Alarm", "Device Configuration/Parameters", "Drive Creation", "Drive Modification", "File Access", "File Creation", "File Deletion", "File Metadata", "File Modification", "Firmware Modification", "Logon Session Creation", "Logon Session Metadata", "Module Load", "Network Connection Creation", "Network Connections", "Network Flows", "Network Share Access", "Network Traffic Content", "Network Traffic Flow", "OS API Execution", "Process Creation", "Process History/Live Data", "Process Termination", "Process/Event Alarm", "Scheduled Job Metadata", "Scheduled Job Modification", "Script Execution", "Service Creation", "Service Metadata", "Software/Firmware", "User Account Authentication", "Windows Registry Key Deletion", "Windows Registry Key Modification"],
+    "Data Historian": ["Application Log Content", "Asset Inventory", "Command Execution", "Device Alarm", "Device Configuration/Parameters", "Drive Creation", "Drive Modification", "File Access", "File Creation", "File Deletion", "File Metadata", "File Modification", "Firmware Modification", "Logon Session Creation", "Logon Session Metadata", "Module Load", "Network Connection Creation", "Network Connections", "Network Flows", "Network Share Access", "Network Traffic Content", "Network Traffic Flow", "OS API Execution", "Process Creation", "Process History/Live Data", "Process Termination", "Process/Event Alarm", "Scheduled Job Metadata", "Scheduled Job Modification", "Script Execution", "Service Creation", "Service Metadata", "Software/Firmware", "User Account Authentication", "Windows Registry Key Deletion", "Windows Registry Key Modification"],
+    "Device Configuration/Parameters": ["Application Log Content", "Asset Inventory", "Command Execution", "Device Alarm", "Device Configuration/Parameters", "Drive Creation", "Drive Modification", "File Access", "File Creation", "File Deletion", "File Metadata", "File Modification", "Firmware Modification", "Logon Session Creation", "Logon Session Metadata", "Module Load", "Network Connection Creation", "Network Connections", "Network Flows", "Network Share Access", "Network Traffic Content", "Network Traffic Flow", "OS API Execution", "Process Creation", "Process History/Live Data", "Process Termination", "Process/Event Alarm", "Scheduled Job Metadata", "Scheduled Job Modification", "Script Execution", "Service Creation", "Service Metadata", "Software/Firmware", "User Account Authentication", "Windows Registry Key Deletion", "Windows Registry Key Modification"],
+    "Engineering Workstation": ["Application Log Content", "Asset Inventory", "Command Execution", "Device Alarm", "Device Configuration/Parameters", "Drive Creation", "Drive Modification", "File Access", "File Creation", "File Deletion", "File Metadata", "File Modification", "Firmware Modification", "Logon Session Creation", "Logon Session Metadata", "Module Load", "Network Connection Creation", "Network Connections", "Network Flows", "Network Share Access", "Network Traffic Content", "Network Traffic Flow", "OS API Execution", "Process Creation", "Process History/Live Data", "Process Termination", "Process/Event Alarm", "Scheduled Job Metadata", "Scheduled Job Modification", "Script Execution", "Service Creation", "Service Metadata", "Software/Firmware", "User Account Authentication", "Windows Registry Key Deletion", "Windows Registry Key Modification"],
+    "Field Controller/RTU/PLC/IED": ["Application Log Content", "Asset Inventory", "Command Execution", "Device Alarm", "Device Configuration/Parameters", "Drive Creation", "Drive Modification", "File Access", "File Creation", "File Deletion", "File Metadata", "File Modification", "Firmware Modification", "Logon Session Creation", "Logon Session Metadata", "Module Load", "Network Connection Creation", "Network Connections", "Network Flows", "Network Share Access", "Network Traffic Content", "Network Traffic Flow", "OS API Execution", "Process Creation", "Process History/Live Data", "Process Termination", "Process/Event Alarm", "Scheduled Job Metadata", "Scheduled Job Modification", "Script Execution", "Service Creation", "Service Metadata", "Software/Firmware", "User Account Authentication", "Windows Registry Key Deletion", "Windows Registry Key Modification"],
+    "Human-Machine Interface": ["Application Log Content", "Asset Inventory", "Command Execution", "Device Alarm", "Device Configuration/Parameters", "Drive Creation", "Drive Modification", "File Access", "File Creation", "File Deletion", "File Metadata", "File Modification", "Firmware Modification", "Logon Session Creation", "Logon Session Metadata", "Module Load", "Network Connection Creation", "Network Connections", "Network Flows", "Network Share Access", "Network Traffic Content", "Network Traffic Flow", "OS API Execution", "Process Creation", "Process History/Live Data", "Process Termination", "Process/Event Alarm", "Scheduled Job Metadata", "Scheduled Job Modification", "Script Execution", "Service Creation", "Service Metadata", "Software/Firmware", "User Account Authentication", "Windows Registry Key Deletion", "Windows Registry Key Modification"],
+    "Input/Output Server": ["Application Log Content", "Asset Inventory", "Command Execution", "Device Alarm", "Device Configuration/Parameters", "Drive Creation", "Drive Modification", "File Access", "File Creation", "File Deletion", "File Metadata", "File Modification", "Firmware Modification", "Logon Session Creation", "Logon Session Metadata", "Module Load", "Network Connection Creation", "Network Connections", "Network Flows", "Network Share Access", "Network Traffic Content", "Network Traffic Flow", "OS API Execution", "Process Creation", "Process History/Live Data", "Process Termination", "Process/Event Alarm", "Scheduled Job Metadata", "Scheduled Job Modification", "Script Execution", "Service Creation", "Service Metadata", "Software/Firmware", "User Account Authentication", "Windows Registry Key Deletion", "Windows Registry Key Modification"],
+    "Linux": ["Application Log Content", "Asset Inventory", "Command Execution", "Device Alarm", "Device Configuration/Parameters", "Drive Creation", "Drive Modification", "File Access", "File Creation", "File Deletion", "File Metadata", "File Modification", "Firmware Modification", "Logon Session Creation", "Logon Session Metadata", "Module Load", "Network Connection Creation", "Network Connections", "Network Flows", "Network Share Access", "Network Traffic Content", "Network Traffic Flow", "OS API Execution", "Process Creation", "Process History/Live Data", "Process Termination", "Process/Event Alarm", "Scheduled Job Metadata", "Scheduled Job Modification", "Script Execution", "Service Creation", "Service Metadata", "Software/Firmware", "User Account Authentication", "Windows Registry Key Deletion", "Windows Registry Key Modification"],
+    "Safety Instrumented System/Protection Relay": ["Application Log Content", "Asset Inventory", "Command Execution", "Device Alarm", "Device Configuration/Parameters", "Drive Creation", "Drive Modification", "File Access", "File Creation", "File Deletion", "File Metadata", "File Modification", "Firmware Modification", "Logon Session Creation", "Logon Session Metadata", "Module Load", "Network Connection Creation", "Network Connections", "Network Flows", "Network Share Access", "Network Traffic Content", "Network Traffic Flow", "OS API Execution", "Process Creation", "Process History/Live Data", "Process Termination", "Process/Event Alarm", "Scheduled Job Metadata", "Scheduled Job Modification", "Script Execution", "Service Creation", "Service Metadata", "Software/Firmware", "User Account Authentication", "Windows Registry Key Deletion", "Windows Registry Key Modification"],
+    "Windows": ["Application Log Content", "Asset Inventory", "Command Execution", "Device Alarm", "Device Configuration/Parameters", "Drive Creation", "Drive Modification", "File Access", "File Creation", "File Deletion", "File Metadata", "File Modification", "Firmware Modification", "Logon Session Creation", "Logon Session Metadata", "Module Load", "Network Connection Creation", "Network Connections", "Network Flows", "Network Share Access", "Network Traffic Content", "Network Traffic Flow", "OS API Execution", "Process Creation", "Process History/Live Data", "Process Termination", "Process/Event Alarm", "Scheduled Job Metadata", "Scheduled Job Modification", "Script Execution", "Service Creation", "Service Metadata", "Software/Firmware", "User Account Authentication", "Windows Registry Key Deletion", "Windows Registry Key Modification"],
+    "None": ["Application Log Content", "Asset Inventory", "Command Execution", "Device Alarm", "Device Configuration/Parameters", "Drive Creation", "Drive Modification", "File Access", "File Creation", "File Deletion", "File Metadata", "File Modification", "Firmware Modification", "Logon Session Creation", "Logon Session Metadata", "Module Load", "Network Connection Creation", "Network Connections", "Network Flows", "Network Share Access", "Network Traffic Content", "Network Traffic Flow", "OS API Execution", "Process Creation", "Process History/Live Data", "Process Termination", "Process/Event Alarm", "Scheduled Job Metadata", "Scheduled Job Modification", "Script Execution", "Service Creation", "Service Metadata", "Software/Firmware", "User Account Authentication", "Windows Registry Key Deletion", "Windows Registry Key Modification"]
+  },
+  "DeTT&CT-Enterprise": {
     "Windows": [
       "Web [DeTT&CT data source]",
       "Internal DNS [DeTT&CT data source]",
@@ -403,6 +416,74 @@
     "Containers": [
       "Web [DeTT&CT data source]",
       "Internal DNS [DeTT&CT data source]"
+    ]
+  },
+  "DeTT&CT-ICS": {
+    "Control Server": [
+      "Web [DeTT&CT data source]",
+      "Internal DNS [DeTT&CT data source]",
+      "DHCP [DeTT&CT data source]",
+      "Email [DeTT&CT data source]"
+    ],
+    "Data Historian": [
+      "Web [DeTT&CT data source]",
+      "Internal DNS [DeTT&CT data source]",
+      "DHCP [DeTT&CT data source]",
+      "Email [DeTT&CT data source]"
+    ],
+    "Device Configuration/Parameters": [
+      "Web [DeTT&CT data source]",
+      "Internal DNS [DeTT&CT data source]",
+      "DHCP [DeTT&CT data source]",
+      "Email [DeTT&CT data source]"
+    ],
+    "Engineering Workstation": [
+      "Web [DeTT&CT data source]",
+      "Internal DNS [DeTT&CT data source]",
+      "DHCP [DeTT&CT data source]",
+      "Email [DeTT&CT data source]"
+    ],
+    "Field Controller/RTU/PLC/IED": [
+      "Web [DeTT&CT data source]",
+      "Internal DNS [DeTT&CT data source]",
+      "DHCP [DeTT&CT data source]",
+      "Email [DeTT&CT data source]"
+    ],
+    "Human-Machine Interface": [
+      "Web [DeTT&CT data source]",
+      "Internal DNS [DeTT&CT data source]",
+      "DHCP [DeTT&CT data source]",
+      "Email [DeTT&CT data source]"
+    ],
+    "Input/Output Server": [
+      "Web [DeTT&CT data source]",
+      "Internal DNS [DeTT&CT data source]",
+      "DHCP [DeTT&CT data source]",
+      "Email [DeTT&CT data source]"
+    ],
+    "Linux": [
+      "Web [DeTT&CT data source]",
+      "Internal DNS [DeTT&CT data source]",
+      "DHCP [DeTT&CT data source]",
+      "Email [DeTT&CT data source]"
+    ],
+    "Safety Instrumented System/Protection Relay": [
+      "Web [DeTT&CT data source]",
+      "Internal DNS [DeTT&CT data source]",
+      "DHCP [DeTT&CT data source]",
+      "Email [DeTT&CT data source]"
+    ],
+    "Windows": [
+      "Web [DeTT&CT data source]",
+      "Internal DNS [DeTT&CT data source]",
+      "DHCP [DeTT&CT data source]",
+      "Email [DeTT&CT data source]"
+    ],
+    "None": [
+      "Web [DeTT&CT data source]",
+      "Internal DNS [DeTT&CT data source]",
+      "DHCP [DeTT&CT data source]",
+      "Email [DeTT&CT data source]"
     ]
   }
 }

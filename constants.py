@@ -14,14 +14,16 @@ DATA_TYPE_CUSTOM_TECH_BY_SOFTWARE = 'mitre_techniques_used_by_software'
 DATA_TYPE_CUSTOM_SOFTWARE_BY_GROUP = 'mitre_software_used_by_group'
 DATA_TYPE_STIX_ALL_TECH = 'mitre_all_techniques'
 DATA_TYPE_STIX_ALL_TECH_ENTERPRISE = 'mitre_all_techniques_enterprise'
+DATA_TYPE_STIX_ALL_TECH_ICS = 'mitre_all_techniques_ics'
 DATA_TYPE_STIX_ALL_GROUPS = 'mitre_all_groups'
 DATA_TYPE_STIX_ALL_SOFTWARE = 'mitre_all_software'
 DATA_TYPE_STIX_ALL_RELATIONSHIPS = 'mitre_all_relationships'
 DATA_TYPE_STIX_ALL_ENTERPRISE_MITIGATIONS = 'mitre_all_mitigations_enterprise'
 DATA_TYPE_STIX_ALL_MOBILE_MITIGATIONS = 'mitre_all_mitigations_mobile'
+DATA_TYPE_STIX_ALL_ICS_MITIGATIONS = 'mitre_all_mitigations_ics'
 
 # ATT&CK matrix support:
-ATTACK_MATRIX_SUPPORT = ['enterprise', 'ics']
+DETTECT_DOMAIN_SUPPORT = ['enterprise-attack', 'ics-attack']
 
 # Group colors
 COLOR_GROUP_OVERLAY_MATCH = '#f9a825'            # orange
@@ -178,9 +180,15 @@ EQL_INVALID_RESULT_TECH = '[!] Invalid technique administration content. Check y
 HEALTH_ERROR_TXT = '[!] The below YAML file contains possible errors. It\'s recommended to check via the ' \
                    '\'--health\' argument or using the option in the interactive menu: \n    - '
 
-PLATFORMS = {'pre': 'PRE', 'windows': 'Windows', 'macos': 'macOS', 'linux': 'Linux', 'office 365': 'Office 365',
-             'azure ad': 'Azure AD', 'google workspace': 'Google Workspace', 'iaas': 'IaaS', 'saas': 'SaaS',
-             'network': 'Network', 'containers': 'Containers'}
+PLATFORMS_ENTERPRISE = {'pre': 'PRE', 'windows': 'Windows', 'macos': 'macOS', 'linux': 'Linux', 'office 365': 'Office 365',
+                        'azure ad': 'Azure AD', 'google workspace': 'Google Workspace', 'iaas': 'IaaS', 'saas': 'SaaS',
+                        'network': 'Network', 'containers': 'Containers'}
+
+PLATFORMS_ICS = {'control server': 'Control Server', 'data historian': 'Data Historian', 'device configuration/parameters': 'Device Configuration/Parameters',
+                 'engineering workstation': 'Engineering Workstation', 'field controller/rtu/plc/ied': 'Field Controller/RTU/PLC/IED',
+                 'human-machine interface': 'Human-Machine Interface', 'input/output server': 'Input/Output Server', 'linux': 'Linux',
+                 'safety instrumented system/protection relay': 'Safety Instrumented System/Protection Relay', 'windows': 'Windows',
+                 'none': 'None'}
 
 DATA_SOURCES_ATTACK_V8 = set(['Access tokens', 'Anti-virus', 'API monitoring', 'Application logs', 'Asset management', 'Authentication logs', 'AWS CloudTrail logs', 'AWS OS logs', 'Azure activity logs', 'Azure OS logs', 'Binary file metadata', 'BIOS', 'Browser extensions', 'Component firmware', 'Data loss prevention', 'Detonation chamber', 'Digital certificate logs', 'Disk forensics', 'DLL monitoring', 'DNS records', 'Domain registration', 'EFI', 'Email gateway', 'Environment variable', 'File monitoring', 'GCP audit logs', 'Host network interface', 'Kernel drivers', 'Loaded DLLs', 'Mail server', 'Malware reverse engineering', 'MBR', 'Named Pipes', 'Netflow/Enclave netflow', 'Network device command history',
                               'Network device configuration', 'Network device logs', 'Network device run-time memory', 'Network intrusion detection system', 'Network protocol analysis', 'OAuth audit logs', 'Office 365 account logs', 'Office 365 audit logs', 'Office 365 trace logs', 'Packet capture', 'PowerShell logs', 'Process command-line parameters', 'Process monitoring', 'Process use of network', 'Sensor health and status', 'Services', 'Social media monitoring', 'SSL/TLS certificates', 'SSL/TLS inspection', 'Stackdriver logs', 'System calls', 'Third-party application logs', 'User interface', 'VBR', 'Web application firewall logs', 'Web logs', 'Web proxy', 'Windows Error Reporting', 'Windows event logs', 'Windows Registry', 'WMI Objects'])
@@ -189,8 +197,13 @@ DETTECT_DATA_SOURCES = {}
 with open(os.path.dirname(__file__) + '/data/dettect_data_sources.json', 'r') as input_file:
     DETTECT_DATA_SOURCES = json.load(input_file)
 
-DATA_SOURCES = {}
+DATA_SOURCES_ENTERPRISE = {}
+DATA_SOURCES_ICS = {}
+DETTECT_DATA_SOURCES_PLATFORMS_ENTERPRISE = {}
+DETTECT_DATA_SOURCES_PLATFORMS_ICS = {}
 with open(os.path.dirname(__file__) + '/data/data_source_platforms.json', 'r') as input_file:
     input_data = json.load(input_file)
-    DATA_SOURCES = input_data['ATT&CK']
-    DETTECT_DATA_SOURCES_PLATFORMS = input_data['DeTT&CT']
+    DATA_SOURCES_ENTERPRISE = input_data['ATT&CK-Enterprise']
+    DATA_SOURCES_ICS = input_data['ATT&CK-ICS']
+    DETTECT_DATA_SOURCES_PLATFORMS_ENTERPRISE = input_data['DeTT&CT-Enterprise']
+    DETTECT_DATA_SOURCES_PLATFORMS_ICS = input_data['DeTT&CT-ICS']

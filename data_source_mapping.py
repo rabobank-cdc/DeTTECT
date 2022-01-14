@@ -45,16 +45,17 @@ def _system_in_data_source_details_object(data_source, system):
     return False
 
 
-def _map_and_colorize_techniques(my_ds, systems, exceptions):
+def _map_and_colorize_techniques(my_ds, systems, exceptions, domain):
     """
     Determine the color of the technique based on how many data sources are available per technique. Also, it will
     create much of the content for the Navigator layer.
     :param my_ds: the configured data sources
     :param systems: the systems YAML object from the data source file
     :param exceptions: the list of ATT&CK technique exception within the data source YAML file
+    :param domain: the specified domain
     :return: a dictionary with techniques that can be used in the layer's output file
     """
-    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE)
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain == 'enterprise-attack' else DATA_TYPE_STIX_ALL_TECH_ICS)
     output_techniques = []
 
     for t in techniques:
@@ -68,8 +69,8 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
             for system in systems:
                 # the system is relevant for this technique due to a match in ATT&CK platform
                 if len(set(system['platform']).intersection(set(t['x_mitre_platforms']))) > 0:
-                    applicable_data_sources = get_applicable_data_sources_platform(system['platform'])
-                    applicable_dettect_data_sources = get_applicable_dettect_data_sources_platform(system['platform'])
+                    applicable_data_sources = get_applicable_data_sources_platform(system['platform'], domain)
+                    applicable_dettect_data_sources = get_applicable_dettect_data_sources_platform(system['platform'], domain)
                     total_ds_count = _count_applicable_data_sources(t, applicable_data_sources, applicable_dettect_data_sources)
 
                     if total_ds_count > 0:  # the system's platform has a data source applicable to this technique
@@ -132,9 +133,9 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions):
                     d['metadata'].append({'name': 'Applicable to', 'value': system['applicable_to']})
 
                     app_data_sources = get_applicable_data_sources_technique(
-                        t['x_mitre_data_sources'], get_applicable_data_sources_platform(system['platform']))
+                        t['x_mitre_data_sources'], get_applicable_data_sources_platform(system['platform'], domain))
                     app_dettect_data_sources = get_applicable_dettect_data_sources_technique(
-                        t['dettect_data_sources'], get_applicable_dettect_data_sources_platform(system['platform']))
+                        t['dettect_data_sources'], get_applicable_dettect_data_sources_platform(system['platform'], domain))
 
                     if score > 0:
                         d['metadata'].append({'name': 'Available data sources', 'value': ', '.join(
@@ -190,16 +191,16 @@ def generate_data_sources_layer(filename, output_filename, layer_name):
     :param platform: one or multiple values from PLATFORMS constant
     :return:
     """
-    my_data_sources, name, systems, exceptions = load_data_sources(filename)
+    my_data_sources, name, systems, exceptions, domain = load_data_sources(filename)
 
     # Do the mapping between my data sources and MITRE data sources:
-    my_techniques = _map_and_colorize_techniques(my_data_sources, systems, exceptions)
+    my_techniques = _map_and_colorize_techniques(my_data_sources, systems, exceptions, domain)
 
     if not layer_name:
         layer_name = 'Data sources ' + name
 
     platforms = list(set(chain.from_iterable(map(lambda k: k['platform'], systems))))
-    layer = get_layer_template_data_sources(layer_name, 'description', platforms)
+    layer = get_layer_template_data_sources(layer_name, 'description', platforms, domain)
     layer['techniques'] = my_techniques
 
     json_string = simplejson.dumps(layer).replace('}, ', '},\n')
@@ -215,7 +216,7 @@ def plot_data_sources_graph(filename, output_filename):
     :param output_filename: the output filename defined by the user
     :return:
     """
-    my_data_sources, name, _, _ = load_data_sources(filename)
+    my_data_sources, name, _, _, domain = load_data_sources(filename)
 
     graph_values = []
     for ds_global, ds_detail in my_data_sources.items():
@@ -254,7 +255,7 @@ def export_data_source_list_to_excel(filename, output_filename, eql_search=False
     :return:
     """
     # pylint: disable=unused-variable
-    my_data_sources, name, _, _ = load_data_sources(filename, filter_empty_scores=False)
+    my_data_sources, name, systems, _, domain = load_data_sources(filename, filter_empty_scores=False)
     my_data_sources = dict(sorted(my_data_sources.items(), key=lambda kv: kv[0], reverse=False))
     if not output_filename:
         output_filename = 'data_sources'
@@ -279,22 +280,32 @@ def export_data_source_list_to_excel(filename, output_filename, eql_search=False
     dq_score_5 = workbook.add_format({'valign': 'top', 'align': 'center', 'bg_color': COLOR_DS_100p, 'font_color': '#ffffff'})
 
     # Title
-    worksheet.write(0, 0, 'Data sources for ' + name, format_title)
+    worksheet.write(0, 0, 'Data sources for: ' + name, format_title)
+    worksheet.write(1, 0, 'Domain: ' + domain)
+    worksheet.write(2, 0, 'Systems: ')
+    y = 3
+    for system in systems:
+        worksheet.write(y, 0, '- %s: %s' % (system['applicable_to'], ', '.join(system['platform'])))
+        y += 1
 
     # Header columns
-    worksheet.write(2, 0, 'Data source name', format_bold_left)
-    worksheet.write(2, 1, 'Applicable to', format_bold_left)
-    worksheet.write(2, 2, 'Date registered', format_bold_left)
-    worksheet.write(2, 3, 'Date connected', format_bold_left)
-    worksheet.write(2, 4, 'Products', format_bold_left)
-    worksheet.write(2, 5, 'Comment', format_bold_left)
-    worksheet.write(2, 6, 'Available for data analytics', format_bold_left)
-    worksheet.write(2, 7, 'DQ: device completeness', format_bold_left)
-    worksheet.write(2, 8, 'DQ: data field completeness', format_bold_left)
-    worksheet.write(2, 9, 'DQ: timeliness', format_bold_left)
-    worksheet.write(2, 10, 'DQ: consistency', format_bold_left)
-    worksheet.write(2, 11, 'DQ: retention', format_bold_left)
-    worksheet.write(2, 12, 'DQ: score', format_bold_left)
+    y += 1
+    worksheet.write(y, 0, 'Data source name', format_bold_left)
+    worksheet.write(y, 1, 'Applicable to', format_bold_left)
+    worksheet.write(y, 2, 'Date registered', format_bold_left)
+    worksheet.write(y, 3, 'Date connected', format_bold_left)
+    worksheet.write(y, 4, 'Products', format_bold_left)
+    worksheet.write(y, 5, 'Comment', format_bold_left)
+    worksheet.write(y, 6, 'Available for data analytics', format_bold_left)
+    worksheet.write(y, 7, 'DQ: device completeness', format_bold_left)
+    worksheet.write(y, 8, 'DQ: data field completeness', format_bold_left)
+    worksheet.write(y, 9, 'DQ: timeliness', format_bold_left)
+    worksheet.write(y, 10, 'DQ: consistency', format_bold_left)
+    worksheet.write(y, 11, 'DQ: retention', format_bold_left)
+    worksheet.write(y, 12, 'DQ: score', format_bold_left)
+
+    worksheet.autofilter(y, 0, y, 12)
+    worksheet.freeze_panes(y + 1, 0)
 
     worksheet.set_column(0, 0, 35)
     worksheet.set_column(1, 1, 18)
@@ -307,7 +318,7 @@ def export_data_source_list_to_excel(filename, output_filename, eql_search=False
     worksheet.set_column(12, 12, 10)
 
     # Putting the data sources data:
-    y = 3
+    y += 1
 
     for ds_global, ds_detail in my_data_sources.items():
 
@@ -345,8 +356,6 @@ def export_data_source_list_to_excel(filename, output_filename, eql_search=False
             worksheet.write(y, 12, score, dq_score_0 if score == 0 else dq_score_1 if score < 2 else dq_score_2 if score < 3 else dq_score_3 if score < 4 else dq_score_4 if score < 5 else dq_score_5 if score < 6 else no_score)  # noqa
             y += 1
 
-    worksheet.autofilter(2, 0, 2, 12)
-    worksheet.freeze_panes(3, 0)
     try:
         workbook.close()
         print("File written:   " + excel_filename)
@@ -479,10 +488,10 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
     today = new_visibility_scores['techniques'][0]['visibility'][0]['score_logbook'][0]['date']
 
     # next, we load the current visibility scores from the tech. admin file
-    cur_visibility_scores, _, platform_tech_admin = load_techniques(file_tech_admin)
+    cur_visibility_scores, _, platform_tech_admin, domain = load_techniques(file_tech_admin)
 
     # last, we get the systems kv-pair from the data source file
-    _, _, systems, _ = load_data_sources(file_data_sources)
+    _, _, systems, _, domain = load_data_sources(file_data_sources)
 
     # if the tech admin. file has a platform not present in the DS admin. file we return
     if len(set(platform_tech_admin).difference(set(new_visibility_scores['platform']))) > 0:
@@ -825,9 +834,9 @@ def generate_technique_administration_file(filename, output_filename, write_file
     platform(s) specified in the data source YAML file
     :return:
     """
-    my_ds, name, systems, exceptions = load_data_sources(filename)
+    my_ds, name, systems, exceptions, domain = load_data_sources(filename)
 
-    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE)
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain == 'enterprise-attack' else DATA_TYPE_STIX_ALL_TECH_ICS)
     yaml_platform = list(set(chain.from_iterable(map(lambda k: k['platform'], systems))))
     all_applicable_to_values = set([s['applicable_to'] for s in systems])
 
@@ -852,8 +861,8 @@ def generate_technique_administration_file(filename, output_filename, write_file
                 ds_score = -1
                 # the system is relevant for this technique due to a match in ATT&CK platform
                 if len(set(system['platform']).intersection(set(mitre_platforms))) > 0:
-                    applicable_data_sources = get_applicable_data_sources_platform(system['platform'])
-                    applicable_dettect_data_sources = get_applicable_dettect_data_sources_platform(system['platform'])
+                    applicable_data_sources = get_applicable_data_sources_platform(system['platform'], domain)
+                    applicable_dettect_data_sources = get_applicable_dettect_data_sources_platform(system['platform'], domain)
                     total_ds_count = _count_applicable_data_sources(t, applicable_data_sources, applicable_dettect_data_sources)
 
                     if total_ds_count > 0:  # the system's platform has data source applicable to this technique
@@ -923,7 +932,7 @@ def generate_technique_administration_file(filename, output_filename, write_file
         yaml_file_lines = fix_date_and_remove_null(file_lines, today, input_type='list')
 
         if not output_filename:
-            output_filename = 'techniques-administration-' + normalize_name_to_filename(name + '-' + platform_to_name(yaml_platform))
+            output_filename = 'techniques-administration-' + normalize_name_to_filename(name + '-' + platform_to_name(yaml_platform, domain))
         elif output_filename.endswith('.yaml'):
             output_filename = output_filename.replace('.yaml', '')
         output_filename = get_non_existing_filename('output/' + output_filename, 'yaml')

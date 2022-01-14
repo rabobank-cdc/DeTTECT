@@ -190,22 +190,26 @@ def _check_health_techniques(filename, technique_content, health_is_called):
     has_error = False
 
     # Check domain attribute (is optional):
+    domain = 'enterprise-attack'
     if 'domain' in technique_content:
         if not technique_content['domain'].lower() in DETTECT_DOMAIN_SUPPORT:
             has_error = _print_error_msg('[!] INVALID domain value in technique administration file: %s. Must be one of: %s' %
                                          (technique_content['domain'], ', '.join(DETTECT_DOMAIN_SUPPORT)), health_is_called)
+        else:
+            domain = technique_content['domain']
 
     platform = technique_content.get('platform', None)
+    supported_platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else PLATFORMS_ICS
     if platform != 'all' and platform != ['all']:
         if isinstance(platform, str):
             platform = [platform]
         if platform is None or len(platform) == 0 or platform == '':
             platform = ['empty']
         for p in platform:
-            if p.lower() not in PLATFORMS.keys():
+            if p.lower() not in supported_platforms.keys():
                 has_error = _print_error_msg(
                     '[!] EMPTY or INVALID value for \'platform\' within the technique administration '
-                    'file: %s (should be value(s) of: [%s] or all)' % (p, ', '.join(list(PLATFORMS.values()))),
+                    'file: %s (should be value(s) of: [%s] or all)' % (p, ', '.join(list(supported_platforms.values()))),
                     health_is_called)
 
     # create a list of ATT&CK technique IDs and check for duplicates
@@ -302,10 +306,13 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
     has_error = False
 
     # Check domain attribute (is optional):
+    domain = 'enterprise-attack'
     if 'domain' in ds_content:
         if not ds_content['domain'].lower() in DETTECT_DOMAIN_SUPPORT:
             has_error = _print_error_msg('[!] INVALID domain value in data source administration file: %s. Should be one of: %s' %
                                          (ds_content['domain'], ', '.join(DETTECT_DOMAIN_SUPPORT)), health_is_called)
+        else:
+            domain = ds_content['domain']
 
     if not src_eql:
         systems_applicable_to = set()
@@ -313,15 +320,16 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
             for system in ds_content['systems']:
                 # check the platform value
                 platform = system['platform']
+                supported_platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else PLATFORMS_ICS
                 if isinstance(platform, str):
                     platform = [platform]
                 if platform is None or len(platform) == 0 or platform == '':
                     platform = ['empty']
                 for p in platform:
-                    if p.lower() not in PLATFORMS.keys() and p.lower() != 'all':
+                    if p.lower() not in supported_platforms.keys() and p.lower() != 'all':
                         has_error = _print_error_msg(
                             '[!] EMPTY or INVALID value for \'platform\' within the data source administration file\'s \'systems\' key-value pair: '
-                            '%s (should be value(s) of: [%s] or all)' % (p, ', '.join(list(PLATFORMS.values()))),
+                            '%s (should be value(s) of: [%s] or all)' % (p, ', '.join(list(supported_platforms.values()))),
                             health_is_called)
 
                 # check applicable_to value
@@ -456,6 +464,31 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
     return has_error
 
 
+def _check_health_group(filename, group_content, health_is_called):
+    """
+    Check on errors in the provided group administration YAML file.
+    :param filename: YAML file location
+    :param group_content: content of the YAML file in a list of dicts
+    :param health_is_called: boolean that specifies if detailed errors in the file will be printed to stdout
+    :return:
+    """
+    has_error = False
+
+    # Check domain attribute (is optional):
+    domain = 'enterprise-attack'
+    if 'domain' in group_content:
+        if not group_content['domain'].lower() in DETTECT_DOMAIN_SUPPORT:
+            has_error = _print_error_msg('[!] INVALID domain value in group administration file: %s. Must be one of: %s' %
+                                         (group_content['domain'], ', '.join(DETTECT_DOMAIN_SUPPORT)), health_is_called)
+        else:
+            domain = group_content['domain']
+
+    if has_error and not health_is_called:
+        print(HEALTH_ERROR_TXT + filename)
+
+    _update_health_state_cache(filename, has_error)
+
+
 def check_yaml_file_health(filename, file_type, health_is_called):
     """
     Check on errors in the provided YAML file.
@@ -477,6 +510,8 @@ def check_yaml_file_health(filename, file_type, health_is_called):
             check_health_data_sources(filename, yaml_content, health_is_called)
         elif file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
             _check_health_techniques(filename, yaml_content, health_is_called)
+        elif file_type == FILE_TYPE_GROUP_ADMINISTRATION:
+            _check_health_group(filename, yaml_content, health_is_called)
 
     elif _get_health_state_cache(filename):
         print(HEALTH_ERROR_TXT + filename)

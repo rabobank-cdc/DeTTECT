@@ -45,6 +45,10 @@ class ATTACKData():
         self.attack_cti_techniques_enterprise = self.mitre.remove_revoked(self.attack_cti_techniques_enterprise)
         self.attack_cti_techniques_enterprise = self.mitre.remove_deprecated(self.attack_cti_techniques_enterprise)
 
+        self.attack_cti_techniques_ics = self.mitre.get_ics_techniques()
+        self.attack_cti_techniques_ics = self.mitre.remove_revoked(self.attack_cti_techniques_ics)
+        self.attack_cti_techniques_ics = self.mitre.remove_deprecated(self.attack_cti_techniques_ics)
+
         self.attack_cti_software = self.mitre.get_software()
         self.attack_cti_software = self.mitre.remove_revoked(self.attack_cti_software)
         self.attack_cti_software = self.mitre.remove_deprecated(self.attack_cti_software)
@@ -57,7 +61,7 @@ class ATTACKData():
         self._dump_data(data_components_enterprise, FILE_DATA_SOURCES)
 
         data_components_enterprise_platform_mapping = self._get_data_components_platform_mapping_from_dict(self.data_source_dict_enterprise)
-        self._update_data(data_components_enterprise_platform_mapping, 'ATT&CK', FILE_DATA_SOURCES_PLATFORMS)
+        self._update_data(data_components_enterprise_platform_mapping, 'ATT&CK-Enterprise', FILE_DATA_SOURCES_PLATFORMS)
 
         techniques_enterprise = self._get_techniques(self.attack_cti_techniques_enterprise, MATRIX_ENTERPRISE)
         self._dump_data(techniques_enterprise, FILE_TECHNIQUES)
@@ -331,7 +335,7 @@ class ATTACKData():
                 id = self._get_attack_id(s, matrix)
                 if id:
                     software.append({'software_id': id,
-                                    'software_name': s['name'],
+                                     'software_name': s['name'],
                                      'platforms': sorted(list(platforms)),
                                      'autosuggest': id + ' - ' + s['name']})
 
@@ -381,5 +385,6 @@ class ATTACKData():
 
 if __name__ == "__main__":
     attack_data = ATTACKData()
-    attack_data.execute_refresh_json_data()
-    attack_data.execute_refresh_wiki()
+    # attack_data.execute_refresh_json_data()
+    # attack_data.execute_refresh_wiki()
+    print(str(attack_data._get_data_components_from_techniques(attack_data.attack_cti_techniques_ics)).replace("'", '"'))

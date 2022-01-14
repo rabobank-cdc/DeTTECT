@@ -193,7 +193,7 @@ export default {
         DataSourceDetail,
         Icons
     },
-    created: function() {
+    created: function () {
         this.preloadMarkDown();
     },
     methods: {
@@ -395,7 +395,10 @@ export default {
 
             for (let i = 0; i < this.selectedPlatforms.length; i++) {
                 for (let j = 0; j < dataSources.length; j++) {
-                    if (this.selectedPlatforms[i] == 'all' || dataSourcePlatforms['ATT&CK'][this.selectedPlatforms[i]].includes(dataSources[j])) {
+                    if (
+                        this.selectedPlatforms[i] == 'all' ||
+                        dataSourcePlatforms['ATT&CK-Enterprise'][this.selectedPlatforms[i]].includes(dataSources[j])
+                    ) {
                         if (!current_ds_in_file.includes(dataSources[j])) {
                             let newrow = _.cloneDeep(this.emptyDataSourceObject);
                             newrow.data_source_name = dataSources[j];
@@ -474,7 +477,7 @@ export default {
         },
         joinedApplicableTo(row) {
             return row.data_source
-                .map(function(row) {
+                .map(function (row) {
                     return row.applicable_to;
                 })
                 .join(', ');
@@ -490,7 +493,7 @@ export default {
         }
     },
     filters: {
-        listToString: function(value) {
+        listToString: function (value) {
             if (Array.isArray(value)) {
                 return value.join(', ');
             } else {

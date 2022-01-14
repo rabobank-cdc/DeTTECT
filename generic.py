@@ -146,6 +146,11 @@ def load_attack_data(data_type):
         stix_attack_data = mitre.remove_revoked(stix_attack_data)
         stix_attack_data = mitre.remove_deprecated(stix_attack_data)
         attack_data = _convert_stix_techniques_to_dict(stix_attack_data)
+    elif data_type == DATA_TYPE_STIX_ALL_TECH_ICS:
+        stix_attack_data = mitre.get_ics_techniques()
+        stix_attack_data = mitre.remove_revoked(stix_attack_data)
+        stix_attack_data = mitre.remove_deprecated(stix_attack_data)
+        attack_data = _convert_stix_techniques_to_dict(stix_attack_data)
     elif data_type == DATA_TYPE_CUSTOM_TECH_BY_GROUP:
         # First we need to know which technique references (STIX Object type 'attack-pattern') we have for all
         # groups. This results in a dict: {group_id: Gxxxx, technique_ref/attack-pattern_ref: ...}
@@ -268,6 +273,11 @@ def load_attack_data(data_type):
 
     elif data_type == DATA_TYPE_STIX_ALL_MOBILE_MITIGATIONS:
         attack_data = mitre.get_mobile_mitigations()
+        attack_data = mitre.remove_revoked(attack_data)
+        attack_data = mitre.remove_deprecated(attack_data)
+
+    elif data_type == DATA_TYPE_STIX_ALL_ICS_MITIGATIONS:
+        attack_data = mitre.get_ics_mitigations()
         attack_data = mitre.remove_revoked(attack_data)
         attack_data = mitre.remove_deprecated(attack_data)
 
@@ -478,14 +488,16 @@ def get_latest_score(yaml_object):
         return None
 
 
-def platform_to_name(platform, separator='-'):
+def platform_to_name(platform, domain, separator='-'):
     """
     Makes a filename friendly version of the platform parameter which can be a string or list.
     :param platform: the platform variable (a string or a list)
+    :param domain: the specified domain
     :param separator: a string value that separates multiple platforms. Default is '-'
     :return: a filename friendly representation of the value of platform
     """
-    if set(platform) == set(PLATFORMS.values()) or platform == 'all' or 'all' in platform:
+    platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else PLATFORMS_ICS
+    if set(platform) == set(platforms.values()) or platform == 'all' or 'all' in platform:
         return 'all'
     elif isinstance(platform, list):
         return separator.join(sorted(platform))
@@ -493,30 +505,34 @@ def platform_to_name(platform, separator='-'):
         return ''
 
 
-def get_applicable_data_sources_platform(platforms):
+def get_applicable_data_sources_platform(platforms, domain):
     """
     Get the applicable ATT&CK data sources for the provided platform(s)
     :param platforms: the ATT&CK platform(s)
+    :param domain: the specified domain
     :return: a list of applicable ATT&CK data sources
     """
     applicable_data_sources = set()
 
+    data_sources = DATA_SOURCES_ENTERPRISE if domain == 'enterprise-attack' else DATA_SOURCES_ICS
     for p in platforms:
-        applicable_data_sources.update(DATA_SOURCES[p])
+        applicable_data_sources.update(data_sources[p])
 
     return list(applicable_data_sources)
 
 
-def get_applicable_dettect_data_sources_platform(platforms):
+def get_applicable_dettect_data_sources_platform(platforms, domain):
     """
     Get the applicable DeTT&CT data sources for the provided platform(s)
     :param platforms: the ATT&CK platform(s)
+    :param domain: the specified domain
     :return: a list of applicable ATT&CK data sources
     """
     applicable_dettect_data_sources = set()
 
+    dettect_data_sources = DETTECT_DATA_SOURCES_PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else DETTECT_DATA_SOURCES_PLATFORMS_ICS
     for p in platforms:
-        applicable_dettect_data_sources.update(DETTECT_DATA_SOURCES_PLATFORMS[p])
+        applicable_dettect_data_sources.update(dettect_data_sources[p])
 
     return list(applicable_dettect_data_sources)
 
@@ -615,16 +631,19 @@ def load_data_sources(file, filter_empty_scores=True):
                 ds_detail['applicable_to'] = all_systems_applicable_to
             ds_detail = set_yaml_dv_comments(ds_detail)
 
+    domain = 'enterprise' if 'domain' not in yaml_content.keys() else yaml_content['domain']
+
     # make sure the platform values are compliant (including casing) with the ATT&CK platforms
+    platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else PLATFORMS_ICS
     for s in systems:
         s['platform'] = [p.lower() for p in s['platform'] if p is not None]
         if 'all' in s['platform']:
-            s['platform'] = list(PLATFORMS.values())
+            s['platform'] = list(platforms.values())
         else:
             valid_platform_list = []
             for p in s['platform']:
-                if p in PLATFORMS.keys():
-                    valid_platform_list.append(PLATFORMS[p])
+                if p in platforms.keys():
+                    valid_platform_list.append(platforms[p])
             s['platform'] = valid_platform_list
 
     exceptions = []
@@ -633,7 +652,7 @@ def load_data_sources(file, filter_empty_scores=True):
 
     name = yaml_content['name']
 
-    return my_data_sources, name, systems, exceptions
+    return my_data_sources, name, systems, exceptions, domain
 
 
 def load_techniques(file):
@@ -676,11 +695,11 @@ def load_techniques(file):
                     de = set_yaml_dv_comments(de)
                     _add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', de)
 
-        name = yaml_content['name']
+    name = yaml_content['name']
+    domain = 'enterprise' if 'domain' not in yaml_content.keys() else yaml_content['domain']
+    platform = get_platform_from_yaml(yaml_content, domain)
 
-        platform = get_platform_from_yaml(yaml_content)
-
-    return my_techniques, name, platform
+    return my_techniques, name, platform, domain
 
 
 def calculate_score(list_yaml_objects, zero_value=0):
@@ -857,7 +876,7 @@ def check_file(filename, file_type=None, health_is_called=False):
         if file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
             if not check_yaml_updated_to_sub_techniques(filename):
                 return None
-        if file_type == FILE_TYPE_DATA_SOURCE_ADMINISTRATION:
+        elif file_type == FILE_TYPE_DATA_SOURCE_ADMINISTRATION:
             if not _check_for_old_data_sources(filename):
                 return None
 
@@ -866,7 +885,7 @@ def check_file(filename, file_type=None, health_is_called=False):
     return yaml_content  # value is None
 
 
-def get_platform_from_yaml(yaml_content):
+def get_platform_from_yaml(yaml_content, domain):
     """
     Read the platform field from the YAML file supporting both string and list values.
     :param yaml_content: the content of the YAML file containing the platform field
@@ -878,14 +897,15 @@ def get_platform_from_yaml(yaml_content):
     if isinstance(platform, str):
         platform = [platform]
     platform = [p.lower() for p in platform if p is not None]
+    selected_platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else PLATFORMS_ICS
 
     if 'all' in platform:
-        platform = list(PLATFORMS.values())
+        platform = list(selected_platforms.values())
     else:
         valid_platform_list = []
         for p in platform:
-            if p in PLATFORMS.keys():
-                valid_platform_list.append(PLATFORMS[p])
+            if p in selected_platforms.keys():
+                valid_platform_list.append(selected_platforms[p])
         platform = valid_platform_list
     return platform
 

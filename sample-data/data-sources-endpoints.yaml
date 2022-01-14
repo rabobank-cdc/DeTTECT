@@ -5,7 +5,7 @@ domain: enterprise-attack
 systems:
   - applicable_to: Windows workstations
     platform:
-      - Windows
+      - all
   - applicable_to: Linux servers
     platform:
       - Linux

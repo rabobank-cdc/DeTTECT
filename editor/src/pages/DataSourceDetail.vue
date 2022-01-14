@@ -88,7 +88,10 @@ export default {
             let suggestionList = new Set();
             for (let i = 0; i < this.selectedPlatforms.length; i++) {
                 for (let j = 0; j < dataSources.length; j++) {
-                    if (this.selectedPlatforms[i] == 'all' || dataSourcePlatforms['ATT&CK'][this.selectedPlatforms[i]].includes(dataSources[j])) {
+                    if (
+                        this.selectedPlatforms[i] == 'all' ||
+                        dataSourcePlatforms['ATT&CK-Enterprise'][this.selectedPlatforms[i]].includes(dataSources[j])
+                    ) {
                         suggestionList.add(dataSources[j]);
                     }
                 }

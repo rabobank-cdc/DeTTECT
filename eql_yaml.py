@@ -330,7 +330,7 @@ def _prepare_yaml_file(filename, obj_type, include_all_score_objs):
 
     # create EQL events from the list of dictionaries
     if obj_type == 'data_sources':
-        yaml_content_eql, _, _, _ = load_data_sources(yaml_content, filter_empty_scores=False)
+        yaml_content_eql, _, _, _, _ = load_data_sources(yaml_content, filter_empty_scores=False)
         yaml_content_eql = _data_sources_to_events(yaml_content_eql)
         for e in yaml_content_eql:
             yaml_eql_events.append(eql.Event(obj_type, 0, e))
@@ -416,7 +416,7 @@ def _get_applicable_to_yaml_values(filename, type):
     app_to_values = set()
 
     if type == FILE_TYPE_DATA_SOURCE_ADMINISTRATION:
-        _, _, systems, _ = load_data_sources(filename)
+        _, _, systems, _, _ = load_data_sources(filename)
 
         for system in systems:
             app_to_values.add(system['applicable_to'].lower())

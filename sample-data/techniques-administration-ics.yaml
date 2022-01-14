@@ -3,8 +3,7 @@ file_type: technique-administration
 name: example techniques ICS
 domain: ics-attack
 platform:
-- Windows
-- Linux
+- all
 techniques:
 - technique_id: T0817
   technique_name: Drive-by Compromise
@@ -14,16 +13,16 @@ techniques:
     location: []
     comment: ''
     score_logbook:
-    - date:
-      score: -1
+    - date: 2022-01-07
+      score: 2
       comment: ''
   visibility:
   - applicable_to:
     - all
     comment: ''
     score_logbook:
-    - date:
-      score: 0
+    - date: 2022-01-07
+      score: 1
       comment:
 notes: This file serves purely as an example to showcase the functionality of DeTT&CT
   and does not mean to be representative of a real environment.

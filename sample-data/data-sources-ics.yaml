@@ -5,7 +5,10 @@ domain: ics-attack
 systems:
   - applicable_to: Windows workstations
     platform:
-      - Windows
+      - all
+  - applicable_to: Control Servers
+    platform:
+      - Control Server
 data_sources:
   - data_source_name: Process Creation
     data_source:
