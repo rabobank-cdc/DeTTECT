@@ -1,5 +1,4 @@
 from generic_mode import *
-from interactive_menu import *
 from editor import DeTTECTEditor
 import argparse
 import os
@@ -17,9 +16,6 @@ def _init_menu():
     menu_parser = argparse.ArgumentParser(description='Detect Tactics, Techniques & Combat Threats',
                                           epilog='Source: https://github.com/rabobank-cdc/DeTTECT')
     menu_parser.add_argument('--version', action='version', version='%(prog)s ' + VERSION)
-    menu_parser.add_argument('-i', '--interactive', help='launch the interactive menu, which has support for all modes but not '
-                             'all of the arguments that are available in the CLI',
-                             action='store_true')
 
     # add subparsers
     subparsers = menu_parser.add_subparsers(title='MODE',
@@ -231,9 +227,6 @@ def _menu(menu_parser):
     if 'update_to_sub_techniques' in args and args.update_to_sub_techniques:
         from upgrade import upgrade_to_sub_techniques
         upgrade_to_sub_techniques(args.file_tech)
-
-    if args.interactive:
-        interactive_menu()
 
     elif args.subparser in ['editor', 'e']:
         DeTTECTEditor(int(args.port)).start()
