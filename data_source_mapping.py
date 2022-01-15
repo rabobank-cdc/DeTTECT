@@ -216,7 +216,7 @@ def plot_data_sources_graph(filename, output_filename):
     :param output_filename: the output filename defined by the user
     :return:
     """
-    my_data_sources, name, _, _, domain = load_data_sources(filename)
+    my_data_sources, name, _, _, _ = load_data_sources(filename)
 
     graph_values = []
     for ds_global, ds_detail in my_data_sources.items():
@@ -488,10 +488,10 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
     today = new_visibility_scores['techniques'][0]['visibility'][0]['score_logbook'][0]['date']
 
     # next, we load the current visibility scores from the tech. admin file
-    cur_visibility_scores, _, platform_tech_admin, domain = load_techniques(file_tech_admin)
+    cur_visibility_scores, _, platform_tech_admin, _ = load_techniques(file_tech_admin)
 
     # last, we get the systems kv-pair from the data source file
-    _, _, systems, _, domain = load_data_sources(file_data_sources)
+    _, _, systems, _, _ = load_data_sources(file_data_sources)
 
     # if the tech admin. file has a platform not present in the DS admin. file we return
     if len(set(platform_tech_admin).difference(set(new_visibility_scores['platform']))) > 0:

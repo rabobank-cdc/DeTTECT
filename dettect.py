@@ -1,10 +1,14 @@
+from data_source_mapping import *
+from technique_mapping import *
+from group_mapping import *
+from eql_yaml import *
 from generic_mode import *
-from interactive_menu import *
 from editor import DeTTECTEditor
+import generic
 import argparse
 import os
 import signal
-import generic
+import sys
 from logging import getLogger, ERROR as LOGERROR
 getLogger("taxii2client").setLevel(LOGERROR)
 
@@ -17,9 +21,6 @@ def _init_menu():
     menu_parser = argparse.ArgumentParser(description='Detect Tactics, Techniques & Combat Threats',
                                           epilog='Source: https://github.com/rabobank-cdc/DeTTECT')
     menu_parser.add_argument('--version', action='version', version='%(prog)s ' + VERSION)
-    menu_parser.add_argument('-i', '--interactive', help='launch the interactive menu, which has support for all modes but not '
-                             'all of the arguments that are available in the CLI',
-                             action='store_true')
 
     # add subparsers
     subparsers = menu_parser.add_subparsers(title='MODE',
@@ -73,8 +74,6 @@ def _init_menu():
     parser_data_sources.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
     parser_data_sources.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
                                      'or to use a specific version of STIX objects')
-    parser_data_sources.add_argument('--update-to-sub-techniques', help='Update the technique administration YAML file '
-                                                                        'to ATT&CK with sub-techniques', action='store_true')
 
     # create the visibility parser
     parser_visibility = subparsers.add_parser('visibility', aliases=['v'],
@@ -109,8 +108,6 @@ def _init_menu():
     parser_visibility.add_argument('--health', help='check the YAML file for errors', action='store_true')
     parser_visibility.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
                                    'or to use a specific version of STIX objects')
-    parser_visibility.add_argument('--update-to-sub-techniques', help='Update the technique administration YAML file '
-                                   'to ATT&CK with sub-techniques', action='store_true')
 
     # create the detection parser
     parser_detection = subparsers.add_parser('detection', aliases=['d'],
@@ -146,8 +143,6 @@ def _init_menu():
     parser_detection.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
     parser_detection.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
                                   'or to use a specific version of STIX objects')
-    parser_detection.add_argument('--update-to-sub-techniques', help='Update the technique administration YAML file '
-                                  'to ATT&CK with sub-techniques', action='store_true')
 
     # create the group parser
     parser_group = subparsers.add_parser('group', aliases=['g'],
@@ -191,8 +186,6 @@ def _init_menu():
     parser_group.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
     parser_group.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
                                                         'or to use a specific version of STIX objects')
-    parser_group.add_argument('--update-to-sub-techniques', help='Update the technique administration YAML file '
-                              'to ATT&CK with sub-techniques', action='store_true')
 
     # create the generic parser
     parser_generic = subparsers.add_parser('generic', description='Generic functions which will output to stdout.',
@@ -227,13 +220,6 @@ def _menu(menu_parser):
 
     if 'local_stix_path' in args and args.local_stix_path:
         generic.local_stix_path = args.local_stix_path
-
-    if 'update_to_sub_techniques' in args and args.update_to_sub_techniques:
-        from upgrade import upgrade_to_sub_techniques
-        upgrade_to_sub_techniques(args.file_tech)
-
-    if args.interactive:
-        interactive_menu()
 
     elif args.subparser in ['editor', 'e']:
         DeTTECTEditor(int(args.port)).start()

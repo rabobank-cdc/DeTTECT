@@ -166,19 +166,13 @@ YAML_OBJ_TECHNIQUE = {'technique_id': '',
                       'detection': YAML_OBJ_DETECTION,
                       'visibility': []}
 
-# Interactive menu
-MENU_NAME_DATA_SOURCE_MAPPING = 'Data source mapping'
-MENU_NAME_VISIBILITY_MAPPING = 'Visibility coverage mapping'
-MENU_NAME_DETECTION_COVERAGE_MAPPING = 'Detection coverage mapping'
-MENU_NAME_THREAT_ACTOR_GROUP_MAPPING = 'Threat actor group mapping'
-
 # EQL
 EQL_INVALID_RESULT_DS = '[!] Invalid data source administration content. Check your EQL query to return data_sources object(s):'
 EQL_INVALID_RESULT_TECH = '[!] Invalid technique administration content. Check your EQL query to return '
 
 # Health text
 HEALTH_ERROR_TXT = '[!] The below YAML file contains possible errors. It\'s recommended to check via the ' \
-                   '\'--health\' argument or using the option in the interactive menu: \n    - '
+                   '\'--health\' argument: \n    - '
 
 PLATFORMS_ENTERPRISE = {'pre': 'PRE', 'windows': 'Windows', 'macos': 'macOS', 'linux': 'Linux', 'office 365': 'Office 365',
                         'azure ad': 'Azure AD', 'google workspace': 'Google Workspace', 'iaas': 'IaaS', 'saas': 'SaaS',

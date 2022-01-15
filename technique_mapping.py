@@ -314,8 +314,7 @@ def plot_graph(filename, type_graph, output_filename):
     :param output_filename: the output filename defined by the user
     :return:
     """
-    # pylint: disable=unused-variable
-    my_techniques, name, platform, domain = load_techniques(filename)
+    my_techniques, name, _, _ = load_techniques(filename)
 
     graph_values = []
     for t in my_techniques.values():

@@ -7,7 +7,7 @@ from ruamel.yaml.timestamp import TimeStamp as ruamelTimeStamp
 from requests import exceptions
 from stix2 import datastore
 from constants import *
-from upgrade import upgrade_yaml_file, check_yaml_updated_to_sub_techniques
+from upgrade import upgrade_yaml_file
 from health import check_yaml_file_health
 import dateutil.parser
 
@@ -859,7 +859,7 @@ def _check_for_old_data_sources(filename):
 def check_file(filename, file_type=None, health_is_called=False):
     """
     Calls four functions to perform the following checks: is the file a valid YAML file, needs the file to be upgraded,
-    does the file contain errors or does the file need a sub-techniques upgrade.
+    or does the file contain errors.
     :param filename: path to a YAML file
     :param file_type: value to check against the 'file_type' key in the YAML file
     :param health_is_called: boolean that specifies if detailed errors in the file will be printed by the function 'check_yaml_file_health'
@@ -873,10 +873,7 @@ def check_file(filename, file_type=None, health_is_called=False):
         upgrade_yaml_file(filename, file_type, yaml_content['version'])
         check_yaml_file_health(filename, file_type, health_is_called)
 
-        if file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
-            if not check_yaml_updated_to_sub_techniques(filename):
-                return None
-        elif file_type == FILE_TYPE_DATA_SOURCE_ADMINISTRATION:
+        if file_type == FILE_TYPE_DATA_SOURCE_ADMINISTRATION:
             if not _check_for_old_data_sources(filename):
                 return None
 
