@@ -139,12 +139,8 @@ def load_attack_data(data_type):
     attack_data = None
     if data_type == DATA_TYPE_STIX_ALL_RELATIONSHIPS:
         attack_data = mitre.get_relationships()
-        attack_data = mitre.remove_revoked(attack_data)
-        attack_data = mitre.remove_deprecated(attack_data)
     elif data_type == DATA_TYPE_STIX_ALL_TECH_ENTERPRISE:
         stix_attack_data = mitre.get_enterprise_techniques()
-        stix_attack_data = mitre.remove_revoked(stix_attack_data)
-        stix_attack_data = mitre.remove_deprecated(stix_attack_data)
         attack_data = _convert_stix_techniques_to_dict(stix_attack_data)
     elif data_type == DATA_TYPE_CUSTOM_TECH_BY_GROUP:
         # First we need to know which technique references (STIX Object type 'attack-pattern') we have for all
@@ -186,18 +182,12 @@ def load_attack_data(data_type):
 
     elif data_type == DATA_TYPE_STIX_ALL_TECH:
         stix_attack_data = mitre.get_techniques()
-        stix_attack_data = mitre.remove_revoked(stix_attack_data)
-        stix_attack_data = mitre.remove_deprecated(stix_attack_data)
         attack_data = _convert_stix_techniques_to_dict(stix_attack_data)
     elif data_type == DATA_TYPE_STIX_ALL_GROUPS:
         stix_attack_data = mitre.get_groups()
-        stix_attack_data = mitre.remove_revoked(stix_attack_data)
-        stix_attack_data = mitre.remove_deprecated(stix_attack_data)
         attack_data = _convert_stix_groups_to_dict(stix_attack_data)
     elif data_type == DATA_TYPE_STIX_ALL_SOFTWARE:
         attack_data = mitre.get_software()
-        attack_data = mitre.remove_revoked(attack_data)
-        attack_data = mitre.remove_deprecated(attack_data)
     elif data_type == DATA_TYPE_CUSTOM_TECH_BY_SOFTWARE:
         # First we need to know which technique references (STIX Object type 'attack-pattern') we have for all software
         # This results in a dict: {software_id: Sxxxx, technique_ref/attack-pattern_ref: ...}
@@ -263,13 +253,11 @@ def load_attack_data(data_type):
 
     elif data_type == DATA_TYPE_STIX_ALL_ENTERPRISE_MITIGATIONS:
         attack_data = mitre.get_enterprise_mitigations()
-        attack_data = mitre.remove_revoked(attack_data)
-        attack_data = mitre.remove_deprecated(attack_data)
+        attack_data = mitre.remove_revoked_deprecated(attack_data)
 
     elif data_type == DATA_TYPE_STIX_ALL_MOBILE_MITIGATIONS:
         attack_data = mitre.get_mobile_mitigations()
-        attack_data = mitre.remove_revoked(attack_data)
-        attack_data = mitre.remove_deprecated(attack_data)
+        attack_data = mitre.remove_revoked_deprecated(attack_data)
 
     # Only use cache when using online TAXII server:
     if local_stix_path is None:
