@@ -39,11 +39,10 @@ class ATTACKData():
             print("[!] Cannot connect to MITRE's CTI TAXII server")
             quit()
 
-        self.data_source_dict_enterprise = self._create_data_source_dict(MATRIX_ENTERPRISE)
-
         self.attack_cti_techniques_enterprise = self.mitre.get_enterprise_techniques()
-
         self.attack_cti_techniques_ics = self.mitre.get_ics_techniques()
+
+        self.data_source_dict_enterprise = self._create_data_source_dict(MATRIX_ENTERPRISE)
 
         self.attack_cti_software = self.mitre.get_software()
 
@@ -51,17 +50,33 @@ class ATTACKData():
         """
         Execute all methods to refresh all json data files for data source, techniques and software
         """
+        # update 'data_sources.json'
         data_components_enterprise = self._get_data_sources_from_dict(self.data_source_dict_enterprise)
-        self._dump_data(data_components_enterprise, FILE_DATA_SOURCES)
+        self._update_data(data_components_enterprise, 'ATT&CK-Enterprise', FILE_DATA_SOURCES)
 
+        data_components_ics = self._get_data_components_from_techniques(self.attack_cti_techniques_ics)
+        self._update_data(data_components_ics, 'ATT&CK-ICS', FILE_DATA_SOURCES)
+
+        # update 'data_source_platforms.json'
         data_components_enterprise_platform_mapping = self._get_data_components_platform_mapping_from_dict(self.data_source_dict_enterprise)
         self._update_data(data_components_enterprise_platform_mapping, 'ATT&CK-Enterprise', FILE_DATA_SOURCES_PLATFORMS)
 
-        techniques_enterprise = self._get_techniques(self.attack_cti_techniques_enterprise, MATRIX_ENTERPRISE)
-        self._dump_data(techniques_enterprise, FILE_TECHNIQUES)
+        data_components_ics_platform_mapping = self._get_data_components_platform_mapping_from_techniques(self.attack_cti_techniques_ics)
+        self._update_data(data_components_ics_platform_mapping, 'ATT&CK-ICS', FILE_DATA_SOURCES_PLATFORMS, skip_cli=False)
 
+        # update 'techniques.json'
+        techniques_enterprise = self._get_techniques(self.attack_cti_techniques_enterprise, MATRIX_ENTERPRISE)
+        self._update_data(techniques_enterprise, 'ATT&CK-Enterprise', FILE_TECHNIQUES)
+
+        techniques_ics = self._get_techniques(self.attack_cti_techniques_ics, MATRIX_ICS)
+        self._update_data(techniques_ics, 'ATT&CK-ICS', FILE_TECHNIQUES)
+
+        # update 'software.json'
         software_enterprise = self._get_software(self.attack_cti_techniques_enterprise, MATRIX_ENTERPRISE)
-        self._dump_data(software_enterprise, FILE_SOFTWARE)
+        self._update_data(software_enterprise, 'ATT&CK-Enterprise', FILE_SOFTWARE)
+
+        software_ics = self._get_software(self.attack_cti_techniques_ics, MATRIX_ICS)
+        self._update_data(software_ics, 'ATT&CK-ICS', FILE_SOFTWARE)
 
     def execute_refresh_wiki(self):
         """
@@ -91,6 +106,7 @@ class ATTACKData():
         return platforms
 
     def _generate_markdown(self, data_source_dict):
+        # TODO add support for ICS data source platform mapping
         """
         Generate the markdown for the Wiki page Data-sources-per-platform.md
         :param data_source_dict: a dict with the data sources as created by the function _create_data_source_dict
@@ -115,7 +131,7 @@ class ATTACKData():
         # the first entries of the Markdown table will consist of the DeTT&CT data sources
         dds_json = None
         with open(FILE_PATH_CLI_DATA + FILE_DATA_SOURCES_PLATFORMS, 'r') as f:
-            dds_json = json.load(f)['DeTT&CT']
+            dds_json = json.load(f)['DeTT&CT-Enterprise']
 
         dds_per_platform = {}  # {dettect data source: set(platforms)}
         for p, ds in dds_json.items():
@@ -153,12 +169,13 @@ class ATTACKData():
 
         return lines
 
-    def _update_data(self, data, key, filename):
+    def _update_data(self, data, key, filename, skip_cli=True):
         """
         Update the json data on disk
         :param data: the MITRE ATT&CK data to update
         :param key: the json kv pair to update / where to store the data
         :param filename: filename of the file written to disk
+        :param skip_cli: do not copy this updated file to the CLI directory
         :return:
         """
         json_data = None
@@ -169,18 +186,9 @@ class ATTACKData():
         with open(FILE_PATH_EDITOR_DATA + filename, 'w') as f:
             json.dump(json_data, f, indent=2)
 
-        # we also need this file in the CLI
-        copyfile(FILE_PATH_EDITOR_DATA + filename, FILE_PATH_CLI_DATA + filename)
-
-    def _dump_data(self, data, filename):
-        """
-        Write the json data to disk
-        :param data: the MITRE ATT&CK data to save
-        :param filename: filename of the file written to disk
-        :return:
-        """
-        with open(FILE_PATH_EDITOR_DATA + filename, 'w') as f:
-            json.dump(data, f, indent=2)
+        if not skip_cli:
+            # we also need this file in the CLI
+            copyfile(FILE_PATH_EDITOR_DATA + filename, FILE_PATH_CLI_DATA + filename)
 
     def _write_to_wiki(self, text, filename):
         """
@@ -222,6 +230,30 @@ class ATTACKData():
 
         techniques = sorted(techniques, key=lambda t: t['technique_id'])
         return techniques
+
+    def _get_data_components_platform_mapping_from_techniques(self, cti_techniques):
+        """
+        Gets all the data components mapped to platforms in the following structure: {platform: [data source, data source]}
+        :param cti_techniques: a list with ATT&CK CTI technique data
+        :return: a dictionary with the structure: {platform: [data source, data source]}
+        """
+        ds_per_platform = {}
+
+        for tech in cti_techniques:
+            platforms = tech.get('x_mitre_platforms', [])
+            data_components = tech.get('x_mitre_data_sources', [])
+            data_components = [ds.split(':')[1][1:].lstrip().rstrip() for ds in data_components]
+
+            for p in platforms:
+                if p not in ds_per_platform:
+                    ds_per_platform[p] = set()
+                ds_per_platform[p].update(data_components)
+
+        # transform the set to a list
+        for k, v, in ds_per_platform.items():
+            ds_per_platform[k] = list(v)
+
+        return ds_per_platform
 
     def _get_data_components_platform_mapping_from_dict(self, data_source_dict):
         """
