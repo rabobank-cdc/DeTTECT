@@ -171,6 +171,7 @@ export default {
     name: 'data-sources-page',
     data() {
         return {
+            dataSources: dataSources['ATT&CK-Enterprise'],
             filters: {
                 filter: {
                     value: '',
@@ -394,16 +395,16 @@ export default {
             }
 
             for (let i = 0; i < this.selectedPlatforms.length; i++) {
-                for (let j = 0; j < dataSources.length; j++) {
+                for (let j = 0; j < this.dataSources.length; j++) {
                     if (
                         this.selectedPlatforms[i] == 'all' ||
-                        dataSourcePlatforms['ATT&CK-Enterprise'][this.selectedPlatforms[i]].includes(dataSources[j])
+                        dataSourcePlatforms['ATT&CK-Enterprise'][this.selectedPlatforms[i]].includes(this.dataSources[j])
                     ) {
-                        if (!current_ds_in_file.includes(dataSources[j])) {
+                        if (!current_ds_in_file.includes(this.dataSources[j])) {
                             let newrow = _.cloneDeep(this.emptyDataSourceObject);
-                            newrow.data_source_name = dataSources[j];
+                            newrow.data_source_name = this.dataSources[j];
                             this.doc.data_sources.push(newrow);
-                            current_ds_in_file.push(dataSources[j]);
+                            current_ds_in_file.push(this.dataSources[j]);
                         }
                     }
                 }

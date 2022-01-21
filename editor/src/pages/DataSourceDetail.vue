@@ -32,6 +32,7 @@ import _ from 'lodash';
 export default {
     data() {
         return {
+            dataSources: dataSources['ATT&CK-Enterprise'],
             selectedPlatforms: Array
         };
     },
@@ -87,12 +88,12 @@ export default {
             // (DeTT&CT) data sources corresponds to the selected platforms within the systems key-value pair.
             let suggestionList = new Set();
             for (let i = 0; i < this.selectedPlatforms.length; i++) {
-                for (let j = 0; j < dataSources.length; j++) {
+                for (let j = 0; j < this.dataSources.length; j++) {
                     if (
                         this.selectedPlatforms[i] == 'all' ||
-                        dataSourcePlatforms['ATT&CK-Enterprise'][this.selectedPlatforms[i]].includes(dataSources[j])
+                        dataSourcePlatforms['ATT&CK-Enterprise'][this.selectedPlatforms[i]].includes(this.dataSources[j])
                     ) {
-                        suggestionList.add(dataSources[j]);
+                        suggestionList.add(this.dataSources[j]);
                     }
                 }
 

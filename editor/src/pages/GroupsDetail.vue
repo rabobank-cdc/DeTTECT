@@ -108,12 +108,11 @@ import constants from '@/constants';
 import { pageDetailMixin } from '@/mixins/PageDetailMixins.js';
 import 'vue-directive-tooltip/dist/vueDirectiveTooltip.css';
 
-
 export default {
     data() {
         return {
-            techniques: techniques,
-            software: software,
+            techniques: techniques['ATT&CK-Enterprise'],
+            software: software['ATT&CK-Enterprise'],
             groupDefaultKeys: Object.keys(constants.YAML_OBJ_GROUP),
             editGroupName: false,
             helptextGroupKVPairs: false
@@ -144,7 +143,7 @@ export default {
         }
     },
     methods: {
-        escapeKeyListener: function(evt) {
+        escapeKeyListener: function (evt) {
             if (evt.keyCode === 27 && this.helptextGroupKVPairs) {
                 this.helptextGroupKVPairs = false;
             }

@@ -57,7 +57,7 @@ import techniques from '@/data/techniques';
 export default {
     data() {
         return {
-            techniquesSuggestionList: techniques,
+            techniquesSuggestionList: techniques['ATT&CK-Enterprise'],
             techniqueHelpUrl: 'https://raw.githubusercontent.com/wiki/rabobank-cdc/DeTTECT/YAML-administration-techniques.md',
             detectionScoreHelpUrl: 'https://raw.githubusercontent.com/wiki/rabobank-cdc/DeTTECT/Detection-scoring.md',
             visibilityScoreHelpUrl: 'https://raw.githubusercontent.com/wiki/rabobank-cdc/DeTTECT/Visibility-scoring.md',
@@ -91,7 +91,7 @@ export default {
             emptyVisibilityObject: constants.YAML_OBJ_TECHNIQUE_VISIBILITY
         };
     },
-    created: function() {
+    created: function () {
         this.preloadMarkDown();
     },
     props: {
