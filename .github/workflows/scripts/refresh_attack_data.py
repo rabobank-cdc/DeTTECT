@@ -42,16 +42,10 @@ class ATTACKData():
         self.data_source_dict_enterprise = self._create_data_source_dict(MATRIX_ENTERPRISE)
 
         self.attack_cti_techniques_enterprise = self.mitre.get_enterprise_techniques()
-        self.attack_cti_techniques_enterprise = self.mitre.remove_revoked(self.attack_cti_techniques_enterprise)
-        self.attack_cti_techniques_enterprise = self.mitre.remove_deprecated(self.attack_cti_techniques_enterprise)
 
         self.attack_cti_techniques_ics = self.mitre.get_ics_techniques()
-        self.attack_cti_techniques_ics = self.mitre.remove_revoked(self.attack_cti_techniques_ics)
-        self.attack_cti_techniques_ics = self.mitre.remove_deprecated(self.attack_cti_techniques_ics)
 
         self.attack_cti_software = self.mitre.get_software()
-        self.attack_cti_software = self.mitre.remove_revoked(self.attack_cti_software)
-        self.attack_cti_software = self.mitre.remove_deprecated(self.attack_cti_software)
 
     def execute_refresh_json_data(self):
         """
@@ -283,12 +277,10 @@ class ATTACKData():
         ds_dict = {}
 
         cti_data_sources = self._get_data_sources_from_cti(matrix)
-        cti_data_sources = self.mitre.remove_revoked(cti_data_sources)
-        cti_data_sources = self.mitre.remove_deprecated(cti_data_sources)
+        cti_data_sources = self.mitre.remove_revoked_deprecated(cti_data_sources)
 
         cti_data_components = self._get_data_components_from_cti(matrix)
-        cti_data_components = self.mitre.remove_revoked(cti_data_components)
-        cti_data_components = self.mitre.remove_deprecated(cti_data_components)
+        cti_data_components = self.mitre.remove_revoked_deprecated(cti_data_components)
 
         for ds in cti_data_sources:
             name = ds['name']

@@ -1,2 +1,2 @@
-attackcti==0.3.4.4
+attackcti==0.3.6
 taxii2-client==2.3.0
