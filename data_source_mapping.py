@@ -488,14 +488,14 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
     today = new_visibility_scores['techniques'][0]['visibility'][0]['score_logbook'][0]['date']
 
     # next, we load the current visibility scores from the tech. admin file
-    cur_visibility_scores, _, platform_tech_admin, _ = load_techniques(file_tech_admin)
+    cur_visibility_scores, _, platform_tech_admin, domain_tech_admin = load_techniques(file_tech_admin)
 
     # last, we get the systems kv-pair from the data source file
-    _, _, systems, _, _ = load_data_sources(file_data_sources)
+    _, _, systems, _, domain = load_data_sources(file_data_sources)
 
     # if the tech admin. file has a platform not present in the DS admin. file we return
     if len(set(platform_tech_admin).difference(set(new_visibility_scores['platform']))) > 0:
-        print('[!] the technique administration file\'s key-value pair \'platform\' has ATT&CK platform(s) that are not '
+        print('[!] The technique administration file\'s key-value pair \'platform\' has ATT&CK platform(s) that are not '
               'part of the data source administration \'systems\' key-value pair. This should be fixed before the '
               'visibility update can continue.')
         print('\n    Technique administration \'platform\' key-value pair:')
@@ -521,8 +521,16 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
                         app_tech[a_low]['tech_id'] = []
                     app_tech[a_low]['tech_id'].append(tech_id)
 
+    # if the tech admin. file has another domain than the DS admin file has we return
+    if domain != domain_tech_admin:
+        print('[!] The technique administration file has another value for \'domain\' than the value for \'domain\' in '
+              'the data source administration file. This should be fixed before the visibility update can continue.')
+        print('\nVisibility update canceled.')
+
+        return
+
     if len(set(app_tech).difference(app_ds)) > 0:
-        print('[!] the technique administration file has visibility objects with \'applicable_to\' values that are not '
+        print('[!] The technique administration file has visibility objects with \'applicable_to\' values that are not '
               'present in the data source administration \'systems\' key-value pair. This should be fixed before the '
               'visibility update can continue.')
         print('\n    Technique administration \'applicable_to\' values used within visibility objects:')
@@ -844,6 +852,7 @@ def generate_technique_administration_file(filename, output_filename, write_file
     yaml_file['version'] = FILE_TYPE_TECHNIQUE_ADMINISTRATION_VERSION
     yaml_file['file_type'] = FILE_TYPE_TECHNIQUE_ADMINISTRATION
     yaml_file['name'] = name
+    yaml_file['domain'] = domain
     yaml_file['platform'] = yaml_platform
     yaml_file['techniques'] = []
     today = dt.now()

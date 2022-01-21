@@ -180,7 +180,7 @@ PLATFORMS_ENTERPRISE = {'pre': 'PRE', 'windows': 'Windows', 'macos': 'macOS', 'l
 
 PLATFORMS_ICS = {'control server': 'Control Server', 'data historian': 'Data Historian', 'device configuration/parameters': 'Device Configuration/Parameters',
                  'engineering workstation': 'Engineering Workstation', 'field controller/rtu/plc/ied': 'Field Controller/RTU/PLC/IED',
-                 'human-machine interface': 'Human-Machine Interface', 'input/output server': 'Input/Output Server', 'linux': 'Linux',
+                 'human-machine interface': 'Human-Machine Interface', 'input/output server': 'Input/Output Server',
                  'safety instrumented system/protection relay': 'Safety Instrumented System/Protection Relay', 'windows': 'Windows',
                  'none': 'None'}
 

@@ -99,7 +99,7 @@ def _get_software_techniques(groups, platform):
                         try:
                             groups_dict[group_id]['techniques'].update(software_dict[soft_id])
                         except KeyError:
-                            print('[!] unknown ATT&CK software ID: ' + soft_id)
+                            print('[!] Unknown ATT&CK software ID: ' + soft_id)
 
     # groups are provided as arguments via the command line
     else:

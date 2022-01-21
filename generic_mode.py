@@ -106,7 +106,7 @@ def get_updates(update_type, sort='modified'):
             print(t['technique_id'] + ' ' + t['name'])
             print(' ' * 6 + 'created:  ' + t['created'].strftime('%Y-%m-%d'))
             print(' ' * 6 + 'modified: ' + t['modified'].strftime('%Y-%m-%d'))
-            print(' ' * 6 + 'matrix:   ' + t['external_references'][0]['source_name'][6:])
+            print(' ' * 6 + 'domain:   ' + t['external_references'][0]['source_name'][6:])
             tactics = get_tactics(t)
             if tactics:
                 print(' ' * 6 + 'tactic:   ' + ', '.join(tactics))
@@ -132,7 +132,7 @@ def get_updates(update_type, sort='modified'):
             print(get_attack_id(s) + ' ' + s['name'])
             print(' ' * 6 + 'created:  ' + s['created'].strftime('%Y-%m-%d'))
             print(' ' * 6 + 'modified: ' + s['modified'].strftime('%Y-%m-%d'))
-            print(' ' * 6 + 'matrix:   ' + s['external_references'][0]['source_name'][6:])
+            print(' ' * 6 + 'domain:   ' + s['external_references'][0]['source_name'][6:])
             print(' ' * 6 + 'type:     ' + s['type'])
             if 'x_mitre_platforms' in s:
                 print(' ' * 6 + 'platform: ' + ', '.join(s['x_mitre_platforms']))

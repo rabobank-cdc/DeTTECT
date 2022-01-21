@@ -194,10 +194,10 @@ def _init_menu():
 
     parser_generic.add_argument('-ds', '--datasources', help='get a sorted count on how many ATT&CK techniques'
                                                              'are covered by a particular Data Source',
-                                choices=['enterprise', 'ics'], default='enterprise', const='enterprise', nargs='?')
+                                choices=['enterprise', 'ics'], const='enterprise', nargs='?')
     parser_generic.add_argument('-m', '--mitigations', help='get a sorted count on how many ATT&CK Enterprise or '
                                                             'Mobile techniques are covered by a Mitigation',
-                                choices=['enterprise', 'ics', 'mobile'], default='enterprise', const='enterprise', nargs='?')
+                                choices=['enterprise', 'ics', 'mobile'], const='enterprise', nargs='?')
     parser_generic.add_argument('-u', '--updates', help='get a sorted list for when updates were released for '
                                                         'techniques, groups or software',
                                 choices=['techniques', 'groups', 'software'])
