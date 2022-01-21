@@ -2,12 +2,14 @@ from generic import load_attack_data, get_attack_id, get_tactics
 from constants import *
 
 
-def get_statistics_data_sources():
+def get_statistics_data_sources(domain):
     """
     Print out statistics related to data sources and how many techniques they cover.
+    :param domain: the specified domain
     :return:
     """
-    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE)
+    stix_type = DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain == 'enterprise' else DATA_TYPE_STIX_ALL_TECH_ICS
+    techniques = load_attack_data(stix_type)
 
     # {data_source: {techniques: [T0001, ...}, count: ...}
     data_sources_dict = {}
@@ -35,16 +37,19 @@ def get_statistics_data_sources():
             print(str_format.format(str(v['count']), k))
 
 
-def get_statistics_mitigations(matrix):
+def get_statistics_mitigations(domain):
     """
     Print out statistics related to mitigations and how many techniques they cover
+    :param domain: the specified domain
     :return:
     """
 
-    if matrix == 'enterprise':
+    if domain == 'enterprise':
         mitigations = load_attack_data(DATA_TYPE_STIX_ALL_ENTERPRISE_MITIGATIONS)
-    elif matrix == 'mobile':
+    elif domain == 'mobile':
         mitigations = load_attack_data(DATA_TYPE_STIX_ALL_MOBILE_MITIGATIONS)
+    elif domain == 'ics':
+        mitigations = load_attack_data(DATA_TYPE_STIX_ALL_ICS_MITIGATIONS)
 
     mitigations_dict = dict()
     for m in mitigations:

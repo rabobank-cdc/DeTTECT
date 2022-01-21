@@ -144,8 +144,6 @@ def load_attack_data(data_type):
         attack_data = _convert_stix_techniques_to_dict(stix_attack_data)
     elif data_type == DATA_TYPE_STIX_ALL_TECH_ICS:
         stix_attack_data = mitre.get_ics_techniques()
-        stix_attack_data = mitre.remove_revoked(stix_attack_data)
-        stix_attack_data = mitre.remove_deprecated(stix_attack_data)
         attack_data = _convert_stix_techniques_to_dict(stix_attack_data)
     elif data_type == DATA_TYPE_CUSTOM_TECH_BY_GROUP:
         # First we need to know which technique references (STIX Object type 'attack-pattern') we have for all
@@ -266,8 +264,7 @@ def load_attack_data(data_type):
 
     elif data_type == DATA_TYPE_STIX_ALL_ICS_MITIGATIONS:
         attack_data = mitre.get_ics_mitigations()
-        attack_data = mitre.remove_revoked(attack_data)
-        attack_data = mitre.remove_deprecated(attack_data)
+        attack_data = mitre.remove_revoked_deprecated(attack_data)
 
     # Only use cache when using online TAXII server:
     if local_stix_path is None:

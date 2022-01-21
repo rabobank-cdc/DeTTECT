@@ -192,12 +192,12 @@ def _init_menu():
                                            help='includes: statistics on ATT&CK data source and updates on techniques'
                                            ', groups and software', aliases=['ge'])
 
-    parser_generic.add_argument('-ds', '--datasources', help='get a sorted count on how many ATT&CK Enterprise '
-                                                             'techniques are covered by a particular Data Source',
-                                action='store_true')
+    parser_generic.add_argument('-ds', '--datasources', help='get a sorted count on how many ATT&CK techniques'
+                                                             'are covered by a particular Data Source',
+                                choices=['enterprise', 'ics'], default='enterprise', const='enterprise', nargs='?')
     parser_generic.add_argument('-m', '--mitigations', help='get a sorted count on how many ATT&CK Enterprise or '
                                                             'Mobile techniques are covered by a Mitigation',
-                                choices=['enterprise', 'mobile'])
+                                choices=['enterprise', 'ics', 'mobile'], default='enterprise', const='enterprise', nargs='?')
     parser_generic.add_argument('-u', '--updates', help='get a sorted list for when updates were released for '
                                                         'techniques, groups or software',
                                 choices=['techniques', 'groups', 'software'])
@@ -292,7 +292,7 @@ def _menu(menu_parser):
 
     elif args.subparser in ['generic', 'ge']:
         if args.datasources:
-            get_statistics_data_sources()
+            get_statistics_data_sources(args.datasources)
         elif args.mitigations:
             get_statistics_mitigations(args.mitigations)
         elif args.updates:
