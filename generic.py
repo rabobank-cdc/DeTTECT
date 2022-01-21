@@ -138,12 +138,12 @@ def load_attack_data(data_type):
 
     attack_data = None
     if data_type == DATA_TYPE_STIX_ALL_RELATIONSHIPS:
-        attack_data = mitre.get_relationships(skip_revoked_deprecated=True)
+        attack_data = mitre.get_relationships()
     elif data_type == DATA_TYPE_STIX_ALL_TECH_ENTERPRISE:
-        stix_attack_data = mitre.get_enterprise_techniques(skip_revoked_deprecated=True)
+        stix_attack_data = mitre.get_enterprise_techniques()
         attack_data = _convert_stix_techniques_to_dict(stix_attack_data)
     elif data_type == DATA_TYPE_STIX_ALL_TECH_ICS:
-        stix_attack_data = mitre.get_ics_techniques(skip_revoked_deprecated=True)
+        stix_attack_data = mitre.get_ics_techniques()
         attack_data = _convert_stix_techniques_to_dict(stix_attack_data)
     elif data_type == DATA_TYPE_CUSTOM_TECH_BY_GROUP:
         # First we need to know which technique references (STIX Object type 'attack-pattern') we have for all
@@ -184,13 +184,13 @@ def load_attack_data(data_type):
         attack_data = all_group_use
 
     elif data_type == DATA_TYPE_STIX_ALL_TECH:
-        stix_attack_data = mitre.get_techniques(skip_revoked_deprecated=True)
+        stix_attack_data = mitre.get_techniques()
         attack_data = _convert_stix_techniques_to_dict(stix_attack_data)
     elif data_type == DATA_TYPE_STIX_ALL_GROUPS:
-        stix_attack_data = mitre.get_groups(skip_revoked_deprecated=True)
+        stix_attack_data = mitre.get_groups()
         attack_data = _convert_stix_groups_to_dict(stix_attack_data)
     elif data_type == DATA_TYPE_STIX_ALL_SOFTWARE:
-        attack_data = mitre.get_software(skip_revoked_deprecated=True)
+        attack_data = mitre.get_software()
     elif data_type == DATA_TYPE_CUSTOM_TECH_BY_SOFTWARE:
         # First we need to know which technique references (STIX Object type 'attack-pattern') we have for all software
         # This results in a dict: {software_id: Sxxxx, technique_ref/attack-pattern_ref: ...}
