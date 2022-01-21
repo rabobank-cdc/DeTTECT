@@ -1,5 +1,27 @@
 from generic import load_attack_data, get_attack_id, get_tactics
 from constants import *
+from textwrap import wrap
+
+
+def _get_platforms_for_data_source(data_source, domain):
+    """
+    Get the ATT&CK platforms that apply to the provided data source
+    :param data_source: ATT&CK data component or DeTT&CT data source
+    :param domain: the specified domain (enterprise or ics)
+    :return: list of ATT&CK platforms
+    """
+    attack_data_sources = DATA_SOURCES_ENTERPRISE if domain == 'enterprise' else DATA_SOURCES_ICS
+    dettect_data_sources = DETTECT_DATA_SOURCES_PLATFORMS_ENTERPRISE if domain == 'enterprise' else DETTECT_DATA_SOURCES_PLATFORMS_ICS
+
+    platforms = []
+    for platform, data_sources in attack_data_sources.items():
+        if data_source in data_sources:
+            platforms.append(platform)
+    for platform, data_sources in dettect_data_sources.items():
+        if data_source in data_sources:
+            platforms.append(platform)
+
+    return platforms
 
 
 def get_statistics_data_sources(domain):
@@ -11,7 +33,7 @@ def get_statistics_data_sources(domain):
     stix_type = DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain == 'enterprise' else DATA_TYPE_STIX_ALL_TECH_ICS
     techniques = load_attack_data(stix_type)
 
-    # {data_source: {techniques: [T0001, ...}, count: ...}
+    # {data_source: {techniques: [T0001, ...], count: ..., platforms: []}
     data_sources_dict = {}
     for tech in techniques:
         tech_id = tech['technique_id']
@@ -20,21 +42,31 @@ def get_statistics_data_sources(domain):
         dettect_data_sources = tech.get('dettect_data_sources', [])
         for ds in data_sources + dettect_data_sources:
             if ds not in data_sources_dict:
-                data_sources_dict[ds] = {'techniques': [tech_id], 'count': 1}
+                ds_component = ds
+                if ':' in ds:
+                    ds_component = ds.split(':')[1][1:].lstrip().rstrip()
+                platforms = _get_platforms_for_data_source(ds_component, domain)
+                data_sources_dict[ds] = {'techniques': [tech_id], 'count': 1, 'platforms': platforms}
             else:
                 data_sources_dict[ds]['techniques'].append(tech_id)
                 data_sources_dict[ds]['count'] += 1
 
     # sort the dict on the value of 'count'
     data_sources_dict_sorted = dict(sorted(data_sources_dict.items(), key=lambda kv: kv[1]['count'], reverse=True))
-    str_format = '{:<6s} {:s}'
-    print(str_format.format('Count', 'Data Source'))
-    print('-' * 50)
+    str_format = '{:<6s} {:<40s} {:s}'
+    print(str_format.format('Count', 'Data Source', 'Platform(s)'))
+    print('-' * 120)
     for k, v in data_sources_dict_sorted.items():
+        data_source = k
         if ':' in k:
-            print(str_format.format(str(v['count']), k.split(':')[1][1:]))
-        else:
-            print(str_format.format(str(v['count']), k))
+            data_source = k.split(':')[1][1:].lstrip().rstrip()
+
+        platforms = ', '.join(v['platforms'])
+        platforms = wrap(platforms, 70, break_long_words=False)
+
+        print(str_format.format(str(v['count']), data_source, platforms[0]))
+        for p in platforms[1:]:
+            print(' ' * 48 + p)
 
 
 def get_statistics_mitigations(domain):
@@ -93,7 +125,7 @@ def get_updates(update_type, sort='modified'):
     :return:
     """
     from pprint import pprint
-    if update_type[:-1] == 'technique':
+    if update_type[: -1] == 'technique':
         techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
         sorted_techniques = sorted(techniques, key=lambda k: k[sort])
 
@@ -114,7 +146,7 @@ def get_updates(update_type, sort='modified'):
                 print(' ' * 6 + 'tactic:   None')
             print('')
 
-    elif update_type[:-1] == 'group':
+    elif update_type[: -1] == 'group':
         groups = load_attack_data(DATA_TYPE_STIX_ALL_GROUPS)
         sorted_groups = sorted(groups, key=lambda k: k[sort])
 
