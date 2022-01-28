@@ -85,8 +85,8 @@ def _init_menu():
                                                               'score the level of visibility)', required=True)
     parser_visibility.add_argument('-p', '--platform', action='append', help='specify the platform for the Navigator '
                                    'layer file (default = platform(s) specified in the YAML file). Multiple platforms'
-                                   ' can be provided with extra \'-p/--platform\' arguments',
-                                   choices=['all'] + list(PLATFORMS_ENTERPRISE.values()), type=_platform_lookup())
+                                   ' can be provided with extra \'-p/--platform\' arguments. The available platforms '
+                                   ' can be listed from the generic mode: \'ge --list-platforms\'.')
     parser_visibility.add_argument('-sd', '--search-detection', help='only include detection objects which match the '
                                                                      'provided EQL query')
     parser_visibility.add_argument('-sv', '--search-visibility', help='only include visibility objects which match the '
@@ -120,8 +120,8 @@ def _init_menu():
                                                              'score the level of detection)', required=True)
     parser_detection.add_argument('-p', '--platform', action='append', help='specify the platform for the Navigator '
                                   'layer file (default = platform(s) specified in the YAML file). Multiple platforms'
-                                  ' can be provided with extra \'-p/--platform\' arguments',
-                                  choices=['all'] + list(PLATFORMS_ENTERPRISE.values()), type=_platform_lookup())
+                                  ' can be provided with extra \'-p/--platform\' arguments. The available platforms '
+                                  ' can be listed from the generic mode: \'ge --list-platforms\'.')
     parser_detection.add_argument('-sd', '--search-detection', help='only include detection objects which match the '
                                                                     'provided EQL query')
     parser_detection.add_argument('-sv', '--search-visibility', help='only include visibility objects which match the '
@@ -170,9 +170,8 @@ def _init_menu():
                                                        'are provided, only software related to those group(s) are '
                                                        'included', action='store_true', default=False)
     parser_group.add_argument('-p', '--platform', help='specify the platform (default = all). Multiple platforms '
-                              'can be provided with extra \'-p/--platform\' arguments',
-                              choices=['all'] + list(PLATFORMS_ENTERPRISE.values()), default=None, action='append',
-                              type=_platform_lookup())
+                              'can be provided with extra \'-p/--platform\' arguments. The available platforms '
+                              ' can be listed from the generic mode: \'ge --list-platforms\'.')
     parser_group.add_argument('-sd', '--search-detection', help='only include detection objects which match the '
                                                                 'provided EQL query')
     parser_group.add_argument('-sv', '--search-visibility', help='only include visibility objects which match the '
@@ -198,6 +197,9 @@ def _init_menu():
     parser_generic.add_argument('-m', '--mitigations', help='get a sorted count on how many ATT&CK Enterprise or '
                                                             'Mobile techniques are covered by a Mitigation',
                                 choices=['enterprise', 'ics', 'mobile'], const='enterprise', nargs='?')
+    parser_generic.add_argument('--list-platforms', help='list the ATT&CK Enterprise or ICS (default = Enterprise) '
+                                'platforms that can be used with the \'-p/--platform\' argument',
+                                choices=['enterprise', 'ics'], const='enterprise', nargs='?')
     parser_generic.add_argument('-u', '--updates', help='get a sorted list for when updates were released for '
                                                         'techniques, groups or software',
                                 choices=['techniques', 'groups', 'software'])
@@ -252,6 +254,9 @@ def _menu(menu_parser):
         if check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
             file_tech = args.file_tech
 
+            if args.platform:
+                if not check_platform(file_tech, args.platform):
+                    quit()
             if args.search_detection or args.search_visibility:
                 file_tech = techniques_search(args.file_tech, args.search_visibility, args.search_detection,
                                               include_all_score_objs=args.all_scores)
@@ -276,6 +281,9 @@ def _menu(menu_parser):
         if check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
             file_tech = args.file_tech
 
+            if args.platform:
+                if not check_platform(file_tech, args.platform):
+                    quit()
             if args.search_detection or args.search_visibility:
                 file_tech = techniques_search(args.file_tech, args.search_visibility, args.search_detection,
                                               include_all_score_objs=args.all_scores)
@@ -297,6 +305,8 @@ def _menu(menu_parser):
             get_statistics_mitigations(args.mitigations)
         elif args.updates:
             get_updates(args.updates, args.sort)
+        elif args.list_platforms:
+            get_platforms(args.list_platforms)
 
     else:
         menu_parser.print_help()

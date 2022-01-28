@@ -117,6 +117,19 @@ def get_statistics_mitigations(domain):
         print(str_format.format(str(v['count']), k, v['name']))
 
 
+def get_platforms(domain):
+    """
+    Print a list of ATT&CK platforms for the specified domain.
+    :param domain: the specified domain
+    :return:
+    """
+    platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise' else PLATFORMS_ICS
+    platform_str = [' - ' + p for p in platforms.values()]
+    domain_prt = 'Enterprise' if domain == 'enterprise' else 'ICS'
+    print('ATT&CK platforms for the domain ' + domain_prt + ':')
+    print('\n'.join(platform_str))
+
+
 def get_updates(update_type, sort='modified'):
     """
     Print a list of updates for a techniques, groups or software. Sort by modified or creation date.
