@@ -249,9 +249,9 @@ class ATTACKData():
                     ds_per_platform[p] = set()
                 ds_per_platform[p].update(data_components)
 
-        # transform the set to a list
+        # transform the set to a list and sort the data sources
         for k, v, in ds_per_platform.items():
-            ds_per_platform[k] = list(v)
+            ds_per_platform[k] = list(sorted(v))
 
         return ds_per_platform
 
