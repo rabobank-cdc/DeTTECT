@@ -902,3 +902,39 @@ def get_technique_from_yaml(yaml_content, technique_id):
     for tech in yaml_content['techniques']:
         if tech['technique_id'] == technique_id:
             return tech
+
+
+def check_platform(arg_platforms, filename=None, domain=None):
+    """
+    Check if the ATT&CK platforms as provided via arguments are valid for the
+    ATT&CK domain as part of the YAML file.
+    :param arg_platforms: ATT&CK platforms as provided via arguments
+    :param filename: YAML file
+    :param domain: the specified domain
+    :return: true if the platform(s) are valid, otherwise false
+    """
+    if filename:
+        _yaml = init_yaml()
+        with open(filename, 'r') as yaml_file:
+            yaml_content = _yaml.load(yaml_file)
+
+        domain = 'enterprise-attack' if 'domain' not in yaml_content.keys() else yaml_content['domain'].lower()
+    elif domain:
+        domain += '-attack'
+
+    platforms = None
+    if domain == 'enterprise-attack':
+        platforms = PLATFORMS_ENTERPRISE
+    elif domain == 'ics-attack':
+        platforms = PLATFORMS_ICS
+
+    arg_platforms_lower = set([p.lower() for p in arg_platforms])
+    unknown_platforms = arg_platforms_lower - set(platforms.keys())
+    if len(unknown_platforms) > 0:
+        print('[!] Invalid ATT&CK platforms for the domain '
+              + domain + ': ' + ', '.join(unknown_platforms))
+        print('    Known values are:')
+        print('\n'.join(['     - ' + p for p in platforms.values()]))
+
+        return False
+    return True
