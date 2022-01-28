@@ -41,7 +41,7 @@ def _init_menu():
     parser_data_sources.add_argument('-ft', '--file-tech', help='path to the technique administration YAML file '
                                                                 '(used with the option \'-u, --update\' to update '
                                                                 'the visibility scores)',
-                                     required=False)
+                                     required='-u' in sys.argv or '--update' in sys.argv)
     parser_data_sources.add_argument('-fd', '--file-ds', help='path to the data source administration YAML file',
                                      required=True)
     parser_data_sources.add_argument('-a', '--applicable-to', action='append', help='specify which data source objects '
