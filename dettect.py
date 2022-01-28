@@ -86,7 +86,7 @@ def _init_menu():
     parser_visibility.add_argument('-p', '--platform', action='append', help='specify the platform for the Navigator '
                                    'layer file (default = platform(s) specified in the YAML file). Multiple platforms'
                                    ' can be provided with extra \'-p/--platform\' arguments. The available platforms '
-                                   ' can be listed from the generic mode: \'ge --list-platforms\'.')
+                                   ' can be listed from the generic mode: \'ge --list-platforms\'')
     parser_visibility.add_argument('-sd', '--search-detection', help='only include detection objects which match the '
                                                                      'provided EQL query')
     parser_visibility.add_argument('-sv', '--search-visibility', help='only include visibility objects which match the '
@@ -121,7 +121,7 @@ def _init_menu():
     parser_detection.add_argument('-p', '--platform', action='append', help='specify the platform for the Navigator '
                                   'layer file (default = platform(s) specified in the YAML file). Multiple platforms'
                                   ' can be provided with extra \'-p/--platform\' arguments. The available platforms '
-                                  ' can be listed from the generic mode: \'ge --list-platforms\'.')
+                                  ' can be listed from the generic mode: \'ge --list-platforms\'')
     parser_detection.add_argument('-sd', '--search-detection', help='only include detection objects which match the '
                                                                     'provided EQL query')
     parser_detection.add_argument('-sv', '--search-visibility', help='only include visibility objects which match the '
@@ -169,9 +169,9 @@ def _init_menu():
                                                        'supports (does not influence the scores). If overlay group(s) '
                                                        'are provided, only software related to those group(s) are '
                                                        'included', action='store_true', default=False)
-    parser_group.add_argument('-p', '--platform', help='specify the platform (default = all). Multiple platforms '
+    parser_group.add_argument('-p', '--platform', action='append', help='specify the platform (default = all). Multiple platforms '
                               'can be provided with extra \'-p/--platform\' arguments. The available platforms '
-                              ' can be listed from the generic mode: \'ge --list-platforms\'.')
+                              ' can be listed from the generic mode: \'ge --list-platforms\'')
     parser_group.add_argument('-sd', '--search-detection', help='only include detection objects which match the '
                                                                 'provided EQL query')
     parser_group.add_argument('-sv', '--search-visibility', help='only include visibility objects which match the '
@@ -194,6 +194,10 @@ def _init_menu():
     parser_generic.add_argument('-ds', '--datasources', help='get a sorted count on how many ATT&CK techniques'
                                                              'are covered by a particular Data Source',
                                 choices=['enterprise', 'ics'], const='enterprise', nargs='?')
+    parser_generic.add_argument('-p', '--platform', action='append', help='only include data sources for the provided '
+                                'ATT&CK platforms in the \'-ds\' argument (default = all). Multiple platforms can be '
+                                'provided with extra \'-p/--platform\' arguments. The available platforms can be listed '
+                                'using \'--list-platforms\'')
     parser_generic.add_argument('-m', '--mitigations', help='get a sorted count on how many ATT&CK Enterprise or '
                                                             'Mobile techniques are covered by a Mitigation',
                                 choices=['enterprise', 'ics', 'mobile'], const='enterprise', nargs='?')
@@ -255,7 +259,7 @@ def _menu(menu_parser):
             file_tech = args.file_tech
 
             if args.platform:
-                if not check_platform(file_tech, args.platform):
+                if not check_platform(args.platform, filename=file_tech):
                     quit()
             if args.search_detection or args.search_visibility:
                 file_tech = techniques_search(args.file_tech, args.search_visibility, args.search_detection,
@@ -282,7 +286,7 @@ def _menu(menu_parser):
             file_tech = args.file_tech
 
             if args.platform:
-                if not check_platform(file_tech, args.platform):
+                if not check_platform(args.platform, filename=file_tech):
                     quit()
             if args.search_detection or args.search_visibility:
                 file_tech = techniques_search(args.file_tech, args.search_visibility, args.search_detection,
@@ -300,7 +304,11 @@ def _menu(menu_parser):
 
     elif args.subparser in ['generic', 'ge']:
         if args.datasources:
-            get_statistics_data_sources(args.datasources)
+            platform = args.platform
+            if platform:
+                if not check_platform(platform, domain=args.datasources):
+                    quit()
+            get_statistics_data_sources(args.datasources, platform)
         elif args.mitigations:
             get_statistics_mitigations(args.mitigations)
         elif args.updates:

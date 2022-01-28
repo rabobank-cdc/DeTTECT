@@ -904,19 +904,23 @@ def get_technique_from_yaml(yaml_content, technique_id):
             return tech
 
 
-def check_platform(filename, arg_platforms):
+def check_platform(arg_platforms, filename=None, domain=None):
     """
     Check if the ATT&CK platforms as provided via arguments are valid for the
     ATT&CK domain as part of the YAML file.
-    :param filename: YAML file
     :param arg_platforms: ATT&CK platforms as provided via arguments
+    :param filename: YAML file
+    :param domain: the specified domain
     :return: true if the platform(s) are valid, otherwise false
     """
-    _yaml = init_yaml()
-    with open(filename, 'r') as yaml_file:
-        yaml_content = _yaml.load(yaml_file)
+    if filename:
+        _yaml = init_yaml()
+        with open(filename, 'r') as yaml_file:
+            yaml_content = _yaml.load(yaml_file)
 
-    domain = 'enterprise-attack' if 'domain' not in yaml_content.keys() else yaml_content['domain'].lower()
+        domain = 'enterprise-attack' if 'domain' not in yaml_content.keys() else yaml_content['domain'].lower()
+    elif domain:
+        domain += '-attack'
 
     platforms = None
     if domain == 'enterprise-attack':

@@ -1,4 +1,4 @@
-from generic import load_attack_data, get_attack_id, get_tactics
+from generic import load_attack_data, get_attack_id, get_tactics, get_applicable_data_sources_platform, get_applicable_dettect_data_sources_platform
 from constants import *
 from textwrap import wrap
 
@@ -24,32 +24,58 @@ def _get_platforms_for_data_source(data_source, domain):
     return platforms
 
 
-def get_statistics_data_sources(domain):
+def get_statistics_data_sources(domain, arg_platforms):
     """
     Print out statistics related to data sources and how many techniques they cover.
     :param domain: the specified domain
+    :param arg_platforms: ATT&CK platforms
     :return:
     """
-    stix_type = DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain == 'enterprise' else DATA_TYPE_STIX_ALL_TECH_ICS
+    if domain == 'enterprise':
+        stix_type = DATA_TYPE_STIX_ALL_TECH_ENTERPRISE
+        attack_platforms = PLATFORMS_ENTERPRISE
+    else:
+        stix_type = DATA_TYPE_STIX_ALL_TECH_ICS
+        attack_platforms = PLATFORMS_ICS
+
     techniques = load_attack_data(stix_type)
+
+    # user want to only include data source for specific platforms
+    if arg_platforms != None:
+        arg_platforms = set([attack_platforms[p.lower()] for p in arg_platforms])
+
+        applicable_data_sources = set(get_applicable_data_sources_platform(arg_platforms, domain + '-attack'))
+        applicable_data_sources.update(get_applicable_dettect_data_sources_platform(arg_platforms, domain + '-attack'))
 
     # {data_source: {techniques: [T0001, ...], count: ..., platforms: []}
     data_sources_dict = {}
     for tech in techniques:
-        tech_id = tech['technique_id']
-        # Not every technique has a data source listed
-        data_sources = tech.get('x_mitre_data_sources', [])
-        dettect_data_sources = tech.get('dettect_data_sources', [])
-        for ds in data_sources + dettect_data_sources:
-            if ds not in data_sources_dict:
+        # only continue if one of the below statements is valid:
+        #  - arg_platforms == None (no platform filtering has been provide via cli arguments by the user)
+        #  - there are platforms in the technique, which are also in arg_platforms
+        tech_platforms = set(tech.get('x_mitre_platforms', []))
+        if arg_platforms == None or arg_platforms.intersection(tech_platforms):
+            tech_id = tech['technique_id']
+            # Not every technique has a data source listed
+            data_sources = tech.get('x_mitre_data_sources', [])
+            dettect_data_sources = tech.get('dettect_data_sources', [])
+            for ds in data_sources + dettect_data_sources:
                 ds_component = ds
                 if ':' in ds:
                     ds_component = ds.split(':')[1][1:].lstrip().rstrip()
-                platforms = _get_platforms_for_data_source(ds_component, domain)
-                data_sources_dict[ds] = {'techniques': [tech_id], 'count': 1, 'platforms': platforms}
-            else:
-                data_sources_dict[ds]['techniques'].append(tech_id)
-                data_sources_dict[ds]['count'] += 1
+
+                if arg_platforms != None:
+                    if ds_component not in applicable_data_sources:
+                        continue
+
+                if ds not in data_sources_dict:
+                    platforms = _get_platforms_for_data_source(ds_component, domain)
+                    if arg_platforms != None:
+                        platforms = list(set(platforms).intersection(arg_platforms))
+                    data_sources_dict[ds] = {'techniques': [tech_id], 'count': 1, 'platforms': platforms}
+                else:
+                    data_sources_dict[ds]['techniques'].append(tech_id)
+                    data_sources_dict[ds]['count'] += 1
 
     # sort the dict on the value of 'count'
     data_sources_dict_sorted = dict(sorted(data_sources_dict.items(), key=lambda kv: kv[1]['count'], reverse=True))
