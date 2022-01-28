@@ -1,0 +1,15 @@
+version: 1
+file_type: group-administration
+domain: ics-attack
+platform:
+  - Control Server
+  - Field Controller/RTU/PLC/IED
+groups:
+  - group_name: Red team
+    campaign: Scenario 1
+    technique_id:
+      - T0800
+      - T0806
+    software_id:
+      - S1006
+    enabled: true

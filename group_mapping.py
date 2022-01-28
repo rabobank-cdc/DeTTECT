@@ -53,12 +53,13 @@ def _are_groups_found(groups_found, argument_groups):
     return group_found
 
 
-def _get_software_techniques(groups, platform):
+def _get_software_techniques(groups, platform, domain):
     """
     Get all techniques (in a dict) from the provided list of groups in relation to the software these groups use,
     and hence techniques they support.
     :param groups: ATT&CK groups
     :param platform: one or multiple values from PLATFORMS constant
+    :param domain: the specified domain
     :return: dictionary with info on groups
     """
     # { group_id: {group_name: NAME, techniques: set{id, ...} } }
@@ -108,8 +109,9 @@ def _get_software_techniques(groups, platform):
         for s in software_by_group:
             # software matches the ATT&CK Matrix and platform
             # and the group is a group we are interested in
+            matrix = 'mitre-attack' if domain == 'enterprise-attack' else 'mitre-ics-attack'
             if s['x_mitre_platforms']:  # there is software that do not have a platform, skip those
-                if s['matrix'] == 'mitre-attack' and len(set(s['x_mitre_platforms']).intersection(set(platform))) > 0 and \
+                if s['matrix'] == matrix and len(set(s['x_mitre_platforms']).intersection(set(platform))) > 0 and \
                         (groups[0] == 'all' or s['group_id'].lower() in groups or _is_in_group(s['aliases'], groups)):
                     if s['group_id'] not in groups_dict:
                         groups_dict[s['group_id']] = {'group_name': s['name']}
@@ -150,12 +152,13 @@ def _generate_group_id(group_name, campaign):
     return CG_GROUPS[group_name + campaign]
 
 
-def _get_group_techniques(groups, platform, file_type):
+def _get_group_techniques(groups, platform, file_type, domain):
     """
     Get all techniques (in a dict) from the provided list of groups
     :param groups: group ID, group name/alias or a YAML file with group(s) data
     :param platform: one or multiple values from PLATFORMS constant
     :param file_type: the file type of the YAML file as present in the key 'file_type'
+    :param domain: the specified domain
     :return: returns dictionary with all techniques from the provided list of groups or -1 when group is not found
     """
     # { group_id: {group_name: NAME, techniques: set{id, ...} } }
@@ -167,6 +170,11 @@ def _get_group_techniques(groups, platform, file_type):
         _yaml = init_yaml()
         with open(groups, 'r') as yaml_file:
             config = _yaml.load(yaml_file)
+
+        domain_in_file = 'enterprise-attack' if 'domain' not in config.keys() else config['domain']
+        if domain_in_file != domain:
+            print('[!] The domain specified in the overlay YAML file conflicts with the given value for the -d/--domain argument, or the domain specified in the Group YAML file.')
+            return -1
 
         for group in config['groups']:
             if group['enabled']:
@@ -196,7 +204,8 @@ def _get_group_techniques(groups, platform, file_type):
                 platforms = ['Windows']
 
             # group matches the: matrix/stage, platform and the group(s) we are interested in
-            if gr['matrix'] == 'mitre-attack' and len(set(platforms).intersection(set(platform))) > 0 and \
+            matrix = 'mitre-attack' if domain == 'enterprise-attack' else 'mitre-ics-attack'
+            if gr['matrix'] == matrix and len(set(platforms).intersection(set(platform))) > 0 and \
                     (groups[0] == 'all' or gr['group_id'].lower() in groups or _is_in_group(gr['aliases'], groups)):
                 if gr['group_id'] not in groups_dict:
                     groups_found.add(gr['group_id'])
@@ -239,7 +248,7 @@ def _get_detection_techniques(filename):
             groups_dict[group_id]['techniques'].add(t)
             groups_dict[group_id]['weight'][t] = 1
 
-    return groups_dict, detection_techniques
+    return groups_dict, detection_techniques, domain
 
 
 def _get_visibility_techniques(filename):
@@ -264,7 +273,7 @@ def _get_visibility_techniques(filename):
             groups_dict[group_id]['techniques'].add(t)
             groups_dict[group_id]['weight'][t] = 1
 
-    return groups_dict, visibility_techniques
+    return groups_dict, visibility_techniques, domain
 
 
 def _get_technique_count(groups, groups_overlay, groups_software, overlay_type, all_techniques):
@@ -478,7 +487,7 @@ def _get_group_list(groups, file_type):
 
 
 def generate_group_heat_map(groups, overlay, overlay_type, platform, software_groups, search_visibility,
-                            search_detection, health_is_called, output_filename, layer_name, include_all_score_objs=False):
+                            search_detection, health_is_called, output_filename, layer_name, domain, include_all_score_objs=False):
     """
     Calls all functions that are necessary for the generation of the heat map and write a json layer to disk.
     :param groups: threat actor groups
@@ -517,21 +526,27 @@ def generate_group_heat_map(groups, overlay, overlay_type, platform, software_gr
 
     # set the correct value for platform
     platform_yaml = None
-    domain = 'enterprise-attack'
     if groups_file_type == FILE_TYPE_GROUP_ADMINISTRATION:
         _yaml = init_yaml()
         with open(groups, 'r') as yaml_file:
             group_file = _yaml.load(yaml_file)
 
-        domain = 'enterprise-attack' if 'domain' not in group_file.keys() else group_file['domain']
+        domain_in_file = 'enterprise-attack' if 'domain' not in group_file.keys() else group_file['domain']
+        domain_in_argument = 'enterprise-attack' if domain == 'enterprise' else 'ics-attack' if domain == 'ics' else None
+        if(domain_in_argument and domain_in_file != domain_in_argument):
+            print('[!] The domain specified in Group YAML file conflicts with the given value of the -d/--domain argument.')
+            return None
+        domain = domain_in_file
         platform_yaml = get_platform_from_yaml(group_file, domain)
+    else:
+        domain = 'ics-attack' if domain == 'ics' else 'enterprise-attack'  # if no domain is given, enterprise is default
 
     if platform == None and platform_yaml != None:
         platform = platform_yaml
-    elif platform == None:
-        platform = list(PLATFORMS_ENTERPRISE.values())  # 'all'
+    elif platform == None:  # 'all'
+        platform = list(PLATFORMS_ENTERPRISE.values()) if domain == 'enterprise-attack' else list(PLATFORMS_ICS.values())
     elif 'all' in platform:
-        platform = list(PLATFORMS_ENTERPRISE.values())
+        platform = list(PLATFORMS_ENTERPRISE.values()) if domain == 'enterprise-attack' else list(PLATFORMS_ICS.values())
 
     overlay_file_type = None
     if overlay:
@@ -559,17 +574,23 @@ def generate_group_heat_map(groups, overlay, overlay_type, platform, software_gr
                 return None  # something went wrong in executing the search or 0 results where returned
 
         if overlay_type == OVERLAY_TYPE_VISIBILITY:
-            overlay_dict, all_techniques = _get_visibility_techniques(overlay)
+            overlay_dict, all_techniques, domain_overlay = _get_visibility_techniques(overlay)
+            if domain_overlay != domain:
+                print('[!] The domain specified in the overlay YAML file conflicts with the given value for the -d/--domain argument, or the domain specified in the Group YAML file.')
+                return None
         elif overlay_type == OVERLAY_TYPE_DETECTION:
-            overlay_dict, all_techniques = _get_detection_techniques(overlay)
+            overlay_dict, all_techniques, domain_overlay = _get_detection_techniques(overlay)
+            if domain_overlay != domain:
+                print('[!] The domain specified in the overlay YAML file conflicts with the given value for the -d/--domain argument, or the domain specified in the Group YAML file.')
+                return None
 
     # we are not overlaying visibility or detection, overlay group will therefore contain information on another group
     elif len(overlay) > 0:
-        overlay_dict = _get_group_techniques(overlay, platform, overlay_file_type)
+        overlay_dict = _get_group_techniques(overlay, platform, overlay_file_type, domain)
         if overlay_dict == -1:
             return None  # returns None when the provided Group(s) to be overlaid, contains Groups not part of ATT&CK
 
-    groups_dict = _get_group_techniques(groups, platform, groups_file_type)
+    groups_dict = _get_group_techniques(groups, platform, groups_file_type, domain)
     if groups_dict == -1:
         return None  # returns None when the provided Group contains Groups not part of ATT&CK
     if len(groups_dict) == 0:
@@ -580,9 +601,9 @@ def generate_group_heat_map(groups, overlay, overlay_type, platform, software_gr
     if software_groups and overlay:
         if overlay_type not in [OVERLAY_TYPE_VISIBILITY, OVERLAY_TYPE_DETECTION]:
             # if a group overlay is provided, get the software techniques for the overlay
-            groups_software_dict = _get_software_techniques(overlay, platform)
+            groups_software_dict = _get_software_techniques(overlay, platform, domain)
     elif software_groups:
-        groups_software_dict = _get_software_techniques(groups, platform)
+        groups_software_dict = _get_software_techniques(groups, platform, domain)
 
     technique_count, max_count = _get_technique_count(groups_dict, overlay_dict, groups_software_dict, overlay_type, all_techniques)
     technique_layer = _get_technique_layer(technique_count, groups_dict, overlay_dict, groups_software_dict,

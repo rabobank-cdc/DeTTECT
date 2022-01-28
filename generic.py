@@ -616,7 +616,7 @@ def load_data_sources(file, filter_empty_scores=True):
                 ds_detail['applicable_to'] = all_systems_applicable_to
             ds_detail = set_yaml_dv_comments(ds_detail)
 
-    domain = 'enterprise' if 'domain' not in yaml_content.keys() else yaml_content['domain']
+    domain = 'enterprise-attack' if 'domain' not in yaml_content.keys() else yaml_content['domain']
 
     # make sure the platform values are compliant (including casing) with the ATT&CK platforms
     platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else PLATFORMS_ICS
@@ -681,7 +681,7 @@ def load_techniques(file):
                     _add_entry_to_list_in_dictionary(my_techniques, d['technique_id'], 'visibility', de)
 
     name = yaml_content['name']
-    domain = 'enterprise' if 'domain' not in yaml_content.keys() else yaml_content['domain']
+    domain = 'enterprise-attack' if 'domain' not in yaml_content.keys() else yaml_content['domain']
     platform = get_platform_from_yaml(yaml_content, domain)
 
     return my_techniques, name, platform, domain

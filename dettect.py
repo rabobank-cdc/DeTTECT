@@ -154,6 +154,9 @@ def _init_menu():
                                                      'provided with extra \'-g/--group\' arguments. Another option is '
                                                      'to provide a YAML file with a custom group(s)',
                               default=None, action='append')
+    parser_group.add_argument('-d', '--domain', help='specify the ATT&CK domain (default = enterprise). This argument '
+                                                     'is ignored if a domain is specified in the Group YAML file.',
+                              required=False, choices=['enterprise', 'ics'])
     parser_group.add_argument('-o', '--overlay', help='specify what to overlay on the group(s) (provided using the '
                                                       'arguments \-g/--groups\): group(s), visibility or detection. '
                                                       'When overlaying a GROUP: the group can be its ATT&CK ID, '
@@ -270,7 +273,7 @@ def _menu(menu_parser):
     elif args.subparser in ['group', 'g']:
         generate_group_heat_map(args.groups, args.overlay, args.overlay_type, args.platform,
                                 args.software_group, args.search_visibility, args.search_detection, args.health,
-                                args.output_filename, args.layer_name, include_all_score_objs=args.all_scores)
+                                args.output_filename, args.layer_name, args.domain, include_all_score_objs=args.all_scores)
 
     elif args.subparser in ['detection', 'd']:
         if check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):

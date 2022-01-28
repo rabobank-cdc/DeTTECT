@@ -302,7 +302,7 @@ def generate_visibility_layer(filename_techniques, overlay, output_filename, lay
         mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, platform, domain)
         if not layer_name:
             layer_name = 'Visibility and Detection ' + name
-        layer_both = get_layer_template_layered(layer_name, 'description', platform)
+        layer_both = get_layer_template_layered(layer_name, 'description', platform, domain)
         _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name, output_filename)
 
 
