@@ -28,6 +28,16 @@ This project is developed and maintained by [Marcus Bakker](https://github.com/m
 
 We welcome contributions! Contributions can be both in code and in ideas you might have for further development, usability improvements, etc.
 
+### Sponsors
+The following parties have supported the development of DeTT&CT in time or financially.
+
+- **[Rabobank](https://www.rabobank.com/en/home/index.html)** - *Dutch multinational banking and financial services company. Food and agribusiness constitute the primary international focus of the Rabobank.*
+
+  Significant parts of DeTT&CT have been developed in the time that we worked as contractors at Rabobank.
+- **[Cyber Security Sharing & Analytics (CSSA)](https://cssa.de/en/index.html#top)** - *Founded in November 2014 by seven major German companies as an alliance for jointly facing cyber security challenges in a proactive, fast and effective manner. Currently, CSSA has 13 member companies.*
+
+  With the financial help of the CSSA, we added support for [ATT&CK ICS](https://collaborate.mitre.org/attackics/index.php/Main_Page) to DeTT&CT.
+
 ### Work of others
 The work of others inspired some functionality within DeTT&CT:
 - Roberto Rodriguez's work on data quality and scoring of MITRE ATT&CK™ techniques ([How Hot Is Your Hunt Team?](https://cyberwardog.blogspot.com/2017/07/how-hot-is-your-hunt-team.html), [Ready to hunt? First, Show me your data!](https://cyberwardog.blogspot.com/2017/12/ready-to-hunt-first-show-me-your-data.html)).
