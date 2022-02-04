@@ -878,8 +878,13 @@ def get_platform_in_correct_capitalisation(platform, domain):
         return []
     if isinstance(platform, str):
         platform = [platform]
+    platform = [p.lower() for p in platform if p is not None]
     selected_platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else PLATFORMS_ICS
-    platform = [selected_platforms[p.lower()] for p in platform if p is not None]
+
+    if 'all' in platform:
+        platform = list(selected_platforms.values())
+    else:
+        platform = [selected_platforms[p] for p in platform if p is not None if p in selected_platforms.keys()]
 
     return platform
 
@@ -891,22 +896,7 @@ def get_platform_from_yaml(yaml_content, domain):
     :return: the platform value
     """
     platform = yaml_content.get('platform', None)
-    if platform is None:
-        return []
-    if isinstance(platform, str):
-        platform = [platform]
-    platform = [p.lower() for p in platform if p is not None]
-    selected_platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else PLATFORMS_ICS
-
-    if 'all' in platform:
-        platform = list(selected_platforms.values())
-    else:
-        valid_platform_list = []
-        for p in platform:
-            if p in selected_platforms.keys():
-                valid_platform_list.append(selected_platforms[p])
-        platform = valid_platform_list
-    return platform
+    return get_platform_in_correct_capitalisation(platform, domain)
 
 
 def get_technique_from_yaml(yaml_content, technique_id):
