@@ -195,7 +195,8 @@ def _init_menu():
                                            ', groups and software', aliases=['ge'])
 
     parser_generic.add_argument('-ds', '--datasources', help='get a sorted count on how many ATT&CK techniques'
-                                                             'are covered by a particular Data Source',
+                                                             'are covered by a particular data source '
+                                                             '(default = enterprise data sources)',
                                 choices=['enterprise', 'ics'], const='enterprise', nargs='?')
     parser_generic.add_argument('-p', '--platform', action='append', help='only include data sources for the provided '
                                 'ATT&CK platforms in the \'-ds\' argument (default = all). Multiple platforms can be '
