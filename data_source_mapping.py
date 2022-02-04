@@ -941,7 +941,7 @@ def generate_technique_administration_file(filename, output_filename, write_file
         yaml_file_lines = fix_date_and_remove_null(file_lines, today, input_type='list')
 
         if not output_filename:
-            output_filename = 'techniques-administration-' + normalize_name_to_filename(name + '-' + platform_to_name(yaml_platform, domain))
+            output_filename = 'techniques-administration-' + normalize_name_to_filename(name)
         elif output_filename.endswith('.yaml'):
             output_filename = output_filename.replace('.yaml', '')
         output_filename = get_non_existing_filename('output/' + output_filename, 'yaml')

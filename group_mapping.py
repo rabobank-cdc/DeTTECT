@@ -632,10 +632,9 @@ def generate_group_heat_map(groups, overlay, overlay_type, platform, software_gr
     json_string = simplejson.dumps(layer).replace('}, ', '},\n')
 
     if not output_filename:
+        filename = '_'.join(groups_list)
         if overlay:
-            filename = platform_to_name(platform, domain) + '_' + '_'.join(groups_list) + '-overlay_' + '_'.join(overlay_list)
-        else:
-            filename = platform_to_name(platform, domain) + '_' + '_'.join(groups_list)
+            filename += '-overlay_' + '_'.join(overlay_list)
 
         filename = create_output_filename('attack', filename)
         write_file(filename, json_string)
