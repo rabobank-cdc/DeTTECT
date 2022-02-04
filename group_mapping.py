@@ -494,7 +494,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, platform, software_gr
     :param overlay: group(s), visibility or detections to overlay (group ID, group name/alias, YAML file with
     group(s), detections or visibility)
     :param overlay_type: group, visibility or detection
-    :param platform: one or multiple the values from PLATFORMS constant or None (default = Windows)
+    :param platform: one or multiple ATT&CK platform values or None
     :param software_groups: specify if techniques from related software should be included
     :param search_visibility: visibility EQL search query
     :param search_detection: detection EQL search query
@@ -545,8 +545,12 @@ def generate_group_heat_map(groups, overlay, overlay_type, platform, software_gr
         platform = platform_yaml
     elif platform == None:  # 'all'
         platform = list(PLATFORMS_ENTERPRISE.values()) if domain == 'enterprise-attack' else list(PLATFORMS_ICS.values())
-    elif 'all' in platform:
+    elif 'all' in [p.lower() for p in platform if p is not None]:
         platform = list(PLATFORMS_ENTERPRISE.values()) if domain == 'enterprise-attack' else list(PLATFORMS_ICS.values())
+    elif isinstance(platform, list):
+        if not check_platform(platform, domain=domain):
+            return None
+        platform = get_platform_in_correct_capitalisation(platform, domain)
 
     overlay_file_type = None
     if overlay:

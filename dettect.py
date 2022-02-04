@@ -323,14 +323,6 @@ def _menu(menu_parser):
         menu_parser.print_help()
 
 
-def _platform_lookup():
-    """
-    Lookup the platform value with the correct capitalisation.
-    return: lambda function to be used by argparse type=
-    """
-    return lambda p: PLATFORMS_ENTERPRISE.get(p.lower(), '') if p.lower() != 'all' else 'all'
-
-
 def _prepare_folders():
     """
     Create the folders 'cache' and 'output' if they do not exist.

@@ -867,6 +867,23 @@ def check_file(filename, file_type=None, health_is_called=False):
     return yaml_content  # value is None
 
 
+def get_platform_in_correct_capitalisation(platform, domain):
+    """
+    Return the platforms with the correct capitalisation. E.g.: "linux" will become "Linux"
+    :param platform: one or multiple ATT&CK platform values
+    :param domain: the ATT&CK domain
+    :return: returns list of ATT&CK platforms
+    """
+    if platform is None:
+        return []
+    if isinstance(platform, str):
+        platform = [platform]
+    selected_platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else PLATFORMS_ICS
+    platform = [selected_platforms[p.lower()] for p in platform if p is not None]
+
+    return platform
+
+
 def get_platform_from_yaml(yaml_content, domain):
     """
     Read the platform field from the YAML file supporting both string and list values.
@@ -919,7 +936,7 @@ def check_platform(arg_platforms, filename=None, domain=None):
             yaml_content = _yaml.load(yaml_file)
 
         domain = 'enterprise-attack' if 'domain' not in yaml_content.keys() else yaml_content['domain'].lower()
-    elif domain:
+    elif domain and not domain.endswith('-attack'):
         domain += '-attack'
 
     platforms = None
