@@ -72,7 +72,7 @@
             :group="group"
             itemIdName="technique_id"
             :platforms="selectedPlatforms"
-            :suggestionList="techniques"
+            :suggestionList="currentTechniques"
             valueAttr="technique_id"
         ></auto-suggest-group>
         <div class="row mt-md-0 mb-md-3" v-if="group.technique_id.length < 1">
@@ -89,7 +89,7 @@
             :group="group"
             itemIdName="software_id"
             :platforms="selectedPlatforms"
-            :suggestionList="software"
+            :suggestionList="currentSoftware"
             valueAttr="software_id"
         ></auto-suggest-group>
         <custom-key-value-editor :item="group" :defaultKeys="groupDefaultKeys" class="mt-md-3"></custom-key-value-editor>
@@ -111,8 +111,6 @@ import 'vue-directive-tooltip/dist/vueDirectiveTooltip.css';
 export default {
     data() {
         return {
-            techniques: techniques['ATT&CK-Enterprise'],
-            software: software['ATT&CK-Enterprise'],
             groupDefaultKeys: Object.keys(constants.YAML_OBJ_GROUP),
             editGroupName: false,
             helptextGroupKVPairs: false
@@ -134,6 +132,10 @@ export default {
         },
         groupHelpText: {
             type: String
+        },
+        domain: {
+            type: String,
+            required: true
         }
     },
     watch: {
@@ -158,6 +160,12 @@ export default {
         }
     },
     computed: {
+        currentTechniques() {
+            return this.domain == 'enterprise-attack' ? techniques['ATT&CK-Enterprise'] : techniques['ATT&CK-ICS'];
+        },
+        currentSoftware() {
+            return this.domain == 'enterprise-attack' ? software['ATT&CK-Enterprise'] : software['ATT&CK-ICS'];
+        },
         isNewGroup() {
             return this.group.group_name == '' ? true : false;
         },

@@ -44,8 +44,9 @@
                                     <file-details
                                         :filename="filename"
                                         :doc="doc"
-                                        :platforms="platforms"
+                                        :platforms="getPlatforms(doc.domain)"
                                         systemsOrPlatforms="platforms"
+                                        fileType="techniques"
                                     ></file-details>
                                 </div>
                             </div>
@@ -127,6 +128,7 @@
                         :selectedPlatforms="doc.platform"
                         ref="detailComponent"
                         :navigateItem="navigateItem"
+                        :domain="doc.domain"
                     ></techniques-detail>
                 </card>
             </div>
@@ -179,6 +181,20 @@ export default {
                         // Health checks before assignment to this.doc:
                         ///////////////////////////////////////////////
 
+                        // Check domain is filled, default enterprise-attack:
+                        if (yaml_input.domain == undefined || yaml_input.domain == null) {
+                            yaml_input.domain = 'enterprise-attack';
+                        }
+
+                        // Check domain is valid:
+                        if (!constants.DETTECT_DOMAIN_SUPPORT.includes(yaml_input.domain)) {
+                            this.notifyDanger(
+                                'Invalid domain',
+                                'Invalid value for domain was found in the YAML file and is set to enterprise-attack.'
+                            );
+                            yaml_input.domain = 'enterprise-attack';
+                        }
+
                         // Fix missing or empty platform:
                         if (yaml_input.platform == undefined || yaml_input.platform == null) {
                             yaml_input.platform = [];
@@ -192,10 +208,10 @@ export default {
                         // Only use valid platform values (in right casing):
                         let valid_platforms = [];
                         for (let i = 0; i < yaml_input.platform.length; i++) {
-                            if (this.platforms.indexOf(yaml_input.platform[i]) < 0) {
+                            if (this.getPlatforms(yaml_input.domain).indexOf(yaml_input.platform[i]) < 0) {
                                 let p = yaml_input.platform[i].toLowerCase();
-                                if (Object.keys(constants.PLATFORM_CONVERSION).indexOf(p) >= 0) {
-                                    valid_platforms.push(constants.PLATFORM_CONVERSION[p]);
+                                if (Object.keys(this.getPlatformConversion(yaml_input.domain)).indexOf(p) >= 0) {
+                                    valid_platforms.push(this.getPlatformConversion(yaml_input.domain)[p]);
                                 } else {
                                     this.notifyDanger('Invalid value', 'Invalid value for platform was found in the YAML file and was removed.');
                                 }
@@ -385,7 +401,7 @@ export default {
                         this.unwatchFunction = this.$watch(
                             'doc',
                             // eslint-disable-next-line no-unused-vars
-                            function(after, before) {
+                            function (after, before) {
                                 this.fileChanged = true;
                             },
                             { deep: true }

@@ -17,6 +17,21 @@
             <td>Version:</td>
             <td>{{ doc['version'].toFixed(1) }}</td>
         </tr>
+        <tr>
+            <td>Domain:</td>
+            <td>
+                <select
+                    :disabled="getDomainDisabled"
+                    class="form-control file-detail-edit"
+                    v-model="doc.domain"
+                    :title="getDomainHelpText"
+                    @change="domainChange"
+                >
+                    <option>enterprise-attack</option>
+                    <option>ics-attack</option>
+                </select>
+            </td>
+        </tr>
         <tr v-show="showName">
             <td>Name:</td>
             <td><base-input v-model="doc['name']" class="file-detail-edit"></base-input></td>
@@ -64,6 +79,8 @@
 import { notificationMixin } from '@/mixins/NotificationMixins.js';
 import ExtendedTextarea from '@/components/Inputs/ExtendedTextarea';
 import ListEditorExtended from '@/components/Inputs/ListEditorExtended';
+import constants from '@/constants';
+import _ from 'lodash';
 
 export default {
     mixins: [notificationMixin],
@@ -92,6 +109,35 @@ export default {
         systemsOrPlatforms: {
             type: String,
             required: true
+        },
+        fileType: {
+            type: String,
+            required: true
+        }
+    },
+    computed: {
+        getDomainDisabled() {
+            if (this.fileType == 'datasources') {
+                if (this.doc.data_sources.length > 0 || this.doc.systems.length > 1 || this.doc.systems[0].platform[0] != 'all') {
+                    return true;
+                }
+            } else if (this.fileType == 'techniques') {
+                if (this.doc.techniques.length > 0) {
+                    return true;
+                }
+            } else if (this.fileType == 'groups') {
+                if (this.doc.groups.length > 0) {
+                    return true;
+                }
+            }
+            return false;
+        },
+        getDomainHelpText() {
+            if (this.getDomainDisabled) {
+                return 'Domain can only be changed for new or empty files.';
+            } else {
+                return '';
+            }
         }
     },
     methods: {
@@ -143,6 +189,11 @@ export default {
                         }
                     }
                 }
+            }
+        },
+        domainChange() {
+            if (this.fileType == 'techniques' || this.fileType == 'groups') {
+                this.doc.platform = _.cloneDeep(constants.YAML_OBJ_NEW_TECHNIQUES_FILE.platform);
             }
         }
     },

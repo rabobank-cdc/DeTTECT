@@ -37,8 +37,6 @@ export const pageMixin = {
             fileChanged: false,
             unwatchFunction: null,
             deletedRows: [],
-            platforms: constants.PLATFORMS,
-            platformConversion: constants.PLATFORM_CONVERSION,
             lastScrollPosition: 0,
             file_details_visible: true,
             file_details_lock: false,
@@ -56,6 +54,12 @@ export const pageMixin = {
         window.removeEventListener('scroll', this.onScroll)
     },
     methods: {
+        getPlatforms(domain) {
+            return domain == 'enterprise-attack' ? constants.PLATFORMS : constants.PLATFORMS_ICS;
+        },
+        getPlatformConversion(domain) {
+            return domain == 'enterprise-attack' ? constants.PLATFORM_CONVERSION : constants.PLATFORM_CONVERSION_ICS;
+        },
         navigateToTop() {
             VueScrollTo.scrollTo('#pageTop', 300, options);
         },

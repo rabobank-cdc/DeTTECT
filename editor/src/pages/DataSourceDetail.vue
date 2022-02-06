@@ -32,9 +32,19 @@ import _ from 'lodash';
 export default {
     data() {
         return {
-            dataSources: dataSources['ATT&CK-Enterprise'],
             selectedPlatforms: Array
         };
+    },
+    computed: {
+        getDataSources() {
+            return dataSources[this.dataSourcePlatformsSelectorATTACK];
+        },
+        dataSourcePlatformsSelectorATTACK() {
+            return this.domain == 'enterprise-attack' ? 'ATT&CK-Enterprise' : 'ATT&CK-ICS';
+        },
+        dataSourcePlatformsSelectorDETTECT() {
+            return this.domain == 'enterprise-attack' ? 'DeTT&CT-Enterprise' : 'DeTT&CT-ICS';
+        }
     },
     created: function () {
         this.getSelectedPlatforms();
@@ -68,6 +78,10 @@ export default {
         allSystems: {
             type: Array,
             required: true
+        },
+        domain: {
+            type: String,
+            required: true
         }
     },
     methods: {
@@ -88,19 +102,19 @@ export default {
             // (DeTT&CT) data sources corresponds to the selected platforms within the systems key-value pair.
             let suggestionList = new Set();
             for (let i = 0; i < this.selectedPlatforms.length; i++) {
-                for (let j = 0; j < this.dataSources.length; j++) {
+                for (let j = 0; j < this.getDataSources.length; j++) {
                     if (
                         this.selectedPlatforms[i] == 'all' ||
-                        dataSourcePlatforms['ATT&CK-Enterprise'][this.selectedPlatforms[i]].includes(this.dataSources[j])
+                        dataSourcePlatforms[this.dataSourcePlatformsSelectorATTACK][this.selectedPlatforms[i]].includes(this.getDataSources[j])
                     ) {
-                        suggestionList.add(this.dataSources[j]);
+                        suggestionList.add(this.getDataSources[j]);
                     }
                 }
 
                 for (let j = 0; j < customDataSources.length; j++) {
                     if (
                         this.selectedPlatforms[i] == 'all' ||
-                        dataSourcePlatforms['DeTT&CT'][this.selectedPlatforms[i]].includes(customDataSources[j])
+                        dataSourcePlatforms[this.dataSourcePlatformsSelectorDETTECT][this.selectedPlatforms[i]].includes(customDataSources[j])
                     ) {
                         suggestionList.add(customDataSources[j]);
                     }

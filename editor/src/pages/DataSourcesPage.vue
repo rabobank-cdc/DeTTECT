@@ -44,9 +44,10 @@
                                     <file-details
                                         :filename="filename"
                                         :doc="doc"
-                                        :platforms="platforms"
-                                        :platformConversion="platformConversion"
+                                        :platforms="getPlatforms(doc.domain)"
+                                        :platformConversion="getPlatformConversion(doc.domain)"
                                         systemsOrPlatforms="systems"
+                                        fileType="datasources"
                                     ></file-details>
                                 </div>
                             </div>
@@ -147,6 +148,7 @@
                         :prevDataSourceQuality="prevDataSourceQuality"
                         :navigateItem="navigateItem"
                         ref="detailComponent"
+                        :domain="doc.domain"
                     ></data-source-detail>
                 </card>
             </div>
@@ -171,7 +173,6 @@ export default {
     name: 'data-sources-page',
     data() {
         return {
-            dataSources: dataSources['ATT&CK-Enterprise'],
             filters: {
                 filter: {
                     value: '',
@@ -188,6 +189,17 @@ export default {
             selectedPlatforms: Array,
             data_sources_count: 0
         };
+    },
+    computed: {
+        getDataSources() {
+            return dataSources[this.dataSourcePlatformsSelectorATTACK];
+        },
+        dataSourcePlatformsSelectorATTACK() {
+            return this.doc.domain == 'enterprise-attack' ? 'ATT&CK-Enterprise' : 'ATT&CK-ICS';
+        },
+        dataSourcePlatformsSelectorDETTECT() {
+            return this.doc.domain == 'enterprise-attack' ? 'DeTT&CT-Enterprise' : 'DeTT&CT-ICS';
+        }
     },
     mixins: [pageMixin, navigateMixins, notificationMixin],
     components: {
@@ -211,6 +223,20 @@ export default {
                         // Health checks before assignment to this.doc:
                         ///////////////////////////////////////////////
 
+                        // Check domain is filled, default enterprise-attack:
+                        if (yaml_input.domain == undefined || yaml_input.domain == null) {
+                            yaml_input.domain = 'enterprise-attack';
+                        }
+
+                        // Check domain is valid:
+                        if (!constants.DETTECT_DOMAIN_SUPPORT.includes(yaml_input.domain)) {
+                            this.notifyDanger(
+                                'Invalid domain',
+                                'Invalid value for domain was found in the YAML file and is set to enterprise-attack.'
+                            );
+                            yaml_input.domain = 'enterprise-attack';
+                        }
+
                         // Fix missing or empty systems field:
                         if (yaml_input.systems == undefined || yaml_input.systems == null) {
                             yaml_input.systems = _.cloneDeep(constants.YAML_OBJ_NEW_DATA_SOURCES_FILE['systems']);
@@ -232,10 +258,10 @@ export default {
                                 let valid_platforms = [];
                                 for (let j = 0; j < yaml_input.systems[i].platform.length; j++) {
                                     // Only use valid platform values (in right casing):
-                                    if (this.platforms.indexOf(yaml_input.systems[i].platform[j]) < 0) {
+                                    if (this.getPlatforms(yaml_input.domain).indexOf(yaml_input.systems[i].platform[j]) < 0) {
                                         let p = yaml_input.systems[i].platform[j].toLowerCase();
-                                        if (Object.keys(constants.PLATFORM_CONVERSION).indexOf(p) >= 0) {
-                                            valid_platforms.push(constants.PLATFORM_CONVERSION[p]);
+                                        if (Object.keys(this.getPlatformConversion(yaml_input.domain)).indexOf(p) >= 0) {
+                                            valid_platforms.push(this.getPlatformConversion(yaml_input.domain)[p]);
                                         } else {
                                             this.notifyDanger(
                                                 'Invalid value',
@@ -395,16 +421,16 @@ export default {
             }
 
             for (let i = 0; i < this.selectedPlatforms.length; i++) {
-                for (let j = 0; j < this.dataSources.length; j++) {
+                for (let j = 0; j < this.getDataSources.length; j++) {
                     if (
                         this.selectedPlatforms[i] == 'all' ||
-                        dataSourcePlatforms['ATT&CK-Enterprise'][this.selectedPlatforms[i]].includes(this.dataSources[j])
+                        dataSourcePlatforms[this.dataSourcePlatformsSelectorATTACK][this.selectedPlatforms[i]].includes(this.getDataSources[j])
                     ) {
-                        if (!current_ds_in_file.includes(this.dataSources[j])) {
+                        if (!current_ds_in_file.includes(this.getDataSources[j])) {
                             let newrow = _.cloneDeep(this.emptyDataSourceObject);
-                            newrow.data_source_name = this.dataSources[j];
+                            newrow.data_source_name = this.getDataSources[j];
                             this.doc.data_sources.push(newrow);
-                            current_ds_in_file.push(this.dataSources[j]);
+                            current_ds_in_file.push(this.getDataSources[j]);
                         }
                     }
                 }
@@ -412,7 +438,7 @@ export default {
                 for (let j = 0; j < customDataSources.length; j++) {
                     if (
                         this.selectedPlatforms[i] == 'all' ||
-                        dataSourcePlatforms['DeTT&CT'][this.selectedPlatforms[i]].includes(customDataSources[j])
+                        dataSourcePlatforms[this.dataSourcePlatformsSelectorDETTECT][this.selectedPlatforms[i]].includes(customDataSources[j])
                     ) {
                         if (!current_ds_in_file.includes(customDataSources[j])) {
                             let newrow = _.cloneDeep(this.emptyDataSourceObject);

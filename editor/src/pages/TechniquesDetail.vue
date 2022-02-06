@@ -57,7 +57,6 @@ import techniques from '@/data/techniques';
 export default {
     data() {
         return {
-            techniquesSuggestionList: techniques['ATT&CK-Enterprise'],
             techniqueHelpUrl: 'https://raw.githubusercontent.com/wiki/rabobank-cdc/DeTTECT/YAML-administration-techniques.md',
             detectionScoreHelpUrl: 'https://raw.githubusercontent.com/wiki/rabobank-cdc/DeTTECT/Detection-scoring.md',
             visibilityScoreHelpUrl: 'https://raw.githubusercontent.com/wiki/rabobank-cdc/DeTTECT/Visibility-scoring.md',
@@ -110,6 +109,15 @@ export default {
         navigateItem: {
             type: Function,
             required: true
+        },
+        domain: {
+            type: String,
+            required: true
+        }
+    },
+    computed: {
+        techniquesSuggestionList() {
+            return this.domain == 'enterprise-attack' ? techniques['ATT&CK-Enterprise'] : techniques['ATT&CK-ICS'];
         }
     },
     components: {
