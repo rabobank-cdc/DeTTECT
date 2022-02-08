@@ -190,7 +190,7 @@ export default {
                         if (!constants.DETTECT_DOMAIN_SUPPORT.includes(yaml_input.domain)) {
                             this.notifyDanger(
                                 'Invalid domain',
-                                'Invalid value for domain was found in the YAML file and is set to enterprise-attack.'
+                                'Invalid value for the domain was found in the YAML file and therefore set to enterprise-attack.'
                             );
                             yaml_input.domain = 'enterprise-attack';
                         }
