@@ -594,3 +594,11 @@ option.error,
     margin-left: 10px;
     font-size: 9pt;
 }
+
+div.systemsPlatformList {
+    width: 400px;
+}
+
+.list-editor-extended div.row {
+    margin-bottom: 2px;
+}

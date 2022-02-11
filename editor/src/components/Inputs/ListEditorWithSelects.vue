@@ -11,7 +11,14 @@
         <!-- eslint-disable-next-line vue/require-v-for-key -->
         <div class="row" v-for="(item, index) in list">
             <div class="col-md-10 pr-md-0">
-                <base-input readonly :value="item" :idx="index" @change="updateItem($event)" :showError="isErrorFunction(item, list)" :errorText="getErrorTextFunction(item, list)"></base-input>
+                <base-input
+                    readonly
+                    :value="item"
+                    :idx="index"
+                    @change="updateItem($event)"
+                    :showError="isErrorFunction(item, list)"
+                    :errorText="getErrorTextFunction(item, list)"
+                ></base-input>
             </div>
             <div class="col mt-md-1">
                 <i class="tim-icons icon-trash-simple icon-color icon-padding cursor-pointer" :idx="index" @click="deleteItem($event)"></i>
@@ -20,9 +27,12 @@
         <div class="row">
             <div class="col-md-10 pr-md-0 form-group">
                 <select class="form-control" v-model="newItem" @change="addItem">
-                    <option v-if="defaultItem != null">{{defaultItem}}</option>
-                    <option v-for="option in newItems">
-                        {{option.applicable_to}}
+                    <option v-if="defaultItem != null && includeDefaultItemInList">{{ defaultItem }}</option>
+                    <option v-if="attributeName != ''" v-for="option in newItems">
+                        {{ option[attributeName] }}
+                    </option>
+                    <option v-if="attributeName == ''" v-for="option in newItems">
+                        {{ option }}
                     </option>
                 </select>
             </div>
@@ -41,38 +51,38 @@ export default {
         return {
             // eslint-disable-next-line no-undef
             caseInsensitive: require('case-insensitive'),
-            newItem: '',
+            newItem: ''
         };
     },
     mixins: [notificationMixin],
     components: {
-        Icons,
+        Icons
     },
     props: {
         list: {
             type: Array,
-            required: true,
+            required: true
         },
         name: {
             type: String,
-            required: true,
+            required: true
         },
         placeholder: {
             type: String,
-            required: true,
+            required: true
         },
         helpText: {
             type: String,
-            default: '',
+            default: ''
         },
         externalListToValidate: {
             type: Array,
-            default: () => [],
+            default: () => []
         },
         notifyText: {
             type: String,
             required: false,
-            default: "The value 'KEYNAME' is already part of the list. Duplicate entries are not allowed.",
+            default: "The value 'KEYNAME' is already part of the list. Duplicate entries are not allowed."
         },
         newItems: {
             type: Array,
@@ -80,6 +90,11 @@ export default {
         },
         defaultItem: {
             type: String
+        },
+        includeDefaultItemInList: {
+            type: Boolean,
+            required: false,
+            default: true
         },
         isErrorFunction: {
             type: Function,
@@ -90,24 +105,43 @@ export default {
             type: Function,
             required: false,
             default: () => ''
+        },
+        attributeName: {
+            type: String,
+            required: false,
+            default: ''
+        },
+        defaultValueExclusive: {
+            type: Boolean,
+            required: false,
+            default: false
         }
     },
     methods: {
         addItem() {
             // add an item to the list
-            if (this.caseInsensitive(this.list).includes(this.newItem) || this.caseInsensitive(this.externalListToValidate).includes(this.newItem)) {
-                this.notifyDuplicate(this.newItem);
-            } else if (this.newItem != '') {
-                if(this.newItem == this.defaultItem){
+            if (this.defaultValueExclusive && this.newItem == 'all') {
+                if (this.caseInsensitive(this.externalListToValidate).includes(this.newItem)) {
+                    this.notifyDuplicate(this.newItem);
+                } else {
                     this.list.splice(0, this.list.length);
+                    this.list.push('all');
+                    this.newItem = '';
                 }
+            } else {
+                // add an item to the list
+                if (
+                    this.caseInsensitive(this.list).includes(this.newItem) ||
+                    this.caseInsensitive(this.externalListToValidate).includes(this.newItem)
+                ) {
+                    this.notifyDuplicate(this.newItem);
+                } else if (this.newItem != '') {
+                    this.list.push(this.newItem);
+                    this.newItem = '';
 
-                this.list.push(this.newItem);
-                this.newItem = '';
-
-                if(this.list.length > 1 && this.list.includes(this.defaultItem)){
-                    let remove_index = this.list.indexOf(this.defaultItem);
-                    this.list.splice(remove_index, 1);
+                    if (this.defaultValueExclusive && this.list.indexOf('all') >= 0) {
+                        this.list.splice(this.list.indexOf('all'), 1);
+                    }
                 }
             }
         },
@@ -125,7 +159,7 @@ export default {
             let index = event.target.getAttribute('idx');
             this.list.splice(index, 1);
 
-            if(this.list.length == 0 && this.defaultItem != null){
+            if (this.list.length == 0 && this.defaultItem != null) {
                 this.list.push(this.defaultItem);
             }
         },
@@ -134,6 +168,6 @@ export default {
             let msg = this.notifyText.replace('KEYNAME', keyName);
             this.notifyWarning(title, msg);
         }
-    },
+    }
 };
 </script>

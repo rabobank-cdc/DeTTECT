@@ -27,9 +27,7 @@
                 ></vue-simple-suggest>
             </div>
             <div class="col">
-                <button class="btn-custom btn btn-secondary button-add" @click="addItem">
-                    Add
-                </button>
+                <button class="btn-custom btn btn-secondary button-add" @click="addItem">Add</button>
             </div>
         </div>
     </div>
@@ -42,23 +40,23 @@ import { notificationMixin } from '@/mixins/NotificationMixins.js';
 export default {
     data() {
         return {
-            newID: '',
+            newID: ''
         };
     },
     mixins: [autoSuggestMixins, notificationMixin],
     props: {
         group: {
             type: Object,
-            required: true,
+            required: true
         },
         valueAttr: {
             type: String,
-            required: true,
+            required: true
         },
         platforms: {
             type: Array,
-            required: true,
-        },
+            required: true
+        }
     },
     methods: {
         deleteItem(event) {
@@ -113,7 +111,7 @@ export default {
             let title = 'Invalid ' + this.formattedTitle;
             let msg = "'" + id + "' is an invalid " + this.formattedTitle + '.';
             this.notifyWarning(title, msg);
-        },
+        }
     },
     computed: {
         filteredSuggestionList() {
@@ -133,7 +131,7 @@ export default {
         },
         formattedTitle() {
             return this.itemIdName.replace('_', ' ').replace('id', 'ID');
-        },
-    },
+        }
+    }
 };
 </script>

@@ -5,34 +5,23 @@
             <div class="col-md-3 pr-md-0">
                 <base-input :value="item.applicable_to" @change="updateItem($event, index)"></base-input>
             </div>
-            <div class="col-md-8 mt-md-0">
-                <b-form-group>
-                    <b-form-tags
-                        input-id="tags-validation"
-                        v-model="item.platform"
-                        :input-attrs="{ 'aria-describedby': 'tags-validation-help' }"
-                        :tag-validator="validator"
-                        separator=""
-                        :placeholder="'Enter ' + subject_text"
-                        :invalid-tag-text="'Invalid ' + subject_text"
-                        :duplicate-tag-text="'Duplicate ' + subject_text"
-                        input-class="platform-chooser-input"
-                        :remove-on-delete="true"
-                        @input="checkInput($event, index)"
-                    >
-                    </b-form-tags>
-
-                    <template #invalid-feedback>
-                        You must provide at least 1 platform.
-                    </template>
-
-                    <template #description>
-                        <div id="tags-validation-help">Options: {{ values.join(', ') }}</div>
-                    </template>
-                </b-form-group>
-            </div>
             <div class="col mt-md-1">
                 <i class="tim-icons icon-trash-simple icon-color icon-padding cursor-pointer" @click="deleteItem($event, index)"></i>
+            </div>
+            <div class="col-md-8 mt-md-0">
+                <list-editor-with-selects
+                    :list="item.platform"
+                    :newItems="values"
+                    :name="'Platforms:'"
+                    placeholder="platform"
+                    class="mt-md-2 systemsPlatformList"
+                    notifyText="The value 'KEYNAME' is already part of the list. Duplicate entries are not allowed."
+                    :isErrorFunction="isErrorFunction"
+                    :getErrorTextFunction="getErrorText"
+                    :defaultValueExclusive="true"
+                    defaultItem="all"
+                    :includeDefaultItemInList="false"
+                ></list-editor-with-selects>
             </div>
         </div>
         <div class="row">
@@ -52,6 +41,7 @@
 import Icons from '@/components/Icons';
 import constants from '@/constants';
 import { notificationMixin } from '@/mixins/NotificationMixins.js';
+import ListEditorWithSelects from '@/components/Inputs/ListEditorWithSelects';
 
 export default {
     data() {
@@ -63,7 +53,8 @@ export default {
     },
     mixins: [notificationMixin],
     components: {
-        Icons
+        Icons,
+        ListEditorWithSelects
     },
     props: {
         list: {
@@ -182,6 +173,20 @@ export default {
                 for (let i = 0; i < this.list[index].platform.length; i++) {
                     this.list[index].platform[i] = this.valuesConversion[this.list[index].platform[i].toLowerCase()];
                 }
+            }
+        },
+        isErrorFunction(item, list) {
+            if (item == 'all' && list.length > 1) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        getErrorText(item, list) {
+            if (item == 'all' && list.length > 1) {
+                return "The value 'all' is exclusive for the system's platform values and can therefore not be combined with other platform values. Remove 'all' to let DeTT&CT work properly.";
+            } else {
+                return '';
             }
         }
     }

@@ -111,7 +111,7 @@ export default {
         VueSimpleSuggest
     },
     computed: {
-        suggestionListIncludingDefault: function() {
+        suggestionListIncludingDefault: function () {
             return [...new Set([this.defaultValue].concat(this.suggestionList))];
         }
     },

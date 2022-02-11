@@ -27,12 +27,12 @@
                             placeholder="applicable to"
                             class="mt-md-2 no-bottom-margin"
                             :externalListToValidate="getApplicableToList()"
-                            :helpText="
-                                'Specifies to which type of system(s) this data source applies. The value \'all\' can be used to let it apply to every type of system.'
-                            "
+                            :helpText="'Specifies to which type of system(s) this data source applies. The value \'all\' can be used to let it apply to every type of system.'"
                             notifyText="The value 'KEYNAME' is already part of the applicable_to for this data source. Duplicate entries are not allowed."
                             :isErrorFunction="isErrorFunction"
                             :getErrorTextFunction="getErrorText"
+                            attributeName="applicable_to"
+                            :defaultValueExclusive="true"
                         ></list-editor-with-selects>
                         <div class="row mt-md-0 mb-md-2" v-if="row.applicable_to.length == 0">
                             <div class="col-md-auto pr-md-0">
@@ -201,17 +201,17 @@ import { notificationMixin } from '@/mixins/NotificationMixins.js';
 import _ from 'lodash';
 
 export default {
-    data: function() {
+    data: function () {
         return {
             // the marker values as used for the data quality scoring ScoreSlider
             dataQualityScores: [0, 1, 2, 3, 4, 5],
             dataQualityTooltip: {
-                '0': 'None',
-                '1': 'Poor',
-                '2': 'Fair',
-                '3': 'Good',
-                '4': 'Very good',
-                '5': 'Excellent'
+                0: 'None',
+                1: 'Poor',
+                2: 'Fair',
+                3: 'Good',
+                4: 'Very good',
+                5: 'Excellent'
             },
             dataSourceDefaultKeys: Object.keys(constants.YAML_OBJ_DATA_SOURCES.data_source[0]),
             helptextDataQuality: false,
@@ -306,7 +306,7 @@ export default {
                 this.$refs.collapseComponent[i].show = false;
             }
         },
-        escapeKeyListener: function(evt) {
+        escapeKeyListener: function (evt) {
             if (evt.keyCode === 27 && this.helptextDataQuality) {
                 this.helptextDataQuality = false;
             } else if (evt.keyCode === 27 && this.helptextDataSourceKVPairs) {
@@ -362,7 +362,7 @@ export default {
         getErrorText(item, list) {
             if (item == 'all' && list.length > 1) {
                 return "The value 'all' is exclusive for the data source's applicable_to values and can therefore not be combined with other applicable_to values. Remove 'all' to let DeTT&CT work properly.";
-            } else if (!this.allSystems.includes(item) && item != 'all') {
+            } else if (!this.allSystemsValues.includes(item) && item != 'all') {
                 return (
                     "The value '" +
                     item +
