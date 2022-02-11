@@ -1,6 +1,6 @@
 attackcti==0.3.6
 simplejson==3.17.6
-plotly==5.5.0
+plotly==5.6.0
 pandas==1.4.0
 xlsxwriter==3.0.2
 ruamel.yaml==0.17.20
