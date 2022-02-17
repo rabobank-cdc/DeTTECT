@@ -116,7 +116,7 @@ def load_attack_data(data_type):
     from attackcti import attack_client
     if local_stix_path is not None:
         if local_stix_path is not None and os.path.isdir(os.path.join(local_stix_path, 'enterprise-attack')) \
-                and os.path.isdir(os.path.join(local_stix_path, 'pre-attack')) \
+                and os.path.isdir(os.path.join(local_stix_path, 'ics-attack')) \
                 and os.path.isdir(os.path.join(local_stix_path, 'mobile-attack')):
             mitre = attack_client(local_path=local_stix_path)
         else:
