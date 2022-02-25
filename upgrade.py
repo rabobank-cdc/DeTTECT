@@ -53,7 +53,7 @@ def _upgrade_data_source_yaml_10_to_11(file_lines):
     # upgrade to the new v1.1 data source admin. file
     yaml_file_new['version'] = 1.1
 
-    platforms = get_platform_from_yaml(yaml_file_new)
+    platforms = get_platform_from_yaml(yaml_file_new, 'enterprise-attack')
     if platforms == []:
         platforms = list(PLATFORMS_ENTERPRISE.values())
     del yaml_file_new['platform']
@@ -109,7 +109,7 @@ def _check_yaml_file_health_v10(file_lines):
     _yaml = init_yaml()
     ds_content = _yaml.load(''.join(file_lines))
 
-    platform = get_platform_from_yaml(ds_content)
+    platform = get_platform_from_yaml(ds_content, 'enterprise-attack')
 
     if isinstance(platform, str):
         platform = [platform]

@@ -893,6 +893,7 @@ def get_platform_from_yaml(yaml_content, domain):
     """
     Read the platform field from the YAML file supporting both string and list values.
     :param yaml_content: the content of the YAML file containing the platform field
+    :param domain: the ATT&CK domain
     :return: the platform value
     """
     platform = yaml_content.get('platform', None)

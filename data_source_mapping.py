@@ -921,7 +921,7 @@ def generate_technique_administration_file(filename, output_filename, write_file
             if tech:
                 # check if we have an applicable to value that can be replaced by the value 'all'
                 for vis_obj in tech['visibility']:
-                    if all_applicable_to_values == set(vis_obj['applicable_to']):
+                    if all_applicable_to_values == set(vis_obj['applicable_to']) and not len(all_applicable_to_values) == 1:
                         vis_obj['applicable_to'] = ['all']
                 yaml_file['techniques'].append(tech)
 
