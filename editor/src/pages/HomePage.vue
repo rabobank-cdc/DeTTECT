@@ -13,10 +13,10 @@
                                 The DeTT&CT data source, technique and group YAML files can be edited using this editor.
                             </p>
                             <p class="mt-md-3">
-                                Useful links on the Wiki:
+                                Useful links:
                                 <ul
-                                    ><li><a href="https://github.com/rabobank-cdc/DeTTECT/wiki/Getting-started" target="_blank">Getting started with DeTT&CT</a></li>
-                                    <li><a href="https://github.com/rabobank-cdc/DeTTECT/wiki/DeTT&CT-Editor" target="_blank">DeTT&CT Editor</a></li>
+                                    ><li><a href="https://github.com/rabobank-cdc/DeTTECT/wiki/Getting-started" target="_blank">Wiki - Getting started with DeTT&CT</a></li>              
+                                    <li><a href="https://mitre-attack.github.io/attack-navigator/#comment_underline=false" target="_blank">ATT&CK Navigator without showing yellow underlines in techniques</a></li>
                                     </ul>
                             </p>
                         </div>
