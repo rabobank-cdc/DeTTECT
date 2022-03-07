@@ -1,8 +1,8 @@
 attackcti==0.3.6
 simplejson==3.17.6
 plotly==5.6.0
-pandas==1.4.0
-xlsxwriter==3.0.2
-ruamel.yaml==0.17.20
+pandas==1.4.1
+xlsxwriter==3.0.3
+ruamel.yaml==0.17.21
 eql==0.9.11
 taxii2-client==2.3.0
