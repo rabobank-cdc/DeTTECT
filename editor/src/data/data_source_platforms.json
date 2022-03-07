@@ -603,64 +603,24 @@
   },
   "DeTT&CT-ICS": {
     "Control Server": [
-      "Web [DeTT&CT data source]",
-      "Internal DNS [DeTT&CT data source]",
-      "DHCP [DeTT&CT data source]",
-      "Email [DeTT&CT data source]"
     ],
     "Data Historian": [
-      "Web [DeTT&CT data source]",
-      "Internal DNS [DeTT&CT data source]",
-      "DHCP [DeTT&CT data source]",
-      "Email [DeTT&CT data source]"
     ],
     "Device Configuration/Parameters": [
-      "Web [DeTT&CT data source]",
-      "Internal DNS [DeTT&CT data source]",
-      "DHCP [DeTT&CT data source]",
-      "Email [DeTT&CT data source]"
     ],
     "Engineering Workstation": [
-      "Web [DeTT&CT data source]",
-      "Internal DNS [DeTT&CT data source]",
-      "DHCP [DeTT&CT data source]",
-      "Email [DeTT&CT data source]"
     ],
     "Field Controller/RTU/PLC/IED": [
-      "Web [DeTT&CT data source]",
-      "Internal DNS [DeTT&CT data source]",
-      "DHCP [DeTT&CT data source]",
-      "Email [DeTT&CT data source]"
     ],
     "Human-Machine Interface": [
-      "Web [DeTT&CT data source]",
-      "Internal DNS [DeTT&CT data source]",
-      "DHCP [DeTT&CT data source]",
-      "Email [DeTT&CT data source]"
     ],
     "Input/Output Server": [
-      "Web [DeTT&CT data source]",
-      "Internal DNS [DeTT&CT data source]",
-      "DHCP [DeTT&CT data source]",
-      "Email [DeTT&CT data source]"
     ],
     "Safety Instrumented System/Protection Relay": [
-      "Web [DeTT&CT data source]",
-      "Internal DNS [DeTT&CT data source]",
-      "DHCP [DeTT&CT data source]",
-      "Email [DeTT&CT data source]"
     ],
     "Windows": [
-      "Web [DeTT&CT data source]",
-      "Internal DNS [DeTT&CT data source]",
-      "DHCP [DeTT&CT data source]",
-      "Email [DeTT&CT data source]"
     ],
     "None": [
-      "Web [DeTT&CT data source]",
-      "Internal DNS [DeTT&CT data source]",
-      "DHCP [DeTT&CT data source]",
-      "Email [DeTT&CT data source]"
     ]
   }
 }
