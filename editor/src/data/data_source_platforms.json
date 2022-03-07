@@ -602,25 +602,15 @@
     ]
   },
   "DeTT&CT-ICS": {
-    "Control Server": [
-    ],
-    "Data Historian": [
-    ],
-    "Device Configuration/Parameters": [
-    ],
-    "Engineering Workstation": [
-    ],
-    "Field Controller/RTU/PLC/IED": [
-    ],
-    "Human-Machine Interface": [
-    ],
-    "Input/Output Server": [
-    ],
-    "Safety Instrumented System/Protection Relay": [
-    ],
-    "Windows": [
-    ],
-    "None": [
-    ]
+    "Control Server": [],
+    "Data Historian": [],
+    "Device Configuration/Parameters": [],
+    "Engineering Workstation": [],
+    "Field Controller/RTU/PLC/IED": [],
+    "Human-Machine Interface": [],
+    "Input/Output Server": [],
+    "Safety Instrumented System/Protection Relay": [],
+    "Windows": [],
+    "None": []
   }
 }

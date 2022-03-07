@@ -2,6 +2,7 @@ from stix2 import datastore, Filter
 from requests import exceptions
 from attackcti import attack_client
 from shutil import copyfile
+from itertools import chain
 import json
 import re
 from logging import getLogger, ERROR as LOGERROR
@@ -22,10 +23,15 @@ FILE_WIKI_DATA_SOURCE_PLATFORMS = 'Data-sources-per-platform.md'
 MATRIX_ENTERPRISE = 'mitre-attack'
 MATRIX_ICS = 'mitre-ics-attack'
 
-WIKI_TEXT = [
+WIKI_TEXT_START = ['**Content:**','- [Enterprise](#enterprise)', '- [ICS](#ics)', '', '']
+WIKI_TEXT_ENTERPRISE = ['## Enterprise', ''
     'The below mapping from data sources/data components to platforms is created on the information provided by MITRE within the [data source objects](https://attack.mitre.org/datasources/). Also, note that the below is only listing data components that are actually referenced by a technique. Therefore it does not include all data components as referenced in the [data source YAML files](https://github.com/mitre-attack/attack-datasources).',
     '']
-
+WIKI_TEXT_ICS = ['', '## ICS', '', '**Official platform mapping is missing**', '', 'An official mapping for ICS sources/data components to platforms is currently missing. Hence it\'s expected the below platform mapping will improve once available. The current mapping of data sources to platforms is determined in the following automated manner:',
+'- We check for every technique the listed data sources and note that down.', 
+'- Besides noting down the data sources, we also take note of the platforms mentioned per technique.',
+'- The above two are combined to produce the final mapping.', '', '**DeTT&CT data sources**', '', 
+'As we do not consider ourselves experts in the field of ICS, we have not included the DeTT&CT data sources. Any help and thus contributions on that matter are very much appreciated. *Possibly, with future developments of ATT&CK ICS, we could automate this part when Detection objects are introduced. However, it is not certain whether this will provide good results.*']
 
 class ATTACKData():
     """
@@ -82,7 +88,7 @@ class ATTACKData():
         """
         Execute all methods to refresh this Wiki page 'Data-sources-per-platform.md'
         """
-        markdown_lines = self._generate_markdown(self.data_source_dict_enterprise)
+        markdown_lines = self._generate_markdown(self.data_source_dict_enterprise, self.attack_cti_techniques_ics)
         self._write_to_wiki(markdown_lines, FILE_WIKI_DATA_SOURCE_PLATFORMS)
 
     def _get_platforms_constants(self, platforms_key):
@@ -105,19 +111,14 @@ class ATTACKData():
 
         return platforms
 
-    def _generate_markdown(self, data_source_dict):
-        # TODO add support for ICS data source platform mapping
+    def _generate_md_table(self, platforms):
         """
-        Generate the markdown for the Wiki page Data-sources-per-platform.md
-        :param data_source_dict: a dict with the data sources as created by the function _create_data_source_dict
-        :return: markdown text in a list
+        Generate a markdown table
+        :param platforms: ATT&CK platform list
+        :return: markdown table
         """
-        platforms = self._get_platforms_constants('PLATFORMS')
-        data_sources_sorted = sorted(data_source_dict.keys())
+        lines = []
 
-        lines = WIKI_TEXT
-
-        # create the table heading
         l1 = '| Data source | '
         for p in platforms:
             l1 += p + ' | '
@@ -127,6 +128,24 @@ class ATTACKData():
         for i in range(len(platforms) + 1):
             l2 += ' ---- |'
         lines.append(l2)
+
+        return lines
+
+    def _generate_markdown(self, data_source_dict_enterprise, attack_cti_techniques_ics):
+        """
+        Generate the markdown for the Wiki page Data-sources-per-platform.md
+        :param data_source_dict_enterprise: a dict with the data sources as created by the function _create_data_source_dict_enterprise
+        :param attack_cti_techniques_ics: ICS ATT&CK techniques as retreived from mitre.get_ics_techniques()
+        :return: markdown text in a list
+        """
+        md_lines = WIKI_TEXT_START
+
+        # first we generete the Enerprise wiki
+        platforms = self._get_platforms_constants('PLATFORMS')
+        data_sources_sorted = sorted(data_source_dict_enterprise.keys())
+
+        md_lines += WIKI_TEXT_ENTERPRISE
+        md_lines = md_lines + self._generate_md_table(platforms)
 
         # the first entries of the Markdown table will consist of the DeTT&CT data sources
         dds_json = None
@@ -151,23 +170,41 @@ class ATTACKData():
                 else:
                     row += '   |'
 
-            lines.append(row)
+            md_lines.append(row)
 
         # add the ATT&CK data sources to the Markdown table
         for ds in data_sources_sorted:
-            for dc in sorted(data_source_dict[ds]['data_components']):
-                url = data_source_dict[ds]['wiki_url'] + '/#' + dc.replace(' ', '%20')
+            for dc in sorted(data_source_dict_enterprise[ds]['data_components']):
+                url = data_source_dict_enterprise[ds]['wiki_url'] + '/#' + dc.replace(' ', '%20')
                 row = '| ' + ds + ': [' + dc + '](' + url + ') | '
 
                 for p in platforms:
-                    if p in data_source_dict[ds]['platforms']:
+                    if p in data_source_dict_enterprise[ds]['platforms']:
                         row += ' X |'
                     else:
                         row += '   |'
 
-                lines.append(row)
+                md_lines.append(row)
 
-        return lines
+        # time to generete the ICS wiki
+        platforms = self._get_platforms_constants('PLATFORMS_ICS')
+        data_components_ics_platform_mapping = self._get_data_components_platform_mapping_from_techniques(attack_cti_techniques_ics)
+        data_sources_sorted = sorted(set(chain.from_iterable(data_components_ics_platform_mapping.values())))
+
+        md_lines += WIKI_TEXT_ICS
+        md_lines = md_lines + self._generate_md_table(platforms)
+
+        # add the ATT&CK data sources to the Markdown table
+        for ds in data_sources_sorted:
+            row = '| ' + ds + ' | '
+            for p in platforms:
+                if ds in data_components_ics_platform_mapping[p]:
+                    row += ' X |'
+                else:
+                    row += '   |'
+            md_lines.append(row)
+
+        return md_lines
 
     def _update_data(self, data, key, filename, skip_cli=True):
         """
