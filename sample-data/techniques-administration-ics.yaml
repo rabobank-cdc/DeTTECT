@@ -3,26 +3,108 @@ file_type: technique-administration
 name: example techniques ICS
 domain: ics-attack
 platform:
-- all
+  - Engineering Workstation
 techniques:
-- technique_id: T0817
-  technique_name: Drive-by Compromise
-  detection:
-  - applicable_to:
-    - all
-    location: []
-    comment: ''
-    score_logbook:
-    - date: 2022-01-07
-      score: 2
-      comment: ''
-  visibility:
-  - applicable_to:
-    - all
-    comment: ''
-    score_logbook:
-    - date: 2022-01-07
-      score: 1
-      comment:
-notes: This file serves purely as an example to showcase the functionality of DeTT&CT
-  and does not mean to be representative of a real environment.
+  - technique_id: T0853
+    technique_name: Scripting
+    detection:
+      - applicable_to:
+          - all
+        location: []
+        comment: ''
+        score_logbook:
+          - date: null
+            score: -1
+            comment: ''
+    visibility:
+      - applicable_to:
+          - Workstations
+        comment: ''
+        score_logbook:
+          - date: 2022-03-07T00:00:00.000Z
+            score: 1
+            comment: ''
+            auto_generated: true
+  - technique_id: T0859
+    technique_name: Valid Accounts
+    detection:
+      - applicable_to:
+          - Workstations
+        location:
+          - SIEM Use Case x1
+        comment: ''
+        score_logbook:
+          - date: 2022-01-27T00:00:00.000Z
+            score: 1
+            comment: ''
+    visibility:
+      - applicable_to:
+          - Workstations
+        comment: ''
+        score_logbook:
+          - date: 2022-03-07T00:00:00.000Z
+            score: 2
+            comment: ''
+            auto_generated: true
+  - technique_id: T0863
+    technique_name: User Execution
+    detection:
+      - applicable_to:
+          - all
+        location: []
+        comment: ''
+        score_logbook:
+          - date: null
+            score: -1
+            comment: ''
+    visibility:
+      - applicable_to:
+          - Workstations
+        comment: ''
+        score_logbook:
+          - date: 2022-03-07T00:00:00.000Z
+            score: 1
+            comment: ''
+            auto_generated: true
+  - technique_id: T0881
+    technique_name: Service Stop
+    detection:
+      - applicable_to:
+          - all
+        location: []
+        comment: ''
+        score_logbook:
+          - date: null
+            score: -1
+            comment: ''
+    visibility:
+      - applicable_to:
+          - Workstations
+        comment: ''
+        score_logbook:
+          - date: 2022-03-07T00:00:00.000Z
+            score: 1
+            comment: ''
+            auto_generated: true
+  - technique_id: T0886
+    technique_name: Remote Services
+    detection:
+      - applicable_to:
+          - Workstations
+        location:
+          - EDR
+        comment: ''
+        score_logbook:
+          - date: 2022-01-13T00:00:00.000Z
+            score: 3
+            comment: ''
+    visibility:
+      - applicable_to:
+          - Workstations
+        comment: ''
+        score_logbook:
+          - date: 2022-03-07T00:00:00.000Z
+            score: 1
+            comment: ''
+            auto_generated: true
+notes: This file serves purely as an example to showcase the functionality of DeTT&CT and does not mean to be representative of a real environment.

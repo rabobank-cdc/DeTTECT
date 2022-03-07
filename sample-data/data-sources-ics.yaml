@@ -1,23 +1,19 @@
 version: 1.1
 file_type: data-source-administration
-name: Data sources ICS sample
+name: Data sources sample
 domain: ics-attack
 systems:
-  - applicable_to: Windows workstations
+  - applicable_to: Workstations
     platform:
-      - all
-  - applicable_to: Control Servers
-    platform:
-      - Control Server
+      - Engineering Workstation
 data_sources:
   - data_source_name: Process Creation
     data_source:
       - applicable_to:
-          - Windows workstations
-        date_registered: 2022-01-07T00:00:00.000Z
-        date_connected: 2022-01-07T00:00:00.000Z
-        products:
-          - Sysmon
+          - Workstations
+        date_registered: 2022-01-12T00:00:00.000Z
+        date_connected: 2021-11-09T00:00:00.000Z
+        products: []
         available_for_data_analytics: true
         comment: ''
         data_quality:
@@ -26,3 +22,34 @@ data_sources:
           timeliness: 1
           consistency: 1
           retention: 1
+  - data_source_name: User Account Authentication
+    data_source:
+      - applicable_to:
+          - Workstations
+        date_registered: 2022-01-12T00:00:00.000Z
+        date_connected: 2021-11-09T00:00:00.000Z
+        products: []
+        available_for_data_analytics: true
+        comment: ''
+        data_quality:
+          device_completeness: 1
+          data_field_completeness: 1
+          timeliness: 1
+          consistency: 1
+          retention: 1
+  - data_source_name: Service Metadata
+    data_source:
+      - applicable_to:
+          - Workstations
+        date_registered: 2022-01-12T00:00:00.000Z
+        date_connected: 2021-11-09T00:00:00.000Z
+        products: []
+        available_for_data_analytics: true
+        comment: ''
+        data_quality:
+          device_completeness: 1
+          data_field_completeness: 1
+          timeliness: 1
+          consistency: 1
+          retention: 1
+notes: This file serves purely as an example to showcase the functionality of DeTT&CT and does not mean to be representative of a real environment.
