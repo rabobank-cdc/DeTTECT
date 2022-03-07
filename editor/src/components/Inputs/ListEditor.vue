@@ -46,6 +46,7 @@
                         :max-suggestions="0"
                         :filter-by-query="true"
                         :styles="autoCompleteStyle"
+                        @select="selectedItemFromListChangeValue(item, $event, index)"
                         ref="suggestListVue"
                     >
                         <base-input
@@ -69,7 +70,7 @@
                         :max-suggestions="0"
                         :filter-by-query="true"
                         :styles="autoCompleteStyle"
-                        @select="selectedItemFromList"
+                        @select="selectedItemFromListNewValue"
                         @blur="addItem"
                         ref="suggestListVue"
                     >
@@ -168,9 +169,19 @@ export default {
         }
     },
     methods: {
-        selectedItemFromList(value) {
+        selectedItemFromListNewValue(value) {
             this.newItem = value;
             this.$refs.suggestListInput.focus();
+        },
+        selectedItemFromListChangeValue(item, value, index) {
+            if (
+                item.toLowerCase() != value.toLowerCase() &&
+                (this.caseInsensitive(this.list).includes(value) || this.caseInsensitive(this.externalListToValidate).includes(value))
+            ) {
+                this.notifyDuplicate(value);
+            } else if (value != '') {
+                this.$set(this.list, index, value);
+            }
         },
         addItemKeyboard(event) {
             this.addItem(event.target.value);
