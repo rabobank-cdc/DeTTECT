@@ -49,6 +49,7 @@ input[type='file'] {
 .table-file-details {
     color: rgb(255, 255, 255, 0.8);
     line-height: 25px;
+    max-width: 1300px;
 }
 
 .table-file-details td {
@@ -592,4 +593,12 @@ option.error,
 .search-summary {
     margin-left: 10px;
     font-size: 9pt;
+}
+
+div.systemsPlatformList {
+    width: 400px;
+}
+
+.list-editor-extended div.row {
+    margin-bottom: 2px;
 }
