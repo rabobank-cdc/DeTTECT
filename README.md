@@ -37,7 +37,7 @@ The following parties have supported the development of DeTT&CT in time or finan
   Significant parts of DeTT&CT have been developed in the time that we worked as contractors at Rabobank.
 - **[Cyber Security Sharing & Analytics (CSSA)](https://cssa.de/en/index.html#top)** - *Founded in November 2014 by seven major German companies as an alliance for jointly facing cyber security challenges in a proactive, fast and effective manner. Currently, CSSA has 13 member companies.*
 
-  With the financial help of the CSSA, we added support for [ATT&CK ICS](https://collaborate.mitre.org/attackics/index.php/Main_Page) to DeTT&CT.
+  With the financial sponsorship of the CSSA, we added support for [ATT&CK ICS](https://collaborate.mitre.org/attackics/index.php/Main_Page) to DeTT&CT.
 
 ### Work of others
 The work of others inspired some functionality within DeTT&CT:
