@@ -3,12 +3,14 @@
 
 #### Detect Tactics, Techniques & Combat Threats
 Latest version: [1.6.0](https://github.com/rabobank-cdc/DeTTECT/wiki/Changelog#version-160)
-
 To get started with DeTT&CT, check out one of these resources:
 - This [page](https://github.com/rabobank-cdc/DeTTECT/wiki/Getting-started) on the Wiki.
-- Our [talk](https://www.youtube.com/watch?v=_kWpekkhomU) at hack.lu 2019.
+- This [blog](https://blog.nviso.eu/2022/03/09/dettct-mapping-detection-to-mitre-attck/) written by [Renaud Frère](https://twitter.com/Azotium) from NVISO has a comprehensive and recent description on the capabilities of DeTT&CT.
 - Blog: [mbsecure.nl/blog/2019/5/dettact-mapping-your-blue-team-to-mitre-attack](https://www.mbsecure.nl/blog/2019/5/dettact-mapping-your-blue-team-to-mitre-attack) or
 - Blog: [siriussecurity.nl/blog/2019/5/8/mapping-your-blue-team-to-mitre-attack](https://www.siriussecurity.nl/blog/2019/5/8/mapping-your-blue-team-to-mitre-attack).
+
+**Videos**
+- Our [talk](https://www.youtube.com/watch?v=_kWpekkhomU) at hack.lu 2019.
 - The [video](https://www.youtube.com/watch?v=EXnutTLKS5o) from [Justin Henderson](https://twitter.com/SecurityMapper) on data source visibility and mapping.
 
 DeTT&CT aims to assist blue teams in using ATT&CK to score and compare data log source quality, visibility coverage, detection coverage and threat actor behaviours. All of which can help, in different ways, to get more resilient against attacks targeting your organisation. The DeTT&CT framework consists of a Python tool (DeTT&CT CLI), YAML administration files, the [DeTT&CT Editor](https://rabobank-cdc.github.io/dettect-editor) (to create and edit the YAML administration files) and [scoring tables](https://github.com/rabobank-cdc/DeTTECT/raw/master/scoring_table.xlsx) for [detections](https://github.com/rabobank-cdc/DeTTECT/wiki/How-to-use-the-framework#detection), [data sources](https://github.com/rabobank-cdc/DeTTECT/wiki/How-to-use-the-framework#data-source) and [visibility](https://github.com/rabobank-cdc/DeTTECT/wiki/How-to-use-the-framework#visibility).
