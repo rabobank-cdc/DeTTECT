@@ -3,6 +3,7 @@
 
 #### Detect Tactics, Techniques & Combat Threats
 Latest version: [1.6.0](https://github.com/rabobank-cdc/DeTTECT/wiki/Changelog#version-160)
+
 To get started with DeTT&CT, check out one of these resources:
 - This [page](https://github.com/rabobank-cdc/DeTTECT/wiki/Getting-started) on the Wiki.
 - This [blog](https://blog.nviso.eu/2022/03/09/dettct-mapping-detection-to-mitre-attck/) written by [Renaud Frère](https://twitter.com/Azotium) from NVISO has a comprehensive and recent description on the capabilities of DeTT&CT.
