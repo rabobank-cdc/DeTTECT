@@ -812,7 +812,7 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
     idx_tech = 0
     for tech in yaml_file_tech_admin_updated['techniques']:
         tech_id = tech['technique_id']
-        if tech_id not in tech_ids_new:
+        if tech_id not in tech_ids_new and tech_id in new_vis_objects:
             yaml_file_tech_admin_updated['techniques'][idx_tech]['visibility'] = new_vis_objects[tech_id]
         idx_tech += 1
 
