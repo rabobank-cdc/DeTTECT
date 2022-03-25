@@ -927,6 +927,9 @@ def generate_technique_administration_file(filename, output_filename, write_file
                         tech = deepcopy(YAML_OBJ_TECHNIQUE)
                         tech['technique_id'] = tech_id
                         tech['technique_name'] = t['name']
+                    
+                    # score can be -1 due to all_techniques
+                    ds_score = 0 if ds_score == -1 else ds_score
 
                     # check if we have already have a visibility object with this exact same score
                     same_score = False
@@ -951,6 +954,7 @@ def generate_technique_administration_file(filename, output_filename, write_file
 
     yaml_file['techniques'] = sorted(yaml_file['techniques'], key=lambda k: k['technique_id'])
 
+    quit()
     if write_file:
         # remove the single quotes around the date key-value pair
         _yaml = init_yaml()
