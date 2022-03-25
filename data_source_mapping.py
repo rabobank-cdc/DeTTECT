@@ -482,7 +482,7 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
     file_updated = False
 
     # first we generate the new visibility scores contained within a temporary tech. admin YAML 'file'
-    new_visibility_scores = generate_technique_administration_file(file_data_sources, None, write_file=False)
+    new_visibility_scores = generate_technique_administration_file(file_data_sources, None, write_file=False, all_techniques=True)
 
     # we get the date to remove the single quotes from the date at the end of of this function's code
     today = new_visibility_scores['techniques'][0]['visibility'][0]['score_logbook'][0]['date']
@@ -580,8 +580,30 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
 
     # check if we have tech IDs for which we now have visibility, but which were not yet part of the tech. admin file
     cur_tech_ids = set(cur_visibility_scores.keys())
-    new_tech_ids = set(map(lambda k: k['technique_id'], new_visibility_scores['techniques']))
+    new_tech_ids = set()
+
+    del_unnecesary_all_tech_ids = set() # resulted from 'all_techniques=True)', which we do need to call in this way
+    # because we also want to update visibilty scores for which the score has become 0 (e.g. due to a removal of a data source)
+    tech_idx = 0
+    for tech in new_visibility_scores['techniques']:
+        tech_id = tech['technique_id']
+        score = False
+
+        for vis_obj in tech['visibility']:
+            if vis_obj['score_logbook'][0]['score'] > 0:
+                score = True
+                break
+            elif tech_id not in cur_tech_ids:
+                del_unnecesary_all_tech_ids.add(tech_idx)
+        if score:
+            new_tech_ids.add(tech_id)
+            
+        tech_idx += 1
     tech_ids_new = new_tech_ids.difference(cur_tech_ids)
+
+    # remove techniques which came from 'all_techniques=True)', but that are not present as a technqiue in the current/outdated tech file
+    for idx in sorted(del_unnecesary_all_tech_ids, reverse=True):
+        del new_visibility_scores['techniques'][idx]
 
     # Add the new tech. to the ruamel instance: 'yaml_file_tech_admin'
     if len(tech_ids_new) > 0:
@@ -859,7 +881,7 @@ def generate_technique_administration_file(filename, output_filename, write_file
 
     # Score visibility based on the number of available data sources and the exceptions
     for t in techniques:
-        mitre_platforms = t.get('x_mitre_platforms', [])  # not every technique has data source listed
+        mitre_platforms = t.get('x_mitre_platforms', [])
         tech_id = t['technique_id']
         tech = None
         visibility_obj_count = 0
@@ -868,8 +890,10 @@ def generate_technique_administration_file(filename, output_filename, write_file
             # calculate visibility score per system
             for system in systems:
                 ds_score = -1
+                platform_match = False
                 # the system is relevant for this technique due to a match in ATT&CK platform
                 if len(set(system['platform']).intersection(set(mitre_platforms))) > 0:
+                    platform_match = True
                     applicable_data_sources = get_applicable_data_sources_platform(system['platform'], domain)
                     applicable_dettect_data_sources = get_applicable_dettect_data_sources_platform(system['platform'], domain)
                     total_ds_count = _count_applicable_data_sources(t, applicable_data_sources, applicable_dettect_data_sources)
@@ -893,11 +917,11 @@ def generate_technique_administration_file(filename, output_filename, write_file
                             ds_score = 0  # none of the applicable data sources are available for this system
                     else:
                         # the technique is applicable to this system (and thus its platform(s)),
-                        # but none of the technique's listed data source are applicable for its platform(s)
+                        # but none of the technique's listed data source are applicable for its platform(s), or the technique has not data sources
                         ds_score = -1
 
                 # Do not add technique if score == 0 or the user want every technique to be added
-                if ds_score > 0 or all_techniques:
+                if ds_score > 0 or (all_techniques and platform_match):
                     # the ATT&CK technique is not yet part of the YAML file
                     if visibility_obj_count == 0:
                         tech = deepcopy(YAML_OBJ_TECHNIQUE)
