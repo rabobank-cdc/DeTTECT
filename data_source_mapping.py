@@ -954,7 +954,6 @@ def generate_technique_administration_file(filename, output_filename, write_file
 
     yaml_file['techniques'] = sorted(yaml_file['techniques'], key=lambda k: k['technique_id'])
 
-    quit()
     if write_file:
         # remove the single quotes around the date key-value pair
         _yaml = init_yaml()
