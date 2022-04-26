@@ -4510,6 +4510,345 @@
         "macOS"
       ],
       "autosuggest": "S0658 - XCSSET"
+    },
+    {
+      "software_id": "S0659",
+      "software_name": "Diavol",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0659 - Diavol"
+    },
+    {
+      "software_id": "S0660",
+      "software_name": "Clambling",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0660 - Clambling"
+    },
+    {
+      "software_id": "S0661",
+      "software_name": "FoggyWeb",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0661 - FoggyWeb"
+    },
+    {
+      "software_id": "S0662",
+      "software_name": "RCSession",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0662 - RCSession"
+    },
+    {
+      "software_id": "S0663",
+      "software_name": "SysUpdate",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0663 - SysUpdate"
+    },
+    {
+      "software_id": "S0664",
+      "software_name": "Pandora",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0664 - Pandora"
+    },
+    {
+      "software_id": "S0665",
+      "software_name": "ThreatNeedle",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0665 - ThreatNeedle"
+    },
+    {
+      "software_id": "S0666",
+      "software_name": "Gelsemium",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0666 - Gelsemium"
+    },
+    {
+      "software_id": "S0667",
+      "software_name": "Chrommme",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0667 - Chrommme"
+    },
+    {
+      "software_id": "S0668",
+      "software_name": "TinyTurla",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0668 - TinyTurla"
+    },
+    {
+      "software_id": "S0669",
+      "software_name": "KOCTOPUS",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0669 - KOCTOPUS"
+    },
+    {
+      "software_id": "S0670",
+      "software_name": "WarzoneRAT",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0670 - WarzoneRAT"
+    },
+    {
+      "software_id": "S0671",
+      "software_name": "Tomiris",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0671 - Tomiris"
+    },
+    {
+      "software_id": "S0672",
+      "software_name": "Zox",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0672 - Zox"
+    },
+    {
+      "software_id": "S0673",
+      "software_name": "DarkWatchman",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0673 - DarkWatchman"
+    },
+    {
+      "software_id": "S0674",
+      "software_name": "CharmPower",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0674 - CharmPower"
+    },
+    {
+      "software_id": "S0677",
+      "software_name": "AADInternals",
+      "platforms": [
+        "Azure AD",
+        "Office 365",
+        "Windows"
+      ],
+      "autosuggest": "S0677 - AADInternals"
+    },
+    {
+      "software_id": "S0678",
+      "software_name": "Torisma",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0678 - Torisma"
+    },
+    {
+      "software_id": "S0679",
+      "software_name": "Ferocious",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0679 - Ferocious"
+    },
+    {
+      "software_id": "S0680",
+      "software_name": "LitePower",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0680 - LitePower"
+    },
+    {
+      "software_id": "S0681",
+      "software_name": "Lizar",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0681 - Lizar"
+    },
+    {
+      "software_id": "S0682",
+      "software_name": "TrailBlazer",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0682 - TrailBlazer"
+    },
+    {
+      "software_id": "S0683",
+      "software_name": "Peirates",
+      "platforms": [
+        "Containers"
+      ],
+      "autosuggest": "S0683 - Peirates"
+    },
+    {
+      "software_id": "S0684",
+      "software_name": "ROADTools",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0684 - ROADTools"
+    },
+    {
+      "software_id": "S0685",
+      "software_name": "PowerPunch",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0685 - PowerPunch"
+    },
+    {
+      "software_id": "S0686",
+      "software_name": "QuietSieve",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0686 - QuietSieve"
+    },
+    {
+      "software_id": "S0687",
+      "software_name": "Cyclops Blink",
+      "platforms": [
+        "Network"
+      ],
+      "autosuggest": "S0687 - Cyclops Blink"
+    },
+    {
+      "software_id": "S0688",
+      "software_name": "Meteor",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0688 - Meteor"
+    },
+    {
+      "software_id": "S0689",
+      "software_name": "WhisperGate",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0689 - WhisperGate"
+    },
+    {
+      "software_id": "S0690",
+      "software_name": "Green Lambert",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "iOS",
+        "macOS"
+      ],
+      "autosuggest": "S0690 - Green Lambert"
+    },
+    {
+      "software_id": "S0691",
+      "software_name": "Neoichor",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0691 - Neoichor"
+    },
+    {
+      "software_id": "S0692",
+      "software_name": "SILENTTRINITY",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0692 - SILENTTRINITY"
+    },
+    {
+      "software_id": "S0693",
+      "software_name": "CaddyWiper",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0693 - CaddyWiper"
+    },
+    {
+      "software_id": "S0694",
+      "software_name": "DRATzarus",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0694 - DRATzarus"
+    },
+    {
+      "software_id": "S0695",
+      "software_name": "Donut",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0695 - Donut"
+    },
+    {
+      "software_id": "S0696",
+      "software_name": "Flagpro",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0696 - Flagpro"
+    },
+    {
+      "software_id": "S0697",
+      "software_name": "HermeticWiper",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0697 - HermeticWiper"
+    },
+    {
+      "software_id": "S0698",
+      "software_name": "HermeticWizard",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0698 - HermeticWizard"
+    },
+    {
+      "software_id": "S0699",
+      "software_name": "Mythic",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0699 - Mythic"
     }
   ],
   "ATT&CK-ICS": [

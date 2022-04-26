@@ -827,6 +827,14 @@
       "autosuggest": "T1055.014 - VDSO Hijacking"
     },
     {
+      "technique_id": "T1055.015",
+      "technique_name": "ListPlanting",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "T1055.015 - ListPlanting"
+    },
+    {
       "technique_id": "T1056",
       "technique_name": "Input Capture",
       "platforms": [
@@ -1469,6 +1477,16 @@
         "macOS"
       ],
       "autosuggest": "T1098.004 - SSH Authorized Keys"
+    },
+    {
+      "technique_id": "T1098.005",
+      "technique_name": "Device Registration",
+      "platforms": [
+        "Azure AD",
+        "SaaS",
+        "Windows"
+      ],
+      "autosuggest": "T1098.005 - Device Registration"
     },
     {
       "technique_id": "T1102",
@@ -2817,6 +2835,14 @@
       "autosuggest": "T1505.004 - IIS Components"
     },
     {
+      "technique_id": "T1505.005",
+      "technique_name": "Terminal Services DLL",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "T1505.005 - Terminal Services DLL"
+    },
+    {
       "technique_id": "T1518",
       "technique_name": "Software Discovery",
       "platforms": [
@@ -3659,6 +3685,14 @@
       "autosuggest": "T1556.004 - Network Device Authentication"
     },
     {
+      "technique_id": "T1556.005",
+      "technique_name": "Reversible Encryption",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "T1556.005 - Reversible Encryption"
+    },
+    {
       "technique_id": "T1557",
       "technique_name": "Adversary-in-the-Middle",
       "platforms": [
@@ -3685,6 +3719,16 @@
         "macOS"
       ],
       "autosuggest": "T1557.002 - ARP Cache Poisoning"
+    },
+    {
+      "technique_id": "T1557.003",
+      "technique_name": "DHCP Spoofing",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1557.003 - DHCP Spoofing"
     },
     {
       "technique_id": "T1558",
@@ -3752,6 +3796,14 @@
         "Windows"
       ],
       "autosuggest": "T1559.002 - Dynamic Data Exchange"
+    },
+    {
+      "technique_id": "T1559.003",
+      "technique_name": "XPC Services",
+      "platforms": [
+        "macOS"
+      ],
+      "autosuggest": "T1559.003 - XPC Services"
     },
     {
       "technique_id": "T1560",
@@ -4043,6 +4095,14 @@
         "macOS"
       ],
       "autosuggest": "T1564.009 - Resource Forking"
+    },
+    {
+      "technique_id": "T1564.010",
+      "technique_name": "Process Argument Spoofing",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "T1564.010 - Process Argument Spoofing"
     },
     {
       "technique_id": "T1565",
@@ -4383,6 +4443,14 @@
         "Windows"
       ],
       "autosuggest": "T1574.012 - COR_PROFILER"
+    },
+    {
+      "technique_id": "T1574.013",
+      "technique_name": "KernelCallbackTable",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "T1574.013 - KernelCallbackTable"
     },
     {
       "technique_id": "T1578",
@@ -4913,6 +4981,14 @@
       "autosuggest": "T1595.002 - Vulnerability Scanning"
     },
     {
+      "technique_id": "T1595.003",
+      "technique_name": "Wordlist Scanning",
+      "platforms": [
+        "PRE"
+      ],
+      "autosuggest": "T1595.003 - Wordlist Scanning"
+    },
+    {
       "technique_id": "T1596",
       "technique_name": "Search Open Technical Databases",
       "platforms": [
@@ -5280,6 +5356,39 @@
         "macOS"
       ],
       "autosuggest": "T1620 - Reflective Code Loading"
+    },
+    {
+      "technique_id": "T1621",
+      "technique_name": "Multi-Factor Authentication Request Generation",
+      "platforms": [
+        "Azure AD",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Office 365",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1621 - Multi-Factor Authentication Request Generation"
+    },
+    {
+      "technique_id": "T1622",
+      "technique_name": "Debugger Evasion",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1622 - Debugger Evasion"
+    },
+    {
+      "technique_id": "T1647",
+      "technique_name": "Plist File Modification",
+      "platforms": [
+        "macOS"
+      ],
+      "autosuggest": "T1647 - Plist File Modification"
     }
   ],
   "ATT&CK-ICS": [
