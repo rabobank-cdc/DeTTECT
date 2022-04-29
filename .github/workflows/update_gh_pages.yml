@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Update DeTT&CT Editor
       uses: peaceiris/actions-gh-pages@v3
