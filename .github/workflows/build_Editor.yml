@@ -41,5 +41,3 @@ jobs:
           git commit -m "New build of the Editor"
       - name: Push changes
         uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.PERSONAL_TOKEN }}
