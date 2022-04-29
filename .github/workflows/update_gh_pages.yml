@@ -9,6 +9,8 @@ jobs:
     steps:
     # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
     - uses: actions/checkout@v3
+      with:
+          token: ${{ secrets.PERSONAL_TOKEN }}
 
     - name: Update DeTT&CT Editor
       uses: peaceiris/actions-gh-pages@v3

@@ -34,6 +34,9 @@ jobs:
         # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PERSONAL_TOKEN }}
+          fetch-depth: 0
 
         # scheduled run + on push
       - name: Schedule + push - get the latest version tag
