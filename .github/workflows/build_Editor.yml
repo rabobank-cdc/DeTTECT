@@ -15,6 +15,8 @@ jobs:
     steps:
       # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
       - uses: actions/checkout@v3
+        with:
+            token: ${{ secrets.PERSONAL_TOKEN }}
 
       # set up NodeJS
       - uses: actions/setup-node@main
@@ -41,3 +43,5 @@ jobs:
           git commit -m "New build of the Editor"
       - name: Push changes
         uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.PERSONAL_TOKEN }}
