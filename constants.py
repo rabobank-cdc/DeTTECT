@@ -158,12 +158,13 @@ YAML_OBJ_DETECTION = {'applicable_to': ['all'],
                           [
                               {'date': None,
                                'score': -1,
-                               'comment': ''}
+                               'comment': '',
+                                'auto_generated': True}
                       ]}
 
 YAML_OBJ_TECHNIQUE = {'technique_id': '',
                       'technique_name': '',
-                      'detection': YAML_OBJ_DETECTION,
+                      'detection': [],
                       'visibility': []}
 
 # EQL

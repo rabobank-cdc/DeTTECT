@@ -890,6 +890,7 @@ def generate_technique_administration_file(filename, output_filename, write_file
             # calculate visibility score per system
             for system in systems:
                 ds_score = -1
+                ds_detection_score = -1
                 platform_match = False
                 # the system is relevant for this technique due to a match in ATT&CK platform
                 if len(set(system['platform']).intersection(set(mitre_platforms))) > 0:
@@ -913,6 +914,14 @@ def generate_technique_administration_file(filename, output_filename, write_file
                         if ds_count > 0:
                             result = (float(ds_count) / float(total_ds_count)) * 100
                             ds_score = 1 if result <= 49 else 2 if result <= 74 else 3 if result <= 99 else 4
+                            if ds in my_ds:
+                                # Get the value of the custom key 'detection_score' of the data source
+                                # Then, the final detection score is the maximum in case of multiple scores
+                                ds_detection_score = max(max(
+                                    [-1],
+                                    [int(x['detection_score']) for x in my_ds[ds]['data_source'] if 'detection_score' in x]))
+                                # make sure the number is an int between -1 and 5
+                                ds_detection_score = min(5, max(-1, ds_detection_score))
                         else:
                             ds_score = 0  # none of the applicable data sources are available for this system
                     else:
@@ -927,7 +936,7 @@ def generate_technique_administration_file(filename, output_filename, write_file
                         tech = deepcopy(YAML_OBJ_TECHNIQUE)
                         tech['technique_id'] = tech_id
                         tech['technique_name'] = t['name']
-                    
+
                     # score can be -1 due to all_techniques
                     ds_score = 0 if ds_score == -1 else ds_score
 
@@ -939,7 +948,16 @@ def generate_technique_administration_file(filename, output_filename, write_file
                                 vis_obj['applicable_to'].append(system['applicable_to'])
                                 same_score = True
                                 break
+                        for det_obj in tech['detection']:
+                            if det_obj['score_logbook'][0]['score'] == ds_detection_score:
+                                det_obj['applicable_to'].append(system['applicable_to'])
+                                same_score = True
+                                break
                     if not same_score:
+                        tech['detection'].append(deepcopy(YAML_OBJ_DETECTION))
+                        tech['detection'][visibility_obj_count]['score_logbook'][0]['score'] = ds_detection_score
+                        tech['detection'][visibility_obj_count]['score_logbook'][0]['date'] = today
+                        tech['detection'][visibility_obj_count]['applicable_to'] = [system['applicable_to']]
                         tech['visibility'].append(deepcopy(YAML_OBJ_VISIBILITY))
                         tech['visibility'][visibility_obj_count]['score_logbook'][0]['score'] = ds_score
                         tech['visibility'][visibility_obj_count]['score_logbook'][0]['date'] = today
@@ -950,6 +968,9 @@ def generate_technique_administration_file(filename, output_filename, write_file
                 for vis_obj in tech['visibility']:
                     if all_applicable_to_values == set(vis_obj['applicable_to']) and not len(all_applicable_to_values) == 1:
                         vis_obj['applicable_to'] = ['all']
+                for det_obj in tech['detection']:
+                    if all_applicable_to_values == set(det_obj['applicable_to']) and not len(all_applicable_to_values) == 1:
+                        det_obj['applicable_to'] = ['all']
                 yaml_file['techniques'].append(tech)
 
     yaml_file['techniques'] = sorted(yaml_file['techniques'], key=lambda k: k['technique_id'])
