@@ -231,7 +231,7 @@ def _menu(menu_parser):
     if 'local_stix_path' in args and args.local_stix_path:
         generic.local_stix_path = args.local_stix_path
 
-    elif args.subparser in ['editor', 'e']:
+    if args.subparser in ['editor', 'e']:
         DeTTECTEditor(int(args.port)).start()
 
     elif args.subparser in ['datasource', 'ds']:
