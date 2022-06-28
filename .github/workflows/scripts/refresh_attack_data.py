@@ -247,7 +247,7 @@ class ATTACKData():
         for e in technique['external_references']:
             source_name = e.get('source_name', None)
             # return source_name
-            if source_name == matrix:
+            if source_name == matrix or (matrix == 'mitre-ics-attack' and source_name == 'mitre-attack'):
                 return e['external_id']
         return None
 
