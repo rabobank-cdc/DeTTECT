@@ -119,6 +119,7 @@
       "technique_name": "Data from Local System",
       "platforms": [
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
@@ -136,6 +137,7 @@
       "technique_id": "T1007",
       "technique_name": "System Service Discovery",
       "platforms": [
+        "Linux",
         "Windows",
         "macOS"
       ],
@@ -155,6 +157,7 @@
       "technique_id": "T1010",
       "technique_name": "Application Window Discovery",
       "platforms": [
+        "Linux",
         "Windows",
         "macOS"
       ],
@@ -203,6 +206,7 @@
       "technique_name": "System Network Configuration Discovery",
       "platforms": [
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
@@ -223,6 +227,7 @@
       "technique_name": "Remote System Discovery",
       "platforms": [
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
@@ -342,6 +347,7 @@
       "technique_id": "T1027.002",
       "technique_name": "Software Packing",
       "platforms": [
+        "Linux",
         "Windows",
         "macOS"
       ],
@@ -515,11 +521,11 @@
     },
     {
       "technique_id": "T1037.002",
-      "technique_name": "Logon Script (Mac)",
+      "technique_name": "Login Hook",
       "platforms": [
         "macOS"
       ],
-      "autosuggest": "T1037.002 - Logon Script (Mac)"
+      "autosuggest": "T1037.002 - Login Hook"
     },
     {
       "technique_id": "T1037.003",
@@ -560,6 +566,7 @@
       "technique_id": "T1040",
       "technique_name": "Network Sniffing",
       "platforms": [
+        "IaaS",
         "Linux",
         "Network",
         "Windows",
@@ -579,15 +586,16 @@
     },
     {
       "technique_id": "T1046",
-      "technique_name": "Network Service Scanning",
+      "technique_name": "Network Service Discovery",
       "platforms": [
         "Containers",
         "IaaS",
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
-      "autosuggest": "T1046 - Network Service Scanning"
+      "autosuggest": "T1046 - Network Service Discovery"
     },
     {
       "technique_id": "T1047",
@@ -629,13 +637,13 @@
     },
     {
       "technique_id": "T1048.003",
-      "technique_name": "Exfiltration Over Unencrypted/Obfuscated Non-C2 Protocol",
+      "technique_name": "Exfiltration Over Unencrypted Non-C2 Protocol",
       "platforms": [
         "Linux",
         "Windows",
         "macOS"
       ],
-      "autosuggest": "T1048.003 - Exfiltration Over Unencrypted/Obfuscated Non-C2 Protocol"
+      "autosuggest": "T1048.003 - Exfiltration Over Unencrypted Non-C2 Protocol"
     },
     {
       "technique_id": "T1049",
@@ -643,6 +651,7 @@
       "platforms": [
         "IaaS",
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
@@ -680,20 +689,14 @@
       "autosuggest": "T1053 - Scheduled Task/Job"
     },
     {
-      "technique_id": "T1053.001",
-      "technique_name": "At (Linux)",
-      "platforms": [
-        "Linux"
-      ],
-      "autosuggest": "T1053.001 - At (Linux)"
-    },
-    {
       "technique_id": "T1053.002",
-      "technique_name": "At (Windows)",
+      "technique_name": "At",
       "platforms": [
-        "Windows"
+        "Linux",
+        "Windows",
+        "macOS"
       ],
-      "autosuggest": "T1053.002 - At (Windows)"
+      "autosuggest": "T1053.002 - At"
     },
     {
       "technique_id": "T1053.003",
@@ -1041,6 +1044,7 @@
       "platforms": [
         "Containers",
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
@@ -1068,6 +1072,7 @@
       "technique_name": "Clear Command History",
       "platforms": [
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
@@ -1276,6 +1281,7 @@
       "platforms": [
         "IaaS",
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
@@ -1286,6 +1292,7 @@
       "technique_name": "File and Directory Discovery",
       "platforms": [
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
@@ -1438,6 +1445,7 @@
         "IaaS",
         "Linux",
         "Office 365",
+        "SaaS",
         "Windows",
         "macOS"
       ],
@@ -1448,31 +1456,38 @@
       "technique_name": "Additional Cloud Credentials",
       "platforms": [
         "Azure AD",
-        "IaaS"
+        "IaaS",
+        "SaaS"
       ],
       "autosuggest": "T1098.001 - Additional Cloud Credentials"
     },
     {
       "technique_id": "T1098.002",
-      "technique_name": "Exchange Email Delegate Permissions",
+      "technique_name": "Additional Email Delegate Permissions",
       "platforms": [
+        "Google Workspace",
         "Office 365",
         "Windows"
       ],
-      "autosuggest": "T1098.002 - Exchange Email Delegate Permissions"
+      "autosuggest": "T1098.002 - Additional Email Delegate Permissions"
     },
     {
       "technique_id": "T1098.003",
-      "technique_name": "Add Office 365 Global Administrator Role",
+      "technique_name": "Additional Cloud Roles",
       "platforms": [
-        "Office 365"
+        "Azure AD",
+        "Google Workspace",
+        "IaaS",
+        "Office 365",
+        "SaaS"
       ],
-      "autosuggest": "T1098.003 - Add Office 365 Global Administrator Role"
+      "autosuggest": "T1098.003 - Additional Cloud Roles"
     },
     {
       "technique_id": "T1098.004",
       "technique_name": "SSH Authorized Keys",
       "platforms": [
+        "IaaS",
         "Linux",
         "macOS"
       ],
@@ -1567,6 +1582,7 @@
         "Google Workspace",
         "IaaS",
         "Linux",
+        "Network",
         "Office 365",
         "SaaS",
         "Windows",
@@ -1583,6 +1599,7 @@
         "Google Workspace",
         "IaaS",
         "Linux",
+        "Network",
         "Office 365",
         "SaaS",
         "Windows",
@@ -1596,6 +1613,7 @@
       "platforms": [
         "Azure AD",
         "Linux",
+        "Network",
         "Office 365",
         "Windows",
         "macOS"
@@ -1636,13 +1654,13 @@
     },
     {
       "technique_id": "T1111",
-      "technique_name": "Two-Factor Authentication Interception",
+      "technique_name": "Multi-Factor Authentication Interception",
       "platforms": [
         "Linux",
         "Windows",
         "macOS"
       ],
-      "autosuggest": "T1111 - Two-Factor Authentication Interception"
+      "autosuggest": "T1111 - Multi-Factor Authentication Interception"
     },
     {
       "technique_id": "T1112",
@@ -1718,7 +1736,9 @@
       "technique_id": "T1119",
       "technique_name": "Automated Collection",
       "platforms": [
+        "IaaS",
         "Linux",
+        "SaaS",
         "Windows",
         "macOS"
       ],
@@ -1728,6 +1748,7 @@
       "technique_id": "T1120",
       "technique_name": "Peripheral Device Discovery",
       "platforms": [
+        "Linux",
         "Windows",
         "macOS"
       ],
@@ -1755,6 +1776,7 @@
       "technique_id": "T1125",
       "technique_name": "Video Capture",
       "platforms": [
+        "Linux",
         "Windows",
         "macOS"
       ],
@@ -1924,7 +1946,8 @@
         "Azure AD",
         "Google Workspace",
         "IaaS",
-        "Office 365"
+        "Office 365",
+        "SaaS"
       ],
       "autosuggest": "T1136.003 - Cloud Account"
     },
@@ -2127,6 +2150,7 @@
       "platforms": [
         "IaaS",
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
@@ -2292,11 +2316,11 @@
     },
     {
       "technique_id": "T1216",
-      "technique_name": "Signed Script Proxy Execution",
+      "technique_name": "System Script Proxy Execution",
       "platforms": [
         "Windows"
       ],
-      "autosuggest": "T1216 - Signed Script Proxy Execution"
+      "autosuggest": "T1216 - System Script Proxy Execution"
     },
     {
       "technique_id": "T1216.001",
@@ -2318,11 +2342,13 @@
     },
     {
       "technique_id": "T1218",
-      "technique_name": "Signed Binary Proxy Execution",
+      "technique_name": "System Binary Proxy Execution",
       "platforms": [
-        "Windows"
+        "Linux",
+        "Windows",
+        "macOS"
       ],
-      "autosuggest": "T1218 - Signed Binary Proxy Execution"
+      "autosuggest": "T1218 - System Binary Proxy Execution"
     },
     {
       "technique_id": "T1218.001",
@@ -2614,6 +2640,7 @@
       "technique_name": "Firmware Corruption",
       "platforms": [
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
@@ -2898,6 +2925,7 @@
       "technique_name": "Steal Application Access Token",
       "platforms": [
         "Azure AD",
+        "Containers",
         "Google Workspace",
         "Office 365",
         "SaaS"
@@ -2909,6 +2937,7 @@
       "technique_name": "System Shutdown/Reboot",
       "platforms": [
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
@@ -2927,6 +2956,8 @@
       "technique_name": "Account Access Removal",
       "platforms": [
         "Linux",
+        "Office 365",
+        "SaaS",
         "Windows",
         "macOS"
       ],
@@ -2991,7 +3022,8 @@
       "platforms": [
         "Linux",
         "Network",
-        "Windows"
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "T1542 - Pre-OS Boot"
     },
@@ -3007,7 +3039,9 @@
       "technique_id": "T1542.002",
       "technique_name": "Component Firmware",
       "platforms": [
-        "Windows"
+        "Linux",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "T1542.002 - Component Firmware"
     },
@@ -3302,14 +3336,6 @@
       "autosuggest": "T1547.010 - Port Monitors"
     },
     {
-      "technique_id": "T1547.011",
-      "technique_name": "Plist Modification",
-      "platforms": [
-        "macOS"
-      ],
-      "autosuggest": "T1547.011 - Plist Modification"
-    },
-    {
       "technique_id": "T1547.012",
       "technique_name": "Print Processors",
       "platforms": [
@@ -3389,6 +3415,7 @@
       "technique_id": "T1550",
       "technique_name": "Use Alternate Authentication Material",
       "platforms": [
+        "Containers",
         "Google Workspace",
         "IaaS",
         "Office 365",
@@ -3401,6 +3428,7 @@
       "technique_id": "T1550.001",
       "technique_name": "Application Access Token",
       "platforms": [
+        "Containers",
         "Google Workspace",
         "Office 365",
         "SaaS"
@@ -3776,6 +3804,7 @@
       "technique_id": "T1559",
       "technique_name": "Inter-Process Communication",
       "platforms": [
+        "Linux",
         "Windows",
         "macOS"
       ],
@@ -3914,6 +3943,7 @@
       "technique_name": "Impair Command History Logging",
       "platforms": [
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
@@ -4025,6 +4055,7 @@
       "technique_id": "T1564.002",
       "technique_name": "Hidden Users",
       "platforms": [
+        "Linux",
         "Windows",
         "macOS"
       ],
@@ -4034,6 +4065,7 @@
       "technique_id": "T1564.003",
       "technique_name": "Hidden Window",
       "platforms": [
+        "Linux",
         "Windows",
         "macOS"
       ],
@@ -4081,6 +4113,7 @@
       "technique_id": "T1564.008",
       "technique_name": "Email Hiding Rules",
       "platforms": [
+        "Google Workspace",
         "Linux",
         "Office 365",
         "Windows",
@@ -4264,6 +4297,7 @@
       "technique_id": "T1569",
       "technique_name": "System Services",
       "platforms": [
+        "Linux",
         "Windows",
         "macOS"
       ],
@@ -5510,7 +5544,7 @@
       "technique_id": "T0813",
       "technique_name": "Denial of Control",
       "platforms": [
-        "Windows"
+        "None"
       ],
       "autosuggest": "T0813 - Denial of Control"
     },
@@ -5593,7 +5627,7 @@
       "technique_id": "T0826",
       "technique_name": "Loss of Availability",
       "platforms": [
-        "Windows"
+        "None"
       ],
       "autosuggest": "T0826 - Loss of Availability"
     },

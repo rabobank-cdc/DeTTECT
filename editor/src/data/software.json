@@ -173,7 +173,17 @@
       "software_id": "S0022",
       "software_name": "Uroburos",
       "platforms": [
-        "Windows"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0022 - Uroburos"
     },
@@ -214,7 +224,17 @@
       "software_id": "S0027",
       "software_name": "Zeroaccess",
       "platforms": [
-        "Windows"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0027 - Zeroaccess"
     },
@@ -222,7 +242,17 @@
       "software_id": "S0028",
       "software_name": "SHIPSHAPE",
       "platforms": [
-        "Windows"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0028 - SHIPSHAPE"
     },
@@ -328,7 +358,17 @@
       "software_id": "S0041",
       "software_name": "Wiper",
       "platforms": [
-        "Windows"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0041 - Wiper"
     },
@@ -466,7 +506,17 @@
       "software_id": "S0057",
       "software_name": "Tasklist",
       "platforms": [
-        "Windows"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0057 - Tasklist"
     },
@@ -778,19 +828,29 @@
     },
     {
       "software_id": "S0095",
-      "software_name": "FTP",
+      "software_name": "ftp",
       "platforms": [
         "Linux",
         "Windows",
         "macOS"
       ],
-      "autosuggest": "S0095 - FTP"
+      "autosuggest": "S0095 - ftp"
     },
     {
       "software_id": "S0096",
       "software_name": "Systeminfo",
       "platforms": [
-        "Windows"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0096 - Systeminfo"
     },
@@ -798,7 +858,15 @@
       "software_id": "S0097",
       "software_name": "Ping",
       "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
         "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
         "Windows",
         "macOS"
       ],
@@ -826,7 +894,17 @@
       "software_id": "S0100",
       "software_name": "ipconfig",
       "platforms": [
-        "Windows"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0100 - ipconfig"
     },
@@ -834,7 +912,17 @@
       "software_id": "S0101",
       "software_name": "ifconfig",
       "platforms": [
-        "Linux"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0101 - ifconfig"
     },
@@ -842,7 +930,17 @@
       "software_id": "S0102",
       "software_name": "nbtstat",
       "platforms": [
-        "Windows"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0102 - nbtstat"
     },
@@ -850,7 +948,15 @@
       "software_id": "S0103",
       "software_name": "route",
       "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
         "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
         "Windows",
         "macOS"
       ],
@@ -860,7 +966,15 @@
       "software_id": "S0104",
       "software_name": "netstat",
       "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
         "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
         "Windows",
         "macOS"
       ],
@@ -960,7 +1074,17 @@
       "software_id": "S0116",
       "software_name": "UACMe",
       "platforms": [
-        "Windows"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0116 - UACMe"
     },
@@ -1008,7 +1132,15 @@
       "software_id": "S0122",
       "software_name": "Pass-The-Hash Toolkit",
       "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
         "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
         "Windows",
         "macOS"
       ],
@@ -1018,7 +1150,17 @@
       "software_id": "S0123",
       "software_name": "xCmd",
       "platforms": [
-        "Windows"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0123 - xCmd"
     },
@@ -1082,7 +1224,17 @@
       "software_id": "S0131",
       "software_name": "TINYTYPHON",
       "platforms": [
-        "Windows"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0131 - TINYTYPHON"
     },
@@ -1098,7 +1250,17 @@
       "software_id": "S0133",
       "software_name": "Miner-C",
       "platforms": [
-        "Windows"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0133 - Miner-C"
     },
@@ -1242,7 +1404,17 @@
       "software_id": "S0151",
       "software_name": "HALFBAKED",
       "platforms": [
-        "Windows"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0151 - HALFBAKED"
     },
@@ -1276,7 +1448,17 @@
       "software_id": "S0155",
       "software_name": "WINDSHIELD",
       "platforms": [
-        "Windows"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0155 - WINDSHIELD"
     },
@@ -1428,7 +1610,17 @@
       "software_id": "S0174",
       "software_name": "Responder",
       "platforms": [
-        "Windows"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0174 - Responder"
     },
@@ -1454,7 +1646,17 @@
       "software_id": "S0177",
       "software_name": "Power Loader",
       "platforms": [
-        "Windows"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0177 - Power Loader"
     },
@@ -1569,7 +1771,17 @@
       "software_id": "S0191",
       "software_name": "Winexe",
       "platforms": [
-        "Windows"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0191 - Winexe"
     },
@@ -1588,7 +1800,17 @@
       "software_id": "S0193",
       "software_name": "Forfiles",
       "platforms": [
-        "Windows"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0193 - Forfiles"
     },
@@ -1750,7 +1972,17 @@
       "software_id": "S0214",
       "software_name": "HAPPYWORK",
       "platforms": [
-        "Windows"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0214 - HAPPYWORK"
     },
@@ -1774,7 +2006,17 @@
       "software_id": "S0217",
       "software_name": "SHUTTERSPEED",
       "platforms": [
-        "Windows"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0217 - SHUTTERSPEED"
     },
@@ -1790,7 +2032,17 @@
       "software_id": "S0219",
       "software_name": "WINERACK",
       "platforms": [
-        "Windows"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0219 - WINERACK"
     },
@@ -1830,7 +2082,15 @@
       "software_id": "S0224",
       "software_name": "Havij",
       "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
         "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
         "Windows",
         "macOS"
       ],
@@ -1840,7 +2100,15 @@
       "software_id": "S0225",
       "software_name": "sqlmap",
       "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
         "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
         "Windows",
         "macOS"
       ],
@@ -1890,7 +2158,17 @@
       "software_id": "S0231",
       "software_name": "Invoke-PSImage",
       "platforms": [
-        "Windows"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0231 - Invoke-PSImage"
     },
@@ -2084,7 +2362,17 @@
       "software_id": "S0255",
       "software_name": "DDKONG",
       "platforms": [
-        "Windows"
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "S0255 - DDKONG"
     },
@@ -3971,6 +4259,7 @@
       "software_id": "S0588",
       "software_name": "GoldMax",
       "platforms": [
+        "Linux",
         "Windows"
       ],
       "autosuggest": "S0588 - GoldMax"
@@ -4853,10 +5142,642 @@
   ],
   "ATT&CK-ICS": [
     {
+      "software_id": "S0022",
+      "software_name": "Uroburos",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0022 - Uroburos"
+    },
+    {
+      "software_id": "S0027",
+      "software_name": "Zeroaccess",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0027 - Zeroaccess"
+    },
+    {
+      "software_id": "S0028",
+      "software_name": "SHIPSHAPE",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0028 - SHIPSHAPE"
+    },
+    {
+      "software_id": "S0041",
+      "software_name": "Wiper",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0041 - Wiper"
+    },
+    {
+      "software_id": "S0047",
+      "software_name": "Hacking Team UEFI Rootkit",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0047 - Hacking Team UEFI Rootkit"
+    },
+    {
+      "software_id": "S0057",
+      "software_name": "Tasklist",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0057 - Tasklist"
+    },
+    {
+      "software_id": "S0079",
+      "software_name": "MobileOrder",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0079 - MobileOrder"
+    },
+    {
+      "software_id": "S0096",
+      "software_name": "Systeminfo",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0096 - Systeminfo"
+    },
+    {
+      "software_id": "S0097",
+      "software_name": "Ping",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0097 - Ping"
+    },
+    {
+      "software_id": "S0100",
+      "software_name": "ipconfig",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0100 - ipconfig"
+    },
+    {
+      "software_id": "S0101",
+      "software_name": "ifconfig",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0101 - ifconfig"
+    },
+    {
+      "software_id": "S0102",
+      "software_name": "nbtstat",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0102 - nbtstat"
+    },
+    {
+      "software_id": "S0103",
+      "software_name": "route",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0103 - route"
+    },
+    {
+      "software_id": "S0104",
+      "software_name": "netstat",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0104 - netstat"
+    },
+    {
+      "software_id": "S0116",
+      "software_name": "UACMe",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0116 - UACMe"
+    },
+    {
+      "software_id": "S0122",
+      "software_name": "Pass-The-Hash Toolkit",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0122 - Pass-The-Hash Toolkit"
+    },
+    {
+      "software_id": "S0123",
+      "software_name": "xCmd",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0123 - xCmd"
+    },
+    {
+      "software_id": "S0131",
+      "software_name": "TINYTYPHON",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0131 - TINYTYPHON"
+    },
+    {
+      "software_id": "S0133",
+      "software_name": "Miner-C",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0133 - Miner-C"
+    },
+    {
+      "software_id": "S0151",
+      "software_name": "HALFBAKED",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0151 - HALFBAKED"
+    },
+    {
+      "software_id": "S0155",
+      "software_name": "WINDSHIELD",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0155 - WINDSHIELD"
+    },
+    {
+      "software_id": "S0174",
+      "software_name": "Responder",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0174 - Responder"
+    },
+    {
+      "software_id": "S0177",
+      "software_name": "Power Loader",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0177 - Power Loader"
+    },
+    {
+      "software_id": "S0191",
+      "software_name": "Winexe",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0191 - Winexe"
+    },
+    {
+      "software_id": "S0193",
+      "software_name": "Forfiles",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0193 - Forfiles"
+    },
+    {
+      "software_id": "S0214",
+      "software_name": "HAPPYWORK",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0214 - HAPPYWORK"
+    },
+    {
+      "software_id": "S0217",
+      "software_name": "SHUTTERSPEED",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0217 - SHUTTERSPEED"
+    },
+    {
+      "software_id": "S0219",
+      "software_name": "WINERACK",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0219 - WINERACK"
+    },
+    {
+      "software_id": "S0224",
+      "software_name": "Havij",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0224 - Havij"
+    },
+    {
+      "software_id": "S0225",
+      "software_name": "sqlmap",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0225 - sqlmap"
+    },
+    {
+      "software_id": "S0231",
+      "software_name": "Invoke-PSImage",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0231 - Invoke-PSImage"
+    },
+    {
+      "software_id": "S0255",
+      "software_name": "DDKONG",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0255 - DDKONG"
+    },
+    {
+      "software_id": "S0389",
+      "software_name": "JCry",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0389 - JCry"
+    },
+    {
+      "software_id": "S0390",
+      "software_name": "SQLRat",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0390 - SQLRat"
+    },
+    {
+      "software_id": "S0503",
+      "software_name": "FrameworkPOS",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0503 - FrameworkPOS"
+    },
+    {
+      "software_id": "S0551",
+      "software_name": "GoldenEagle",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0551 - GoldenEagle"
+    },
+    {
+      "software_id": "S0602",
+      "software_name": "Circles",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0602 - Circles"
+    },
+    {
+      "software_id": "S0671",
+      "software_name": "Tomiris",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0671 - Tomiris"
+    },
+    {
+      "software_id": "S0684",
+      "software_name": "ROADTools",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0684 - ROADTools"
+    },
+    {
       "software_id": "S1000",
       "software_name": "ACAD/Medre.A",
       "platforms": [
-        "Windows"
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
       ],
       "autosuggest": "S1000 - ACAD/Medre.A"
     },
@@ -4864,7 +5785,15 @@
       "software_id": "S1006",
       "software_name": "PLC-Blaster",
       "platforms": [
-        "Windows"
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
       ],
       "autosuggest": "S1006 - PLC-Blaster"
     },
@@ -4872,7 +5801,15 @@
       "software_id": "S1009",
       "software_name": "Triton",
       "platforms": [
-        "Windows"
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
       ],
       "autosuggest": "S1009 - Triton"
     },
@@ -4880,7 +5817,15 @@
       "software_id": "S1010",
       "software_name": "VPNFilter",
       "platforms": [
-        "Windows"
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
       ],
       "autosuggest": "S1010 - VPNFilter"
     }
