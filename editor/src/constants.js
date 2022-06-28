@@ -108,10 +108,9 @@ export default {
         network: 'Network',
         containers: 'Containers'
     },
-    PLATFORMS_ICS: ['all', 'Control Server', 'Data Historian', 'Device Configuration/Parameters', 'Engineering Workstation', 'Field Controller/RTU/PLC/IED', 'Human-Machine Interface', 'Input/Output Server', 'Safety Instrumented System/Protection Relay', 'Windows', 'None'],
+    PLATFORMS_ICS: ['all', 'Control Server', 'Data Historian', 'Device Configuration/Parameters', 'Engineering Workstation', 'Field Controller/RTU/PLC/IED', 'Human-Machine Interface', 'Input/Output Server', 'Safety Instrumented System/Protection Relay', 'None'],
     PLATFORM_CONVERSION_ICS: {'control server': 'Control Server', 'data historian': 'Data Historian', 'device configuration/parameters': 'Device Configuration/Parameters',
     'engineering workstation': 'Engineering Workstation', 'field controller/rtu/plc/ied': 'Field Controller/RTU/PLC/IED',
     'human-machine interface': 'Human-Machine Interface', 'input/output server': 'Input/Output Server',
-    'safety instrumented system/protection relay': 'Safety Instrumented System/Protection Relay', 'windows': 'Windows',
-    'none': 'None'}
+    'safety instrumented system/protection relay': 'Safety Instrumented System/Protection Relay', 'none': 'None'}
 };

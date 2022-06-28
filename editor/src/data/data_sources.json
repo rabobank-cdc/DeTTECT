@@ -112,7 +112,6 @@
   ],
   "ATT&CK-ICS": [
     "Application Log Content",
-    "Asset Inventory",
     "Command Execution",
     "Device Alarm",
     "Device Configuration/Parameters",
@@ -128,8 +127,6 @@
     "Logon Session Metadata",
     "Module Load",
     "Network Connection Creation",
-    "Network Connections",
-    "Network Flows",
     "Network Share Access",
     "Network Traffic Content",
     "Network Traffic Flow",
