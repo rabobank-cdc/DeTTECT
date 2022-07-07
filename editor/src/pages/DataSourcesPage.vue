@@ -58,13 +58,6 @@
                                         &nbsp;Save YAML file
                                     </button>
                                 </div>
-                                <div
-                                    class="col-md-0 mt-3 mr-4 text-right cursor-pointer"
-                                    @click="file_details_lock = !file_details_lock"
-                                    :title="file_details_lock ? 'File Details: locked' : 'File Details: auto hide'"
-                                >
-                                    <icons :icon="file_details_lock ? 'lock' : 'unlock'"></icons>
-                                </div>
                             </div>
                         </div>
                     </b-collapse>

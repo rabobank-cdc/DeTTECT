@@ -48,10 +48,10 @@ export const pageMixin = {
         FileDetails
     },
     mounted () {
-        window.addEventListener('scroll', this.onScroll)
+        //window.addEventListener('scroll', this.onScroll)
     },
     destroyed () {
-        window.removeEventListener('scroll', this.onScroll)
+        //window.removeEventListener('scroll', this.onScroll)
     },
     methods: {
         getPlatforms(domain) {
