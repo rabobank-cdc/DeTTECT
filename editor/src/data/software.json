@@ -2613,6 +2613,24 @@
       "autosuggest": "S0284 - More_eggs"
     },
     {
+      "software_id": "S0293",
+      "software_name": "BrainTest",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0293 - BrainTest"
+    },
+    {
       "software_id": "S0330",
       "software_name": "Zeus Panda",
       "platforms": [
@@ -5652,6 +5670,22 @@
         "Safety Instrumented System/Protection Relay"
       ],
       "autosuggest": "S0255 - DDKONG"
+    },
+    {
+      "software_id": "S0293",
+      "software_name": "BrainTest",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0293 - BrainTest"
     },
     {
       "software_id": "S0389",
