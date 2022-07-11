@@ -446,23 +446,29 @@ def export_techniques_list_to_excel(filename, output_filename):
         # Add row for every detection that is defined:
         for detection in technique_data['detection']:
             worksheet_detections.write(dy, 0, technique_id, valign_top)
-            worksheet_detections.write(dy, 1, get_technique(mitre_techniques, technique_id)['name'], valign_top)
-            worksheet_detections.write(dy, 2, ', '.join(t.capitalize() for t in
-                                                        get_tactics(get_technique(mitre_techniques, technique_id))),
-                                       valign_top)
-            worksheet_detections.write(dy, 3, ', '.join(detection['applicable_to']), wrap_text)
-            # make sure the date format is '%Y-%m-%d'. When we've done a EQL query this will become '%Y-%m-%d %H %M $%S'
-            tmp_date = get_latest_date(detection)
-            if isinstance(tmp_date, datetime):
-                tmp_date = tmp_date.strftime('%Y-%m-%d')
-            worksheet_detections.write(dy, 4, str(tmp_date).replace('None', ''), valign_top)
-            ds = get_latest_score(detection)
-            worksheet_detections.write(dy, 5, ds, detection_score_0 if ds == 0 else detection_score_1 if ds == 1 else detection_score_2 if ds == 2 else detection_score_3 if ds == 3 else detection_score_4 if ds == 4 else detection_score_5 if ds == 5 else no_score)  # noqa
-            worksheet_detections.write(dy, 6, '\n'.join(detection['location']), wrap_text)
-            worksheet_detections.write(dy, 7, detection['comment'][:-1] if detection['comment'].endswith('\n') else detection['comment'], wrap_text)
-            d_comment = get_latest_comment(detection)
-            worksheet_detections.write(dy, 8, d_comment[:-1] if d_comment.endswith('\n') else d_comment, wrap_text)
-            dy += 1
+
+            technique = get_technique(mitre_techniques, technique_id)
+            if technique is not None:
+                worksheet_detections.write(dy, 1, technique['name'], valign_top)
+                worksheet_detections.write(dy, 2, ', '.join(t.capitalize() for t in
+                                                            get_tactics(technique)),
+                                        valign_top)
+                worksheet_detections.write(dy, 3, ', '.join(detection['applicable_to']), wrap_text)
+                # make sure the date format is '%Y-%m-%d'. When we've done a EQL query this will become '%Y-%m-%d %H %M $%S'
+                tmp_date = get_latest_date(detection)
+                if isinstance(tmp_date, datetime):
+                    tmp_date = tmp_date.strftime('%Y-%m-%d')
+                worksheet_detections.write(dy, 4, str(tmp_date).replace('None', ''), valign_top)
+                ds = get_latest_score(detection)
+                worksheet_detections.write(dy, 5, ds, detection_score_0 if ds == 0 else detection_score_1 if ds == 1 else detection_score_2 if ds == 2 else detection_score_3 if ds == 3 else detection_score_4 if ds == 4 else detection_score_5 if ds == 5 else no_score)  # noqa
+                worksheet_detections.write(dy, 6, '\n'.join(detection['location']), wrap_text)
+                worksheet_detections.write(dy, 7, detection['comment'][:-1] if detection['comment'].endswith('\n') else detection['comment'], wrap_text)
+                d_comment = get_latest_comment(detection)
+                worksheet_detections.write(dy, 8, d_comment[:-1] if d_comment.endswith('\n') else d_comment, wrap_text)
+                dy += 1
+            else:
+                print('[!] Technique ' + technique_id + ' is unknown in ATT&CK. Ignoring this technique.')
+
 
     # Writing the visibility items:
     vy = y + 1
@@ -470,22 +476,27 @@ def export_techniques_list_to_excel(filename, output_filename):
         # Add row for every visibility that is defined:
         for visibility in technique_data['visibility']:
             worksheet_visibility.write(vy, 0, technique_id, valign_top)
-            worksheet_visibility.write(vy, 1, get_technique(mitre_techniques, technique_id)['name'], valign_top)
-            worksheet_visibility.write(vy, 2, ', '.join(t.capitalize() for t in
-                                                        get_tactics(get_technique(mitre_techniques, technique_id))), valign_top)
-            worksheet_visibility.write(vy, 3, ', '.join(visibility['applicable_to']), wrap_text)
-            # make sure the date format is '%Y-%m-%d'. When we've done a EQL query this will become '%Y-%m-%d %H %M $%S'
-            tmp_date = get_latest_date(visibility)
-            if isinstance(tmp_date, datetime):
-                tmp_date = tmp_date.strftime('%Y-%m-%d')
-            worksheet_visibility.write(vy, 4, str(tmp_date).replace('None', ''), valign_top)
-            vs = get_latest_score(visibility)
-            worksheet_visibility.write(vy, 5, vs, visibility_score_1 if vs == 1 else visibility_score_2 if vs == 2 else visibility_score_3 if vs == 3 else visibility_score_4 if vs == 4 else no_score)  # noqa
-            v_comment = get_latest_comment(visibility)
-            worksheet_visibility.write(vy, 6, visibility['comment'][:-1]
-                                       if visibility['comment'].endswith('\n') else visibility['comment'], wrap_text)
-            worksheet_visibility.write(vy, 7, v_comment[:-1] if v_comment.endswith('\n') else v_comment, wrap_text)
-            vy += 1
+
+            technique = get_technique(mitre_techniques, technique_id)
+            if technique is not None:
+                worksheet_visibility.write(vy, 1, technique['name'], valign_top)
+                worksheet_visibility.write(vy, 2, ', '.join(t.capitalize() for t in
+                                                            get_tactics(technique)), valign_top)
+                worksheet_visibility.write(vy, 3, ', '.join(visibility['applicable_to']), wrap_text)
+                # make sure the date format is '%Y-%m-%d'. When we've done a EQL query this will become '%Y-%m-%d %H %M $%S'
+                tmp_date = get_latest_date(visibility)
+                if isinstance(tmp_date, datetime):
+                    tmp_date = tmp_date.strftime('%Y-%m-%d')
+                worksheet_visibility.write(vy, 4, str(tmp_date).replace('None', ''), valign_top)
+                vs = get_latest_score(visibility)
+                worksheet_visibility.write(vy, 5, vs, visibility_score_1 if vs == 1 else visibility_score_2 if vs == 2 else visibility_score_3 if vs == 3 else visibility_score_4 if vs == 4 else no_score)  # noqa
+                v_comment = get_latest_comment(visibility)
+                worksheet_visibility.write(vy, 6, visibility['comment'][:-1]
+                                        if visibility['comment'].endswith('\n') else visibility['comment'], wrap_text)
+                worksheet_visibility.write(vy, 7, v_comment[:-1] if v_comment.endswith('\n') else v_comment, wrap_text)
+                vy += 1
+            else:
+                print('[!] Technique ' + technique_id + ' is unknown in ATT&CK. Ignoring this technique.')
 
     try:
         workbook.close()
