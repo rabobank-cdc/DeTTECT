@@ -1201,8 +1201,8 @@ techniques:
       score: 1
       comment: ''
       auto_generated: true
-- technique_id: T1053.001
-  technique_name: At (Linux)
+- technique_id: T1053.002
+  technique_name: At
   detection:
   - applicable_to:
     - Linux servers
@@ -1213,18 +1213,6 @@ techniques:
     - date: 2021-10-18T00:00:00Z
       score: 2
       comment: ''
-  visibility:
-  - applicable_to:
-    - Linux servers
-    comment: ''
-    score_logbook:
-    - date: 2021-06-08
-      score: 2
-      comment: ''
-      auto_generated: true
-- technique_id: T1053.002
-  technique_name: At (Windows)
-  detection:
   - applicable_to:
     - all
     location: []
@@ -1234,6 +1222,14 @@ techniques:
       score: -1
       comment: ''
   visibility:
+  - applicable_to:
+    - Linux servers
+    comment: ''
+    score_logbook:
+    - date: 2021-06-08
+      score: 2
+      comment: ''
+      auto_generated: true
   - applicable_to:
     - Windows workstations
     comment: ''
