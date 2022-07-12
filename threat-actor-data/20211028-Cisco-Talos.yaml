@@ -1,0 +1,13 @@
+%YAML 1.2
+---
+# Source: https://blog.talosintelligence.com/2021/10/quarterly-report-incident-response.html
+version: 1
+file_type: group-administration
+platform:
+  - all
+groups:
+  - group_name: Cisco Talos
+    campaign: Quarterly Report - Incident Response trends from Q3 2021
+    technique_id: [T1078, T1053, T1059.001, T1083, T1003, T1055, T1021.001, T1114, T1562.001, T1219, T1486, T1048]
+    software_id:
+    enabled: true
