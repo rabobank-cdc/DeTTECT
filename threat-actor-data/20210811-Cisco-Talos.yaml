@@ -1,0 +1,13 @@
+%YAML 1.2
+---
+# Source: https://blog.talosintelligence.com/2021/08/talos-incident-response-quarterly.html
+version: 1
+file_type: group-administration
+platform:
+  - all
+groups:
+  - group_name: Cisco Talos
+    campaign: Quarterly Report - The top malware families and TTPs used in Q2 2021
+    technique_id: [T1078, T1053, T1059.001, T1087, T1003, T1574.002, T1021.001, T1074, T1562.001, T1071, T1486]
+    software_id:
+    enabled: true
