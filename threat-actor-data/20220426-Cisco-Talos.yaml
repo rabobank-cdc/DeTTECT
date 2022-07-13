@@ -1,0 +1,13 @@
+%YAML 1.2
+---
+# Source: https://blog.talosintelligence.com/2022/04/quarterly-report-incident-response.html
+version: 1
+file_type: group-administration
+platform:
+  - all
+groups:
+  - group_name: Cisco Talos
+    campaign: Quarterly Report - Incident Response trends in Q1 2022
+    technique_id: [T1190, T1592, T1053, T1059.001, T1087, T1003.001, T1574.002, T1021.001, T1027, T1219, T1486, T1567.002, T1114.003]
+    software_id:
+    enabled: true
