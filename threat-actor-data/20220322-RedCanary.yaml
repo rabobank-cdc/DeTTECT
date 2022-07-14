@@ -1,0 +1,34 @@
+%YAML 1.2
+---
+# Source: https://resource.redcanary.com/rs/003-YRU-314/images/2022_ThreatDetectionReport_RedCanary.pdf
+# Source: https://redcanary.com/blog/2022-threat-detection-report/
+# Source: https://redcanary.com/threat-detection-report/techniques/
+version: 1.0
+file_type: group-administration
+platform:
+  - Windows
+  - Linux
+  - macOS
+groups:
+  - group_name: RedCanary - 2022 Threat Detection Report
+    campaign:
+    technique_id:
+      T1059: 5998     #  organisations affected: 53.4%
+      T1059.001: 3309 #  organisations affected: 35%
+      T1059.003: 3128 #  organisations affected: 28.1%
+      T1218: 2510     #  organisations affected: 34.8%
+      T1218.011: 1713 #  organisations affected: 23.3%
+      T1047: 2056     #  organisations affected: 15.4%
+      T1003: 1871     #  organisations affected: 18.3%
+      T1003.001: 746  #  organisations affected: 13.3%
+      T1105: 1256     #  organisations affected: 20.4%
+      T1055: 1235     #  organisations affected: 21.7% 
+      T1053.005: 1147 #  organisations affected: 12.2%
+      T1027: 1059     #  organisations affected: 19.9%
+      T1036: 961      #  organisations affected: 22.1%
+      T1036.003: 497  #  organisations affected: 15.6%
+      T1036.005: 386  #  organisations affected: 7.9%
+      T1574: 859      #  organisations affected: 7.8%
+      T1574.001: 846  #  organisations affected: 8.4%
+    software_id:    []
+    enabled:        True
