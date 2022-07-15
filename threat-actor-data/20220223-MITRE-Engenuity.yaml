@@ -1,0 +1,28 @@
+%YAML 1.2
+---
+# Source: https://info.mitre-engenuity.org/hubfs/Center%20for%20Threat%20Informed%20Defense/CTID-Sightings-Ecosystem-Report.pdf
+version: 1
+file_type: group-administration
+platform:
+  - all
+groups:
+  - group_name: MITRE Engenuity
+    campaign: 15 Most Observed Techniques
+    technique_id: 
+      T1053: 2410 # 24.10%
+      T1059: 1577 # 15.77%
+      T1574: 1260 # 12.60%
+      T1090: 798  # 7.98%
+      T1095: 775  # 7.75%
+      T1036: 405  # 4.05%
+      T1218: 405  # 4.05%
+      T1543: 365  # 3.65%
+      T1055: 175  # 1.75%
+      T1562: 173  # 1.73%
+      T1047: 143  # 1.43%
+      T1027: 137  # 1.37%
+      T1112: 130  # 1.30%
+      T1021: 127  # 1.27% 
+      T1105: 91   # 0.91%
+    software_id:
+    enabled: true
