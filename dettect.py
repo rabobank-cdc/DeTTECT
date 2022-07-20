@@ -74,6 +74,10 @@ def _init_menu():
     parser_data_sources.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
     parser_data_sources.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
                                      'or to use a specific version of STIX objects')
+    parser_data_sources.add_argument('--layer-settings', help='specific settings for the Navigator layer. Supported settings: '
+                                     +', '.join(['%s=%s' % (k, '|'.join(v)) for k, v in LAYER_SETTINGS.items()]) +'. Multiple settings can be provided with extra --layer-settings'
+                                     ' arguments. Example: --layer-settings showAggregateScores=False',
+                                     action='append')
 
     # create the visibility parser
     parser_visibility = subparsers.add_parser('visibility', aliases=['v'],
@@ -108,6 +112,10 @@ def _init_menu():
     parser_visibility.add_argument('--health', help='check the YAML file for errors', action='store_true')
     parser_visibility.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
                                    'or to use a specific version of STIX objects')
+    parser_visibility.add_argument('--layer-settings', help='specific settings for the Navigator layer. Supported settings: '
+                                     +', '.join(['%s=%s' % (k, '|'.join(v)) for k, v in LAYER_SETTINGS.items()]) +'. Multiple settings can be provided with extra --layer-settings'
+                                     ' arguments. Example: --layer-settings showAggregateScores=False',
+                                     action='append')
 
     # create the detection parser
     parser_detection = subparsers.add_parser('detection', aliases=['d'],
@@ -143,6 +151,10 @@ def _init_menu():
     parser_detection.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
     parser_detection.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
                                   'or to use a specific version of STIX objects')
+    parser_detection.add_argument('--layer-settings', help='specific settings for the Navigator layer. Supported settings: '
+                                     +', '.join(['%s=%s' % (k, '|'.join(v)) for k, v in LAYER_SETTINGS.items()]) +'. Multiple settings can be provided with extra --layer-settings'
+                                     ' arguments. Example: --layer-settings showAggregateScores=False',
+                                     action='append')
 
     # create the group parser
     parser_group = subparsers.add_parser('group', aliases=['g'],
@@ -188,6 +200,10 @@ def _init_menu():
     parser_group.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
     parser_group.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
                                                         'or to use a specific version of STIX objects')
+    parser_group.add_argument('--layer-settings', help='specific settings for the Navigator layer. Supported settings: '
+                                     +', '.join(['%s=%s' % (k, '|'.join(v)) for k, v in LAYER_SETTINGS.items()]) +'. Multiple settings can be provided with extra --layer-settings'
+                                     ' arguments. Example: --layer-settings showAggregateScores=False',
+                                     action='append')
 
     # create the generic parser
     parser_generic = subparsers.add_parser('generic', description='Generic functions which will output to stdout.',
@@ -236,6 +252,7 @@ def _menu(menu_parser):
 
     elif args.subparser in ['datasource', 'ds']:
         if check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.health):
+            layer_settings = _parse_layer_settings(args.layer_settings)
             file_ds = args.file_ds
 
             if args.applicable_to:
@@ -250,7 +267,7 @@ def _menu(menu_parser):
             if args.update and check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
                 update_technique_administration_file(file_ds, args.file_tech)
             if args.layer:
-                generate_data_sources_layer(file_ds, args.output_filename, args.layer_name)
+                generate_data_sources_layer(file_ds, args.output_filename, args.layer_name, layer_settings)
             if args.excel:
                 export_data_source_list_to_excel(file_ds, args.output_filename, eql_search=args.search)
             if args.graph:
@@ -260,6 +277,7 @@ def _menu(menu_parser):
 
     elif args.subparser in ['visibility', 'v']:
         if check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
+            layer_settings = _parse_layer_settings(args.layer_settings)
             file_tech = args.file_tech
 
             if args.platform:
@@ -271,9 +289,9 @@ def _menu(menu_parser):
                 if not file_tech:
                     quit()  # something went wrong in executing the search or 0 results where returned
             if args.layer:
-                generate_visibility_layer(file_tech, False, args.output_filename, args.layer_name, args.platform)
+                generate_visibility_layer(file_tech, False, args.output_filename, args.layer_name, layer_settings, args.platform)
             if args.overlay:
-                generate_visibility_layer(file_tech, True, args.output_filename, args.layer_name, args.platform)
+                generate_visibility_layer(file_tech, True, args.output_filename, args.layer_name, layer_settings, args.platform)
             if args.graph:
                 plot_graph(file_tech, 'visibility', args.output_filename)
             if args.excel:
@@ -281,12 +299,15 @@ def _menu(menu_parser):
 
     # TODO add Group EQL search capabilities
     elif args.subparser in ['group', 'g']:
+        layer_settings = _parse_layer_settings(args.layer_settings)
         generate_group_heat_map(args.groups, args.overlay, args.overlay_type, args.platform,
                                 args.software_group, args.search_visibility, args.search_detection, args.health,
-                                args.output_filename, args.layer_name, args.domain, include_all_score_objs=args.all_scores)
+                                args.output_filename, args.layer_name, args.domain, layer_settings,
+                                include_all_score_objs=args.all_scores)
 
     elif args.subparser in ['detection', 'd']:
         if check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
+            layer_settings = _parse_layer_settings(args.layer_settings)
             file_tech = args.file_tech
 
             if args.platform:
@@ -298,9 +319,9 @@ def _menu(menu_parser):
                 if not file_tech:
                     quit()  # something went wrong in executing the search or 0 results where returned
             if args.layer:
-                generate_detection_layer(file_tech, False, args.output_filename, args.layer_name, args.platform)
+                generate_detection_layer(file_tech, False, args.output_filename, args.layer_name, layer_settings, args.platform)
             if args.overlay:
-                generate_detection_layer(file_tech, True, args.output_filename, args.layer_name, args.platform)
+                generate_detection_layer(file_tech, True, args.output_filename, args.layer_name, layer_settings, args.platform)
             if args.graph:
                 plot_graph(file_tech, 'detection', args.output_filename)
             if args.excel:
@@ -323,6 +344,14 @@ def _menu(menu_parser):
     else:
         menu_parser.print_help()
 
+def _parse_layer_settings(args_layer_settings):
+    layer_settings = {}
+    if args_layer_settings is not None:
+        for s in args_layer_settings:
+            key, value = s.split('=')
+            if key in LAYER_SETTINGS:
+                layer_settings[key] = value
+    return layer_settings
 
 def _prepare_folders():
     """

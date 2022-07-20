@@ -182,13 +182,13 @@ def _get_technique_yaml_obj(techniques, tech_id):
             return tech
 
 
-def generate_data_sources_layer(filename, output_filename, layer_name):
+def generate_data_sources_layer(filename, output_filename, layer_name, layer_settings):
     """
     Generates a generic layer for data sources.
     :param filename: the filename of the YAML file containing the data sources administration
     :param output_filename: the output filename defined by the user
     :param layer_name: the name of the Navigator layer
-    :param platform: one or multiple values from PLATFORMS constant
+    :param layer_settings: settings for the Navigator layer
     :return:
     """
     my_data_sources, name, systems, exceptions, domain = load_data_sources(filename)
@@ -200,7 +200,7 @@ def generate_data_sources_layer(filename, output_filename, layer_name):
         layer_name = 'Data sources ' + name
 
     platforms = list(set(chain.from_iterable(map(lambda k: k['platform'], systems))))
-    layer = get_layer_template_data_sources(layer_name, 'description', platforms, domain)
+    layer = get_layer_template_data_sources(layer_name, 'description', platforms, domain, layer_settings)
     layer['techniques'] = my_techniques
 
     json_string = simplejson.dumps(layer).replace('}, ', '},\n')
@@ -597,7 +597,7 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
                 del_unnecesary_all_tech_ids.add(tech_idx)
         if score:
             new_tech_ids.add(tech_id)
-            
+
         tech_idx += 1
     tech_ids_new = new_tech_ids.difference(cur_tech_ids)
 
@@ -927,7 +927,7 @@ def generate_technique_administration_file(filename, output_filename, write_file
                         tech = deepcopy(YAML_OBJ_TECHNIQUE)
                         tech['technique_id'] = tech_id
                         tech['technique_name'] = t['name']
-                    
+
                     # score can be -1 due to all_techniques
                     ds_score = 0 if ds_score == -1 else ds_score
 

@@ -252,13 +252,14 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, platforms, domain):
     return mapped_techniques
 
 
-def generate_detection_layer(filename_techniques, overlay, output_filename, layer_name, platform=None):
+def generate_detection_layer(filename_techniques, overlay, output_filename, layer_name, layer_settings, platform=None):
     """
     Generates layer for detection coverage and optionally an overlaid version with visibility coverage.
     :param filename_techniques: the filename of the YAML file containing the techniques administration
     :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
     :param layer_name: the name of the Navigator layer
     :param output_filename: the output filename defined by the user
+    :param layer_settings: settings for the Navigator layer
     :param platform: one or multiple values from PLATFORMS constant
     :return:
     """
@@ -269,23 +270,24 @@ def generate_detection_layer(filename_techniques, overlay, output_filename, laye
         mapped_techniques_detection = _map_and_colorize_techniques_for_detections(my_techniques, domain)
         if not layer_name:
             layer_name = 'Detections ' + name
-        layer_detection = get_layer_template_detections(layer_name, 'description', platform, domain)
+        layer_detection = get_layer_template_detections(layer_name, 'description', platform, domain, layer_settings)
         _write_layer(layer_detection, mapped_techniques_detection, 'detection', name, output_filename)
     else:
         mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, platform, domain)
         if not layer_name:
             layer_name = 'Visibility and Detection ' + name
-        layer_both = get_layer_template_layered(layer_name, 'description', platform, domain)
+        layer_both = get_layer_template_layered(layer_name, 'description', platform, domain, layer_settings)
         _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name, output_filename)
 
 
-def generate_visibility_layer(filename_techniques, overlay, output_filename, layer_name, platform=None):
+def generate_visibility_layer(filename_techniques, overlay, output_filename, layer_name, layer_settings, platform=None):
     """
     Generates layer for visibility coverage and optionally an overlaid version with detection coverage.
     :param filename_techniques: the filename of the YAML file containing the techniques administration
     :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
     :param output_filename: the output filename defined by the user
     :param layer_name: the name of the Navigator layer
+    :param layer_settings: settings for the Navigator layer
     :param platform: one or multiple values from PLATFORMS constant
     :return:
     """
@@ -296,13 +298,13 @@ def generate_visibility_layer(filename_techniques, overlay, output_filename, lay
         mapped_techniques_visibility = _map_and_colorize_techniques_for_visibility(my_techniques, platform, domain)
         if not layer_name:
             layer_name = 'Visibility ' + name
-        layer_visibility = get_layer_template_visibility(layer_name, 'description', platform, domain)
+        layer_visibility = get_layer_template_visibility(layer_name, 'description', platform, domain, layer_settings)
         _write_layer(layer_visibility, mapped_techniques_visibility, 'visibility', name, output_filename)
     else:
         mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, platform, domain)
         if not layer_name:
             layer_name = 'Visibility and Detection ' + name
-        layer_both = get_layer_template_layered(layer_name, 'description', platform, domain)
+        layer_both = get_layer_template_layered(layer_name, 'description', platform, domain, layer_settings)
         _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name, output_filename)
 
 

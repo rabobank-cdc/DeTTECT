@@ -200,3 +200,5 @@ with open(os.path.dirname(__file__) + '/data/data_source_platforms.json', 'r') a
     DATA_SOURCES_ICS = input_data['ATT&CK-ICS']
     DETTECT_DATA_SOURCES_PLATFORMS_ENTERPRISE = input_data['DeTT&CT-Enterprise']
     DETTECT_DATA_SOURCES_PLATFORMS_ICS = input_data['DeTT&CT-ICS']
+
+LAYER_SETTINGS = {'showAggregateScores': ['True', 'False'], 'layout': ['side', 'flat', 'mini']}

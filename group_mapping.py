@@ -487,7 +487,8 @@ def _get_group_list(groups, file_type):
 
 
 def generate_group_heat_map(groups, overlay, overlay_type, platform, software_groups, search_visibility,
-                            search_detection, health_is_called, output_filename, layer_name, domain, include_all_score_objs=False):
+                            search_detection, health_is_called, output_filename, layer_name, domain, layer_settings,
+                            include_all_score_objs=False):
     """
     Calls all functions that are necessary for the generation of the heat map and write a json layer to disk.
     :param groups: threat actor groups
@@ -501,6 +502,8 @@ def generate_group_heat_map(groups, overlay, overlay_type, platform, software_gr
     :param health_is_called: boolean that specifies if detailed errors in the file will be printed
     :param output_filename: output filename defined by the user
     :param layer_name: the name of the Navigator layer
+    :param domain: the specified domain
+    :param layer_settings: settings for the Navigator layer
     :param include_all_score_objs: include all score objects within the score_logbook for the EQL query
     :return: returns None when something went wrong
     """
@@ -626,7 +629,7 @@ def generate_group_heat_map(groups, overlay, overlay_type, platform, software_gr
     if not layer_name:
         layer_name = 'Attack - ' + platform_to_name(platform, domain, separator=', ')
 
-    layer = get_layer_template_groups(layer_name, max_count, desc, platform, overlay_type, domain)
+    layer = get_layer_template_groups(layer_name, max_count, desc, platform, overlay_type, domain, layer_settings)
     layer['techniques'] = technique_layer
 
     json_string = simplejson.dumps(layer).replace('}, ', '},\n')
