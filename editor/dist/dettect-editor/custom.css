@@ -602,3 +602,12 @@ div.systemsPlatformList {
 .list-editor-extended div.row {
     margin-bottom: 2px;
 }
+
+.top-save-button {
+    margin-top: 3px;
+    margin-right: 5px;
+}
+
+.top-save-button button {
+    padding: 11px 10px;
+}
