@@ -15,11 +15,24 @@
                                 <h2 class="card-title"><i class="tim-icons icon-single-02"></i> Groups{{ showFileName }}</h2>
                             </div>
                         </div>
-                        <div class="col mt-3 text-right">
+                        <div class="col mt-3 mb-2 text-right">
                             <label v-if="fileChanged" class="pl-2">
                                 <icons icon="text-balloon"></icons>
                                 You have unsaved changes. You may want to save the file to preserve your changes.</label
                             >
+                        </div>
+                        <div v-if="doc != null && !file_details_visible" class="top-save-button">
+                            <button
+                                type="button"
+                                class="btn"
+                                @click="
+                                    downloadYaml('groups', 'group_name');
+                                    $event.stopPropagation();
+                                "
+                            >
+                                <icons icon="save"></icons>
+                                &nbsp;Save
+                            </button>
                         </div>
                         <div class="col-md-0 mt-3 mr-4 text-right" :title="file_details_visible ? 'Collapse File Details' : 'Expand File Details'">
                             <icons :icon="file_details_visible ? 'collapse' : 'expand'"></icons>
