@@ -15,6 +15,7 @@ DATA_TYPE_CUSTOM_SOFTWARE_BY_GROUP = 'mitre_software_used_by_group'
 DATA_TYPE_STIX_ALL_TECH = 'mitre_all_techniques'
 DATA_TYPE_STIX_ALL_TECH_ENTERPRISE = 'mitre_all_techniques_enterprise'
 DATA_TYPE_STIX_ALL_TECH_ICS = 'mitre_all_techniques_ics'
+DATA_TYPE_STIX_ALL_TECH_MOBILE = 'mitre_all_techniques_mobile'
 DATA_TYPE_STIX_ALL_GROUPS = 'mitre_all_groups'
 DATA_TYPE_STIX_ALL_SOFTWARE = 'mitre_all_software'
 DATA_TYPE_STIX_ALL_RELATIONSHIPS = 'mitre_all_relationships'
@@ -23,7 +24,7 @@ DATA_TYPE_STIX_ALL_MOBILE_MITIGATIONS = 'mitre_all_mitigations_mobile'
 DATA_TYPE_STIX_ALL_ICS_MITIGATIONS = 'mitre_all_mitigations_ics'
 
 # ATT&CK matrix support:
-DETTECT_DOMAIN_SUPPORT = ['enterprise-attack', 'ics-attack']
+DETTECT_DOMAIN_SUPPORT = ['enterprise-attack', 'ics-attack', 'mobile-attack']
 
 # Group colors
 COLOR_GROUP_OVERLAY_MATCH = '#f9a825'            # orange
@@ -183,6 +184,8 @@ PLATFORMS_ICS = {'control server': 'Control Server', 'data historian': 'Data His
                  'human-machine interface': 'Human-Machine Interface', 'input/output server': 'Input/Output Server',
                  'safety instrumented system/protection relay': 'Safety Instrumented System/Protection Relay', 'none': 'None'}
 
+PLATFORMS_MOBILE = {'android': 'Android', 'ios': 'iOS'}
+
 DATA_SOURCES_ATTACK_V8 = set(['Access tokens', 'Anti-virus', 'API monitoring', 'Application logs', 'Asset management', 'Authentication logs', 'AWS CloudTrail logs', 'AWS OS logs', 'Azure activity logs', 'Azure OS logs', 'Binary file metadata', 'BIOS', 'Browser extensions', 'Component firmware', 'Data loss prevention', 'Detonation chamber', 'Digital certificate logs', 'Disk forensics', 'DLL monitoring', 'DNS records', 'Domain registration', 'EFI', 'Email gateway', 'Environment variable', 'File monitoring', 'GCP audit logs', 'Host network interface', 'Kernel drivers', 'Loaded DLLs', 'Mail server', 'Malware reverse engineering', 'MBR', 'Named Pipes', 'Netflow/Enclave netflow', 'Network device command history',
                               'Network device configuration', 'Network device logs', 'Network device run-time memory', 'Network intrusion detection system', 'Network protocol analysis', 'OAuth audit logs', 'Office 365 account logs', 'Office 365 audit logs', 'Office 365 trace logs', 'Packet capture', 'PowerShell logs', 'Process command-line parameters', 'Process monitoring', 'Process use of network', 'Sensor health and status', 'Services', 'Social media monitoring', 'SSL/TLS certificates', 'SSL/TLS inspection', 'Stackdriver logs', 'System calls', 'Third-party application logs', 'User interface', 'VBR', 'Web application firewall logs', 'Web logs', 'Web proxy', 'Windows Error Reporting', 'Windows event logs', 'Windows Registry', 'WMI Objects'])
 
@@ -192,13 +195,17 @@ with open(os.path.dirname(__file__) + '/data/dettect_data_sources.json', 'r') as
 
 DATA_SOURCES_ENTERPRISE = {}
 DATA_SOURCES_ICS = {}
+DATA_SOURCES_MOBILE = {}
 DETTECT_DATA_SOURCES_PLATFORMS_ENTERPRISE = {}
 DETTECT_DATA_SOURCES_PLATFORMS_ICS = {}
+DETTECT_DATA_SOURCES_PLATFORMS_MOBILE = {}
 with open(os.path.dirname(__file__) + '/data/data_source_platforms.json', 'r') as input_file:
     input_data = json.load(input_file)
     DATA_SOURCES_ENTERPRISE = input_data['ATT&CK-Enterprise']
     DATA_SOURCES_ICS = input_data['ATT&CK-ICS']
+    DATA_SOURCES_MOBILE = input_data['ATT&CK-Mobile']
     DETTECT_DATA_SOURCES_PLATFORMS_ENTERPRISE = input_data['DeTT&CT-Enterprise']
     DETTECT_DATA_SOURCES_PLATFORMS_ICS = input_data['DeTT&CT-ICS']
+    DETTECT_DATA_SOURCES_PLATFORMS_MOBILE = input_data['DeTT&CT-Mobile']
 
 LAYER_SETTINGS = {'showAggregateScores': ['True', 'False'], 'layout': ['side', 'flat', 'mini']}

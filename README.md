@@ -42,6 +42,8 @@ The following parties have supported the development of DeTT&CT in time or finan
 
   With the financial sponsorship of the CSSA, we added support for [ATT&CK ICS](https://collaborate.mitre.org/attackics/index.php/Main_Page) to DeTT&CT.
 
+- **[...](https://www.github.com)** - With the financial sponsorship of ..., we added support for ATT&CK Mobile to DeTT&CT.
+
 ### Work of others
 The work of others inspired some functionality within DeTT&CT:
 - Roberto Rodriguez's work on data quality and scoring of MITRE ATT&CK™ techniques ([How Hot Is Your Hunt Team?](https://cyberwardog.blogspot.com/2017/07/how-hot-is-your-hunt-team.html), [Ready to hunt? First, Show me your data!](https://cyberwardog.blogspot.com/2017/12/ready-to-hunt-first-show-me-your-data.html)).

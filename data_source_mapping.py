@@ -55,7 +55,7 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions, domain):
     :param domain: the specified domain
     :return: a dictionary with techniques that can be used in the layer's output file
     """
-    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain == 'enterprise-attack' else DATA_TYPE_STIX_ALL_TECH_ICS)
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain == 'enterprise-attack' else DATA_TYPE_STIX_ALL_TECH_ICS if domain == 'ics-attack' else DATA_TYPE_STIX_ALL_TECH_MOBILE)
     output_techniques = []
 
     for t in techniques:
@@ -866,7 +866,7 @@ def generate_technique_administration_file(filename, output_filename, write_file
     """
     my_ds, name, systems, exceptions, domain = load_data_sources(filename)
 
-    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain == 'enterprise-attack' else DATA_TYPE_STIX_ALL_TECH_ICS)
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain == 'enterprise-attack' else DATA_TYPE_STIX_ALL_TECH_ICS if domain == 'ics-attack' else DATA_TYPE_STIX_ALL_TECH_MOBILE)
     yaml_platform = list(set(chain.from_iterable(map(lambda k: k['platform'], systems))))
     all_applicable_to_values = set([s['applicable_to'] for s in systems])
 

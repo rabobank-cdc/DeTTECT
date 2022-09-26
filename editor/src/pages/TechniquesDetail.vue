@@ -117,7 +117,11 @@ export default {
     },
     computed: {
         techniquesSuggestionList() {
-            return this.domain == 'enterprise-attack' ? techniques['ATT&CK-Enterprise'] : techniques['ATT&CK-ICS'];
+            return this.domain == 'enterprise-attack'
+                ? techniques['ATT&CK-Enterprise']
+                : this.domain == 'ics-attack'
+                ? techniques['ATT&CK-ICS']
+                : techniques['ATT&CK-Mobile'];
         }
     },
     components: {

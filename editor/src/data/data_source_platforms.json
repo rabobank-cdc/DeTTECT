@@ -607,5 +607,13 @@
     "Input/Output Server": [],
     "Safety Instrumented System/Protection Relay": [],
     "None": []
+  },
+  "ATT&CK-Mobile": {
+    "Android": [],
+    "iOS": []
+  },
+  "DeTT&CT-Mobile": {
+    "Android": [],
+    "iOS": []
   }
 }

@@ -1,0 +1,23 @@
+version: 1
+file_type: group-administration
+domain: mobile-attack
+platform:
+  - iOS
+  - Android
+groups:
+  - group_name: Red team
+    campaign: Scenario 1
+    technique_id:
+      - T1461
+      - T1623.001
+      - T1603
+      - T1404
+      - T1406.002
+      - T1414
+      - T1417.001
+      - T1418.001
+      - T1429
+      - T1430
+      - T1437.001
+    software_id:
+    enabled: true

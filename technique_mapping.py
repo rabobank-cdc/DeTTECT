@@ -17,7 +17,7 @@ def _set_platform(platform_yaml, platform_args, domain):
     """
     if isinstance(platform_args, list):
         if 'all' in platform_args:
-            selected_platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else PLATFORMS_ICS
+            selected_platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else PLATFORMS_ICS if domain == 'ics-attack' else PLATFORMS_MOBILE
             platform = list(selected_platforms.values())
         else:
             platform = platform_args
@@ -57,7 +57,7 @@ def _map_and_colorize_techniques_for_detections(my_techniques, domain):
     :param domain: the specified domain
     :return: a dictionary with techniques that can be used in the layer's output file
     """
-    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain == 'enterprise-attack' else DATA_TYPE_STIX_ALL_TECH_ICS)
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain == 'enterprise-attack' else DATA_TYPE_STIX_ALL_TECH_ICS if domain == 'ics-attack' else DATA_TYPE_STIX_ALL_TECH_MOBILE)
 
     # Color the techniques based on how the coverage defined in the detections definition and generate a list with
     # techniques to be used in the layer output file.
@@ -116,7 +116,7 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, platforms, domain
     :param domain: the specified domain
     :return: a dictionary with techniques that can be used in the layer's output file
     """
-    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain == 'enterprise-attack' else DATA_TYPE_STIX_ALL_TECH_ICS)
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain == 'enterprise-attack' else DATA_TYPE_STIX_ALL_TECH_ICS if domain == 'ics-attack' else DATA_TYPE_STIX_ALL_TECH_MOBILE)
     applicable_data_sources = get_applicable_data_sources_platform(platforms, domain)
     applicable_dettect_data_sources = get_applicable_dettect_data_sources_platform(platforms, domain)
 
@@ -200,7 +200,7 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, platforms, domain):
     :param domain: the specified domain
     :return: a dictionary with techniques that can be used in the layer's output file
     """
-    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain == 'enterprise-attack' else DATA_TYPE_STIX_ALL_TECH_ICS)
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain == 'enterprise-attack' else DATA_TYPE_STIX_ALL_TECH_ICS if domain == 'ics-attack' else DATA_TYPE_STIX_ALL_TECH_MOBILE)
     applicable_data_sources = get_applicable_data_sources_platform(platforms, domain)
     applicable_dettect_data_sources = get_applicable_dettect_data_sources_platform(platforms, domain)
 
@@ -357,7 +357,7 @@ def export_techniques_list_to_excel(filename, output_filename):
     # pylint: disable=unused-variable
     my_techniques, name, platform, domain = load_techniques(filename)
     my_techniques = dict(sorted(my_techniques.items(), key=lambda kv: kv[0], reverse=False))
-    mitre_techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain == 'enterprise-attack' else DATA_TYPE_STIX_ALL_TECH_ICS)
+    mitre_techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain == 'enterprise-attack' else DATA_TYPE_STIX_ALL_TECH_ICS if domain == 'ics-attack' else DATA_TYPE_STIX_ALL_TECH_MOBILE)
 
     if not output_filename:
         output_filename = 'techniques'
