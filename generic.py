@@ -305,7 +305,7 @@ def load_attack_data(data_type):
 def init_yaml():
     """
     Initialize ruamel.yaml with the correct settings
-    :return: am uamel.yaml object
+    :return: a ruamel.yaml object
     """
     _yaml = YAML()
     _yaml.Representer.ignore_aliases = lambda *args: True  # disable anchors/aliases
