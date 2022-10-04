@@ -168,7 +168,7 @@ def _init_menu():
                               default=None, action='append')
     parser_group.add_argument('-d', '--domain', help='specify the ATT&CK domain (default = enterprise). This argument '
                                                      'is ignored if a domain is specified in the Group YAML file.',
-                              required=False, choices=['enterprise', 'ics'])
+                              required=False, choices=['enterprise', 'ics', 'mobile'])
     parser_group.add_argument('-o', '--overlay', help='specify what to overlay on the group(s) (provided using the '
                                                       'arguments \-g/--groups\): group(s), visibility or detection. '
                                                       'When overlaying a GROUP: the group can be its ATT&CK ID, '
@@ -213,7 +213,7 @@ def _init_menu():
     parser_generic.add_argument('-ds', '--datasources', help='get a sorted count on how many ATT&CK techniques'
                                                              'are covered by a particular data source '
                                                              '(default = enterprise data sources)',
-                                choices=['enterprise', 'ics'], const='enterprise', nargs='?')
+                                choices=['enterprise', 'ics', 'mobile'], const='enterprise', nargs='?')
     parser_generic.add_argument('-p', '--platform', action='append', help='only include data sources for the provided '
                                 'ATT&CK platforms in the \'-ds\' argument (default = all). Multiple platforms can be '
                                 'provided with extra \'-p/--platform\' arguments. The available platforms can be listed '
@@ -221,9 +221,9 @@ def _init_menu():
     parser_generic.add_argument('-m', '--mitigations', help='get a sorted count on how many ATT&CK Enterprise or '
                                                             'Mobile techniques are covered by a Mitigation',
                                 choices=['enterprise', 'ics', 'mobile'], const='enterprise', nargs='?')
-    parser_generic.add_argument('--list-platforms', help='list the ATT&CK Enterprise or ICS (default = Enterprise) '
+    parser_generic.add_argument('--list-platforms', help='list the ATT&CK Enterprise, ICS or Mobile (default = Enterprise) '
                                 'platforms that can be used with the \'-p/--platform\' argument',
-                                choices=['enterprise', 'ics'], const='enterprise', nargs='?')
+                                choices=['enterprise', 'ics', 'mobile'], const='enterprise', nargs='?')
     parser_generic.add_argument('-u', '--updates', help='get a sorted list for when updates were released for '
                                                         'techniques, groups or software',
                                 choices=['techniques', 'groups', 'software'])

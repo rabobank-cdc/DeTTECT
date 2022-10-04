@@ -55,10 +55,10 @@ export const pageMixin = {
     },
     methods: {
         getPlatforms(domain) {
-            return domain == 'enterprise-attack' ? constants.PLATFORMS : constants.PLATFORMS_ICS;
+            return domain == 'enterprise-attack' ? constants.PLATFORMS : domain == 'ics-attack' ? constants.PLATFORMS_ICS : constants.PLATFORMS_MOBILE;
         },
         getPlatformConversion(domain) {
-            return domain == 'enterprise-attack' ? constants.PLATFORM_CONVERSION : constants.PLATFORM_CONVERSION_ICS;
+            return domain == 'enterprise-attack' ? constants.PLATFORM_CONVERSION : domain == 'ics-attack' ? constants.PLATFORM_CONVERSION_ICS : constants.PLATFORM_CONVERSION_MOBILE;
         },
         navigateToTop() {
             VueScrollTo.scrollTo('#pageTop', 300, options);

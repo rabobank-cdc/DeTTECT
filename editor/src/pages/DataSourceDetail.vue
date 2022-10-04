@@ -40,10 +40,10 @@ export default {
             return dataSources[this.dataSourcePlatformsSelectorATTACK];
         },
         dataSourcePlatformsSelectorATTACK() {
-            return this.domain == 'enterprise-attack' ? 'ATT&CK-Enterprise' : 'ATT&CK-ICS';
+            return this.domain == 'enterprise-attack' ? 'ATT&CK-Enterprise' : this.domain == 'ics-attack' ? 'ATT&CK-ICS' : 'ATT&CK-Mobile';
         },
         dataSourcePlatformsSelectorDETTECT() {
-            return this.domain == 'enterprise-attack' ? 'DeTT&CT-Enterprise' : 'DeTT&CT-ICS';
+            return this.domain == 'enterprise-attack' ? 'DeTT&CT-Enterprise' : this.domain == 'ics-attack' ? 'DeTT&CT-ICS' : 'DeTT&CT-Mobile';
         }
     },
     created: function () {
@@ -111,12 +111,15 @@ export default {
                     }
                 }
 
-                for (let j = 0; j < customDataSources.length; j++) {
-                    if (
-                        this.selectedPlatforms[i] == 'all' ||
-                        dataSourcePlatforms[this.dataSourcePlatformsSelectorDETTECT][this.selectedPlatforms[i]].includes(customDataSources[j])
-                    ) {
-                        suggestionList.add(customDataSources[j]);
+                // DeTT&CT (custom) data sources are currently only for Enterprise ATT&CK:
+                if (this.domain == 'enterprise-attack') {
+                    for (let j = 0; j < customDataSources.length; j++) {
+                        if (
+                            this.selectedPlatforms[i] == 'all' ||
+                            dataSourcePlatforms[this.dataSourcePlatformsSelectorDETTECT][this.selectedPlatforms[i]].includes(customDataSources[j])
+                        ) {
+                            suggestionList.add(customDataSources[j]);
+                        }
                     }
                 }
             }

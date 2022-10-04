@@ -2,7 +2,7 @@ export default {
     YAML_DATASOURCES_VERSION: 1.1,
     YAML_TECHNIQUES_VERSION: 1.2,
     YAML_GROUPS_VERSION: 1.0,
-    DETTECT_DOMAIN_SUPPORT: ['enterprise-attack', 'ics-attack'],
+    DETTECT_DOMAIN_SUPPORT: ['enterprise-attack', 'ics-attack', 'mobile-attack'],
     YAML_OBJ_NEW_DATA_SOURCES_FILE: {
         version: 1.1,
         file_type: 'data-source-administration',
@@ -112,5 +112,7 @@ export default {
     PLATFORM_CONVERSION_ICS: {'control server': 'Control Server', 'data historian': 'Data Historian', 'device configuration/parameters': 'Device Configuration/Parameters',
     'engineering workstation': 'Engineering Workstation', 'field controller/rtu/plc/ied': 'Field Controller/RTU/PLC/IED',
     'human-machine interface': 'Human-Machine Interface', 'input/output server': 'Input/Output Server',
-    'safety instrumented system/protection relay': 'Safety Instrumented System/Protection Relay', 'none': 'None'}
+    'safety instrumented system/protection relay': 'Safety Instrumented System/Protection Relay', 'none': 'None'},
+    PLATFORMS_MOBILE: ['all', 'Android', 'iOS'],
+    PLATFORM_CONVERSION_MOBILE: {'android': 'Android', 'ios': 'iOS'}
 };

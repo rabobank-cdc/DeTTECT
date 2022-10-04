@@ -161,10 +161,18 @@ export default {
     },
     computed: {
         currentTechniques() {
-            return this.domain == 'enterprise-attack' ? techniques['ATT&CK-Enterprise'] : techniques['ATT&CK-ICS'];
+            return this.domain == 'enterprise-attack'
+                ? techniques['ATT&CK-Enterprise']
+                : this.domain == 'ics-attack'
+                ? techniques['ATT&CK-ICS']
+                : techniques['ATT&CK-Mobile'];
         },
         currentSoftware() {
-            return this.domain == 'enterprise-attack' ? software['ATT&CK-Enterprise'] : software['ATT&CK-ICS'];
+            return this.domain == 'enterprise-attack'
+                ? software['ATT&CK-Enterprise']
+                : this.domain == 'ics-attack'
+                ? software['ATT&CK-ICS']
+                : software['ATT&CK-Mobile'];
         },
         isNewGroup() {
             return this.group.group_name == '' ? true : false;

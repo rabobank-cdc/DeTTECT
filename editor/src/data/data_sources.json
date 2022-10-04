@@ -144,5 +144,6 @@
     "User Account Authentication",
     "Windows Registry Key Deletion",
     "Windows Registry Key Modification"
-  ]
+  ],
+  "ATT&CK-Mobile": []
 }

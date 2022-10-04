@@ -5,10 +5,11 @@ from io import StringIO
 from ruamel.yaml import YAML
 from ruamel.yaml.timestamp import TimeStamp as ruamelTimeStamp
 from requests import exceptions
-from stix2 import datastore
+from stix2 import datastore, Filter
 from constants import *
 from upgrade import upgrade_yaml_file
 from health import check_yaml_file_health
+from stix2 import CompositeDataSource
 import dateutil.parser
 
 # Due to performance reasons the import of attackcti is within the function that makes use of this library.
@@ -148,6 +149,9 @@ def load_attack_data(data_type):
     elif data_type == DATA_TYPE_STIX_ALL_TECH_ICS:
         stix_attack_data = mitre.get_ics_techniques()
         attack_data = _convert_stix_techniques_to_dict(stix_attack_data)
+    elif data_type == DATA_TYPE_STIX_ALL_TECH_MOBILE:
+        stix_attack_data = mitre.get_mobile_techniques()
+        attack_data = _convert_stix_techniques_to_dict(stix_attack_data)
     elif data_type == DATA_TYPE_CUSTOM_TECH_BY_GROUP:
         # First we need to know which technique references (STIX Object type 'attack-pattern') we have for all
         # groups. This results in a dict: {group_id: Gxxxx, technique_ref/attack-pattern_ref: ...}
@@ -164,7 +168,8 @@ def load_attack_data(data_type):
                             'group_id': get_attack_id(g),
                             'name': g['name'],
                             'aliases': g.get('aliases', None),
-                            'technique_ref': r['target_ref']
+                            'technique_ref': r['target_ref'],
+                            'x_mitre_domains': g['x_mitre_domains'] if 'x_mitre_domains' in g.keys() else ['enterprise-attack']
                         })
 
         # Now we start resolving this part of the dict created above: 'technique_ref/attack-pattern_ref'.
@@ -181,6 +186,7 @@ def load_attack_data(data_type):
                             'aliases': gr['aliases'],
                             'technique_id': get_attack_id(t),
                             'x_mitre_platforms': t.get('x_mitre_platforms', None),
+                            'x_mitre_domains': gr['x_mitre_domains'],
                             'matrix': t['external_references'][0]['source_name']
                         })
 
@@ -190,8 +196,26 @@ def load_attack_data(data_type):
         stix_attack_data = mitre.get_techniques()
         attack_data = _convert_stix_techniques_to_dict(stix_attack_data)
     elif data_type == DATA_TYPE_STIX_ALL_GROUPS:
-        stix_attack_data = mitre.get_groups()
-        attack_data = _convert_stix_groups_to_dict(stix_attack_data)
+        # Fetch techniques from each matrix separately and then merge them. This is because STIX will deduplicate items with the
+        # same ID and modification date. Few techniques are in multiple matrices and will end up in STIX collection as just one
+        # item with only one of the matrices mentioned in x_mitre_domains field.
+        groups_enterprise = mitre.TC_ENTERPRISE_SOURCE.query(Filter("type", "=", "intrusion-set"))
+        groups_ics = mitre.TC_ICS_SOURCE.query(Filter("type", "=", "intrusion-set"))
+        groups_mobile = mitre.TC_MOBILE_SOURCE.query(Filter("type", "=", "intrusion-set"))
+
+        # Fix the x_mitre_domains field for ICS and Mobile. This information is not properly delivered when using the TAXII server.
+        # TODO: remove these lines when MITRE fixed this.
+        for g in groups_ics:
+            g['x_mitre_domains'].clear()
+            g['x_mitre_domains'].append('ics-attack')
+
+        for g in groups_mobile:
+            g['x_mitre_domains'].clear()
+            g['x_mitre_domains'].append('mobile-attack')
+
+        # Combine groups from all matrices together:
+        attack_data = _convert_stix_groups_to_dict(groups_enterprise + groups_ics + groups_mobile)
+
     elif data_type == DATA_TYPE_STIX_ALL_SOFTWARE:
         attack_data = mitre.get_software()
     elif data_type == DATA_TYPE_CUSTOM_TECH_BY_SOFTWARE:
@@ -236,7 +260,8 @@ def load_attack_data(data_type):
                             'group_id': get_attack_id(g),
                             'name': g['name'],
                             'aliases': g.get('aliases', None),
-                            'software_ref': r['target_ref']
+                            'software_ref': r['target_ref'],
+                            'x_mitre_domains': g['x_mitre_domains']
                         })
 
         # Now we start resolving this part of the dict created above: 'software_ref/malware-tool_ref'.
@@ -253,6 +278,7 @@ def load_attack_data(data_type):
                             'aliases': gr['aliases'],
                             'software_id': get_attack_id(s),
                             'x_mitre_platforms': s.get('x_mitre_platforms', None),
+                            'x_mitre_domains': gr['x_mitre_domains'],
                             'matrix': s['external_references'][0]['source_name']
                         })
         attack_data = all_group_use
@@ -279,7 +305,7 @@ def load_attack_data(data_type):
 def init_yaml():
     """
     Initialize ruamel.yaml with the correct settings
-    :return: am uamel.yaml object
+    :return: a ruamel.yaml object
     """
     _yaml = YAML()
     _yaml.Representer.ignore_aliases = lambda *args: True  # disable anchors/aliases
@@ -484,7 +510,7 @@ def platform_to_name(platform, domain, separator='-'):
     :param separator: a string value that separates multiple platforms. Default is '-'
     :return: a filename friendly representation of the value of platform
     """
-    platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else PLATFORMS_ICS
+    platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else PLATFORMS_ICS if domain == 'ics-attack' else PLATFORMS_MOBILE
     if set(platform) == set(platforms.values()) or platform == 'all' or 'all' in platform:
         return 'all'
     elif isinstance(platform, list):
@@ -502,7 +528,7 @@ def get_applicable_data_sources_platform(platforms, domain):
     """
     applicable_data_sources = set()
 
-    data_sources = DATA_SOURCES_ENTERPRISE if domain == 'enterprise-attack' else DATA_SOURCES_ICS
+    data_sources = DATA_SOURCES_ENTERPRISE if domain == 'enterprise-attack' else DATA_SOURCES_ICS if domain == 'ics-attack' else DATA_SOURCES_MOBILE
     for p in platforms:
         applicable_data_sources.update(data_sources[p])
 
@@ -518,7 +544,7 @@ def get_applicable_dettect_data_sources_platform(platforms, domain):
     """
     applicable_dettect_data_sources = set()
 
-    dettect_data_sources = DETTECT_DATA_SOURCES_PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else DETTECT_DATA_SOURCES_PLATFORMS_ICS
+    dettect_data_sources = DETTECT_DATA_SOURCES_PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else DETTECT_DATA_SOURCES_PLATFORMS_ICS if domain == 'ics-attack' else DETTECT_DATA_SOURCES_PLATFORMS_MOBILE
     for p in platforms:
         applicable_dettect_data_sources.update(dettect_data_sources[p])
 
@@ -622,7 +648,7 @@ def load_data_sources(file, filter_empty_scores=True):
     domain = 'enterprise-attack' if 'domain' not in yaml_content.keys() else yaml_content['domain']
 
     # make sure the platform values are compliant (including casing) with the ATT&CK platforms
-    platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else PLATFORMS_ICS
+    platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else PLATFORMS_ICS if domain == 'ics-attack' else PLATFORMS_MOBILE
     for s in systems:
         s['platform'] = [p.lower() for p in s['platform'] if p is not None]
         if 'all' in s['platform']:
@@ -810,6 +836,12 @@ def _check_file_type(filename, file_type=None):
             print('[!] File: \'' + filename + '\' is not a valid YAML file.')
             return None
 
+        # ATT&CK Mobile doesn't support data sources yet, so don't accept data sources files for Mobile yet.
+        domain = 'enterprise-attack' if 'domain' not in yaml_content.keys() else yaml_content['domain']
+        if yaml_content['file_type'] == 'data-source-administration' and domain == 'mobile-attack':
+            print('[!] File: \'' + filename + '\' has domain \'mobile-attack\' but data sources are not yet supported by ATT&CK itself.')
+            return None
+
         if 'file_type' not in yaml_content.keys():
             print('[!] File: \'' + filename + '\' does not contain a file_type key.')
             return None
@@ -882,7 +914,7 @@ def get_platform_in_correct_capitalisation(platform, domain):
     if isinstance(platform, str):
         platform = [platform]
     platform = [p.lower() for p in platform if p is not None]
-    selected_platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else PLATFORMS_ICS
+    selected_platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else PLATFORMS_ICS if domain == 'ics-attack' else PLATFORMS_MOBILE
 
     if 'all' in platform:
         platform = list(selected_platforms.values())
@@ -938,6 +970,8 @@ def check_platform(arg_platforms, filename=None, domain=None):
         platforms = PLATFORMS_ENTERPRISE
     elif domain == 'ics-attack':
         platforms = PLATFORMS_ICS
+    elif domain == 'mobile-attack':
+        platforms = PLATFORMS_MOBILE
 
     arg_platforms_lower = set([p.lower() for p in arg_platforms])
     unknown_platforms = arg_platforms_lower - set(platforms.keys())

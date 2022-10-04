@@ -2,7 +2,7 @@
 <img src="https://github.com/rabobank-cdc/DeTTECT/wiki/images/logo.png#gh-light-mode-only" alt="DeTT&CT" width=30% height=30%>
 
 #### Detect Tactics, Techniques & Combat Threats
-Latest version: [1.6.0](https://github.com/rabobank-cdc/DeTTECT/wiki/Changelog#version-160)
+Latest version: [1.7.0](https://github.com/rabobank-cdc/DeTTECT/wiki/Changelog#version-170)
 
 To get started with DeTT&CT, check out one of these resources:
 - This [page](https://github.com/rabobank-cdc/DeTTECT/wiki/Getting-started) on the Wiki.
@@ -16,9 +16,9 @@ To get started with DeTT&CT, check out one of these resources:
 
 DeTT&CT aims to assist blue teams in using ATT&CK to score and compare data log source quality, visibility coverage, detection coverage and threat actor behaviours. All of which can help, in different ways, to get more resilient against attacks targeting your organisation. The DeTT&CT framework consists of a Python tool (DeTT&CT CLI), YAML administration files, the [DeTT&CT Editor](https://rabobank-cdc.github.io/dettect-editor) (to create and edit the YAML administration files) and [scoring tables](https://github.com/rabobank-cdc/DeTTECT/raw/master/scoring_table.xlsx) for [detections](https://github.com/rabobank-cdc/DeTTECT/wiki/How-to-use-the-framework#detection), [data sources](https://github.com/rabobank-cdc/DeTTECT/wiki/How-to-use-the-framework#data-source) and [visibility](https://github.com/rabobank-cdc/DeTTECT/wiki/How-to-use-the-framework#visibility).
 
-DeTT&CT provides the following functionality for the ATT&CK domains Enterprise and ICS:
+DeTT&CT provides the following functionality for the ATT&CK domains Enterprise, ICS and Mobile:
 
-- Administrate and score the quality of your data sources.
+- Administrate and score the quality of your data sources<super>*</super>.
 - Get insight on the visibility you have on for example endpoints.
 - Map your detection coverage.
 - Map threat actor behaviours.
@@ -26,6 +26,8 @@ DeTT&CT provides the following functionality for the ATT&CK domains Enterprise a
 - Get statistics (per platform) on the number of techniques covered per data source.
 
 The coloured visualisations are created with the help of MITRE's [ATT&CK™ Navigator](https://mitre-attack.github.io/attack-navigator/#comment_underline=false). *For layer files created by DeTT&CT, we recommend using this URL to the Navigator as it will make sure metadata in the layer file does not have a yellow underline: [https://mitre-attack.github.io/attack-navigator/#comment_underline=false](https://mitre-attack.github.io/attack-navigator/#comment_underline=false)*
+
+<super>*</super><i> ATT&CK has not yet implemented data sources for Mobile. This will come in a future release of ATT&CK. Once it's there, we will incorporate it in DeTT&CT.</i>
 
 ## Authors and contributions
 This project is developed and maintained by [Marcus Bakker](https://github.com/marcusbakker) (Twitter: [@Bakk3rM](https://twitter.com/Bakk3rM)) and [Ruben Bouman](https://github.com/rubinatorz) (Twitter: [@rubinatorz](https://twitter.com/rubinatorz/)). Feel free to contact, DMs are open. We do appreciate if you ask any question on how to use DeTT&CT by making a GitHub issue. Having the questions and answers over there will greatly help others having similar questions and challenges.
@@ -41,6 +43,9 @@ The following parties have supported the development of DeTT&CT in time or finan
 - **[Cyber Security Sharing & Analytics (CSSA)](https://cssa.de/en/index.html#top)** - *Founded in November 2014 by seven major German companies as an alliance for jointly facing cyber security challenges in a proactive, fast and effective manner. Currently, CSSA has 13 member companies.*
 
   With the financial sponsorship of the CSSA, we added support for [ATT&CK ICS](https://collaborate.mitre.org/attackics/index.php/Main_Page) to DeTT&CT.
+
+- **[Dutch National Police](https://www.politie.nl/en)**. With the financial sponsorship of the Dutch National Police, we added support for ATT&CK Mobile to DeTT&CT.
+
 
 ### Work of others
 The work of others inspired some functionality within DeTT&CT:

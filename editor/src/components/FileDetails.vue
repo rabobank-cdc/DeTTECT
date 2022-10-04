@@ -29,6 +29,7 @@
                 >
                     <option>enterprise-attack</option>
                     <option>ics-attack</option>
+                    <option>mobile-attack</option>
                 </select>
             </td>
         </tr>
@@ -191,9 +192,15 @@ export default {
                 }
             }
         },
-        domainChange() {
+        domainChange(e) {
             if (this.fileType == 'techniques' || this.fileType == 'groups') {
                 this.doc.platform = _.cloneDeep(constants.YAML_OBJ_NEW_TECHNIQUES_FILE.platform);
+            }
+            if (this.fileType == 'datasources' && e.target.value == 'mobile-attack') {
+                this.notifyDanger(
+                    'Unsupported',
+                    'ATT&CK has not yet implemented data sources for Mobile. This will come in a future release of ATT&CK.'
+                );
             }
         }
     },

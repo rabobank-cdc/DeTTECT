@@ -39,10 +39,11 @@ def _are_groups_found(groups_found, argument_groups):
 
         group_id = None
         for group in group_attack_data:  # is the group provided via the command line known in ATT&CK?
+            group_aliases_lower = []
             if 'aliases' in group:
                 group_aliases_lower = list(map(lambda x: x.lower(), group['aliases']))
-                if group_arg in group_aliases_lower or group_arg == get_attack_id(group).lower():
-                    group_id = get_attack_id(group)
+            if group_arg in group_aliases_lower or group_arg == get_attack_id(group).lower() or group_arg == group['name'].lower():
+                group_id = get_attack_id(group)
         if not group_id:  # the group that has been provided through the command line cannot be found in ATT&CK
             print('[!] Unknown ATT&CK group: ' + group_arg)
             group_found = False
@@ -109,10 +110,9 @@ def _get_software_techniques(groups, platform, domain):
         for s in software_by_group:
             # software matches the ATT&CK Matrix and platform
             # and the group is a group we are interested in
-            matrix = 'mitre-attack' if domain == 'enterprise-attack' else 'mitre-ics-attack'
             if s['x_mitre_platforms']:  # there is software that do not have a platform, skip those
-                if s['matrix'] == matrix and len(set(s['x_mitre_platforms']).intersection(set(platform))) > 0 and \
-                        (groups[0] == 'all' or s['group_id'].lower() in groups or _is_in_group(s['aliases'], groups)):
+                if domain in s['x_mitre_domains'] and len(set(s['x_mitre_platforms']).intersection(set(platform))) > 0 and \
+                        (groups[0] == 'all' or s['group_id'].lower() in groups or _is_in_group(s['aliases'], groups) or s['name'].lower() in groups):
                     if s['group_id'] not in groups_dict:
                         groups_dict[s['group_id']] = {'group_name': s['name']}
                         groups_dict[s['group_id']]['techniques'] = set()
@@ -204,9 +204,8 @@ def _get_group_techniques(groups, platform, file_type, domain):
                 platforms = ['Windows']
 
             # group matches the: matrix/stage, platform and the group(s) we are interested in
-            matrix = 'mitre-attack' if domain == 'enterprise-attack' else 'mitre-ics-attack'
-            if gr['matrix'] == matrix and len(set(platforms).intersection(set(platform))) > 0 and \
-                    (groups[0] == 'all' or gr['group_id'].lower() in groups or _is_in_group(gr['aliases'], groups)):
+            if domain in gr['x_mitre_domains'] and len(set(platforms).intersection(set(platform))) > 0 and \
+                    (groups[0] == 'all' or gr['group_id'].lower() in groups or _is_in_group(gr['aliases'], groups) or gr['name'].lower() in groups):
                 if gr['group_id'] not in groups_dict:
                     groups_found.add(gr['group_id'])
                     groups_dict[gr['group_id']] = {'group_name': gr['name']}
@@ -535,21 +534,21 @@ def generate_group_heat_map(groups, overlay, overlay_type, platform, software_gr
             group_file = _yaml.load(yaml_file)
 
         domain_in_file = 'enterprise-attack' if 'domain' not in group_file.keys() else group_file['domain']
-        domain_in_argument = 'enterprise-attack' if domain == 'enterprise' else 'ics-attack' if domain == 'ics' else None
+        domain_in_argument = 'enterprise-attack' if domain == 'enterprise' else 'ics-attack' if domain == 'ics' else 'mobile-attack' if domain == 'mobile' else None
         if(domain_in_argument and domain_in_file != domain_in_argument):
             print('[!] The domain specified in Group YAML file conflicts with the given value of the -d/--domain argument.')
             return None
         domain = domain_in_file
         platform_yaml = get_platform_from_yaml(group_file, domain)
     else:
-        domain = 'ics-attack' if domain == 'ics' else 'enterprise-attack'  # if no domain is given, enterprise is default
+        domain = 'mobile-attack' if domain == 'mobile' else 'ics-attack' if domain == 'ics' else 'enterprise-attack'  # if no domain is given, enterprise is default
 
     if platform == None and platform_yaml != None:
         platform = platform_yaml
     elif platform == None:  # 'all'
-        platform = list(PLATFORMS_ENTERPRISE.values()) if domain == 'enterprise-attack' else list(PLATFORMS_ICS.values())
+        platform = list(PLATFORMS_ENTERPRISE.values()) if domain == 'enterprise-attack' else list(PLATFORMS_ICS.values() if domain == 'ics-attack' else list(PLATFORMS_MOBILE.values()))
     elif 'all' in [p.lower() for p in platform if p is not None]:
-        platform = list(PLATFORMS_ENTERPRISE.values()) if domain == 'enterprise-attack' else list(PLATFORMS_ICS.values())
+        platform = list(PLATFORMS_ENTERPRISE.values()) if domain == 'enterprise-attack' else list(PLATFORMS_ICS.values() if domain == 'ics-attack' else list(PLATFORMS_MOBILE.values()))
     elif isinstance(platform, list):
         if not check_platform(platform, domain=domain):
             return None

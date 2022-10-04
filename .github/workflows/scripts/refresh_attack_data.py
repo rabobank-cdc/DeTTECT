@@ -22,15 +22,16 @@ FILE_WIKI_DATA_SOURCE_PLATFORMS = 'Data-sources-per-platform.md'
 
 MATRIX_ENTERPRISE = 'mitre-attack'
 MATRIX_ICS = 'mitre-ics-attack'
+MATRIX_MOBILE = 'mitre-mobile-attack'
 
 WIKI_TEXT_START = ['**Content:**','- [Enterprise](#enterprise)', '- [ICS](#ics)', '', '']
 WIKI_TEXT_ENTERPRISE = ['## Enterprise', ''
     'The below mapping from data sources/data components to platforms is created on the information provided by MITRE within the [data source objects](https://attack.mitre.org/datasources/). Also, note that the below is only listing data components that are actually referenced by a technique. Therefore it does not include all data components as referenced in the [data source YAML files](https://github.com/mitre-attack/attack-datasources).',
     '']
 WIKI_TEXT_ICS = ['', '## ICS', '', '**Official platform mapping is missing**', '', 'An official mapping for ICS sources/data components to platforms is currently missing. Hence it\'s expected the below platform mapping will improve once available. The current mapping of data sources to platforms is determined in the following automated manner:',
-'- We check for every technique the listed data sources and note that down.', 
+'- We check for every technique the listed data sources and note that down.',
 '- Besides noting down the data sources, we also take note of the platforms mentioned per technique.',
-'- The above two are combined to produce the final mapping.', '', '**DeTT&CT data sources**', '', 
+'- The above two are combined to produce the final mapping.', '', '**DeTT&CT data sources**', '',
 'As we do not consider ourselves experts in the field of ICS, we have not included the DeTT&CT data sources. Any help and thus contributions on that matter are very much appreciated. *Possibly, with future developments of ATT&CK ICS, we could automate this part when Detection objects are introduced. However, it is not certain whether this will provide good results.*']
 
 class ATTACKData():
@@ -47,8 +48,10 @@ class ATTACKData():
 
         self.attack_cti_techniques_enterprise = self.mitre.get_enterprise_techniques()
         self.attack_cti_techniques_ics = self.mitre.get_ics_techniques()
+        self.attack_cti_techniques_mobile = self.mitre.get_mobile_techniques()
 
         self.data_source_dict_enterprise = self._create_data_source_dict(MATRIX_ENTERPRISE)
+        self.data_source_dict_ics = self._create_data_source_dict(MATRIX_ICS)
 
         self.attack_cti_software = self.mitre.get_software()
 
@@ -63,12 +66,18 @@ class ATTACKData():
         data_components_ics = self._get_data_components_from_techniques(self.attack_cti_techniques_ics)
         self._update_data(data_components_ics, 'ATT&CK-ICS', FILE_DATA_SOURCES)
 
+        data_components_mobile = self._get_data_components_from_techniques(self.attack_cti_techniques_mobile)
+        self._update_data(data_components_mobile, 'ATT&CK-Mobile', FILE_DATA_SOURCES)
+
         # update 'data_source_platforms.json'
         data_components_enterprise_platform_mapping = self._get_data_components_platform_mapping_from_dict(self.data_source_dict_enterprise)
         self._update_data(data_components_enterprise_platform_mapping, 'ATT&CK-Enterprise', FILE_DATA_SOURCES_PLATFORMS)
 
         data_components_ics_platform_mapping = self._get_data_components_platform_mapping_from_techniques(self.attack_cti_techniques_ics)
         self._update_data(data_components_ics_platform_mapping, 'ATT&CK-ICS', FILE_DATA_SOURCES_PLATFORMS, skip_cli=False)
+
+        data_components_mobile_platform_mapping = self._get_data_components_platform_mapping_from_techniques(self.attack_cti_techniques_mobile)
+        self._update_data(data_components_mobile_platform_mapping, 'ATT&CK-Mobile', FILE_DATA_SOURCES_PLATFORMS, skip_cli=False)
 
         # update 'techniques.json'
         techniques_enterprise = self._get_techniques(self.attack_cti_techniques_enterprise, MATRIX_ENTERPRISE)
@@ -77,12 +86,18 @@ class ATTACKData():
         techniques_ics = self._get_techniques(self.attack_cti_techniques_ics, MATRIX_ICS)
         self._update_data(techniques_ics, 'ATT&CK-ICS', FILE_TECHNIQUES)
 
+        techniques_mobile = self._get_techniques(self.attack_cti_techniques_mobile, MATRIX_MOBILE)
+        self._update_data(techniques_mobile, 'ATT&CK-Mobile', FILE_TECHNIQUES)
+
         # update 'software.json'
         software_enterprise = self._get_software(self.attack_cti_techniques_enterprise, MATRIX_ENTERPRISE)
         self._update_data(software_enterprise, 'ATT&CK-Enterprise', FILE_SOFTWARE)
 
         software_ics = self._get_software(self.attack_cti_techniques_ics, MATRIX_ICS)
         self._update_data(software_ics, 'ATT&CK-ICS', FILE_SOFTWARE)
+
+        software_mobile = self._get_software(self.attack_cti_techniques_mobile, MATRIX_MOBILE)
+        self._update_data(software_mobile, 'ATT&CK-Mobile', FILE_SOFTWARE)
 
     def execute_refresh_wiki(self):
         """
@@ -234,8 +249,11 @@ class ATTACKData():
         :param filename: filename of the file written to disk
         :return:
         """
-        with open(FILE_PATH_WIKI + filename, 'w') as f:
-            f.write('\n'.join(text))
+        try:
+            with open(FILE_PATH_WIKI + filename, 'w') as f:
+                f.write('\n'.join(text))
+        except Exception as e:
+            print("Error writing wiki file. May be local environment? (%s)" % str(e))
 
     def _get_attack_id(self, technique, matrix):
         """
@@ -247,7 +265,7 @@ class ATTACKData():
         for e in technique['external_references']:
             source_name = e.get('source_name', None)
             # return source_name
-            if source_name == matrix or (matrix == 'mitre-ics-attack' and source_name == 'mitre-attack'):
+            if source_name == matrix or (matrix == 'mitre-ics-attack' and source_name == 'mitre-attack') or (matrix == 'mitre-mobile-attack' and source_name == 'mitre-attack'):
                 return e['external_id']
         return None
 
@@ -426,6 +444,9 @@ class ATTACKData():
         elif matrix == MATRIX_ICS:
             # ICS data sources are not yet in CTI, so this will not work
             data_sources = self.mitre.TC_ICS_SOURCE.query(Filter("type", "=", "x-mitre-data-source"))
+        elif matrix == MATRIX_MOBILE:
+            # Mobile data sources are not yet in CTI, so this will not work
+            data_sources = self.mitre.TC_MOBILE_SOURCE.query(Filter("type", "=", "x-mitre-data-source"))
 
         return data_sources
 
@@ -440,6 +461,9 @@ class ATTACKData():
         elif matrix == MATRIX_ICS:
             # ICS data components are not yet in CTI, so this will not work
             data_components = self.mitre.TC_ICS_SOURCE.query(Filter("type", "=", "x-mitre-data-component"))
+        elif matrix == MATRIX_MOBILE:
+            # Mobile data components are not yet in CTI, so this will not work
+            data_components = self.mitre.TC_MOBILE_SOURCE.query(Filter("type", "=", "x-mitre-data-component"))
 
         return data_components
 

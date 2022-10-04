@@ -7,11 +7,11 @@ def _get_platforms_for_data_source(data_source, domain):
     """
     Get the ATT&CK platforms that apply to the provided data source
     :param data_source: ATT&CK data component or DeTT&CT data source
-    :param domain: the specified domain (enterprise or ics)
+    :param domain: the specified domain (enterprise, ics or mobile)
     :return: list of ATT&CK platforms
     """
-    attack_data_sources = DATA_SOURCES_ENTERPRISE if domain == 'enterprise' else DATA_SOURCES_ICS
-    dettect_data_sources = DETTECT_DATA_SOURCES_PLATFORMS_ENTERPRISE if domain == 'enterprise' else DETTECT_DATA_SOURCES_PLATFORMS_ICS
+    attack_data_sources = DATA_SOURCES_ENTERPRISE if domain == 'enterprise' else DATA_SOURCES_ICS if domain == 'ics' else DATA_SOURCES_MOBILE
+    dettect_data_sources = DETTECT_DATA_SOURCES_PLATFORMS_ENTERPRISE if domain == 'enterprise' else DETTECT_DATA_SOURCES_PLATFORMS_ICS if domain == 'ics' else DETTECT_DATA_SOURCES_PLATFORMS_MOBILE
 
     platforms = []
     for platform, data_sources in attack_data_sources.items():
@@ -34,9 +34,14 @@ def get_statistics_data_sources(domain, arg_platforms):
     if domain == 'enterprise':
         stix_type = DATA_TYPE_STIX_ALL_TECH_ENTERPRISE
         attack_platforms = PLATFORMS_ENTERPRISE
-    else:
+    elif domain == 'ics':
         stix_type = DATA_TYPE_STIX_ALL_TECH_ICS
         attack_platforms = PLATFORMS_ICS
+    else:
+        stix_type = DATA_TYPE_STIX_ALL_TECH_MOBILE
+        attack_platforms = PLATFORMS_MOBILE
+
+        print('[!] ATT&CK has not yet implemented data sources for Mobile. This will come in a future release of ATT&CK. DeTT&CT is ready for it ;-)')
 
     techniques = load_attack_data(stix_type)
 
@@ -149,9 +154,9 @@ def get_platforms(domain):
     :param domain: the specified domain
     :return:
     """
-    platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise' else PLATFORMS_ICS
+    platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise' else PLATFORMS_ICS if domain == 'ics' else PLATFORMS_MOBILE
     platform_str = [' - ' + p for p in platforms.values()]
-    domain_prt = 'Enterprise' if domain == 'enterprise' else 'ICS'
+    domain_prt = 'Enterprise' if domain == 'enterprise' else 'ICS' if domain == 'ics' else 'Mobile'
     print('ATT&CK platforms for the domain ' + domain_prt + ':')
     print('\n'.join(platform_str))
 

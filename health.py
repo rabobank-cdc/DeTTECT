@@ -199,7 +199,7 @@ def _check_health_techniques(filename, technique_content, health_is_called):
             domain = technique_content['domain']
 
     platform = technique_content.get('platform', None)
-    supported_platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else PLATFORMS_ICS
+    supported_platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else PLATFORMS_ICS if domain == 'ics-attack' else PLATFORMS_MOBILE
     if platform != 'all' and platform != ['all']:
         if isinstance(platform, str):
             platform = [platform]
@@ -320,7 +320,7 @@ def check_health_data_sources(filename, ds_content, health_is_called, no_print=F
             for system in ds_content['systems']:
                 # check the platform value
                 platform = system['platform']
-                supported_platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else PLATFORMS_ICS
+                supported_platforms = PLATFORMS_ENTERPRISE if domain == 'enterprise-attack' else PLATFORMS_ICS if domain == 'ics-attack' else PLATFORMS_MOBILE
                 if isinstance(platform, str):
                     platform = [platform]
                 if platform is None or len(platform) == 0 or platform == '':

@@ -201,10 +201,10 @@ export default {
             return dataSources[this.dataSourcePlatformsSelectorATTACK];
         },
         dataSourcePlatformsSelectorATTACK() {
-            return this.doc.domain == 'enterprise-attack' ? 'ATT&CK-Enterprise' : 'ATT&CK-ICS';
+            return this.doc.domain == 'enterprise-attack' ? 'ATT&CK-Enterprise' : this.doc.domain == 'ics-attack' ? 'ATT&CK-ICS' : 'ATT&CK-Mobile';
         },
         dataSourcePlatformsSelectorDETTECT() {
-            return this.doc.domain == 'enterprise-attack' ? 'DeTT&CT-Enterprise' : 'DeTT&CT-ICS';
+            return this.doc.domain == 'enterprise-attack' ? 'DeTT&CT-Enterprise' : this.doc.domain == 'ics-attack' ? 'DeTT&CT-ICS' : 'DeTT&CT-Mobile';
         }
     },
     mixins: [pageMixin, navigateMixins, notificationMixin],
@@ -441,16 +441,19 @@ export default {
                     }
                 }
 
-                for (let j = 0; j < customDataSources.length; j++) {
-                    if (
-                        this.selectedPlatforms[i] == 'all' ||
-                        dataSourcePlatforms[this.dataSourcePlatformsSelectorDETTECT][this.selectedPlatforms[i]].includes(customDataSources[j])
-                    ) {
-                        if (!current_ds_in_file.includes(customDataSources[j])) {
-                            let newrow = _.cloneDeep(this.emptyDataSourceObject);
-                            newrow.data_source_name = customDataSources[j];
-                            this.doc.data_sources.push(newrow);
-                            current_ds_in_file.push(customDataSources[j]);
+                // DeTT&CT (custom) data sources are currently only for Enterprise ATT&CK:
+                if (this.doc.domain == 'enterprise-attack') {
+                    for (let j = 0; j < customDataSources.length; j++) {
+                        if (
+                            this.selectedPlatforms[i] == 'all' ||
+                            dataSourcePlatforms[this.dataSourcePlatformsSelectorDETTECT][this.selectedPlatforms[i]].includes(customDataSources[j])
+                        ) {
+                            if (!current_ds_in_file.includes(customDataSources[j])) {
+                                let newrow = _.cloneDeep(this.emptyDataSourceObject);
+                                newrow.data_source_name = customDataSources[j];
+                                this.doc.data_sources.push(newrow);
+                                current_ds_in_file.push(customDataSources[j]);
+                            }
                         }
                     }
                 }

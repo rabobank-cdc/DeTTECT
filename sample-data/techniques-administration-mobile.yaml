@@ -1,0 +1,71 @@
+version: 1.2
+file_type: technique-administration
+name: example techniques Mobile
+domain: mobile-attack
+platform:
+  - iOS
+  - Android
+techniques:
+  - technique_id: T1420
+    technique_name: File and Directory Discovery
+    detection:
+      - applicable_to:
+          - all
+        location:
+          - MDM use case A
+        comment: ''
+        score_logbook:
+          - date: 2022-09-15T00:00:00.000Z
+            score: 1
+            comment: ''
+    visibility:
+      - applicable_to:
+          - all
+        comment: ''
+        score_logbook:
+          - date: 2022-09-15T00:00:00.000Z
+            score: 1
+            comment: ''
+            auto_generated: false
+  - technique_id: T1430.001
+    technique_name: Remote Device Management Services
+    detection:
+      - applicable_to:
+          - all
+        location:
+          - MDM use case B
+        comment: ''
+        score_logbook:
+          - date: 2022-09-15T00:00:00.000Z
+            score: 2
+            comment: ''
+    visibility:
+      - applicable_to:
+          - all
+        comment: ''
+        score_logbook:
+          - date: 2022-09-15T00:00:00.000Z
+            score: 2
+            comment: ''
+            auto_generated: false
+  - technique_id: T1603
+    technique_name: Scheduled Task/Job
+    detection:
+      - applicable_to:
+          - all
+        location: []
+        comment: ''
+        score_logbook:
+          - date: null
+            score: -1
+            comment: ''
+    visibility:
+      - applicable_to:
+          - all
+        comment: ''
+        score_logbook:
+          - date: 2022-09-15T00:00:00.000Z
+            score: 2
+            comment: ''
+            auto_generated: false
+notes: This file serves purely as an example to showcase the functionality of DeTT&CT and does not mean to be representative of a real environment.
