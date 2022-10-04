@@ -42,7 +42,8 @@ The following parties have supported the development of DeTT&CT in time or finan
 
   With the financial sponsorship of the CSSA, we added support for [ATT&CK ICS](https://collaborate.mitre.org/attackics/index.php/Main_Page) to DeTT&CT.
 
-- **[...](https://www.github.com)** - With the financial sponsorship of ..., we added support for ATT&CK Mobile to DeTT&CT.
+- **[Dutch National Police](https://www.politie.nl/en)**. With the financial sponsorship of the Dutch National Police, we added support for ATT&CK Mobile to DeTT&CT.
+
 
 ### Work of others
 The work of others inspired some functionality within DeTT&CT:
