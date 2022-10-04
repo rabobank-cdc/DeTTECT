@@ -1,6 +1,6 @@
 version: 1.1
 file_type: data-source-administration
-name: Data sources sample
+name: Data sources sample ICS
 domain: ics-attack
 systems:
   - applicable_to: Workstations

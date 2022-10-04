@@ -1,6 +1,6 @@
 version: 1.2
 file_type: technique-administration
-name: example techniques mobile
+name: example techniques Mobile
 domain: mobile-attack
 platform:
   - iOS
@@ -38,6 +38,26 @@ techniques:
         score_logbook:
           - date: 2022-09-15T00:00:00.000Z
             score: 2
+            comment: ''
+    visibility:
+      - applicable_to:
+          - all
+        comment: ''
+        score_logbook:
+          - date: 2022-09-15T00:00:00.000Z
+            score: 2
+            comment: ''
+            auto_generated: false
+  - technique_id: T1603
+    technique_name: Scheduled Task/Job
+    detection:
+      - applicable_to:
+          - all
+        location: []
+        comment: ''
+        score_logbook:
+          - date: null
+            score: -1
             comment: ''
     visibility:
       - applicable_to:

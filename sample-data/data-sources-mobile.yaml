@@ -1,0 +1,14 @@
+version: 1.1
+file_type: data-source-administration
+name: Data sources sample Mobile
+domain: mobile-attack
+systems:
+  - applicable_to: Phones
+    platform:
+      - Android
+      - iOS
+data_sources: []
+notes: |
+  ATT&CK has not yet implemented data sources for Mobile. This will come in a future release of ATT&CK. Once it's there, we will incorporate it in DeTT&CT.
+
+  This file serves purely as an example to showcase the functionality of DeTT&CT and does not mean to be representative of a real environment.
