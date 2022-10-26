@@ -394,6 +394,34 @@
       "autosuggest": "T1027.006 - HTML Smuggling"
     },
     {
+      "technique_id": "T1027.007",
+      "technique_name": "Dynamic API Resolution",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "T1027.007 - Dynamic API Resolution"
+    },
+    {
+      "technique_id": "T1027.008",
+      "technique_name": "Stripped Payloads",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1027.008 - Stripped Payloads"
+    },
+    {
+      "technique_id": "T1027.009",
+      "technique_name": "Embedded Payloads",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1027.009 - Embedded Payloads"
+    },
+    {
       "technique_id": "T1029",
       "technique_name": "Scheduled Transfer",
       "platforms": [
@@ -1040,15 +1068,17 @@
     },
     {
       "technique_id": "T1070",
-      "technique_name": "Indicator Removal on Host",
+      "technique_name": "Indicator Removal",
       "platforms": [
         "Containers",
+        "Google Workspace",
         "Linux",
         "Network",
+        "Office 365",
         "Windows",
         "macOS"
       ],
-      "autosuggest": "T1070 - Indicator Removal on Host"
+      "autosuggest": "T1070 - Indicator Removal"
     },
     {
       "technique_id": "T1070.001",
@@ -1105,6 +1135,39 @@
         "macOS"
       ],
       "autosuggest": "T1070.006 - Timestomp"
+    },
+    {
+      "technique_id": "T1070.007",
+      "technique_name": "Clear Network Connection History and Configurations",
+      "platforms": [
+        "Linux",
+        "Network",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1070.007 - Clear Network Connection History and Configurations"
+    },
+    {
+      "technique_id": "T1070.008",
+      "technique_name": "Clear Mailbox Data",
+      "platforms": [
+        "Google Workspace",
+        "Linux",
+        "Office 365",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1070.008 - Clear Mailbox Data"
+    },
+    {
+      "technique_id": "T1070.009",
+      "technique_name": "Clear Persistence",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1070.009 - Clear Persistence"
     },
     {
       "technique_id": "T1071",
@@ -1207,6 +1270,7 @@
         "Google Workspace",
         "IaaS",
         "Linux",
+        "Network",
         "Office 365",
         "SaaS",
         "Windows",
@@ -2128,6 +2192,7 @@
       "platforms": [
         "IaaS",
         "Linux",
+        "Office 365",
         "SaaS",
         "Windows",
         "macOS"
@@ -2236,6 +2301,16 @@
         "macOS"
       ],
       "autosuggest": "T1205.001 - Port Knocking"
+    },
+    {
+      "technique_id": "T1205.002",
+      "technique_name": "Socket Filters",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1205.002 - Socket Filters"
     },
     {
       "technique_id": "T1207",
@@ -2820,6 +2895,7 @@
       "technique_name": "Server Software Component",
       "platforms": [
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
@@ -2848,6 +2924,7 @@
       "technique_name": "Web Shell",
       "platforms": [
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
@@ -2945,11 +3022,12 @@
     },
     {
       "technique_id": "T1530",
-      "technique_name": "Data from Cloud Storage Object",
+      "technique_name": "Data from Cloud Storage",
       "platforms": [
-        "IaaS"
+        "IaaS",
+        "SaaS"
       ],
-      "autosuggest": "T1530 - Data from Cloud Storage Object"
+      "autosuggest": "T1530 - Data from Cloud Storage"
     },
     {
       "technique_id": "T1531",
@@ -3116,7 +3194,10 @@
       "technique_id": "T1546",
       "technique_name": "Event Triggered Execution",
       "platforms": [
+        "IaaS",
         "Linux",
+        "Office 365",
+        "SaaS",
         "Windows",
         "macOS"
       ],
@@ -3243,6 +3324,16 @@
         "Windows"
       ],
       "autosuggest": "T1546.015 - Component Object Model Hijacking"
+    },
+    {
+      "technique_id": "T1546.016",
+      "technique_name": "Installer Packages",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1546.016 - Installer Packages"
     },
     {
       "technique_id": "T1547",
@@ -3428,8 +3519,10 @@
       "technique_id": "T1550.001",
       "technique_name": "Application Access Token",
       "platforms": [
+        "Azure AD",
         "Containers",
         "Google Workspace",
+        "IaaS",
         "Office 365",
         "SaaS"
       ],
@@ -3672,8 +3765,13 @@
       "technique_id": "T1556",
       "technique_name": "Modify Authentication Process",
       "platforms": [
+        "Azure AD",
+        "Google Workspace",
+        "IaaS",
         "Linux",
         "Network",
+        "Office 365",
+        "SaaS",
         "Windows",
         "macOS"
       ],
@@ -3721,10 +3819,39 @@
       "autosuggest": "T1556.005 - Reversible Encryption"
     },
     {
+      "technique_id": "T1556.006",
+      "technique_name": "Multi-Factor Authentication",
+      "platforms": [
+        "Azure AD",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Office 365",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1556.006 - Multi-Factor Authentication"
+    },
+    {
+      "technique_id": "T1556.007",
+      "technique_name": "Hybrid Identity",
+      "platforms": [
+        "Azure AD",
+        "Google Workspace",
+        "IaaS",
+        "Office 365",
+        "SaaS",
+        "Windows"
+      ],
+      "autosuggest": "T1556.007 - Hybrid Identity"
+    },
+    {
       "technique_id": "T1557",
       "technique_name": "Adversary-in-the-Middle",
       "platforms": [
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
@@ -4591,6 +4718,14 @@
       "autosuggest": "T1583.006 - Web Services"
     },
     {
+      "technique_id": "T1583.007",
+      "technique_name": "Serverless",
+      "platforms": [
+        "PRE"
+      ],
+      "autosuggest": "T1583.007 - Serverless"
+    },
+    {
       "technique_id": "T1584",
       "technique_name": "Compromise Infrastructure",
       "platforms": [
@@ -4647,6 +4782,14 @@
       "autosuggest": "T1584.006 - Web Services"
     },
     {
+      "technique_id": "T1584.007",
+      "technique_name": "Serverless",
+      "platforms": [
+        "PRE"
+      ],
+      "autosuggest": "T1584.007 - Serverless"
+    },
+    {
       "technique_id": "T1585",
       "technique_name": "Establish Accounts",
       "platforms": [
@@ -4671,6 +4814,14 @@
       "autosuggest": "T1585.002 - Email Accounts"
     },
     {
+      "technique_id": "T1585.003",
+      "technique_name": "Cloud Accounts",
+      "platforms": [
+        "PRE"
+      ],
+      "autosuggest": "T1585.003 - Cloud Accounts"
+    },
+    {
       "technique_id": "T1586",
       "technique_name": "Compromise Accounts",
       "platforms": [
@@ -4693,6 +4844,14 @@
         "PRE"
       ],
       "autosuggest": "T1586.002 - Email Accounts"
+    },
+    {
+      "technique_id": "T1586.003",
+      "technique_name": "Cloud Accounts",
+      "platforms": [
+        "PRE"
+      ],
+      "autosuggest": "T1586.003 - Cloud Accounts"
     },
     {
       "technique_id": "T1587",
@@ -4981,6 +5140,14 @@
         "PRE"
       ],
       "autosuggest": "T1593.002 - Search Engines"
+    },
+    {
+      "technique_id": "T1593.003",
+      "technique_name": "Code Repositories",
+      "platforms": [
+        "PRE"
+      ],
+      "autosuggest": "T1593.003 - Code Repositories"
     },
     {
       "technique_id": "T1594",
@@ -5303,6 +5470,14 @@
       "autosuggest": "T1608.005 - Link Target"
     },
     {
+      "technique_id": "T1608.006",
+      "technique_name": "SEO Poisoning",
+      "platforms": [
+        "PRE"
+      ],
+      "autosuggest": "T1608.006 - SEO Poisoning"
+    },
+    {
       "technique_id": "T1609",
       "technique_name": "Container Administration Command",
       "platforms": [
@@ -5423,6 +5598,27 @@
         "macOS"
       ],
       "autosuggest": "T1647 - Plist File Modification"
+    },
+    {
+      "technique_id": "T1648",
+      "technique_name": "Serverless Execution",
+      "platforms": [
+        "IaaS",
+        "Office 365",
+        "SaaS"
+      ],
+      "autosuggest": "T1648 - Serverless Execution"
+    },
+    {
+      "technique_id": "T1649",
+      "technique_name": "Steal or Forge Authentication Certificates",
+      "platforms": [
+        "Azure AD",
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1649 - Steal or Forge Authentication Certificates"
     }
   ],
   "ATT&CK-ICS": [
@@ -5658,13 +5854,13 @@
     },
     {
       "technique_id": "T0830",
-      "technique_name": "Man in the Middle",
+      "technique_name": "Adversary-in-the-Middle",
       "platforms": [
         "Control Server",
         "Field Controller/RTU/PLC/IED",
         "Human-Machine Interface"
       ],
-      "autosuggest": "T0830 - Man in the Middle"
+      "autosuggest": "T0830 - Adversary-in-the-Middle"
     },
     {
       "technique_id": "T0831",
@@ -6156,6 +6352,19 @@
         "Safety Instrumented System/Protection Relay"
       ],
       "autosuggest": "T0890 - Exploitation for Privilege Escalation"
+    },
+    {
+      "technique_id": "T0891",
+      "technique_name": "Hardcoded Credentials",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0891 - Hardcoded Credentials"
     }
   ],
   "ATT&CK-Mobile": [

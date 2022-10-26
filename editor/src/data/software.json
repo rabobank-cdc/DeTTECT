@@ -2613,6 +2613,114 @@
       "autosuggest": "S0284 - More_eggs"
     },
     {
+      "software_id": "S0285",
+      "software_name": "OldBoot",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0285 - OldBoot"
+    },
+    {
+      "software_id": "S0286",
+      "software_name": "OBAD",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0286 - OBAD"
+    },
+    {
+      "software_id": "S0287",
+      "software_name": "ZergHelper",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0287 - ZergHelper"
+    },
+    {
+      "software_id": "S0288",
+      "software_name": "KeyRaider",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0288 - KeyRaider"
+    },
+    {
+      "software_id": "S0291",
+      "software_name": "PJApps",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0291 - PJApps"
+    },
+    {
+      "software_id": "S0292",
+      "software_name": "AndroRAT",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0292 - AndroRAT"
+    },
+    {
       "software_id": "S0293",
       "software_name": "BrainTest",
       "platforms": [
@@ -2629,6 +2737,366 @@
         "macOS"
       ],
       "autosuggest": "S0293 - BrainTest"
+    },
+    {
+      "software_id": "S0294",
+      "software_name": "ShiftyBug",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0294 - ShiftyBug"
+    },
+    {
+      "software_id": "S0297",
+      "software_name": "XcodeGhost",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0297 - XcodeGhost"
+    },
+    {
+      "software_id": "S0298",
+      "software_name": "Xbot",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0298 - Xbot"
+    },
+    {
+      "software_id": "S0299",
+      "software_name": "NotCompatible",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0299 - NotCompatible"
+    },
+    {
+      "software_id": "S0300",
+      "software_name": "DressCode",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0300 - DressCode"
+    },
+    {
+      "software_id": "S0303",
+      "software_name": "MazarBOT",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0303 - MazarBOT"
+    },
+    {
+      "software_id": "S0306",
+      "software_name": "Trojan-SMS.AndroidOS.FakeInst.a",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0306 - Trojan-SMS.AndroidOS.FakeInst.a"
+    },
+    {
+      "software_id": "S0307",
+      "software_name": "Trojan-SMS.AndroidOS.Agent.ao",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0307 - Trojan-SMS.AndroidOS.Agent.ao"
+    },
+    {
+      "software_id": "S0308",
+      "software_name": "Trojan-SMS.AndroidOS.OpFake.a",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0308 - Trojan-SMS.AndroidOS.OpFake.a"
+    },
+    {
+      "software_id": "S0309",
+      "software_name": "Adups",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0309 - Adups"
+    },
+    {
+      "software_id": "S0311",
+      "software_name": "YiSpecter",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0311 - YiSpecter"
+    },
+    {
+      "software_id": "S0312",
+      "software_name": "WireLurker",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0312 - WireLurker"
+    },
+    {
+      "software_id": "S0313",
+      "software_name": "RuMMS",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0313 - RuMMS"
+    },
+    {
+      "software_id": "S0314",
+      "software_name": "X-Agent for Android",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0314 - X-Agent for Android"
+    },
+    {
+      "software_id": "S0315",
+      "software_name": "DualToy",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0315 - DualToy"
+    },
+    {
+      "software_id": "S0317",
+      "software_name": "Marcher",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0317 - Marcher"
+    },
+    {
+      "software_id": "S0319",
+      "software_name": "Allwinner",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0319 - Allwinner"
+    },
+    {
+      "software_id": "S0321",
+      "software_name": "HummingWhale",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0321 - HummingWhale"
+    },
+    {
+      "software_id": "S0322",
+      "software_name": "HummingBad",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0322 - HummingBad"
+    },
+    {
+      "software_id": "S0325",
+      "software_name": "Judy",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0325 - Judy"
     },
     {
       "software_id": "S0330",
@@ -5156,6 +5624,388 @@
         "macOS"
       ],
       "autosuggest": "S0699 - Mythic"
+    },
+    {
+      "software_id": "S1000",
+      "software_name": "ACAD/Medre.A",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S1000 - ACAD/Medre.A"
+    },
+    {
+      "software_id": "S1006",
+      "software_name": "PLC-Blaster",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S1006 - PLC-Blaster"
+    },
+    {
+      "software_id": "S1009",
+      "software_name": "Triton",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S1009 - Triton"
+    },
+    {
+      "software_id": "S1010",
+      "software_name": "VPNFilter",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S1010 - VPNFilter"
+    },
+    {
+      "software_id": "S1011",
+      "software_name": "Tarrask",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1011 - Tarrask"
+    },
+    {
+      "software_id": "S1012",
+      "software_name": "PowerLess",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1012 - PowerLess"
+    },
+    {
+      "software_id": "S1013",
+      "software_name": "ZxxZ",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1013 - ZxxZ"
+    },
+    {
+      "software_id": "S1014",
+      "software_name": "DanBot",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1014 - DanBot"
+    },
+    {
+      "software_id": "S1015",
+      "software_name": "Milan",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1015 - Milan"
+    },
+    {
+      "software_id": "S1016",
+      "software_name": "MacMa",
+      "platforms": [
+        "macOS"
+      ],
+      "autosuggest": "S1016 - MacMa"
+    },
+    {
+      "software_id": "S1017",
+      "software_name": "OutSteel",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1017 - OutSteel"
+    },
+    {
+      "software_id": "S1018",
+      "software_name": "Saint Bot",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1018 - Saint Bot"
+    },
+    {
+      "software_id": "S1019",
+      "software_name": "Shark",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1019 - Shark"
+    },
+    {
+      "software_id": "S1020",
+      "software_name": "Kevin",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1020 - Kevin"
+    },
+    {
+      "software_id": "S1021",
+      "software_name": "DnsSystem",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1021 - DnsSystem"
+    },
+    {
+      "software_id": "S1022",
+      "software_name": "IceApple",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1022 - IceApple"
+    },
+    {
+      "software_id": "S1023",
+      "software_name": "CreepyDrive",
+      "platforms": [
+        "Office 365",
+        "Windows"
+      ],
+      "autosuggest": "S1023 - CreepyDrive"
+    },
+    {
+      "software_id": "S1024",
+      "software_name": "CreepySnail",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1024 - CreepySnail"
+    },
+    {
+      "software_id": "S1025",
+      "software_name": "Amadey",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1025 - Amadey"
+    },
+    {
+      "software_id": "S1026",
+      "software_name": "Mongall",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1026 - Mongall"
+    },
+    {
+      "software_id": "S1027",
+      "software_name": "Heyoka Backdoor",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1027 - Heyoka Backdoor"
+    },
+    {
+      "software_id": "S1028",
+      "software_name": "Action RAT",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1028 - Action RAT"
+    },
+    {
+      "software_id": "S1029",
+      "software_name": "AuTo Stealer",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1029 - AuTo Stealer"
+    },
+    {
+      "software_id": "S1030",
+      "software_name": "Squirrelwaffle",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1030 - Squirrelwaffle"
+    },
+    {
+      "software_id": "S1031",
+      "software_name": "PingPull",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1031 - PingPull"
+    },
+    {
+      "software_id": "S1032",
+      "software_name": "PyDCrypt",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1032 - PyDCrypt"
+    },
+    {
+      "software_id": "S1033",
+      "software_name": "DCSrv",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1033 - DCSrv"
+    },
+    {
+      "software_id": "S1034",
+      "software_name": "StrifeWater",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1034 - StrifeWater"
+    },
+    {
+      "software_id": "S1035",
+      "software_name": "Small Sieve",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1035 - Small Sieve"
+    },
+    {
+      "software_id": "S1037",
+      "software_name": "STARWHALE",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1037 - STARWHALE"
+    },
+    {
+      "software_id": "S1039",
+      "software_name": "Bumblebee",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1039 - Bumblebee"
+    },
+    {
+      "software_id": "S1040",
+      "software_name": "Rclone",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S1040 - Rclone"
+    },
+    {
+      "software_id": "S1041",
+      "software_name": "Chinoxy",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1041 - Chinoxy"
+    },
+    {
+      "software_id": "S1042",
+      "software_name": "SUGARDUMP",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1042 - SUGARDUMP"
+    },
+    {
+      "software_id": "S1043",
+      "software_name": "ccf32",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1043 - ccf32"
+    },
+    {
+      "software_id": "S1044",
+      "software_name": "FunnyDream",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1044 - FunnyDream"
+    },
+    {
+      "software_id": "S1045",
+      "software_name": "INCONTROLLER",
+      "platforms": [
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Safety Instrumented System/Protection Relay",
+        "Windows"
+      ],
+      "autosuggest": "S1045 - INCONTROLLER"
+    },
+    {
+      "software_id": "S1046",
+      "software_name": "PowGoop",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1046 - PowGoop"
+    },
+    {
+      "software_id": "S1047",
+      "software_name": "Mori",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1047 - Mori"
+    },
+    {
+      "software_id": "S1048",
+      "software_name": "macOS.OSAMiner",
+      "platforms": [
+        "macOS"
+      ],
+      "autosuggest": "S1048 - macOS.OSAMiner"
+    },
+    {
+      "software_id": "S1049",
+      "software_name": "SUGARUSH",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1049 - SUGARUSH"
+    },
+    {
+      "software_id": "S1050",
+      "software_name": "PcShare",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1050 - PcShare"
     }
   ],
   "ATT&CK-ICS": [
@@ -5672,6 +6522,102 @@
       "autosuggest": "S0255 - DDKONG"
     },
     {
+      "software_id": "S0285",
+      "software_name": "OldBoot",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0285 - OldBoot"
+    },
+    {
+      "software_id": "S0286",
+      "software_name": "OBAD",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0286 - OBAD"
+    },
+    {
+      "software_id": "S0287",
+      "software_name": "ZergHelper",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0287 - ZergHelper"
+    },
+    {
+      "software_id": "S0288",
+      "software_name": "KeyRaider",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0288 - KeyRaider"
+    },
+    {
+      "software_id": "S0291",
+      "software_name": "PJApps",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0291 - PJApps"
+    },
+    {
+      "software_id": "S0292",
+      "software_name": "AndroRAT",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0292 - AndroRAT"
+    },
+    {
       "software_id": "S0293",
       "software_name": "BrainTest",
       "platforms": [
@@ -5686,6 +6632,326 @@
         "Safety Instrumented System/Protection Relay"
       ],
       "autosuggest": "S0293 - BrainTest"
+    },
+    {
+      "software_id": "S0294",
+      "software_name": "ShiftyBug",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0294 - ShiftyBug"
+    },
+    {
+      "software_id": "S0297",
+      "software_name": "XcodeGhost",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0297 - XcodeGhost"
+    },
+    {
+      "software_id": "S0298",
+      "software_name": "Xbot",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0298 - Xbot"
+    },
+    {
+      "software_id": "S0299",
+      "software_name": "NotCompatible",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0299 - NotCompatible"
+    },
+    {
+      "software_id": "S0300",
+      "software_name": "DressCode",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0300 - DressCode"
+    },
+    {
+      "software_id": "S0303",
+      "software_name": "MazarBOT",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0303 - MazarBOT"
+    },
+    {
+      "software_id": "S0306",
+      "software_name": "Trojan-SMS.AndroidOS.FakeInst.a",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0306 - Trojan-SMS.AndroidOS.FakeInst.a"
+    },
+    {
+      "software_id": "S0307",
+      "software_name": "Trojan-SMS.AndroidOS.Agent.ao",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0307 - Trojan-SMS.AndroidOS.Agent.ao"
+    },
+    {
+      "software_id": "S0308",
+      "software_name": "Trojan-SMS.AndroidOS.OpFake.a",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0308 - Trojan-SMS.AndroidOS.OpFake.a"
+    },
+    {
+      "software_id": "S0309",
+      "software_name": "Adups",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0309 - Adups"
+    },
+    {
+      "software_id": "S0311",
+      "software_name": "YiSpecter",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0311 - YiSpecter"
+    },
+    {
+      "software_id": "S0312",
+      "software_name": "WireLurker",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0312 - WireLurker"
+    },
+    {
+      "software_id": "S0313",
+      "software_name": "RuMMS",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0313 - RuMMS"
+    },
+    {
+      "software_id": "S0314",
+      "software_name": "X-Agent for Android",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0314 - X-Agent for Android"
+    },
+    {
+      "software_id": "S0315",
+      "software_name": "DualToy",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0315 - DualToy"
+    },
+    {
+      "software_id": "S0317",
+      "software_name": "Marcher",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0317 - Marcher"
+    },
+    {
+      "software_id": "S0319",
+      "software_name": "Allwinner",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0319 - Allwinner"
+    },
+    {
+      "software_id": "S0321",
+      "software_name": "HummingWhale",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0321 - HummingWhale"
+    },
+    {
+      "software_id": "S0322",
+      "software_name": "HummingBad",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0322 - HummingBad"
+    },
+    {
+      "software_id": "S0325",
+      "software_name": "Judy",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0325 - Judy"
     },
     {
       "software_id": "S0389",
@@ -5862,6 +7128,17 @@
         "Safety Instrumented System/Protection Relay"
       ],
       "autosuggest": "S1010 - VPNFilter"
+    },
+    {
+      "software_id": "S1045",
+      "software_name": "INCONTROLLER",
+      "platforms": [
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Safety Instrumented System/Protection Relay",
+        "Windows"
+      ],
+      "autosuggest": "S1045 - INCONTROLLER"
     }
   ],
   "ATT&CK-Mobile": [
@@ -7022,6 +8299,42 @@
         "macOS"
       ],
       "autosuggest": "S0690 - Green Lambert"
+    },
+    {
+      "software_id": "S1000",
+      "software_name": "ACAD/Medre.A",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S1000 - ACAD/Medre.A"
+    },
+    {
+      "software_id": "S1006",
+      "software_name": "PLC-Blaster",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S1006 - PLC-Blaster"
+    },
+    {
+      "software_id": "S1009",
+      "software_name": "Triton",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S1009 - Triton"
+    },
+    {
+      "software_id": "S1010",
+      "software_name": "VPNFilter",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S1010 - VPNFilter"
     }
   ]
 }
