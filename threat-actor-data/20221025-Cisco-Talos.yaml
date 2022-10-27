@@ -1,0 +1,13 @@
+%YAML 1.2
+---
+# Source: https://blog.talosintelligence.com/quarterly-report-incident-response-trends-in-q3-2022/
+version: 1
+file_type: group-administration
+platform:
+  - all
+groups:
+  - group_name: Cisco Talos
+    campaign: Quarterly Report - Incident Response Trends in Q3 2022
+    technique_id: [T1078, T1592, T1136, T1059.001, T1482, T1003, T1068, T1021.001, T1027, T1105, T1486, T1567.002, T1074]
+    software_id:
+    enabled: true
