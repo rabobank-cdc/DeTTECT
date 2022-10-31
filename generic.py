@@ -196,8 +196,8 @@ def load_attack_data(data_type):
         stix_attack_data = mitre.get_techniques()
         attack_data = _convert_stix_techniques_to_dict(stix_attack_data)
     elif data_type == DATA_TYPE_STIX_ALL_GROUPS:
-        # Fetch techniques from each matrix separately and then merge them. This is because STIX will deduplicate items with the
-        # same ID and modification date. Few techniques are in multiple matrices and will end up in STIX collection as just one
+        # Fetch groups from each matrix separately and then merge them. This is because STIX will deduplicate items with the
+        # same ID and modification date. Few groups are in multiple matrices and will end up in STIX collection as just one
         # item with only one of the matrices mentioned in x_mitre_domains field.
         groups_enterprise = mitre.TC_ENTERPRISE_SOURCE.query(Filter("type", "=", "intrusion-set"))
         groups_ics = mitre.TC_ICS_SOURCE.query(Filter("type", "=", "intrusion-set"))
