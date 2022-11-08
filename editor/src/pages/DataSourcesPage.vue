@@ -282,6 +282,18 @@ export default {
                             }
                         }
 
+                        // Check for duplicate data sources:
+                        let data_sources_in_file = new Array();
+                        for (let i = 0; i < yaml_input.data_sources.length; i++) {
+                            data_sources_in_file.push(yaml_input.data_sources[i].data_source_name);
+                        }
+                        let findDuplicates = (arr) => arr.filter((item, index) => arr.indexOf(item) != index);
+                        let duplicates = findDuplicates(data_sources_in_file);
+                        if (duplicates.length > 0) {
+                            this.notifyDanger('Duplicates', 'Duplicate data sources are present in the file: ' + duplicates.join(', '));
+                            return;
+                        }
+
                         // Fix missing/invalid fields for data_source items: products, available_for_data_analytics, data_quality
                         for (let i = 0; i < yaml_input.data_sources.length; i++) {
                             for (let j = 0; j < yaml_input.data_sources[i].data_source.length; j++) {
@@ -362,7 +374,6 @@ export default {
                     this.notifyInvalidFileType(this.selected_filename);
                 }
             } catch (e) {
-                alert(e);
                 this.notifyInvalidFileType(this.selected_filename);
             }
         },
