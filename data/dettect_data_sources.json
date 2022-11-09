@@ -71,6 +71,12 @@
     ]
   },
   {
+    "technique_id": "T1039",
+    "dettect_data_sources": [
+      "Network Traffic Content"
+    ]
+  },
+  {
     "technique_id": "T1041",
     "dettect_data_sources": [
       "Internal DNS [DeTT&CT data source]",
@@ -153,6 +159,12 @@
     "technique_id": "T1071.004",
     "dettect_data_sources": [
       "Internal DNS [DeTT&CT data source]"
+    ]
+  },
+  {
+    "technique_id": "T1087.002",
+    "dettect_data_sources": [
+      "Network Traffic Content"
     ]
   },
   {
@@ -253,6 +265,13 @@
     ]
   },
   {
+    "technique_id": "T1133",
+    "dettect_data_sources": [
+      "Web [DeTT&CT data source]",
+      "Network Traffic Content"
+    ]
+  },
+  {
     "technique_id": "T1187",
     "dettect_data_sources": [
       "Web [DeTT&CT data source]",
@@ -267,6 +286,12 @@
   },
   {
     "technique_id": "T1190",
+    "dettect_data_sources": [
+      "Network Traffic Content"
+    ]
+  },
+  {
+    "technique_id": "T1199",
     "dettect_data_sources": [
       "Network Traffic Content"
     ]
@@ -320,6 +345,12 @@
   },
   {
     "technique_id": "T1221",
+    "dettect_data_sources": [
+      "Network Traffic Content"
+    ]
+  },
+  {
+    "technique_id": "T1482",
     "dettect_data_sources": [
       "Network Traffic Content"
     ]
@@ -388,6 +419,12 @@
     "technique_id": "T1534",
     "dettect_data_sources": [
       "Email [DeTT&CT data source]"
+    ]
+  },
+  {
+    "technique_id": "T1537",
+    "dettect_data_sources": [
+      "Network Traffic Content"
     ]
   },
   {
