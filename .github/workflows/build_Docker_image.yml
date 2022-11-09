@@ -6,6 +6,7 @@ on:
     branches: [ master ]
     paths-ignore:
       - '.github/workflows/**'
+      - 'data/dettect_data_sources.xlsx'
   workflow_dispatch:
     inputs:
       version_tag:
