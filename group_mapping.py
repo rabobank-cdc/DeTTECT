@@ -14,11 +14,12 @@ def _is_in_group(json_groups, argument_groups):
     :param argument_groups: group names provided via the command line by the user
     :return: true or false
     """
-    json_groups = list(map(lambda x: x.lower(), json_groups))
+    if json_groups:
+        json_groups = list(map(lambda x: x.lower(), json_groups))
 
-    for group in argument_groups:
-        if group in json_groups:
-            return True
+        for group in argument_groups:
+            if group in json_groups:
+                return True
 
     return False
 
