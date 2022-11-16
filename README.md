@@ -53,6 +53,15 @@ The work of others inspired some functionality within DeTT&CT:
 - The MITRE ATT&CK Mapping project on GitHub:
   https://github.com/siriussecurity/mitre-attack-mapping.
 
+### Third party tool: Dettectinator
+<i>The Python library to your DeTT&CT YAML files.</i>
+
+Dettectinator is built to be included in your SOC automation tooling. It can be included as a Python library or it can be used via the command line.
+
+Dettectinator provides plugins to read detections from your SIEM or EDR and create/update the DeTT&CT YAML file, so that you can use it to visualize your ATT&CK detection coverage in the ATT&CK Navigator.
+
+More information can be found on Github: [Dettectinator](https://github.com/siriussecurity/dettectinator/).
+
 ## Example
 
 YAML files are used for administrating scores and relevant properties. All of which can be visualised by loading JSON layer files into the [ATT&CK Navigator](https://mitre-attack.github.io/attack-navigator/#comment_underline=false) (some types of scores and properties can also be exported to Excel).
