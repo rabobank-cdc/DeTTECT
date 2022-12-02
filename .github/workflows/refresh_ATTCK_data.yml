@@ -43,6 +43,7 @@ jobs:
       - name: JSON data - commit files (if applicable)
         if: contains(steps.changesjson.outputs.GIT_STATUS_CODE, 'modified')
         run: |
+          git rm --cached wiki
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -A
