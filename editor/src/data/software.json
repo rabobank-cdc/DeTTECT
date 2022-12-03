@@ -9,6 +9,14 @@
       "autosuggest": "S0001 - Trojan.Mebromi"
     },
     {
+      "software_id": "S0002",
+      "software_name": "Mimikatz",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0002 - Mimikatz"
+    },
+    {
       "software_id": "S0003",
       "software_name": "RIPTIDE",
       "platforms": [
@@ -25,12 +33,36 @@
       "autosuggest": "S0004 - TinyZBot"
     },
     {
+      "software_id": "S0005",
+      "software_name": "Windows Credential Editor",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0005 - Windows Credential Editor"
+    },
+    {
+      "software_id": "S0006",
+      "software_name": "pwdump",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0006 - pwdump"
+    },
+    {
       "software_id": "S0007",
       "software_name": "Skeleton Key",
       "platforms": [
         "Windows"
       ],
       "autosuggest": "S0007 - Skeleton Key"
+    },
+    {
+      "software_id": "S0008",
+      "software_name": "gsecdump",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0008 - gsecdump"
     },
     {
       "software_id": "S0009",
@@ -225,6 +257,14 @@
       "autosuggest": "S0028 - SHIPSHAPE"
     },
     {
+      "software_id": "S0029",
+      "software_name": "PsExec",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0029 - PsExec"
+    },
+    {
       "software_id": "S0030",
       "software_name": "Carbanak",
       "platforms": [
@@ -296,6 +336,23 @@
         "Windows"
       ],
       "autosuggest": "S0038 - Duqu"
+    },
+    {
+      "software_id": "S0039",
+      "software_name": "Net",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0039 - Net"
+    },
+    {
+      "software_id": "S0040",
+      "software_name": "HTRAN",
+      "platforms": [
+        "Linux",
+        "Windows"
+      ],
+      "autosuggest": "S0040 - HTRAN"
     },
     {
       "software_id": "S0041",
@@ -446,6 +503,24 @@
       "autosuggest": "S0056 - Net Crawler"
     },
     {
+      "software_id": "S0057",
+      "software_name": "Tasklist",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0057 - Tasklist"
+    },
+    {
       "software_id": "S0058",
       "software_name": "SslMM",
       "platforms": [
@@ -580,6 +655,14 @@
         "Windows"
       ],
       "autosuggest": "S0074 - Sakula"
+    },
+    {
+      "software_id": "S0075",
+      "software_name": "Reg",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0075 - Reg"
     },
     {
       "software_id": "S0076",
@@ -744,12 +827,174 @@
       "autosuggest": "S0094 - Trojan.Karagany"
     },
     {
+      "software_id": "S0095",
+      "software_name": "ftp",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0095 - ftp"
+    },
+    {
+      "software_id": "S0096",
+      "software_name": "Systeminfo",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0096 - Systeminfo"
+    },
+    {
+      "software_id": "S0097",
+      "software_name": "Ping",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0097 - Ping"
+    },
+    {
       "software_id": "S0098",
       "software_name": "T9000",
       "platforms": [
         "Windows"
       ],
       "autosuggest": "S0098 - T9000"
+    },
+    {
+      "software_id": "S0099",
+      "software_name": "Arp",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0099 - Arp"
+    },
+    {
+      "software_id": "S0100",
+      "software_name": "ipconfig",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0100 - ipconfig"
+    },
+    {
+      "software_id": "S0101",
+      "software_name": "ifconfig",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0101 - ifconfig"
+    },
+    {
+      "software_id": "S0102",
+      "software_name": "nbtstat",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0102 - nbtstat"
+    },
+    {
+      "software_id": "S0103",
+      "software_name": "route",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0103 - route"
+    },
+    {
+      "software_id": "S0104",
+      "software_name": "netstat",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0104 - netstat"
+    },
+    {
+      "software_id": "S0105",
+      "software_name": "dsquery",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0105 - dsquery"
+    },
+    {
+      "software_id": "S0106",
+      "software_name": "cmd",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0106 - cmd"
     },
     {
       "software_id": "S0107",
@@ -760,12 +1005,38 @@
       "autosuggest": "S0107 - Cherry Picker"
     },
     {
+      "software_id": "S0108",
+      "software_name": "netsh",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0108 - netsh"
+    },
+    {
       "software_id": "S0109",
       "software_name": "WEBC2",
       "platforms": [
         "Windows"
       ],
       "autosuggest": "S0109 - WEBC2"
+    },
+    {
+      "software_id": "S0110",
+      "software_name": "at",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0110 - at"
+    },
+    {
+      "software_id": "S0111",
+      "software_name": "schtasks",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0111 - schtasks"
     },
     {
       "software_id": "S0112",
@@ -800,6 +1071,24 @@
       "autosuggest": "S0115 - Crimson"
     },
     {
+      "software_id": "S0116",
+      "software_name": "UACMe",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0116 - UACMe"
+    },
+    {
       "software_id": "S0117",
       "software_name": "XTunnel",
       "platforms": [
@@ -814,6 +1103,66 @@
         "Windows"
       ],
       "autosuggest": "S0118 - Nidiran"
+    },
+    {
+      "software_id": "S0119",
+      "software_name": "Cachedump",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0119 - Cachedump"
+    },
+    {
+      "software_id": "S0120",
+      "software_name": "Fgdump",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0120 - Fgdump"
+    },
+    {
+      "software_id": "S0121",
+      "software_name": "Lslsass",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0121 - Lslsass"
+    },
+    {
+      "software_id": "S0122",
+      "software_name": "Pass-The-Hash Toolkit",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0122 - Pass-The-Hash Toolkit"
+    },
+    {
+      "software_id": "S0123",
+      "software_name": "xCmd",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0123 - xCmd"
     },
     {
       "software_id": "S0124",
@@ -1146,6 +1495,14 @@
       "autosuggest": "S0159 - SNUGRIDE"
     },
     {
+      "software_id": "S0160",
+      "software_name": "certutil",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0160 - certutil"
+    },
+    {
       "software_id": "S0161",
       "software_name": "XAgentOSX",
       "platforms": [
@@ -1250,6 +1607,34 @@
       "autosuggest": "S0173 - FLIPSIDE"
     },
     {
+      "software_id": "S0174",
+      "software_name": "Responder",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0174 - Responder"
+    },
+    {
+      "software_id": "S0175",
+      "software_name": "meek",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0175 - meek"
+    },
+    {
       "software_id": "S0176",
       "software_name": "Wingbird",
       "platforms": [
@@ -1284,6 +1669,14 @@
       "autosuggest": "S0178 - Truvasys"
     },
     {
+      "software_id": "S0179",
+      "software_name": "MimiPenguin",
+      "platforms": [
+        "Linux"
+      ],
+      "autosuggest": "S0179 - MimiPenguin"
+    },
+    {
       "software_id": "S0180",
       "software_name": "Volgmer",
       "platforms": [
@@ -1307,6 +1700,16 @@
         "Windows"
       ],
       "autosuggest": "S0182 - FinFisher"
+    },
+    {
+      "software_id": "S0183",
+      "software_name": "Tor",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0183 - Tor"
     },
     {
       "software_id": "S0184",
@@ -1355,6 +1758,77 @@
         "Windows"
       ],
       "autosuggest": "S0189 - ISMInjector"
+    },
+    {
+      "software_id": "S0190",
+      "software_name": "BITSAdmin",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0190 - BITSAdmin"
+    },
+    {
+      "software_id": "S0191",
+      "software_name": "Winexe",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0191 - Winexe"
+    },
+    {
+      "software_id": "S0192",
+      "software_name": "Pupy",
+      "platforms": [
+        "Android",
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0192 - Pupy"
+    },
+    {
+      "software_id": "S0193",
+      "software_name": "Forfiles",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0193 - Forfiles"
+    },
+    {
+      "software_id": "S0194",
+      "software_name": "PowerSploit",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0194 - PowerSploit"
+    },
+    {
+      "software_id": "S0195",
+      "software_name": "SDelete",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0195 - SDelete"
     },
     {
       "software_id": "S0196",
@@ -1605,12 +2079,56 @@
       "autosuggest": "S0223 - POWERSTATS"
     },
     {
+      "software_id": "S0224",
+      "software_name": "Havij",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0224 - Havij"
+    },
+    {
+      "software_id": "S0225",
+      "software_name": "sqlmap",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0225 - sqlmap"
+    },
+    {
       "software_id": "S0226",
       "software_name": "Smoke Loader",
       "platforms": [
         "Windows"
       ],
       "autosuggest": "S0226 - Smoke Loader"
+    },
+    {
+      "software_id": "S0227",
+      "software_name": "spwebmember",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0227 - spwebmember"
     },
     {
       "software_id": "S0228",
@@ -1635,6 +2153,24 @@
         "Windows"
       ],
       "autosuggest": "S0230 - ZeroT"
+    },
+    {
+      "software_id": "S0231",
+      "software_name": "Invoke-PSImage",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0231 - Invoke-PSImage"
     },
     {
       "software_id": "S0232",
@@ -1783,6 +2319,14 @@
       "autosuggest": "S0249 - Gold Dragon"
     },
     {
+      "software_id": "S0250",
+      "software_name": "Koadic",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0250 - Koadic"
+    },
+    {
       "software_id": "S0251",
       "software_name": "Zebrocy",
       "platforms": [
@@ -1879,6 +2423,14 @@
         "Windows"
       ],
       "autosuggest": "S0261 - Catchamas"
+    },
+    {
+      "software_id": "S0262",
+      "software_name": "QuasarRAT",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0262 - QuasarRAT"
     },
     {
       "software_id": "S0263",
@@ -2061,168 +2613,6 @@
       "autosuggest": "S0284 - More_eggs"
     },
     {
-      "software_id": "S0285",
-      "software_name": "OldBoot",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0285 - OldBoot"
-    },
-    {
-      "software_id": "S0286",
-      "software_name": "OBAD",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0286 - OBAD"
-    },
-    {
-      "software_id": "S0287",
-      "software_name": "ZergHelper",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0287 - ZergHelper"
-    },
-    {
-      "software_id": "S0288",
-      "software_name": "KeyRaider",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0288 - KeyRaider"
-    },
-    {
-      "software_id": "S0291",
-      "software_name": "PJApps",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0291 - PJApps"
-    },
-    {
-      "software_id": "S0292",
-      "software_name": "AndroRAT",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0292 - AndroRAT"
-    },
-    {
-      "software_id": "S0293",
-      "software_name": "BrainTest",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0293 - BrainTest"
-    },
-    {
-      "software_id": "S0294",
-      "software_name": "ShiftyBug",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0294 - ShiftyBug"
-    },
-    {
-      "software_id": "S0297",
-      "software_name": "XcodeGhost",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0297 - XcodeGhost"
-    },
-    {
       "software_id": "S0298",
       "software_name": "Xbot",
       "platforms": [
@@ -2241,312 +2631,6 @@
       "autosuggest": "S0298 - Xbot"
     },
     {
-      "software_id": "S0299",
-      "software_name": "NotCompatible",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0299 - NotCompatible"
-    },
-    {
-      "software_id": "S0300",
-      "software_name": "DressCode",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0300 - DressCode"
-    },
-    {
-      "software_id": "S0303",
-      "software_name": "MazarBOT",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0303 - MazarBOT"
-    },
-    {
-      "software_id": "S0306",
-      "software_name": "Trojan-SMS.AndroidOS.FakeInst.a",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0306 - Trojan-SMS.AndroidOS.FakeInst.a"
-    },
-    {
-      "software_id": "S0307",
-      "software_name": "Trojan-SMS.AndroidOS.Agent.ao",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0307 - Trojan-SMS.AndroidOS.Agent.ao"
-    },
-    {
-      "software_id": "S0308",
-      "software_name": "Trojan-SMS.AndroidOS.OpFake.a",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0308 - Trojan-SMS.AndroidOS.OpFake.a"
-    },
-    {
-      "software_id": "S0309",
-      "software_name": "Adups",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0309 - Adups"
-    },
-    {
-      "software_id": "S0311",
-      "software_name": "YiSpecter",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0311 - YiSpecter"
-    },
-    {
-      "software_id": "S0312",
-      "software_name": "WireLurker",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0312 - WireLurker"
-    },
-    {
-      "software_id": "S0313",
-      "software_name": "RuMMS",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0313 - RuMMS"
-    },
-    {
-      "software_id": "S0314",
-      "software_name": "X-Agent for Android",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0314 - X-Agent for Android"
-    },
-    {
-      "software_id": "S0315",
-      "software_name": "DualToy",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0315 - DualToy"
-    },
-    {
-      "software_id": "S0317",
-      "software_name": "Marcher",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0317 - Marcher"
-    },
-    {
-      "software_id": "S0319",
-      "software_name": "Allwinner",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0319 - Allwinner"
-    },
-    {
-      "software_id": "S0321",
-      "software_name": "HummingWhale",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0321 - HummingWhale"
-    },
-    {
-      "software_id": "S0322",
-      "software_name": "HummingBad",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0322 - HummingBad"
-    },
-    {
-      "software_id": "S0325",
-      "software_name": "Judy",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0325 - Judy"
-    },
-    {
       "software_id": "S0330",
       "software_name": "Zeus Panda",
       "platforms": [
@@ -2561,6 +2645,14 @@
         "Windows"
       ],
       "autosuggest": "S0331 - Agent Tesla"
+    },
+    {
+      "software_id": "S0332",
+      "software_name": "Remcos",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0332 - Remcos"
     },
     {
       "software_id": "S0333",
@@ -2692,6 +2784,16 @@
       "autosuggest": "S0348 - Cardinal RAT"
     },
     {
+      "software_id": "S0349",
+      "software_name": "LaZagne",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0349 - LaZagne"
+    },
+    {
       "software_id": "S0350",
       "software_name": "zwShell",
       "platforms": [
@@ -2748,6 +2850,33 @@
       "autosuggest": "S0356 - KONNI"
     },
     {
+      "software_id": "S0357",
+      "software_name": "Impacket",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0357 - Impacket"
+    },
+    {
+      "software_id": "S0358",
+      "software_name": "Ruler",
+      "platforms": [
+        "Office 365",
+        "Windows"
+      ],
+      "autosuggest": "S0358 - Ruler"
+    },
+    {
+      "software_id": "S0359",
+      "software_name": "Nltest",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0359 - Nltest"
+    },
+    {
       "software_id": "S0360",
       "software_name": "BONDUPDATER",
       "platforms": [
@@ -2756,12 +2885,38 @@
       "autosuggest": "S0360 - BONDUPDATER"
     },
     {
+      "software_id": "S0361",
+      "software_name": "Expand",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0361 - Expand"
+    },
+    {
       "software_id": "S0362",
       "software_name": "Linux Rabbit",
       "platforms": [
         "Linux"
       ],
       "autosuggest": "S0362 - Linux Rabbit"
+    },
+    {
+      "software_id": "S0363",
+      "software_name": "Empire",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0363 - Empire"
+    },
+    {
+      "software_id": "S0364",
+      "software_name": "RawDisk",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0364 - RawDisk"
     },
     {
       "software_id": "S0365",
@@ -2867,6 +3022,16 @@
         "Linux"
       ],
       "autosuggest": "S0377 - Ebury"
+    },
+    {
+      "software_id": "S0378",
+      "software_name": "PoshC2",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0378 - PoshC2"
     },
     {
       "software_id": "S0379",
@@ -3066,6 +3231,14 @@
       "autosuggest": "S0402 - OSX/Shlayer"
     },
     {
+      "software_id": "S0404",
+      "software_name": "esentutl",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0404 - esentutl"
+    },
+    {
       "software_id": "S0409",
       "software_name": "Machete",
       "platforms": [
@@ -3088,6 +3261,16 @@
         "Windows"
       ],
       "autosuggest": "S0412 - ZxShell"
+    },
+    {
+      "software_id": "S0413",
+      "software_name": "MailSniper",
+      "platforms": [
+        "Azure AD",
+        "Office 365",
+        "Windows"
+      ],
+      "autosuggest": "S0413 - MailSniper"
     },
     {
       "software_id": "S0414",
@@ -3152,6 +3335,14 @@
         "Windows"
       ],
       "autosuggest": "S0433 - Rifdoor"
+    },
+    {
+      "software_id": "S0434",
+      "software_name": "Imminent Monitor",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0434 - Imminent Monitor"
     },
     {
       "software_id": "S0435",
@@ -3224,6 +3415,14 @@
         "Windows"
       ],
       "autosuggest": "S0444 - ShimRat"
+    },
+    {
+      "software_id": "S0445",
+      "software_name": "ShimRatReporter",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0445 - ShimRatReporter"
     },
     {
       "software_id": "S0446",
@@ -3371,6 +3570,14 @@
       "autosuggest": "S0464 - SYSCON"
     },
     {
+      "software_id": "S0465",
+      "software_name": "CARROTBALL",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0465 - CARROTBALL"
+    },
+    {
       "software_id": "S0466",
       "software_name": "WindTail",
       "platforms": [
@@ -3507,6 +3714,14 @@
       "autosuggest": "S0487 - Kessel"
     },
     {
+      "software_id": "S0488",
+      "software_name": "CrackMapExec",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0488 - CrackMapExec"
+    },
+    {
       "software_id": "S0491",
       "software_name": "StrongPity",
       "platforms": [
@@ -3571,6 +3786,14 @@
         "Windows"
       ],
       "autosuggest": "S0499 - Hancitor"
+    },
+    {
+      "software_id": "S0500",
+      "software_name": "MCMD",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0500 - MCMD"
     },
     {
       "software_id": "S0501",
@@ -3704,12 +3927,28 @@
       "autosuggest": "S0520 - BLINDINGCAN"
     },
     {
+      "software_id": "S0521",
+      "software_name": "BloodHound",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0521 - BloodHound"
+    },
+    {
       "software_id": "S0526",
       "software_name": "KGH_SPY",
       "platforms": [
         "Windows"
       ],
       "autosuggest": "S0526 - KGH_SPY"
+    },
+    {
+      "software_id": "S0527",
+      "software_name": "CSPY Downloader",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0527 - CSPY Downloader"
     },
     {
       "software_id": "S0528",
@@ -3800,22 +4039,12 @@
       "autosuggest": "S0547 - DropBook"
     },
     {
-      "software_id": "S0551",
-      "software_name": "GoldenEagle",
+      "software_id": "S0552",
+      "software_name": "AdFind",
       "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
+        "Windows"
       ],
-      "autosuggest": "S0551 - GoldenEagle"
+      "autosuggest": "S0552 - AdFind"
     },
     {
       "software_id": "S0553",
@@ -3970,6 +4199,14 @@
       "autosuggest": "S0579 - Waterbear"
     },
     {
+      "software_id": "S0581",
+      "software_name": "IronNetInjector",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0581 - IronNetInjector"
+    },
+    {
       "software_id": "S0582",
       "software_name": "LookBack",
       "platforms": [
@@ -4036,12 +4273,46 @@
       "autosuggest": "S0589 - Sibot"
     },
     {
+      "software_id": "S0590",
+      "software_name": "NBTscan",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0590 - NBTscan"
+    },
+    {
+      "software_id": "S0591",
+      "software_name": "ConnectWise",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0591 - ConnectWise"
+    },
+    {
+      "software_id": "S0592",
+      "software_name": "RemoteUtilities",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0592 - RemoteUtilities"
+    },
+    {
       "software_id": "S0593",
       "software_name": "ECCENTRICBANDWAGON",
       "platforms": [
         "Windows"
       ],
       "autosuggest": "S0593 - ECCENTRICBANDWAGON"
+    },
+    {
+      "software_id": "S0594",
+      "software_name": "Out1",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0594 - Out1"
     },
     {
       "software_id": "S0595",
@@ -4103,24 +4374,6 @@
         "Linux"
       ],
       "autosuggest": "S0601 - Hildegard"
-    },
-    {
-      "software_id": "S0602",
-      "software_name": "Circles",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0602 - Circles"
     },
     {
       "software_id": "S0603",
@@ -4334,6 +4587,16 @@
       "autosuggest": "S0632 - GrimAgent"
     },
     {
+      "software_id": "S0633",
+      "software_name": "Sliver",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0633 - Sliver"
+    },
+    {
       "software_id": "S0634",
       "software_name": "EnvyScout",
       "platforms": [
@@ -4421,6 +4684,14 @@
         "Windows"
       ],
       "autosuggest": "S0644 - ObliqueRAT"
+    },
+    {
+      "software_id": "S0645",
+      "software_name": "Wevtutil",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0645 - Wevtutil"
     },
     {
       "software_id": "S0646",
@@ -4650,6 +4921,16 @@
       "autosuggest": "S0674 - CharmPower"
     },
     {
+      "software_id": "S0677",
+      "software_name": "AADInternals",
+      "platforms": [
+        "Azure AD",
+        "Office 365",
+        "Windows"
+      ],
+      "autosuggest": "S0677 - AADInternals"
+    },
+    {
       "software_id": "S0678",
       "software_name": "Torisma",
       "platforms": [
@@ -4688,6 +4969,32 @@
         "Windows"
       ],
       "autosuggest": "S0682 - TrailBlazer"
+    },
+    {
+      "software_id": "S0683",
+      "software_name": "Peirates",
+      "platforms": [
+        "Containers"
+      ],
+      "autosuggest": "S0683 - Peirates"
+    },
+    {
+      "software_id": "S0684",
+      "software_name": "ROADTools",
+      "platforms": [
+        "Azure AD",
+        "Containers",
+        "Google Workspace",
+        "IaaS",
+        "Linux",
+        "Network",
+        "Office 365",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0684 - ROADTools"
     },
     {
       "software_id": "S0685",
@@ -4749,6 +5056,14 @@
       "autosuggest": "S0691 - Neoichor"
     },
     {
+      "software_id": "S0692",
+      "software_name": "SILENTTRINITY",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0692 - SILENTTRINITY"
+    },
+    {
       "software_id": "S0693",
       "software_name": "CaddyWiper",
       "platforms": [
@@ -4763,6 +5078,14 @@
         "Windows"
       ],
       "autosuggest": "S0694 - DRATzarus"
+    },
+    {
+      "software_id": "S0695",
+      "software_name": "Donut",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S0695 - Donut"
     },
     {
       "software_id": "S0696",
@@ -4787,6 +5110,16 @@
         "Windows"
       ],
       "autosuggest": "S0698 - HermeticWizard"
+    },
+    {
+      "software_id": "S0699",
+      "software_name": "Mythic",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0699 - Mythic"
     },
     {
       "software_id": "S1000",
@@ -5078,6 +5411,16 @@
       "autosuggest": "S1039 - Bumblebee"
     },
     {
+      "software_id": "S1040",
+      "software_name": "Rclone",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S1040 - Rclone"
+    },
+    {
       "software_id": "S1041",
       "software_name": "Chinoxy",
       "platforms": [
@@ -5151,6 +5494,14 @@
         "Windows"
       ],
       "autosuggest": "S1049 - SUGARUSH"
+    },
+    {
+      "software_id": "S1050",
+      "software_name": "PcShare",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1050 - PcShare"
     }
   ],
   "ATT&CK-ICS": [
@@ -5235,6 +5586,22 @@
       "autosuggest": "S0047 - Hacking Team UEFI Rootkit"
     },
     {
+      "software_id": "S0057",
+      "software_name": "Tasklist",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0057 - Tasklist"
+    },
+    {
       "software_id": "S0079",
       "software_name": "MobileOrder",
       "platforms": [
@@ -5249,6 +5616,166 @@
         "Safety Instrumented System/Protection Relay"
       ],
       "autosuggest": "S0079 - MobileOrder"
+    },
+    {
+      "software_id": "S0096",
+      "software_name": "Systeminfo",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0096 - Systeminfo"
+    },
+    {
+      "software_id": "S0097",
+      "software_name": "Ping",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0097 - Ping"
+    },
+    {
+      "software_id": "S0100",
+      "software_name": "ipconfig",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0100 - ipconfig"
+    },
+    {
+      "software_id": "S0101",
+      "software_name": "ifconfig",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0101 - ifconfig"
+    },
+    {
+      "software_id": "S0102",
+      "software_name": "nbtstat",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0102 - nbtstat"
+    },
+    {
+      "software_id": "S0103",
+      "software_name": "route",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0103 - route"
+    },
+    {
+      "software_id": "S0104",
+      "software_name": "netstat",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0104 - netstat"
+    },
+    {
+      "software_id": "S0116",
+      "software_name": "UACMe",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0116 - UACMe"
+    },
+    {
+      "software_id": "S0122",
+      "software_name": "Pass-The-Hash Toolkit",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0122 - Pass-The-Hash Toolkit"
+    },
+    {
+      "software_id": "S0123",
+      "software_name": "xCmd",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0123 - xCmd"
     },
     {
       "software_id": "S0131",
@@ -5315,6 +5842,22 @@
       "autosuggest": "S0155 - WINDSHIELD"
     },
     {
+      "software_id": "S0174",
+      "software_name": "Responder",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0174 - Responder"
+    },
+    {
       "software_id": "S0177",
       "software_name": "Power Loader",
       "platforms": [
@@ -5329,6 +5872,38 @@
         "Safety Instrumented System/Protection Relay"
       ],
       "autosuggest": "S0177 - Power Loader"
+    },
+    {
+      "software_id": "S0191",
+      "software_name": "Winexe",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0191 - Winexe"
+    },
+    {
+      "software_id": "S0193",
+      "software_name": "Forfiles",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0193 - Forfiles"
     },
     {
       "software_id": "S0214",
@@ -5379,6 +5954,54 @@
       "autosuggest": "S0219 - WINERACK"
     },
     {
+      "software_id": "S0224",
+      "software_name": "Havij",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0224 - Havij"
+    },
+    {
+      "software_id": "S0225",
+      "software_name": "sqlmap",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0225 - sqlmap"
+    },
+    {
+      "software_id": "S0231",
+      "software_name": "Invoke-PSImage",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0231 - Invoke-PSImage"
+    },
+    {
       "software_id": "S0255",
       "software_name": "DDKONG",
       "platforms": [
@@ -5395,150 +6018,6 @@
       "autosuggest": "S0255 - DDKONG"
     },
     {
-      "software_id": "S0285",
-      "software_name": "OldBoot",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0285 - OldBoot"
-    },
-    {
-      "software_id": "S0286",
-      "software_name": "OBAD",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0286 - OBAD"
-    },
-    {
-      "software_id": "S0287",
-      "software_name": "ZergHelper",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0287 - ZergHelper"
-    },
-    {
-      "software_id": "S0288",
-      "software_name": "KeyRaider",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0288 - KeyRaider"
-    },
-    {
-      "software_id": "S0291",
-      "software_name": "PJApps",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0291 - PJApps"
-    },
-    {
-      "software_id": "S0292",
-      "software_name": "AndroRAT",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0292 - AndroRAT"
-    },
-    {
-      "software_id": "S0293",
-      "software_name": "BrainTest",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0293 - BrainTest"
-    },
-    {
-      "software_id": "S0294",
-      "software_name": "ShiftyBug",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0294 - ShiftyBug"
-    },
-    {
-      "software_id": "S0297",
-      "software_name": "XcodeGhost",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0297 - XcodeGhost"
-    },
-    {
       "software_id": "S0298",
       "software_name": "Xbot",
       "platforms": [
@@ -5553,278 +6032,6 @@
         "Safety Instrumented System/Protection Relay"
       ],
       "autosuggest": "S0298 - Xbot"
-    },
-    {
-      "software_id": "S0299",
-      "software_name": "NotCompatible",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0299 - NotCompatible"
-    },
-    {
-      "software_id": "S0300",
-      "software_name": "DressCode",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0300 - DressCode"
-    },
-    {
-      "software_id": "S0303",
-      "software_name": "MazarBOT",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0303 - MazarBOT"
-    },
-    {
-      "software_id": "S0306",
-      "software_name": "Trojan-SMS.AndroidOS.FakeInst.a",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0306 - Trojan-SMS.AndroidOS.FakeInst.a"
-    },
-    {
-      "software_id": "S0307",
-      "software_name": "Trojan-SMS.AndroidOS.Agent.ao",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0307 - Trojan-SMS.AndroidOS.Agent.ao"
-    },
-    {
-      "software_id": "S0308",
-      "software_name": "Trojan-SMS.AndroidOS.OpFake.a",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0308 - Trojan-SMS.AndroidOS.OpFake.a"
-    },
-    {
-      "software_id": "S0309",
-      "software_name": "Adups",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0309 - Adups"
-    },
-    {
-      "software_id": "S0311",
-      "software_name": "YiSpecter",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0311 - YiSpecter"
-    },
-    {
-      "software_id": "S0312",
-      "software_name": "WireLurker",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0312 - WireLurker"
-    },
-    {
-      "software_id": "S0313",
-      "software_name": "RuMMS",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0313 - RuMMS"
-    },
-    {
-      "software_id": "S0314",
-      "software_name": "X-Agent for Android",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0314 - X-Agent for Android"
-    },
-    {
-      "software_id": "S0315",
-      "software_name": "DualToy",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0315 - DualToy"
-    },
-    {
-      "software_id": "S0317",
-      "software_name": "Marcher",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0317 - Marcher"
-    },
-    {
-      "software_id": "S0319",
-      "software_name": "Allwinner",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0319 - Allwinner"
-    },
-    {
-      "software_id": "S0321",
-      "software_name": "HummingWhale",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0321 - HummingWhale"
-    },
-    {
-      "software_id": "S0322",
-      "software_name": "HummingBad",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0322 - HummingBad"
-    },
-    {
-      "software_id": "S0325",
-      "software_name": "Judy",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0325 - Judy"
     },
     {
       "software_id": "S0389",
@@ -5875,38 +6082,6 @@
       "autosuggest": "S0503 - FrameworkPOS"
     },
     {
-      "software_id": "S0551",
-      "software_name": "GoldenEagle",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0551 - GoldenEagle"
-    },
-    {
-      "software_id": "S0602",
-      "software_name": "Circles",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0602 - Circles"
-    },
-    {
       "software_id": "S0671",
       "software_name": "Tomiris",
       "platforms": [
@@ -5921,6 +6096,22 @@
         "Safety Instrumented System/Protection Relay"
       ],
       "autosuggest": "S0671 - Tomiris"
+    },
+    {
+      "software_id": "S0684",
+      "software_name": "ROADTools",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Device Configuration/Parameters",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "None",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "S0684 - ROADTools"
     },
     {
       "software_id": "S1000",
@@ -6045,6 +6236,15 @@
       "autosuggest": "S0047 - Hacking Team UEFI Rootkit"
     },
     {
+      "software_id": "S0057",
+      "software_name": "Tasklist",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S0057 - Tasklist"
+    },
+    {
       "software_id": "S0079",
       "software_name": "MobileOrder",
       "platforms": [
@@ -6052,6 +6252,96 @@
         "iOS"
       ],
       "autosuggest": "S0079 - MobileOrder"
+    },
+    {
+      "software_id": "S0096",
+      "software_name": "Systeminfo",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S0096 - Systeminfo"
+    },
+    {
+      "software_id": "S0097",
+      "software_name": "Ping",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S0097 - Ping"
+    },
+    {
+      "software_id": "S0100",
+      "software_name": "ipconfig",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S0100 - ipconfig"
+    },
+    {
+      "software_id": "S0101",
+      "software_name": "ifconfig",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S0101 - ifconfig"
+    },
+    {
+      "software_id": "S0102",
+      "software_name": "nbtstat",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S0102 - nbtstat"
+    },
+    {
+      "software_id": "S0103",
+      "software_name": "route",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S0103 - route"
+    },
+    {
+      "software_id": "S0104",
+      "software_name": "netstat",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S0104 - netstat"
+    },
+    {
+      "software_id": "S0116",
+      "software_name": "UACMe",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S0116 - UACMe"
+    },
+    {
+      "software_id": "S0122",
+      "software_name": "Pass-The-Hash Toolkit",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S0122 - Pass-The-Hash Toolkit"
+    },
+    {
+      "software_id": "S0123",
+      "software_name": "xCmd",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S0123 - xCmd"
     },
     {
       "software_id": "S0131",
@@ -6090,6 +6380,15 @@
       "autosuggest": "S0155 - WINDSHIELD"
     },
     {
+      "software_id": "S0174",
+      "software_name": "Responder",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S0174 - Responder"
+    },
+    {
       "software_id": "S0177",
       "software_name": "Power Loader",
       "platforms": [
@@ -6106,6 +6405,35 @@
         "Windows"
       ],
       "autosuggest": "S0182 - FinFisher"
+    },
+    {
+      "software_id": "S0191",
+      "software_name": "Winexe",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S0191 - Winexe"
+    },
+    {
+      "software_id": "S0192",
+      "software_name": "Pupy",
+      "platforms": [
+        "Android",
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S0192 - Pupy"
+    },
+    {
+      "software_id": "S0193",
+      "software_name": "Forfiles",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S0193 - Forfiles"
     },
     {
       "software_id": "S0214",
@@ -6135,6 +6463,33 @@
       "autosuggest": "S0219 - WINERACK"
     },
     {
+      "software_id": "S0224",
+      "software_name": "Havij",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S0224 - Havij"
+    },
+    {
+      "software_id": "S0225",
+      "software_name": "sqlmap",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S0225 - sqlmap"
+    },
+    {
+      "software_id": "S0231",
+      "software_name": "Invoke-PSImage",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S0231 - Invoke-PSImage"
+    },
+    {
       "software_id": "S0255",
       "software_name": "DDKONG",
       "platforms": [
@@ -6155,111 +6510,6 @@
       "autosuggest": "S0283 - jRAT"
     },
     {
-      "software_id": "S0285",
-      "software_name": "OldBoot",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0285 - OldBoot"
-    },
-    {
-      "software_id": "S0286",
-      "software_name": "OBAD",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0286 - OBAD"
-    },
-    {
-      "software_id": "S0287",
-      "software_name": "ZergHelper",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0287 - ZergHelper"
-    },
-    {
-      "software_id": "S0288",
-      "software_name": "KeyRaider",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0288 - KeyRaider"
-    },
-    {
-      "software_id": "S0289",
-      "software_name": "Pegasus for iOS",
-      "platforms": [
-        "iOS"
-      ],
-      "autosuggest": "S0289 - Pegasus for iOS"
-    },
-    {
-      "software_id": "S0290",
-      "software_name": "Gooligan",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0290 - Gooligan"
-    },
-    {
-      "software_id": "S0291",
-      "software_name": "PJApps",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0291 - PJApps"
-    },
-    {
-      "software_id": "S0292",
-      "software_name": "AndroRAT",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0292 - AndroRAT"
-    },
-    {
-      "software_id": "S0293",
-      "software_name": "BrainTest",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0293 - BrainTest"
-    },
-    {
-      "software_id": "S0294",
-      "software_name": "ShiftyBug",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0294 - ShiftyBug"
-    },
-    {
-      "software_id": "S0295",
-      "software_name": "RCSAndroid",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0295 - RCSAndroid"
-    },
-    {
-      "software_id": "S0297",
-      "software_name": "XcodeGhost",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0297 - XcodeGhost"
-    },
-    {
       "software_id": "S0298",
       "software_name": "Xbot",
       "platforms": [
@@ -6267,271 +6517,6 @@
         "iOS"
       ],
       "autosuggest": "S0298 - Xbot"
-    },
-    {
-      "software_id": "S0299",
-      "software_name": "NotCompatible",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0299 - NotCompatible"
-    },
-    {
-      "software_id": "S0300",
-      "software_name": "DressCode",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0300 - DressCode"
-    },
-    {
-      "software_id": "S0301",
-      "software_name": "Dendroid",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0301 - Dendroid"
-    },
-    {
-      "software_id": "S0302",
-      "software_name": "Twitoor",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0302 - Twitoor"
-    },
-    {
-      "software_id": "S0303",
-      "software_name": "MazarBOT",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0303 - MazarBOT"
-    },
-    {
-      "software_id": "S0304",
-      "software_name": "Android/Chuli.A",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0304 - Android/Chuli.A"
-    },
-    {
-      "software_id": "S0305",
-      "software_name": "SpyNote RAT",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0305 - SpyNote RAT"
-    },
-    {
-      "software_id": "S0306",
-      "software_name": "Trojan-SMS.AndroidOS.FakeInst.a",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0306 - Trojan-SMS.AndroidOS.FakeInst.a"
-    },
-    {
-      "software_id": "S0307",
-      "software_name": "Trojan-SMS.AndroidOS.Agent.ao",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0307 - Trojan-SMS.AndroidOS.Agent.ao"
-    },
-    {
-      "software_id": "S0308",
-      "software_name": "Trojan-SMS.AndroidOS.OpFake.a",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0308 - Trojan-SMS.AndroidOS.OpFake.a"
-    },
-    {
-      "software_id": "S0309",
-      "software_name": "Adups",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0309 - Adups"
-    },
-    {
-      "software_id": "S0310",
-      "software_name": "ANDROIDOS_ANSERVER.A",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0310 - ANDROIDOS_ANSERVER.A"
-    },
-    {
-      "software_id": "S0311",
-      "software_name": "YiSpecter",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0311 - YiSpecter"
-    },
-    {
-      "software_id": "S0312",
-      "software_name": "WireLurker",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0312 - WireLurker"
-    },
-    {
-      "software_id": "S0313",
-      "software_name": "RuMMS",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0313 - RuMMS"
-    },
-    {
-      "software_id": "S0314",
-      "software_name": "X-Agent for Android",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0314 - X-Agent for Android"
-    },
-    {
-      "software_id": "S0315",
-      "software_name": "DualToy",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0315 - DualToy"
-    },
-    {
-      "software_id": "S0316",
-      "software_name": "Pegasus for Android",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0316 - Pegasus for Android"
-    },
-    {
-      "software_id": "S0317",
-      "software_name": "Marcher",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0317 - Marcher"
-    },
-    {
-      "software_id": "S0318",
-      "software_name": "XLoader for Android",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0318 - XLoader for Android"
-    },
-    {
-      "software_id": "S0319",
-      "software_name": "Allwinner",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0319 - Allwinner"
-    },
-    {
-      "software_id": "S0320",
-      "software_name": "DroidJack",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0320 - DroidJack"
-    },
-    {
-      "software_id": "S0321",
-      "software_name": "HummingWhale",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0321 - HummingWhale"
-    },
-    {
-      "software_id": "S0322",
-      "software_name": "HummingBad",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0322 - HummingBad"
-    },
-    {
-      "software_id": "S0323",
-      "software_name": "Charger",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0323 - Charger"
-    },
-    {
-      "software_id": "S0324",
-      "software_name": "SpyDealer",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0324 - SpyDealer"
-    },
-    {
-      "software_id": "S0325",
-      "software_name": "Judy",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0325 - Judy"
-    },
-    {
-      "software_id": "S0326",
-      "software_name": "RedDrop",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0326 - RedDrop"
-    },
-    {
-      "software_id": "S0327",
-      "software_name": "Skygofree",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0327 - Skygofree"
-    },
-    {
-      "software_id": "S0328",
-      "software_name": "Stealth Mango",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0328 - Stealth Mango"
-    },
-    {
-      "software_id": "S0329",
-      "software_name": "Tangelo",
-      "platforms": [
-        "iOS"
-      ],
-      "autosuggest": "S0329 - Tangelo"
     },
     {
       "software_id": "S0389",
@@ -6552,220 +6537,12 @@
       "autosuggest": "S0390 - SQLRat"
     },
     {
-      "software_id": "S0399",
-      "software_name": "Pallas",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0399 - Pallas"
-    },
-    {
-      "software_id": "S0403",
-      "software_name": "Riltok",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0403 - Riltok"
-    },
-    {
-      "software_id": "S0405",
-      "software_name": "Exodus",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0405 - Exodus"
-    },
-    {
-      "software_id": "S0406",
-      "software_name": "Gustuff",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0406 - Gustuff"
-    },
-    {
-      "software_id": "S0407",
-      "software_name": "Monokle",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0407 - Monokle"
-    },
-    {
       "software_id": "S0408",
       "software_name": "FlexiSpy",
       "platforms": [
         "Android"
       ],
       "autosuggest": "S0408 - FlexiSpy"
-    },
-    {
-      "software_id": "S0411",
-      "software_name": "Rotexy",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0411 - Rotexy"
-    },
-    {
-      "software_id": "S0418",
-      "software_name": "ViceLeaker",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0418 - ViceLeaker"
-    },
-    {
-      "software_id": "S0419",
-      "software_name": "SimBad",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0419 - SimBad"
-    },
-    {
-      "software_id": "S0420",
-      "software_name": "Dvmap",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0420 - Dvmap"
-    },
-    {
-      "software_id": "S0421",
-      "software_name": "GolfSpy",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0421 - GolfSpy"
-    },
-    {
-      "software_id": "S0422",
-      "software_name": "Anubis",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0422 - Anubis"
-    },
-    {
-      "software_id": "S0423",
-      "software_name": "Ginp",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0423 - Ginp"
-    },
-    {
-      "software_id": "S0424",
-      "software_name": "Triada",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0424 - Triada"
-    },
-    {
-      "software_id": "S0425",
-      "software_name": "Corona Updates",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0425 - Corona Updates"
-    },
-    {
-      "software_id": "S0426",
-      "software_name": "Concipit1248",
-      "platforms": [
-        "iOS"
-      ],
-      "autosuggest": "S0426 - Concipit1248"
-    },
-    {
-      "software_id": "S0427",
-      "software_name": "TrickMo",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0427 - TrickMo"
-    },
-    {
-      "software_id": "S0432",
-      "software_name": "Bread",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0432 - Bread"
-    },
-    {
-      "software_id": "S0440",
-      "software_name": "Agent Smith",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0440 - Agent Smith"
-    },
-    {
-      "software_id": "S0463",
-      "software_name": "INSOMNIA",
-      "platforms": [
-        "iOS"
-      ],
-      "autosuggest": "S0463 - INSOMNIA"
-    },
-    {
-      "software_id": "S0478",
-      "software_name": "EventBot",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0478 - EventBot"
-    },
-    {
-      "software_id": "S0479",
-      "software_name": "DEFENSOR ID",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0479 - DEFENSOR ID"
-    },
-    {
-      "software_id": "S0480",
-      "software_name": "Cerberus",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0480 - Cerberus"
-    },
-    {
-      "software_id": "S0485",
-      "software_name": "Mandrake",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0485 - Mandrake"
-    },
-    {
-      "software_id": "S0489",
-      "software_name": "WolfRAT",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0489 - WolfRAT"
-    },
-    {
-      "software_id": "S0490",
-      "software_name": "XLoader for iOS",
-      "platforms": [
-        "iOS"
-      ],
-      "autosuggest": "S0490 - XLoader for iOS"
-    },
-    {
-      "software_id": "S0494",
-      "software_name": "Zen",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0494 - Zen"
     },
     {
       "software_id": "S0503",
@@ -6777,177 +6554,6 @@
       "autosuggest": "S0503 - FrameworkPOS"
     },
     {
-      "software_id": "S0505",
-      "software_name": "Desert Scorpion",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0505 - Desert Scorpion"
-    },
-    {
-      "software_id": "S0506",
-      "software_name": "ViperRAT",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0506 - ViperRAT"
-    },
-    {
-      "software_id": "S0507",
-      "software_name": "eSurv",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0507 - eSurv"
-    },
-    {
-      "software_id": "S0509",
-      "software_name": "FakeSpy",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0509 - FakeSpy"
-    },
-    {
-      "software_id": "S0522",
-      "software_name": "Exobot",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0522 - Exobot"
-    },
-    {
-      "software_id": "S0524",
-      "software_name": "AndroidOS/MalLocker.B",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0524 - AndroidOS/MalLocker.B"
-    },
-    {
-      "software_id": "S0525",
-      "software_name": "Android/AdDisplay.Ashas",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0525 - Android/AdDisplay.Ashas"
-    },
-    {
-      "software_id": "S0529",
-      "software_name": "CarbonSteal",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0529 - CarbonSteal"
-    },
-    {
-      "software_id": "S0535",
-      "software_name": "Golden Cup",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0535 - Golden Cup"
-    },
-    {
-      "software_id": "S0536",
-      "software_name": "GPlayed",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0536 - GPlayed"
-    },
-    {
-      "software_id": "S0539",
-      "software_name": "Red Alert 2.0",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0539 - Red Alert 2.0"
-    },
-    {
-      "software_id": "S0540",
-      "software_name": "Asacub",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0540 - Asacub"
-    },
-    {
-      "software_id": "S0544",
-      "software_name": "HenBox",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0544 - HenBox"
-    },
-    {
-      "software_id": "S0545",
-      "software_name": "TERRACOTTA",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0545 - TERRACOTTA"
-    },
-    {
-      "software_id": "S0549",
-      "software_name": "SilkBean",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0549 - SilkBean"
-    },
-    {
-      "software_id": "S0550",
-      "software_name": "DoubleAgent",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0550 - DoubleAgent"
-    },
-    {
-      "software_id": "S0551",
-      "software_name": "GoldenEagle",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0551 - GoldenEagle"
-    },
-    {
-      "software_id": "S0555",
-      "software_name": "CHEMISTGAMES",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0555 - CHEMISTGAMES"
-    },
-    {
-      "software_id": "S0558",
-      "software_name": "Tiktok Pro",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0558 - Tiktok Pro"
-    },
-    {
-      "software_id": "S0577",
-      "software_name": "FrozenCell",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0577 - FrozenCell"
-    },
-    {
-      "software_id": "S0602",
-      "software_name": "Circles",
-      "platforms": [
-        "Android",
-        "iOS"
-      ],
-      "autosuggest": "S0602 - Circles"
-    },
-    {
       "software_id": "S0622",
       "software_name": "AppleSeed",
       "platforms": [
@@ -6957,14 +6563,6 @@
       "autosuggest": "S0622 - AppleSeed"
     },
     {
-      "software_id": "S0655",
-      "software_name": "BusyGasper",
-      "platforms": [
-        "Android"
-      ],
-      "autosuggest": "S0655 - BusyGasper"
-    },
-    {
       "software_id": "S0671",
       "software_name": "Tomiris",
       "platforms": [
@@ -6972,6 +6570,15 @@
         "iOS"
       ],
       "autosuggest": "S0671 - Tomiris"
+    },
+    {
+      "software_id": "S0684",
+      "software_name": "ROADTools",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S0684 - ROADTools"
     },
     {
       "software_id": "S0690",
