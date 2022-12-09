@@ -33,27 +33,6 @@ jobs:
         run: |
           python refresh_attack_data.py
 
-      - name: JSON data - check for changes
-        id: changesjson
-        run: |
-          OUTPUT=`git status`
-          echo ::set-output name=GIT_STATUS_CODE::${OUTPUT}
-          echo $OUTPUT
-
-      - name: JSON data - commit files (if applicable)
-        if: contains(steps.changesjson.outputs.GIT_STATUS_CODE, 'modified')
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add -A
-          git commit -m "Refresh ATT&CK json data files"
-
-      - name: JSON data - push changes (if applicable)
-        if: contains(steps.changesjson.outputs.GIT_STATUS_CODE, 'modified')
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.PERSONAL_TOKEN }}
-
       - name: Wiki - check for changes
         id: changeswiki
         working-directory: ./wiki
@@ -78,3 +57,27 @@ jobs:
           path: "wiki"
         env:
           GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+
+      - name: JSON data - check for changes
+        id: changesjson
+        run: |
+          OUTPUT=`git status`
+          echo ::set-output name=GIT_STATUS_CODE::${OUTPUT}
+          echo $OUTPUT
+
+      - name: JSON data - commit files (if applicable)
+        if: contains(steps.changesjson.outputs.GIT_STATUS_CODE, 'modified')
+        run: |
+          rm -rf wiki
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git commit -m "Refresh ATT&CK json data files"
+
+      - name: JSON data - push changes (if applicable)
+        if: contains(steps.changesjson.outputs.GIT_STATUS_CODE, 'modified')
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.PERSONAL_TOKEN }}
+
+
