@@ -27,7 +27,7 @@ def _is_in_group(json_groups, argument_groups):
 def _are_groups_found(groups_found, argument_groups):
     """
     Check if the groups that are provided using '-g/--groups'/'-o/--overlay' are present within MITRE ATT&CK.
-    :param groups_attack_subset: groups that are found in the ATT&CK data
+    :param groups_found: groups that are found in the ATT&CK data
     :param argument_groups: groups provided via the command line by the user
     :return: returns boolean that indicates if all of the groups are found
     """
@@ -55,11 +55,40 @@ def _are_groups_found(groups_found, argument_groups):
     return group_found
 
 
-def _get_software_techniques(groups, platform, domain):
+def _are_campaigns_found(campaigns_found, argument_campaigns):
+    """
+    Check if the campaigns that are provided using -c/--campaigns or -o/--overlay are present within MITRE ATT&CK.
+    :param campaigns_found: campaigns that are found in the ATT&CK data
+    :param argument_campaigns: campaigns provided via the command line by the user
+    :return: returns boolean that indicates if all of the groups are found
+    """
+    campaign_attack_data = load_attack_data(DATA_TYPE_STIX_ALL_CAMPAIGNS)
+    campaign_found = True
+
+    for campaign_arg in argument_campaigns:
+        if campaign_arg == 'all':  # this one will be ignored as it does not make any sense for this function
+            return True
+
+        campaign_id = None
+        for campaign in campaign_attack_data:  # is the campaign provided via the command line known in ATT&CK?
+            if campaign_arg == get_attack_id(campaign).lower() or campaign_arg == campaign['name'].lower():
+                campaign_id = get_attack_id(campaign)
+        if not campaign_id:  # the campaign that has been provided through the command line cannot be found in ATT&CK
+            print('[!] Unknown ATT&CK campaign: ' + campaign_arg)
+            campaign_found = False
+        elif campaign_id not in campaigns_found:  # group not present in filtered (platform) data set
+            print('[!] Campaign not part of the data set: ' + campaign_arg)
+            campaign_found = False
+
+    return campaign_found
+
+
+def _get_software_techniques(groups, campaigns, platform, domain):
     """
     Get all techniques (in a dict) from the provided list of groups in relation to the software these groups use,
     and hence techniques they support.
     :param groups: ATT&CK groups
+    :param campaigns: ATT&CK campaigns
     :param platform: one or multiple values from PLATFORMS constant
     :param domain: the specified domain
     :return: dictionary with info on groups
@@ -106,18 +135,37 @@ def _get_software_techniques(groups, platform, domain):
 
     # groups are provided as arguments via the command line
     else:
-        software_by_group = load_attack_data(DATA_TYPE_CUSTOM_SOFTWARE_BY_GROUP)
+        if groups is not None:
+            software_by_group = load_attack_data(DATA_TYPE_CUSTOM_SOFTWARE_BY_GROUP)
+            for s in software_by_group:
+                # software matches the ATT&CK Matrix and platform
+                # and the group is a group we are interested in
+                if s['x_mitre_platforms']:  # there is software that do not have a platform, skip those
+                    if domain in s['x_mitre_domains'] and len(set(s['x_mitre_platforms']).intersection(set(platform))) > 0 and \
+                            (groups[0] == 'all' or s['group_id'].lower() in groups or _is_in_group(s['aliases'], groups) or s['name'].lower() in groups):
+                        if s['group_id'] not in groups_dict:
+                            groups_dict[s['group_id']] = {'group_name': s['name']}
+                            groups_dict[s['group_id']]['techniques'] = set()
+                            groups_dict[s['group_id']]['weight'] = dict()
+                        groups_dict[s['group_id']]['techniques'].update(software_dict[s['software_id']])
+                        for t in groups_dict[s['group_id']]['techniques']:
+                            groups_dict[s['group_id']]['weight'][t] = 1
 
-        for s in software_by_group:
-            # software matches the ATT&CK Matrix and platform
-            # and the group is a group we are interested in
-            if s['x_mitre_platforms']:  # there is software that do not have a platform, skip those
-                if domain in s['x_mitre_domains'] and len(set(s['x_mitre_platforms']).intersection(set(platform))) > 0 and \
-                        (groups[0] == 'all' or s['group_id'].lower() in groups or _is_in_group(s['aliases'], groups) or s['name'].lower() in groups):
-                    if s['group_id'] not in groups_dict:
-                        groups_dict[s['group_id']] = {'group_name': s['name']}
-                        groups_dict[s['group_id']]['techniques'] = set()
-                    groups_dict[s['group_id']]['techniques'].update(software_dict[s['software_id']])
+        if campaigns is not None:
+            software_in_campaign = load_attack_data(DATA_TYPE_CUSTOM_SOFTWARE_IN_CAMPAIGN)
+            for s in software_in_campaign:
+                # software matches the ATT&CK Matrix and platform
+                # and the campaign is a campaign we are interested in
+                if s['x_mitre_platforms']:  # there is software that do not have a platform, skip those
+                    if domain in s['x_mitre_domains'] and len(set(s['x_mitre_platforms']).intersection(set(platform))) > 0 and \
+                            (campaigns[0] == 'all' or s['campaign_id'].lower() in campaigns or s['name'].lower() in campaigns):
+                        if s['campaign_id'] not in groups_dict:
+                            groups_dict[s['campaign_id']] = {'group_name': s['name']}
+                            groups_dict[s['campaign_id']]['techniques'] = set()
+                            groups_dict[s['campaign_id']]['weight'] = dict()
+                        groups_dict[s['campaign_id']]['techniques'].update(software_dict[s['software_id']])
+                        for t in groups_dict[s['campaign_id']]['techniques']:
+                            groups_dict[s['campaign_id']]['weight'][t] = 1
 
     return groups_dict
 
@@ -162,6 +210,9 @@ def _get_group_techniques(groups, platform, file_type, domain):
     :param domain: the specified domain
     :return: returns dictionary with all techniques from the provided list of groups or -1 when group is not found
     """
+    if groups is None:
+        return {}
+
     # { group_id: {group_name: NAME, techniques: set{id, ...} } }
     groups_dict = {}
     groups_found = set()
@@ -225,6 +276,47 @@ def _get_group_techniques(groups, platform, file_type, domain):
 
     return groups_dict
 
+def _get_campaign_techniques(campaigns, platform, domain):
+    """
+    Get all techniques (in a dict) from the provided list of campaigns. Uses the groups data structure to fit in campaigns.
+    :param campaigns: campaign ID or name
+    :param platform: one or multiple values from PLATFORMS constant
+    :param domain: the specified domain
+    :return: returns dictionary with all techniques from the provided list of campaigns or -1 when campaign is not found
+    """
+    if campaigns is None:
+        return {}
+
+    # { group_id: {group_name: NAME, techniques: set{id, ...} } }
+    groups_dict = {}
+    campaigns_found = set()
+
+    all_campaigns = load_attack_data(DATA_TYPE_CUSTOM_TECH_IN_CAMPAIGN)
+
+    for c in all_campaigns:
+        platforms = c['x_mitre_platforms']
+        if not platforms:
+            # we just set this to an random legit value, because for pre-attack 'platform' is not used
+            platforms = ['Windows']
+
+        # campaign matches the: matrix/stage, platform and the campaign(s) we are interested in
+        if domain in c['x_mitre_domains'] and len(set(platforms).intersection(set(platform))) > 0 and \
+                (campaigns[0] == 'all' or c['campaign_id'].lower() in campaigns or c['name'].lower() in campaigns):
+            if c['campaign_id'] not in groups_dict:
+                campaigns_found.add(c['campaign_id'])
+                groups_dict[c['campaign_id']] = {'group_name': c['name']}
+                groups_dict[c['campaign_id']]['techniques'] = set()
+                groups_dict[c['campaign_id']]['weight'] = dict()
+
+            groups_dict[c['campaign_id']]['techniques'].add(c['technique_id'])
+            groups_dict[c['campaign_id']]['weight'][c['technique_id']] = 1
+
+    found = _are_campaigns_found(campaigns_found, campaigns)
+    if not found:
+        return -1
+
+    return groups_dict
+
 
 def _get_detection_techniques(filename):
     """
@@ -279,10 +371,10 @@ def _get_visibility_techniques(filename):
 def _get_technique_count(groups, groups_overlay, groups_software, overlay_type, all_techniques):
     """
     Create a dict with all involved techniques and their relevant count/score
-    :param groups: a dict with data on groups
-    :param groups_overlay: a dict with data on the groups to overlay
+    :param groups: a dict with data on groups/campaigns
+    :param groups_overlay: a dict with data on the groups/campaigns to overlay
     :param groups_software: a dict with with data on which techniques are used within related software
-    :param overlay_type: group, visibility or detection
+    :param overlay_type: group, campaign, visibility or detection
     :param all_techniques: dict containing all technique data for visibility or detection
     :return: dictionary, max_count
     """
@@ -296,7 +388,7 @@ def _get_technique_count(groups, groups_overlay, groups_software, overlay_type, 
                 techniques_dict[tech]['groups'] = set()
                 techniques_dict[tech]['count'] = v['weight'][tech]
 
-            # We only want to increase the score when comparing groups and not for visibility or detection.
+            # We only want to increase the score when comparing groups/campaigns and not for visibility or detection.
             # This allows to have proper sorting of the heat map, which in turn improves the ability to visually
             # compare this heat map with the detection/visibility ATT&CK Navigator layers.
             else:
@@ -306,7 +398,7 @@ def _get_technique_count(groups, groups_overlay, groups_software, overlay_type, 
     max_count = max(techniques_dict.values(), key=lambda k: k['count'])['count']
 
     # create dict {tech_id: score+max_tech_count} to be used for when doing an overlay of the type visibility or detection
-    if overlay_type != OVERLAY_TYPE_GROUP:
+    if overlay_type not in [OVERLAY_TYPE_GROUP, OVERLAY_TYPE_CAMPAIGN]:
         dict_tech_score = {}
         list_tech = groups_overlay[overlay_type.upper()]['techniques']
         for tech in list_tech:
@@ -320,13 +412,13 @@ def _get_technique_count(groups, groups_overlay, groups_software, overlay_type, 
             if tech not in techniques_dict:
                 techniques_dict[tech] = dict()
                 techniques_dict[tech]['groups'] = set()
-                if overlay_type == OVERLAY_TYPE_GROUP:
+                if overlay_type in [OVERLAY_TYPE_GROUP, OVERLAY_TYPE_CAMPAIGN]:
                     techniques_dict[tech]['count'] = v['weight'][tech]
                 else:
                     techniques_dict[tech]['count'] = dict_tech_score[tech]
             elif group in groups:
                 if tech not in groups[group]['techniques']:
-                    if overlay_type == OVERLAY_TYPE_GROUP:
+                    if overlay_type in [OVERLAY_TYPE_GROUP, OVERLAY_TYPE_CAMPAIGN]:
                         techniques_dict[tech]['count'] += v['weight'][tech]
                     else:
                         techniques_dict[tech]['count'] = dict_tech_score[tech]
@@ -335,7 +427,7 @@ def _get_technique_count(groups, groups_overlay, groups_software, overlay_type, 
                     # technique was already counted for that group / it is not a new technique for that group coming
                     # from a YAML file
             else:
-                if overlay_type == OVERLAY_TYPE_GROUP:
+                if overlay_type in [OVERLAY_TYPE_GROUP, OVERLAY_TYPE_CAMPAIGN]:
                     # increase count when the group in the YAML file is a custom group
                     techniques_dict[tech]['count'] += v['weight'][tech]
                 else:
@@ -372,6 +464,8 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
     """
     techniques_layer = []
 
+    group_campaign_title = 'Group / Campaign'
+
     # { technique_id: {count: ..., groups: set{} }
     # add the technique count/scoring
     for tech, v in techniques_count.items():
@@ -383,9 +477,9 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
 
         for group, values in groups.items():
             if tech in values['techniques']:  # we do not color this one because that's done using the scoring
-                if 'Group' not in metadata_dict:
-                    metadata_dict['Group'] = set()
-                metadata_dict['Group'].add(values['group_name'])
+                if group_campaign_title not in metadata_dict:
+                    metadata_dict[group_campaign_title] = set()
+                metadata_dict[group_campaign_title].add(values['group_name'])
 
                 # this will only be effective when loading a YAML files that have a value for the key 'campaign'
                 if 'campaign' in values:
@@ -399,7 +493,7 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
                 # Determine color:
                 if len(v['groups'].intersection(set(groups.keys()))) > 0:
                     # if the technique is both present in the group (-g/--groups) and the groups overlay (-o/--overlay)
-                    metadata_dict['Group'].add(values['group_name'])
+                    metadata_dict[group_campaign_title].add(values['group_name'])
 
                     # determine the color of the overlay:
                     # - using groups, it's normal orange
@@ -425,9 +519,9 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
                             t['color'] = COLOR_D_0 if s == 0 else COLOR_D_1 if s == 1 else COLOR_D_2 if s == 2 else COLOR_D_3 if s == 3 else COLOR_D_4 if s == 4 else COLOR_D_5 if s == 5 else ''
                     else:
                         t['color'] = COLOR_GROUP_OVERLAY_NO_MATCH
-                        if 'Group' not in metadata_dict:
-                            metadata_dict['Group'] = set()
-                        metadata_dict['Group'].add(values['group_name'])
+                        if group_campaign_title not in metadata_dict:
+                            metadata_dict[group_campaign_title] = set()
+                        metadata_dict[group_campaign_title].add(values['group_name'])
 
                 # Add applicable_to to metadata in case of overlay for detection/visibility:
                 if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
@@ -486,17 +580,19 @@ def _get_group_list(groups, file_type):
         return groups
 
 
-def generate_group_heat_map(groups, overlay, overlay_type, platform, software_groups, search_visibility,
-                            search_detection, health_is_called, output_filename, layer_name, domain, layer_settings,
-                            include_all_score_objs=False):
+def generate_group_heat_map(groups, campaigns, overlay, overlay_type, platform, overlay_software, include_software,
+                            search_visibility, search_detection, health_is_called, output_filename, layer_name, domain,
+                            layer_settings, include_all_score_objs=False):
     """
     Calls all functions that are necessary for the generation of the heat map and write a json layer to disk.
     :param groups: threat actor groups
+    :param campaigns: threat actor campaigns
     :param overlay: group(s), visibility or detections to overlay (group ID, group name/alias, YAML file with
     group(s), detections or visibility)
     :param overlay_type: group, visibility or detection
     :param platform: one or multiple ATT&CK platform values or None
-    :param software_groups: specify if techniques from related software should be included
+    :param overlay_software: specify if techniques from related software should be overlayed (not included in scores)
+    :param include_software: specify if techniques from related software should be included in the scores
     :param search_visibility: visibility EQL search query
     :param search_detection: detection EQL search query
     :param health_is_called: boolean that specifies if detailed errors in the file will be printed
@@ -507,12 +603,16 @@ def generate_group_heat_map(groups, overlay, overlay_type, platform, software_gr
     :param include_all_score_objs: include all score objects within the score_logbook for the EQL query
     :return: returns None when something went wrong
     """
+    original_groups_argument = groups
     overlay_dict = {}
     groups_software_dict = {}
+    include_software_dict = {}
 
     groups_file_type = None
-    if groups == None:
-        groups = ['all']
+    if groups is None:
+        # Only set groups to all when no campaigns are specified:
+        if campaigns is None:
+            groups = ['all']
     elif os.path.isfile(groups[0]):
         groups = groups[0]
         groups_file_type = check_file(groups, file_type=FILE_TYPE_GROUP_ADMINISTRATION,
@@ -521,11 +621,17 @@ def generate_group_heat_map(groups, overlay, overlay_type, platform, software_gr
             return None  # the groups_file_type is not of the type FILE_TYPE_GROUP_ADMINISTRATION
     elif isinstance(groups[0], str) and len(groups) == 1:
         # reached when when the CLI only contained one argument
-        groups = groups[0]
-        groups = groups.split(',')
-        groups = list(map(lambda x: x.strip().lower(), groups))
+        groups = list(map(lambda x: x.strip().lower(), groups[0].split(',')))
     else:  # reached when the groups are provided via CLI arguments
         groups = list(map(lambda x: x.strip().lower(), groups))
+
+    if campaigns is None and original_groups_argument is None:
+        # Only set campaigns to all when no groups are specified:
+        campaigns = ['all']
+    elif campaigns is not None and isinstance(campaigns[0], str) and len(campaigns) == 1:
+        campaigns = list(map(lambda x: x.strip().lower(), campaigns[0].split(',')))
+    elif campaigns is not None:
+        campaigns = list(map(lambda x: x.strip().lower(), campaigns))
 
     # set the correct value for platform
     platform_yaml = None
@@ -557,15 +663,23 @@ def generate_group_heat_map(groups, overlay, overlay_type, platform, software_gr
 
     overlay_file_type = None
     if overlay:
-        if os.path.isfile(overlay[0]):
+        if overlay_type in [OVERLAY_TYPE_DETECTION, OVERLAY_TYPE_VISIBILITY]:
+            if os.path.isfile(overlay[0]):
+                overlay = overlay[0]
+                expected_file_type = FILE_TYPE_TECHNIQUE_ADMINISTRATION if overlay_type in [OVERLAY_TYPE_VISIBILITY, OVERLAY_TYPE_DETECTION] else None
+                overlay_file_type = check_file(overlay, expected_file_type, health_is_called=health_is_called)
+                if not overlay_file_type:
+                    return None  # the overlay_file_type is not of the expected type
+            else:
+                print('[!] The given file does not exist: ' +overlay[0])
+                return None
+        elif overlay_type == OVERLAY_TYPE_GROUP and os.path.isfile(overlay[0]):
             overlay = overlay[0]
-            expected_file_type = FILE_TYPE_GROUP_ADMINISTRATION if overlay_type == OVERLAY_TYPE_GROUP \
-                else FILE_TYPE_TECHNIQUE_ADMINISTRATION \
-                if overlay_type in [OVERLAY_TYPE_VISIBILITY, OVERLAY_TYPE_DETECTION] else None
+            expected_file_type = FILE_TYPE_GROUP_ADMINISTRATION
             overlay_file_type = check_file(overlay, expected_file_type, health_is_called=health_is_called)
             if not overlay_file_type:
                 return None  # the overlay_file_type is not of the expected type
-        else:  # reached when the groups are provided via CLI arguments
+        else:  # reached when the groups/campaigns are provided via CLI arguments
             overlay = list(map(lambda x: x.strip().lower(), overlay))
     else:
         overlay = []
@@ -593,33 +707,52 @@ def generate_group_heat_map(groups, overlay, overlay_type, platform, software_gr
 
     # we are not overlaying visibility or detection, overlay group will therefore contain information on another group
     elif len(overlay) > 0:
-        overlay_dict = _get_group_techniques(overlay, platform, overlay_file_type, domain)
+        if overlay_type == OVERLAY_TYPE_GROUP:
+            overlay_dict = _get_group_techniques(overlay, platform, overlay_file_type, domain)
+        elif overlay_type == OVERLAY_TYPE_CAMPAIGN:
+            overlay_dict = _get_campaign_techniques(overlay, platform, domain)
         if overlay_dict == -1:
             return None  # returns None when the provided Group(s) to be overlaid, contains Groups not part of ATT&CK
 
     groups_dict = _get_group_techniques(groups, platform, groups_file_type, domain)
-    if groups_dict == -1:
-        return None  # returns None when the provided Group contains Groups not part of ATT&CK
+    campaigns_dict = _get_campaign_techniques(campaigns, platform, domain)
+
+    if groups_dict == -1 or campaigns_dict == -1:
+        return None  # return None when the provided Groups/Campaigns are not part of ATT&CK
+    else:
+        # Treat campaigns like groups, merge groups_dict with campaigns_dict:
+        groups_dict |= campaigns_dict
+
     if len(groups_dict) == 0:
         print('[!] Empty layer.')  # the provided groups dit not result in any techniques
         return None
 
     # check if we are doing a software group overlay
-    if software_groups and overlay:
-        if overlay_type not in [OVERLAY_TYPE_VISIBILITY, OVERLAY_TYPE_DETECTION]:
-            # if a group overlay is provided, get the software techniques for the overlay
-            groups_software_dict = _get_software_techniques(overlay, platform, domain)
-    elif software_groups:
-        groups_software_dict = _get_software_techniques(groups, platform, domain)
+    if overlay_software and overlay:
+        # if a group or campaign overlay is provided, get the software techniques for the overlay
+        if overlay_type == OVERLAY_TYPE_GROUP:
+            groups_software_dict = _get_software_techniques(overlay, None, platform, domain)
+        elif overlay_type == OVERLAY_TYPE_CAMPAIGN:
+            groups_software_dict = _get_software_techniques(None, overlay, platform, domain)
+    elif overlay_software:
+        groups_software_dict = _get_software_techniques(groups, campaigns, platform, domain)
+
+    if include_software:
+        include_software_dict = _get_software_techniques(groups, campaigns, platform, domain)
+        merge_group_dict(groups_dict, include_software_dict)
 
     technique_count, max_count = _get_technique_count(groups_dict, overlay_dict, groups_software_dict, overlay_type, all_techniques)
     technique_layer = _get_technique_layer(technique_count, groups_dict, overlay_dict, groups_software_dict,
                                            overlay_file_type, overlay_type, all_techniques)
 
     # make a list group names for the involved groups.
+    groups_list = []
     if groups == ['all']:
-        groups_list = ['all']
-    else:
+        groups_list.append('all_groups')
+    if campaigns == ['all']:
+        groups_list.append('all_campaigns')
+
+    if groups != ['all'] and campaigns != ['all']:
         groups_list = _get_group_list(groups_dict, groups_file_type)
     overlay_list = _get_group_list(overlay_dict, overlay_file_type)
 

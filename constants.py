@@ -6,17 +6,20 @@ APP_NAME = 'DeTT&CT'
 APP_DESC = 'Detect Tactics, Techniques & Combat Threats'
 VERSION = '1.7.0'
 
-EXPIRE_TIME = 60 * 60 * 24
+EXPIRE_TIME = 60 * 60 * 24 * 7
 
 # MITRE ATT&CK data types for custom schema and STIX
 DATA_TYPE_CUSTOM_TECH_BY_GROUP = 'mitre_techniques_used_by_group'
 DATA_TYPE_CUSTOM_TECH_BY_SOFTWARE = 'mitre_techniques_used_by_software'
+DATA_TYPE_CUSTOM_TECH_IN_CAMPAIGN = 'mitre_techniques_used_in_campaign'
 DATA_TYPE_CUSTOM_SOFTWARE_BY_GROUP = 'mitre_software_used_by_group'
+DATA_TYPE_CUSTOM_SOFTWARE_IN_CAMPAIGN = 'mitre_software_used_in_campaign'
 DATA_TYPE_STIX_ALL_TECH = 'mitre_all_techniques'
 DATA_TYPE_STIX_ALL_TECH_ENTERPRISE = 'mitre_all_techniques_enterprise'
 DATA_TYPE_STIX_ALL_TECH_ICS = 'mitre_all_techniques_ics'
 DATA_TYPE_STIX_ALL_TECH_MOBILE = 'mitre_all_techniques_mobile'
 DATA_TYPE_STIX_ALL_GROUPS = 'mitre_all_groups'
+DATA_TYPE_STIX_ALL_CAMPAIGNS = 'mitre_all_campaigns'
 DATA_TYPE_STIX_ALL_SOFTWARE = 'mitre_all_software'
 DATA_TYPE_STIX_ALL_RELATIONSHIPS = 'mitre_all_relationships'
 DATA_TYPE_STIX_ALL_ENTERPRISE_MITIGATIONS = 'mitre_all_mitigations_enterprise'
@@ -83,6 +86,7 @@ COLOR_OVERLAY_BOTH = COLOR_GROUP_OVERLAY_MATCH
 
 # Overlay types as used within the group functionality
 OVERLAY_TYPE_GROUP = 'group'
+OVERLAY_TYPE_CAMPAIGN = 'campaign'
 OVERLAY_TYPE_VISIBILITY = 'visibility'
 OVERLAY_TYPE_DETECTION = 'detection'
 

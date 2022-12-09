@@ -1,4 +1,4 @@
-attackcti==0.3.6
+attackcti==0.3.8
 simplejson==3.17.6
 plotly==5.6.0
 pandas==1.4.1
