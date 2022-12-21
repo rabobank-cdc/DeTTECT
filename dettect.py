@@ -161,29 +161,43 @@ def _init_menu():
                                          description='Create threat actor group heat maps, compare group(s) and '
                                          'compare group(s) with visibility and detection coverage.',
                                          help='threat actor group mapping')
-    parser_group.add_argument('-g', '--groups', help='specify the ATT&CK Groups to include. Group can be its ID, '
-                                                     'name or alias (default is all groups). Multiple Groups can be '
-                                                     'provided with extra \'-g/--group\' arguments. Another option is '
-                                                     'to provide a YAML file with a custom group(s)',
+    parser_group.add_argument('-g', '--groups', help='specify the ATT&CK Groups to include. A group can be its ID, name or alias. '
+                                                     'If no group is specified, all groups are used (except when a -c/--campaign '
+                                                     'is specified). The -g/--groups and -c/--campaign options complement each other. '
+                                                     'Multiple Groups can be provided with extra -g/--group arguments. Another '
+                                                     'option is to provide a YAML file with a custom group(s)',
+                              default=None, action='append')
+    parser_group.add_argument('-c', '--campaigns', help='specify the ATT&CK Campaigns to include. A campaign can be its ID or name. '
+                                                     'If no campaign is specified, all campaigns are used (except when a -g/--group '
+                                                     'is specified). The -c/--campaign and -g/--groups options complement each other. '
+                                                     'Multiple Campaigns can be provided with extra -c/--campaign arguments.',
                               default=None, action='append')
     parser_group.add_argument('-d', '--domain', help='specify the ATT&CK domain (default = enterprise). This argument '
                                                      'is ignored if a domain is specified in the Group YAML file.',
                               required=False, choices=['enterprise', 'ics', 'mobile'])
-    parser_group.add_argument('-o', '--overlay', help='specify what to overlay on the group(s) (provided using the '
-                                                      'arguments \-g/--groups\): group(s), visibility or detection. '
-                                                      'When overlaying a GROUP: the group can be its ATT&CK ID, '
-                                                      'name or alias. Multiple Groups can be provided with extra '
-                                                      '\'-o/--overlay\' arguments. Another option is to provide a '
+    parser_group.add_argument('-o', '--overlay', help='specify what to overlay: group(s), campaign(s), visibility or detection. '
+                                                      'Default overlay type is Groups, to change it use -t/--overlay-type. '
+                                                      'When overlaying a Group: it can be its ATT&CK ID, name or alias. '
+                                                      'When overlaying a Campaign: it can be its ID or name. '
+                                                      'Multiple Groups or Campaigns can be provided with extra '
+                                                      '-o/--overlay arguments. Another option is to provide a '
                                                       'YAML file with a custom group(s). When overlaying VISIBILITY '
-                                                      'or DETECTION provide a YAML with the technique administration.)',
+                                                      'or DETECTION provide a YAML with the technique administration. ',
                                                       action='append')
     parser_group.add_argument('-t', '--overlay-type', help='specify the type of overlay (default = group)',
-                              choices=['group', 'visibility', 'detection'], default='group')
-    parser_group.add_argument('--software-group', help='add techniques to the heat map by checking which software is '
-                                                       'used by group(s), and hence which techniques the software '
-                                                       'supports (does not influence the scores). If overlay group(s) '
-                                                       'are provided, only software related to those group(s) are '
-                                                       'included', action='store_true', default=False)
+                              choices=['group', 'campaign', 'visibility', 'detection'], default='group')
+
+    software_parse_group = parser_group.add_mutually_exclusive_group()
+    software_parse_group.add_argument('--software', help='add techniques to the heat map by checking which software is used by '
+                                                 'groups/campaigns, and hence which techniques the software '
+                                                 'supports (does not influence the scores). If overlay groups/campaigns '
+                                                 'are provided, only software related to those groups/campaigns are '
+                                                 'included. Cannot be used together with --include-software',
+                                      action='store_true', default=False)
+    software_parse_group.add_argument('--include-software', help='include techniques that software supports in the scores for '
+                                                         'groups/campaigns in scope. Cannot be used together with --software',
+                                      action='store_true', default=False)
+
     parser_group.add_argument('-p', '--platform', action='append', help='specify the platform (default = all). Multiple platforms '
                               'can be provided with extra \'-p/--platform\' arguments. The available platforms '
                               ' can be listed from the generic mode: \'ge --list-platforms\'')
@@ -300,8 +314,8 @@ def _menu(menu_parser):
     # TODO add Group EQL search capabilities
     elif args.subparser in ['group', 'g']:
         layer_settings = _parse_layer_settings(args.layer_settings)
-        generate_group_heat_map(args.groups, args.overlay, args.overlay_type, args.platform,
-                                args.software_group, args.search_visibility, args.search_detection, args.health,
+        generate_group_heat_map(args.groups, args.campaigns, args.overlay, args.overlay_type, args.platform,
+                                args.software, args.include_software, args.search_visibility, args.search_detection, args.health,
                                 args.output_filename, args.layer_name, args.domain, layer_settings,
                                 include_all_score_objs=args.all_scores)
 

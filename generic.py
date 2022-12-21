@@ -94,13 +94,30 @@ def _convert_stix_groups_to_dict(stix_attack_data):
     :return: list with dictionaries containing all groups from the input stix_attack_data
     """
     attack_data = []
-    for stix_tech in stix_attack_data:
-        tech = json.loads(stix_tech.serialize(), object_hook=_date_hook)
+    for stix_group in stix_attack_data:
+        group = json.loads(stix_group.serialize(), object_hook=_date_hook)
 
         # Add group_id as key, because it's hard to get from STIX:
-        tech['group_id'] = get_attack_id(stix_tech)
+        group['group_id'] = get_attack_id(stix_group)
 
-        attack_data.append(tech)
+        attack_data.append(group)
+
+    return attack_data
+
+def _convert_stix_campaigns_to_dict(stix_attack_data):
+    """
+    Convert the STIX list with Campaign to a dictionary for easier use in python and also include the campaign_id.
+    :param stix_attack_data: the MITRE ATT&CK STIX dataset with campaigns
+    :return: list with dictionaries containing all campaigns from the input stix_attack_data
+    """
+    attack_data = []
+    for stix_campaign in stix_attack_data:
+        campaign = json.loads(stix_campaign.serialize(), object_hook=_date_hook)
+
+        # Add campaign_id as key, because it's hard to get from STIX:
+        campaign['campaign_id'] = get_attack_id(stix_campaign)
+
+        attack_data.append(campaign)
 
     return attack_data
 
@@ -191,6 +208,43 @@ def load_attack_data(data_type):
                         })
 
         attack_data = all_group_use
+    elif data_type == DATA_TYPE_CUSTOM_TECH_IN_CAMPAIGN:
+        # First we need to know which technique references (STIX Object type 'attack-pattern') we have for all
+        # campaigns. This results in a dict: {campaign_id: Cxxxx, technique_ref/attack-pattern_ref: ...}
+        campaigns = load_attack_data(DATA_TYPE_STIX_ALL_CAMPAIGNS)
+        relationships = load_attack_data(DATA_TYPE_STIX_ALL_RELATIONSHIPS)
+        all_campaigns_relationships = []
+        for c in campaigns:
+            for r in relationships:
+                if c['id'] == r['source_ref'] and r['relationship_type'] == 'uses' and \
+                        r['target_ref'].startswith('attack-pattern--'):
+                    # more information on the campaign can be added. Only the minimal required data is added.
+                    all_campaigns_relationships.append(
+                        {
+                            'campaign_id': get_attack_id(c),
+                            'name': c['name'],
+                            'technique_ref': r['target_ref'],
+                            'x_mitre_domains': c['x_mitre_domains'] if 'x_mitre_domains' in c.keys() else ['enterprise-attack']
+                        })
+
+        # Now we start resolving this part of the dict created above: 'technique_ref/attack-pattern_ref'.
+        # and we add some more data to the final result.
+        all_campaigns_use = []
+        techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH)
+        for cr in all_campaigns_relationships:
+            for t in techniques:
+                if t['id'] == cr['technique_ref']:
+                    all_campaigns_use.append(
+                        {
+                            'campaign_id': cr['campaign_id'],
+                            'name': cr['name'],
+                            'technique_id': get_attack_id(t),
+                            'x_mitre_platforms': t.get('x_mitre_platforms', None),
+                            'x_mitre_domains': cr['x_mitre_domains'],
+                            'matrix': t['external_references'][0]['source_name']
+                        })
+
+        attack_data = all_campaigns_use
 
     elif data_type == DATA_TYPE_STIX_ALL_TECH:
         stix_attack_data = mitre.get_techniques()
@@ -215,6 +269,10 @@ def load_attack_data(data_type):
 
         # Combine groups from all matrices together:
         attack_data = _convert_stix_groups_to_dict(groups_enterprise + groups_ics + groups_mobile)
+
+    elif data_type == DATA_TYPE_STIX_ALL_CAMPAIGNS:
+        campaigns = mitre.get_campaigns()
+        attack_data = _convert_stix_campaigns_to_dict(campaigns)
 
     elif data_type == DATA_TYPE_STIX_ALL_SOFTWARE:
         attack_data = mitre.get_software()
@@ -282,6 +340,42 @@ def load_attack_data(data_type):
                             'matrix': s['external_references'][0]['source_name']
                         })
         attack_data = all_group_use
+
+    elif data_type == DATA_TYPE_CUSTOM_SOFTWARE_IN_CAMPAIGN:
+        # First we need to know which software references (STIX Object type 'malware' or 'tool') we have for all
+        # campaigns. This results in a dict: {campaign_id: Cxxxx, software_ref/malware-tool_ref: ...}
+        campaigns = load_attack_data(DATA_TYPE_STIX_ALL_CAMPAIGNS)
+        relationships = load_attack_data(DATA_TYPE_STIX_ALL_RELATIONSHIPS)
+        all_campaigns_relationships = []
+        for campaign in campaigns:
+            for r in relationships:
+                if campaign['id'] == r['source_ref'] and r['relationship_type'] == 'uses' and \
+                        (r['target_ref'].startswith('tool--') or r['target_ref'].startswith('malware--')):
+                    all_campaigns_relationships.append(
+                        {
+                            'campaign_id': get_attack_id(campaign),
+                            'name': campaign['name'],
+                            'software_ref': r['target_ref'],
+                            'x_mitre_domains': campaign['x_mitre_domains']
+                        })
+
+        # Now we start resolving this part of the dict created above: 'software_ref/malware-tool_ref'.
+        # and we add some more data to the final result.
+        all_campaign_use = []
+        software = load_attack_data(DATA_TYPE_STIX_ALL_SOFTWARE)
+        for campaign in all_campaigns_relationships:
+            for s in software:
+                if s['id'] == campaign['software_ref']:
+                    all_campaign_use.append(
+                        {
+                            'campaign_id': campaign['campaign_id'],
+                            'name': campaign['name'],
+                            'software_id': get_attack_id(s),
+                            'x_mitre_platforms': s.get('x_mitre_platforms', None),
+                            'x_mitre_domains': campaign['x_mitre_domains'],
+                            'matrix': s['external_references'][0]['source_name']
+                        })
+        attack_data = all_campaign_use
 
     elif data_type == DATA_TYPE_STIX_ALL_ENTERPRISE_MITIGATIONS:
         attack_data = mitre.get_enterprise_mitigations()
@@ -983,3 +1077,19 @@ def check_platform(arg_platforms, filename=None, domain=None):
 
         return False
     return True
+
+
+def merge_group_dict(dict1, dict2):
+    """
+    Merge the techniques from dict2 with the techniques in dict1.
+    :param dict1 The first dictionary
+    :param dict2 The other dictionary
+    """
+    for group_name, values in dict2.items():
+        if group_name not in dict1.keys():
+                dict1[group_name] = values
+        else:
+            for technique in values['techniques']:
+                if technique not in dict1[group_name]['techniques']:
+                    dict1[group_name]['techniques'].add(technique)
+                    dict1[group_name]['weight'][technique] = 1
