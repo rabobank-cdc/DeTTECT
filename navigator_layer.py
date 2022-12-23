@@ -15,7 +15,7 @@ def _get_base_template(name, description, platform, sorting, domain, layer_setti
     """
     layer = dict()
     layer['name'] = name
-    layer['versions'] = {'navigator': '4.5', 'layer': '4.3'}
+    layer['versions'] = {'navigator': '4.8', 'layer': '4.4'}
     layer['domain'] = domain
     layer['description'] = description
 
