@@ -608,10 +608,7 @@
     "Safety Instrumented System/Protection Relay": [],
     "None": []
   },
-  "ATT&CK-Mobile": {
-    "Android": [],
-    "iOS": []
-  },
+  "ATT&CK-Mobile": {},
   "DeTT&CT-Mobile": {
     "Android": [],
     "iOS": []
