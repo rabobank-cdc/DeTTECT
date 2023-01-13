@@ -75,7 +75,8 @@ def _init_menu():
     parser_data_sources.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
                                      'or to use a specific version of STIX objects')
     parser_data_sources.add_argument('--layer-settings', help='specific settings for the Navigator layer. Supported settings: '
-                                     +', '.join(['%s=%s' % (k, '|'.join(v)) for k, v in LAYER_SETTINGS.items()]) +'. Multiple settings can be provided with extra --layer-settings'
+                                     + ', '.join(['%s=%s' % (k, '|'.join(v)) for k, v in LAYER_SETTINGS.items()]) +
+                                     '. Multiple settings can be provided with extra --layer-settings'
                                      ' arguments. Example: --layer-settings showAggregateScores=False',
                                      action='append')
 
@@ -109,13 +110,20 @@ def _init_menu():
                                    action='store_true')
     parser_visibility.add_argument('-of', '--output-filename', help='set the output filename')
     parser_visibility.add_argument('-ln', '--layer-name', help='set the name of the Navigator layer')
+    parser_visibility.add_argument('-cd', '--count-detections', help='Show the number of detections instead of listing '
+                                   'all detection locations in Layer metadata (when using '
+                                   'an overlay with detection). Location prefix will be '
+                                   'used to group detections. Location prefix can be used '
+                                   'in the location field, e.g. "EDR: Rule 1".',
+                                   action='store_true')
     parser_visibility.add_argument('--health', help='check the YAML file for errors', action='store_true')
     parser_visibility.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
                                    'or to use a specific version of STIX objects')
     parser_visibility.add_argument('--layer-settings', help='specific settings for the Navigator layer. Supported settings: '
-                                     +', '.join(['%s=%s' % (k, '|'.join(v)) for k, v in LAYER_SETTINGS.items()]) +'. Multiple settings can be provided with extra --layer-settings'
-                                     ' arguments. Example: --layer-settings showAggregateScores=False',
-                                     action='append')
+                                   + ', '.join(['%s=%s' % (k, '|'.join(v)) for k, v in LAYER_SETTINGS.items()]) +
+                                   '. Multiple settings can be provided with extra --layer-settings'
+                                   ' arguments. Example: --layer-settings showAggregateScores=False',
+                                   action='append')
 
     # create the detection parser
     parser_detection = subparsers.add_parser('detection', aliases=['d'],
@@ -148,13 +156,19 @@ def _init_menu():
                                   action='store_true')
     parser_detection.add_argument('-of', '--output-filename', help='set the output filename')
     parser_detection.add_argument('-ln', '--layer-name', help='set the name of the Navigator layer')
+    parser_detection.add_argument('-cd', '--count-detections', help='Show the number of detections instead of listing '
+                                                                    'all detection locations in Layer metadata. Location '
+                                                                    'prefix will be used to group detections. Location prefix '
+                                                                    'can be used in the location field, e.g. "EDR: Rule 1".',
+                                  action='store_true')
     parser_detection.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
     parser_detection.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
                                   'or to use a specific version of STIX objects')
     parser_detection.add_argument('--layer-settings', help='specific settings for the Navigator layer. Supported settings: '
-                                     +', '.join(['%s=%s' % (k, '|'.join(v)) for k, v in LAYER_SETTINGS.items()]) +'. Multiple settings can be provided with extra --layer-settings'
-                                     ' arguments. Example: --layer-settings showAggregateScores=False',
-                                     action='append')
+                                  + ', '.join(['%s=%s' % (k, '|'.join(v)) for k, v in LAYER_SETTINGS.items()]) +
+                                  '. Multiple settings can be provided with extra --layer-settings'
+                                  ' arguments. Example: --layer-settings showAggregateScores=False',
+                                  action='append')
 
     # create the group parser
     parser_group = subparsers.add_parser('group', aliases=['g'],
@@ -168,9 +182,9 @@ def _init_menu():
                                                      'option is to provide a YAML file with a custom group(s)',
                               default=None, action='append')
     parser_group.add_argument('-c', '--campaigns', help='specify the ATT&CK Campaigns to include. A campaign can be its ID or name. '
-                                                     'If no campaign is specified, all campaigns are used (except when a -g/--group '
-                                                     'is specified). The -c/--campaign and -g/--groups options complement each other. '
-                                                     'Multiple Campaigns can be provided with extra -c/--campaign arguments.',
+                              'If no campaign is specified, all campaigns are used (except when a -g/--group '
+                              'is specified). The -c/--campaign and -g/--groups options complement each other. '
+                              'Multiple Campaigns can be provided with extra -c/--campaign arguments.',
                               default=None, action='append')
     parser_group.add_argument('-d', '--domain', help='specify the ATT&CK domain (default = enterprise). This argument '
                                                      'is ignored if a domain is specified in the Group YAML file.',
@@ -189,13 +203,13 @@ def _init_menu():
 
     software_parse_group = parser_group.add_mutually_exclusive_group()
     software_parse_group.add_argument('--software', help='add techniques to the heat map by checking which software is used by '
-                                                 'groups/campaigns, and hence which techniques the software '
-                                                 'supports (does not influence the scores). If overlay groups/campaigns '
-                                                 'are provided, only software related to those groups/campaigns are '
-                                                 'included. Cannot be used together with --include-software',
+                                      'groups/campaigns, and hence which techniques the software '
+                                      'supports (does not influence the scores). If overlay groups/campaigns '
+                                      'are provided, only software related to those groups/campaigns are '
+                                      'included. Cannot be used together with --include-software',
                                       action='store_true', default=False)
     software_parse_group.add_argument('--include-software', help='include techniques that software supports in the scores for '
-                                                         'groups/campaigns in scope. Cannot be used together with --software',
+                                      'groups/campaigns in scope. Cannot be used together with --software',
                                       action='store_true', default=False)
 
     parser_group.add_argument('-p', '--platform', action='append', help='specify the platform (default = all). Multiple platforms '
@@ -211,13 +225,19 @@ def _init_menu():
                               action='store_true', default=False)
     parser_group.add_argument('-of', '--output-filename', help='set the output filename')
     parser_group.add_argument('-ln', '--layer-name', help='set the name of the Navigator layer')
+    parser_group.add_argument('-cd', '--count-detections', help='Show the number of detections instead of listing '
+                              'all detection locations in Layer metadata (when using an overlay with detection). Location '
+                              'prefix will be used to group detections. Location prefix can be used in the location field, '
+                              'e.g. "EDR: Rule 1".',
+                              action='store_true')
     parser_group.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
     parser_group.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
                                                         'or to use a specific version of STIX objects')
     parser_group.add_argument('--layer-settings', help='specific settings for the Navigator layer. Supported settings: '
-                                     +', '.join(['%s=%s' % (k, '|'.join(v)) for k, v in LAYER_SETTINGS.items()]) +'. Multiple settings can be provided with extra --layer-settings'
-                                     ' arguments. Example: --layer-settings showAggregateScores=False',
-                                     action='append')
+                              + ', '.join(['%s=%s' % (k, '|'.join(v)) for k, v in LAYER_SETTINGS.items()]) +
+                              '. Multiple settings can be provided with extra --layer-settings'
+                              ' arguments. Example: --layer-settings showAggregateScores=False',
+                              action='append')
 
     # create the generic parser
     parser_generic = subparsers.add_parser('generic', description='Generic functions which will output to stdout.',
@@ -303,9 +323,11 @@ def _menu(menu_parser):
                 if not file_tech:
                     quit()  # something went wrong in executing the search or 0 results where returned
             if args.layer:
-                generate_visibility_layer(file_tech, False, args.output_filename, args.layer_name, layer_settings, args.platform)
+                generate_visibility_layer(file_tech, False, args.output_filename, args.layer_name,
+                                          layer_settings, args.platform, args.count_detections)
             if args.overlay:
-                generate_visibility_layer(file_tech, True, args.output_filename, args.layer_name, layer_settings, args.platform)
+                generate_visibility_layer(file_tech, True, args.output_filename, args.layer_name,
+                                          layer_settings, args.platform, args.count_detections)
             if args.graph:
                 plot_graph(file_tech, 'visibility', args.output_filename)
             if args.excel:
@@ -317,7 +339,7 @@ def _menu(menu_parser):
         generate_group_heat_map(args.groups, args.campaigns, args.overlay, args.overlay_type, args.platform,
                                 args.software, args.include_software, args.search_visibility, args.search_detection, args.health,
                                 args.output_filename, args.layer_name, args.domain, layer_settings,
-                                include_all_score_objs=args.all_scores)
+                                args.all_scores, args.count_detections)
 
     elif args.subparser in ['detection', 'd']:
         if check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
@@ -333,9 +355,10 @@ def _menu(menu_parser):
                 if not file_tech:
                     quit()  # something went wrong in executing the search or 0 results where returned
             if args.layer:
-                generate_detection_layer(file_tech, False, args.output_filename, args.layer_name, layer_settings, args.platform)
+                generate_detection_layer(file_tech, False, args.output_filename, args.layer_name,
+                                         layer_settings, args.platform, args.count_detections)
             if args.overlay:
-                generate_detection_layer(file_tech, True, args.output_filename, args.layer_name, layer_settings, args.platform)
+                generate_detection_layer(file_tech, True, args.output_filename, args.layer_name, layer_settings, args.platform, args.count_detections)
             if args.graph:
                 plot_graph(file_tech, 'detection', args.output_filename)
             if args.excel:
@@ -358,6 +381,7 @@ def _menu(menu_parser):
     else:
         menu_parser.print_help()
 
+
 def _parse_layer_settings(args_layer_settings):
     layer_settings = {}
     if args_layer_settings is not None:
@@ -366,6 +390,7 @@ def _parse_layer_settings(args_layer_settings):
             if key in LAYER_SETTINGS:
                 layer_settings[key] = value
     return layer_settings
+
 
 def _prepare_folders():
     """

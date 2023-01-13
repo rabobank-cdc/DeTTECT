@@ -104,6 +104,7 @@ def _convert_stix_groups_to_dict(stix_attack_data):
 
     return attack_data
 
+
 def _convert_stix_campaigns_to_dict(stix_attack_data):
     """
     Convert the STIX list with Campaign to a dictionary for easier use in python and also include the campaign_id.
@@ -152,7 +153,7 @@ def load_attack_data(data_type):
             mitre = attack_client()
         except (exceptions.ConnectionError, datastore.DataSourceError) as e:
             if hasattr(e, 'request'):
-                print("[!] Cannot connect to MITRE's CTI TAXII server: " +str(e.request.url))
+                print("[!] Cannot connect to MITRE's CTI TAXII server: " + str(e.request.url))
             else:
                 print("[!] Cannot connect to MITRE's CTI TAXII server")
             quit()
@@ -1087,9 +1088,32 @@ def merge_group_dict(dict1, dict2):
     """
     for group_name, values in dict2.items():
         if group_name not in dict1.keys():
-                dict1[group_name] = values
+            dict1[group_name] = values
         else:
             for technique in values['techniques']:
                 if technique not in dict1[group_name]['techniques']:
                     dict1[group_name]['techniques'].add(technique)
                     dict1[group_name]['weight'][technique] = 1
+
+
+def count_detections_in_location(location):
+    """
+    Count the detections within the given location field. Location prefix will be used to group detections.
+    Location prefix can be used in the location field, e.g. "EDR: Rule 1".'
+    :param location: the location field
+    :return:
+    """
+    location_count = {}
+
+    for l in location:
+        location_splitted = l.split(': ')
+        if len(location_splitted) == 2:
+            if location_splitted[0] not in location_count.keys():
+                location_count[location_splitted[0]] = 0
+            location_count[location_splitted[0]] += 1
+        else:
+            if 'Detections' not in location_count.keys():
+                location_count['Detections'] = 0
+            location_count['Detections'] += 1
+
+    return location_count

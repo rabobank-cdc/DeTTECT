@@ -276,6 +276,7 @@ def _get_group_techniques(groups, platform, file_type, domain):
 
     return groups_dict
 
+
 def _get_campaign_techniques(campaigns, platform, domain):
     """
     Get all techniques (in a dict) from the provided list of campaigns. Uses the groups data structure to fit in campaigns.
@@ -450,7 +451,7 @@ def _get_technique_count(groups, groups_overlay, groups_software, overlay_type, 
 
 
 def _get_technique_layer(techniques_count, groups, overlay, groups_software, overlay_file_type, overlay_type,
-                         all_techniques):
+                         all_techniques, count_detections):
     """
     Create the technique layer that will be part of the ATT&CK navigator json file
     :param techniques_count: involved techniques with count (to be used within the scores)
@@ -460,6 +461,7 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
     :param overlay_file_type: the file type of the YAML file as present in the key 'file_type'
     :param overlay_type: group, visibility or detection
     :param all_techniques: dictionary with all techniques loaded from techniques administration YAML file
+    :param count_detections: option for the Navigator layer output: count detections instead of listing detections
     :return: dictionary
     """
     techniques_layer = []
@@ -527,7 +529,7 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
                 if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
                     t['metadata'].append({'name': 'Overlay', 'value': overlay_type})
                     for obj_type in ['detection', 'visibility']:
-                        t['metadata'] = add_metadata_technique_object(all_techniques[tech], obj_type, t['metadata'])
+                        t['metadata'] = add_metadata_technique_object(all_techniques[tech], obj_type, t['metadata'], count_detections)
 
         # change the color and add metadata to make the groups software overlay visible
         for group, values in groups_software.items():
@@ -582,7 +584,7 @@ def _get_group_list(groups, file_type):
 
 def generate_group_heat_map(groups, campaigns, overlay, overlay_type, platform, overlay_software, include_software,
                             search_visibility, search_detection, health_is_called, output_filename, layer_name, domain,
-                            layer_settings, include_all_score_objs=False):
+                            layer_settings, include_all_score_objs, count_detections):
     """
     Calls all functions that are necessary for the generation of the heat map and write a json layer to disk.
     :param groups: threat actor groups
@@ -601,6 +603,7 @@ def generate_group_heat_map(groups, campaigns, overlay, overlay_type, platform, 
     :param domain: the specified domain
     :param layer_settings: settings for the Navigator layer
     :param include_all_score_objs: include all score objects within the score_logbook for the EQL query
+    :param count_detections: option for the Navigator layer output: count detections instead of listing detections
     :return: returns None when something went wrong
     """
     original_groups_argument = groups
@@ -642,7 +645,7 @@ def generate_group_heat_map(groups, campaigns, overlay, overlay_type, platform, 
 
         domain_in_file = 'enterprise-attack' if 'domain' not in group_file.keys() else group_file['domain']
         domain_in_argument = 'enterprise-attack' if domain == 'enterprise' else 'ics-attack' if domain == 'ics' else 'mobile-attack' if domain == 'mobile' else None
-        if(domain_in_argument and domain_in_file != domain_in_argument):
+        if (domain_in_argument and domain_in_file != domain_in_argument):
             print('[!] The domain specified in Group YAML file conflicts with the given value of the -d/--domain argument.')
             return None
         domain = domain_in_file
@@ -653,9 +656,11 @@ def generate_group_heat_map(groups, campaigns, overlay, overlay_type, platform, 
     if platform == None and platform_yaml != None:
         platform = platform_yaml
     elif platform == None:  # 'all'
-        platform = list(PLATFORMS_ENTERPRISE.values()) if domain == 'enterprise-attack' else list(PLATFORMS_ICS.values() if domain == 'ics-attack' else list(PLATFORMS_MOBILE.values()))
+        platform = list(PLATFORMS_ENTERPRISE.values()) if domain == 'enterprise-attack' else list(PLATFORMS_ICS.values()
+                                                                                                  if domain == 'ics-attack' else list(PLATFORMS_MOBILE.values()))
     elif 'all' in [p.lower() for p in platform if p is not None]:
-        platform = list(PLATFORMS_ENTERPRISE.values()) if domain == 'enterprise-attack' else list(PLATFORMS_ICS.values() if domain == 'ics-attack' else list(PLATFORMS_MOBILE.values()))
+        platform = list(PLATFORMS_ENTERPRISE.values()) if domain == 'enterprise-attack' else list(PLATFORMS_ICS.values()
+                                                                                                  if domain == 'ics-attack' else list(PLATFORMS_MOBILE.values()))
     elif isinstance(platform, list):
         if not check_platform(platform, domain=domain):
             return None
@@ -671,7 +676,7 @@ def generate_group_heat_map(groups, campaigns, overlay, overlay_type, platform, 
                 if not overlay_file_type:
                     return None  # the overlay_file_type is not of the expected type
             else:
-                print('[!] The given file does not exist: ' +overlay[0])
+                print('[!] The given file does not exist: ' + overlay[0])
                 return None
         elif overlay_type == OVERLAY_TYPE_GROUP and os.path.isfile(overlay[0]):
             overlay = overlay[0]
@@ -743,7 +748,7 @@ def generate_group_heat_map(groups, campaigns, overlay, overlay_type, platform, 
 
     technique_count, max_count = _get_technique_count(groups_dict, overlay_dict, groups_software_dict, overlay_type, all_techniques)
     technique_layer = _get_technique_layer(technique_count, groups_dict, overlay_dict, groups_software_dict,
-                                           overlay_file_type, overlay_type, all_techniques)
+                                           overlay_file_type, overlay_type, all_techniques, count_detections)
 
     # make a list group names for the involved groups.
     groups_list = []

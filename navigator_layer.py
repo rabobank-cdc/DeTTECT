@@ -247,15 +247,16 @@ def make_layer_metadata_compliant(metadata):
     return metadata
 
 
-def add_metadata_technique_object(technique, obj_type, metadata):
+def add_metadata_technique_object(technique, obj_type, metadata, count_detections):
     """
     Add the metadata for a detection or visibility object as used within any type of overlay.
     :param technique: technique object containing both the visibility and detection object
     :param obj_type: valid values are 'detection' and 'visibility'
     :param metadata: a list to which the metadata will be added
+    :param count_detections: option for the Navigator layer output: count detections instead of listing detections
     :return: the created metadata as a list
     """
-    from generic import calculate_score, get_latest_comment
+    from generic import calculate_score, get_latest_comment, count_detections_in_location
 
     if obj_type not in ['detection', 'visibility']:
         raise Exception("Invalid value for 'obj_type' provided.")
@@ -264,7 +265,27 @@ def add_metadata_technique_object(technique, obj_type, metadata):
     metadata.append({'name': 'Applicable to', 'value': ', '.join(set([a for v in technique[obj_type] for a in v['applicable_to']]))})  # noqa
     metadata.append({'name': '' + obj_type.capitalize() + ' score', 'value': ', '.join([str(calculate_score(technique[obj_type]))])})  # noqa
     if obj_type == 'detection':
-        metadata.append({'name': '' + obj_type.capitalize() + ' location', 'value': ', '.join(set([a for v in technique[obj_type] for a in v['location']]))})  # noqa
+        location = ''
+        if count_detections:
+            location_count = {}
+
+            for applicable_to in technique['detection']:
+                for l in applicable_to['location']:
+                    location_splitted = l.split(': ')
+                    if len(location_splitted) == 2:
+                        if location_splitted[0] not in location_count.keys():
+                            location_count[location_splitted[0]] = 0
+                        location_count[location_splitted[0]] += 1
+                    else:
+                        if 'Detections' not in location_count.keys():
+                            location_count['Detections'] = 0
+                        location_count['Detections'] += 1
+
+            for l, c in location_count.items():
+                location += f"{l}: {c}. "
+        else:
+            location = ', '.join(set([a for v in technique[obj_type] for a in v['location']]))
+        metadata.append({'name': '' + obj_type.capitalize() + ' location', 'value': location})  # noqa
     metadata.append({'name': '' + obj_type.capitalize() + ' comment', 'value': ' | '.join(set(filter(lambda x: x != '', map(lambda k: k['comment'], technique[obj_type]))))})  # noqa
     metadata.append({'name': '' + obj_type.capitalize() + ' score comment', 'value': ' | '.join(set(filter(lambda x: x != '', map(lambda i: get_latest_comment(i), technique[obj_type]))))})  # noqa
 
