@@ -3604,10 +3604,11 @@ techniques:
     - all
     location:
     - Splunk
+    - EDR
     comment: ''
     score_logbook:
     - date: 2021-06-02T00:00:00Z
-      score: 0
+      score: 1
       comment: ''
   visibility:
   - applicable_to:
@@ -6636,7 +6637,13 @@ techniques:
   - applicable_to:
     - Windows workstations
     location:
-    - Splunk use case X7
+    - 'Splunk: use case X7'
+    - 'Splunk: use case X8'
+    - 'Splunk: use case X9'
+    - 'Splunk: use case X10'
+    - 'EDR: Rule 1'
+    - 'EDR: Rule 2'
+    - Custom Rule Z
     comment: ''
     score_logbook:
     - date: 2021-05-13T00:00:00Z
