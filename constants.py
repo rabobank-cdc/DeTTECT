@@ -168,7 +168,7 @@ YAML_OBJ_DETECTION = {'applicable_to': ['all'],
 
 YAML_OBJ_TECHNIQUE = {'technique_id': '',
                       'technique_name': '',
-                      'detection': YAML_OBJ_DETECTION,
+                      'detection': [YAML_OBJ_DETECTION],
                       'visibility': []}
 
 # EQL
