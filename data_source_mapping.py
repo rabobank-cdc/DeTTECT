@@ -930,9 +930,6 @@ def generate_technique_administration_file(filename, output_filename, write_file
                         tech['technique_id'] = tech_id
                         tech['technique_name'] = t['name']
 
-                        # Set date for default detection score entry:
-                        tech['detection'][0]['score_logbook'][0]['date'] = today
-
                     # score can be -1 due to all_techniques
                     ds_score = 0 if ds_score == -1 else ds_score
 
