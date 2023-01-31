@@ -55,7 +55,8 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions, domain):
     :param domain: the specified domain
     :return: a dictionary with techniques that can be used in the layer's output file
     """
-    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain == 'enterprise-attack' else DATA_TYPE_STIX_ALL_TECH_ICS if domain == 'ics-attack' else DATA_TYPE_STIX_ALL_TECH_MOBILE)
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain ==
+                                  'enterprise-attack' else DATA_TYPE_STIX_ALL_TECH_ICS if domain == 'ics-attack' else DATA_TYPE_STIX_ALL_TECH_MOBILE)
     output_techniques = []
 
     for t in techniques:
@@ -582,7 +583,7 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
     cur_tech_ids = set(cur_visibility_scores.keys())
     new_tech_ids = set()
 
-    del_unnecesary_all_tech_ids = set() # resulted from 'all_techniques=True)', which we do need to call in this way
+    del_unnecesary_all_tech_ids = set()  # resulted from 'all_techniques=True)', which we do need to call in this way
     # because we also want to update visibilty scores for which the score has become 0 (e.g. due to a removal of a data source)
     tech_idx = 0
     for tech in new_visibility_scores['techniques']:
@@ -678,12 +679,12 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
                             old_score_auto_generated = get_latest_auto_generated(old_vis_obj)
 
                             # based on the answer provided by the user we can skip asking for user input, and hence printing the diff
-                            if (not(old_score_auto_generated) and not(answer_yes_to_all_auto_gen_false) and not(answer_no_to_all_auto_gen_false)) \
-                                    or (not(answer_yes_to_all_auto_gen_true) and not(answer_no_to_all_auto_gen_true)):
+                            if (not (old_score_auto_generated) and not (answer_yes_to_all_auto_gen_false) and not (answer_no_to_all_auto_gen_false)) \
+                                    or (not (answer_yes_to_all_auto_gen_true) and not (answer_no_to_all_auto_gen_true)):
                                 _print_progress_visibility_update(idx_tech_id + 1, total_tech_ids)
                                 _print_visibility_object_diff(old_vis_obj, new_vis_obj, tech_id, tech_name)
 
-                            if not(old_score_auto_generated) and not(answer_yes_to_all_auto_gen_false) and not(answer_no_to_all_auto_gen_false):
+                            if not (old_score_auto_generated) and not (answer_yes_to_all_auto_gen_false) and not (answer_no_to_all_auto_gen_false):
                                 print('[!] The OLD score was set manually (auto_generated = false). But, The NEW score '
                                       'is derived from the nr. of available data sources.\n')
                                 answer = ask_multiple_choice('Update the score?', ['Yes', 'No',
@@ -691,7 +692,7 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
                                                                                    'No to ALL (where OLD score has auto_generated = false)'])
                                 answer_yes_to_all_auto_gen_false = True if answer == 3 else False
                                 answer_no_to_all_auto_gen_false = True if answer == 4 else False
-                            elif not(answer_yes_to_all_auto_gen_true) and not(answer_no_to_all_auto_gen_true):
+                            elif not (answer_yes_to_all_auto_gen_true) and not (answer_no_to_all_auto_gen_true):
                                 print('Both the OLD and NEW scores were derived from the nr. of available data sources '
                                       '(auto_generated = true).\n')
                                 answer = ask_multiple_choice('Update the score?', ['Yes', 'No',
@@ -702,7 +703,7 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
 
                             # update the score / add a new score logbook entry
                             if (old_score_auto_generated and answer_yes_to_all_auto_gen_true) or \
-                                    (not(old_score_auto_generated) and answer_yes_to_all_auto_gen_false) or answer == 1:
+                                    (not (old_score_auto_generated) and answer_yes_to_all_auto_gen_false) or answer == 1:
                                 file_updated = True
                                 we_have_updated_scores = True
 
@@ -744,7 +745,7 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
     for tech_id in tech_ids_to_delete:
         del cur_visibility_scores_updated[tech_id]
 
-    if not(we_have_updated_scores):
+    if not (we_have_updated_scores):
         print(' - No visibility scores were found eligible for an update, or you rejected all eligible updates.')
 
     # Update visibility objects for which we have
@@ -787,12 +788,12 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
             old_score_auto_generated = True if True in list_old_score_auto_generated else False
 
             # based on the answer provided by the user we can skip asking for user input, and hence printing the diff
-            if (not(old_score_auto_generated) and not(answer_yes_to_all_auto_gen_false) and not(answer_no_to_all_auto_gen_false)) \
-                    or (not(answer_yes_to_all_auto_gen_true) and not(answer_no_to_all_auto_gen_true)):
+            if (not (old_score_auto_generated) and not (answer_yes_to_all_auto_gen_false) and not (answer_no_to_all_auto_gen_false)) \
+                    or (not (answer_yes_to_all_auto_gen_true) and not (answer_no_to_all_auto_gen_true)):
                 _print_progress_visibility_update(idx_tech_id + 1, total_tech_ids)
                 _print_tech_visibility_object_diff(cur_visibility_scores_updated[tech_id], new_tech, tech_id, tech_name)
 
-            if not(old_score_auto_generated) and not(answer_yes_to_all_auto_gen_false) and not(answer_no_to_all_auto_gen_false):
+            if not (old_score_auto_generated) and not (answer_yes_to_all_auto_gen_false) and not (answer_no_to_all_auto_gen_false):
                 print('[!] At least one OLD score was set manually (auto_generated = false). '
                       'But, The NEW score(s) are derived from the nr. of available data sources.\n')
                 answer = ask_multiple_choice('Replace the OLD the visibility objects(s)?', ['Yes', 'No',
@@ -800,7 +801,7 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
                                                                                             'No to ALL (where at least one OLD score has auto_generated = false)'])
                 answer_yes_to_all_auto_gen_false = True if answer == 3 else False
                 answer_no_to_all_auto_gen_false = True if answer == 4 else False
-            elif not(answer_yes_to_all_auto_gen_true) and not(answer_no_to_all_auto_gen_true):
+            elif not (answer_yes_to_all_auto_gen_true) and not (answer_no_to_all_auto_gen_true):
                 print('Both the OLD and NEW scores were derived from the nr. of available data sources '
                       '(auto_generated = true).\n')
                 answer = ask_multiple_choice('Replace the OLD visibility object(s)?', ['Yes', 'No',
@@ -811,7 +812,7 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
 
             # replace the visibility objects or keep the existing ones
             if (old_score_auto_generated and answer_yes_to_all_auto_gen_true) or \
-                    (not(old_score_auto_generated) and answer_yes_to_all_auto_gen_false) or answer == 1:
+                    (not (old_score_auto_generated) and answer_yes_to_all_auto_gen_false) or answer == 1:
                 file_updated = True
                 we_have_updated_scores = True
 
@@ -866,7 +867,8 @@ def generate_technique_administration_file(filename, output_filename, write_file
     """
     my_ds, name, systems, exceptions, domain = load_data_sources(filename)
 
-    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain == 'enterprise-attack' else DATA_TYPE_STIX_ALL_TECH_ICS if domain == 'ics-attack' else DATA_TYPE_STIX_ALL_TECH_MOBILE)
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain ==
+                                  'enterprise-attack' else DATA_TYPE_STIX_ALL_TECH_ICS if domain == 'ics-attack' else DATA_TYPE_STIX_ALL_TECH_MOBILE)
     yaml_platform = list(set(chain.from_iterable(map(lambda k: k['platform'], systems))))
     all_applicable_to_values = set([s['applicable_to'] for s in systems])
 
@@ -927,6 +929,9 @@ def generate_technique_administration_file(filename, output_filename, write_file
                         tech = deepcopy(YAML_OBJ_TECHNIQUE)
                         tech['technique_id'] = tech_id
                         tech['technique_name'] = t['name']
+
+                        # Set date for default detection score entry:
+                        tech['detection'][0]['score_logbook'][0]['date'] = today
 
                     # score can be -1 due to all_techniques
                     ds_score = 0 if ds_score == -1 else ds_score
