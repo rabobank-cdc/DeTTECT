@@ -726,7 +726,7 @@ def generate_group_heat_map(groups, campaigns, overlay, overlay_type, platform, 
         return None  # return None when the provided Groups/Campaigns are not part of ATT&CK
     else:
         # Treat campaigns like groups, merge groups_dict with campaigns_dict:
-        groups_dict |= campaigns_dict
+        groups_dict.update(campaigns_dict)
 
     if len(groups_dict) == 0:
         print('[!] Empty layer.')  # the provided groups dit not result in any techniques
