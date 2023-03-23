@@ -49,13 +49,14 @@ def _write_layer(layer, mapped_techniques, filename_prefix, name, output_filenam
     write_file(output_filename, json_string)
 
 
-def _map_and_colorize_techniques_for_detections(my_techniques, domain, count_detections):
+def _map_and_colorize_techniques_for_detections(my_techniques, domain, count_detections, layer_settings):
     """
     Determine the color of the techniques based on the detection score in the given YAML file. Also, it will create
     much of the content for the Navigator layer.
     :param my_techniques: the configured techniques
     :param domain: the specified domain
     :param count_detections: option for the Navigator layer output: count detections instead of listing detections
+    :param layer_settings: settings for the Navigator layer
     :return: a dictionary with techniques that can be used in the layer's output file
     """
     techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain ==
@@ -82,30 +83,33 @@ def _map_and_colorize_techniques_for_detections(my_techniques, domain, count_det
                     x['enabled'] = True
                     x['metadata'] = []
                     x['score'] = s
-                    cnt = 1
-                    tcnt = len([d for d in technique_data['detection'] if get_latest_score(d) >= 0])
-                    for detection in technique_data['detection']:
-                        d_score = get_latest_score(detection)
-                        if d_score >= 0:
-                            location = ''
-                            if count_detections:
-                                location_count = count_detections_in_location(detection['location'])
 
-                                for l, c in location_count.items():
-                                    location += f"{l}: {c}. "
-                            else:
-                                location = ', '.join(detection['location'])
+                    if 'showMetadata' not in layer_settings.keys() or ('showMetadata' in layer_settings.keys() and str(layer_settings['showMetadata']) == 'True'):
+                        cnt = 1
+                        tcnt = len([d for d in technique_data['detection'] if get_latest_score(d) >= 0])
+                        for detection in technique_data['detection']:
+                            d_score = get_latest_score(detection)
+                            if d_score >= 0:
+                                location = ''
+                                if count_detections:
+                                    location_count = count_detections_in_location(detection['location'])
 
-                            applicable_to = ', '.join(detection['applicable_to'])
-                            x['metadata'].append({'name': 'Applicable to', 'value': applicable_to})
-                            x['metadata'].append({'name': 'Detection score', 'value': str(d_score)})
-                            x['metadata'].append({'name': 'Detection location', 'value': location})
-                            x['metadata'].append({'name': 'Technique comment', 'value': detection['comment']})
-                            x['metadata'].append({'name': 'Detection comment', 'value': get_latest_comment(detection)})
-                            if cnt != tcnt:
-                                x['metadata'].append({'divider': True})
-                            cnt += 1
-                    x['metadata'] = make_layer_metadata_compliant(x['metadata'])
+                                    for l, c in location_count.items():
+                                        location += f"{l}: {c}. "
+                                else:
+                                    location = ', '.join(detection['location'])
+
+                                applicable_to = ', '.join(detection['applicable_to'])
+                                x['metadata'].append({'name': 'Applicable to', 'value': applicable_to})
+                                x['metadata'].append({'name': 'Detection score', 'value': str(d_score)})
+                                x['metadata'].append({'name': 'Detection location', 'value': location})
+                                x['metadata'].append({'name': 'Technique comment', 'value': detection['comment']})
+                                x['metadata'].append({'name': 'Detection comment', 'value': get_latest_comment(detection)})
+                                if cnt != tcnt:
+                                    x['metadata'].append({'divider': True})
+                                cnt += 1
+                        x['metadata'] = make_layer_metadata_compliant(x['metadata'])
+
                     mapped_techniques.append(x)
                 else:
                     print('[!] Technique ' + technique_id + ' is unknown in ATT&CK. Ignoring this technique.')
@@ -118,12 +122,13 @@ def _map_and_colorize_techniques_for_detections(my_techniques, domain, count_det
     return mapped_techniques
 
 
-def _map_and_colorize_techniques_for_visibility(my_techniques, platforms, domain):
+def _map_and_colorize_techniques_for_visibility(my_techniques, platforms, domain, layer_settings):
     """
     Determine the color of the techniques based on the visibility score in the given YAML file.
     :param my_techniques: the configured techniques
     :param platforms: the configured platform(s)
     :param domain: the specified domain
+    :param layer_settings: settings for the Navigator layer
     :return: a dictionary with techniques that can be used in the layer's output file
     """
     techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain ==
@@ -149,25 +154,28 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, platforms, domain
             x['comment'] = ''
             x['enabled'] = True
             x['metadata'] = []
-            x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique.get('x_mitre_data_sources', ''),
-                                                                                                                          applicable_data_sources))})
-            x['metadata'].append({'name': 'DeTT&CT data sources', 'value': ', '.join(get_applicable_dettect_data_sources_technique(technique['dettect_data_sources'],
-                                                                                                                                   applicable_dettect_data_sources))})
-            x['metadata'].append({'divider': True})
-            x['score'] = s
 
-            cnt = 1
-            tcnt = len(technique_data['visibility'])
-            for visibility in technique_data['visibility']:
-                applicable_to = ', '.join(visibility['applicable_to'])
-                x['metadata'].append({'name': 'Applicable to', 'value': applicable_to})
-                x['metadata'].append({'name': 'Visibility score', 'value': str(get_latest_score(visibility))})
-                x['metadata'].append({'name': 'Technique comment', 'value': visibility['comment']})
-                x['metadata'].append({'name': 'Visibility comment', 'value': get_latest_comment(visibility)})
-                if cnt != tcnt:
-                    x['metadata'].append({'divider': True})
-                cnt += 1
-            x['metadata'] = make_layer_metadata_compliant(x['metadata'])
+            if 'showMetadata' not in layer_settings.keys() or ('showMetadata' in layer_settings.keys() and str(layer_settings['showMetadata']) == 'True'):
+                x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique.get('x_mitre_data_sources', ''),
+                                                                                                                              applicable_data_sources))})
+                x['metadata'].append({'name': 'DeTT&CT data sources', 'value': ', '.join(get_applicable_dettect_data_sources_technique(technique['dettect_data_sources'],
+                                                                                                                                       applicable_dettect_data_sources))})
+                x['metadata'].append({'divider': True})
+                x['score'] = s
+
+                cnt = 1
+                tcnt = len(technique_data['visibility'])
+                for visibility in technique_data['visibility']:
+                    applicable_to = ', '.join(visibility['applicable_to'])
+                    x['metadata'].append({'name': 'Applicable to', 'value': applicable_to})
+                    x['metadata'].append({'name': 'Visibility score', 'value': str(get_latest_score(visibility))})
+                    x['metadata'].append({'name': 'Technique comment', 'value': visibility['comment']})
+                    x['metadata'].append({'name': 'Visibility comment', 'value': get_latest_comment(visibility)})
+                    if cnt != tcnt:
+                        x['metadata'].append({'divider': True})
+                    cnt += 1
+                x['metadata'] = make_layer_metadata_compliant(x['metadata'])
+
             mapped_techniques.append(x)
         else:
             print('[!] Technique ' + technique_id + ' is unknown in ATT&CK. Ignoring this technique.')
@@ -191,11 +199,13 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, platforms, domain
             x['techniqueID'] = tech_id
             x['comment'] = ''
             x['enabled'] = True
-            x['metadata'] = [{'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(t['x_mitre_data_sources'],
-                                                                                                                      applicable_data_sources))}]
-            x['metadata'].append({'name': 'DeTT&CT data sources', 'value': ', '.join(get_applicable_dettect_data_sources_technique(t['dettect_data_sources'],
-                                                                                                                                   applicable_dettect_data_sources))})
-            x['metadata'] = make_layer_metadata_compliant(x['metadata'])
+
+            if 'showMetadata' not in layer_settings.keys() or ('showMetadata' in layer_settings.keys() and str(layer_settings['showMetadata']) == 'True'):
+                x['metadata'] = [{'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(t['x_mitre_data_sources'],
+                                                                                                                          applicable_data_sources))}]
+                x['metadata'].append({'name': 'DeTT&CT data sources', 'value': ', '.join(get_applicable_dettect_data_sources_technique(t['dettect_data_sources'],
+                                                                                                                                       applicable_dettect_data_sources))})
+                x['metadata'] = make_layer_metadata_compliant(x['metadata'])
 
             if not exists:
                 mapped_techniques.append(x)
@@ -203,13 +213,14 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, platforms, domain
     return mapped_techniques
 
 
-def _map_and_colorize_techniques_for_overlaid(my_techniques, platforms, domain, count_detections):
+def _map_and_colorize_techniques_for_overlaid(my_techniques, platforms, domain, count_detections, layer_settings):
     """
     Determine the color of the techniques based on both detection and visibility.
     :param my_techniques: the configured techniques
     :param platforms: the configured platform(s)
     :param domain: the specified domain
     :param count_detections: option for the Navigator layer output: count detections instead of listing detections
+    :param layer_settings: settings for the Navigator layer
     :return: a dictionary with techniques that can be used in the layer's output file
     """
     techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain ==
@@ -247,17 +258,20 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, platforms, domain, 
         x['comment'] = ''
         x['enabled'] = True
         x['metadata'] = []
-        x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique.get('x_mitre_data_sources', ''),
-                                                                                                                      applicable_data_sources))})
-        x['metadata'].append({'name': 'DeTT&CT data sources', 'value': ', '.join(get_applicable_dettect_data_sources_technique(technique['dettect_data_sources'],
-                                                                                                                               applicable_dettect_data_sources))})
-        # Metadata for detection and visibility:
-        for obj_type in ['detection', 'visibility']:
-            tcnt = len([obj for obj in technique_data[obj_type] if get_latest_score(obj) >= 0])
-            if tcnt > 0:
-                x['metadata'] = add_metadata_technique_object(technique_data, obj_type, x['metadata'], count_detections)
 
-        x['metadata'] = make_layer_metadata_compliant(x['metadata'])
+        if 'showMetadata' not in layer_settings.keys() or ('showMetadata' in layer_settings.keys() and str(layer_settings['showMetadata']) == 'True'):
+            x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique.get('x_mitre_data_sources', ''),
+                                                                                                                          applicable_data_sources))})
+            x['metadata'].append({'name': 'DeTT&CT data sources', 'value': ', '.join(get_applicable_dettect_data_sources_technique(technique['dettect_data_sources'],
+                                                                                                                                   applicable_dettect_data_sources))})
+            # Metadata for detection and visibility:
+            for obj_type in ['detection', 'visibility']:
+                tcnt = len([obj for obj in technique_data[obj_type] if get_latest_score(obj) >= 0])
+                if tcnt > 0:
+                    x['metadata'] = add_metadata_technique_object(technique_data, obj_type, x['metadata'], count_detections)
+
+            x['metadata'] = make_layer_metadata_compliant(x['metadata'])
+
         mapped_techniques.append(x)
 
     determine_and_set_show_sub_techniques(mapped_techniques)
@@ -281,13 +295,13 @@ def generate_detection_layer(filename_techniques, overlay, output_filename, laye
     platform = _set_platform(platform_yaml, platform, domain)
 
     if not overlay:
-        mapped_techniques_detection = _map_and_colorize_techniques_for_detections(my_techniques, domain, count_detections)
+        mapped_techniques_detection = _map_and_colorize_techniques_for_detections(my_techniques, domain, count_detections, layer_settings)
         if not layer_name:
             layer_name = 'Detections ' + name
         layer_detection = get_layer_template_detections(layer_name, 'description', platform, domain, layer_settings)
         _write_layer(layer_detection, mapped_techniques_detection, 'detection', name, output_filename)
     else:
-        mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, platform, domain, count_detections)
+        mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, platform, domain, count_detections, layer_settings)
         if not layer_name:
             layer_name = 'Visibility and Detection ' + name
         layer_both = get_layer_template_layered(layer_name, 'description', platform, domain, layer_settings)
@@ -310,13 +324,13 @@ def generate_visibility_layer(filename_techniques, overlay, output_filename, lay
     platform = _set_platform(platform_yaml, platform, domain)
 
     if not overlay:
-        mapped_techniques_visibility = _map_and_colorize_techniques_for_visibility(my_techniques, platform, domain)
+        mapped_techniques_visibility = _map_and_colorize_techniques_for_visibility(my_techniques, platform, domain, layer_settings)
         if not layer_name:
             layer_name = 'Visibility ' + name
         layer_visibility = get_layer_template_visibility(layer_name, 'description', platform, domain, layer_settings)
         _write_layer(layer_visibility, mapped_techniques_visibility, 'visibility', name, output_filename)
     else:
-        mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, platform, domain, count_detections)
+        mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, platform, domain, count_detections, layer_settings)
         if not layer_name:
             layer_name = 'Visibility and Detection ' + name
         layer_both = get_layer_template_layered(layer_name, 'description', platform, domain, layer_settings)

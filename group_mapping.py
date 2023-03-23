@@ -451,7 +451,7 @@ def _get_technique_count(groups, groups_overlay, groups_software, overlay_type, 
 
 
 def _get_technique_layer(techniques_count, groups, overlay, groups_software, overlay_file_type, overlay_type,
-                         all_techniques, count_detections):
+                         all_techniques, count_detections, layer_settings):
     """
     Create the technique layer that will be part of the ATT&CK navigator json file
     :param techniques_count: involved techniques with count (to be used within the scores)
@@ -462,6 +462,7 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
     :param overlay_type: group, visibility or detection
     :param all_techniques: dictionary with all techniques loaded from techniques administration YAML file
     :param count_detections: option for the Navigator layer output: count detections instead of listing detections
+    :param layer_settings: settings for the Navigator layer
     :return: dictionary
     """
     techniques_layer = []
@@ -475,86 +476,89 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
         t['techniqueID'] = tech
         t['score'] = v['count']
         t['metadata'] = []
-        metadata_dict = dict()
 
-        for group, values in groups.items():
-            if tech in values['techniques']:  # we do not color this one because that's done using the scoring
-                if group_campaign_title not in metadata_dict:
-                    metadata_dict[group_campaign_title] = set()
-                metadata_dict[group_campaign_title].add(values['group_name'])
+        if 'showMetadata' not in layer_settings.keys() or ('showMetadata' in layer_settings.keys() and str(layer_settings['showMetadata']) == 'True'):
+            metadata_dict = dict()
 
-                # this will only be effective when loading a YAML files that have a value for the key 'campaign'
-                if 'campaign' in values:
-                    if 'Campaign' not in metadata_dict:
-                        metadata_dict['Campaign'] = set()
-                    metadata_dict['Campaign'].add(values['campaign'])
-
-        # change the color and add metadata to make the groups overlay visible
-        for group, values in overlay.items():
-            if tech in values['techniques']:
-                # Determine color:
-                if len(v['groups'].intersection(set(groups.keys()))) > 0:
-                    # if the technique is both present in the group (-g/--groups) and the groups overlay (-o/--overlay)
+            for group, values in groups.items():
+                if tech in values['techniques']:  # we do not color this one because that's done using the scoring
+                    if group_campaign_title not in metadata_dict:
+                        metadata_dict[group_campaign_title] = set()
                     metadata_dict[group_campaign_title].add(values['group_name'])
 
-                    # determine the color of the overlay:
-                    # - using groups, it's normal orange
-                    # - using detections, it's 6 variations or orange (score 0 to 5)
-                    # - using visibility, it's 4 variations of orange (score 1 to 4)
-                    if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
-                        if overlay_type == OVERLAY_TYPE_VISIBILITY:
-                            s = calculate_score(all_techniques[tech]['visibility'])
-                            t['color'] = COLOR_O_1 if s == 1 else COLOR_O_2 if s == 2 else COLOR_O_3 if s == 3 else COLOR_O_4 if s == 4 else ''
-                        elif overlay_type == OVERLAY_TYPE_DETECTION:
-                            s = calculate_score(all_techniques[tech]['detection'], zero_value=-1)
-                            t['color'] = COLOR_O_0 if s == 0 else COLOR_O_1 if s == 1 else COLOR_O_2 if s == 2 else COLOR_O_3 if s == 3 else COLOR_O_4 if s == 4 else COLOR_O_5 if s == 5 else ''
-                    else:
-                        t['color'] = COLOR_GROUP_OVERLAY_MATCH
-                else:
-                    # the technique is only present in the overlay and not in the provided groups (-g/--groups)
-                    if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
-                        if overlay_type == OVERLAY_TYPE_VISIBILITY:
-                            s = calculate_score(all_techniques[tech]['visibility'])
-                            t['color'] = COLOR_V_1 if s == 1 else COLOR_V_2 if s == 2 else COLOR_V_3 if s == 3 else COLOR_V_4 if s == 4 else ''
-                        elif overlay_type == OVERLAY_TYPE_DETECTION:
-                            s = calculate_score(all_techniques[tech]['detection'], zero_value=-1)
-                            t['color'] = COLOR_D_0 if s == 0 else COLOR_D_1 if s == 1 else COLOR_D_2 if s == 2 else COLOR_D_3 if s == 3 else COLOR_D_4 if s == 4 else COLOR_D_5 if s == 5 else ''
-                    else:
-                        t['color'] = COLOR_GROUP_OVERLAY_NO_MATCH
-                        if group_campaign_title not in metadata_dict:
-                            metadata_dict[group_campaign_title] = set()
+                    # this will only be effective when loading a YAML files that have a value for the key 'campaign'
+                    if 'campaign' in values:
+                        if 'Campaign' not in metadata_dict:
+                            metadata_dict['Campaign'] = set()
+                        metadata_dict['Campaign'].add(values['campaign'])
+
+            # change the color and add metadata to make the groups overlay visible
+            for group, values in overlay.items():
+                if tech in values['techniques']:
+                    # Determine color:
+                    if len(v['groups'].intersection(set(groups.keys()))) > 0:
+                        # if the technique is both present in the group (-g/--groups) and the groups overlay (-o/--overlay)
                         metadata_dict[group_campaign_title].add(values['group_name'])
 
-                # Add applicable_to to metadata in case of overlay for detection/visibility:
-                if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
-                    t['metadata'].append({'name': 'Overlay', 'value': overlay_type})
-                    for obj_type in ['detection', 'visibility']:
-                        t['metadata'] = add_metadata_technique_object(all_techniques[tech], obj_type, t['metadata'], count_detections)
+                        # determine the color of the overlay:
+                        # - using groups, it's normal orange
+                        # - using detections, it's 6 variations or orange (score 0 to 5)
+                        # - using visibility, it's 4 variations of orange (score 1 to 4)
+                        if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
+                            if overlay_type == OVERLAY_TYPE_VISIBILITY:
+                                s = calculate_score(all_techniques[tech]['visibility'])
+                                t['color'] = COLOR_O_1 if s == 1 else COLOR_O_2 if s == 2 else COLOR_O_3 if s == 3 else COLOR_O_4 if s == 4 else ''
+                            elif overlay_type == OVERLAY_TYPE_DETECTION:
+                                s = calculate_score(all_techniques[tech]['detection'], zero_value=-1)
+                                t['color'] = COLOR_O_0 if s == 0 else COLOR_O_1 if s == 1 else COLOR_O_2 if s == 2 else COLOR_O_3 if s == 3 else COLOR_O_4 if s == 4 else COLOR_O_5 if s == 5 else ''
+                        else:
+                            t['color'] = COLOR_GROUP_OVERLAY_MATCH
+                    else:
+                        # the technique is only present in the overlay and not in the provided groups (-g/--groups)
+                        if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
+                            if overlay_type == OVERLAY_TYPE_VISIBILITY:
+                                s = calculate_score(all_techniques[tech]['visibility'])
+                                t['color'] = COLOR_V_1 if s == 1 else COLOR_V_2 if s == 2 else COLOR_V_3 if s == 3 else COLOR_V_4 if s == 4 else ''
+                            elif overlay_type == OVERLAY_TYPE_DETECTION:
+                                s = calculate_score(all_techniques[tech]['detection'], zero_value=-1)
+                                t['color'] = COLOR_D_0 if s == 0 else COLOR_D_1 if s == 1 else COLOR_D_2 if s == 2 else COLOR_D_3 if s == 3 else COLOR_D_4 if s == 4 else COLOR_D_5 if s == 5 else ''
+                        else:
+                            t['color'] = COLOR_GROUP_OVERLAY_NO_MATCH
+                            if group_campaign_title not in metadata_dict:
+                                metadata_dict[group_campaign_title] = set()
+                            metadata_dict[group_campaign_title].add(values['group_name'])
 
-        # change the color and add metadata to make the groups software overlay visible
-        for group, values in groups_software.items():
-            if tech in values['techniques']:
-                if t['score'] > 0:
-                    t['color'] = COLOR_GROUP_AND_SOFTWARE
-                else:
-                    t['color'] = COLOR_SOFTWARE
+                    # Add applicable_to to metadata in case of overlay for detection/visibility:
+                    if overlay_file_type == FILE_TYPE_TECHNIQUE_ADMINISTRATION:
+                        t['metadata'].append({'name': 'Overlay', 'value': overlay_type})
+                        for obj_type in ['detection', 'visibility']:
+                            t['metadata'] = add_metadata_technique_object(all_techniques[tech], obj_type, t['metadata'], count_detections)
 
-                if 'Software groups' not in metadata_dict:
-                    metadata_dict['Software groups'] = set()
-                metadata_dict['Software groups'].add(values['group_name'])
-                if 'campaign' in values:
-                    if 'Software campaign' not in metadata_dict:
-                        metadata_dict['Software campaign'] = set()
-                    metadata_dict['Software campaign'].add(values['campaign'])
+            # change the color and add metadata to make the groups software overlay visible
+            for group, values in groups_software.items():
+                if tech in values['techniques']:
+                    if t['score'] > 0:
+                        t['color'] = COLOR_GROUP_AND_SOFTWARE
+                    else:
+                        t['color'] = COLOR_SOFTWARE
 
-        # create the metadata based on the dict 'metadata_dict'
-        i = 0
-        for metadata, values in metadata_dict.items():
-            tmp_dict = {'name': metadata, 'value': ', '.join(values)}
-            t['metadata'].insert(i, tmp_dict)
-            i += 1
+                    if 'Software groups' not in metadata_dict:
+                        metadata_dict['Software groups'] = set()
+                    metadata_dict['Software groups'].add(values['group_name'])
+                    if 'campaign' in values:
+                        if 'Software campaign' not in metadata_dict:
+                            metadata_dict['Software campaign'] = set()
+                        metadata_dict['Software campaign'].add(values['campaign'])
 
-        t['metadata'] = make_layer_metadata_compliant(t['metadata'])
+            # create the metadata based on the dict 'metadata_dict'
+            i = 0
+            for metadata, values in metadata_dict.items():
+                tmp_dict = {'name': metadata, 'value': ', '.join(values)}
+                t['metadata'].insert(i, tmp_dict)
+                i += 1
+
+            t['metadata'] = make_layer_metadata_compliant(t['metadata'])
+
         techniques_layer.append(t)
 
     determine_and_set_show_sub_techniques(techniques_layer)
@@ -748,7 +752,7 @@ def generate_group_heat_map(groups, campaigns, overlay, overlay_type, platform, 
 
     technique_count, max_count = _get_technique_count(groups_dict, overlay_dict, groups_software_dict, overlay_type, all_techniques)
     technique_layer = _get_technique_layer(technique_count, groups_dict, overlay_dict, groups_software_dict,
-                                           overlay_file_type, overlay_type, all_techniques, count_detections)
+                                           overlay_file_type, overlay_type, all_techniques, count_detections, layer_settings)
 
     # make a list group names for the involved groups.
     groups_list = []

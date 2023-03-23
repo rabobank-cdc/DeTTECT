@@ -45,7 +45,7 @@ def _system_in_data_source_details_object(data_source, system):
     return False
 
 
-def _map_and_colorize_techniques(my_ds, systems, exceptions, domain):
+def _map_and_colorize_techniques(my_ds, systems, exceptions, domain, layer_settings):
     """
     Determine the color of the technique based on how many data sources are available per technique. Also, it will
     create much of the content for the Navigator layer.
@@ -53,6 +53,7 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions, domain):
     :param systems: the systems YAML object from the data source file
     :param exceptions: the list of ATT&CK technique exception within the data source YAML file
     :param domain: the specified domain
+    :param layer_settings: settings for the Navigator layer
     :return: a dictionary with techniques that can be used in the layer's output file
     """
     techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain ==
@@ -120,36 +121,38 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions, domain):
             d['enabled'] = True
             d['metadata'] = []
 
-            scores_idx = 0
-            divider = 0
-            for system in systems:
-                # the system is relevant for this technique due to a match in ATT&CK platform
-                if len(set(system['platform']).intersection(set(t['x_mitre_platforms']))) > 0:
-                    score = ds_scores[scores_idx]
+            if 'showMetadata' not in layer_settings.keys() or ('showMetadata' in layer_settings.keys() and str(layer_settings['showMetadata']) == 'True'):
+                scores_idx = 0
+                divider = 0
+                for system in systems:
+                    # the system is relevant for this technique due to a match in ATT&CK platform
+                    if len(set(system['platform']).intersection(set(t['x_mitre_platforms']))) > 0:
+                        score = ds_scores[scores_idx]
 
-                    if divider != 0:
-                        d['metadata'].append({'divider': True})
-                    divider += 1
+                        if divider != 0:
+                            d['metadata'].append({'divider': True})
+                        divider += 1
 
-                    d['metadata'].append({'name': 'Applicable to', 'value': system['applicable_to']})
+                        d['metadata'].append({'name': 'Applicable to', 'value': system['applicable_to']})
 
-                    app_data_sources = get_applicable_data_sources_technique(
-                        t['x_mitre_data_sources'], get_applicable_data_sources_platform(system['platform'], domain))
-                    app_dettect_data_sources = get_applicable_dettect_data_sources_technique(
-                        t['dettect_data_sources'], get_applicable_dettect_data_sources_platform(system['platform'], domain))
+                        app_data_sources = get_applicable_data_sources_technique(
+                            t['x_mitre_data_sources'], get_applicable_data_sources_platform(system['platform'], domain))
+                        app_dettect_data_sources = get_applicable_dettect_data_sources_technique(
+                            t['dettect_data_sources'], get_applicable_dettect_data_sources_platform(system['platform'], domain))
 
-                    if score > 0:
-                        d['metadata'].append({'name': 'Available data sources', 'value': ', '.join(
-                            system_available_data_sources[scores_idx])})
-                    else:
-                        d['metadata'].append({'name': 'Available data sources', 'value': ''})
+                        if score > 0:
+                            d['metadata'].append({'name': 'Available data sources', 'value': ', '.join(
+                                system_available_data_sources[scores_idx])})
+                        else:
+                            d['metadata'].append({'name': 'Available data sources', 'value': ''})
 
-                    d['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(app_data_sources)})
-                    d['metadata'].append({'name': 'DeTT&CT data sources', 'value': ', '.join(app_dettect_data_sources)})
-                    d['metadata'].append({'name': 'Score', 'value': str(int(score)) + '%'})
-                    scores_idx += 1
+                        d['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(app_data_sources)})
+                        d['metadata'].append({'name': 'DeTT&CT data sources', 'value': ', '.join(app_dettect_data_sources)})
+                        d['metadata'].append({'name': 'Score', 'value': str(int(score)) + '%'})
+                        scores_idx += 1
 
-            d['metadata'] = make_layer_metadata_compliant(d['metadata'])
+                d['metadata'] = make_layer_metadata_compliant(d['metadata'])
+
             output_techniques.append(d)
 
     determine_and_set_show_sub_techniques(output_techniques)
@@ -195,7 +198,7 @@ def generate_data_sources_layer(filename, output_filename, layer_name, layer_set
     my_data_sources, name, systems, exceptions, domain = load_data_sources(filename)
 
     # Do the mapping between my data sources and MITRE data sources:
-    my_techniques = _map_and_colorize_techniques(my_data_sources, systems, exceptions, domain)
+    my_techniques = _map_and_colorize_techniques(my_data_sources, systems, exceptions, domain, layer_settings)
 
     if not layer_name:
         layer_name = 'Data sources ' + name

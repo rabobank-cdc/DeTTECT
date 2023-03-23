@@ -28,7 +28,7 @@ def _get_base_template(name, description, platform, sorting, domain, layer_setti
     # Override layout settings with settings that are given at the CLI:
     for setting_key, setting_value in layer_settings.items():
         for k, v in LAYER_SETTINGS.items():
-            if setting_key == k and setting_value.lower() in [val.lower() for val in v]:
+            if setting_key == k and setting_value.lower() in [val.lower() for val in v] and setting_key in LAYER_LAYOUT_SETTINGS:
                 if setting_value.lower() in ("true", "false"):
                     layer['layout'][setting_key] = True if setting_value.lower() == "true" else False
                 else:

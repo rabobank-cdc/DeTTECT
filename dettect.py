@@ -386,9 +386,12 @@ def _parse_layer_settings(args_layer_settings):
     layer_settings = {}
     if args_layer_settings is not None:
         for s in args_layer_settings:
-            key, value = s.split('=')
-            if key in LAYER_SETTINGS:
-                layer_settings[key] = value
+            if '=' in s:
+                key, value = s.split('=')
+                if key in LAYER_SETTINGS:
+                    layer_settings[key] = value
+            else:
+                print("[!] Layer setting '%s' is not valid, it doesn't contain a value." % s)
     return layer_settings
 
 
