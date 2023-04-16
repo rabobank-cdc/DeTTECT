@@ -5621,7 +5621,752 @@
       "autosuggest": "T1649 - Steal or Forge Authentication Certificates"
     }
   ],
-  "ATT&CK-ICS": [],
+  "ATT&CK-ICS": [
+    {
+      "technique_id": "T0800",
+      "technique_name": "Activate Firmware Update Mode",
+      "platforms": [
+        "Field Controller/RTU/PLC/IED",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0800 - Activate Firmware Update Mode"
+    },
+    {
+      "technique_id": "T0801",
+      "technique_name": "Monitor Process State",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0801 - Monitor Process State"
+    },
+    {
+      "technique_id": "T0802",
+      "technique_name": "Automated Collection",
+      "platforms": [
+        "Control Server",
+        "Field Controller/RTU/PLC/IED",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0802 - Automated Collection"
+    },
+    {
+      "technique_id": "T0803",
+      "technique_name": "Block Command Message",
+      "platforms": [
+        "Device Configuration/Parameters",
+        "Field Controller/RTU/PLC/IED"
+      ],
+      "autosuggest": "T0803 - Block Command Message"
+    },
+    {
+      "technique_id": "T0804",
+      "technique_name": "Block Reporting Message",
+      "platforms": [
+        "Device Configuration/Parameters",
+        "Field Controller/RTU/PLC/IED",
+        "Input/Output Server"
+      ],
+      "autosuggest": "T0804 - Block Reporting Message"
+    },
+    {
+      "technique_id": "T0805",
+      "technique_name": "Block Serial COM",
+      "platforms": [
+        "Device Configuration/Parameters",
+        "Field Controller/RTU/PLC/IED",
+        "Input/Output Server"
+      ],
+      "autosuggest": "T0805 - Block Serial COM"
+    },
+    {
+      "technique_id": "T0806",
+      "technique_name": "Brute Force I/O",
+      "platforms": [
+        "Control Server",
+        "Field Controller/RTU/PLC/IED"
+      ],
+      "autosuggest": "T0806 - Brute Force I/O"
+    },
+    {
+      "technique_id": "T0807",
+      "technique_name": "Command-Line Interface",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server"
+      ],
+      "autosuggest": "T0807 - Command-Line Interface"
+    },
+    {
+      "technique_id": "T0809",
+      "technique_name": "Data Destruction",
+      "platforms": [
+        "Control Server",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface"
+      ],
+      "autosuggest": "T0809 - Data Destruction"
+    },
+    {
+      "technique_id": "T0811",
+      "technique_name": "Data from Information Repositories",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Engineering Workstation",
+        "Human-Machine Interface"
+      ],
+      "autosuggest": "T0811 - Data from Information Repositories"
+    },
+    {
+      "technique_id": "T0812",
+      "technique_name": "Default Credentials",
+      "platforms": [
+        "Control Server",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0812 - Default Credentials"
+    },
+    {
+      "technique_id": "T0813",
+      "technique_name": "Denial of Control",
+      "platforms": [
+        "None"
+      ],
+      "autosuggest": "T0813 - Denial of Control"
+    },
+    {
+      "technique_id": "T0814",
+      "technique_name": "Denial of Service",
+      "platforms": [
+        "Field Controller/RTU/PLC/IED",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0814 - Denial of Service"
+    },
+    {
+      "technique_id": "T0815",
+      "technique_name": "Denial of View",
+      "platforms": [
+        "None"
+      ],
+      "autosuggest": "T0815 - Denial of View"
+    },
+    {
+      "technique_id": "T0816",
+      "technique_name": "Device Restart/Shutdown",
+      "platforms": [
+        "Field Controller/RTU/PLC/IED"
+      ],
+      "autosuggest": "T0816 - Device Restart/Shutdown"
+    },
+    {
+      "technique_id": "T0817",
+      "technique_name": "Drive-by Compromise",
+      "platforms": [
+        "None"
+      ],
+      "autosuggest": "T0817 - Drive-by Compromise"
+    },
+    {
+      "technique_id": "T0819",
+      "technique_name": "Exploit Public-Facing Application",
+      "platforms": [
+        "Human-Machine Interface"
+      ],
+      "autosuggest": "T0819 - Exploit Public-Facing Application"
+    },
+    {
+      "technique_id": "T0820",
+      "technique_name": "Exploitation for Evasion",
+      "platforms": [
+        "Field Controller/RTU/PLC/IED",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0820 - Exploitation for Evasion"
+    },
+    {
+      "technique_id": "T0821",
+      "technique_name": "Modify Controller Tasking",
+      "platforms": [
+        "Field Controller/RTU/PLC/IED"
+      ],
+      "autosuggest": "T0821 - Modify Controller Tasking"
+    },
+    {
+      "technique_id": "T0822",
+      "technique_name": "External Remote Services",
+      "platforms": [
+        "Control Server",
+        "Input/Output Server"
+      ],
+      "autosuggest": "T0822 - External Remote Services"
+    },
+    {
+      "technique_id": "T0823",
+      "technique_name": "Graphical User Interface",
+      "platforms": [
+        "Human-Machine Interface"
+      ],
+      "autosuggest": "T0823 - Graphical User Interface"
+    },
+    {
+      "technique_id": "T0826",
+      "technique_name": "Loss of Availability",
+      "platforms": [
+        "None"
+      ],
+      "autosuggest": "T0826 - Loss of Availability"
+    },
+    {
+      "technique_id": "T0827",
+      "technique_name": "Loss of Control",
+      "platforms": [
+        "None"
+      ],
+      "autosuggest": "T0827 - Loss of Control"
+    },
+    {
+      "technique_id": "T0828",
+      "technique_name": "Loss of Productivity and Revenue",
+      "platforms": [
+        "None"
+      ],
+      "autosuggest": "T0828 - Loss of Productivity and Revenue"
+    },
+    {
+      "technique_id": "T0829",
+      "technique_name": "Loss of View",
+      "platforms": [
+        "Engineering Workstation",
+        "Human-Machine Interface"
+      ],
+      "autosuggest": "T0829 - Loss of View"
+    },
+    {
+      "technique_id": "T0830",
+      "technique_name": "Adversary-in-the-Middle",
+      "platforms": [
+        "Control Server",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface"
+      ],
+      "autosuggest": "T0830 - Adversary-in-the-Middle"
+    },
+    {
+      "technique_id": "T0831",
+      "technique_name": "Manipulation of Control",
+      "platforms": [
+        "None"
+      ],
+      "autosuggest": "T0831 - Manipulation of Control"
+    },
+    {
+      "technique_id": "T0832",
+      "technique_name": "Manipulation of View",
+      "platforms": [
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface"
+      ],
+      "autosuggest": "T0832 - Manipulation of View"
+    },
+    {
+      "technique_id": "T0834",
+      "technique_name": "Native API",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0834 - Native API"
+    },
+    {
+      "technique_id": "T0835",
+      "technique_name": "Manipulate I/O Image",
+      "platforms": [
+        "Field Controller/RTU/PLC/IED"
+      ],
+      "autosuggest": "T0835 - Manipulate I/O Image"
+    },
+    {
+      "technique_id": "T0836",
+      "technique_name": "Modify Parameter",
+      "platforms": [
+        "Control Server",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0836 - Modify Parameter"
+    },
+    {
+      "technique_id": "T0837",
+      "technique_name": "Loss of Protection",
+      "platforms": [
+        "None"
+      ],
+      "autosuggest": "T0837 - Loss of Protection"
+    },
+    {
+      "technique_id": "T0838",
+      "technique_name": "Modify Alarm Settings",
+      "platforms": [
+        "Control Server",
+        "Device Configuration/Parameters",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0838 - Modify Alarm Settings"
+    },
+    {
+      "technique_id": "T0839",
+      "technique_name": "Module Firmware",
+      "platforms": [
+        "Field Controller/RTU/PLC/IED",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0839 - Module Firmware"
+    },
+    {
+      "technique_id": "T0840",
+      "technique_name": "Network Connection Enumeration",
+      "platforms": [
+        "Human-Machine Interface"
+      ],
+      "autosuggest": "T0840 - Network Connection Enumeration"
+    },
+    {
+      "technique_id": "T0842",
+      "technique_name": "Network Sniffing",
+      "platforms": [
+        "Field Controller/RTU/PLC/IED"
+      ],
+      "autosuggest": "T0842 - Network Sniffing"
+    },
+    {
+      "technique_id": "T0843",
+      "technique_name": "Program Download",
+      "platforms": [
+        "Field Controller/RTU/PLC/IED",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0843 - Program Download"
+    },
+    {
+      "technique_id": "T0845",
+      "technique_name": "Program Upload",
+      "platforms": [
+        "Field Controller/RTU/PLC/IED",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0845 - Program Upload"
+    },
+    {
+      "technique_id": "T0846",
+      "technique_name": "Remote System Discovery",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0846 - Remote System Discovery"
+    },
+    {
+      "technique_id": "T0847",
+      "technique_name": "Replication Through Removable Media",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Human-Machine Interface"
+      ],
+      "autosuggest": "T0847 - Replication Through Removable Media"
+    },
+    {
+      "technique_id": "T0848",
+      "technique_name": "Rogue Master",
+      "platforms": [
+        "Control Server",
+        "Engineering Workstation",
+        "Human-Machine Interface"
+      ],
+      "autosuggest": "T0848 - Rogue Master"
+    },
+    {
+      "technique_id": "T0849",
+      "technique_name": "Masquerading",
+      "platforms": [
+        "Control Server",
+        "Human-Machine Interface"
+      ],
+      "autosuggest": "T0849 - Masquerading"
+    },
+    {
+      "technique_id": "T0851",
+      "technique_name": "Rootkit",
+      "platforms": [
+        "Field Controller/RTU/PLC/IED"
+      ],
+      "autosuggest": "T0851 - Rootkit"
+    },
+    {
+      "technique_id": "T0852",
+      "technique_name": "Screen Capture",
+      "platforms": [
+        "Human-Machine Interface"
+      ],
+      "autosuggest": "T0852 - Screen Capture"
+    },
+    {
+      "technique_id": "T0853",
+      "technique_name": "Scripting",
+      "platforms": [
+        "Engineering Workstation"
+      ],
+      "autosuggest": "T0853 - Scripting"
+    },
+    {
+      "technique_id": "T0855",
+      "technique_name": "Unauthorized Command Message",
+      "platforms": [
+        "Field Controller/RTU/PLC/IED"
+      ],
+      "autosuggest": "T0855 - Unauthorized Command Message"
+    },
+    {
+      "technique_id": "T0856",
+      "technique_name": "Spoof Reporting Message",
+      "platforms": [
+        "Control Server"
+      ],
+      "autosuggest": "T0856 - Spoof Reporting Message"
+    },
+    {
+      "technique_id": "T0857",
+      "technique_name": "System Firmware",
+      "platforms": [
+        "Field Controller/RTU/PLC/IED",
+        "Input/Output Server",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0857 - System Firmware"
+    },
+    {
+      "technique_id": "T0858",
+      "technique_name": "Change Operating Mode",
+      "platforms": [
+        "Field Controller/RTU/PLC/IED",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0858 - Change Operating Mode"
+    },
+    {
+      "technique_id": "T0859",
+      "technique_name": "Valid Accounts",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0859 - Valid Accounts"
+    },
+    {
+      "technique_id": "T0860",
+      "technique_name": "Wireless Compromise",
+      "platforms": [
+        "Control Server",
+        "Field Controller/RTU/PLC/IED",
+        "Input/Output Server"
+      ],
+      "autosuggest": "T0860 - Wireless Compromise"
+    },
+    {
+      "technique_id": "T0861",
+      "technique_name": "Point & Tag Identification",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Human-Machine Interface"
+      ],
+      "autosuggest": "T0861 - Point & Tag Identification"
+    },
+    {
+      "technique_id": "T0862",
+      "technique_name": "Supply Chain Compromise",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0862 - Supply Chain Compromise"
+    },
+    {
+      "technique_id": "T0863",
+      "technique_name": "User Execution",
+      "platforms": [
+        "Engineering Workstation",
+        "Human-Machine Interface"
+      ],
+      "autosuggest": "T0863 - User Execution"
+    },
+    {
+      "technique_id": "T0864",
+      "technique_name": "Transient Cyber Asset",
+      "platforms": [
+        "Engineering Workstation"
+      ],
+      "autosuggest": "T0864 - Transient Cyber Asset"
+    },
+    {
+      "technique_id": "T0865",
+      "technique_name": "Spearphishing Attachment",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Engineering Workstation",
+        "Human-Machine Interface"
+      ],
+      "autosuggest": "T0865 - Spearphishing Attachment"
+    },
+    {
+      "technique_id": "T0866",
+      "technique_name": "Exploitation of Remote Services",
+      "platforms": [
+        "Data Historian",
+        "Engineering Workstation",
+        "Human-Machine Interface"
+      ],
+      "autosuggest": "T0866 - Exploitation of Remote Services"
+    },
+    {
+      "technique_id": "T0867",
+      "technique_name": "Lateral Tool Transfer",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Human-Machine Interface"
+      ],
+      "autosuggest": "T0867 - Lateral Tool Transfer"
+    },
+    {
+      "technique_id": "T0868",
+      "technique_name": "Detect Operating Mode",
+      "platforms": [
+        "Field Controller/RTU/PLC/IED"
+      ],
+      "autosuggest": "T0868 - Detect Operating Mode"
+    },
+    {
+      "technique_id": "T0869",
+      "technique_name": "Standard Application Layer Protocol",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Engineering Workstation",
+        "Human-Machine Interface"
+      ],
+      "autosuggest": "T0869 - Standard Application Layer Protocol"
+    },
+    {
+      "technique_id": "T0871",
+      "technique_name": "Execution through API",
+      "platforms": [
+        "Field Controller/RTU/PLC/IED"
+      ],
+      "autosuggest": "T0871 - Execution through API"
+    },
+    {
+      "technique_id": "T0872",
+      "technique_name": "Indicator Removal on Host",
+      "platforms": [
+        "Human-Machine Interface",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0872 - Indicator Removal on Host"
+    },
+    {
+      "technique_id": "T0873",
+      "technique_name": "Project File Infection",
+      "platforms": [
+        "Engineering Workstation",
+        "Human-Machine Interface"
+      ],
+      "autosuggest": "T0873 - Project File Infection"
+    },
+    {
+      "technique_id": "T0874",
+      "technique_name": "Hooking",
+      "platforms": [
+        "Engineering Workstation"
+      ],
+      "autosuggest": "T0874 - Hooking"
+    },
+    {
+      "technique_id": "T0877",
+      "technique_name": "I/O Image",
+      "platforms": [
+        "Field Controller/RTU/PLC/IED"
+      ],
+      "autosuggest": "T0877 - I/O Image"
+    },
+    {
+      "technique_id": "T0878",
+      "technique_name": "Alarm Suppression",
+      "platforms": [
+        "Device Configuration/Parameters",
+        "Field Controller/RTU/PLC/IED",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0878 - Alarm Suppression"
+    },
+    {
+      "technique_id": "T0879",
+      "technique_name": "Damage to Property",
+      "platforms": [
+        "None"
+      ],
+      "autosuggest": "T0879 - Damage to Property"
+    },
+    {
+      "technique_id": "T0880",
+      "technique_name": "Loss of Safety",
+      "platforms": [
+        "None"
+      ],
+      "autosuggest": "T0880 - Loss of Safety"
+    },
+    {
+      "technique_id": "T0881",
+      "technique_name": "Service Stop",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Engineering Workstation",
+        "Human-Machine Interface"
+      ],
+      "autosuggest": "T0881 - Service Stop"
+    },
+    {
+      "technique_id": "T0882",
+      "technique_name": "Theft of Operational Information",
+      "platforms": [
+        "None"
+      ],
+      "autosuggest": "T0882 - Theft of Operational Information"
+    },
+    {
+      "technique_id": "T0883",
+      "technique_name": "Internet Accessible Device",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0883 - Internet Accessible Device"
+    },
+    {
+      "technique_id": "T0884",
+      "technique_name": "Connection Proxy",
+      "platforms": [
+        "None"
+      ],
+      "autosuggest": "T0884 - Connection Proxy"
+    },
+    {
+      "technique_id": "T0885",
+      "technique_name": "Commonly Used Port",
+      "platforms": [
+        "Control Server",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0885 - Commonly Used Port"
+    },
+    {
+      "technique_id": "T0886",
+      "technique_name": "Remote Services",
+      "platforms": [
+        "Control Server",
+        "Engineering Workstation",
+        "Human-Machine Interface"
+      ],
+      "autosuggest": "T0886 - Remote Services"
+    },
+    {
+      "technique_id": "T0887",
+      "technique_name": "Wireless Sniffing",
+      "platforms": [
+        "None"
+      ],
+      "autosuggest": "T0887 - Wireless Sniffing"
+    },
+    {
+      "technique_id": "T0888",
+      "technique_name": "Remote System Information Discovery",
+      "platforms": [
+        "Field Controller/RTU/PLC/IED",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0888 - Remote System Information Discovery"
+    },
+    {
+      "technique_id": "T0889",
+      "technique_name": "Modify Program",
+      "platforms": [
+        "Field Controller/RTU/PLC/IED"
+      ],
+      "autosuggest": "T0889 - Modify Program"
+    },
+    {
+      "technique_id": "T0890",
+      "technique_name": "Exploitation for Privilege Escalation",
+      "platforms": [
+        "Human-Machine Interface",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0890 - Exploitation for Privilege Escalation"
+    },
+    {
+      "technique_id": "T0891",
+      "technique_name": "Hardcoded Credentials",
+      "platforms": [
+        "Control Server",
+        "Data Historian",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0891 - Hardcoded Credentials"
+    }
+  ],
   "ATT&CK-Mobile": [
     {
       "technique_id": "T1398",
