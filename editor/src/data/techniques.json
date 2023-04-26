@@ -248,6 +248,7 @@
       "technique_id": "T1020.001",
       "technique_name": "Traffic Duplication",
       "platforms": [
+        "IaaS",
         "Network"
       ],
       "autosuggest": "T1020.001 - Traffic Duplication"
@@ -312,6 +313,18 @@
         "Windows"
       ],
       "autosuggest": "T1021.006 - Windows Remote Management"
+    },
+    {
+      "technique_id": "T1021.007",
+      "technique_name": "Cloud Services",
+      "platforms": [
+        "Azure AD",
+        "Google Workspace",
+        "IaaS",
+        "Office 365",
+        "SaaS"
+      ],
+      "autosuggest": "T1021.007 - Cloud Services"
     },
     {
       "technique_id": "T1025",
@@ -422,6 +435,24 @@
       "autosuggest": "T1027.009 - Embedded Payloads"
     },
     {
+      "technique_id": "T1027.010",
+      "technique_name": "Command Obfuscation",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1027.010 - Command Obfuscation"
+    },
+    {
+      "technique_id": "T1027.011",
+      "technique_name": "Fileless Storage",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "T1027.011 - Fileless Storage"
+    },
+    {
       "technique_id": "T1029",
       "technique_name": "Scheduled Transfer",
       "platforms": [
@@ -446,6 +477,7 @@
       "technique_name": "System Owner/User Discovery",
       "platforms": [
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
@@ -528,6 +560,16 @@
         "Windows"
       ],
       "autosuggest": "T1036.007 - Double File Extension"
+    },
+    {
+      "technique_id": "T1036.008",
+      "technique_name": "Masquerade File Type",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1036.008 - Masquerade File Type"
     },
     {
       "technique_id": "T1037",
@@ -637,7 +679,12 @@
       "technique_id": "T1048",
       "technique_name": "Exfiltration Over Alternative Protocol",
       "platforms": [
+        "Google Workspace",
+        "IaaS",
         "Linux",
+        "Network",
+        "Office 365",
+        "SaaS",
         "Windows",
         "macOS"
       ],
@@ -668,6 +715,7 @@
       "technique_name": "Exfiltration Over Unencrypted Non-C2 Protocol",
       "platforms": [
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
@@ -920,6 +968,7 @@
       "technique_name": "Process Discovery",
       "platforms": [
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
@@ -929,8 +978,12 @@
       "technique_id": "T1059",
       "technique_name": "Command and Scripting Interpreter",
       "platforms": [
+        "Azure AD",
+        "Google Workspace",
+        "IaaS",
         "Linux",
         "Network",
+        "Office 365",
         "Windows",
         "macOS"
       ],
@@ -1006,6 +1059,18 @@
         "Network"
       ],
       "autosuggest": "T1059.008 - Network Device CLI"
+    },
+    {
+      "technique_id": "T1059.009",
+      "technique_name": "Cloud API",
+      "platforms": [
+        "Azure AD",
+        "Google Workspace",
+        "IaaS",
+        "Office 365",
+        "SaaS"
+      ],
+      "autosuggest": "T1059.009 - Cloud API"
     },
     {
       "technique_id": "T1068",
@@ -1508,6 +1573,7 @@
         "Google Workspace",
         "IaaS",
         "Linux",
+        "Network",
         "Office 365",
         "SaaS",
         "Windows",
@@ -1553,6 +1619,7 @@
       "platforms": [
         "IaaS",
         "Linux",
+        "Network",
         "macOS"
       ],
       "autosuggest": "T1098.004 - SSH Authorized Keys"
@@ -1832,6 +1899,7 @@
       "technique_id": "T1124",
       "technique_name": "System Time Discovery",
       "platforms": [
+        "Network",
         "Windows"
       ],
       "autosuggest": "T1124 - System Time Discovery"
@@ -1977,6 +2045,7 @@
         "Google Workspace",
         "IaaS",
         "Linux",
+        "Network",
         "Office 365",
         "Windows",
         "macOS"
@@ -1988,6 +2057,7 @@
       "technique_name": "Local Account",
       "platforms": [
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
@@ -2407,13 +2477,13 @@
     },
     {
       "technique_id": "T1217",
-      "technique_name": "Browser Bookmark Discovery",
+      "technique_name": "Browser Information Discovery",
       "platforms": [
         "Linux",
         "Windows",
         "macOS"
       ],
-      "autosuggest": "T1217 - Browser Bookmark Discovery"
+      "autosuggest": "T1217 - Browser Information Discovery"
     },
     {
       "technique_id": "T1218",
@@ -2672,7 +2742,9 @@
       "technique_id": "T1490",
       "technique_name": "Inhibit System Recovery",
       "platforms": [
+        "IaaS",
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
@@ -3564,6 +3636,7 @@
         "Google Workspace",
         "IaaS",
         "Linux",
+        "Network",
         "Office 365",
         "SaaS",
         "Windows",
@@ -3605,6 +3678,7 @@
       "technique_name": "Private Keys",
       "platforms": [
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
@@ -3633,6 +3707,16 @@
         "Containers"
       ],
       "autosuggest": "T1552.007 - Container API"
+    },
+    {
+      "technique_id": "T1552.008",
+      "technique_name": "Chat Messages",
+      "platforms": [
+        "Google Workspace",
+        "Office 365",
+        "SaaS"
+      ],
+      "autosuggest": "T1552.008 - Chat Messages"
     },
     {
       "technique_id": "T1553",
@@ -3847,6 +3931,14 @@
       "autosuggest": "T1556.007 - Hybrid Identity"
     },
     {
+      "technique_id": "T1556.008",
+      "technique_name": "Network Provider DLL",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "T1556.008 - Network Provider DLL"
+    },
+    {
       "technique_id": "T1557",
       "technique_name": "Adversary-in-the-Middle",
       "platforms": [
@@ -4006,6 +4098,7 @@
       "technique_name": "Disk Wipe",
       "platforms": [
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
@@ -4026,6 +4119,7 @@
       "technique_name": "Disk Structure Wipe",
       "platforms": [
         "Linux",
+        "Network",
         "Windows",
         "macOS"
       ],
@@ -4108,7 +4202,11 @@
       "technique_id": "T1562.008",
       "technique_name": "Disable Cloud Logs",
       "platforms": [
-        "IaaS"
+        "Azure AD",
+        "Google Workspace",
+        "IaaS",
+        "Office 365",
+        "SaaS"
       ],
       "autosuggest": "T1562.008 - Disable Cloud Logs"
     },
@@ -4129,6 +4227,16 @@
         "macOS"
       ],
       "autosuggest": "T1562.010 - Downgrade Attack"
+    },
+    {
+      "technique_id": "T1562.011",
+      "technique_name": "Spoof Security Alerting",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1562.011 - Spoof Security Alerting"
     },
     {
       "technique_id": "T1563",
@@ -4379,6 +4487,16 @@
         "macOS"
       ],
       "autosuggest": "T1567.002 - Exfiltration to Cloud Storage"
+    },
+    {
+      "technique_id": "T1567.003",
+      "technique_name": "Exfiltration to Text Storage Sites",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1567.003 - Exfiltration to Text Storage Sites"
     },
     {
       "technique_id": "T1568",
@@ -4724,6 +4842,14 @@
         "PRE"
       ],
       "autosuggest": "T1583.007 - Serverless"
+    },
+    {
+      "technique_id": "T1583.008",
+      "technique_name": "Malvertising",
+      "platforms": [
+        "PRE"
+      ],
+      "autosuggest": "T1583.008 - Malvertising"
     },
     {
       "technique_id": "T1584",
@@ -5619,6 +5745,33 @@
         "macOS"
       ],
       "autosuggest": "T1649 - Steal or Forge Authentication Certificates"
+    },
+    {
+      "technique_id": "T1650",
+      "technique_name": "Acquire Access",
+      "platforms": [
+        "PRE"
+      ],
+      "autosuggest": "T1650 - Acquire Access"
+    },
+    {
+      "technique_id": "T1651",
+      "technique_name": "Cloud Administration Command",
+      "platforms": [
+        "Azure AD",
+        "IaaS"
+      ],
+      "autosuggest": "T1651 - Cloud Administration Command"
+    },
+    {
+      "technique_id": "T1652",
+      "technique_name": "Device Driver Discovery",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1652 - Device Driver Discovery"
     }
   ],
   "ATT&CK-ICS": [
@@ -5717,10 +5870,7 @@
       "technique_id": "T0811",
       "technique_name": "Data from Information Repositories",
       "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Engineering Workstation",
-        "Human-Machine Interface"
+        "Data Historian"
       ],
       "autosuggest": "T0811 - Data from Information Repositories"
     },
@@ -6365,6 +6515,27 @@
         "Safety Instrumented System/Protection Relay"
       ],
       "autosuggest": "T0891 - Hardcoded Credentials"
+    },
+    {
+      "technique_id": "T0892",
+      "technique_name": "Change Credential",
+      "platforms": [
+        "Field Controller/RTU/PLC/IED"
+      ],
+      "autosuggest": "T0892 - Change Credential"
+    },
+    {
+      "technique_id": "T0893",
+      "technique_name": "Data from Local System",
+      "platforms": [
+        "Control Server",
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED",
+        "Human-Machine Interface",
+        "Input/Output Server",
+        "Safety Instrumented System/Protection Relay"
+      ],
+      "autosuggest": "T0893 - Data from Local System"
     }
   ],
   "ATT&CK-Mobile": [

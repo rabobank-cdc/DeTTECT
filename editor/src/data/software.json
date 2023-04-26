@@ -2919,24 +2919,6 @@
       "autosuggest": "S0309 - Adups"
     },
     {
-      "software_id": "S0311",
-      "software_name": "YiSpecter",
-      "platforms": [
-        "Azure AD",
-        "Containers",
-        "Google Workspace",
-        "IaaS",
-        "Linux",
-        "Network",
-        "Office 365",
-        "PRE",
-        "SaaS",
-        "Windows",
-        "macOS"
-      ],
-      "autosuggest": "S0311 - YiSpecter"
-    },
-    {
       "software_id": "S0312",
       "software_name": "WireLurker",
       "platforms": [
@@ -5322,6 +5304,7 @@
       "software_id": "S0663",
       "software_name": "SysUpdate",
       "platforms": [
+        "Linux",
         "Windows"
       ],
       "autosuggest": "S0663 - SysUpdate"
@@ -6006,6 +5989,121 @@
         "Windows"
       ],
       "autosuggest": "S1050 - PcShare"
+    },
+    {
+      "software_id": "S1051",
+      "software_name": "KEYPLUG",
+      "platforms": [
+        "Linux",
+        "Windows"
+      ],
+      "autosuggest": "S1051 - KEYPLUG"
+    },
+    {
+      "software_id": "S1052",
+      "software_name": "DEADEYE",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1052 - DEADEYE"
+    },
+    {
+      "software_id": "S1053",
+      "software_name": "AvosLocker",
+      "platforms": [
+        "Linux",
+        "Windows"
+      ],
+      "autosuggest": "S1053 - AvosLocker"
+    },
+    {
+      "software_id": "S1058",
+      "software_name": "Prestige",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1058 - Prestige"
+    },
+    {
+      "software_id": "S1059",
+      "software_name": "metaMain",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1059 - metaMain"
+    },
+    {
+      "software_id": "S1060",
+      "software_name": "Mafalda",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1060 - Mafalda"
+    },
+    {
+      "software_id": "S1063",
+      "software_name": "Brute Ratel C4",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1063 - Brute Ratel C4"
+    },
+    {
+      "software_id": "S1064",
+      "software_name": "SVCReady",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1064 - SVCReady"
+    },
+    {
+      "software_id": "S1065",
+      "software_name": "Woody RAT",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1065 - Woody RAT"
+    },
+    {
+      "software_id": "S1066",
+      "software_name": "DarkTortilla",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1066 - DarkTortilla"
+    },
+    {
+      "software_id": "S1068",
+      "software_name": "BlackCat",
+      "platforms": [
+        "Linux",
+        "Windows"
+      ],
+      "autosuggest": "S1068 - BlackCat"
+    },
+    {
+      "software_id": "S1070",
+      "software_name": "Black Basta",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1070 - Black Basta"
+    },
+    {
+      "software_id": "S1071",
+      "software_name": "Rubeus",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1071 - Rubeus"
+    },
+    {
+      "software_id": "S1073",
+      "software_name": "Royal",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1073 - Royal"
     }
   ],
   "ATT&CK-ICS": [
@@ -6794,22 +6892,6 @@
       "autosuggest": "S0309 - Adups"
     },
     {
-      "software_id": "S0311",
-      "software_name": "YiSpecter",
-      "platforms": [
-        "Control Server",
-        "Data Historian",
-        "Device Configuration/Parameters",
-        "Engineering Workstation",
-        "Field Controller/RTU/PLC/IED",
-        "Human-Machine Interface",
-        "Input/Output Server",
-        "None",
-        "Safety Instrumented System/Protection Relay"
-      ],
-      "autosuggest": "S0311 - YiSpecter"
-    },
-    {
       "software_id": "S0312",
       "software_name": "WireLurker",
       "platforms": [
@@ -7139,6 +7221,15 @@
         "Windows"
       ],
       "autosuggest": "S1045 - INCONTROLLER"
+    },
+    {
+      "software_id": "S1072",
+      "software_name": "Industroyer2",
+      "platforms": [
+        "Engineering Workstation",
+        "Field Controller/RTU/PLC/IED"
+      ],
+      "autosuggest": "S1072 - Industroyer2"
     }
   ],
   "ATT&CK-Mobile": [
@@ -8335,6 +8426,63 @@
         "iOS"
       ],
       "autosuggest": "S1010 - VPNFilter"
+    },
+    {
+      "software_id": "S1054",
+      "software_name": "Drinik",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "S1054 - Drinik"
+    },
+    {
+      "software_id": "S1055",
+      "software_name": "SharkBot",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "S1055 - SharkBot"
+    },
+    {
+      "software_id": "S1056",
+      "software_name": "TianySpy",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S1056 - TianySpy"
+    },
+    {
+      "software_id": "S1061",
+      "software_name": "AbstractEmu",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "S1061 - AbstractEmu"
+    },
+    {
+      "software_id": "S1062",
+      "software_name": "S.O.V.A.",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "S1062 - S.O.V.A."
+    },
+    {
+      "software_id": "S1067",
+      "software_name": "FluBot",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "S1067 - FluBot"
+    },
+    {
+      "software_id": "S1069",
+      "software_name": "TangleBot",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "S1069 - TangleBot"
     }
   ]
 }
