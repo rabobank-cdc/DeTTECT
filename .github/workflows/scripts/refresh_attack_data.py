@@ -326,6 +326,7 @@ class ATTACKData():
             for k, v in data_source_dict.items():
                 if p in v['platforms']:
                     ds_per_platform[p].extend(v['data_components'])
+            ds_per_platform[p].sort()
 
         return ds_per_platform
 
