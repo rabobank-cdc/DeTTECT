@@ -526,6 +526,12 @@
     ]
   },
   {
+    "technique_id": "T1567.003",
+    "dettect_data_sources": [
+      "Web [DeTT&CT data source]"
+    ]
+  },
+  {
     "technique_id": "T1568",
     "dettect_data_sources": [
       "Internal DNS [DeTT&CT data source]",
