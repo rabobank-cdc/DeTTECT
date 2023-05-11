@@ -20,8 +20,7 @@ def _count_applicable_data_sources(technique, applicable_data_sources, applicabl
     """
     applicable_ds_count = 0
 
-    for ds in technique['x_mitre_data_sources']:
-        ds = ds.split(':')[1][1:]
+    for ds in technique['data_components']:
         if ds in applicable_data_sources:
             applicable_ds_count += 1
 
@@ -77,8 +76,7 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions, domain, layer_setti
 
                     if total_ds_count > 0:  # the system's platform has a data source applicable to this technique
                         ds_count = 0
-                        for ds in t['x_mitre_data_sources']:
-                            ds = ds.split(':')[1][1:]
+                        for ds in t['data_components']:
                             # the ATT&CK data source is applicable to this system and available
                             if ds in applicable_data_sources and ds in my_ds.keys() and _system_in_data_source_details_object(my_ds[ds], system):
                                 if ds_count == 0:
@@ -136,7 +134,7 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions, domain, layer_setti
                         d['metadata'].append({'name': 'Applicable to', 'value': system['applicable_to']})
 
                         app_data_sources = get_applicable_data_sources_technique(
-                            t['x_mitre_data_sources'], get_applicable_data_sources_platform(system['platform'], domain))
+                            t['data_components'], get_applicable_data_sources_platform(system['platform'], domain))
                         app_dettect_data_sources = get_applicable_dettect_data_sources_technique(
                             t['dettect_data_sources'], get_applicable_dettect_data_sources_platform(system['platform'], domain))
 
@@ -905,8 +903,7 @@ def generate_technique_administration_file(filename, output_filename, write_file
 
                     if total_ds_count > 0:  # the system's platform has data source applicable to this technique
                         ds_count = 0
-                        for ds in t['x_mitre_data_sources']:
-                            ds = ds.split(':')[1][1:]
+                        for ds in t['data_components']:
                             # the ATT&CK data source is applicable to this system and available
                             if ds in applicable_data_sources and ds in my_ds.keys() and _system_in_data_source_details_object(my_ds[ds], system):
                                 ds_count += 1

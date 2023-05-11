@@ -41,8 +41,6 @@ def get_statistics_data_sources(domain, arg_platforms):
         stix_type = DATA_TYPE_STIX_ALL_TECH_MOBILE
         attack_platforms = PLATFORMS_MOBILE
 
-        print('[!] ATT&CK has not yet implemented data sources for Mobile. This will come in a future release of ATT&CK. DeTT&CT is ready for it ;-)')
-
     techniques = load_attack_data(stix_type)
 
     # user want to only include data source for specific platforms
@@ -59,10 +57,10 @@ def get_statistics_data_sources(domain, arg_platforms):
         #  - arg_platforms == None (no platform filtering has been provide via cli arguments by the user)
         #  - there are platforms in the technique, which are also in arg_platforms
         tech_platforms = set(tech.get('x_mitre_platforms', []))
-        if arg_platforms == None or arg_platforms.intersection(tech_platforms):
+        if arg_platforms is None or arg_platforms.intersection(tech_platforms):
             tech_id = tech['technique_id']
-            # Not every technique has a data source listed
-            data_sources = tech.get('x_mitre_data_sources', [])
+            data_sources = tech['data_components']
+
             dettect_data_sources = tech.get('dettect_data_sources', [])
             for ds in data_sources + dettect_data_sources:
                 ds_component = ds
@@ -84,7 +82,7 @@ def get_statistics_data_sources(domain, arg_platforms):
 
     # sort the dict on the value of 'count'
     data_sources_dict_sorted = dict(sorted(data_sources_dict.items(), key=lambda kv: kv[1]['count'], reverse=True))
-    str_format = '{:<6s} {:<40s} {:s}'
+    str_format = '{:<6s} {:<40s} {:s}'    
     print(str_format.format('Count', 'Data Source', 'Platform(s)'))
     print('-' * 120)
     for k, v in data_sources_dict_sorted.items():

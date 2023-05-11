@@ -4,9 +4,9 @@ import os
 
 APP_NAME = 'DeTT&CT'
 APP_DESC = 'Detect Tactics, Techniques & Combat Threats'
-VERSION = '1.8.0'
+VERSION = '1.9.0'
 
-EXPIRE_TIME = 60 * 60 * 24 * 7
+EXPIRE_TIME = 60 * 60 * 24 * 30
 
 # MITRE ATT&CK data types for custom schema and STIX
 DATA_TYPE_CUSTOM_TECH_BY_GROUP = 'mitre_techniques_used_by_group'

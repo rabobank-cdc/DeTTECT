@@ -7,8 +7,21 @@ systems:
     platform:
       - Android
       - iOS
-data_sources: []
-notes: |
-  ATT&CK has not yet implemented data sources for Mobile. This will come in a future release of ATT&CK. Once it's there, we will incorporate it in DeTT&CT.
-
-  This file serves purely as an example to showcase the functionality of DeTT&CT and does not mean to be representative of a real environment.
+data_sources:
+  - data_source_name: API Calls
+    data_source:
+      - applicable_to:
+          - Phones
+        date_registered: 2023-05-09T00:00:00.000Z
+        date_connected: 2023-05-09T00:00:00.000Z
+        products:
+          - MDM
+        available_for_data_analytics: true
+        comment: ''
+        data_quality:
+          device_completeness: 1
+          data_field_completeness: 1
+          timeliness: 1
+          consistency: 1
+          retention: 1
+notes: This file serves purely as an example to showcase the functionality of DeTT&CT and does not mean to be representative of a real environment.

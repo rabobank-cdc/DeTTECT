@@ -45,22 +45,36 @@ def _date_hook(json_dict):
     return json_dict
 
 
-def _convert_stix_techniques_to_dict(stix_attack_data):
+def _convert_stix_techniques_to_dict(mitre, stix_attack_data):
     """
     Convert the STIX list with AttackPatterns to a dictionary for easier use in python and also include the technique_id and DeTT&CT data sources.
+    :param mitre: pointer to ATT&CK STIX objects
     :param stix_attack_data: the MITRE ATT&CK STIX dataset with techniques
     :return: list with dictionaries containing all techniques from the input stix_attack_data
     """
+    # Get all data component objects
+    data_components = mitre.COMPOSITE_DS.query(Filter("type", "=", "x-mitre-data-component"))
+    dc_lookup = {dc['id']:dc for dc in data_components}
+    
+    # Get detects-relationships
+    relationships = mitre.get_relationships(relationship_type='detects')
+    tech_dc_lookup = {}
+    for rl in relationships:
+        if rl['target_ref'] not in tech_dc_lookup.keys():
+            tech_dc_lookup[rl['target_ref']] = []
+        tech_dc_lookup[rl['target_ref']].append(dc_lookup[rl['source_ref']]['name'])
+    
     attack_data = []
     for stix_tech in stix_attack_data:
         tech = json.loads(stix_tech.serialize(), object_hook=_date_hook)
-
+        
         # Add technique_id as key, because it's hard to get from STIX:
         tech['technique_id'] = get_attack_id(stix_tech)
-
-        # Create empty x_mitre_data_sources key for techniques without data sources:
-        if 'x_mitre_data_sources' not in tech.keys():
-            tech['x_mitre_data_sources'] = []
+        
+        # Add data components to the technique:
+        tech['data_components'] = []
+        if tech['id'] in tech_dc_lookup.keys():
+            tech['data_components'] = tech_dc_lookup[tech['id']]
 
         dds_key = 'dettect_data_sources'
         tech[dds_key] = []
@@ -71,19 +85,19 @@ def _convert_stix_techniques_to_dict(stix_attack_data):
                 if not (len(dds[dds_key]) == 1 and dds[dds_key][0] == 'Network Traffic Content'):
                     tech[dds_key] = dds[dds_key]
 
-                    # Remove 'Network Traffic Content' from x_mitre_data_sources when it's not listed as DeTT&CT data source. In this situation
+                    # Remove 'Network Traffic Content' from the data components list when it's not listed as DeTT&CT data source. In this situation
                     # we are intentionally replacing the 'Network Traffic Content' with our DeTT&CT data sources.
-                    if 'Network Traffic Content' not in dds[dds_key] and 'Network Traffic: Network Traffic Content' in tech['x_mitre_data_sources']:
-                        tech['x_mitre_data_sources'].remove('Network Traffic: Network Traffic Content')
+                    if 'Network Traffic Content' not in dds[dds_key] and 'Network Traffic Content' in tech['data_components']:
+                        tech['data_components'].remove('Network Traffic Content')
 
                     # Remove 'Network Traffic Content' from the DeTT&CT data sources list when having both DeTT&CT data sources ánd 'Network Traffic Content'.
-                    # That's the case where we keep 'Network Traffic Content' in the x_mitre_data_sources list.
+                    # That's the case where we keep 'Network Traffic Content' in the data components list.
                     if 'Network Traffic Content' in dds[dds_key]:
                         tech[dds_key].remove('Network Traffic Content')
                 break
 
         attack_data.append(tech)
-
+    
     return attack_data
 
 
@@ -163,13 +177,13 @@ def load_attack_data(data_type):
         attack_data = mitre.get_relationships()
     elif data_type == DATA_TYPE_STIX_ALL_TECH_ENTERPRISE:
         stix_attack_data = mitre.get_enterprise_techniques()
-        attack_data = _convert_stix_techniques_to_dict(stix_attack_data)
+        attack_data = _convert_stix_techniques_to_dict(mitre, stix_attack_data)
     elif data_type == DATA_TYPE_STIX_ALL_TECH_ICS:
         stix_attack_data = mitre.get_ics_techniques()
-        attack_data = _convert_stix_techniques_to_dict(stix_attack_data)
+        attack_data = _convert_stix_techniques_to_dict(mitre, stix_attack_data)
     elif data_type == DATA_TYPE_STIX_ALL_TECH_MOBILE:
         stix_attack_data = mitre.get_mobile_techniques()
-        attack_data = _convert_stix_techniques_to_dict(stix_attack_data)
+        attack_data = _convert_stix_techniques_to_dict(mitre, stix_attack_data)
     elif data_type == DATA_TYPE_CUSTOM_TECH_BY_GROUP:
         # First we need to know which technique references (STIX Object type 'attack-pattern') we have for all
         # groups. This results in a dict: {group_id: Gxxxx, technique_ref/attack-pattern_ref: ...}
@@ -249,7 +263,7 @@ def load_attack_data(data_type):
 
     elif data_type == DATA_TYPE_STIX_ALL_TECH:
         stix_attack_data = mitre.get_techniques()
-        attack_data = _convert_stix_techniques_to_dict(stix_attack_data)
+        attack_data = _convert_stix_techniques_to_dict(mitre, stix_attack_data)
     elif data_type == DATA_TYPE_STIX_ALL_GROUPS:
         # Fetch groups from each matrix separately and then merge them. This is because STIX will deduplicate items with the
         # same ID and modification date. Few groups are in multiple matrices and will end up in STIX collection as just one
@@ -656,8 +670,6 @@ def get_applicable_data_sources_technique(technique_data_sources, platform_appli
     applicable_data_sources = set()
 
     for ds in technique_data_sources:
-        if ':' in ds:  # the param technique_data_sources comes from STIX
-            ds = ds.split(':')[1][1:]
         if ds in platform_applicable_data_sources:
             applicable_data_sources.add(ds)
 
@@ -929,12 +941,6 @@ def _check_file_type(filename, file_type=None):
         # key-value pairs within the YAML files.
         if not hasattr(yaml_content, 'keys'):
             print('[!] File: \'' + filename + '\' is not a valid YAML file.')
-            return None
-
-        # ATT&CK Mobile doesn't support data sources yet, so don't accept data sources files for Mobile yet.
-        domain = 'enterprise-attack' if 'domain' not in yaml_content.keys() else yaml_content['domain']
-        if yaml_content['file_type'] == 'data-source-administration' and domain == 'mobile-attack':
-            print('[!] File: \'' + filename + '\' has domain \'mobile-attack\' but data sources are not yet supported by ATT&CK itself.')
             return None
 
         if 'file_type' not in yaml_content.keys():

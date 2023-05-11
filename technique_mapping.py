@@ -156,7 +156,7 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, platforms, domain
             x['metadata'] = []
 
             if 'showMetadata' not in layer_settings.keys() or ('showMetadata' in layer_settings.keys() and str(layer_settings['showMetadata']) == 'True'):
-                x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique.get('x_mitre_data_sources', ''),
+                x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique.get('data_components', ''),
                                                                                                                               applicable_data_sources))})
                 x['metadata'].append({'name': 'DeTT&CT data sources', 'value': ', '.join(get_applicable_dettect_data_sources_technique(technique['dettect_data_sources'],
                                                                                                                                        applicable_dettect_data_sources))})
@@ -201,7 +201,7 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, platforms, domain
             x['enabled'] = True
 
             if 'showMetadata' not in layer_settings.keys() or ('showMetadata' in layer_settings.keys() and str(layer_settings['showMetadata']) == 'True'):
-                x['metadata'] = [{'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(t['x_mitre_data_sources'],
+                x['metadata'] = [{'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(t['data_components'],
                                                                                                                           applicable_data_sources))}]
                 x['metadata'].append({'name': 'DeTT&CT data sources', 'value': ', '.join(get_applicable_dettect_data_sources_technique(t['dettect_data_sources'],
                                                                                                                                        applicable_dettect_data_sources))})
@@ -260,7 +260,7 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, platforms, domain, 
         x['metadata'] = []
 
         if 'showMetadata' not in layer_settings.keys() or ('showMetadata' in layer_settings.keys() and str(layer_settings['showMetadata']) == 'True'):
-            x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique.get('x_mitre_data_sources', ''),
+            x['metadata'].append({'name': 'ATT&CK data sources', 'value': ', '.join(get_applicable_data_sources_technique(technique.get('data_components', ''),
                                                                                                                           applicable_data_sources))})
             x['metadata'].append({'name': 'DeTT&CT data sources', 'value': ', '.join(get_applicable_dettect_data_sources_technique(technique['dettect_data_sources'],
                                                                                                                                    applicable_dettect_data_sources))})

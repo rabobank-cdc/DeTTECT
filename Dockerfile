@@ -1,6 +1,6 @@
 FROM python:3.10-slim-bullseye
 
-LABEL version="1.8.0"
+LABEL version="1.9.0"
 
 # copy DeTT&CT and install the requirements
 COPY . /opt/DeTTECT
