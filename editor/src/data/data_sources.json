@@ -113,6 +113,7 @@
     "Command Execution",
     "Device Alarm",
     "Drive Creation",
+    "Drive Modification",
     "File Access",
     "File Creation",
     "File Deletion",
@@ -133,6 +134,7 @@
     "Process Termination",
     "Process/Event Alarm",
     "Scheduled Job Creation",
+    "Scheduled Job Metadata",
     "Scheduled Job Modification",
     "Script Execution",
     "Service Creation",
@@ -143,5 +145,21 @@
     "Windows Registry Key Deletion",
     "Windows Registry Key Modification"
   ],
-  "ATT&CK-Mobile": []
+  "ATT&CK-Mobile": [
+    "API Calls",
+    "Command Execution",
+    "Host Status",
+    "Network Communication",
+    "Network Connection Creation",
+    "Network Traffic Content",
+    "Network Traffic Flow",
+    "Permissions Request",
+    "Permissions Requests",
+    "Process Creation",
+    "Process Metadata",
+    "Process Termination",
+    "Protected Configuration",
+    "System Notifications",
+    "System Settings"
+  ]
 }
