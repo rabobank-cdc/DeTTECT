@@ -26,6 +26,11 @@
                     <span v-if="itemTitle" id="detailCard" class="card-title">{{ item[itemTitle.id] + ' - ' + item[itemTitle.name] }}</span>
                     <span v-else id="detailCard" class="card-title">{{ item[itemIdName] }}</span>
                     <i class="tim-icons icon-pencil icon-color icon-padding cursor-pointer" @click="editItem = true"></i>
+                    <span style="margin-left: 15px; font-size: 8pt"
+                        ><a :href="'https://attack.mitre.org/techniques/' + item[itemTitle.id].replace('.', '/')" target="_blank"
+                            >Open on ATT&amp;CK website</a
+                        ></span
+                    >
                 </div>
                 <div>
                     <label @click="navigateItem(false)" class="cursor-pointer" :title="'Previous ' + title.toLowerCase()">
@@ -242,9 +247,8 @@ export default {
 
                 for (let i = 0; i < this.suggestionList.length; i++) {
                     if (
-                        (this.platforms[0] == 'all' ||
-                        this.platforms.some((item) => this.suggestionList[i]['platforms'].includes(item))) &&
-                            !this.allItemsIdValues.includes(this.suggestionList[i][this.valueAttr])
+                        (this.platforms[0] == 'all' || this.platforms.some((item) => this.suggestionList[i]['platforms'].includes(item))) &&
+                        !this.allItemsIdValues.includes(this.suggestionList[i][this.valueAttr])
                     ) {
                         tmpList.push(this.suggestionList[i]);
                     }
@@ -253,7 +257,7 @@ export default {
             } else {
                 let tmpList = [];
                 for (let i = 0; i < this.suggestionList.length; i++) {
-                    if(!this.allItemsIdValues.includes(this.suggestionList[i])){
+                    if (!this.allItemsIdValues.includes(this.suggestionList[i])) {
                         tmpList.push(this.suggestionList[i]);
                     }
                 }
