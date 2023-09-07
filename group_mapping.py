@@ -3,6 +3,7 @@ from eql_yaml import techniques_search
 from generic import *
 from navigator_layer import *
 from file_output import *
+from copy import deepcopy
 
 CG_GROUPS = {}
 
@@ -451,7 +452,7 @@ def _get_technique_count(groups, groups_overlay, groups_software, overlay_type, 
 
 
 def _get_technique_layer(techniques_count, groups, overlay, groups_software, overlay_file_type, overlay_type,
-                         all_techniques, count_detections, layer_settings):
+                         all_techniques, count_detections, layer_settings, domain):
     """
     Create the technique layer that will be part of the ATT&CK navigator json file
     :param techniques_count: involved techniques with count (to be used within the scores)
@@ -463,8 +464,12 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
     :param all_techniques: dictionary with all techniques loaded from techniques administration YAML file
     :param count_detections: option for the Navigator layer output: count detections instead of listing detections
     :param layer_settings: settings for the Navigator layer
+    :param domain: the specified domain
     :return: dictionary
     """
+    techniques = load_attack_data(DATA_TYPE_STIX_ALL_TECH_ENTERPRISE if domain ==
+                                  'enterprise-attack' else DATA_TYPE_STIX_ALL_TECH_ICS if domain == 'ics-attack' else DATA_TYPE_STIX_ALL_TECH_MOBILE)
+    
     techniques_layer = []
 
     group_campaign_title = 'Group / Campaign'
@@ -472,6 +477,15 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
     # { technique_id: {count: ..., groups: set{} }
     # add the technique count/scoring
     for tech, v in techniques_count.items():
+        technique = get_technique(techniques, tech)
+        tactics = []
+        if 'includeTactic' in layer_settings.keys() and layer_settings['includeTactic'] == 'True':
+            for kill_chain_phase in technique['kill_chain_phases']:
+                if kill_chain_phase['kill_chain_name'] == 'mitre-attack':
+                    tactics.append(kill_chain_phase['phase_name'])
+        else:
+            tactics.append(None)
+        
         t = dict()
         t['techniqueID'] = tech
         t['score'] = v['count']
@@ -559,8 +573,11 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
 
             t['metadata'] = make_layer_metadata_compliant(t['metadata'])
 
-        techniques_layer.append(t)
-
+        for tactic in tactics:
+            if tactic is not None:
+                t['tactic'] = tactic
+            techniques_layer.append(deepcopy(t))
+        
     determine_and_set_show_sub_techniques(techniques_layer)
 
     return techniques_layer
@@ -752,7 +769,8 @@ def generate_group_heat_map(groups, campaigns, overlay, overlay_type, platform, 
 
     technique_count, max_count = _get_technique_count(groups_dict, overlay_dict, groups_software_dict, overlay_type, all_techniques)
     technique_layer = _get_technique_layer(technique_count, groups_dict, overlay_dict, groups_software_dict,
-                                           overlay_file_type, overlay_type, all_techniques, count_detections, layer_settings)
+                                           overlay_file_type, overlay_type, all_techniques, count_detections, 
+                                           layer_settings, domain)
 
     # make a list group names for the involved groups.
     groups_list = []

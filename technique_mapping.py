@@ -4,6 +4,7 @@ from datetime import datetime
 from generic import *
 from file_output import *
 from navigator_layer import *
+from copy import deepcopy
 # Imports for pandas and plotly are because of performance reasons in the function that uses these libraries.
 
 
@@ -68,12 +69,20 @@ def _map_and_colorize_techniques_for_detections(my_techniques, domain, count_det
     technique_id = ""
     try:
         for technique_id, technique_data in my_techniques.items():
+            technique = get_technique(techniques, technique_id)
             s = calculate_score(technique_data['detection'], zero_value=-1)
+            
+            tactics = []
+            if 'includeTactic' in layer_settings.keys() and layer_settings['includeTactic'] == 'True':
+                for kill_chain_phase in technique['kill_chain_phases']:
+                    if kill_chain_phase['kill_chain_name'] == 'mitre-attack':
+                        tactics.append(kill_chain_phase['phase_name'])
+            else:
+                tactics.append(None)
 
             if s != -1:
                 color = COLOR_D_0 if s == 0 else COLOR_D_1 if s == 1 else COLOR_D_2 if s == 2 else COLOR_D_3 \
                     if s == 3 else COLOR_D_4 if s == 4 else COLOR_D_5 if s == 5 else ''
-                technique = get_technique(techniques, technique_id)
 
                 if technique is not None:
                     x = dict()
@@ -109,8 +118,11 @@ def _map_and_colorize_techniques_for_detections(my_techniques, domain, count_det
                                     x['metadata'].append({'divider': True})
                                 cnt += 1
                         x['metadata'] = make_layer_metadata_compliant(x['metadata'])
-
-                    mapped_techniques.append(x)
+                    
+                    for tactic in tactics:
+                        if tactic is not None:
+                            x['tactic'] = tactic
+                        mapped_techniques.append(deepcopy(x))
                 else:
                     print('[!] Technique ' + technique_id + ' is unknown in ATT&CK. Ignoring this technique.')
     except Exception as e:

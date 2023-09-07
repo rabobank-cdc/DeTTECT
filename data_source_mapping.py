@@ -61,6 +61,15 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions, domain, layer_setti
 
     for t in techniques:
         tech_id = t['technique_id']
+        
+        tactics = []
+        if 'includeTactic' in layer_settings.keys() and layer_settings['includeTactic'] == 'True':
+            for kill_chain_phase in t['kill_chain_phases']:
+                if kill_chain_phase['kill_chain_name'] == 'mitre-attack':
+                    tactics.append(kill_chain_phase['phase_name'])
+        else:
+            tactics.append(None)
+        
         if tech_id not in list(map(lambda x: x.upper(), exceptions)):
             scores_idx = 0
             ds_scores = []
@@ -151,7 +160,10 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions, domain, layer_setti
 
                 d['metadata'] = make_layer_metadata_compliant(d['metadata'])
 
-            output_techniques.append(d)
+            for tactic in tactics:
+                if tactic is not None:
+                    d['tactic'] = tactic
+                output_techniques.append(deepcopy(d))
 
     determine_and_set_show_sub_techniques(output_techniques)
 

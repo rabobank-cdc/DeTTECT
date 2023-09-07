@@ -212,5 +212,9 @@ with open(os.path.dirname(__file__) + '/data/data_source_platforms.json', 'r') a
     DETTECT_DATA_SOURCES_PLATFORMS_ICS = input_data['DeTT&CT-ICS']
     DETTECT_DATA_SOURCES_PLATFORMS_MOBILE = input_data['DeTT&CT-Mobile']
 
-LAYER_SETTINGS = {'showAggregateScores': ['True', 'False'], 'layout': ['side', 'flat', 'mini'], 'showMetadata': ['True', 'False']}
+ATTACK_VERSION = '13'
+ATTACK_LAYER_VERSION = '4.4'
+ATTACK_NAVIGATOR_VERSION = '4.8'
+LAYER_SETTINGS = {'showAggregateScores': ['True', 'False'], 'layout': ['side', 'flat', 'mini'], 'showMetadata': ['True', 'False'],
+                  'includeTactic': ['True', 'False'], 'includeAttackVersion': ['True', 'False']}
 LAYER_LAYOUT_SETTINGS = ['showAggregateScores', 'layout', 'showMetadata']
