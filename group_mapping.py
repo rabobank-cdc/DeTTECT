@@ -578,7 +578,7 @@ def _get_technique_layer(techniques_count, groups, overlay, groups_software, ove
                 t['tactic'] = tactic
             techniques_layer.append(deepcopy(t))
         
-    determine_and_set_show_sub_techniques(techniques_layer)
+    determine_and_set_show_sub_techniques(techniques_layer, techniques, layer_settings)
 
     return techniques_layer
 

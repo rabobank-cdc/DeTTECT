@@ -165,7 +165,7 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions, domain, layer_setti
                     d['tactic'] = tactic
                 output_techniques.append(deepcopy(d))
 
-    determine_and_set_show_sub_techniques(output_techniques)
+    determine_and_set_show_sub_techniques(output_techniques, techniques, layer_settings)
 
     return output_techniques
 

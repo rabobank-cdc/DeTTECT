@@ -129,7 +129,7 @@ def _map_and_colorize_techniques_for_detections(my_techniques, domain, count_det
         print('[!] Possible error in YAML file at: %s. Error: %s' % (technique_id, str(e)))
         quit()
 
-    determine_and_set_show_sub_techniques(mapped_techniques)
+    determine_and_set_show_sub_techniques(mapped_techniques, techniques, layer_settings)
 
     return mapped_techniques
 
@@ -158,6 +158,14 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, platforms, domain
 
         technique = get_technique(techniques, technique_id)
         color = COLOR_V_1 if s == 1 else COLOR_V_2 if s == 2 else COLOR_V_3 if s == 3 else COLOR_V_4 if s == 4 else ''
+        
+        tactics = []
+        if 'includeTactic' in layer_settings.keys() and layer_settings['includeTactic'] == 'True':
+            for kill_chain_phase in technique['kill_chain_phases']:
+                if kill_chain_phase['kill_chain_name'] == 'mitre-attack':
+                    tactics.append(kill_chain_phase['phase_name'])
+        else:
+            tactics.append(None)
 
         if technique is not None:
             x = dict()
@@ -188,11 +196,14 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, platforms, domain
                     cnt += 1
                 x['metadata'] = make_layer_metadata_compliant(x['metadata'])
 
-            mapped_techniques.append(x)
+            for tactic in tactics:
+                if tactic is not None:
+                    x['tactic'] = tactic
+                mapped_techniques.append(deepcopy(x))
         else:
             print('[!] Technique ' + technique_id + ' is unknown in ATT&CK. Ignoring this technique.')
 
-    determine_and_set_show_sub_techniques(mapped_techniques)
+    determine_and_set_show_sub_techniques(mapped_techniques, techniques, layer_settings)
 
     # add metadata with ATT&CK data sources for the ones without visibility:
     for t in techniques:
@@ -208,6 +219,16 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, platforms, domain
                     break
             if x is None:
                 x = dict()
+            
+            technique = get_technique(techniques, technique_id)
+            tactics = []
+            if 'includeTactic' in layer_settings.keys() and layer_settings['includeTactic'] == 'True':
+                for kill_chain_phase in technique['kill_chain_phases']:
+                    if kill_chain_phase['kill_chain_name'] == 'mitre-attack':
+                        tactics.append(kill_chain_phase['phase_name'])
+            else:
+                tactics.append(None)
+            
             x['techniqueID'] = tech_id
             x['comment'] = ''
             x['enabled'] = True
@@ -220,7 +241,10 @@ def _map_and_colorize_techniques_for_visibility(my_techniques, platforms, domain
                 x['metadata'] = make_layer_metadata_compliant(x['metadata'])
 
             if not exists:
-                mapped_techniques.append(x)
+                for tactic in tactics:
+                    if tactic is not None:
+                        x['tactic'] = tactic
+                    mapped_techniques.append(deepcopy(x))
 
     return mapped_techniques
 
@@ -264,6 +288,15 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, platforms, domain, 
             color = COLOR_WHITE
 
         technique = get_technique(techniques, technique_id)
+        
+        tactics = []
+        if 'includeTactic' in layer_settings.keys() and layer_settings['includeTactic'] == 'True':
+            for kill_chain_phase in technique['kill_chain_phases']:
+                if kill_chain_phase['kill_chain_name'] == 'mitre-attack':
+                    tactics.append(kill_chain_phase['phase_name'])
+        else:
+            tactics.append(None)
+        
         x = dict()
         x['techniqueID'] = technique_id
         x['color'] = color
@@ -284,9 +317,12 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, platforms, domain, 
 
             x['metadata'] = make_layer_metadata_compliant(x['metadata'])
 
-        mapped_techniques.append(x)
+        for tactic in tactics:
+            if tactic is not None:
+                x['tactic'] = tactic
+            mapped_techniques.append(deepcopy(x))
 
-    determine_and_set_show_sub_techniques(mapped_techniques)
+    determine_and_set_show_sub_techniques(mapped_techniques, techniques, layer_settings)
 
     return mapped_techniques
 

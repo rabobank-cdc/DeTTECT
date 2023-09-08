@@ -1,4 +1,6 @@
 from constants import *
+from generic import *
+from copy import deepcopy
 
 
 def _get_base_template(name, description, platform, sorting, domain, layer_settings):
@@ -46,10 +48,12 @@ def _get_base_template(name, description, platform, sorting, domain, layer_setti
     return layer
 
 
-def determine_and_set_show_sub_techniques(techniques_layer):
+def determine_and_set_show_sub_techniques(techniques_layer, techniques, layer_settings):
     """
     Function to determine if showSubtechniques should be set. And if so, it will be set in the layer dict.
     :param techniques_layer: dict with items for the Navigator layer file
+    :param techniques: dict with all ATT&CK techniques
+    :param layer_settings: settings for the Navigator layer
     :return:
     """
     # determine if technique needs to be collapsed to show sub-techniques
@@ -64,25 +68,42 @@ def determine_and_set_show_sub_techniques(techniques_layer):
                         break
             t['showSubtechniques'] = show_sub_techniques
     # add technique with showSubtechnique attribute, when sub-technique is present and technique isn't:
-    techniques_to_add = {}
+    techniques_to_add = []
+    already_added = set()
     for subtech in techniques_layer:
         if len(subtech['techniqueID']) == 9:
             technique_present = False
-            # Is technique already added:
-            if subtech['techniqueID'][:5] in techniques_to_add.keys():
-                technique_present = True
             # Is technique already in the techniques_layer:
-            else:
-                for t in techniques_layer:
-                    if len(t['techniqueID']) == 5:
-                        if t['techniqueID'] in subtech['techniqueID']:
-                            technique_present = True
+            for t in techniques_layer:
+                if len(t['techniqueID']) == 5:
+                    if t['techniqueID'] in subtech['techniqueID']:
+                        technique_present = True
             if not technique_present:
+                technique_id = subtech['techniqueID'][:5]
+                technique = get_technique(techniques, technique_id)
+                
+                tactics = []
+                if 'includeTactic' in layer_settings.keys() and layer_settings['includeTactic'] == 'True':
+                    for kill_chain_phase in technique['kill_chain_phases']:
+                        if kill_chain_phase['kill_chain_name'] == 'mitre-attack':
+                            tactics.append(kill_chain_phase['phase_name'])
+                else:
+                    tactics.append(None)
+                
                 new_tech = dict()
-                new_tech['techniqueID'] = subtech['techniqueID'][:5]
+                new_tech['techniqueID'] = technique_id
                 new_tech['showSubtechniques'] = True
-                techniques_to_add[new_tech['techniqueID']] = new_tech
-    techniques_layer.extend(list(techniques_to_add.values()))
+                
+                for tactic in tactics:
+                    already_added_key = technique_id +'-' +str(tactic)
+                    if already_added_key not in already_added:
+                        if tactic is not None:
+                            new_tech['tactic'] = tactic
+                        
+                        techniques_to_add.append(deepcopy(new_tech))
+                        already_added.add(already_added_key)
+    
+    techniques_layer.extend(techniques_to_add)
 
 
 def get_layer_template_groups(name, max_count, description, platform, overlay_type, domain, layer_settings):
