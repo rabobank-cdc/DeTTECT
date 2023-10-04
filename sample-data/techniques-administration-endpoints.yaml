@@ -7109,7 +7109,7 @@ techniques:
 - technique_id: T1071.004
   technique_name: DNS
   detection:
-    applicable_to:
+  - applicable_to:
     - all
     location:
     - Splunk use case X8
@@ -7131,7 +7131,7 @@ techniques:
 - technique_id: T1568.003
   technique_name: DNS Calculation
   detection:
-    applicable_to:
+  - applicable_to:
     - all
     location:
     - ''
