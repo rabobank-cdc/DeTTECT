@@ -16,7 +16,7 @@
                                 Useful links:
                                 <ul
                                     ><li><a href="https://github.com/rabobank-cdc/DeTTECT/wiki/Getting-started" target="_blank">Wiki - Getting started with DeTT&CT</a></li>              
-                                    <li><a href="https://mitre-attack.github.io/attack-navigator/#comment_underline=false" target="_blank">ATT&CK Navigator without showing yellow underlines in techniques</a></li>
+                                    <li><a href="https://mitre-attack.github.io/attack-navigator/#comment_underline=false&metadata_underline=false" target="_blank">ATT&CK Navigator without showing yellow underlines in techniques</a></li>
                                     </ul>
                             </p>
                         </div>
