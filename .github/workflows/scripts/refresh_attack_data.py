@@ -38,7 +38,7 @@ WIKI_TEXT_ICS = ['',
                  '',
                  '**Official platform mapping is missing**',
                  '',
-                 'An official mapping for ICS sources/data components to platforms is currently missing. Since v14 release of ATT&CK platforms are not being used anymore for ICS. Therefor we cannot generate data source - platform mappings for ICS.'
+                 'An official mapping for ICS sources/data components to platforms is currently missing. Since v14 release of ATT&CK platforms are not being used anymore for ICS. Therefor we cannot generate data source - platform mappings for ICS.',
                  '',
                  '**DeTT&CT data sources**',
                  '',
