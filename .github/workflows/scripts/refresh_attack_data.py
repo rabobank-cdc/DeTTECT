@@ -38,10 +38,10 @@ WIKI_TEXT_ICS = ['',
                  '',
                  '**Official platform mapping is missing**',
                  '',
-                 'An official mapping for ICS sources/data components to platforms is currently missing. Since v14 release of ATT&CK platforms are not being used anymore for ICS.'
-                 'Therefor we cannot generate data source - platform mappings for ICS.'
+                 'An official mapping for ICS sources/data components to platforms is currently missing. Since v14 release of ATT&CK platforms are not being used anymore for ICS. Therefor we cannot generate data source - platform mappings for ICS.'
                  '',
-                 '**DeTT&CT data sources**', '',
+                 '**DeTT&CT data sources**',
+                 '',
                  'As we do not consider ourselves experts in the field of ICS, we have not included the DeTT&CT data sources. Any help and thus contributions on that matter are very much appreciated. *Possibly, with future developments of ATT&CK ICS, we could automate this part when Detection objects are introduced. However, it is not certain whether this will provide good results.*']
 WIKI_TEXT_MOBILE = ['',
                     '## Mobile',
