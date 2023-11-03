@@ -38,10 +38,8 @@ WIKI_TEXT_ICS = ['',
                  '',
                  '**Official platform mapping is missing**',
                  '',
-                 'An official mapping for ICS sources/data components to platforms is currently missing. Hence it\'s expected the below platform mapping will improve once available. The current mapping of data sources to platforms is determined in the following automated manner:',
-                 '- We check for every technique the listed data sources and note that down.',
-                 '- Besides noting down the data sources, we also take note of the platforms mentioned per technique.',
-                 '- The above two are combined to produce the final mapping.',
+                 'An official mapping for ICS sources/data components to platforms is currently missing. Since v14 release of ATT&CK platforms are not being used anymore for ICS.'
+                 'Therefor we cannot generate data source - platform mappings for ICS.'
                  '',
                  '**DeTT&CT data sources**', '',
                  'As we do not consider ourselves experts in the field of ICS, we have not included the DeTT&CT data sources. Any help and thus contributions on that matter are very much appreciated. *Possibly, with future developments of ATT&CK ICS, we could automate this part when Detection objects are introduced. However, it is not certain whether this will provide good results.*']
@@ -257,22 +255,22 @@ class ATTACKData():
 
         # ###
         # time to generete the ICS wiki
-        platforms = self._get_platforms_constants('PLATFORMS_ICS')
-        data_components_ics_platform_mapping = self._get_data_components_platform_mapping_from_techniques(attack_cti_techniques_ics)
-        data_sources_sorted = sorted(set(chain.from_iterable(data_components_ics_platform_mapping.values())))
+        # platforms = self._get_platforms_constants('PLATFORMS_ICS')
+        # data_components_ics_platform_mapping = self._get_data_components_platform_mapping_from_techniques(attack_cti_techniques_ics)
+        # data_sources_sorted = sorted(set(chain.from_iterable(data_components_ics_platform_mapping.values())))
 
         md_lines += WIKI_TEXT_ICS
-        md_lines = md_lines + self._generate_md_table(platforms)
+        # md_lines = md_lines + self._generate_md_table(platforms)
 
         # add the ATT&CK data sources to the Markdown table
-        for ds in data_sources_sorted:
-            row = '| ' + ds + ' | '
-            for p in platforms:
-                if ds in data_components_ics_platform_mapping[p]:
-                    row += ' X |'
-                else:
-                    row += '   |'
-            md_lines.append(row)
+        # for ds in data_sources_sorted:
+        #     row = '| ' + ds + ' | '
+        #     for p in platforms:
+        #         if p in data_components_ics_platform_mapping.keys() and ds in data_components_ics_platform_mapping[p]:
+        #             row += ' X |'
+        #         else:
+        #             row += '   |'
+        #     md_lines.append(row)
 
         return md_lines
 
