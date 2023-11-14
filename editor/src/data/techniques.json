@@ -6630,5 +6630,998 @@
       "autosuggest": "T0893 - Data from Local System"
     }
   ],
-  "ATT&CK-Mobile": []
+  "ATT&CK-Mobile": [
+    {
+      "technique_id": "T1398",
+      "technique_name": "Boot or Logon Initialization Scripts",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1398 - Boot or Logon Initialization Scripts"
+    },
+    {
+      "technique_id": "T1404",
+      "technique_name": "Exploitation for Privilege Escalation",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1404 - Exploitation for Privilege Escalation"
+    },
+    {
+      "technique_id": "T1406",
+      "technique_name": "Obfuscated Files or Information",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1406 - Obfuscated Files or Information"
+    },
+    {
+      "technique_id": "T1406.001",
+      "technique_name": "Steganography",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1406.001 - Steganography"
+    },
+    {
+      "technique_id": "T1406.002",
+      "technique_name": "Software Packing",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1406.002 - Software Packing"
+    },
+    {
+      "technique_id": "T1407",
+      "technique_name": "Download New Code at Runtime",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1407 - Download New Code at Runtime"
+    },
+    {
+      "technique_id": "T1409",
+      "technique_name": "Stored Application Data",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1409 - Stored Application Data"
+    },
+    {
+      "technique_id": "T1414",
+      "technique_name": "Clipboard Data",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1414 - Clipboard Data"
+    },
+    {
+      "technique_id": "T1417",
+      "technique_name": "Input Capture",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1417 - Input Capture"
+    },
+    {
+      "technique_id": "T1417.001",
+      "technique_name": "Keylogging",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1417.001 - Keylogging"
+    },
+    {
+      "technique_id": "T1417.002",
+      "technique_name": "GUI Input Capture",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1417.002 - GUI Input Capture"
+    },
+    {
+      "technique_id": "T1418",
+      "technique_name": "Software Discovery",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1418 - Software Discovery"
+    },
+    {
+      "technique_id": "T1418.001",
+      "technique_name": "Security Software Discovery",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1418.001 - Security Software Discovery"
+    },
+    {
+      "technique_id": "T1420",
+      "technique_name": "File and Directory Discovery",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1420 - File and Directory Discovery"
+    },
+    {
+      "technique_id": "T1421",
+      "technique_name": "System Network Connections Discovery",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1421 - System Network Connections Discovery"
+    },
+    {
+      "technique_id": "T1422",
+      "technique_name": "System Network Configuration Discovery",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1422 - System Network Configuration Discovery"
+    },
+    {
+      "technique_id": "T1423",
+      "technique_name": "Network Service Scanning",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1423 - Network Service Scanning"
+    },
+    {
+      "technique_id": "T1424",
+      "technique_name": "Process Discovery",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1424 - Process Discovery"
+    },
+    {
+      "technique_id": "T1426",
+      "technique_name": "System Information Discovery",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1426 - System Information Discovery"
+    },
+    {
+      "technique_id": "T1428",
+      "technique_name": "Exploitation of Remote Services",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1428 - Exploitation of Remote Services"
+    },
+    {
+      "technique_id": "T1429",
+      "technique_name": "Audio Capture",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1429 - Audio Capture"
+    },
+    {
+      "technique_id": "T1430",
+      "technique_name": "Location Tracking",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1430 - Location Tracking"
+    },
+    {
+      "technique_id": "T1430.001",
+      "technique_name": "Remote Device Management Services",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1430.001 - Remote Device Management Services"
+    },
+    {
+      "technique_id": "T1430.002",
+      "technique_name": "Impersonate SS7 Nodes",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1430.002 - Impersonate SS7 Nodes"
+    },
+    {
+      "technique_id": "T1437",
+      "technique_name": "Application Layer Protocol",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1437 - Application Layer Protocol"
+    },
+    {
+      "technique_id": "T1437.001",
+      "technique_name": "Web Protocols",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1437.001 - Web Protocols"
+    },
+    {
+      "technique_id": "T1456",
+      "technique_name": "Drive-By Compromise",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1456 - Drive-By Compromise"
+    },
+    {
+      "technique_id": "T1458",
+      "technique_name": "Replication Through Removable Media",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1458 - Replication Through Removable Media"
+    },
+    {
+      "technique_id": "T1461",
+      "technique_name": "Lockscreen Bypass",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1461 - Lockscreen Bypass"
+    },
+    {
+      "technique_id": "T1464",
+      "technique_name": "Network Denial of Service",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1464 - Network Denial of Service"
+    },
+    {
+      "technique_id": "T1471",
+      "technique_name": "Data Encrypted for Impact",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1471 - Data Encrypted for Impact"
+    },
+    {
+      "technique_id": "T1474",
+      "technique_name": "Supply Chain Compromise",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1474 - Supply Chain Compromise"
+    },
+    {
+      "technique_id": "T1474.001",
+      "technique_name": "Compromise Software Dependencies and Development Tools",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1474.001 - Compromise Software Dependencies and Development Tools"
+    },
+    {
+      "technique_id": "T1474.002",
+      "technique_name": "Compromise Hardware Supply Chain",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1474.002 - Compromise Hardware Supply Chain"
+    },
+    {
+      "technique_id": "T1474.003",
+      "technique_name": "Compromise Software Supply Chain",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1474.003 - Compromise Software Supply Chain"
+    },
+    {
+      "technique_id": "T1481",
+      "technique_name": "Web Service",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1481 - Web Service"
+    },
+    {
+      "technique_id": "T1481.001",
+      "technique_name": "Dead Drop Resolver",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1481.001 - Dead Drop Resolver"
+    },
+    {
+      "technique_id": "T1481.002",
+      "technique_name": "Bidirectional Communication",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1481.002 - Bidirectional Communication"
+    },
+    {
+      "technique_id": "T1481.003",
+      "technique_name": "One-Way Communication",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1481.003 - One-Way Communication"
+    },
+    {
+      "technique_id": "T1509",
+      "technique_name": "Non-Standard Port",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1509 - Non-Standard Port"
+    },
+    {
+      "technique_id": "T1512",
+      "technique_name": "Video Capture",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1512 - Video Capture"
+    },
+    {
+      "technique_id": "T1513",
+      "technique_name": "Screen Capture",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1513 - Screen Capture"
+    },
+    {
+      "technique_id": "T1516",
+      "technique_name": "Input Injection",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1516 - Input Injection"
+    },
+    {
+      "technique_id": "T1517",
+      "technique_name": "Access Notifications",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1517 - Access Notifications"
+    },
+    {
+      "technique_id": "T1521",
+      "technique_name": "Encrypted Channel",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1521 - Encrypted Channel"
+    },
+    {
+      "technique_id": "T1521.001",
+      "technique_name": "Symmetric Cryptography",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1521.001 - Symmetric Cryptography"
+    },
+    {
+      "technique_id": "T1521.002",
+      "technique_name": "Asymmetric Cryptography",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1521.002 - Asymmetric Cryptography"
+    },
+    {
+      "technique_id": "T1532",
+      "technique_name": "Archive Collected Data",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1532 - Archive Collected Data"
+    },
+    {
+      "technique_id": "T1533",
+      "technique_name": "Data from Local System",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1533 - Data from Local System"
+    },
+    {
+      "technique_id": "T1541",
+      "technique_name": "Foreground Persistence",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1541 - Foreground Persistence"
+    },
+    {
+      "technique_id": "T1544",
+      "technique_name": "Ingress Tool Transfer",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1544 - Ingress Tool Transfer"
+    },
+    {
+      "technique_id": "T1575",
+      "technique_name": "Native API",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1575 - Native API"
+    },
+    {
+      "technique_id": "T1577",
+      "technique_name": "Compromise Application Executable",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1577 - Compromise Application Executable"
+    },
+    {
+      "technique_id": "T1582",
+      "technique_name": "SMS Control",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1582 - SMS Control"
+    },
+    {
+      "technique_id": "T1603",
+      "technique_name": "Scheduled Task/Job",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1603 - Scheduled Task/Job"
+    },
+    {
+      "technique_id": "T1604",
+      "technique_name": "Proxy Through Victim",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1604 - Proxy Through Victim"
+    },
+    {
+      "technique_id": "T1616",
+      "technique_name": "Call Control",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1616 - Call Control"
+    },
+    {
+      "technique_id": "T1617",
+      "technique_name": "Hooking",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1617 - Hooking"
+    },
+    {
+      "technique_id": "T1623",
+      "technique_name": "Command and Scripting Interpreter",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1623 - Command and Scripting Interpreter"
+    },
+    {
+      "technique_id": "T1623.001",
+      "technique_name": "Unix Shell",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1623.001 - Unix Shell"
+    },
+    {
+      "technique_id": "T1624",
+      "technique_name": "Event Triggered Execution",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1624 - Event Triggered Execution"
+    },
+    {
+      "technique_id": "T1624.001",
+      "technique_name": "Broadcast Receivers",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1624.001 - Broadcast Receivers"
+    },
+    {
+      "technique_id": "T1625",
+      "technique_name": "Hijack Execution Flow",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1625 - Hijack Execution Flow"
+    },
+    {
+      "technique_id": "T1625.001",
+      "technique_name": "System Runtime API Hijacking",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1625.001 - System Runtime API Hijacking"
+    },
+    {
+      "technique_id": "T1626",
+      "technique_name": "Abuse Elevation Control Mechanism",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1626 - Abuse Elevation Control Mechanism"
+    },
+    {
+      "technique_id": "T1626.001",
+      "technique_name": "Device Administrator Permissions",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1626.001 - Device Administrator Permissions"
+    },
+    {
+      "technique_id": "T1627",
+      "technique_name": "Execution Guardrails",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1627 - Execution Guardrails"
+    },
+    {
+      "technique_id": "T1627.001",
+      "technique_name": "Geofencing",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1627.001 - Geofencing"
+    },
+    {
+      "technique_id": "T1628",
+      "technique_name": "Hide Artifacts",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1628 - Hide Artifacts"
+    },
+    {
+      "technique_id": "T1628.001",
+      "technique_name": "Suppress Application Icon",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1628.001 - Suppress Application Icon"
+    },
+    {
+      "technique_id": "T1628.002",
+      "technique_name": "User Evasion",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1628.002 - User Evasion"
+    },
+    {
+      "technique_id": "T1629",
+      "technique_name": "Impair Defenses",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1629 - Impair Defenses"
+    },
+    {
+      "technique_id": "T1629.001",
+      "technique_name": "Prevent Application Removal",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1629.001 - Prevent Application Removal"
+    },
+    {
+      "technique_id": "T1629.002",
+      "technique_name": "Device Lockout",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1629.002 - Device Lockout"
+    },
+    {
+      "technique_id": "T1629.003",
+      "technique_name": "Disable or Modify Tools",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1629.003 - Disable or Modify Tools"
+    },
+    {
+      "technique_id": "T1630",
+      "technique_name": "Indicator Removal on Host",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1630 - Indicator Removal on Host"
+    },
+    {
+      "technique_id": "T1630.001",
+      "technique_name": "Uninstall Malicious Application",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1630.001 - Uninstall Malicious Application"
+    },
+    {
+      "technique_id": "T1630.002",
+      "technique_name": "File Deletion",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1630.002 - File Deletion"
+    },
+    {
+      "technique_id": "T1630.003",
+      "technique_name": "Disguise Root/Jailbreak Indicators",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1630.003 - Disguise Root/Jailbreak Indicators"
+    },
+    {
+      "technique_id": "T1631",
+      "technique_name": "Process Injection",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1631 - Process Injection"
+    },
+    {
+      "technique_id": "T1631.001",
+      "technique_name": "Ptrace System Calls",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1631.001 - Ptrace System Calls"
+    },
+    {
+      "technique_id": "T1632",
+      "technique_name": "Subvert Trust Controls",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1632 - Subvert Trust Controls"
+    },
+    {
+      "technique_id": "T1632.001",
+      "technique_name": "Code Signing Policy Modification",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1632.001 - Code Signing Policy Modification"
+    },
+    {
+      "technique_id": "T1633",
+      "technique_name": "Virtualization/Sandbox Evasion",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1633 - Virtualization/Sandbox Evasion"
+    },
+    {
+      "technique_id": "T1633.001",
+      "technique_name": "System Checks",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1633.001 - System Checks"
+    },
+    {
+      "technique_id": "T1634",
+      "technique_name": "Credentials from Password Store",
+      "platforms": [
+        "iOS"
+      ],
+      "autosuggest": "T1634 - Credentials from Password Store"
+    },
+    {
+      "technique_id": "T1634.001",
+      "technique_name": "Keychain",
+      "platforms": [
+        "iOS"
+      ],
+      "autosuggest": "T1634.001 - Keychain"
+    },
+    {
+      "technique_id": "T1635",
+      "technique_name": "Steal Application Access Token",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1635 - Steal Application Access Token"
+    },
+    {
+      "technique_id": "T1635.001",
+      "technique_name": "URI Hijacking",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1635.001 - URI Hijacking"
+    },
+    {
+      "technique_id": "T1636",
+      "technique_name": "Protected User Data",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1636 - Protected User Data"
+    },
+    {
+      "technique_id": "T1636.001",
+      "technique_name": "Calendar Entries",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1636.001 - Calendar Entries"
+    },
+    {
+      "technique_id": "T1636.002",
+      "technique_name": "Call Log",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1636.002 - Call Log"
+    },
+    {
+      "technique_id": "T1636.003",
+      "technique_name": "Contact List",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1636.003 - Contact List"
+    },
+    {
+      "technique_id": "T1636.004",
+      "technique_name": "SMS Messages",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1636.004 - SMS Messages"
+    },
+    {
+      "technique_id": "T1637",
+      "technique_name": "Dynamic Resolution",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1637 - Dynamic Resolution"
+    },
+    {
+      "technique_id": "T1637.001",
+      "technique_name": "Domain Generation Algorithms",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1637.001 - Domain Generation Algorithms"
+    },
+    {
+      "technique_id": "T1638",
+      "technique_name": "Adversary-in-the-Middle",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1638 - Adversary-in-the-Middle"
+    },
+    {
+      "technique_id": "T1639",
+      "technique_name": "Exfiltration Over Alternative Protocol",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1639 - Exfiltration Over Alternative Protocol"
+    },
+    {
+      "technique_id": "T1639.001",
+      "technique_name": "Exfiltration Over Unencrypted Non-C2 Protocol",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1639.001 - Exfiltration Over Unencrypted Non-C2 Protocol"
+    },
+    {
+      "technique_id": "T1640",
+      "technique_name": "Account Access Removal",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1640 - Account Access Removal"
+    },
+    {
+      "technique_id": "T1641",
+      "technique_name": "Data Manipulation",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1641 - Data Manipulation"
+    },
+    {
+      "technique_id": "T1641.001",
+      "technique_name": "Transmitted Data Manipulation",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1641.001 - Transmitted Data Manipulation"
+    },
+    {
+      "technique_id": "T1642",
+      "technique_name": "Endpoint Denial of Service",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1642 - Endpoint Denial of Service"
+    },
+    {
+      "technique_id": "T1643",
+      "technique_name": "Generate Traffic from Victim",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1643 - Generate Traffic from Victim"
+    },
+    {
+      "technique_id": "T1644",
+      "technique_name": "Out of Band Data",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1644 - Out of Band Data"
+    },
+    {
+      "technique_id": "T1645",
+      "technique_name": "Compromise Client Software Binary",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1645 - Compromise Client Software Binary"
+    },
+    {
+      "technique_id": "T1646",
+      "technique_name": "Exfiltration Over C2 Channel",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1646 - Exfiltration Over C2 Channel"
+    },
+    {
+      "technique_id": "T1655",
+      "technique_name": "Masquerading",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1655 - Masquerading"
+    },
+    {
+      "technique_id": "T1655.001",
+      "technique_name": "Match Legitimate Name or Location",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1655.001 - Match Legitimate Name or Location"
+    },
+    {
+      "technique_id": "T1658",
+      "technique_name": "Exploitation for Client Execution",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1658 - Exploitation for Client Execution"
+    },
+    {
+      "technique_id": "T1660",
+      "technique_name": "Phishing",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1660 - Phishing"
+    },
+    {
+      "technique_id": "T1661",
+      "technique_name": "Application Versioning",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1661 - Application Versioning"
+    },
+    {
+      "technique_id": "T1662",
+      "technique_name": "Data Destruction",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1662 - Data Destruction"
+    },
+    {
+      "technique_id": "T1663",
+      "technique_name": "Remote Access Software",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1663 - Remote Access Software"
+    }
+  ]
 }
