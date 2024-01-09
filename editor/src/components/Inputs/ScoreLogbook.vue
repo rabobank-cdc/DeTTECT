@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="row">
-            <div class=" col-md-auto pr-md-0">
+            <div class="col-md-auto pr-md-0">
                 <h5 class="title">Score logbook</h5>
             </div>
             <div class="col ml-md-0">
@@ -11,7 +11,12 @@
                 <button type="button" aria-label="Close" class="close" @click="$bvModal.hide(modalId)">×</button>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-md-2">
+            <div class="col">
+                <button class="btn-custom btn btn-secondary button-add" @click="addNewItem">Add new score</button>
+            </div>
+        </div>
+        <div class="row mt-md-4">
             <div class="col-md-2">
                 <label class="card">Date</label>
             </div>
@@ -87,14 +92,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="row mt-md-2">
-            <div class="col">
-                <button class="btn-custom btn btn-secondary button-add" @click="addNewItem">
-                    Add new score
-                </button>
-            </div>
-        </div>
     </div>
 </template>
 
@@ -110,7 +107,7 @@ import { notificationMixin } from '@/mixins/NotificationMixins.js';
 export default {
     data() {
         return {
-            newScore: this.defaultScore,
+            newScore: this.defaultScore
         };
     },
     mixins: [notificationMixin],
@@ -205,6 +202,7 @@ export default {
             for (let i = 0; i < sorted.length; i++) {
                 this.item.push(sorted[i]);
             }
+            this.item.reverse();
         },
         showHelptextScore(event) {
             this.$emit('showHelptextScoreNow', event);
