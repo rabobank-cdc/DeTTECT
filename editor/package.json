@@ -35,7 +35,7 @@
         "vue-slider-component": "^3.2.15",
         "vue2-transitions": "^0.3.0",
         "vuejs-datepicker": "^1.6.2",
-        "vuejs-smart-table": "0.0.8",
+        "vuejs-smart-table": "0.1.13",
         "webpack": "^4.46.0"
     },
     "devDependencies": {
