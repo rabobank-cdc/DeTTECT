@@ -3,7 +3,7 @@ on:
   schedule:
     - cron:  '0 3 * * 0'
   push:
-    branches: [ master ]
+    branches: [ master, multi-platform ]
     paths-ignore:
       - '.github/workflows/**'
       - 'data/dettect_data_sources.xlsx'
@@ -70,5 +70,5 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm64
           pull: true
-          push: true
+          push: false
           tags: rabobankcdc/dettect:latest, ${{ env.version_tag }}
