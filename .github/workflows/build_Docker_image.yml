@@ -5,7 +5,7 @@ on:
   push:
     branches: [ master, multi-platform ]
     paths-ignore:
-      - '.github/workflows/**'
+ #     - '.github/workflows/**'
       - 'data/dettect_data_sources.xlsx'
   workflow_dispatch:
     inputs:
