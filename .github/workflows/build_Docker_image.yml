@@ -28,7 +28,7 @@ jobs:
 #        with:
 #          concurrent_skipping: 'outdated_runs'
   build:
-    needs: skip_duplicate
+#    needs: skip_duplicate
     if: ${{ needs.skip_duplicate.outputs.should_skip != 'true' }}
     runs-on: ubuntu-latest
     steps:
