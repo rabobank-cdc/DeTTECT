@@ -13,20 +13,20 @@ on:
         description: 'Format: v[version number]'
         required: true
 jobs:
-  skip_duplicate: # Prevent having the Docker image from building twice.
-                  # This will happen when dealing with a code change in the Editor.
-    runs-on: ubuntu-latest
-    outputs:
-      should_skip: ${{ steps.skip_check.outputs.should_skip }}
-    steps:
-        # Sleep for 5 minutes
-      - name: Sleep for 5 minutes
-        run: sleep 300
-        shell: bash
-      - id: skip_check
-        uses: fkirc/skip-duplicate-actions@master
-        with:
-          concurrent_skipping: 'outdated_runs'
+#  skip_duplicate: # Prevent having the Docker image from building twice.
+#                  # This will happen when dealing with a code change in the Editor.
+#    runs-on: ubuntu-latest
+#    outputs:
+#      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+#    steps:
+#        # Sleep for 5 minutes
+#      - name: Sleep for 5 minutes
+#        run: sleep 300
+#        shell: bash
+#      - id: skip_check
+#        uses: fkirc/skip-duplicate-actions@master
+#        with:
+#          concurrent_skipping: 'outdated_runs'
   build:
     needs: skip_duplicate
     if: ${{ needs.skip_duplicate.outputs.should_skip != 'true' }}
