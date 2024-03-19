@@ -70,5 +70,5 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm64
           pull: true
-          push: false
+          push: false # Test push
           tags: rabobankcdc/dettect:latest, ${{ env.version_tag }}
