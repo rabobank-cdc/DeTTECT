@@ -34,7 +34,7 @@ jobs:
     steps:
         # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.PERSONAL_TOKEN }}
           fetch-depth: 0
@@ -68,6 +68,7 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v2
         with:
+          platforms: linux/amd64,linux/arm64
           pull: true
           push: true
           tags: rabobankcdc/dettect:latest, ${{ env.version_tag }}
