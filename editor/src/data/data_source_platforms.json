@@ -451,42 +451,7 @@
     "Safety Instrumented System/Protection Relay": [],
     "None": []
   },
-  "ATT&CK-Mobile": {
-    "Android": [
-      "API Calls",
-      "Command Execution",
-      "Host Status",
-      "Network Communication",
-      "Network Connection Creation",
-      "Network Traffic Content",
-      "Network Traffic Flow",
-      "Permissions Request",
-      "Permissions Requests",
-      "Process Creation",
-      "Process Metadata",
-      "Process Termination",
-      "Protected Configuration",
-      "System Notifications",
-      "System Settings"
-    ],
-    "iOS": [
-      "API Calls",
-      "Command Execution",
-      "Host Status",
-      "Network Communication",
-      "Network Connection Creation",
-      "Network Traffic Content",
-      "Network Traffic Flow",
-      "Permissions Request",
-      "Permissions Requests",
-      "Process Creation",
-      "Process Metadata",
-      "Process Termination",
-      "Protected Configuration",
-      "System Notifications",
-      "System Settings"
-    ]
-  },
+  "ATT&CK-Mobile": {},
   "DeTT&CT-Mobile": {
     "Android": [],
     "iOS": []
