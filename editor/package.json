@@ -21,7 +21,7 @@
         "js-yaml": "^4.1.0",
         "lodash": "^4.17.21",
         "moment": "^2.29.1",
-        "node-sass": "^6.0.1",
+        "node-sass": "^7.0.1",
         "sass-loader": "^10.2.0",
         "vue": "^2.7.16",
         "vue-directive-tooltip": "^1.6.3",
