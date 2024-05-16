@@ -1,4 +1,4 @@
-FROM python:3.10-slim-bullseye
+FROM python:3.13-rc-slim-bookworm
 
 LABEL version="1.9.0"
 
