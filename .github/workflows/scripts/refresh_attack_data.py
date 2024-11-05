@@ -143,7 +143,7 @@ class ATTACKData():
         """
         with open(FILE_PATH_EDITOR_CONSTANTS, 'r') as f:
             data = f.read()
-            platforms_str = re.search(platforms_key + ': \[.+\]', data).group(0)
+            platforms_str = re.search(platforms_key + r': \[.+\]', data).group(0)
 
         platforms_str = platforms_str.replace("'", '"')
         platforms_str = '{' + platforms_str + '}'
@@ -333,7 +333,7 @@ class ATTACKData():
             id = self._get_attack_id(t, matrix)
             techniques.append({'technique_id': id,
                                'technique_name': t['name'],
-                               'platforms': sorted(t['x_mitre_platforms']),
+                               'platforms': ['None'] if 'x_mitre_platforms' not in t.keys() else sorted(t['x_mitre_platforms']),
                                'autosuggest': id + ' - ' + t['name']})
 
         techniques = sorted(techniques, key=lambda t: t['technique_id'])
