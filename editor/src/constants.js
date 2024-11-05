@@ -94,19 +94,18 @@ export default {
         comment: '',
         auto_generated: false
     },
-    PLATFORMS: ['all', 'PRE', 'Windows', 'macOS', 'Linux', 'Office 365', 'Azure AD', 'Google Workspace', 'SaaS', 'IaaS', 'Network', 'Containers'],
+    PLATFORMS: ['all', 'PRE', 'Windows', 'macOS', 'Linux', 'Office Suite', 'SaaS', 'IaaS', 'Network', 'Containers', 'Identity Provider'],
     PLATFORM_CONVERSION: {
         pre: 'PRE',
         windows: 'Windows',
         macos: 'macOS',
         linux: 'Linux',
-        'office 365': 'Office 365',
-        'azure ad': 'Azure AD',
-        'google workspace': 'Google Workspace',
+        'office suite': 'Office Suite',
         saas: 'SaaS',
         iaas: 'IaaS',
         network: 'Network',
-        containers: 'Containers'
+        containers: 'Containers',
+        'identity provider': 'Identity Provider'
     },
     PLATFORMS_ICS: ['all', 'Control Server', 'Data Historian', 'Device Configuration/Parameters', 'Engineering Workstation', 'Field Controller/RTU/PLC/IED', 'Human-Machine Interface', 'Input/Output Server', 'Safety Instrumented System/Protection Relay', 'None'],
     PLATFORM_CONVERSION_ICS: {'control server': 'Control Server', 'data historian': 'Data Historian', 'device configuration/parameters': 'Device Configuration/Parameters',
