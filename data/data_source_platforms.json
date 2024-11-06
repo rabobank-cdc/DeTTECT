@@ -395,12 +395,7 @@
       "Internal DNS [DeTT&CT data source]"
     ],
     "PRE": [],
-    "Office 365": [
-      "Web [DeTT&CT data source]",
-      "Email [DeTT&CT data source]"
-    ],
-    "Azure AD": [],
-    "Google Workspace": [
+    "Office Suite": [
       "Web [DeTT&CT data source]",
       "Email [DeTT&CT data source]"
     ],
@@ -415,7 +410,8 @@
     "Containers": [
       "Web [DeTT&CT data source]",
       "Internal DNS [DeTT&CT data source]"
-    ]
+    ],
+    "Identity Provider": []
   },
   "DeTT&CT-ICS": {
     "Control Server": [],

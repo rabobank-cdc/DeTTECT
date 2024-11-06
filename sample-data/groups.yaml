@@ -3,7 +3,7 @@ file_type: group-administration
 domain: enterprise-attack
 platform:
   - Windows
-  - Azure AD
+  - Identity Provider
 groups:
   - group_name: Red team
     campaign: Scenario 1

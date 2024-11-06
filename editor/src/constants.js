@@ -107,11 +107,8 @@ export default {
         containers: 'Containers',
         'identity provider': 'Identity Provider'
     },
-    PLATFORMS_ICS: ['all', 'Control Server', 'Data Historian', 'Device Configuration/Parameters', 'Engineering Workstation', 'Field Controller/RTU/PLC/IED', 'Human-Machine Interface', 'Input/Output Server', 'Safety Instrumented System/Protection Relay', 'None'],
-    PLATFORM_CONVERSION_ICS: {'control server': 'Control Server', 'data historian': 'Data Historian', 'device configuration/parameters': 'Device Configuration/Parameters',
-    'engineering workstation': 'Engineering Workstation', 'field controller/rtu/plc/ied': 'Field Controller/RTU/PLC/IED',
-    'human-machine interface': 'Human-Machine Interface', 'input/output server': 'Input/Output Server',
-    'safety instrumented system/protection relay': 'Safety Instrumented System/Protection Relay', 'none': 'None'},
+    PLATFORMS_ICS: ['None'],
+    PLATFORM_CONVERSION_ICS: {'none': 'None'},
     PLATFORMS_MOBILE: ['all', 'Android', 'iOS'],
     PLATFORM_CONVERSION_MOBILE: {'android': 'Android', 'ios': 'iOS'}
 };
