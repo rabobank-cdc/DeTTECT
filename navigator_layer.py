@@ -26,7 +26,7 @@ def _get_base_template(name, description, platform, sorting, domain, layer_setti
     layer['filters'] = {'platforms': platform}
     layer['sorting'] = sorting
     layer['layout'] = {"layout": "flat", "aggregateFunction": "sum",
-                       "showAggregateScores": True, "countUnscored": False,
+                       "showAggregateScores": False, "countUnscored": False,
                        "showName": True, "showID": False}
 
     # Override layout settings with settings that are given at the CLI:

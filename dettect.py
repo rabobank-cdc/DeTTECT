@@ -77,7 +77,7 @@ def _init_menu():
     parser_data_sources.add_argument('--layer-settings', help='specific settings for the Navigator layer. Supported settings: '
                                      + ', '.join(['%s=%s' % (k, '|'.join(v)) for k, v in LAYER_SETTINGS.items()]) +
                                      '. Multiple settings can be provided with extra --layer-settings'
-                                     ' arguments. Example: --layer-settings showAggregateScores=False',
+                                     ' arguments. Example: --layer-settings showAggregateScores=True',
                                      action='append')
 
     # create the visibility parser
@@ -122,7 +122,7 @@ def _init_menu():
     parser_visibility.add_argument('--layer-settings', help='specific settings for the Navigator layer. Supported settings: '
                                    + ', '.join(['%s=%s' % (k, '|'.join(v)) for k, v in LAYER_SETTINGS.items()]) +
                                    '. Multiple settings can be provided with extra --layer-settings'
-                                   ' arguments. Example: --layer-settings showAggregateScores=False',
+                                   ' arguments. Example: --layer-settings showAggregateScores=True',
                                    action='append')
 
     # create the detection parser
@@ -167,7 +167,7 @@ def _init_menu():
     parser_detection.add_argument('--layer-settings', help='specific settings for the Navigator layer. Supported settings: '
                                   + ', '.join(['%s=%s' % (k, '|'.join(v)) for k, v in LAYER_SETTINGS.items()]) +
                                   '. Multiple settings can be provided with extra --layer-settings'
-                                  ' arguments. Example: --layer-settings showAggregateScores=False',
+                                  ' arguments. Example: --layer-settings showAggregateScores=True',
                                   action='append')
 
     # create the group parser
@@ -236,7 +236,7 @@ def _init_menu():
     parser_group.add_argument('--layer-settings', help='specific settings for the Navigator layer. Supported settings: '
                               + ', '.join(['%s=%s' % (k, '|'.join(v)) for k, v in LAYER_SETTINGS.items()]) +
                               '. Multiple settings can be provided with extra --layer-settings'
-                              ' arguments. Example: --layer-settings showAggregateScores=False',
+                              ' arguments. Example: --layer-settings showAggregateScores=True',
                               action='append')
 
     # create the generic parser
