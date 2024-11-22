@@ -1,18 +1,17 @@
 import os
+import sys
 import pickle
 from datetime import datetime as dt
 from io import StringIO
 from ruamel.yaml import YAML
 from ruamel.yaml.timestamp import TimeStamp as ruamelTimeStamp
 from requests import exceptions
-from stix2 import datastore, Filter
+from stix2 import datastore
 from constants import *
 from upgrade import upgrade_yaml_file
 from health import check_yaml_file_health
-from stix2 import CompositeDataSource
+from attack_taxii_client import attack_client
 import dateutil.parser
-
-# Due to performance reasons the import of attackcti is within the function that makes use of this library.
 
 local_stix_path = None
 
@@ -53,7 +52,7 @@ def _convert_stix_techniques_to_dict(mitre, stix_attack_data):
     :return: list with dictionaries containing all techniques from the input stix_attack_data
     """
     # Get all data component objects
-    data_components = mitre.COMPOSITE_DS.query(Filter("type", "=", "x-mitre-data-component"))
+    data_components = mitre.get_data_components()
     dc_lookup = {dc['id']:dc for dc in data_components}
     
     # Get detects-relationships
@@ -146,12 +145,15 @@ def load_attack_data(data_type):
     :param data_type: the desired data type, see DATATYPE_XX constants.
     :return: MITRE ATT&CK data object (STIX or custom schema)
     """
-    from attackcti import attack_client
     if local_stix_path is not None:
         if local_stix_path is not None and os.path.isdir(os.path.join(local_stix_path, 'enterprise-attack')) \
                 and os.path.isdir(os.path.join(local_stix_path, 'ics-attack')) \
                 and os.path.isdir(os.path.join(local_stix_path, 'mobile-attack')):
-            mitre = attack_client(local_path=local_stix_path)
+            try:
+                mitre = attack_client(local_path=local_stix_path)
+            except Exception as ex:
+                print(f'[!] {ex}')
+                sys.exit(-1)
         else:
             print('[!] Not a valid local STIX path: ' + local_stix_path)
             quit()
@@ -174,7 +176,7 @@ def load_attack_data(data_type):
 
     attack_data = None
     if data_type == DATA_TYPE_STIX_ALL_RELATIONSHIPS:
-        attack_data = mitre.get_relationships()
+        attack_data = mitre.get_relationships(None)
     elif data_type == DATA_TYPE_STIX_ALL_TECH_ENTERPRISE:
         stix_attack_data = mitre.get_enterprise_techniques()
         attack_data = _convert_stix_techniques_to_dict(mitre, stix_attack_data)
@@ -268,22 +270,8 @@ def load_attack_data(data_type):
         # Fetch groups from each matrix separately and then merge them. This is because STIX will deduplicate items with the
         # same ID and modification date. Few groups are in multiple matrices and will end up in STIX collection as just one
         # item with only one of the matrices mentioned in x_mitre_domains field.
-        groups_enterprise = mitre.TC_ENTERPRISE_SOURCE.query(Filter("type", "=", "intrusion-set"))
-        groups_ics = mitre.TC_ICS_SOURCE.query(Filter("type", "=", "intrusion-set"))
-        groups_mobile = mitre.TC_MOBILE_SOURCE.query(Filter("type", "=", "intrusion-set"))
-
-        # Fix the x_mitre_domains field for ICS and Mobile. This information is not properly delivered when using the TAXII server.
-        # TODO: remove these lines when MITRE fixed this.
-        for g in groups_ics:
-            g['x_mitre_domains'].clear()
-            g['x_mitre_domains'].append('ics-attack')
-
-        for g in groups_mobile:
-            g['x_mitre_domains'].clear()
-            g['x_mitre_domains'].append('mobile-attack')
-
-        # Combine groups from all matrices together:
-        attack_data = _convert_stix_groups_to_dict(groups_enterprise + groups_ics + groups_mobile)
+        all_groups = mitre.get_groups()
+        attack_data = _convert_stix_groups_to_dict(all_groups)
 
     elif data_type == DATA_TYPE_STIX_ALL_CAMPAIGNS:
         campaigns = mitre.get_campaigns()

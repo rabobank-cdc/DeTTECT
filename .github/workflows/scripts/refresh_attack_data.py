@@ -8,7 +8,8 @@ from itertools import chain
 from logging import getLogger, ERROR as LOGERROR
 from stix2 import datastore, Filter
 from requests import exceptions
-from attackcti import attack_client
+sys.path.append(os.path.dirname(os.path.abspath(__file__).replace('.github/workflows/scripts', '')))
+from attack_taxii_client import attack_client
 
 getLogger("taxii2client").setLevel(LOGERROR)
 
@@ -482,13 +483,13 @@ class ATTACKData():
         :return: list of data source STIX objects
         """
         if matrix == MATRIX_ENTERPRISE:
-            data_sources = self.mitre.TC_ENTERPRISE_SOURCE.query(Filter("type", "=", "x-mitre-data-source"))
+            data_sources = self.mitre.get_enterprise_data_sources()
         elif matrix == MATRIX_ICS:
             # ICS data sources are not yet in CTI, so this will not work
-            data_sources = self.mitre.TC_ICS_SOURCE.query(Filter("type", "=", "x-mitre-data-source"))
+            data_sources = self.mitre.get_ics_data_sources()
         elif matrix == MATRIX_MOBILE:
             # Mobile data sources are not yet in CTI, so this will not work
-            data_sources = self.mitre.TC_MOBILE_SOURCE.query(Filter("type", "=", "x-mitre-data-source"))
+            data_sources = self.mitre.get_mobile_data_sources()
 
         return data_sources
 
@@ -499,11 +500,11 @@ class ATTACKData():
         :return: list of data component STIX objects
         """
         if matrix == MATRIX_ENTERPRISE:
-            data_components = self.mitre.TC_ENTERPRISE_SOURCE.query(Filter("type", "=", "x-mitre-data-component"))
+            data_components = self.mitre.get_enterprise_data_components()
         elif matrix == MATRIX_ICS:
-            data_components = self.mitre.TC_ICS_SOURCE.query(Filter("type", "=", "x-mitre-data-component"))
+            data_components = self.mitre.get_ics_data_components()
         elif matrix == MATRIX_MOBILE:
-            data_components = self.mitre.TC_MOBILE_SOURCE.query(Filter("type", "=", "x-mitre-data-component"))
+            data_components = self.mitre.get_mobile_data_components()
 
         return data_components
 
