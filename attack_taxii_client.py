@@ -173,3 +173,8 @@ class attack_client():
         data_components = self.composite_source.query(Filter("type", "=", "x-mitre-data-component"))
         data_components = self.remove_revoked_deprecated(data_components)
         return data_components
+
+    def get_enterprise_tactics(self):
+        enterprise_tactics = self.enterprise_source.query(Filter("type", "=", "x-mitre-tactic"))
+        enterprise_tactics = self.remove_revoked_deprecated(enterprise_tactics)
+        return enterprise_tactics
