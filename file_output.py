@@ -11,16 +11,21 @@ def _clean_filename(filename):
     return filename.replace('/', '').replace('\\', '').replace(':', '')[:200]
 
 
-def write_file(filename, content):
+def write_file(filename, overwrite_mode, content):
     """
     Writes content to a file and ensures if the file already exists it won't be overwritten by appending a number
     as suffix.
     :param filename: filename
+    :param overwrite_mode: defines whether we want to force overwriting existing file
     :param content: the content of the file that needs to be written to the file
     :return:
     """
     output_filename = 'output/%s' % _clean_filename(filename)
-    output_filename = get_non_existing_filename(output_filename, 'json')
+
+    if not overwrite_mode:
+        output_filename = get_non_existing_filename(output_filename, 'json')
+    else:
+        output_filename = f'{output_filename}.json'
 
     with open(output_filename, 'w') as f:
         f.write(content)

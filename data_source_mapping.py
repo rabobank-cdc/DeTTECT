@@ -196,11 +196,12 @@ def _get_technique_yaml_obj(techniques, tech_id):
             return tech
 
 
-def generate_data_sources_layer(filename, output_filename, layer_name, layer_settings):
+def generate_data_sources_layer(filename, output_filename, output_overwrite, layer_name, layer_settings):
     """
     Generates a generic layer for data sources.
     :param filename: the filename of the YAML file containing the data sources administration
     :param output_filename: the output filename defined by the user
+    :param output_overwrite: boolean flag indicating whether we're in overwrite mode
     :param layer_name: the name of the Navigator layer
     :param layer_settings: settings for the Navigator layer
     :return:
@@ -220,14 +221,15 @@ def generate_data_sources_layer(filename, output_filename, layer_name, layer_set
     json_string = simplejson.dumps(layer).replace('}, ', '},\n')
     if not output_filename:
         output_filename = create_output_filename('data_sources', name)
-    write_file(output_filename, json_string)
+    write_file(output_filename, output_overwrite, json_string)
 
 
-def plot_data_sources_graph(filename, output_filename):
+def plot_data_sources_graph(filename, output_filename, output_overwrite):
     """
     Generates a line graph which shows the improvements on numbers of data sources through time.
     :param filename: the filename of the YAML file containing the data sources administration
     :param output_filename: the output filename defined by the user
+    :param output_overwrite: boolean flag indicating whether we're in overwrite mode
     :return:
     """
     my_data_sources, name, _, _, _ = load_data_sources(filename)
@@ -247,7 +249,11 @@ def plot_data_sources_graph(filename, output_filename):
         output_filename = 'graph_data_sources'
     elif output_filename.endswith('.html'):
         output_filename = output_filename.replace('.html', '')
-    output_filename = get_non_existing_filename('output/' + output_filename, 'html')
+
+    if not overwrite_mode:
+        output_filename = get_non_existing_filename('output/' + output_filename, 'html')
+    else:
+        output_filename = f'output/{output_filename}.html'
 
     import plotly.graph_objs as go
     import plotly.offline as offline
@@ -259,23 +265,30 @@ def plot_data_sources_graph(filename, output_filename):
     print("File written:   " + output_filename)
 
 
-def export_data_source_list_to_excel(filename, output_filename, eql_search=False):
+def export_data_source_list_to_excel(filename, output_filename, output_overwrite, eql_search=False):
     """
     Makes an overview of all MITRE ATT&CK data sources (via techniques) and lists which data sources are present
     in the YAML administration including all properties and data quality score.
     :param filename: the filename of the YAML file containing the data sources administration
     :param output_filename: the output filename defined by the user
+    :param output_overwrite: boolean flag indicating whether we're in overwrite mode
     :param eql_search: specify if an EQL search was performed which may have resulted in missing ATT&CK data sources
     :return:
     """
     # pylint: disable=unused-variable
     my_data_sources, name, systems, _, domain = load_data_sources(filename, filter_empty_scores=False)
     my_data_sources = dict(sorted(my_data_sources.items(), key=lambda kv: kv[0], reverse=False))
+
     if not output_filename:
         output_filename = 'data_sources'
     elif output_filename.endswith('.xlsx'):
         output_filename = output_filename.replace('.xlsx', '')
-    excel_filename = get_non_existing_filename('output/' + output_filename, 'xlsx')
+
+    if not overwrite_mode:
+        excel_filename = get_non_existing_filename('output/' + output_filename, 'xlsx')
+    else:
+        excel_filename = f'output/{output_filename}.xlsx'
+
     workbook = xlsxwriter.Workbook(excel_filename)
     worksheet = workbook.add_worksheet('Data sources')
 
@@ -868,11 +881,12 @@ def update_technique_administration_file(file_data_sources, file_tech_admin):
 # pylint: disable=redefined-outer-name
 
 
-def generate_technique_administration_file(filename, output_filename, write_file=True, all_techniques=False):
+def generate_technique_administration_file(filename, output_filename, output_overwrite, write_file=True, all_techniques=False):
     """
     Generate a technique administration file based on the data source administration YAML file
     :param filename: the filename of the YAML file containing the data sources administration
     :param output_filename: the output filename defined by the user
+    :param output_overwrite: boolean flag indicating whether we're in overwrite mode
     :param write_file: by default the file is written to disk
     :param all_techniques: include all ATT&CK techniques in the generated YAML file that are applicable to the
     platform(s) specified in the data source YAML file
@@ -985,7 +999,12 @@ def generate_technique_administration_file(filename, output_filename, write_file
             output_filename = 'techniques-administration-' + normalize_name_to_filename(name)
         elif output_filename.endswith('.yaml'):
             output_filename = output_filename.replace('.yaml', '')
-        output_filename = get_non_existing_filename('output/' + output_filename, 'yaml')
+
+        if not overwrite_mode:
+            output_filename = get_non_existing_filename(f'output/{output_filename}', 'yaml')
+        else:
+            output_filename = f'output/{output_filename}.yaml'
+
         with open(output_filename, 'w') as f:
             f.writelines(yaml_file_lines)
         print("File written:   " + output_filename)
