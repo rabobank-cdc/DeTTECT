@@ -37,7 +37,6 @@ jobs:
       - name: Refresh ATT&CK data (JSON files and Wiki)
         working-directory: ./.github/workflows/scripts
         run: |
-          ls
           python refresh_attack_data.py --local-stix-path /home/runner/work/DeTTECT/DeTTECT/attack-stix-data
 
       - name: Wiki - check for changes
