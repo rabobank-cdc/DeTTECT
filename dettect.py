@@ -70,6 +70,8 @@ def _init_menu():
                                                             'scores are calculated in the same way as with the option: '
                                                             '-y, --yaml', action='store_true')
     parser_data_sources.add_argument('-of', '--output-filename', help='set the output filename')
+    parser_data_sources.add_argument('--force-overwrite', help='force overwriting the output file if it already exists',
+                                     action='store_true')
     parser_data_sources.add_argument('-ln', '--layer-name', help='set the name of the Navigator layer')
     parser_data_sources.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
     parser_data_sources.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
@@ -109,6 +111,8 @@ def _init_menu():
     parser_visibility.add_argument('-g', '--graph', help='generate a graph with visibility added through time',
                                    action='store_true')
     parser_visibility.add_argument('-of', '--output-filename', help='set the output filename')
+    parser_visibility.add_argument('--force-overwrite', help='force overwriting the output file if it already exists',
+                                     action='store_true')
     parser_visibility.add_argument('-ln', '--layer-name', help='set the name of the Navigator layer')
     parser_visibility.add_argument('-cd', '--count-detections', help='Show the number of detections instead of listing '
                                    'all detection locations in Layer metadata (when using '
@@ -155,6 +159,8 @@ def _init_menu():
     parser_detection.add_argument('-g', '--graph', help='generate a graph with detections added through time',
                                   action='store_true')
     parser_detection.add_argument('-of', '--output-filename', help='set the output filename')
+    parser_detection.add_argument('--force-overwrite', help='force overwriting the output file if it already exists',
+                                     action='store_true')
     parser_detection.add_argument('-ln', '--layer-name', help='set the name of the Navigator layer')
     parser_detection.add_argument('-cd', '--count-detections', help='Show the number of detections instead of listing '
                                                                     'all detection locations in Layer metadata. Location '
@@ -224,6 +230,8 @@ def _init_menu():
                                                    'most recent \'score\' objects',
                               action='store_true', default=False)
     parser_group.add_argument('-of', '--output-filename', help='set the output filename')
+    parser_group.add_argument('--force-overwrite', help='force overwriting the output file if it already exists',
+                                     action='store_true')
     parser_group.add_argument('-ln', '--layer-name', help='set the name of the Navigator layer')
     parser_group.add_argument('-cd', '--count-detections', help='Show the number of detections instead of listing '
                               'all detection locations in Layer metadata (when using an overlay with detection). Location '
@@ -301,13 +309,13 @@ def _menu(menu_parser):
             if args.update and check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
                 update_technique_administration_file(file_ds, args.file_tech)
             if args.layer:
-                generate_data_sources_layer(file_ds, args.output_filename, args.layer_name, layer_settings)
+                generate_data_sources_layer(file_ds, args.output_filename, args.force_overwrite, args.layer_name, layer_settings)
             if args.excel:
-                export_data_source_list_to_excel(file_ds, args.output_filename, eql_search=args.search)
+                export_data_source_list_to_excel(file_ds, args.output_filename, args.force_overwrite, eql_search=args.search)
             if args.graph:
-                plot_data_sources_graph(file_ds, args.output_filename)
+                plot_data_sources_graph(file_ds, args.output_filename, args.force_overwrite)
             if args.yaml:
-                generate_technique_administration_file(file_ds, args.output_filename, all_techniques=args.yaml_all_techniques)
+                generate_technique_administration_file(file_ds, args.output_filename, args.force_overwrite, all_techniques=args.yaml_all_techniques)
 
     elif args.subparser in ['visibility', 'v']:
         if check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
@@ -323,22 +331,22 @@ def _menu(menu_parser):
                 if not file_tech:
                     quit()  # something went wrong in executing the search or 0 results where returned
             if args.layer:
-                generate_visibility_layer(file_tech, False, args.output_filename, args.layer_name,
+                generate_visibility_layer(file_tech, False, args.output_filename, args.force_overwrite, args.layer_name,
                                           layer_settings, args.platform, args.count_detections)
             if args.overlay:
-                generate_visibility_layer(file_tech, True, args.output_filename, args.layer_name,
+                generate_visibility_layer(file_tech, True, args.output_filename, args.force_overwrite, args.layer_name,
                                           layer_settings, args.platform, args.count_detections)
             if args.graph:
-                plot_graph(file_tech, 'visibility', args.output_filename)
+                plot_graph(file_tech, 'visibility', args.output_filename, args.force_overwrite)
             if args.excel:
-                export_techniques_list_to_excel(file_tech, args.output_filename)
+                export_techniques_list_to_excel(file_tech, args.output_filename, args.force_overwrite)
 
     # TODO add Group EQL search capabilities
     elif args.subparser in ['group', 'g']:
         layer_settings = _parse_layer_settings(args.layer_settings)
         generate_group_heat_map(args.groups, args.campaigns, args.overlay, args.overlay_type, args.platform,
                                 args.software, args.include_software, args.search_visibility, args.search_detection, args.health,
-                                args.output_filename, args.layer_name, args.domain, layer_settings,
+                                args.output_filename, args.force_overwrite, args.layer_name, args.domain, layer_settings,
                                 args.all_scores, args.count_detections)
 
     elif args.subparser in ['detection', 'd']:
@@ -355,14 +363,15 @@ def _menu(menu_parser):
                 if not file_tech:
                     quit()  # something went wrong in executing the search or 0 results where returned
             if args.layer:
-                generate_detection_layer(file_tech, False, args.output_filename, args.layer_name,
+                generate_detection_layer(file_tech, False, args.output_filename, args.force_overwrite, args.layer_name,
                                          layer_settings, args.platform, args.count_detections)
             if args.overlay:
-                generate_detection_layer(file_tech, True, args.output_filename, args.layer_name, layer_settings, args.platform, args.count_detections)
+                generate_detection_layer(file_tech, True, args.output_filename, args.force_overwrite, args.layer_name,
+                                         layer_settings, args.platform, args.count_detections)
             if args.graph:
-                plot_graph(file_tech, 'detection', args.output_filename)
+                plot_graph(file_tech, 'detection', args.output_filename, args.force_overwrite)
             if args.excel:
-                export_techniques_list_to_excel(file_tech, args.output_filename)
+                export_techniques_list_to_excel(file_tech, args.output_filename, args.force_overwrite)
 
     elif args.subparser in ['generic', 'ge']:
         if args.datasources:

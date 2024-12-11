@@ -28,7 +28,7 @@ def _set_platform(platform_yaml, platform_args, domain):
     return platform
 
 
-def _write_layer(layer, mapped_techniques, filename_prefix, name, output_filename):
+def _write_layer(layer, mapped_techniques, filename_prefix, name, output_filename, output_overwrite):
     """
     Writes the json layer file to disk.
     :param layer: the prepped layer dictionary
@@ -36,6 +36,7 @@ def _write_layer(layer, mapped_techniques, filename_prefix, name, output_filenam
     :param filename_prefix: the prefix for the output filename
     :param name: the name that will be used in the filename together with the prefix
     :param output_filename: the output filename defined by the user
+    :param output_overwrite: boolean flag indicating whether we're in overwrite mode
     :return:
     """
     layer['techniques'] = mapped_techniques
@@ -47,7 +48,7 @@ def _write_layer(layer, mapped_techniques, filename_prefix, name, output_filenam
             output_filename = output_filename.replace('.json', '')
         if filename_prefix == 'visibility_and_detection':
             output_filename += '_overlay'
-    write_file(output_filename, json_string)
+    write_file(output_filename, output_overwrite, json_string)
 
 
 def _map_and_colorize_techniques_for_detections(my_techniques, domain, count_detections, layer_settings):
@@ -327,13 +328,14 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, platforms, domain, 
     return mapped_techniques
 
 
-def generate_detection_layer(filename_techniques, overlay, output_filename, layer_name, layer_settings, platform, count_detections):
+def generate_detection_layer(filename_techniques, overlay, output_filename, output_overwrite, layer_name, layer_settings, platform, count_detections):
     """
     Generates layer for detection coverage and optionally an overlaid version with visibility coverage.
     :param filename_techniques: the filename of the YAML file containing the techniques administration
     :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
     :param layer_name: the name of the Navigator layer
     :param output_filename: the output filename defined by the user
+    :param output_overwrite: boolean flag indicating whether we're in overwrite mode
     :param layer_settings: settings for the Navigator layer
     :param platform: one or multiple values from PLATFORMS constant
     :param count_detections: option for the Navigator layer output: count detections instead of listing detections
@@ -347,21 +349,22 @@ def generate_detection_layer(filename_techniques, overlay, output_filename, laye
         if not layer_name:
             layer_name = 'Detections ' + name
         layer_detection = get_layer_template_detections(layer_name, 'description', platform, domain, layer_settings)
-        _write_layer(layer_detection, mapped_techniques_detection, 'detection', name, output_filename)
+        _write_layer(layer_detection, mapped_techniques_detection, 'detection', name, output_filename, output_overwrite)
     else:
         mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, platform, domain, count_detections, layer_settings)
         if not layer_name:
             layer_name = 'Visibility and Detection ' + name
         layer_both = get_layer_template_layered(layer_name, 'description', platform, domain, layer_settings)
-        _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name, output_filename)
+        _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name, output_filename, output_overwrite)
 
 
-def generate_visibility_layer(filename_techniques, overlay, output_filename, layer_name, layer_settings, platform, count_detections):
+def generate_visibility_layer(filename_techniques, overlay, output_filename, output_overwrite, layer_name, layer_settings, platform, count_detections):
     """
     Generates layer for visibility coverage and optionally an overlaid version with detection coverage.
     :param filename_techniques: the filename of the YAML file containing the techniques administration
     :param overlay: boolean value to specify if an overlay between detection and visibility should be generated
     :param output_filename: the output filename defined by the user
+    :param output_overwrite: boolean flag indicating whether we're in overwrite mode
     :param layer_name: the name of the Navigator layer
     :param layer_settings: settings for the Navigator layer
     :param platform: one or multiple values from PLATFORMS constant
@@ -376,21 +379,22 @@ def generate_visibility_layer(filename_techniques, overlay, output_filename, lay
         if not layer_name:
             layer_name = 'Visibility ' + name
         layer_visibility = get_layer_template_visibility(layer_name, 'description', platform, domain, layer_settings)
-        _write_layer(layer_visibility, mapped_techniques_visibility, 'visibility', name, output_filename)
+        _write_layer(layer_visibility, mapped_techniques_visibility, 'visibility', name, output_filename, output_overwrite)
     else:
         mapped_techniques_both = _map_and_colorize_techniques_for_overlaid(my_techniques, platform, domain, count_detections, layer_settings)
         if not layer_name:
             layer_name = 'Visibility and Detection ' + name
         layer_both = get_layer_template_layered(layer_name, 'description', platform, domain, layer_settings)
-        _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name, output_filename)
+        _write_layer(layer_both, mapped_techniques_both, 'visibility_and_detection', name, output_filename, output_overwrite)
 
 
-def plot_graph(filename, type_graph, output_filename):
+def plot_graph(filename, type_graph, output_filename, output_overwrite):
     """
     Generates a line graph which shows the improvements on detections or visibility through time.
     :param filename: the filename of the YAML file containing the techniques administration
     :param type_graph: indicates the type of the graph: detection or visibility
     :param output_filename: the output filename defined by the user
+    :param output_overwrite: boolean flag indicating whether we're in overwrite mode
     :return:
     """
     my_techniques, name, _, _ = load_techniques(filename)
@@ -412,7 +416,11 @@ def plot_graph(filename, type_graph, output_filename):
         output_filename = 'graph_' + type_graph
     elif output_filename.endswith('.html'):
         output_filename = output_filename.replace('.html', '')
-    output_filename = get_non_existing_filename('output/' + output_filename, 'html')
+
+    if not output_overwrite:
+        output_filename = get_non_existing_filename('output/' + output_filename, 'html')
+    else:
+        output_filename = use_existing_filename('output/' + output_filename, 'html')
 
     import plotly
     import plotly.graph_objs as go
@@ -424,11 +432,12 @@ def plot_graph(filename, type_graph, output_filename):
     print("File written:   " + output_filename)
 
 
-def export_techniques_list_to_excel(filename, output_filename):
+def export_techniques_list_to_excel(filename, output_filename, output_overwrite):
     """
     Makes an overview of the MITRE ATT&CK techniques from the YAML administration file.
     :param filename: the filename of the YAML file containing the techniques administration
     :param output_filename: the output filename defined by the user
+    :param output_overwrite: boolean flag indicating whether we're in overwrite mode
     :return:
     """
     # pylint: disable=unused-variable
@@ -441,7 +450,12 @@ def export_techniques_list_to_excel(filename, output_filename):
         output_filename = 'techniques'
     elif output_filename.endswith('.xlsx'):
         output_filename = output_filename.replace('.xlsx', '')
-    excel_filename = get_non_existing_filename('output/' + output_filename, 'xlsx')
+
+    if not output_overwrite:
+        excel_filename = get_non_existing_filename('output/' + output_filename, 'xlsx')
+    else:
+        excel_filename = use_existing_filename('output/' + output_filename, 'xlsx')
+
     workbook = xlsxwriter.Workbook(excel_filename)
     worksheet_detections = workbook.add_worksheet('Detections')
     worksheet_visibility = workbook.add_worksheet('Visibility')
