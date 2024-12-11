@@ -604,8 +604,8 @@ def _get_group_list(groups, file_type):
 
 
 def generate_group_heat_map(groups, campaigns, overlay, overlay_type, platform, overlay_software, include_software,
-                            search_visibility, search_detection, health_is_called, output_filename, layer_name, domain,
-                            layer_settings, include_all_score_objs, count_detections):
+                            search_visibility, search_detection, health_is_called, output_filename, output_overwrite,
+                            layer_name, domain, layer_settings, include_all_score_objs, count_detections):
     """
     Calls all functions that are necessary for the generation of the heat map and write a json layer to disk.
     :param groups: threat actor groups
@@ -620,6 +620,7 @@ def generate_group_heat_map(groups, campaigns, overlay, overlay_type, platform, 
     :param search_detection: detection EQL search query
     :param health_is_called: boolean that specifies if detailed errors in the file will be printed
     :param output_filename: output filename defined by the user
+    :param output_overwrite: boolean flag indicating whether we're in overwrite mode
     :param layer_name: the name of the Navigator layer
     :param domain: the specified domain
     :param layer_settings: settings for the Navigator layer
@@ -800,6 +801,6 @@ def generate_group_heat_map(groups, campaigns, overlay, overlay_type, platform, 
             filename += '-overlay_' + '_'.join(overlay_list)
 
         filename = create_output_filename('attack', filename)
-        write_file(filename, json_string)
+        write_file(filename, output_overwrite, json_string)
     else:
-        write_file(output_filename, json_string)
+        write_file(output_filename, output_overwrite, json_string)

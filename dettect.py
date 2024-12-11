@@ -230,6 +230,8 @@ def _init_menu():
                                                    'most recent \'score\' objects',
                               action='store_true', default=False)
     parser_group.add_argument('-of', '--output-filename', help='set the output filename')
+    parser_group.add_argument('--force-overwrite', help='force overwriting the output file if it already exists',
+                                     action='store_true')
     parser_group.add_argument('-ln', '--layer-name', help='set the name of the Navigator layer')
     parser_group.add_argument('-cd', '--count-detections', help='Show the number of detections instead of listing '
                               'all detection locations in Layer metadata (when using an overlay with detection). Location '
@@ -294,7 +296,6 @@ def _menu(menu_parser):
         if check_file(args.file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION, args.health):
             layer_settings = _parse_layer_settings(args.layer_settings)
             file_ds = args.file_ds
-            output_overwrite = args.force_overwrite
 
             if args.applicable_to:
                 eql_search = get_eql_applicable_to_query(args.applicable_to, file_ds, FILE_TYPE_DATA_SOURCE_ADMINISTRATION)
@@ -308,19 +309,18 @@ def _menu(menu_parser):
             if args.update and check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
                 update_technique_administration_file(file_ds, args.file_tech)
             if args.layer:
-                generate_data_sources_layer(file_ds, args.output_filename, output_overwrite, args.layer_name, layer_settings)
+                generate_data_sources_layer(file_ds, args.output_filename, args.force_overwrite, args.layer_name, layer_settings)
             if args.excel:
-                export_data_source_list_to_excel(file_ds, args.output_filename, output_overwrite, eql_search=args.search)
+                export_data_source_list_to_excel(file_ds, args.output_filename, args.force_overwrite, eql_search=args.search)
             if args.graph:
-                plot_data_sources_graph(file_ds, args.output_filename, output_overwrite)
+                plot_data_sources_graph(file_ds, args.output_filename, args.force_overwrite)
             if args.yaml:
-                generate_technique_administration_file(file_ds, args.output_filename, output_overwrite, all_techniques=args.yaml_all_techniques)
+                generate_technique_administration_file(file_ds, args.output_filename, args.force_overwrite, all_techniques=args.yaml_all_techniques)
 
     elif args.subparser in ['visibility', 'v']:
         if check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
             layer_settings = _parse_layer_settings(args.layer_settings)
             file_tech = args.file_tech
-            output_overwrite = args.force_overwrite
 
             if args.platform:
                 if not check_platform(args.platform, filename=file_tech):
@@ -331,29 +331,28 @@ def _menu(menu_parser):
                 if not file_tech:
                     quit()  # something went wrong in executing the search or 0 results where returned
             if args.layer:
-                generate_visibility_layer(file_tech, False, args.output_filename, output_overwrite, args.layer_name,
+                generate_visibility_layer(file_tech, False, args.output_filename, args.force_overwrite, args.layer_name,
                                           layer_settings, args.platform, args.count_detections)
             if args.overlay:
-                generate_visibility_layer(file_tech, True, args.output_filename, output_overwrite, args.layer_name,
+                generate_visibility_layer(file_tech, True, args.output_filename, args.force_overwrite, args.layer_name,
                                           layer_settings, args.platform, args.count_detections)
             if args.graph:
-                plot_graph(file_tech, 'visibility', args.output_filename, output_overwrite)
+                plot_graph(file_tech, 'visibility', args.output_filename, args.force_overwrite)
             if args.excel:
-                export_techniques_list_to_excel(file_tech, args.output_filename, output_overwrite)
+                export_techniques_list_to_excel(file_tech, args.output_filename, args.force_overwrite)
 
     # TODO add Group EQL search capabilities
     elif args.subparser in ['group', 'g']:
         layer_settings = _parse_layer_settings(args.layer_settings)
         generate_group_heat_map(args.groups, args.campaigns, args.overlay, args.overlay_type, args.platform,
                                 args.software, args.include_software, args.search_visibility, args.search_detection, args.health,
-                                args.output_filename, args.layer_name, args.domain, layer_settings,
+                                args.output_filename, args.force_overwrite, args.layer_name, args.domain, layer_settings,
                                 args.all_scores, args.count_detections)
 
     elif args.subparser in ['detection', 'd']:
         if check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
             layer_settings = _parse_layer_settings(args.layer_settings)
             file_tech = args.file_tech
-            output_overwrite = args.force_overwrite
 
             if args.platform:
                 if not check_platform(args.platform, filename=file_tech):
@@ -364,15 +363,15 @@ def _menu(menu_parser):
                 if not file_tech:
                     quit()  # something went wrong in executing the search or 0 results where returned
             if args.layer:
-                generate_detection_layer(file_tech, False, args.output_filename, output_overwrite, args.layer_name,
+                generate_detection_layer(file_tech, False, args.output_filename, args.force_overwrite, args.layer_name,
                                          layer_settings, args.platform, args.count_detections)
             if args.overlay:
-                generate_detection_layer(file_tech, True, args.output_filename, output_overwrite, args.layer_name,
+                generate_detection_layer(file_tech, True, args.output_filename, args.force_overwrite, args.layer_name,
                                          layer_settings, args.platform, args.count_detections)
             if args.graph:
-                plot_graph(file_tech, 'detection', args.output_filename, output_overwrite)
+                plot_graph(file_tech, 'detection', args.output_filename, args.force_overwrite)
             if args.excel:
-                export_techniques_list_to_excel(file_tech, args.output_filename, output_overwrite)
+                export_techniques_list_to_excel(file_tech, args.output_filename, args.force_overwrite)
 
     elif args.subparser in ['generic', 'ge']:
         if args.datasources:

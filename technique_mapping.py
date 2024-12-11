@@ -417,7 +417,7 @@ def plot_graph(filename, type_graph, output_filename, output_overwrite):
     elif output_filename.endswith('.html'):
         output_filename = output_filename.replace('.html', '')
 
-    if not overwrite_mode:
+    if not output_overwrite:
         output_filename = get_non_existing_filename('output/' + output_filename, 'html')
     else:
         output_filename = use_existing_filename('output/' + output_filename, 'html')
@@ -451,7 +451,7 @@ def export_techniques_list_to_excel(filename, output_filename, output_overwrite)
     elif output_filename.endswith('.xlsx'):
         output_filename = output_filename.replace('.xlsx', '')
 
-    if not overwrite_mode:
+    if not output_overwrite:
         excel_filename = get_non_existing_filename('output/' + output_filename, 'xlsx')
     else:
         excel_filename = use_existing_filename('output/' + output_filename, 'xlsx')

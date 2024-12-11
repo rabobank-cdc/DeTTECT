@@ -250,7 +250,7 @@ def plot_data_sources_graph(filename, output_filename, output_overwrite):
     elif output_filename.endswith('.html'):
         output_filename = output_filename.replace('.html', '')
 
-    if not overwrite_mode:
+    if not output_overwrite:
         output_filename = get_non_existing_filename('output/' + output_filename, 'html')
     else:
         output_filename = use_existing_filename('output/' + output_filename, 'html')
@@ -284,7 +284,7 @@ def export_data_source_list_to_excel(filename, output_filename, output_overwrite
     elif output_filename.endswith('.xlsx'):
         output_filename = output_filename.replace('.xlsx', '')
 
-    if not overwrite_mode:
+    if not output_overwrite:
         excel_filename = get_non_existing_filename('output/' + output_filename, 'xlsx')
     else:
         excel_filename = use_existing_filename('output/' + output_filename, 'xlsx')
@@ -1000,7 +1000,7 @@ def generate_technique_administration_file(filename, output_filename, output_ove
         elif output_filename.endswith('.yaml'):
             output_filename = output_filename.replace('.yaml', '')
 
-        if not overwrite_mode:
+        if not output_overwrite:
             output_filename = get_non_existing_filename(f'output/{output_filename}', 'yaml')
         else:
             output_filename = use_existing_filename(f'output/{output_filename}', 'yaml')
