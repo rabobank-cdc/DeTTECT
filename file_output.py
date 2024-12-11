@@ -86,14 +86,9 @@ def use_existing_filename(filename, extension):
     :param extension: input extension
     :return: filename and extension, without duplicating extensions
     """
-    # Split the filename into name and extension
-    base, ext = os.path.splitext(filename)
-
-    if not ext:  # If no extension
-        output_filename = f"{filename}.{extension}"
-    else:  # If extension exists
-        output_filename = filename
-
+    if filename.endswith('.' + extension):
+        filename = filename.replace('.' + extension, '')
+    output_filename = '%s.%s' % (filename, extension)
     return output_filename
 
 
