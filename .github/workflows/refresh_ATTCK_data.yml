@@ -33,7 +33,7 @@ jobs:
         run: |
           cd ..
           git clone https://github.com/mitre-attack/attack-stix-data.git
-          cd DeTT&CT
+          cd DeTTECT
           python refresh_attack_data.py --local-stix-path ../attack-stix-data
 
       - name: Wiki - check for changes
