@@ -31,9 +31,10 @@ jobs:
       - name: Refresh ATT&CK data (JSON files and Wiki)
         working-directory: ./.github/workflows/scripts
         run: |
+          currpwd=`pwd`
           cd ..
           git clone https://github.com/mitre-attack/attack-stix-data.git
-          cd DeTTECT
+          cd $currpwd
           python refresh_attack_data.py --local-stix-path ../attack-stix-data
 
       - name: Wiki - check for changes
