@@ -11,16 +11,21 @@ def _clean_filename(filename):
     return filename.replace('/', '').replace('\\', '').replace(':', '')[:200]
 
 
-def write_file(filename, content):
+def write_file(filename, overwrite_mode, content):
     """
     Writes content to a file and ensures if the file already exists it won't be overwritten by appending a number
     as suffix.
     :param filename: filename
+    :param overwrite_mode: defines whether we want to force overwriting existing file
     :param content: the content of the file that needs to be written to the file
     :return:
     """
     output_filename = 'output/%s' % _clean_filename(filename)
-    output_filename = get_non_existing_filename(output_filename, 'json')
+
+    if not overwrite_mode:
+        output_filename = get_non_existing_filename(output_filename, 'json')
+    else:
+        output_filename = use_existing_filename(output_filename, 'json')
 
     with open(output_filename, 'w') as f:
         f.write(content)
@@ -57,9 +62,9 @@ def create_output_filename(filename_prefix, filename):
 def get_non_existing_filename(filename, extension):
     """
     Generates a filename that doesn't exist based on the given filename by appending a number as suffix.
-    :param filename:
-    :param extension:
-    :return:
+    :param filename: input filename
+    :param extension: input extension
+    :return: unique filename
     """
     if filename.endswith('.' + extension):
         filename = filename.replace('.' + extension, '')
@@ -70,6 +75,20 @@ def get_non_existing_filename(filename, extension):
         output_filename = '%s_%s.%s' % (filename, suffix, extension)
     else:
         output_filename = '%s.%s' % (filename, extension)
+    return output_filename
+
+
+def use_existing_filename(filename, extension):
+    """
+    Generates a filename that preserves the file extension if present.
+    If no extension is present, adds the provided extension.
+    :param filename: input filename
+    :param extension: input extension
+    :return: filename and extension, without duplicating extensions
+    """
+    if filename.endswith('.' + extension):
+        filename = filename.replace('.' + extension, '')
+    output_filename = '%s.%s' % (filename, extension)
     return output_filename
 
 
