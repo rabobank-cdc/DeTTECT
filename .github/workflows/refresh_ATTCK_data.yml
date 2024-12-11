@@ -38,7 +38,7 @@ jobs:
         working-directory: ./.github/workflows/scripts
         run: |
           ls
-          python refresh_attack_data.py --local-stix-path attack-stix-data/attack-stix-data
+          python refresh_attack_data.py --local-stix-path /home/runner/work/DeTTECT/DeTTECT/attack-stix-data
 
       - name: Wiki - check for changes
         id: changeswiki
