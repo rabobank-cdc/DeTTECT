@@ -253,7 +253,7 @@ def plot_data_sources_graph(filename, output_filename, output_overwrite):
     if not overwrite_mode:
         output_filename = get_non_existing_filename('output/' + output_filename, 'html')
     else:
-        output_filename = f'output/{output_filename}.html'
+        output_filename = use_existing_filename('output/' + output_filename, 'html')
 
     import plotly.graph_objs as go
     import plotly.offline as offline
@@ -287,7 +287,7 @@ def export_data_source_list_to_excel(filename, output_filename, output_overwrite
     if not overwrite_mode:
         excel_filename = get_non_existing_filename('output/' + output_filename, 'xlsx')
     else:
-        excel_filename = f'output/{output_filename}.xlsx'
+        excel_filename = use_existing_filename('output/' + output_filename, 'xlsx')
 
     workbook = xlsxwriter.Workbook(excel_filename)
     worksheet = workbook.add_worksheet('Data sources')
@@ -1003,7 +1003,7 @@ def generate_technique_administration_file(filename, output_filename, output_ove
         if not overwrite_mode:
             output_filename = get_non_existing_filename(f'output/{output_filename}', 'yaml')
         else:
-            output_filename = f'output/{output_filename}.yaml'
+            output_filename = use_existing_filename(f'output/{output_filename}', 'yaml')
 
         with open(output_filename, 'w') as f:
             f.writelines(yaml_file_lines)

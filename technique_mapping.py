@@ -420,7 +420,7 @@ def plot_graph(filename, type_graph, output_filename, output_overwrite):
     if not overwrite_mode:
         output_filename = get_non_existing_filename('output/' + output_filename, 'html')
     else:
-        output_filename = f'output/{output_filename}.html'
+        output_filename = use_existing_filename('output/' + output_filename, 'html')
 
     import plotly
     import plotly.graph_objs as go
@@ -454,7 +454,7 @@ def export_techniques_list_to_excel(filename, output_filename, output_overwrite)
     if not overwrite_mode:
         excel_filename = get_non_existing_filename('output/' + output_filename, 'xlsx')
     else:
-        excel_filename = f'output/{output_filename}.xlsx'
+        excel_filename = use_existing_filename('output/' + output_filename, 'xlsx')
 
     workbook = xlsxwriter.Workbook(excel_filename)
     worksheet_detections = workbook.add_worksheet('Detections')

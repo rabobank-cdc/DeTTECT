@@ -25,7 +25,7 @@ def write_file(filename, overwrite_mode, content):
     if not overwrite_mode:
         output_filename = get_non_existing_filename(output_filename, 'json')
     else:
-        output_filename = f'{output_filename}.json'
+        output_filename = use_existing_filename(output_filename, 'json')
 
     with open(output_filename, 'w') as f:
         f.write(content)
@@ -62,9 +62,9 @@ def create_output_filename(filename_prefix, filename):
 def get_non_existing_filename(filename, extension):
     """
     Generates a filename that doesn't exist based on the given filename by appending a number as suffix.
-    :param filename:
-    :param extension:
-    :return:
+    :param filename: input filename
+    :param extension: input extension
+    :return: unique filename
     """
     if filename.endswith('.' + extension):
         filename = filename.replace('.' + extension, '')
@@ -75,6 +75,25 @@ def get_non_existing_filename(filename, extension):
         output_filename = '%s_%s.%s' % (filename, suffix, extension)
     else:
         output_filename = '%s.%s' % (filename, extension)
+    return output_filename
+
+
+def use_existing_filename(filename, extension):
+    """
+    Generates a filename that preserves the file extension if present.
+    If no extension is present, adds the provided extension.
+    :param filename: input filename
+    :param extension: input extension
+    :return: filename and extension, without duplicating extensions
+    """
+    # Split the filename into name and extension
+    base, ext = os.path.splitext(filename)
+
+    if not ext:  # If no extension
+        output_filename = f"{filename}.{extension}"
+    else:  # If extension exists
+        output_filename = filename
+
     return output_filename
 
 
