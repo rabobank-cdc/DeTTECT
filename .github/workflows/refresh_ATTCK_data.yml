@@ -17,6 +17,12 @@ jobs:
           token: ${{ secrets.PERSONAL_TOKEN }}
           repository: ${{github.repository}}.wiki
           path: wiki
+      
+      - name: Clone STIX repo
+        uses: actions/checkout@v3
+        with:
+          repository: mitre-attack/attack-stix-data
+          path: attack-stix-data
 
       - name: Set up Python 3.10
         uses: actions/setup-python@v2
@@ -31,8 +37,8 @@ jobs:
       - name: Refresh ATT&CK data (JSON files and Wiki)
         working-directory: ./.github/workflows/scripts
         run: |
-          git clone https://github.com/mitre-attack/attack-stix-data.git
-          python refresh_attack_data.py --local-stix-path attack-stix-data
+          python refresh_attack_data.py --local-stix-path /home/runner/work/DeTTECT/DeTTECT/attack-stix-data
+          rm -rf /home/runner/work/DeTTECT/DeTTECT/attack-stix-data
 
       - name: Wiki - check for changes
         id: changeswiki
