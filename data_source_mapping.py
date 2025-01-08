@@ -142,8 +142,8 @@ def _map_and_colorize_techniques(my_ds, systems, exceptions, domain, layer_setti
 
                         d['metadata'].append({'name': 'Applicable to', 'value': system['applicable_to']})
 
-                        app_data_sources = get_applicable_data_sources_technique(
-                            t['data_components'], get_applicable_data_sources_platform(system['platform'], domain))
+                        app_data_sources = sorted(get_applicable_data_sources_technique(
+                            t['data_components'], get_applicable_data_sources_platform(system['platform'], domain)))
                         app_dettect_data_sources = get_applicable_dettect_data_sources_technique(
                             t['dettect_data_sources'], get_applicable_dettect_data_sources_platform(system['platform'], domain))
 
