@@ -10,6 +10,18 @@ def _clean_filename(filename):
     """
     return filename.replace('/', '').replace('\\', '').replace(':', '')[:200]
 
+def _clean_filepath(filename):
+    """
+    Remove invalid characters from filename and maximize it to 200 characters
+    :param filename: Input filename including path
+    :return: sanitized filename
+    """
+    fixed_filename = filename.replace(':', '')
+    if os.sep == '/':
+        fixed_filename = fixed_filename.replace('\\', '')
+    elif os.sep == '\\':
+        fixed_filename = fixed_filename.replace('/', '')
+    return fixed_filename[:200]
 
 def write_file(filename, overwrite_mode, content):
     """
@@ -20,17 +32,22 @@ def write_file(filename, overwrite_mode, content):
     :param content: the content of the file that needs to be written to the file
     :return:
     """
-    output_filename = 'output/%s' % _clean_filename(filename)
+    if os.sep in filename:
+        output_filename = _clean_filepath(filename)
+    else:
+        output_filename = 'output/%s' % _clean_filename(filename)
 
     if not overwrite_mode:
         output_filename = get_non_existing_filename(output_filename, 'json')
     else:
         output_filename = use_existing_filename(output_filename, 'json')
 
-    with open(output_filename, 'w') as f:
-        f.write(content)
-
-    print('File written:   ' + output_filename)
+    try:
+        with open(output_filename, 'w') as f:
+            f.write(content)
+        print('File written:   ' + output_filename)
+    except Exception as e:
+        print('[!] Error while writing layer file: %s' % str(e))
 
 
 def backup_file(filename):

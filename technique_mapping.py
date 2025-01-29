@@ -417,19 +417,25 @@ def plot_graph(filename, type_graph, output_filename, output_overwrite):
     elif output_filename.endswith('.html'):
         output_filename = output_filename.replace('.html', '')
 
-    if not output_overwrite:
-        output_filename = get_non_existing_filename('output/' + output_filename, 'html')
-    else:
-        output_filename = use_existing_filename('output/' + output_filename, 'html')
+    if os.sep not in output_filename:
+        output_filename = 'output/%s' % output_filename
 
-    import plotly
-    import plotly.graph_objs as go
-    plotly.offline.plot(
-        {'data': [go.Scatter(x=df['date'], y=df['cumcount'])],
-         'layout': go.Layout(title="# of %s items for %s" % (type_graph, name))},
-        filename=output_filename, auto_open=False
-    )
-    print("File written:   " + output_filename)
+    if not output_overwrite:
+        output_filename = get_non_existing_filename(output_filename, 'html')
+    else:
+        output_filename = use_existing_filename(output_filename, 'html')
+
+    try:
+        import plotly
+        import plotly.graph_objs as go
+        plotly.offline.plot(
+            {'data': [go.Scatter(x=df['date'], y=df['cumcount'])],
+            'layout': go.Layout(title="# of %s items for %s" % (type_graph, name))},
+            filename=output_filename, auto_open=False
+        )
+        print("File written:   " + output_filename)
+    except Exception as e:
+        print('[!] Error while writing graph file: %s' % str(e))
 
 
 def export_techniques_list_to_excel(filename, output_filename, output_overwrite):
@@ -450,11 +456,14 @@ def export_techniques_list_to_excel(filename, output_filename, output_overwrite)
         output_filename = 'techniques'
     elif output_filename.endswith('.xlsx'):
         output_filename = output_filename.replace('.xlsx', '')
+    
+    if os.sep not in output_filename:
+        output_filename = 'output/%s' % output_filename
 
     if not output_overwrite:
-        excel_filename = get_non_existing_filename('output/' + output_filename, 'xlsx')
+        excel_filename = get_non_existing_filename(output_filename, 'xlsx')
     else:
-        excel_filename = use_existing_filename('output/' + output_filename, 'xlsx')
+        excel_filename = use_existing_filename(output_filename, 'xlsx')
 
     workbook = xlsxwriter.Workbook(excel_filename)
     worksheet_detections = workbook.add_worksheet('Detections')

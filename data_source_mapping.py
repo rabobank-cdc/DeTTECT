@@ -249,20 +249,26 @@ def plot_data_sources_graph(filename, output_filename, output_overwrite):
         output_filename = 'graph_data_sources'
     elif output_filename.endswith('.html'):
         output_filename = output_filename.replace('.html', '')
+    
+    if os.sep not in output_filename:
+        output_filename = 'output/%s' % output_filename
 
     if not output_overwrite:
-        output_filename = get_non_existing_filename('output/' + output_filename, 'html')
+        output_filename = get_non_existing_filename(output_filename, 'html')
     else:
-        output_filename = use_existing_filename('output/' + output_filename, 'html')
+        output_filename = use_existing_filename(output_filename, 'html')
 
-    import plotly.graph_objs as go
-    import plotly.offline as offline
-    offline.plot(
-        {'data': [go.Scatter(x=df['date'], y=df['cumcount'])],
-         'layout': go.Layout(title="# of data sources for " + name)},
-        filename=output_filename, auto_open=False
-    )
-    print("File written:   " + output_filename)
+    try:
+        import plotly.graph_objs as go
+        import plotly.offline as offline
+        offline.plot(
+            {'data': [go.Scatter(x=df['date'], y=df['cumcount'])],
+            'layout': go.Layout(title="# of data sources for " + name)},
+            filename=output_filename, auto_open=False
+        )
+        print("File written:   " + output_filename)
+    except Exception as e:
+        print('[!] Error while writing graph file: %s' % str(e))
 
 
 def export_data_source_list_to_excel(filename, output_filename, output_overwrite, eql_search=False):
@@ -283,11 +289,14 @@ def export_data_source_list_to_excel(filename, output_filename, output_overwrite
         output_filename = 'data_sources'
     elif output_filename.endswith('.xlsx'):
         output_filename = output_filename.replace('.xlsx', '')
+    
+    if os.sep not in output_filename:
+        output_filename = 'output/%s' % output_filename
 
     if not output_overwrite:
-        excel_filename = get_non_existing_filename('output/' + output_filename, 'xlsx')
+        excel_filename = get_non_existing_filename(output_filename, 'xlsx')
     else:
-        excel_filename = use_existing_filename('output/' + output_filename, 'xlsx')
+        excel_filename = use_existing_filename(output_filename, 'xlsx')
 
     workbook = xlsxwriter.Workbook(excel_filename)
     worksheet = workbook.add_worksheet('Data sources')
@@ -999,14 +1008,20 @@ def generate_technique_administration_file(filename, output_filename, output_ove
             output_filename = 'techniques-administration-' + normalize_name_to_filename(name)
         elif output_filename.endswith('.yaml'):
             output_filename = output_filename.replace('.yaml', '')
+        
+        if os.sep not in output_filename:
+            output_filename = 'output/%s' % output_filename
 
         if not output_overwrite:
-            output_filename = get_non_existing_filename(f'output/{output_filename}', 'yaml')
+            output_filename = get_non_existing_filename(output_filename, 'yaml')
         else:
-            output_filename = use_existing_filename(f'output/{output_filename}', 'yaml')
+            output_filename = use_existing_filename(output_filename, 'yaml')
 
-        with open(output_filename, 'w') as f:
-            f.writelines(yaml_file_lines)
-        print("File written:   " + output_filename)
+        try:
+            with open(output_filename, 'w') as f:
+                f.writelines(yaml_file_lines)
+            print("File written:   " + output_filename)
+        except Exception as e:
+            print('[!] Error while writing yaml file: %s' % str(e))
     else:
         return yaml_file
