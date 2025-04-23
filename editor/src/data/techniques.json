@@ -4,6 +4,7 @@
       "technique_id": "T1001",
       "technique_name": "Data Obfuscation",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -14,6 +15,7 @@
       "technique_id": "T1001.001",
       "technique_name": "Junk Data",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -24,6 +26,7 @@
       "technique_id": "T1001.002",
       "technique_name": "Steganography",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -34,6 +37,7 @@
       "technique_id": "T1001.003",
       "technique_name": "Protocol or Service Impersonation",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -119,8 +123,9 @@
       "technique_id": "T1005",
       "technique_name": "Data from Local System",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -130,7 +135,7 @@
       "technique_id": "T1006",
       "technique_name": "Direct Volume Access",
       "platforms": [
-        "Network",
+        "Network Devices",
         "Windows"
       ],
       "autosuggest": "T1006 - Direct Volume Access"
@@ -149,6 +154,7 @@
       "technique_id": "T1008",
       "technique_name": "Fallback Channels",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -207,8 +213,9 @@
       "technique_id": "T1016",
       "technique_name": "System Network Configuration Discovery",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -218,6 +225,7 @@
       "technique_id": "T1016.001",
       "technique_name": "Internet Connection Discovery",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -238,8 +246,9 @@
       "technique_id": "T1018",
       "technique_name": "Remote System Discovery",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -250,7 +259,7 @@
       "technique_name": "Automated Exfiltration",
       "platforms": [
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -261,7 +270,7 @@
       "technique_name": "Traffic Duplication",
       "platforms": [
         "IaaS",
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "T1020.001 - Traffic Duplication"
     },
@@ -269,6 +278,7 @@
       "technique_id": "T1021",
       "technique_name": "Remote Services",
       "platforms": [
+        "ESXi",
         "IaaS",
         "Linux",
         "Windows",
@@ -304,6 +314,7 @@
       "technique_id": "T1021.004",
       "technique_name": "SSH",
       "platforms": [
+        "ESXi",
         "Linux",
         "macOS"
       ],
@@ -360,8 +371,9 @@
       "technique_id": "T1027",
       "technique_name": "Obfuscated Files or Information",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -440,7 +452,7 @@
       "technique_name": "Stripped Payloads",
       "platforms": [
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -504,6 +516,36 @@
       "autosuggest": "T1027.014 - Polymorphic Code"
     },
     {
+      "technique_id": "T1027.015",
+      "technique_name": "Compression",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1027.015 - Compression"
+    },
+    {
+      "technique_id": "T1027.016",
+      "technique_name": "Junk Code Insertion",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1027.016 - Junk Code Insertion"
+    },
+    {
+      "technique_id": "T1027.017",
+      "technique_name": "SVG Smuggling",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1027.017 - SVG Smuggling"
+    },
+    {
       "technique_id": "T1029",
       "technique_name": "Scheduled Transfer",
       "platforms": [
@@ -517,6 +559,7 @@
       "technique_id": "T1030",
       "technique_name": "Data Transfer Size Limits",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -528,7 +571,7 @@
       "technique_name": "System Owner/User Discovery",
       "platforms": [
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -539,6 +582,7 @@
       "technique_name": "Masquerading",
       "platforms": [
         "Containers",
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -566,13 +610,13 @@
     },
     {
       "technique_id": "T1036.003",
-      "technique_name": "Rename System Utilities",
+      "technique_name": "Rename Legitimate Utilities",
       "platforms": [
         "Linux",
         "Windows",
         "macOS"
       ],
-      "autosuggest": "T1036.003 - Rename System Utilities"
+      "autosuggest": "T1036.003 - Rename Legitimate Utilities"
     },
     {
       "technique_id": "T1036.004",
@@ -586,14 +630,15 @@
     },
     {
       "technique_id": "T1036.005",
-      "technique_name": "Match Legitimate Name or Location",
+      "technique_name": "Match Legitimate Resource Name or Location",
       "platforms": [
         "Containers",
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
       ],
-      "autosuggest": "T1036.005 - Match Legitimate Name or Location"
+      "autosuggest": "T1036.005 - Match Legitimate Resource Name or Location"
     },
     {
       "technique_id": "T1036.006",
@@ -647,11 +692,20 @@
       "autosuggest": "T1036.010 - Masquerade Account Name"
     },
     {
+      "technique_id": "T1036.011",
+      "technique_name": "Overwrite Process Arguments",
+      "platforms": [
+        "Linux"
+      ],
+      "autosuggest": "T1036.011 - Overwrite Process Arguments"
+    },
+    {
       "technique_id": "T1037",
       "technique_name": "Boot or Logon Initialization Scripts",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -685,8 +739,9 @@
       "technique_id": "T1037.004",
       "technique_name": "RC Scripts",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "macOS"
       ],
       "autosuggest": "T1037.004 - RC Scripts"
@@ -715,7 +770,7 @@
       "platforms": [
         "IaaS",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -725,6 +780,7 @@
       "technique_id": "T1041",
       "technique_name": "Exfiltration Over C2 Channel",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -738,7 +794,7 @@
         "Containers",
         "IaaS",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -756,9 +812,10 @@
       "technique_id": "T1048",
       "technique_name": "Exfiltration Over Alternative Protocol",
       "platforms": [
+        "ESXi",
         "IaaS",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "SaaS",
         "Windows",
@@ -770,6 +827,7 @@
       "technique_id": "T1048.001",
       "technique_name": "Exfiltration Over Symmetric Encrypted Non-C2 Protocol",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -780,6 +838,7 @@
       "technique_id": "T1048.002",
       "technique_name": "Exfiltration Over Asymmetric Encrypted Non-C2 Protocol",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -790,8 +849,9 @@
       "technique_id": "T1048.003",
       "technique_name": "Exfiltration Over Unencrypted Non-C2 Protocol",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -801,9 +861,10 @@
       "technique_id": "T1049",
       "technique_name": "System Network Connections Discovery",
       "platforms": [
+        "ESXi",
         "IaaS",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -834,6 +895,7 @@
       "technique_name": "Scheduled Task/Job",
       "platforms": [
         "Containers",
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -854,6 +916,7 @@
       "technique_id": "T1053.003",
       "technique_name": "Cron",
       "platforms": [
+        "ESXi",
         "Linux",
         "macOS"
       ],
@@ -994,7 +1057,7 @@
       "technique_name": "Input Capture",
       "platforms": [
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -1005,7 +1068,7 @@
       "technique_name": "Keylogging",
       "platforms": [
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -1035,7 +1098,9 @@
       "technique_id": "T1056.004",
       "technique_name": "Credential API Hooking",
       "platforms": [
-        "Windows"
+        "Linux",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "T1056.004 - Credential API Hooking"
     },
@@ -1043,8 +1108,9 @@
       "technique_id": "T1057",
       "technique_name": "Process Discovery",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -1054,10 +1120,11 @@
       "technique_id": "T1059",
       "technique_name": "Command and Scripting Interpreter",
       "platforms": [
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "Windows",
         "macOS"
@@ -1092,8 +1159,9 @@
       "technique_id": "T1059.004",
       "technique_name": "Unix Shell",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "macOS"
       ],
       "autosuggest": "T1059.004 - Unix Shell"
@@ -1112,6 +1180,7 @@
       "technique_id": "T1059.006",
       "technique_name": "Python",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -1132,7 +1201,7 @@
       "technique_id": "T1059.008",
       "technique_name": "Network Device CLI",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "T1059.008 - Network Device CLI"
     },
@@ -1160,11 +1229,19 @@
       "technique_name": "Lua",
       "platforms": [
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
       "autosuggest": "T1059.011 - Lua"
+    },
+    {
+      "technique_id": "T1059.012",
+      "technique_name": "Hypervisor CLI",
+      "platforms": [
+        "ESXi"
+      ],
+      "autosuggest": "T1059.012 - Hypervisor CLI"
     },
     {
       "technique_id": "T1068",
@@ -1228,8 +1305,9 @@
       "technique_name": "Indicator Removal",
       "platforms": [
         "Containers",
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "Windows",
         "macOS"
@@ -1257,8 +1335,9 @@
       "technique_id": "T1070.003",
       "technique_name": "Clear Command History",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -1268,6 +1347,7 @@
       "technique_id": "T1070.004",
       "technique_name": "File Deletion",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -1286,6 +1366,7 @@
       "technique_id": "T1070.006",
       "technique_name": "Timestomp",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -1297,7 +1378,7 @@
       "technique_name": "Clear Network Connection History and Configurations",
       "platforms": [
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -1318,6 +1399,7 @@
       "technique_id": "T1070.009",
       "technique_name": "Clear Persistence",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -1329,7 +1411,7 @@
       "technique_name": "Relocate Malware",
       "platforms": [
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -1339,8 +1421,9 @@
       "technique_id": "T1071",
       "technique_name": "Application Layer Protocol",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -1350,8 +1433,9 @@
       "technique_id": "T1071.001",
       "technique_name": "Web Protocols",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -1361,8 +1445,9 @@
       "technique_id": "T1071.002",
       "technique_name": "File Transfer Protocols",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -1373,7 +1458,7 @@
       "technique_name": "Mail Protocols",
       "platforms": [
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -1383,8 +1468,9 @@
       "technique_id": "T1071.004",
       "technique_name": "DNS",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -1395,7 +1481,7 @@
       "technique_name": "Publish/Subscribe Protocols",
       "platforms": [
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -1406,7 +1492,7 @@
       "technique_name": "Software Deployment Tools",
       "platforms": [
         "Linux",
-        "Network",
+        "Network Devices",
         "SaaS",
         "Windows",
         "macOS"
@@ -1417,6 +1503,7 @@
       "technique_id": "T1074",
       "technique_name": "Data Staged",
       "platforms": [
+        "ESXi",
         "IaaS",
         "Linux",
         "Windows",
@@ -1428,6 +1515,7 @@
       "technique_id": "T1074.001",
       "technique_name": "Local Data Staging",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -1438,6 +1526,7 @@
       "technique_id": "T1074.002",
       "technique_name": "Remote Data Staging",
       "platforms": [
+        "ESXi",
         "IaaS",
         "Linux",
         "Windows",
@@ -1450,10 +1539,11 @@
       "technique_name": "Valid Accounts",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "SaaS",
         "Windows",
@@ -1466,10 +1556,11 @@
       "technique_name": "Default Accounts",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "SaaS",
         "Windows",
@@ -1481,6 +1572,7 @@
       "technique_id": "T1078.002",
       "technique_name": "Domain Accounts",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -1492,8 +1584,9 @@
       "technique_name": "Local Accounts",
       "platforms": [
         "Containers",
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -1526,9 +1619,10 @@
       "technique_id": "T1082",
       "technique_name": "System Information Discovery",
       "platforms": [
+        "ESXi",
         "IaaS",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -1538,8 +1632,9 @@
       "technique_id": "T1083",
       "technique_name": "File and Directory Discovery",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -1549,6 +1644,7 @@
       "technique_id": "T1087",
       "technique_name": "Account Discovery",
       "platforms": [
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
@@ -1563,6 +1659,7 @@
       "technique_id": "T1087.001",
       "technique_name": "Local Account",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -1603,8 +1700,9 @@
       "technique_id": "T1090",
       "technique_name": "Proxy",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -1614,8 +1712,9 @@
       "technique_id": "T1090.001",
       "technique_name": "Internal Proxy",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -1625,8 +1724,9 @@
       "technique_id": "T1090.002",
       "technique_name": "External Proxy",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -1636,8 +1736,9 @@
       "technique_id": "T1090.003",
       "technique_name": "Multi-hop Proxy",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -1647,6 +1748,7 @@
       "technique_id": "T1090.004",
       "technique_name": "Domain Fronting",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -1675,8 +1777,9 @@
       "technique_id": "T1095",
       "technique_name": "Non-Application Layer Protocol",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -1687,10 +1790,11 @@
       "technique_name": "Account Manipulation",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "SaaS",
         "Windows",
@@ -1732,9 +1836,10 @@
       "technique_id": "T1098.004",
       "technique_name": "SSH Authorized Keys",
       "platforms": [
+        "ESXi",
         "IaaS",
         "Linux",
-        "Network",
+        "Network Devices",
         "macOS"
       ],
       "autosuggest": "T1098.004 - SSH Authorized Keys"
@@ -1770,6 +1875,7 @@
       "technique_id": "T1102",
       "technique_name": "Web Service",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -1780,6 +1886,7 @@
       "technique_id": "T1102.001",
       "technique_name": "Dead Drop Resolver",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -1790,6 +1897,7 @@
       "technique_id": "T1102.002",
       "technique_name": "Bidirectional Communication",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -1800,6 +1908,7 @@
       "technique_id": "T1102.003",
       "technique_name": "One-Way Communication",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -1810,6 +1919,7 @@
       "technique_id": "T1104",
       "technique_name": "Multi-Stage Channels",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -1820,8 +1930,9 @@
       "technique_id": "T1105",
       "technique_name": "Ingress Tool Transfer",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -1842,10 +1953,11 @@
       "technique_name": "Brute Force",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "SaaS",
         "Windows",
@@ -1858,10 +1970,11 @@
       "technique_name": "Password Guessing",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "SaaS",
         "Windows",
@@ -1875,7 +1988,7 @@
       "platforms": [
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "Windows",
         "macOS"
@@ -1887,10 +2000,11 @@
       "technique_name": "Password Spraying",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "SaaS",
         "Windows",
@@ -1903,10 +2017,11 @@
       "technique_name": "Credential Stuffing",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "SaaS",
         "Windows",
@@ -2028,8 +2143,9 @@
       "technique_id": "T1124",
       "technique_name": "System Time Discovery",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -2070,6 +2186,14 @@
       "autosuggest": "T1127.002 - ClickOnce"
     },
     {
+      "technique_id": "T1127.003",
+      "technique_name": "JamPlus",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "T1127.003 - JamPlus"
+    },
+    {
       "technique_id": "T1129",
       "technique_name": "Shared Modules",
       "platforms": [
@@ -2083,6 +2207,7 @@
       "technique_id": "T1132",
       "technique_name": "Data Encoding",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -2093,6 +2218,7 @@
       "technique_id": "T1132.001",
       "technique_name": "Standard Encoding",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -2103,6 +2229,7 @@
       "technique_id": "T1132.002",
       "technique_name": "Non-Standard Encoding",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -2183,10 +2310,11 @@
       "technique_name": "Create Account",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "SaaS",
         "Windows",
@@ -2199,8 +2327,9 @@
       "technique_name": "Local Account",
       "platforms": [
         "Containers",
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -2294,6 +2423,7 @@
       "technique_id": "T1140",
       "technique_name": "Deobfuscate/Decode Files or Information",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -2302,13 +2432,33 @@
     },
     {
       "technique_id": "T1176",
+      "technique_name": "Software Extensions",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1176 - Software Extensions"
+    },
+    {
+      "technique_id": "T1176.001",
       "technique_name": "Browser Extensions",
       "platforms": [
         "Linux",
         "Windows",
         "macOS"
       ],
-      "autosuggest": "T1176 - Browser Extensions"
+      "autosuggest": "T1176.001 - Browser Extensions"
+    },
+    {
+      "technique_id": "T1176.002",
+      "technique_name": "IDE Extensions",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1176.002 - IDE Extensions"
     },
     {
       "technique_id": "T1185",
@@ -2342,9 +2492,10 @@
       "technique_name": "Exploit Public-Facing Application",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -2429,7 +2580,7 @@
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "SaaS",
         "Windows",
@@ -2497,11 +2648,21 @@
       "autosuggest": "T1204.003 - Malicious Image"
     },
     {
+      "technique_id": "T1204.004",
+      "technique_name": "Malicious Copy and Paste",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1204.004 - Malicious Copy and Paste"
+    },
+    {
       "technique_id": "T1205",
       "technique_name": "Traffic Signaling",
       "platforms": [
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -2512,7 +2673,7 @@
       "technique_name": "Port Knocking",
       "platforms": [
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -2540,6 +2701,7 @@
       "technique_id": "T1210",
       "technique_name": "Exploitation of Remote Services",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -2784,13 +2946,43 @@
     },
     {
       "technique_id": "T1219",
-      "technique_name": "Remote Access Software",
+      "technique_name": "Remote Access Tools",
       "platforms": [
         "Linux",
         "Windows",
         "macOS"
       ],
-      "autosuggest": "T1219 - Remote Access Software"
+      "autosuggest": "T1219 - Remote Access Tools"
+    },
+    {
+      "technique_id": "T1219.001",
+      "technique_name": "IDE Tunneling",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1219.001 - IDE Tunneling"
+    },
+    {
+      "technique_id": "T1219.002",
+      "technique_name": "Remote Desktop Software",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1219.002 - Remote Desktop Software"
+    },
+    {
+      "technique_id": "T1219.003",
+      "technique_name": "Remote Access Hardware",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1219.003 - Remote Access Hardware"
     },
     {
       "technique_id": "T1220",
@@ -2812,6 +3004,7 @@
       "technique_id": "T1222",
       "technique_name": "File and Directory Permissions Modification",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -2839,6 +3032,7 @@
       "technique_id": "T1480",
       "technique_name": "Execution Guardrails",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -2904,6 +3098,7 @@
       "technique_name": "Data Destruction",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Linux",
         "Windows",
@@ -2923,6 +3118,7 @@
       "technique_id": "T1486",
       "technique_name": "Data Encrypted for Impact",
       "platforms": [
+        "ESXi",
         "IaaS",
         "Linux",
         "Windows",
@@ -2934,6 +3130,7 @@
       "technique_id": "T1489",
       "technique_name": "Service Stop",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -2945,9 +3142,10 @@
       "technique_name": "Inhibit System Recovery",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -2957,6 +3155,7 @@
       "technique_id": "T1491",
       "technique_name": "Defacement",
       "platforms": [
+        "ESXi",
         "IaaS",
         "Linux",
         "Windows",
@@ -2968,6 +3167,7 @@
       "technique_id": "T1491.001",
       "technique_name": "Internal Defacement",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -2990,7 +3190,7 @@
       "technique_name": "Firmware Corruption",
       "platforms": [
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -3182,8 +3382,9 @@
       "technique_id": "T1505",
       "technique_name": "Server Software Component",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -3212,7 +3413,7 @@
       "technique_name": "Web Shell",
       "platforms": [
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -3235,9 +3436,18 @@
       "autosuggest": "T1505.005 - Terminal Services DLL"
     },
     {
+      "technique_id": "T1505.006",
+      "technique_name": "vSphere Installation Bundles",
+      "platforms": [
+        "ESXi"
+      ],
+      "autosuggest": "T1505.006 - vSphere Installation Bundles"
+    },
+    {
       "technique_id": "T1518",
       "technique_name": "Software Discovery",
       "platforms": [
+        "ESXi",
         "IaaS",
         "Linux",
         "Windows",
@@ -3292,8 +3502,9 @@
       "technique_id": "T1529",
       "technique_name": "System Shutdown/Reboot",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -3313,6 +3524,7 @@
       "technique_id": "T1531",
       "technique_name": "Account Access Removal",
       "platforms": [
+        "ESXi",
         "IaaS",
         "Linux",
         "Office Suite",
@@ -3380,7 +3592,7 @@
       "technique_name": "Pre-OS Boot",
       "platforms": [
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -3390,7 +3602,7 @@
       "technique_id": "T1542.001",
       "technique_name": "System Firmware",
       "platforms": [
-        "Network",
+        "Network Devices",
         "Windows"
       ],
       "autosuggest": "T1542.001 - System Firmware"
@@ -3418,7 +3630,7 @@
       "technique_id": "T1542.004",
       "technique_name": "ROMMONkit",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "T1542.004 - ROMMONkit"
     },
@@ -3426,7 +3638,7 @@
       "technique_id": "T1542.005",
       "technique_name": "TFTP Boot",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "T1542.005 - TFTP Boot"
     },
@@ -3639,7 +3851,7 @@
       "technique_name": "Boot or Logon Autostart Execution",
       "platforms": [
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -3830,6 +4042,7 @@
         "Containers",
         "IaaS",
         "Identity Provider",
+        "Linux",
         "Office Suite",
         "SaaS",
         "Windows"
@@ -3882,7 +4095,7 @@
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "SaaS",
         "Windows",
@@ -3924,7 +4137,7 @@
       "technique_name": "Private Keys",
       "platforms": [
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -4029,6 +4242,7 @@
       "technique_id": "T1554",
       "technique_name": "Compromise Host Software Binary",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -4106,7 +4320,7 @@
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "SaaS",
         "Windows",
@@ -4143,7 +4357,7 @@
       "technique_id": "T1556.004",
       "technique_name": "Network Device Authentication",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "T1556.004 - Network Device Authentication"
     },
@@ -4203,7 +4417,7 @@
       "technique_name": "Adversary-in-the-Middle",
       "platforms": [
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -4241,7 +4455,7 @@
       "technique_id": "T1557.004",
       "technique_name": "Evil Twin",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "T1557.004 - Evil Twin"
     },
@@ -4375,7 +4589,7 @@
       "technique_name": "Disk Wipe",
       "platforms": [
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -4386,7 +4600,7 @@
       "technique_name": "Disk Content Wipe",
       "platforms": [
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -4397,7 +4611,7 @@
       "technique_name": "Disk Structure Wipe",
       "platforms": [
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -4408,10 +4622,11 @@
       "technique_name": "Impair Defenses",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "Windows",
         "macOS"
@@ -4425,7 +4640,7 @@
         "Containers",
         "IaaS",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -4443,8 +4658,9 @@
       "technique_id": "T1562.003",
       "technique_name": "Impair Command History Logging",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -4454,8 +4670,9 @@
       "technique_id": "T1562.004",
       "technique_name": "Disable or Modify System Firewall",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -4465,6 +4682,7 @@
       "technique_id": "T1562.006",
       "technique_name": "Indicator Blocking",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -4557,6 +4775,7 @@
       "technique_id": "T1564",
       "technique_name": "Hide Artifacts",
       "platforms": [
+        "ESXi",
         "Linux",
         "Office Suite",
         "Windows",
@@ -4616,6 +4835,7 @@
       "technique_id": "T1564.006",
       "technique_name": "Run Virtual Instance",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -4678,6 +4898,23 @@
         "macOS"
       ],
       "autosuggest": "T1564.012 - File/Path Exclusions"
+    },
+    {
+      "technique_id": "T1564.013",
+      "technique_name": "Bind Mounts",
+      "platforms": [
+        "Linux"
+      ],
+      "autosuggest": "T1564.013 - Bind Mounts"
+    },
+    {
+      "technique_id": "T1564.014",
+      "technique_name": "Extended Attributes",
+      "platforms": [
+        "Linux",
+        "macOS"
+      ],
+      "autosuggest": "T1564.014 - Extended Attributes"
     },
     {
       "technique_id": "T1565",
@@ -4780,6 +5017,7 @@
       "technique_id": "T1567",
       "technique_name": "Exfiltration Over Web Service",
       "platforms": [
+        "ESXi",
         "Linux",
         "Office Suite",
         "SaaS",
@@ -4792,6 +5030,7 @@
       "technique_id": "T1567.001",
       "technique_name": "Exfiltration to Code Repository",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -4802,6 +5041,7 @@
       "technique_id": "T1567.002",
       "technique_name": "Exfiltration to Cloud Storage",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -4812,6 +5052,7 @@
       "technique_id": "T1567.003",
       "technique_name": "Exfiltration to Text Storage Sites",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -4822,6 +5063,7 @@
       "technique_id": "T1567.004",
       "technique_name": "Exfiltration Over Webhook",
       "platforms": [
+        "ESXi",
         "Linux",
         "Office Suite",
         "SaaS",
@@ -4834,6 +5076,7 @@
       "technique_id": "T1568",
       "technique_name": "Dynamic Resolution",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -4844,6 +5087,7 @@
       "technique_id": "T1568.001",
       "technique_name": "Fast Flux DNS",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -4854,6 +5098,7 @@
       "technique_id": "T1568.002",
       "technique_name": "Domain Generation Algorithms",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -4864,6 +5109,7 @@
       "technique_id": "T1568.003",
       "technique_name": "DNS Calculation",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -4897,9 +5143,18 @@
       "autosuggest": "T1569.002 - Service Execution"
     },
     {
+      "technique_id": "T1569.003",
+      "technique_name": "Systemctl",
+      "platforms": [
+        "Linux"
+      ],
+      "autosuggest": "T1569.003 - Systemctl"
+    },
+    {
       "technique_id": "T1570",
       "technique_name": "Lateral Tool Transfer",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -4910,6 +5165,7 @@
       "technique_id": "T1571",
       "technique_name": "Non-Standard Port",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -4920,6 +5176,7 @@
       "technique_id": "T1572",
       "technique_name": "Protocol Tunneling",
       "platforms": [
+        "ESXi",
         "Linux",
         "Windows",
         "macOS"
@@ -4930,8 +5187,9 @@
       "technique_id": "T1573",
       "technique_name": "Encrypted Channel",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -4941,8 +5199,9 @@
       "technique_id": "T1573.001",
       "technique_name": "Symmetric Cryptography",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -4952,8 +5211,9 @@
       "technique_id": "T1573.002",
       "technique_name": "Asymmetric Cryptography",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -4971,19 +5231,11 @@
     },
     {
       "technique_id": "T1574.001",
-      "technique_name": "DLL Search Order Hijacking",
+      "technique_name": "DLL",
       "platforms": [
         "Windows"
       ],
-      "autosuggest": "T1574.001 - DLL Search Order Hijacking"
-    },
-    {
-      "technique_id": "T1574.002",
-      "technique_name": "DLL Side-Loading",
-      "platforms": [
-        "Windows"
-      ],
-      "autosuggest": "T1574.002 - DLL Side-Loading"
+      "autosuggest": "T1574.001 - DLL"
     },
     {
       "technique_id": "T1574.004",
@@ -5800,7 +6052,7 @@
       "technique_id": "T1599",
       "technique_name": "Network Boundary Bridging",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "T1599 - Network Boundary Bridging"
     },
@@ -5808,7 +6060,7 @@
       "technique_id": "T1599.001",
       "technique_name": "Network Address Translation Traversal",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "T1599.001 - Network Address Translation Traversal"
     },
@@ -5816,7 +6068,7 @@
       "technique_id": "T1600",
       "technique_name": "Weaken Encryption",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "T1600 - Weaken Encryption"
     },
@@ -5824,7 +6076,7 @@
       "technique_id": "T1600.001",
       "technique_name": "Reduce Key Space",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "T1600.001 - Reduce Key Space"
     },
@@ -5832,7 +6084,7 @@
       "technique_id": "T1600.002",
       "technique_name": "Disable Crypto Hardware",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "T1600.002 - Disable Crypto Hardware"
     },
@@ -5840,7 +6092,7 @@
       "technique_id": "T1601",
       "technique_name": "Modify System Image",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "T1601 - Modify System Image"
     },
@@ -5848,7 +6100,7 @@
       "technique_id": "T1601.001",
       "technique_name": "Patch System Image",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "T1601.001 - Patch System Image"
     },
@@ -5856,7 +6108,7 @@
       "technique_id": "T1601.002",
       "technique_name": "Downgrade System Image",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "T1601.002 - Downgrade System Image"
     },
@@ -5864,7 +6116,7 @@
       "technique_id": "T1602",
       "technique_name": "Data from Configuration Repository",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "T1602 - Data from Configuration Repository"
     },
@@ -5872,7 +6124,7 @@
       "technique_id": "T1602.001",
       "technique_name": "SNMP (MIB Dump)",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "T1602.001 - SNMP (MIB Dump)"
     },
@@ -5880,7 +6132,7 @@
       "technique_id": "T1602.002",
       "technique_name": "Network Device Configuration Dump",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "T1602.002 - Network Device Configuration Dump"
     },
@@ -5999,6 +6251,7 @@
       "technique_name": "Escape to Host",
       "platforms": [
         "Containers",
+        "ESXi",
         "Linux",
         "Windows"
       ],
@@ -6151,7 +6404,7 @@
       "technique_name": "Power Settings",
       "platforms": [
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -6161,6 +6414,7 @@
       "technique_id": "T1654",
       "technique_name": "Log Enumeration",
       "platforms": [
+        "ESXi",
         "IaaS",
         "Linux",
         "Windows",
@@ -6206,8 +6460,9 @@
       "technique_id": "T1665",
       "technique_name": "Hide Infrastructure",
       "platforms": [
+        "ESXi",
         "Linux",
-        "Network",
+        "Network Devices",
         "Windows",
         "macOS"
       ],
@@ -6220,6 +6475,87 @@
         "IaaS"
       ],
       "autosuggest": "T1666 - Modify Cloud Resource Hierarchy"
+    },
+    {
+      "technique_id": "T1667",
+      "technique_name": "Email Bombing",
+      "platforms": [
+        "Linux",
+        "Office Suite",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1667 - Email Bombing"
+    },
+    {
+      "technique_id": "T1668",
+      "technique_name": "Exclusive Control",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1668 - Exclusive Control"
+    },
+    {
+      "technique_id": "T1669",
+      "technique_name": "Wi-Fi Networks",
+      "platforms": [
+        "Linux",
+        "Network Devices",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1669 - Wi-Fi Networks"
+    },
+    {
+      "technique_id": "T1671",
+      "technique_name": "Cloud Application Integration",
+      "platforms": [
+        "Office Suite",
+        "SaaS"
+      ],
+      "autosuggest": "T1671 - Cloud Application Integration"
+    },
+    {
+      "technique_id": "T1672",
+      "technique_name": "Email Spoofing",
+      "platforms": [
+        "Linux",
+        "Office Suite",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1672 - Email Spoofing"
+    },
+    {
+      "technique_id": "T1673",
+      "technique_name": "Virtual Machine Discovery",
+      "platforms": [
+        "ESXi",
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1673 - Virtual Machine Discovery"
+    },
+    {
+      "technique_id": "T1674",
+      "technique_name": "Input Injection",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1674 - Input Injection"
+    },
+    {
+      "technique_id": "T1675",
+      "technique_name": "ESXi Administration Command",
+      "platforms": [
+        "ESXi"
+      ],
+      "autosuggest": "T1675 - ESXi Administration Command"
     }
   ],
   "ATT&CK-ICS": [
@@ -7140,6 +7476,15 @@
       "autosuggest": "T1437.001 - Web Protocols"
     },
     {
+      "technique_id": "T1451",
+      "technique_name": "SIM Card Swap",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1451 - SIM Card Swap"
+    },
+    {
       "technique_id": "T1456",
       "technique_name": "Drive-By Compromise",
       "platforms": [
@@ -7924,6 +8269,14 @@
         "iOS"
       ],
       "autosuggest": "T1664 - Exploitation for Initial Access"
+    },
+    {
+      "technique_id": "T1670",
+      "technique_name": "Virtualization Solution",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1670 - Virtualization Solution"
     }
   ]
 }

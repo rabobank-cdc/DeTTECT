@@ -217,10 +217,11 @@
       "software_name": "Zeroaccess",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -234,10 +235,11 @@
       "software_name": "SHIPSHAPE",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -349,10 +351,11 @@
       "software_name": "Wiper",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -406,10 +409,11 @@
       "software_name": "Hacking Team UEFI Rootkit",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -495,10 +499,11 @@
       "software_name": "Tasklist",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -680,10 +685,11 @@
       "software_name": "MobileOrder",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -827,10 +833,11 @@
       "software_name": "Systeminfo",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -844,10 +851,11 @@
       "software_name": "Ping",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -879,10 +887,11 @@
       "software_name": "ipconfig",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -896,10 +905,11 @@
       "software_name": "ifconfig",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -913,10 +923,11 @@
       "software_name": "nbtstat",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -930,10 +941,11 @@
       "software_name": "route",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -947,10 +959,11 @@
       "software_name": "netstat",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -1054,10 +1067,11 @@
       "software_name": "UACMe",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -1111,10 +1125,11 @@
       "software_name": "Pass-The-Hash Toolkit",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -1128,10 +1143,11 @@
       "software_name": "xCmd",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -1201,10 +1217,11 @@
       "software_name": "TINYTYPHON",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -1226,10 +1243,11 @@
       "software_name": "Miner-C",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -1379,10 +1397,11 @@
       "software_name": "HALFBAKED",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -1422,10 +1441,11 @@
       "software_name": "WINDSHIELD",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -1583,10 +1603,11 @@
       "software_name": "Responder",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -1618,10 +1639,11 @@
       "software_name": "Power Loader",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -1742,10 +1764,11 @@
       "software_name": "Winexe",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -1770,10 +1793,11 @@
       "software_name": "Forfiles",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -1941,10 +1965,11 @@
       "software_name": "HAPPYWORK",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -1974,10 +1999,11 @@
       "software_name": "SHUTTERSPEED",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -1999,10 +2025,11 @@
       "software_name": "WINERACK",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2048,10 +2075,11 @@
       "software_name": "Havij",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2065,10 +2093,11 @@
       "software_name": "sqlmap",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2122,10 +2151,11 @@
       "software_name": "Invoke-PSImage",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2325,10 +2355,11 @@
       "software_name": "DDKONG",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2578,10 +2609,11 @@
       "software_name": "OldBoot",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2595,10 +2627,11 @@
       "software_name": "OBAD",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2612,10 +2645,11 @@
       "software_name": "ZergHelper",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2629,10 +2663,11 @@
       "software_name": "KeyRaider",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2646,10 +2681,11 @@
       "software_name": "PJApps",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2663,10 +2699,11 @@
       "software_name": "BrainTest",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2680,10 +2717,11 @@
       "software_name": "ShiftyBug",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2697,10 +2735,11 @@
       "software_name": "XcodeGhost",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2714,10 +2753,11 @@
       "software_name": "Xbot",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2731,10 +2771,11 @@
       "software_name": "NotCompatible",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2748,10 +2789,11 @@
       "software_name": "DressCode",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2765,10 +2807,11 @@
       "software_name": "MazarBOT",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2782,10 +2825,11 @@
       "software_name": "Trojan-SMS.AndroidOS.FakeInst.a",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2799,10 +2843,11 @@
       "software_name": "Trojan-SMS.AndroidOS.Agent.ao",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2816,10 +2861,11 @@
       "software_name": "Trojan-SMS.AndroidOS.OpFake.a",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2833,10 +2879,11 @@
       "software_name": "Adups",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2850,10 +2897,11 @@
       "software_name": "WireLurker",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2867,10 +2915,11 @@
       "software_name": "RuMMS",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2884,10 +2933,11 @@
       "software_name": "X-Agent for Android",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2901,10 +2951,11 @@
       "software_name": "DualToy",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2918,10 +2969,11 @@
       "software_name": "Allwinner",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2935,10 +2987,11 @@
       "software_name": "HummingWhale",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2952,10 +3005,11 @@
       "software_name": "HummingBad",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -2969,10 +3023,11 @@
       "software_name": "Judy",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -3469,10 +3524,11 @@
       "software_name": "JCry",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -3486,10 +3542,11 @@
       "software_name": "SQLRat",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -4164,10 +4221,11 @@
       "software_name": "FrameworkPOS",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -4261,7 +4319,7 @@
       "software_id": "S0519",
       "software_name": "SYNful Knock",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "S0519 - SYNful Knock"
     },
@@ -4390,10 +4448,11 @@
       "software_name": "GoldenEagle",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -4744,10 +4803,11 @@
       "software_name": "Circles",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -5265,10 +5325,11 @@
       "software_name": "Tomiris",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -5387,7 +5448,7 @@
       "software_id": "S0687",
       "software_name": "Cyclops Blink",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "S0687 - Cyclops Blink"
     },
@@ -5497,10 +5558,11 @@
       "software_name": "ACAD/Medre.A",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -5514,10 +5576,11 @@
       "software_name": "PLC-Blaster",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -5531,10 +5594,11 @@
       "software_name": "Triton",
       "platforms": [
         "Containers",
+        "ESXi",
         "IaaS",
         "Identity Provider",
         "Linux",
-        "Network",
+        "Network Devices",
         "Office Suite",
         "PRE",
         "SaaS",
@@ -5548,7 +5612,7 @@
       "software_name": "VPNFilter",
       "platforms": [
         "Linux",
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "S1010 - VPNFilter"
     },
@@ -5957,6 +6021,7 @@
       "software_id": "S1070",
       "software_name": "Black Basta",
       "platforms": [
+        "ESXi",
         "Windows"
       ],
       "autosuggest": "S1070 - Black Basta"
@@ -5973,6 +6038,7 @@
       "software_id": "S1073",
       "software_name": "Royal",
       "platforms": [
+        "ESXi",
         "Windows"
       ],
       "autosuggest": "S1073 - Royal"
@@ -6021,7 +6087,7 @@
       "software_id": "S1084",
       "software_name": "QUIETEXIT",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "S1084 - QUIETEXIT"
     },
@@ -6085,6 +6151,7 @@
       "software_id": "S1096",
       "software_name": "Cheerscrypt",
       "platforms": [
+        "ESXi",
         "Windows"
       ],
       "autosuggest": "S1096 - Cheerscrypt"
@@ -6133,7 +6200,7 @@
       "software_id": "S1104",
       "software_name": "SLOWPULSE",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "S1104 - SLOWPULSE"
     },
@@ -6142,7 +6209,7 @@
       "software_name": "COATHANGER",
       "platforms": [
         "Linux",
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "S1105 - COATHANGER"
     },
@@ -6169,7 +6236,7 @@
       "software_name": "PULSECHECK",
       "platforms": [
         "Linux",
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "S1108 - PULSECHECK"
     },
@@ -6178,7 +6245,7 @@
       "software_name": "PACEMAKER",
       "platforms": [
         "Linux",
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "S1109 - PACEMAKER"
     },
@@ -6187,7 +6254,7 @@
       "software_name": "SLIGHTPULSE",
       "platforms": [
         "Linux",
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "S1110 - SLIGHTPULSE"
     },
@@ -6203,7 +6270,7 @@
       "software_id": "S1112",
       "software_name": "STEADYPULSE",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "S1112 - STEADYPULSE"
     },
@@ -6212,7 +6279,7 @@
       "software_name": "RAPIDPULSE",
       "platforms": [
         "Linux",
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "S1113 - RAPIDPULSE"
     },
@@ -6220,7 +6287,7 @@
       "software_id": "S1114",
       "software_name": "ZIPLINE",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "S1114 - ZIPLINE"
     },
@@ -6228,7 +6295,7 @@
       "software_id": "S1115",
       "software_name": "WIREFIRE",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "S1115 - WIREFIRE"
     },
@@ -6236,7 +6303,7 @@
       "software_id": "S1116",
       "software_name": "WARPWIRE",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "S1116 - WARPWIRE"
     },
@@ -6244,7 +6311,7 @@
       "software_id": "S1117",
       "software_name": "GLASSTOKEN",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "S1117 - GLASSTOKEN"
     },
@@ -6252,7 +6319,7 @@
       "software_id": "S1118",
       "software_name": "BUSHWALK",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "S1118 - BUSHWALK"
     },
@@ -6260,7 +6327,7 @@
       "software_id": "S1119",
       "software_name": "LIGHTWIRE",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "S1119 - LIGHTWIRE"
     },
@@ -6268,7 +6335,7 @@
       "software_id": "S1120",
       "software_name": "FRAMESTING",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "S1120 - FRAMESTING"
     },
@@ -6276,7 +6343,7 @@
       "software_id": "S1121",
       "software_name": "LITTLELAMB.WOOLTEA",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "S1121 - LITTLELAMB.WOOLTEA"
     },
@@ -6292,7 +6359,7 @@
       "software_id": "S1123",
       "software_name": "PITSTOP",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "S1123 - PITSTOP"
     },
@@ -6309,7 +6376,7 @@
       "software_name": "AcidRain",
       "platforms": [
         "Linux",
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "S1125 - AcidRain"
     },
@@ -6519,7 +6586,7 @@
       "software_id": "S1154",
       "software_name": "VersaMem",
       "platforms": [
-        "Network"
+        "Network Devices"
       ],
       "autosuggest": "S1154 - VersaMem"
     },
@@ -6581,6 +6648,389 @@
         "Windows"
       ],
       "autosuggest": "S1162 - Playcrypt"
+    },
+    {
+      "software_id": "S1163",
+      "software_name": "SnappyTCP",
+      "platforms": [
+        "Linux"
+      ],
+      "autosuggest": "S1163 - SnappyTCP"
+    },
+    {
+      "software_id": "S1164",
+      "software_name": "UPSTYLE",
+      "platforms": [
+        "Linux",
+        "Network Devices"
+      ],
+      "autosuggest": "S1164 - UPSTYLE"
+    },
+    {
+      "software_id": "S1166",
+      "software_name": "Solar",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1166 - Solar"
+    },
+    {
+      "software_id": "S1167",
+      "software_name": "AcidPour",
+      "platforms": [
+        "Linux"
+      ],
+      "autosuggest": "S1167 - AcidPour"
+    },
+    {
+      "software_id": "S1168",
+      "software_name": "SampleCheck5000",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1168 - SampleCheck5000"
+    },
+    {
+      "software_id": "S1169",
+      "software_name": "Mango",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1169 - Mango"
+    },
+    {
+      "software_id": "S1170",
+      "software_name": "ODAgent",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1170 - ODAgent"
+    },
+    {
+      "software_id": "S1171",
+      "software_name": "OilCheck",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1171 - OilCheck"
+    },
+    {
+      "software_id": "S1172",
+      "software_name": "OilBooster",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1172 - OilBooster"
+    },
+    {
+      "software_id": "S1173",
+      "software_name": "PowerExchange",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1173 - PowerExchange"
+    },
+    {
+      "software_id": "S1176",
+      "software_name": "attrib",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1176 - attrib"
+    },
+    {
+      "software_id": "S1178",
+      "software_name": "ShrinkLocker",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1178 - ShrinkLocker"
+    },
+    {
+      "software_id": "S1179",
+      "software_name": "Exbyte",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1179 - Exbyte"
+    },
+    {
+      "software_id": "S1180",
+      "software_name": "BlackByte Ransomware",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1180 - BlackByte Ransomware"
+    },
+    {
+      "software_id": "S1181",
+      "software_name": "BlackByte 2.0 Ransomware",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1181 - BlackByte 2.0 Ransomware"
+    },
+    {
+      "software_id": "S1182",
+      "software_name": "MagicRAT",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1182 - MagicRAT"
+    },
+    {
+      "software_id": "S1183",
+      "software_name": "StrelaStealer",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1183 - StrelaStealer"
+    },
+    {
+      "software_id": "S1184",
+      "software_name": "BOLDMOVE",
+      "platforms": [
+        "Linux",
+        "Network Devices"
+      ],
+      "autosuggest": "S1184 - BOLDMOVE"
+    },
+    {
+      "software_id": "S1185",
+      "software_name": "LightSpy",
+      "platforms": [
+        "Android",
+        "Windows",
+        "iOS",
+        "macOS"
+      ],
+      "autosuggest": "S1185 - LightSpy"
+    },
+    {
+      "software_id": "S1186",
+      "software_name": "Line Dancer",
+      "platforms": [
+        "Network Devices"
+      ],
+      "autosuggest": "S1186 - Line Dancer"
+    },
+    {
+      "software_id": "S1187",
+      "software_name": "reGeorg",
+      "platforms": [
+        "Linux",
+        "Network Devices",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S1187 - reGeorg"
+    },
+    {
+      "software_id": "S1188",
+      "software_name": "Line Runner",
+      "platforms": [
+        "Network Devices"
+      ],
+      "autosuggest": "S1188 - Line Runner"
+    },
+    {
+      "software_id": "S1189",
+      "software_name": "Neo-reGeorg",
+      "platforms": [
+        "Linux",
+        "Network Devices",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S1189 - Neo-reGeorg"
+    },
+    {
+      "software_id": "S1190",
+      "software_name": "Kapeka",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1190 - Kapeka"
+    },
+    {
+      "software_id": "S1191",
+      "software_name": "Megazord",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1191 - Megazord"
+    },
+    {
+      "software_id": "S1192",
+      "software_name": "NICECURL",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1192 - NICECURL"
+    },
+    {
+      "software_id": "S1193",
+      "software_name": "TAMECAT",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1193 - TAMECAT"
+    },
+    {
+      "software_id": "S1194",
+      "software_name": "Akira _v2",
+      "platforms": [
+        "Containers",
+        "ESXi",
+        "IaaS",
+        "Identity Provider",
+        "Linux",
+        "Network Devices",
+        "Office Suite",
+        "PRE",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S1194 - Akira _v2"
+    },
+    {
+      "software_id": "S1196",
+      "software_name": "Troll Stealer",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1196 - Troll Stealer"
+    },
+    {
+      "software_id": "S1197",
+      "software_name": "GoBear",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1197 - GoBear"
+    },
+    {
+      "software_id": "S1198",
+      "software_name": "Gomir",
+      "platforms": [
+        "Linux"
+      ],
+      "autosuggest": "S1198 - Gomir"
+    },
+    {
+      "software_id": "S1199",
+      "software_name": "LockBit 2.0",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1199 - LockBit 2.0"
+    },
+    {
+      "software_id": "S1200",
+      "software_name": "StealBit",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1200 - StealBit"
+    },
+    {
+      "software_id": "S1201",
+      "software_name": "TRANSLATEXT",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1201 - TRANSLATEXT"
+    },
+    {
+      "software_id": "S1202",
+      "software_name": "LockBit 3.0",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1202 - LockBit 3.0"
+    },
+    {
+      "software_id": "S1203",
+      "software_name": "J-magic",
+      "platforms": [
+        "Network Devices"
+      ],
+      "autosuggest": "S1203 - J-magic"
+    },
+    {
+      "software_id": "S1204",
+      "software_name": "cd00r",
+      "platforms": [
+        "Network Devices"
+      ],
+      "autosuggest": "S1204 - cd00r"
+    },
+    {
+      "software_id": "S1205",
+      "software_name": "cipher.exe",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1205 - cipher.exe"
+    },
+    {
+      "software_id": "S1206",
+      "software_name": "JumbledPath",
+      "platforms": [
+        "Network Devices"
+      ],
+      "autosuggest": "S1206 - JumbledPath"
+    },
+    {
+      "software_id": "S1207",
+      "software_name": "XLoader",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1207 - XLoader"
+    },
+    {
+      "software_id": "S1209",
+      "software_name": "Quick Assist",
+      "platforms": [
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "S1209 - Quick Assist"
+    },
+    {
+      "software_id": "S1210",
+      "software_name": "Sagerunex",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1210 - Sagerunex"
+    },
+    {
+      "software_id": "S1211",
+      "software_name": "Hannotog",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1211 - Hannotog"
+    },
+    {
+      "software_id": "S1212",
+      "software_name": "RansomHub",
+      "platforms": [
+        "Linux",
+        "Windows"
+      ],
+      "autosuggest": "S1212 - RansomHub"
+    },
+    {
+      "software_id": "S1213",
+      "software_name": "Lumma Stealer",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "S1213 - Lumma Stealer"
     }
   ],
   "ATT&CK-ICS": [
@@ -7095,6 +7545,14 @@
         "None"
       ],
       "autosuggest": "S1009 - Triton"
+    },
+    {
+      "software_id": "S1194",
+      "software_name": "Akira _v2",
+      "platforms": [
+        "None"
+      ],
+      "autosuggest": "S1194 - Akira _v2"
     }
   ],
   "ATT&CK-Mobile": [
@@ -8407,6 +8865,66 @@
         "Android"
       ],
       "autosuggest": "S1128 - HilalRAT"
+    },
+    {
+      "software_id": "S1185",
+      "software_name": "LightSpy",
+      "platforms": [
+        "Android",
+        "Windows",
+        "iOS",
+        "macOS"
+      ],
+      "autosuggest": "S1185 - LightSpy"
+    },
+    {
+      "software_id": "S1194",
+      "software_name": "Akira _v2",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "S1194 - Akira _v2"
+    },
+    {
+      "software_id": "S1195",
+      "software_name": "SpyC23",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "S1195 - SpyC23"
+    },
+    {
+      "software_id": "S1208",
+      "software_name": "FjordPhantom",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "S1208 - FjordPhantom"
+    },
+    {
+      "software_id": "S1214",
+      "software_name": "Android/SpyAgent",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "S1214 - Android/SpyAgent"
+    },
+    {
+      "software_id": "S1215",
+      "software_name": "Binary Validator",
+      "platforms": [
+        "iOS"
+      ],
+      "autosuggest": "S1215 - Binary Validator"
+    },
+    {
+      "software_id": "S1216",
+      "software_name": "TriangleDB",
+      "platforms": [
+        "iOS"
+      ],
+      "autosuggest": "S1216 - TriangleDB"
     }
   ]
 }
