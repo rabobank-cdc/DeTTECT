@@ -448,7 +448,7 @@
       "Internal DNS [DeTT&CT data source]"
     ],
     "Identity Provider": [],
-    "ESXi"
+    "ESXi": []
   },
   "DeTT&CT-ICS": {
     "Control Server": [],
