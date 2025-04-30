@@ -271,7 +271,8 @@ export default {
                                         } else {
                                             this.notifyDanger(
                                                 'Invalid value',
-                                                'Invalid value for platform was found in the YAML file and was removed.'
+                                                'Invalid value for platform was found in the YAML file and was removed: ' +
+                                                    yaml_input.systems[i].platform[j]
                                             );
                                         }
                                     } else {

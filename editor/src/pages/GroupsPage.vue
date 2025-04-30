@@ -223,7 +223,10 @@ export default {
                                 if (Object.keys(this.getPlatformConversion(yaml_input.domain)).indexOf(p) >= 0) {
                                     valid_platforms.push(this.getPlatformConversion(yaml_input.domain)[p]);
                                 } else {
-                                    this.notifyDanger('Invalid value', 'Invalid value for platform was found in the YAML file and was removed.');
+                                    this.notifyDanger(
+                                        'Invalid value',
+                                        'Invalid value for platform was found in the YAML file and was removed: ' + yaml_input.platform[i]
+                                    );
                                 }
                             } else {
                                 valid_platforms.push(yaml_input.platform[i]);
