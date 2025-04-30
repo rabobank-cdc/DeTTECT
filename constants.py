@@ -180,7 +180,7 @@ HEALTH_ERROR_TXT = '[!] The below YAML file contains possible errors. It\'s reco
                    '\'--health\' argument: \n    - '
 
 PLATFORMS_ENTERPRISE = {'pre': 'PRE', 'windows': 'Windows', 'macos': 'macOS', 'linux': 'Linux', 'office suite': 'Office Suite',
-                        'iaas': 'IaaS', 'saas': 'SaaS', 'network': 'Network', 'containers': 'Containers', 'identity provider': 'Identity Provider'}
+                        'iaas': 'IaaS', 'saas': 'SaaS', 'network devices': 'Network Devices', 'containers': 'Containers', 'identity provider': 'Identity Provider', 'esxi': 'ESXi'}
 
 PLATFORMS_ICS = {'none': 'None'}
 
