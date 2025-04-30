@@ -94,18 +94,19 @@ export default {
         comment: '',
         auto_generated: false
     },
-    PLATFORMS: ['all', 'PRE', 'Windows', 'macOS', 'Linux', 'Office Suite', 'SaaS', 'IaaS', 'Network', 'Containers', 'Identity Provider'],
+    PLATFORMS: ['all', 'PRE', 'Windows', 'macOS', 'Linux', 'Office Suite', 'Identity Provider', 'SaaS', 'IaaS', 'Network Devices', 'Containers', 'ESXi'],
     PLATFORM_CONVERSION: {
         pre: 'PRE',
         windows: 'Windows',
         macos: 'macOS',
         linux: 'Linux',
         'office suite': 'Office Suite',
+        'identity provider': 'Identity Provider',
         saas: 'SaaS',
         iaas: 'IaaS',
-        network: 'Network',
+        'network devices': 'Network Devices',
         containers: 'Containers',
-        'identity provider': 'Identity Provider'
+        'esxi': 'ESXi'
     },
     PLATFORMS_ICS: ['None'],
     PLATFORM_CONVERSION_ICS: {'none': 'None'},
