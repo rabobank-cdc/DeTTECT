@@ -439,7 +439,7 @@
       "Web [DeTT&CT data source]",
       "Email [DeTT&CT data source]"
     ],
-    "Network Devices": [
+    "Network": [
       "Web [DeTT&CT data source]",
       "Internal DNS [DeTT&CT data source]"
     ],
@@ -447,8 +447,7 @@
       "Web [DeTT&CT data source]",
       "Internal DNS [DeTT&CT data source]"
     ],
-    "Identity Provider": [],
-    "ESXi": []
+    "Identity Provider": []
   },
   "DeTT&CT-ICS": {
     "Control Server": [],
