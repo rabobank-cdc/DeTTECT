@@ -290,7 +290,7 @@ export default {
                                         yaml_input.techniques[i].detection[x].score_logbook[j].comment = '';
                                     }
                                     if (yaml_input.techniques[i].detection[x].score_logbook[j].date != null) {
-                                        yaml_input.techniques[i].detection[x].score_logbook[j].date = moment(
+                                        yaml_input.techniques[i].detection[x].score_logbook[j].date = moment.utc(
                                             yaml_input.techniques[i].detection[x].score_logbook[j].date,
                                             'DD/MM/YYYY'
                                         ).format('YYYY-MM-DD');
@@ -331,7 +331,7 @@ export default {
                                         yaml_input.techniques[i].visibility[x].score_logbook[j].comment = '';
                                     }
                                     if (yaml_input.techniques[i].visibility[x].score_logbook[j].date != null) {
-                                        yaml_input.techniques[i].visibility[x].score_logbook[j].date = moment(
+                                        yaml_input.techniques[i].visibility[x].score_logbook[j].date = moment.utc(
                                             yaml_input.techniques[i].visibility[x].score_logbook[j].date,
                                             'DD/MM/YYYY'
                                         ).format('YYYY-MM-DD');
