@@ -77,7 +77,7 @@
         }
         else if(value instanceof Date){
           // value = value;
-          value = moment(value, 'DD/MM/YYYY').format('YYYY-MM-DD');
+          value = moment.utc(value, 'DD/MM/YYYY').format('YYYY-MM-DD');
         }
 
         if(value == 'None') { value = '';}
