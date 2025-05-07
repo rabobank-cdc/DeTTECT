@@ -356,10 +356,10 @@ export default {
                                 let dr = this.doc.data_sources[i].data_source[j]['date_registered'];
                                 let dv = this.doc.data_sources[i].data_source[j]['date_connected'];
                                 if (dr != null) {
-                                    this.doc.data_sources[i].data_source[j]['date_registered'] = moment(dr, 'DD/MM/YYYY').format('YYYY-MM-DD');
+                                    this.doc.data_sources[i].data_source[j]['date_registered'] = moment.utc(dr, 'DD/MM/YYYY').format('YYYY-MM-DD');
                                 }
                                 if (dv != null) {
-                                    this.doc.data_sources[i].data_source[j]['date_connected'] = moment(dv, 'DD/MM/YYYY').format('YYYY-MM-DD');
+                                    this.doc.data_sources[i].data_source[j]['date_connected'] = moment.utc(dv, 'DD/MM/YYYY').format('YYYY-MM-DD');
                                 }
                             }
                         }
