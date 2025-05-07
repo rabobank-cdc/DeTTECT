@@ -40,7 +40,7 @@ export default {
     methods: {
         updateDate(event) {
             // emit an event when the date changes and make sure the format is ok
-            let tmpDate = moment(event, 'DD/MM/YYYY').format('YYYY-MM-DD');
+            let tmpDate = moment.utc(event, 'DD/MM/YYYY').format('YYYY-MM-DD');
             if (tmpDate != 'Invalid date') {
                 this.$emit('dateUpdated', tmpDate);
             }
