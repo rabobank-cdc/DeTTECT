@@ -14,7 +14,7 @@ from attack_taxii_client import attack_client
 import dateutil.parser
 
 local_stix_path = None
-
+verify_tls = True
 
 def _save_attack_data(data, path):
     """
@@ -166,7 +166,7 @@ def load_attack_data(data_type):
                     # the first item in the list contains the ATT&CK data
                     return cached[0]
         try:
-            mitre = attack_client()
+            mitre = attack_client(verify=verify_tls)
         except (exceptions.ConnectionError, datastore.DataSourceError) as e:
             if hasattr(e, 'request'):
                 print(f"[!] Cannot connect to MITRE's CTI TAXII server: {e.request.url} - {e}")

@@ -76,6 +76,7 @@ def _init_menu():
     parser_data_sources.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
     parser_data_sources.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
                                      'or to use a specific version of STIX objects')
+    parser_data_sources.add_argument('--ignore-verify-tls', help='Ignore TLS verification errors', action='store_true')
     parser_data_sources.add_argument('--layer-settings', help='specific settings for the Navigator layer. Supported settings: '
                                      + ', '.join(['%s=%s' % (k, '|'.join(v)) for k, v in LAYER_SETTINGS.items()]) +
                                      '. Multiple settings can be provided with extra --layer-settings'
@@ -123,6 +124,7 @@ def _init_menu():
     parser_visibility.add_argument('--health', help='check the YAML file for errors', action='store_true')
     parser_visibility.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
                                    'or to use a specific version of STIX objects')
+    parser_visibility.add_argument('--ignore-verify-tls', help='Ignore TLS verification errors', action='store_true')
     parser_visibility.add_argument('--layer-settings', help='specific settings for the Navigator layer. Supported settings: '
                                    + ', '.join(['%s=%s' % (k, '|'.join(v)) for k, v in LAYER_SETTINGS.items()]) +
                                    '. Multiple settings can be provided with extra --layer-settings'
@@ -170,6 +172,7 @@ def _init_menu():
     parser_detection.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
     parser_detection.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
                                   'or to use a specific version of STIX objects')
+    parser_detection.add_argument('--ignore-verify-tls', help='Ignore TLS verification errors', action='store_true')
     parser_detection.add_argument('--layer-settings', help='specific settings for the Navigator layer. Supported settings: '
                                   + ', '.join(['%s=%s' % (k, '|'.join(v)) for k, v in LAYER_SETTINGS.items()]) +
                                   '. Multiple settings can be provided with extra --layer-settings'
@@ -241,6 +244,7 @@ def _init_menu():
     parser_group.add_argument('--health', help='check the YAML file(s) for errors', action='store_true')
     parser_group.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
                                                         'or to use a specific version of STIX objects')
+    parser_group.add_argument('--ignore-verify-tls', help='Ignore TLS verification errors', action='store_true')
     parser_group.add_argument('--layer-settings', help='specific settings for the Navigator layer. Supported settings: '
                               + ', '.join(['%s=%s' % (k, '|'.join(v)) for k, v in LAYER_SETTINGS.items()]) +
                               '. Multiple settings can be provided with extra --layer-settings'
@@ -274,6 +278,7 @@ def _init_menu():
                                 default='modified')
     parser_generic.add_argument('--local-stix-path', help='path to a local STIX repository to use DeTT&CT offline '
                                 'or to use a specific version of STIX objects')
+    parser_generic.add_argument('--ignore-verify-tls', help='Ignore TLS verification errors', action='store_true')
 
     return menu_parser
 
@@ -288,6 +293,12 @@ def _menu(menu_parser):
 
     if 'local_stix_path' in args and args.local_stix_path:
         generic.local_stix_path = args.local_stix_path
+    
+    if 'ignore_verify_tls' in args and args.ignore_verify_tls:
+        print("[!] Warning: ignoring TLS verification errors due to --ignore-verify-tls option")
+        import urllib3
+        urllib3.disable_warnings()
+        generic.verify_tls = False
 
     if args.subparser in ['editor', 'e']:
         DeTTECTEditor(int(args.port)).start()
