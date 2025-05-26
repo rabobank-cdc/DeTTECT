@@ -169,9 +169,9 @@ def load_attack_data(data_type):
             mitre = attack_client()
         except (exceptions.ConnectionError, datastore.DataSourceError) as e:
             if hasattr(e, 'request'):
-                print("[!] Cannot connect to MITRE's CTI TAXII server: " + str(e.request.url))
+                print(f"[!] Cannot connect to MITRE's CTI TAXII server: {e.request.url} - {e}")
             else:
-                print("[!] Cannot connect to MITRE's CTI TAXII server")
+                print(f"[!] Cannot connect to MITRE's CTI TAXII server - {e}")
             quit()
 
     attack_data = None
