@@ -326,22 +326,25 @@ def export_data_source_list_to_excel(filename, output_filename, output_overwrite
 
     # Header columns
     y += 1
-    worksheet.write(y, 0, 'Data source name', format_bold_left)
-    worksheet.write(y, 1, 'Applicable to', format_bold_left)
-    worksheet.write(y, 2, 'Date registered', format_bold_left)
-    worksheet.write(y, 3, 'Date connected', format_bold_left)
-    worksheet.write(y, 4, 'Products', format_bold_left)
-    worksheet.write(y, 5, 'Comment', format_bold_left)
-    worksheet.write(y, 6, 'Available for data analytics', format_bold_left)
-    worksheet.write(y, 7, 'DQ: device completeness', format_bold_left)
-    worksheet.write(y, 8, 'DQ: data field completeness', format_bold_left)
-    worksheet.write(y, 9, 'DQ: timeliness', format_bold_left)
-    worksheet.write(y, 10, 'DQ: consistency', format_bold_left)
-    worksheet.write(y, 11, 'DQ: retention', format_bold_left)
-    worksheet.write(y, 12, 'DQ: score', format_bold_left)
+    header_columns = y
+    worksheet.write(header_columns, 0, 'Data source name', format_bold_left)
+    worksheet.write(header_columns, 1, 'Applicable to', format_bold_left)
+    worksheet.write(header_columns, 2, 'Date registered', format_bold_left)
+    worksheet.write(header_columns, 3, 'Date connected', format_bold_left)
+    worksheet.write(header_columns, 4, 'Products', format_bold_left)
+    worksheet.write(header_columns, 5, 'Comment', format_bold_left)
+    worksheet.write(header_columns, 6, 'Available for data analytics', format_bold_left)
+    worksheet.write(header_columns, 7, 'DQ: device completeness', format_bold_left)
+    worksheet.write(header_columns, 8, 'DQ: data field completeness', format_bold_left)
+    worksheet.write(header_columns, 9, 'DQ: timeliness', format_bold_left)
+    worksheet.write(header_columns, 10, 'DQ: consistency', format_bold_left)
+    worksheet.write(header_columns, 11, 'DQ: retention', format_bold_left)
+    worksheet.write(header_columns, 12, 'DQ: score', format_bold_left)
+    worksheet.write(header_columns, 13, 'Enabled', format_bold_left)
+    worksheet.write(header_columns, 14, 'Key/value pairs', format_bold_left)
 
-    worksheet.autofilter(y, 0, y, 12)
-    worksheet.freeze_panes(y + 1, 0)
+    worksheet.autofilter(header_columns, 0, y, 12)
+    worksheet.freeze_panes(header_columns + 1, 0)
 
     worksheet.set_column(0, 0, 35)
     worksheet.set_column(1, 1, 18)
@@ -352,6 +355,7 @@ def export_data_source_list_to_excel(filename, output_filename, output_overwrite
     worksheet.set_column(7, 8, 25)
     worksheet.set_column(9, 11, 15)
     worksheet.set_column(12, 12, 10)
+    worksheet.set_column(14, 14, 75)
 
     # Putting the data sources data:
     y += 1
@@ -375,7 +379,11 @@ def export_data_source_list_to_excel(filename, output_filename, output_overwrite
             worksheet.write(y, 9, ds['data_quality']['timeliness'], format_center_valign_top)
             worksheet.write(y, 10, ds['data_quality']['consistency'], format_center_valign_top)
             worksheet.write(y, 11, ds['data_quality']['retention'], format_center_valign_top)
+            # Column 12 with calculated score below
+            worksheet.write(y, 13, "True" if ds['data_quality']['device_completeness'] > 0 and ds['data_quality']['data_field_completeness'] > 0 and ds['data_quality']['timeliness'] > 0 and ds['data_quality']['consistency'] > 0 and ds['data_quality']['retention'] > 0 else "False", format_center_valign_top)
+            # Column 14 with key/value pairs below
 
+            # Calculate data quality score
             score = 0
             score_count = 0
             for k, v in ds['data_quality'].items():
@@ -388,8 +396,15 @@ def export_data_source_list_to_excel(filename, output_filename, output_overwrite
                     score_count += 1
             if score > 0:
                 score = score / score_count
-
             worksheet.write(y, 12, score, dq_score_0 if score == 0 else dq_score_1 if score < 2 else dq_score_2 if score < 3 else dq_score_3 if score < 4 else dq_score_4 if score < 5 else dq_score_5 if score < 6 else no_score)  # noqa
+            
+            # Add key/value pairs
+            kv = []
+            for key in ds.keys():
+                if key not in ('applicable_to', 'date_registered', 'date_connected', 'products', 'available_for_data_analytics', 'comment', 'data_quality'):
+                    kv.append(f'{key}={ds[key]}')
+            worksheet.write(y, 14, ', '.join(kv), wrap_text)
+            
             y += 1
 
     try:

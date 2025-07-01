@@ -501,8 +501,8 @@ def export_techniques_list_to_excel(filename, output_filename, output_overwrite)
     y = 4
     worksheet_detections.merge_range(y, 0, y, 2, 'Technique', format_bold_center_bggrey)
     worksheet_visibility.merge_range(y, 0, y, 2, 'Technique', format_bold_center_bggrey)
-    worksheet_detections.merge_range(y, 3, y, 8, 'Detection', format_bold_center_bgreen)
-    worksheet_visibility.merge_range(y, 3, y, 7, 'Visibility', format_bold_center_bgblue)
+    worksheet_detections.merge_range(y, 3, y, 9, 'Detection', format_bold_center_bgreen)
+    worksheet_visibility.merge_range(y, 3, y, 8, 'Visibility', format_bold_center_bgblue)
 
     # Writing the headers:
     y += 1
@@ -515,6 +515,7 @@ def export_techniques_list_to_excel(filename, output_filename, output_overwrite)
     worksheet_detections.write(y, 6, 'Location', format_bold_left)
     worksheet_detections.write(y, 7, 'Technique comment', format_bold_left)
     worksheet_detections.write(y, 8, 'Detection comment', format_bold_left)
+    worksheet_detections.write(y, 9, 'Key/value pairs', format_bold_left)
     worksheet_visibility.write(y, 0, 'ID', format_bold_left)
     worksheet_visibility.write(y, 1, 'Description', format_bold_left)
     worksheet_visibility.write(y, 2, 'Tactic', format_bold_left)
@@ -523,9 +524,10 @@ def export_techniques_list_to_excel(filename, output_filename, output_overwrite)
     worksheet_visibility.write(y, 5, 'Score', format_bold_left)
     worksheet_visibility.write(y, 6, 'Technique comment', format_bold_left)
     worksheet_visibility.write(y, 7, 'Visibility comment', format_bold_left)
+    worksheet_visibility.write(y, 8, 'Key/value pairs', format_bold_left)
 
-    worksheet_detections.autofilter(y, 0, y, 8)
-    worksheet_visibility.autofilter(y, 0, y, 7)
+    worksheet_detections.autofilter(y, 0, y, 9)
+    worksheet_visibility.autofilter(y, 0, y, 8)
     worksheet_detections.freeze_panes(y + 1, 0)
     worksheet_visibility.freeze_panes(y + 1, 0)
 
@@ -536,6 +538,7 @@ def export_techniques_list_to_excel(filename, output_filename, output_overwrite)
     worksheet_detections.set_column(4, 4, 11)
     worksheet_detections.set_column(5, 5, 8)
     worksheet_detections.set_column(6, 8, 50)
+    worksheet_detections.set_column(9, 9, 75)
     worksheet_visibility.set_column(0, 0, 8)
     worksheet_visibility.set_column(1, 1, 40)
     worksheet_visibility.set_column(2, 2, 40)
@@ -543,6 +546,7 @@ def export_techniques_list_to_excel(filename, output_filename, output_overwrite)
     worksheet_visibility.set_column(4, 4, 11)
     worksheet_visibility.set_column(5, 5, 8)
     worksheet_visibility.set_column(6, 7, 50)
+    worksheet_visibility.set_column(8, 8, 75)
 
     dy = y + 1
     for technique_id, technique_data in my_techniques.items():
@@ -569,6 +573,14 @@ def export_techniques_list_to_excel(filename, output_filename, output_overwrite)
                                            if detection['comment'].endswith('\n') else detection['comment'], wrap_text)
                 d_comment = get_latest_comment(detection)
                 worksheet_detections.write(dy, 8, d_comment[:-1] if d_comment.endswith('\n') else d_comment, wrap_text)
+                
+                # Add key/value pairs
+                kv = []
+                for key in detection.keys():
+                    if key not in ('applicable_to', 'location', 'comment', 'score_logbook'):
+                        kv.append(f'{key}={detection[key]}')
+                worksheet_detections.write(dy, 9, ', '.join(kv), wrap_text)
+                
                 dy += 1
             else:
                 print('[!] Technique ' + technique_id + ' is unknown in ATT&CK. Ignoring this technique.')
@@ -597,6 +609,14 @@ def export_techniques_list_to_excel(filename, output_filename, output_overwrite)
                 worksheet_visibility.write(vy, 6, visibility['comment'][:-1]
                                            if visibility['comment'].endswith('\n') else visibility['comment'], wrap_text)
                 worksheet_visibility.write(vy, 7, v_comment[:-1] if v_comment.endswith('\n') else v_comment, wrap_text)
+                
+                # Add key/value pairs
+                kv = []
+                for key in visibility.keys():
+                    if key not in ('applicable_to', 'comment', 'score_logbook'):
+                        kv.append(f'{key}={visibility[key]}')
+                worksheet_visibility.write(vy, 8, ', '.join(kv), wrap_text)
+                
                 vy += 1
             else:
                 print('[!] Technique ' + technique_id + ' is unknown in ATT&CK. Ignoring this technique.')
