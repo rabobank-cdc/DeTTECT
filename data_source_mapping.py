@@ -523,17 +523,18 @@ def _add_visibility_object_to_dict(dict_vis_objects, tech_id, vis_obj):
     return dict_vis_objects
 
 
-def update_technique_administration_file(file_data_sources, file_tech_admin):
+def update_technique_administration_file(file_data_sources, file_tech_admin, output_overwrite):
     """
     Update the visibility scores in the provided technique administration file
     :param file_data_sources: file location of the data source admin. file
     :param file_tech_admin: file location of the tech. admin. file
+    :param output_overwrite: boolean flag indicating whether we're in overwrite mode
     :return:
     """
     file_updated = False
 
     # first we generate the new visibility scores contained within a temporary tech. admin YAML 'file'
-    new_visibility_scores = generate_technique_administration_file(file_data_sources, None, write_file=False, all_techniques=True)
+    new_visibility_scores = generate_technique_administration_file(file_data_sources, None, output_overwrite, write_file=False, all_techniques=True)
 
     # we get the date to remove the single quotes from the date at the end of of this function's code
     today = new_visibility_scores['techniques'][0]['visibility'][0]['score_logbook'][0]['date']

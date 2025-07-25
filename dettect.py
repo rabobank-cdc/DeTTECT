@@ -318,7 +318,7 @@ def _menu(menu_parser):
                 if not file_ds:
                     quit()  # something went wrong in executing the search or 0 results where returned
             if args.update and check_file(args.file_tech, FILE_TYPE_TECHNIQUE_ADMINISTRATION, args.health):
-                update_technique_administration_file(file_ds, args.file_tech)
+                update_technique_administration_file(file_ds, args.file_tech, args.force_overwrite)
             if args.layer:
                 generate_data_sources_layer(file_ds, args.output_filename, args.force_overwrite, args.layer_name, layer_settings)
             if args.excel:
