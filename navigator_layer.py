@@ -38,7 +38,7 @@ def _get_base_template(name, description, platform, sorting, domain, layer_setti
                 else:
                     layer['layout'][setting_key] = setting_value.lower()
 
-    layer['hideDisable'] = False
+    layer['hideDisabled'] = False
     layer['selectSubtechniquesWithParent'] = False
     layer['techniques'] = []
 
