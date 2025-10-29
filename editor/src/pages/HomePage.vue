@@ -14,7 +14,6 @@
                             <hr>
                         </div>
                     </div>
-                    </div>
                     <div class="row">
                         <div class="col-md-5">
                             <h4>Introduction</h4>
