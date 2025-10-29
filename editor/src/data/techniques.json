@@ -700,6 +700,16 @@
       "autosuggest": "T1036.011 - Overwrite Process Arguments"
     },
     {
+      "technique_id": "T1036.012",
+      "technique_name": "Browser Fingerprint",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1036.012 - Browser Fingerprint"
+    },
+    {
       "technique_id": "T1037",
       "technique_name": "Boot or Logon Initialization Scripts",
       "platforms": [
@@ -1242,6 +1252,14 @@
         "ESXi"
       ],
       "autosuggest": "T1059.012 - Hypervisor CLI"
+    },
+    {
+      "technique_id": "T1059.013",
+      "technique_name": "Container CLI/API",
+      "platforms": [
+        "Containers"
+      ],
+      "autosuggest": "T1059.013 - Container CLI/API"
     },
     {
       "technique_id": "T1068",
@@ -2506,6 +2524,7 @@
       "technique_name": "Supply Chain Compromise",
       "platforms": [
         "Linux",
+        "SaaS",
         "Windows",
         "macOS"
       ],
@@ -2658,6 +2677,16 @@
       "autosuggest": "T1204.004 - Malicious Copy and Paste"
     },
     {
+      "technique_id": "T1204.005",
+      "technique_name": "Malicious Library",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1204.005 - Malicious Library"
+    },
+    {
       "technique_id": "T1205",
       "technique_name": "Traffic Signaling",
       "platforms": [
@@ -2785,6 +2814,18 @@
         "SaaS"
       ],
       "autosuggest": "T1213.005 - Messaging Applications"
+    },
+    {
+      "technique_id": "T1213.006",
+      "technique_name": "Databases",
+      "platforms": [
+        "IaaS",
+        "Linux",
+        "SaaS",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1213.006 - Databases"
     },
     {
       "technique_id": "T1216",
@@ -3131,6 +3172,7 @@
       "technique_name": "Service Stop",
       "platforms": [
         "ESXi",
+        "IaaS",
         "Linux",
         "Windows",
         "macOS"
@@ -3281,13 +3323,13 @@
     },
     {
       "technique_id": "T1497.003",
-      "technique_name": "Time Based Evasion",
+      "technique_name": "Time Based Checks",
       "platforms": [
         "Linux",
         "Windows",
         "macOS"
       ],
-      "autosuggest": "T1497.003 - Time Based Evasion"
+      "autosuggest": "T1497.003 - Time Based Checks"
     },
     {
       "technique_id": "T1498",
@@ -3465,6 +3507,16 @@
         "macOS"
       ],
       "autosuggest": "T1518.001 - Security Software Discovery"
+    },
+    {
+      "technique_id": "T1518.002",
+      "technique_name": "Backup Software Discovery",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1518.002 - Backup Software Discovery"
     },
     {
       "technique_id": "T1525",
@@ -3847,6 +3899,16 @@
       "autosuggest": "T1546.017 - Udev Rules"
     },
     {
+      "technique_id": "T1546.018",
+      "technique_name": "Python Startup Hooks",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1546.018 - Python Startup Hooks"
+    },
+    {
       "technique_id": "T1547",
       "technique_name": "Boot or Logon Autostart Execution",
       "platforms": [
@@ -4125,12 +4187,13 @@
     },
     {
       "technique_id": "T1552.003",
-      "technique_name": "Bash History",
+      "technique_name": "Shell History",
       "platforms": [
         "Linux",
+        "Windows",
         "macOS"
       ],
-      "autosuggest": "T1552.003 - Bash History"
+      "autosuggest": "T1552.003 - Shell History"
     },
     {
       "technique_id": "T1552.004",
@@ -4743,6 +4806,14 @@
         "Linux"
       ],
       "autosuggest": "T1562.012 - Disable or Modify Linux Audit System"
+    },
+    {
+      "technique_id": "T1562.013",
+      "technique_name": "Disable or Modify Network Device Firewall",
+      "platforms": [
+        "Network Devices"
+      ],
+      "autosuggest": "T1562.013 - Disable or Modify Network Device Firewall"
     },
     {
       "technique_id": "T1563",
@@ -6556,6 +6627,52 @@
         "ESXi"
       ],
       "autosuggest": "T1675 - ESXi Administration Command"
+    },
+    {
+      "technique_id": "T1677",
+      "technique_name": "Poisoned Pipeline Execution",
+      "platforms": [
+        "SaaS"
+      ],
+      "autosuggest": "T1677 - Poisoned Pipeline Execution"
+    },
+    {
+      "technique_id": "T1678",
+      "technique_name": "Delay Execution",
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1678 - Delay Execution"
+    },
+    {
+      "technique_id": "T1679",
+      "technique_name": "Selective Exclusion",
+      "platforms": [
+        "Windows"
+      ],
+      "autosuggest": "T1679 - Selective Exclusion"
+    },
+    {
+      "technique_id": "T1680",
+      "technique_name": "Local Storage Discovery",
+      "platforms": [
+        "ESXi",
+        "IaaS",
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "autosuggest": "T1680 - Local Storage Discovery"
+    },
+    {
+      "technique_id": "T1681",
+      "technique_name": "Search Threat Vendor Data",
+      "platforms": [
+        "PRE"
+      ],
+      "autosuggest": "T1681 - Search Threat Vendor Data"
     }
   ],
   "ATT&CK-ICS": [
@@ -7485,6 +7602,14 @@
       "autosuggest": "T1451 - SIM Card Swap"
     },
     {
+      "technique_id": "T1453",
+      "technique_name": "Abuse Accessibility Features",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "T1453 - Abuse Accessibility Features"
+    },
+    {
       "technique_id": "T1456",
       "technique_name": "Drive-By Compromise",
       "platforms": [
@@ -8086,6 +8211,15 @@
       "autosuggest": "T1636.004 - SMS Messages"
     },
     {
+      "technique_id": "T1636.005",
+      "technique_name": "Accounts",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1636.005 - Accounts"
+    },
+    {
       "technique_id": "T1637",
       "technique_name": "Dynamic Resolution",
       "platforms": [
@@ -8277,6 +8411,15 @@
         "Android"
       ],
       "autosuggest": "T1670 - Virtualization Solution"
+    },
+    {
+      "technique_id": "T1676",
+      "technique_name": "Linked Devices",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1676 - Linked Devices"
     }
   ]
 }
