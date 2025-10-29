@@ -8,6 +8,15 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-5">
+                            <h4>DeTT&CT Editor doesn't support ATT&CK version 18 yet!</h4>
+                            <p>MITRE released version 18 of ATT&CK on 29 October 2025. In this version the data sources and components are redesigned which demand changes in DeTT&CT to support this.</p>
+                            <p>DeTT&CT CLI and Editor only supports v17.1 at the moment. Read the note on <a href="https://github.com/rabobank-cdc/DeTTECT" target="_blank">DeTT&CT Readme</a> for more information.</p>
+                            <hr>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
                             <h4>Introduction</h4>
                             <p>
                                 The DeTT&CT data source, technique and group YAML files can be edited using this editor.
