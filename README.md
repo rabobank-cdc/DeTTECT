@@ -1,6 +1,19 @@
 <img src="https://github.com/rabobank-cdc/DeTTECT/wiki/images/logo_dark.png#gh-dark-mode-only" alt="DeTT&CT" width=30% height=30%>
 <img src="https://github.com/rabobank-cdc/DeTTECT/wiki/images/logo.png#gh-light-mode-only" alt="DeTT&CT" width=30% height=30%>
 
+#### [!] DeTT&CT doesn't support ATT&CK version 18 yet!
+
+MITRE released version 18 of ATT&CK on 29 October 2025. In this version the data sources and components are redesigned which demand changes in DeTT&CT to support this.
+
+To keep using DeTT&CT, make sure you use the version 17.1 STIX objects of ATT&CK:
+- Download this version from MITRE ATT&CK Stix Data repository: https://github.com/mitre-attack/attack-stix-data/releases/tag/v17.1
+- Or checkout the specific tag if you already cloned the STIX repository: `git checkout v17.1`
+
+When using the CLI you should use the `--local-stix-path` parameter to point to the directory with STIX v17.1 objects.
+
+The online [DeTT&CT Editor](https://rabobank-cdc.github.io/dettect-editor) is freezed on version 17.1 as well.
+
+
 #### Detect Tactics, Techniques & Combat Threats
 Latest version: [2.1.0](https://github.com/rabobank-cdc/DeTTECT/wiki/Changelog#version-210)
 
