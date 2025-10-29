@@ -13,6 +13,7 @@ When using the CLI you should use the `--local-stix-path` parameter to point to 
 
 The online [DeTT&CT Editor](https://rabobank-cdc.github.io/dettect-editor) is freezed on version 17.1 as well.
 
+<hr>
 
 #### Detect Tactics, Techniques & Combat Threats
 Latest version: [2.1.0](https://github.com/rabobank-cdc/DeTTECT/wiki/Changelog#version-210)
