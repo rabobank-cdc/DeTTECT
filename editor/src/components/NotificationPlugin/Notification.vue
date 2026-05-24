@@ -24,7 +24,7 @@
             <div v-if="title" class="title">
                 <b>{{ title }}<br /></b>
             </div>
-            <div v-if="message" v-html="message"></div>
+            <div v-if="message">{{ message }}</div>
             <content-render v-if="!message && component" :component="component"></content-render>
             <div v-if="cb_function != null">
                 <a href="#" @click="cb_function(cb_function_key)">{{ cb_function_text }}</a>
