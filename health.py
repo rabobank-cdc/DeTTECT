@@ -17,13 +17,17 @@ def _update_health_state(current, update):
         return update
 
 
+def _get_cache_file(prefix, filename):
+    return 'cache/' + prefix + os.path.splitext(os.path.basename(filename))[0]
+
+
 def _is_file_modified(filename):
     """
     Check if the provided file was modified since the last check
     :param filename: file location
     :return: true when modified else false
     """
-    last_modified_file = 'cache/last-modified_' + os.path.basename(filename).rstrip('.yaml')
+    last_modified_file = _get_cache_file('last-modified_', filename)
 
     def _update_modified_date(date):
         with open(last_modified_file, 'wb') as fd:
@@ -52,7 +56,7 @@ def _get_health_state_cache(filename):
     :param filename: file location
     :return: the cached error state
     """
-    last_error_file = 'cache/last-error-state_' + os.path.basename(filename).rstrip('.yaml')
+    last_error_file = _get_cache_file('last-error-state_', filename)
 
     if os.path.exists(last_error_file):
         with open(last_error_file, 'rb') as f:
@@ -69,7 +73,7 @@ def _update_health_state_cache(filename, has_error):
     # the function 'check_health_data_sources' will call this function without providing a filename when
     # 'check_health_data_sources' is called from '_events_to_yaml' within 'eql_yaml.py'
     if filename:
-        last_error_file = 'cache/last-error-state_' + os.path.basename(filename).rstrip('.yaml')
+        last_error_file = _get_cache_file('last-error-state_', filename)
 
         def _update(error):
             with open(last_error_file, 'wb') as fd:
