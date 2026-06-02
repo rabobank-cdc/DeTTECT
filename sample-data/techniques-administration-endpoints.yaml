@@ -1875,7 +1875,7 @@ techniques:
       score: 2
       comment: ''
       auto_generated: true
-- technique_id: T1070.001
+- technique_id: T1685.005
   technique_name: Clear Windows Event Logs
   detection:
   - applicable_to:
@@ -1895,7 +1895,7 @@ techniques:
       score: 4
       comment: ''
       auto_generated: true
-- technique_id: T1070.002
+- technique_id: T1685.006
   technique_name: Clear Linux or Mac System Logs
   detection:
   - applicable_to:
@@ -5967,27 +5967,7 @@ techniques:
       score: 1
       comment: ''
       auto_generated: true
-- technique_id: T1562
-  technique_name: Impair Defenses
-  detection:
-  - applicable_to:
-    - all
-    location: []
-    comment: ''
-    score_logbook:
-    - date:
-      score: -1
-      comment: ''
-  visibility:
-  - applicable_to:
-    - all
-    comment: ''
-    score_logbook:
-    - date: 2021-06-08
-      score: 1
-      comment: ''
-      auto_generated: true
-- technique_id: T1562.001
+- technique_id: T1685
   technique_name: Disable or Modify Tools
   detection:
   - applicable_to:
@@ -6015,8 +5995,8 @@ techniques:
       score: 1
       comment: Connected the Internal DNS DeTT&CT data source to Splunk
       auto_generated: true
-- technique_id: T1562.002
-  technique_name: Disable Windows Event Logging
+- technique_id: T1685.001
+  technique_name: Disable or Modify Windows Event Log
   detection:
   - applicable_to:
     - all
@@ -6035,8 +6015,8 @@ techniques:
       score: 2
       comment: ''
       auto_generated: true
-- technique_id: T1562.003
-  technique_name: Impair Command History Logging
+- technique_id: T1690
+  technique_name: Prevent Command History Logging
   detection:
   - applicable_to:
     - all
@@ -6055,7 +6035,7 @@ techniques:
       score: 2
       comment: ''
       auto_generated: true
-- technique_id: T1562.004
+- technique_id: T1686
   technique_name: Disable or Modify System Firewall
   detection:
   - applicable_to:
@@ -6083,27 +6063,7 @@ techniques:
       score: 1
       comment: Connected the Internal DNS DeTT&CT data source to Splunk
       auto_generated: true
-- technique_id: T1562.006
-  technique_name: Indicator Blocking
-  detection:
-  - applicable_to:
-    - all
-    location: []
-    comment: ''
-    score_logbook:
-    - date:
-      score: -1
-      comment: ''
-  visibility:
-  - applicable_to:
-    - all
-    comment: ''
-    score_logbook:
-    - date: 2021-06-08
-      score: 2
-      comment: ''
-      auto_generated: true
-- technique_id: T1562.009
+- technique_id: T1688
   technique_name: Safe Mode Boot
   detection:
   - applicable_to:
@@ -6123,7 +6083,7 @@ techniques:
       score: 4
       comment: ''
       auto_generated: true
-- technique_id: T1562.010
+- technique_id: T1689
   technique_name: Downgrade Attack
   detection:
   - applicable_to:
