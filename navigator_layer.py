@@ -286,7 +286,8 @@ def add_metadata_technique_object(technique, obj_type, metadata, count_detection
 
     metadata.append({'divider': True})
     metadata.append({'name': 'Applicable to', 'value': ', '.join(set([a for v in technique[obj_type] for a in v['applicable_to']]))})  # noqa
-    metadata.append({'name': '' + obj_type.capitalize() + ' score', 'value': ', '.join([str(calculate_score(technique[obj_type]))])})  # noqa
+    score = calculate_score(technique[obj_type], zero_value=-1 if obj_type == 'detection' else 0)
+    metadata.append({'name': '' + obj_type.capitalize() + ' score', 'value': ', '.join([str(score)])})  # noqa
     if obj_type == 'detection':
         location = ''
         if count_detections:

@@ -51,6 +51,21 @@ def _write_layer(layer, mapped_techniques, filename_prefix, name, output_filenam
     write_file(output_filename, output_overwrite, json_string)
 
 
+def _latest_score_is_nonnegative(yaml_object):
+    score = get_latest_score(yaml_object)
+    return score is not None and score >= 0
+
+
+def _include_detection_in_layer_metadata(detection):
+    """
+    Determine if a detection object should be represented in Navigator layer metadata.
+    Detection score -1 means not covered/not scored, but an explicitly dated assessment
+    still carries useful analyst context and should be visible in the matrix.
+    """
+    score = get_latest_score(detection)
+    return score is not None and (score >= 0 or (score == -1 and get_latest_date(detection) is not None))
+
+
 def _map_and_colorize_techniques_for_detections(my_techniques, domain, count_detections, layer_settings):
     """
     Determine the color of the techniques based on the detection score in the given YAML file. Also, it will create
@@ -81,25 +96,29 @@ def _map_and_colorize_techniques_for_detections(my_techniques, domain, count_det
             else:
                 tactics.append(None)
 
-            if s != -1:
+            include_technique = s != -1 or any(_include_detection_in_layer_metadata(d) for d in technique_data['detection'])
+
+            if include_technique:
                 color = COLOR_D_0 if s == 0 else COLOR_D_1 if s == 1 else COLOR_D_2 if s == 2 else COLOR_D_3 \
                     if s == 3 else COLOR_D_4 if s == 4 else COLOR_D_5 if s == 5 else ''
 
                 if technique is not None:
                     x = dict()
                     x['techniqueID'] = technique_id
-                    x['color'] = color
+                    if s != -1:
+                        x['color'] = color
                     x['comment'] = ''
                     x['enabled'] = True
                     x['metadata'] = []
-                    x['score'] = s
+                    if s != -1:
+                        x['score'] = s
 
                     if 'showMetadata' not in layer_settings.keys() or ('showMetadata' in layer_settings.keys() and str(layer_settings['showMetadata']) == 'True'):
                         cnt = 1
-                        tcnt = len([d for d in technique_data['detection'] if get_latest_score(d) >= 0])
+                        tcnt = len([d for d in technique_data['detection'] if _include_detection_in_layer_metadata(d)])
                         for detection in technique_data['detection']:
                             d_score = get_latest_score(detection)
-                            if d_score >= 0:
+                            if _include_detection_in_layer_metadata(detection):
                                 location = ''
                                 if count_detections:
                                     location_count = count_detections_in_location(detection['location'])
@@ -321,7 +340,10 @@ def _map_and_colorize_techniques_for_overlaid(my_techniques, platforms, domain, 
                                                                                                                                    applicable_dettect_data_sources))})
             # Metadata for detection and visibility:
             for obj_type in ['detection', 'visibility']:
-                tcnt = len([obj for obj in technique_data[obj_type] if get_latest_score(obj) >= 0])
+                if obj_type == 'detection':
+                    tcnt = len([obj for obj in technique_data[obj_type] if _include_detection_in_layer_metadata(obj)])
+                else:
+                    tcnt = len([obj for obj in technique_data[obj_type] if _latest_score_is_nonnegative(obj)])
                 if tcnt > 0:
                     x['metadata'] = add_metadata_technique_object(technique_data, obj_type, x['metadata'], count_detections)
 
