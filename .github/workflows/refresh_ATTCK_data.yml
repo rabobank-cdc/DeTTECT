@@ -24,10 +24,10 @@ jobs:
           repository: mitre-attack/attack-stix-data
           path: attack-stix-data
 
-      - name: Set up Python 3.10
+      - name: Set up Python 3.14
         uses: actions/setup-python@v2
         with:
-          python-version: '3.10'
+          python-version: '3.14'
 
       - name: Install Python dependencies
         run: |
