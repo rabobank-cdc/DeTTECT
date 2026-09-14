@@ -7,19 +7,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
         with:
           token: ${{ secrets.PERSONAL_TOKEN }}
 
       - name: Checkout the Wiki
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.PERSONAL_TOKEN }}
           repository: ${{github.repository}}.wiki
           path: wiki
       
       - name: Clone STIX repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
         with:
           repository: mitre-attack/attack-stix-data
           path: attack-stix-data
