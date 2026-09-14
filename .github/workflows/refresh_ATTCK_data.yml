@@ -1,6 +1,4 @@
 name: Refresh ATT&CK data
-permissions:
-  contents: write
 on:
   schedule:
     - cron:  '0 */12 * * *'
@@ -10,10 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          token: ${{ secrets.PERSONAL_TOKEN }}
 
       - name: Checkout the Wiki
         uses: actions/checkout@v5
         with:
+          token: ${{ secrets.PERSONAL_TOKEN }}
           repository: ${{github.repository}}.wiki
           path: wiki
       
@@ -61,6 +62,8 @@ jobs:
         uses: SwiftDocOrg/github-wiki-publish-action@v1
         with:
           path: "wiki"
+        env:
+          GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
 
       - name: JSON data - check for changes
         id: changesjson
@@ -73,14 +76,15 @@ jobs:
         if: contains(steps.changesjson.outputs.GIT_STATUS_CODE, 'modified')
         run: |
           rm -rf wiki
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           git add -A
           git commit -m "Refresh ATT&CK json data files"
 
-      - name: JSON data - push changes
-        run: |
-          git remote -v
-          git branch -vv
-          git status
-          git push origin HEAD:master
+      - name: JSON data - push changes (if applicable)
+        if: contains(steps.changesjson.outputs.GIT_STATUS_CODE, 'modified')
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.PERSONAL_TOKEN }}
+
+
