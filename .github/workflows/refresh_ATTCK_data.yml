@@ -77,4 +77,4 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           git commit -m "Refresh ATT&CK json data files"
-          git push origin
+          git push
