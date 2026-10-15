@@ -418,21 +418,24 @@ class ATTACKData():
 
         for analytic in attack_analytics:
             for ls in analytic.get('x_mitre_log_source_references', []):
-                dc = attack_data_components_ids[ls['x_mitre_data_component_ref']]
+                if ls['x_mitre_data_component_ref'] in attack_data_components_ids:
+                    dc = attack_data_components_ids[ls['x_mitre_data_component_ref']]
 
-                if dc['name'] not in dc_dict.keys():
-                    dc_dict[dc['name']] = {}
-                    dc_dict[dc['name']]['platforms'] = set()
+                    if dc['name'] not in dc_dict.keys():
+                        dc_dict[dc['name']] = {}
+                        dc_dict[dc['name']]['platforms'] = set()
+                        
+                        # Add the ATT&CK Wiki URL
+                        url = ''
+                        for ex_ref in dc['external_references']:
+                            if ex_ref['source_name'] == 'mitre-attack':
+                                url = ex_ref['url']
+                                break
+                        dc_dict[dc['name']]['wiki_url'] = url
                     
-                    # Add the ATT&CK Wiki URL
-                    url = ''
-                    for ex_ref in dc['external_references']:
-                        if ex_ref['source_name'] == 'mitre-attack':
-                            url = ex_ref['url']
-                            break
-                    dc_dict[dc['name']]['wiki_url'] = url
-                
-                dc_dict[dc['name']]['platforms'].update(set(analytic.get('x_mitre_platforms')))
+                    dc_dict[dc['name']]['platforms'].update(set(analytic.get('x_mitre_platforms')))
+                else:
+                    print(f"Data component {ls['x_mitre_data_component_ref']} not defined in STIX. MITRE should fix this.")
 
         return dc_dict
 
