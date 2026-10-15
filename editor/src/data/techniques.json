@@ -316,6 +316,7 @@
       "platforms": [
         "ESXi",
         "Linux",
+        "Windows",
         "macOS"
       ],
       "autosuggest": "T1021.004 - SSH"
@@ -1158,7 +1159,9 @@
       "technique_id": "T1059.001",
       "technique_name": "PowerShell",
       "platforms": [
-        "Windows"
+        "Linux",
+        "Windows",
+        "macOS"
       ],
       "autosuggest": "T1059.001 - PowerShell"
     },
@@ -6163,6 +6166,14 @@
       "autosuggest": "T1608.006 - SEO Poisoning"
     },
     {
+      "technique_id": "T1608.007",
+      "technique_name": "AI Result Poisoning",
+      "platforms": [
+        "PRE"
+      ],
+      "autosuggest": "T1608.007 - AI Result Poisoning"
+    },
+    {
       "technique_id": "T1609",
       "technique_name": "Container Administration Command",
       "platforms": [
@@ -6648,6 +6659,15 @@
       "autosuggest": "T1685.006 - Clear Linux or Mac System Logs"
     },
     {
+      "technique_id": "T1685.007",
+      "technique_name": "Impair Autonomous Defenses",
+      "platforms": [
+        "SaaS",
+        "Windows"
+      ],
+      "autosuggest": "T1685.007 - Impair Autonomous Defenses"
+    },
+    {
       "technique_id": "T1686",
       "technique_name": "Disable or Modify System Firewall",
       "platforms": [
@@ -6724,6 +6744,67 @@
         "macOS"
       ],
       "autosuggest": "T1690 - Prevent Command History Logging"
+    },
+    {
+      "technique_id": "T1696",
+      "technique_name": "Anti-Automation Evasion",
+      "platforms": [
+        "SaaS"
+      ],
+      "autosuggest": "T1696 - Anti-Automation Evasion"
+    },
+    {
+      "technique_id": "T1696.001",
+      "technique_name": "Automate CAPTCHA Completion",
+      "platforms": [
+        "SaaS"
+      ],
+      "autosuggest": "T1696.001 - Automate CAPTCHA Completion"
+    },
+    {
+      "technique_id": "T1696.002",
+      "technique_name": "Avoid CAPTCHA",
+      "platforms": [
+        "SaaS"
+      ],
+      "autosuggest": "T1696.002 - Avoid CAPTCHA"
+    },
+    {
+      "technique_id": "T1697",
+      "technique_name": "Steal Application Specific Passwords",
+      "platforms": [
+        "Identity Provider",
+        "Office Suite",
+        "SaaS"
+      ],
+      "autosuggest": "T1697 - Steal Application Specific Passwords"
+    },
+    {
+      "technique_id": "T1698",
+      "technique_name": "Indirect Prompt Injection",
+      "platforms": [
+        "SaaS",
+        "Windows"
+      ],
+      "autosuggest": "T1698 - Indirect Prompt Injection"
+    },
+    {
+      "technique_id": "T1699",
+      "technique_name": "Direct Prompt Injection",
+      "platforms": [
+        "SaaS",
+        "Windows"
+      ],
+      "autosuggest": "T1699 - Direct Prompt Injection"
+    },
+    {
+      "technique_id": "T1700",
+      "technique_name": "AI-Enabled Exfiltration",
+      "platforms": [
+        "SaaS",
+        "Windows"
+      ],
+      "autosuggest": "T1700 - AI-Enabled Exfiltration"
     }
   ],
   "ATT&CK-ICS": [
@@ -6731,7 +6812,10 @@
       "technique_id": "T0800",
       "technique_name": "Activate Firmware Update Mode",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0800 - Activate Firmware Update Mode"
     },
@@ -6739,7 +6823,10 @@
       "technique_id": "T0801",
       "technique_name": "Monitor Process State",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0801 - Monitor Process State"
     },
@@ -6747,7 +6834,9 @@
       "technique_id": "T0802",
       "technique_name": "Automated Collection",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Windows"
       ],
       "autosuggest": "T0802 - Automated Collection"
     },
@@ -6755,23 +6844,20 @@
       "technique_id": "T0806",
       "technique_name": "Brute Force I/O",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Windows"
       ],
       "autosuggest": "T0806 - Brute Force I/O"
-    },
-    {
-      "technique_id": "T0807",
-      "technique_name": "Command-Line Interface",
-      "platforms": [
-        "None"
-      ],
-      "autosuggest": "T0807 - Command-Line Interface"
     },
     {
       "technique_id": "T0809",
       "technique_name": "Data Destruction",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0809 - Data Destruction"
     },
@@ -6779,7 +6865,9 @@
       "technique_id": "T0811",
       "technique_name": "Data from Information Repositories",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Windows"
       ],
       "autosuggest": "T0811 - Data from Information Repositories"
     },
@@ -6795,7 +6883,10 @@
       "technique_id": "T0814",
       "technique_name": "Denial of Service",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0814 - Denial of Service"
     },
@@ -6811,7 +6902,10 @@
       "technique_id": "T0816",
       "technique_name": "Device Restart/Shutdown",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0816 - Device Restart/Shutdown"
     },
@@ -6819,7 +6913,8 @@
       "technique_id": "T0817",
       "technique_name": "Drive-by Compromise",
       "platforms": [
-        "None"
+        "Linux",
+        "Windows"
       ],
       "autosuggest": "T0817 - Drive-by Compromise"
     },
@@ -6827,7 +6922,10 @@
       "technique_id": "T0819",
       "technique_name": "Exploit Public-Facing Application",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0819 - Exploit Public-Facing Application"
     },
@@ -6835,7 +6933,10 @@
       "technique_id": "T0820",
       "technique_name": "Exploitation for Evasion",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0820 - Exploitation for Evasion"
     },
@@ -6843,7 +6944,7 @@
       "technique_id": "T0821",
       "technique_name": "Modify Controller Tasking",
       "platforms": [
-        "None"
+        "Embedded"
       ],
       "autosuggest": "T0821 - Modify Controller Tasking"
     },
@@ -6851,7 +6952,10 @@
       "technique_id": "T0822",
       "technique_name": "External Remote Services",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0822 - External Remote Services"
     },
@@ -6859,7 +6963,10 @@
       "technique_id": "T0823",
       "technique_name": "Graphical User Interface",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0823 - Graphical User Interface"
     },
@@ -6899,7 +7006,10 @@
       "technique_id": "T0830",
       "technique_name": "Adversary-in-the-Middle",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0830 - Adversary-in-the-Middle"
     },
@@ -6923,7 +7033,10 @@
       "technique_id": "T0834",
       "technique_name": "Native API",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0834 - Native API"
     },
@@ -6931,7 +7044,7 @@
       "technique_id": "T0835",
       "technique_name": "Manipulate I/O Image",
       "platforms": [
-        "None"
+        "Embedded"
       ],
       "autosuggest": "T0835 - Manipulate I/O Image"
     },
@@ -6939,7 +7052,9 @@
       "technique_id": "T0836",
       "technique_name": "Modify Parameter",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Windows"
       ],
       "autosuggest": "T0836 - Modify Parameter"
     },
@@ -6955,7 +7070,10 @@
       "technique_id": "T0838",
       "technique_name": "Modify Alarm Settings",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0838 - Modify Alarm Settings"
     },
@@ -6963,7 +7081,10 @@
       "technique_id": "T0840",
       "technique_name": "Network Connection Enumeration",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0840 - Network Connection Enumeration"
     },
@@ -6971,7 +7092,10 @@
       "technique_id": "T0842",
       "technique_name": "Network Sniffing",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0842 - Network Sniffing"
     },
@@ -6979,7 +7103,7 @@
       "technique_id": "T0843",
       "technique_name": "Program Download",
       "platforms": [
-        "None"
+        "Embedded"
       ],
       "autosuggest": "T0843 - Program Download"
     },
@@ -6987,7 +7111,7 @@
       "technique_id": "T0843.001",
       "technique_name": "Download All",
       "platforms": [
-        "None"
+        "Embedded"
       ],
       "autosuggest": "T0843.001 - Download All"
     },
@@ -6995,7 +7119,7 @@
       "technique_id": "T0843.002",
       "technique_name": "Online Edit",
       "platforms": [
-        "None"
+        "Embedded"
       ],
       "autosuggest": "T0843.002 - Online Edit"
     },
@@ -7003,7 +7127,7 @@
       "technique_id": "T0843.003",
       "technique_name": "Program Append",
       "platforms": [
-        "None"
+        "Embedded"
       ],
       "autosuggest": "T0843.003 - Program Append"
     },
@@ -7011,7 +7135,7 @@
       "technique_id": "T0845",
       "technique_name": "Program Upload",
       "platforms": [
-        "None"
+        "Embedded"
       ],
       "autosuggest": "T0845 - Program Upload"
     },
@@ -7019,7 +7143,10 @@
       "technique_id": "T0846",
       "technique_name": "Remote System Discovery",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0846 - Remote System Discovery"
     },
@@ -7027,7 +7154,10 @@
       "technique_id": "T0846.001",
       "technique_name": "Port Scan",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0846.001 - Port Scan"
     },
@@ -7035,7 +7165,10 @@
       "technique_id": "T0846.002",
       "technique_name": "Broadcast Discovery",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0846.002 - Broadcast Discovery"
     },
@@ -7043,7 +7176,10 @@
       "technique_id": "T0846.003",
       "technique_name": "Multicast Discovery",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0846.003 - Multicast Discovery"
     },
@@ -7051,7 +7187,10 @@
       "technique_id": "T0847",
       "technique_name": "Replication Through Removable Media",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0847 - Replication Through Removable Media"
     },
@@ -7059,7 +7198,10 @@
       "technique_id": "T0848",
       "technique_name": "Rogue Master",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0848 - Rogue Master"
     },
@@ -7067,7 +7209,10 @@
       "technique_id": "T0849",
       "technique_name": "Masquerading",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0849 - Masquerading"
     },
@@ -7075,7 +7220,10 @@
       "technique_id": "T0851",
       "technique_name": "Rootkit",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0851 - Rootkit"
     },
@@ -7083,23 +7231,17 @@
       "technique_id": "T0852",
       "technique_name": "Screen Capture",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Windows"
       ],
       "autosuggest": "T0852 - Screen Capture"
-    },
-    {
-      "technique_id": "T0853",
-      "technique_name": "Scripting",
-      "platforms": [
-        "None"
-      ],
-      "autosuggest": "T0853 - Scripting"
     },
     {
       "technique_id": "T0858",
       "technique_name": "Change Operating Mode",
       "platforms": [
-        "None"
+        "Embedded"
       ],
       "autosuggest": "T0858 - Change Operating Mode"
     },
@@ -7107,7 +7249,10 @@
       "technique_id": "T0859",
       "technique_name": "Valid Accounts",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0859 - Valid Accounts"
     },
@@ -7115,7 +7260,9 @@
       "technique_id": "T0860",
       "technique_name": "Wireless Compromise",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Windows"
       ],
       "autosuggest": "T0860 - Wireless Compromise"
     },
@@ -7123,7 +7270,10 @@
       "technique_id": "T0861",
       "technique_name": "Point & Tag Identification",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0861 - Point & Tag Identification"
     },
@@ -7131,7 +7281,10 @@
       "technique_id": "T0862",
       "technique_name": "Supply Chain Compromise",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0862 - Supply Chain Compromise"
     },
@@ -7139,7 +7292,9 @@
       "technique_id": "T0863",
       "technique_name": "User Execution",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Windows"
       ],
       "autosuggest": "T0863 - User Execution"
     },
@@ -7147,7 +7302,8 @@
       "technique_id": "T0864",
       "technique_name": "Transient Cyber Asset",
       "platforms": [
-        "None"
+        "Linux",
+        "Windows"
       ],
       "autosuggest": "T0864 - Transient Cyber Asset"
     },
@@ -7155,7 +7311,9 @@
       "technique_id": "T0865",
       "technique_name": "Spearphishing Attachment",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Windows"
       ],
       "autosuggest": "T0865 - Spearphishing Attachment"
     },
@@ -7163,7 +7321,10 @@
       "technique_id": "T0866",
       "technique_name": "Exploitation of Remote Services",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0866 - Exploitation of Remote Services"
     },
@@ -7171,7 +7332,9 @@
       "technique_id": "T0867",
       "technique_name": "Lateral Tool Transfer",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Windows"
       ],
       "autosuggest": "T0867 - Lateral Tool Transfer"
     },
@@ -7179,7 +7342,7 @@
       "technique_id": "T0868",
       "technique_name": "Detect Operating Mode",
       "platforms": [
-        "None"
+        "Embedded"
       ],
       "autosuggest": "T0868 - Detect Operating Mode"
     },
@@ -7187,15 +7350,37 @@
       "technique_id": "T0869",
       "technique_name": "Standard Application Layer Protocol",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0869 - Standard Application Layer Protocol"
+    },
+    {
+      "technique_id": "T0869.001",
+      "technique_name": "DNS",
+      "platforms": [
+        "None"
+      ],
+      "autosuggest": "T0869.001 - DNS"
+    },
+    {
+      "technique_id": "T0869.002",
+      "technique_name": "Publish/Subscribe Protocols",
+      "platforms": [
+        "None"
+      ],
+      "autosuggest": "T0869.002 - Publish/Subscribe Protocols"
     },
     {
       "technique_id": "T0871",
       "technique_name": "Execution through API",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0871 - Execution through API"
     },
@@ -7203,7 +7388,10 @@
       "technique_id": "T0872",
       "technique_name": "Indicator Removal on Host",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0872 - Indicator Removal on Host"
     },
@@ -7211,7 +7399,8 @@
       "technique_id": "T0873",
       "technique_name": "Project File Infection",
       "platforms": [
-        "None"
+        "Linux",
+        "Windows"
       ],
       "autosuggest": "T0873 - Project File Infection"
     },
@@ -7219,7 +7408,8 @@
       "technique_id": "T0873.001",
       "technique_name": "Siemens Project File Format",
       "platforms": [
-        "None"
+        "Linux",
+        "Windows"
       ],
       "autosuggest": "T0873.001 - Siemens Project File Format"
     },
@@ -7227,7 +7417,10 @@
       "technique_id": "T0874",
       "technique_name": "Hooking",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0874 - Hooking"
     },
@@ -7235,7 +7428,7 @@
       "technique_id": "T0877",
       "technique_name": "I/O Image",
       "platforms": [
-        "None"
+        "Embedded"
       ],
       "autosuggest": "T0877 - I/O Image"
     },
@@ -7243,7 +7436,10 @@
       "technique_id": "T0878",
       "technique_name": "Alarm Suppression",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0878 - Alarm Suppression"
     },
@@ -7267,7 +7463,10 @@
       "technique_id": "T0881",
       "technique_name": "Service Stop",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0881 - Service Stop"
     },
@@ -7283,7 +7482,10 @@
       "technique_id": "T0883",
       "technique_name": "Internet Accessible Device",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0883 - Internet Accessible Device"
     },
@@ -7291,7 +7493,10 @@
       "technique_id": "T0884",
       "technique_name": "Connection Proxy",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0884 - Connection Proxy"
     },
@@ -7299,7 +7504,10 @@
       "technique_id": "T0885",
       "technique_name": "Commonly Used Port",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0885 - Commonly Used Port"
     },
@@ -7307,7 +7515,10 @@
       "technique_id": "T0886",
       "technique_name": "Remote Services",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0886 - Remote Services"
     },
@@ -7315,7 +7526,9 @@
       "technique_id": "T0887",
       "technique_name": "Wireless Sniffing",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Windows"
       ],
       "autosuggest": "T0887 - Wireless Sniffing"
     },
@@ -7323,7 +7536,10 @@
       "technique_id": "T0888",
       "technique_name": "Remote System Information Discovery",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0888 - Remote System Information Discovery"
     },
@@ -7331,7 +7547,7 @@
       "technique_id": "T0889",
       "technique_name": "Modify Program",
       "platforms": [
-        "None"
+        "Embedded"
       ],
       "autosuggest": "T0889 - Modify Program"
     },
@@ -7339,7 +7555,10 @@
       "technique_id": "T0890",
       "technique_name": "Exploitation for Privilege Escalation",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0890 - Exploitation for Privilege Escalation"
     },
@@ -7347,7 +7566,10 @@
       "technique_id": "T0892",
       "technique_name": "Change Credential",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0892 - Change Credential"
     },
@@ -7355,7 +7577,10 @@
       "technique_id": "T0893",
       "technique_name": "Data from Local System",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T0893 - Data from Local System"
     },
@@ -7363,7 +7588,9 @@
       "technique_id": "T0894",
       "technique_name": "System Binary Proxy Execution",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Windows"
       ],
       "autosuggest": "T0894 - System Binary Proxy Execution"
     },
@@ -7371,7 +7598,9 @@
       "technique_id": "T0895",
       "technique_name": "Autorun Image",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Windows"
       ],
       "autosuggest": "T0895 - Autorun Image"
     },
@@ -7379,7 +7608,9 @@
       "technique_id": "T1691",
       "technique_name": "Block Operational Technology Message",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Windows"
       ],
       "autosuggest": "T1691 - Block Operational Technology Message"
     },
@@ -7387,7 +7618,9 @@
       "technique_id": "T1691.001",
       "technique_name": "Command Message",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Windows"
       ],
       "autosuggest": "T1691.001 - Command Message"
     },
@@ -7395,7 +7628,10 @@
       "technique_id": "T1691.002",
       "technique_name": "Reporting Message",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T1691.002 - Reporting Message"
     },
@@ -7403,7 +7639,9 @@
       "technique_id": "T1692",
       "technique_name": "Unauthorized Message",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Windows"
       ],
       "autosuggest": "T1692 - Unauthorized Message"
     },
@@ -7411,7 +7649,9 @@
       "technique_id": "T1692.001",
       "technique_name": "Command Message",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Windows"
       ],
       "autosuggest": "T1692.001 - Command Message"
     },
@@ -7419,7 +7659,10 @@
       "technique_id": "T1692.002",
       "technique_name": "Reporting Message",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T1692.002 - Reporting Message"
     },
@@ -7427,7 +7670,7 @@
       "technique_id": "T1693",
       "technique_name": "Modify Firmware",
       "platforms": [
-        "None"
+        "Embedded"
       ],
       "autosuggest": "T1693 - Modify Firmware"
     },
@@ -7435,7 +7678,10 @@
       "technique_id": "T1693.001",
       "technique_name": "System Firmware",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T1693.001 - System Firmware"
     },
@@ -7443,7 +7689,7 @@
       "technique_id": "T1693.002",
       "technique_name": "Module Firmware",
       "platforms": [
-        "None"
+        "Embedded"
       ],
       "autosuggest": "T1693.002 - Module Firmware"
     },
@@ -7451,7 +7697,10 @@
       "technique_id": "T1694",
       "technique_name": "Insecure Credentials",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T1694 - Insecure Credentials"
     },
@@ -7459,7 +7708,10 @@
       "technique_id": "T1694.001",
       "technique_name": "Default Credentials",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T1694.001 - Default Credentials"
     },
@@ -7467,7 +7719,7 @@
       "technique_id": "T1694.002",
       "technique_name": "Hardcoded Credentials",
       "platforms": [
-        "None"
+        "Embedded"
       ],
       "autosuggest": "T1694.002 - Hardcoded Credentials"
     },
@@ -7475,7 +7727,10 @@
       "technique_id": "T1695",
       "technique_name": "Block Communications",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T1695 - Block Communications"
     },
@@ -7483,7 +7738,10 @@
       "technique_id": "T1695.001",
       "technique_name": "Serial COM",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T1695.001 - Serial COM"
     },
@@ -7491,7 +7749,10 @@
       "technique_id": "T1695.002",
       "technique_name": "Ethernet",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T1695.002 - Ethernet"
     },
@@ -7499,9 +7760,68 @@
       "technique_id": "T1695.003",
       "technique_name": "Wi-Fi",
       "platforms": [
-        "None"
+        "Embedded",
+        "Linux",
+        "Network Devices",
+        "Windows"
       ],
       "autosuggest": "T1695.003 - Wi-Fi"
+    },
+    {
+      "technique_id": "T1701",
+      "technique_name": "Command and Scripting Interpreter",
+      "platforms": [
+        "None"
+      ],
+      "autosuggest": "T1701 - Command and Scripting Interpreter"
+    },
+    {
+      "technique_id": "T1701.001",
+      "technique_name": "PowerShell",
+      "platforms": [
+        "None"
+      ],
+      "autosuggest": "T1701.001 - PowerShell"
+    },
+    {
+      "technique_id": "T1701.002",
+      "technique_name": "Windows Command Shell",
+      "platforms": [
+        "None"
+      ],
+      "autosuggest": "T1701.002 - Windows Command Shell"
+    },
+    {
+      "technique_id": "T1701.003",
+      "technique_name": "Unix Shell",
+      "platforms": [
+        "None"
+      ],
+      "autosuggest": "T1701.003 - Unix Shell"
+    },
+    {
+      "technique_id": "T1701.004",
+      "technique_name": "Visual Basic",
+      "platforms": [
+        "None"
+      ],
+      "autosuggest": "T1701.004 - Visual Basic"
+    },
+    {
+      "technique_id": "T1701.005",
+      "technique_name": "Python",
+      "platforms": [
+        "None"
+      ],
+      "autosuggest": "T1701.005 - Python"
+    },
+    {
+      "technique_id": "T1701.006",
+      "technique_name": "JavaScript",
+      "platforms": [
+        "None"
+      ],
+      "autosuggest": "T1701.006 - JavaScript"
     }
   ],
   "ATT&CK-Mobile": [
@@ -7851,6 +8171,15 @@
         "iOS"
       ],
       "autosuggest": "T1474.003 - Compromise Software Supply Chain"
+    },
+    {
+      "technique_id": "T1476",
+      "technique_name": "Deliver Malicious Application via Other Means",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "autosuggest": "T1476 - Deliver Malicious Application via Other Means"
     },
     {
       "technique_id": "T1481",
