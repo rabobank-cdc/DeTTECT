@@ -16436,6 +16436,14 @@
         "iOS"
       ],
       "autosuggest": "S9046 - IOControl"
+    },
+    {
+      "software_id": "S9048",
+      "software_name": "KoSpy",
+      "platforms": [
+        "Android"
+      ],
+      "autosuggest": "S9048 - KoSpy"
     }
   ]
 }
